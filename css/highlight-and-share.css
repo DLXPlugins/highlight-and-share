@@ -10,6 +10,7 @@
 	-o-transition: background-color 200ms;
 	-webkit-transition: background-color 200ms;
 	transition: background-color 200ms;
+	z-index: 1000;
 }
 .has-facebook {
 	background: #3c5a9e;
