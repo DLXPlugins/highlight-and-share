@@ -1,0 +1,112 @@
+# WordPress Blank Pot
+# Copyright (C) 2014 ...
+# This file is distributed under the GNU General Public License v2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Highlight and Share v1.0.0\n"
+"Report-Msgid-Bugs-To: Ronald Huereca <ronalfy@gmail.com>\n"
+"POT-Creation-Date: 2014-12-03 22:31-0600\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Ronald Huereca <ron@ronalfy.com>\n"
+"Language-Team: Ronald Huereca <ronalfy@gmail.com>\n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=n != 1;\n"
+"X-Textdomain-Support: yesX-Generator: Poedit 1.6.4\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;esc_html_e;esc_html_x:1,2c;esc_html__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_attr__;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;"
+"_x:1,2c;_n:1,2;_n_noop:1,2;__ngettext:1,2;__ngettext_noop:1,2;_c,_nc:4c,1,2\n"
+"X-Poedit-Basepath: ../\n"
+"X-Generator: Poedit 1.5.3\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: highlight-and-share.php:124
+msgctxt "Twitter share text"
+msgid "Tweet"
+msgstr ""
+
+#: highlight-and-share.php:125
+msgctxt "Facebook share text"
+msgid "Share"
+msgstr ""
+
+#: highlight-and-share.php:150 highlight-and-share.php:167
+msgctxt "Plugin Name - Settings Page Title"
+msgid "Highlight and Share"
+msgstr ""
+
+#: highlight-and-share.php:150
+msgctxt "Plugin Name - Menu Item"
+msgid "Highlight and Share"
+msgstr ""
+
+#: highlight-and-share.php:190
+msgctxt "plugin settings heading"
+msgid "Configuration"
+msgstr ""
+
+#: highlight-and-share.php:191
+msgctxt "plugin settings heading"
+msgid "Twitter Settings"
+msgstr ""
+
+#: highlight-and-share.php:192
+msgctxt "plugin settings heading"
+msgid "Facebook Settings"
+msgstr ""
+
+#: highlight-and-share.php:193
+msgctxt "Label - Where in the HTML document to search for text to capture"
+msgid "Content Area"
+msgstr ""
+
+#: highlight-and-share.php:193
+msgid ""
+"Enter the content class to search for in the HTML.  You may comma-separate "
+"classes (e.g., entry-content,post,page)."
+msgstr ""
+
+#: highlight-and-share.php:194
+msgid "Show Twitter Option"
+msgstr ""
+
+#: highlight-and-share.php:194
+msgid "Would you like to enable sharing via Twitter?"
+msgstr ""
+
+#: highlight-and-share.php:195
+msgid "Twitter Username"
+msgstr ""
+
+#: highlight-and-share.php:195
+msgid "Enter Your Twittter Username"
+msgstr ""
+
+#: highlight-and-share.php:196
+msgid "Show Facebook Option"
+msgstr ""
+
+#: highlight-and-share.php:196
+msgid "Would you like to enable sharing via Facebook?"
+msgstr ""
+
+#: highlight-and-share.php:251
+msgctxt "Twitter username error"
+msgid "You have entered an incorrect Twitter username"
+msgstr ""
+
+#: highlight-and-share.php:258
+msgctxt "Invalid comma-separated values"
+msgid "You must enter valid comma-separated values for the content."
+msgstr ""
+
+#: highlight-and-share.php:342
+msgid "Enable Twitter Sharing?"
+msgstr ""
+
+#: highlight-and-share.php:366
+msgid "Enable Facebook Sharing?"
+msgstr ""
