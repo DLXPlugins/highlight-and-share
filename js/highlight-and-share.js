@@ -106,6 +106,3 @@ jQuery( document ).ready( function( $ ) {
 		has_load_html();
 	}
 } );
-
-/*
-define(["jquery"],function($){var TextTweet=function(){var template=$(".text-tweet__template"),init=function(){bindEventHandlers()},bindEventHandlers=function(){$("body").on("mouseup",".article-copy",function(e){var selectionObj=window.getSelection(),text=selectionObj.toString(),articleUrl=$(this).closest(".article-copy").attr("data-url");if($(".text-tweet").remove(),text.length){e.stopPropagation();var clone=template.clone(),url=clone.find("a").attr("href");url=url.replace("%url%",encodeURIComponent(articleUrl)),url=url.replace("%text%",encodeURIComponent('"'+text+'"')),clone.find("a").attr("href",url),clone.css({display:"block",left:e.pageX-30,top:e.pageY-70}),$("body").append(clone)}}),$("body").on("mouseup",function(e){$(e.target).closest(".text-tweet").length||$(".text-tweet").remove()}),$("body").on("click",".text-tweet a",function(e){e.preventDefault(),window.open(this.href,"tweetWindow","width=575,height=430,toolbar=false,menubar=false,location=false,status=false")})};return{init:init}}();return $(function(){TextTweet.init()}),TextTweet});*/
