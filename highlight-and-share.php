@@ -71,6 +71,9 @@ class Highlight_And_Share {
 		add_action( 'admin_menu', array( $this, 'add_admin_menu' ) );
 		add_action( 'admin_init', array( $this, 'init_admin_settings' ) );
 		
+		//Plugin settings
+		add_filter( 'plugin_action_links_' . plugin_basename(__FILE__) , array( $this, 'add_settings_link' ) );
+		
 		//Skip loading if both twitter/facebook are turned off
 		$show_facebook = (bool)apply_filters( 'has_show_facebook', $settings[ 'show_facebook' ] );
 		$show_twitter = (bool)apply_filters( 'has_show_twitter', $settings[ 'show_twitter' ] );
@@ -81,6 +84,24 @@ class Highlight_And_Share {
 		
 	} //end init
 	
+	/**
+	 * Add a settings link to the plugin's options.
+	 *
+	 * Add a settings link on the WordPress plugin's page.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 *
+	 * @see init
+	 *
+	 * @param array $links Array of plugin options
+	 * @return array $links Array of plugin options
+	 */
+	public function add_settings_link( $links ) { 
+		$settings_link = sprintf( '<a href="%s">%s</a>', esc_url( admin_url( 'options-general.php?page=highlight-and-share' ) ), _x( 'Settings', 'Plugin settings link on the plugins page', 'highlight-and-share' ) ); 
+			array_unshift($links, $settings_link); 
+			return $links; 
+	}
 	/**
 	 * Load plugin scripts and styles
 	 *
@@ -209,7 +230,6 @@ class Highlight_And_Share {
 	 *
 	 */
 	public function settings_section() {
-		//echo "<p>blah</p>";
 	}
 	
 	/**
