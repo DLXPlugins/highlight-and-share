@@ -1,0 +1,70 @@
+.has-tweet .fa,
+.has-facebook .fa {
+	font-size: 14px;
+}
+.has-tweet,
+.has-facebook {
+	height: 50px;
+	background: #32CCFE;
+	-moz-transition: background-color 200ms;
+	-o-transition: background-color 200ms;
+	-webkit-transition: background-color 200ms;
+	transition: background-color 200ms;
+}
+.has-facebook {
+	background: #3c5a9e;
+}
+.has-tweet:after,
+.has-facebook.has-no-twitter:after {
+	content: "";
+	width: 0;
+	height: 0;
+	border-top: 10px solid #32CCFE;
+	border-right: 10px solid transparent;
+	border-left: 10px solid transparent;
+	margin-left: -10px;
+	position: absolute;
+	bottom: -10px;
+	left: 30px;
+	-moz-transition: border-color 200ms;
+	-o-transition: border-color 200ms;
+	-webkit-transition: border-color 200ms;
+	transition: border-color 200ms;
+}
+.has-facebook.has-no-twitter:after {
+	border-top: 10px solid #3c5a9e;
+}
+.has-tweet:hover:after {
+	border-top: 10px solid #00aced;
+}
+.has-tweet:hover {
+	background: #00aced;
+}
+.has-facebook.has-no-twitter:hover:after {
+	border-top: 10px solid #1F3C83;
+}
+.has-facebook:hover {
+	background: #1F3C83;
+}
+.has-tweet:hover a,
+.has-facebook:hover a {
+	color: #FFF;
+}
+.has-tweet a,
+.has-tweet a:hover,
+.has-tweet a:visited,
+.has-facebook a,
+.has-facebook a:hover,
+.has-facebook a:visited {
+	font-family: 'FranklinGothic', Helvetica, sans-serif;
+	font-weight: bold;
+	text-transform: uppercase;
+	letter-spacing: 0.150em;
+	font-size: 14px;
+	letter-spacing: .2em;
+	color: #f8f8f8;
+	display: block;
+	height: 100%;
+	padding: 12px 20px;
+	text-decoration: none;
+}
