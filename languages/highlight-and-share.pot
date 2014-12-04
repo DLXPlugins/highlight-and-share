@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Highlight and Share v1.0.0\n"
 "Report-Msgid-Bugs-To: Ronald Huereca <ronalfy@gmail.com>\n"
-"POT-Creation-Date: 2014-12-03 22:31-0600\n"
+"POT-Creation-Date: 2014-12-03 22:40-0600\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Ronald Huereca <ron@ronalfy.com>\n"
 "Language-Team: Ronald Huereca <ronalfy@gmail.com>\n"
@@ -23,90 +23,95 @@ msgstr ""
 "X-Generator: Poedit 1.5.3\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: highlight-and-share.php:124
+#: highlight-and-share.php:101
+msgctxt "Plugin settings link on the plugins page"
+msgid "Settings"
+msgstr ""
+
+#: highlight-and-share.php:145
 msgctxt "Twitter share text"
 msgid "Tweet"
 msgstr ""
 
-#: highlight-and-share.php:125
+#: highlight-and-share.php:146
 msgctxt "Facebook share text"
 msgid "Share"
 msgstr ""
 
-#: highlight-and-share.php:150 highlight-and-share.php:167
+#: highlight-and-share.php:171 highlight-and-share.php:188
 msgctxt "Plugin Name - Settings Page Title"
 msgid "Highlight and Share"
 msgstr ""
 
-#: highlight-and-share.php:150
+#: highlight-and-share.php:171
 msgctxt "Plugin Name - Menu Item"
 msgid "Highlight and Share"
 msgstr ""
 
-#: highlight-and-share.php:190
+#: highlight-and-share.php:211
 msgctxt "plugin settings heading"
 msgid "Configuration"
 msgstr ""
 
-#: highlight-and-share.php:191
+#: highlight-and-share.php:212
 msgctxt "plugin settings heading"
 msgid "Twitter Settings"
 msgstr ""
 
-#: highlight-and-share.php:192
+#: highlight-and-share.php:213
 msgctxt "plugin settings heading"
 msgid "Facebook Settings"
 msgstr ""
 
-#: highlight-and-share.php:193
+#: highlight-and-share.php:214
 msgctxt "Label - Where in the HTML document to search for text to capture"
 msgid "Content Area"
 msgstr ""
 
-#: highlight-and-share.php:193
+#: highlight-and-share.php:214
 msgid ""
 "Enter the content class to search for in the HTML.  You may comma-separate "
 "classes (e.g., entry-content,post,page)."
 msgstr ""
 
-#: highlight-and-share.php:194
+#: highlight-and-share.php:215
 msgid "Show Twitter Option"
 msgstr ""
 
-#: highlight-and-share.php:194
+#: highlight-and-share.php:215
 msgid "Would you like to enable sharing via Twitter?"
 msgstr ""
 
-#: highlight-and-share.php:195
+#: highlight-and-share.php:216
 msgid "Twitter Username"
 msgstr ""
 
-#: highlight-and-share.php:195
+#: highlight-and-share.php:216
 msgid "Enter Your Twittter Username"
 msgstr ""
 
-#: highlight-and-share.php:196
+#: highlight-and-share.php:217
 msgid "Show Facebook Option"
 msgstr ""
 
-#: highlight-and-share.php:196
+#: highlight-and-share.php:217
 msgid "Would you like to enable sharing via Facebook?"
 msgstr ""
 
-#: highlight-and-share.php:251
+#: highlight-and-share.php:271
 msgctxt "Twitter username error"
 msgid "You have entered an incorrect Twitter username"
 msgstr ""
 
-#: highlight-and-share.php:258
+#: highlight-and-share.php:278
 msgctxt "Invalid comma-separated values"
 msgid "You must enter valid comma-separated values for the content."
 msgstr ""
 
-#: highlight-and-share.php:342
+#: highlight-and-share.php:362
 msgid "Enable Twitter Sharing?"
 msgstr ""
 
-#: highlight-and-share.php:366
+#: highlight-and-share.php:386
 msgid "Enable Facebook Sharing?"
 msgstr ""
