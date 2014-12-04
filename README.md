@@ -3,8 +3,38 @@ Highlight and Share for WordPress
 
 A WordPress plugin for highlighting text and sharing it via Twitter or Facebook.
 
+Sharing selectable text is only possible via Twitter, but an option to share the post via Facebook is also present when highlighting text as a convenience. 
+
+Features
+----------------------
+
+<ul>
+<li>Override which content is selectable (using jQuery class notation without the dots).</li>
+<li>Enable or disable Facebook sharing.</li>
+<li>Enable or disable Twitter sharing.</li>
+<li>Customize the Twitter username used.</li>
+</ul>
+
+Advanced customization is allowed via hooks.  See the Plugin Filters section.
+
+Installation
+---------------------
+Simply install as a WordPress plugin.
+
+Head to the plugin settings and customize the content area and the Twitter username to use.
+
+Tested on:
+----------------------
+The latest versions of Firefox, Chrome, and Safari.  IE testing is coming soon.
+
+Themes tested on:
+* TwentyFourteen
+* TwentyThirteen
+
 Plugin Filters
 ---------------------
+
+The plugin filters are demonstrated in the code below.
 ```php
 //Example filter usage for highlight and share
 //https://github.com/ronalfy/highlight-and-share
@@ -39,3 +69,7 @@ function has_override_twitter_username( $username ) {
 	return 'wordpress';	
 }
 ```
+
+Credit
+-------------
+This script was originally observed on <a href="http://www.vogue.com/">Vogue.com</a> and was ported over for use in WordPress.
