@@ -10,7 +10,7 @@ jQuery( document ).ready( function( $ ) {
 		}
 		if ( highlight_and_share.show_facebook ) {
 			//Note, you must be on a publicly accesible URL to use this button
-			html += '<div class="has_facebook_template" style="display: none;"><a href="https://www.facebook.com/sharer/sharer.phps=100&p[title]=%title%&p[url]=%url%" target="_blank"><i class="fa fa-facebook"></i>&nbsp;' + highlight_and_share.facebook_text + '</a></div>';
+			html += '<div class="has_facebook_template" style="display: none;"><a href="https://www.facebook.com/sharer/sharer.php?u=%url%&t=%title%" target="_blank"><i class="fa fa-facebook"></i>&nbsp;' + highlight_and_share.facebook_text + '</a></div>';
 		}
 		$( 'body' ).append( html );
 	};

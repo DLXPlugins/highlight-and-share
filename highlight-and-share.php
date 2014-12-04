@@ -114,7 +114,7 @@ class Highlight_And_Share {
 	 *
 	 */
 	public function add_scripts() {
-			wp_enqueue_script( 'highlight-and-share', $this->get_plugin_url( 'js/highlight-and-share.js' ), array( 'jquery' ), '20141203', true );
+			wp_enqueue_script( 'highlight-and-share', $this->get_plugin_url( 'js/highlight-and-share.js' ), array( 'jquery' ), '20141205', true );
 
 			/**Build JSON Object**/
 			$settings = $this->get_plugin_options();
