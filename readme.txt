@@ -30,6 +30,11 @@ If you have a feature request, <a href="https://github.com/ronalfy/highlight-and
 
 Advanced customization is allowed via hooks.  See the plugin's <a href="https://github.com/ronalfy/highlight-and-share#plugin-filters">GitHub page for filter documentation</a>.
 
+<h3>Recommended Plugins</h3>
+<ul>
+<li><a href=" https://wordpress.org/plugins/better-font-awesome/">Better Font Awesome</a> - Enables Twitter/Facebook sharing icons</li>
+<li><a href="https://wordpress.org/plugins/wordpress-seo/">WordPress SEO</a> - For Facebook OpenGraph data</li>
+</ul>
 
 <h3>Spread the Word</h3>
 If you like this plugin, please help spread the word.  Rate the plugin.  Write about the plugin.  Something :)

@@ -21,6 +21,13 @@ Features
 
 Advanced customization is allowed via hooks.  See the Plugin Filters section.
 
+Recommended Plugins
+---------------------------------
+<ul>
+<li><a href=" https://wordpress.org/plugins/better-font-awesome/">Better Font Awesome</a> - Enables Twitter/Facebook sharing icons</li>
+<li><a href="https://wordpress.org/plugins/wordpress-seo/">WordPress SEO</a> - For Facebook OpenGraph data</li>
+</ul>
+
 Installation
 ---------------------
 Simply install as a WordPress plugin.
