@@ -27,8 +27,20 @@ jQuery( document ).ready( function( $ ) {
 		if ( '' == text ) {
 			return;
 		}
-		var href = $( location ).attr( 'href' );
-		var title = $( document ).attr( 'title' );
+		
+		//Get URL
+		var href = $( this ).attr( 'data-url' );
+		if (typeof href == typeof undefined || href == false) {
+			href = $( location ).attr( 'href' );
+		}
+		
+		//Get Title
+		var title = $( this ).attr( 'data-title' );
+		if (typeof title == typeof undefined || title == false) {
+			title = $( document ).attr( 'title' );
+		}
+		
+		//Show the interface?
 		if( highlight_and_share.show_twitter == true ) {
 			has_tweet( text, href, e );
 		}

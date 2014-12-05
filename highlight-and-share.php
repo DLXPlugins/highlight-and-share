@@ -117,7 +117,8 @@ class Highlight_And_Share {
 		
 		$post_id = $post->ID;
 		$url = get_permalink( $post_id );
-		$content = sprintf( '<div class="has-content-area" data-url="%s">%s</div>', esc_url( $url ), $content);
+		$title = get_the_title( $post_id );
+		$content = sprintf( '<div class="has-content-area" data-url="%s" data-title="%s">%s</div>', esc_url( $url ), esc_attr( $title ), $content );
 		return $content;
 	}
 	
@@ -141,7 +142,8 @@ class Highlight_And_Share {
 		
 		$post_id = $post->ID;
 		$url = get_permalink( $post_id );
-		$content = sprintf( '<div class="has-content-area" data-url="%s">%s</div>', esc_url( $url ), $content );
+		$title = get_the_title( $post_id );
+		$content = sprintf( '<div class="has-excerpt-area" data-url="%s" data-title="%s">%s</div>', esc_url( $url ), esc_attr( $title ), $content );
 		return $content;
 		
 		
