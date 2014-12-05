@@ -1,7 +1,7 @@
 Highlight and Share for WordPress
 ===================
 
-A WordPress plugin for highlighting text and sharing it via Twitter or Facebook.
+A WordPress plugin for highlighting text and sharing it via Twitter or Facebook (<a href="https://wordpress.org/plugins/highlight-and-share/">Now available on WordPress.org!</a>).
 
 Sharing selectable text is only possible via Twitter, but an option to share the post via Facebook is also present when highlighting text as a convenience. 
 
