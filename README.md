@@ -52,9 +52,11 @@ The plugin filters are demonstrated in the code below.
 
 /* The following filters take and return booleans (true, false)*/
 /* Call WordPress functions __return_false or __return_true */
-add_filter( 'has_show_facebook', '__return_true' ); //Disable facebook sharing
-add_filter( 'has_show_twitter', '__return_true' ); //Disable twitter sharing
-add_filter( 'has_load_css', '__return_true' ); //Disable plugin's CSS - Use your own
+add_filter( 'has_show_facebook', '__return_true' ); //Disable or enable facebook sharing
+add_filter( 'has_show_twitter', '__return_true' ); //Disable or enable twitter sharing
+add_filter( 'has_load_css', '__return_true' ); //Disable or enable plugin's CSS - Use your own
+add_filter( 'has_enable_content', '__return_true' ); //Disable or enable main post content
+add_filter( 'has_enable_excerpt', '__return_true' ); //Disable or enable excerpt content
 
 /* Override the Facebook share text (default is Share) */
 add_filter( 'has_facebook_text', 'has_override_facebook_text' );
@@ -68,10 +70,28 @@ function has_override_twitter_text( $default ) {
 	return 'Twitter';	
 }
 
-/* Override the JavaScript content (assuming jQuery class format with no periods) */
-add_filter( 'has_js_content', 'has_override_js_content' );
-function has_override_js_content( $content ) {
+/* Override the JavaScript classes (assuming jQuery class format with no periods) */
+add_filter( 'has_js_classes', 'has_override_js_classes' );
+function has_override_js_classes( $content ) {
 	return 'entry-content,type-page,type-post';	
+}
+
+/* Add JS IDs */
+add_filter( 'has_js_ids', 'has_override_js_ids' );
+function has_override_js_ids( $content = array() ) {
+	if ( !is_array( $content ) ) $content = array();
+	$new_arr = array( 'content', 'comments' );
+	$content = array_merge( $content, $new_arr );
+	return $content;
+}
+
+/* Add JS elements */
+add_filter( 'has_js_elements', 'has_override_js_elements' );
+function has_override_js_elements( $content = array() ) {
+	if ( !is_array( $content ) ) $content = array();
+	$new_arr = array( 'blockquote' );
+	$content = array_merge( $content, $new_arr );
+	return $content;
 }
 
 /* Override the Twitter username (no @ symbol needed) */

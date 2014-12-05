@@ -79,10 +79,74 @@ class Highlight_And_Share {
 		$show_twitter = (bool)apply_filters( 'has_show_twitter', $settings[ 'show_twitter' ] );
 		if ( !$show_facebook && !$show_twitter ) return;
 		
+		//Disable if mobile
+		if ( wp_is_mobile() ) return;
+		
+		//Disable if on a feed
+		if ( is_feed() ) return;
+		
 		//Load scripts
 		add_action( 'wp_enqueue_scripts', array( $this, 'add_scripts' ) );
 		
+		//Load content area
+		if ( apply_filters( 'has_enable_content', (bool)$settings[ 'enable_content' ] ) ) {
+			add_filter( 'the_content', array( $this, 'content_area' ) );
+		}
+		if ( apply_filters( 'has_enable_excerpt', (bool)$settings[ 'enable_excerpt' ] ) ) { 
+			add_filter( 'the_excerpt', array( $this, 'excerpt_area' ) );
+		}		
 	} //end init
+	
+	/**
+	 * Add a class and data attribute around the main content.
+	 *
+	 * Add a class and data attribute around the main content.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 *
+	 * @see init
+	 *
+	 * @param string $content Main post content
+	 * @return string $content Modified
+	 */
+	public function content_area( $content ) {
+		global $post;
+		if ( !in_the_loop( ) ) return $content;
+		if ( !is_object( $post ) ) return $content;
+		
+		$post_id = $post->ID;
+		$url = get_permalink( $post_id );
+		$content = sprintf( '<div class="has-content-area" data-url="%s">%s</div>', esc_url( $url ), $content);
+		return $content;
+	}
+	
+	/**
+	 * Add a class and data attribute around the main excerpts.
+	 *
+	 * Add a class and data attribute around the main excerpts.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 *
+	 * @see init
+	 *
+	 * @param string $content Main excerpt content
+	 * @return string $content Modified
+	 */
+	public function excerpt_area( $content ) {
+		global $post;
+		if ( !in_the_loop( ) ) return $content;
+		if ( !is_object( $post ) ) return $content;
+		
+		$post_id = $post->ID;
+		$url = get_permalink( $post_id );
+		$content = sprintf( '<div class="has-content-area" data-url="%s">%s</div>', esc_url( $url ), $content );
+		return $content;
+		
+		
+	}
+	
 	
 	/**
 	 * Add a settings link to the plugin's options.
@@ -133,12 +197,35 @@ class Highlight_And_Share {
 			}
 			
 			//Content areas
-			$content = apply_filters( 'has_js_content', $settings[ 'js_content' ] ); //Pass comma separated values (e.g., entry-content,type-post,type-page)
-			$content = explode( ',', $content );
-			foreach( $content as $index => &$string ) {
+			$classes = apply_filters( 'has_js_classes', $settings[ 'js_content' ] ); //Pass comma separated values (e.g., entry-content,type-post,type-page)
+			$classes = explode( ',', $classes );
+			if ( apply_filters( 'has_enable_content', (bool)$settings[ 'enable_content' ] ) ) {
+				$classes[] = 'has-content-area';
+			}
+			if ( apply_filters( 'has_enable_excerpt', (bool)$settings[ 'enable_excerpt' ] ) ) {
+				$classes[] = 'has-excerpt-area';	
+			}
+			foreach( $classes as $index => &$string ) {
 				$string = trim( $string ); //Trim
+				if ( empty( $string ) ) {
+					unset( $classes[ $index ] );
+					continue;
+				}
 				$string = trim( esc_js( '.' . $string ) );	//Get in class format (.%s) and trim just in case
 			}
+			$ids = (array)apply_filters( 'has_js_ids', array() ); //Pass array of jQuery ID elements (without the #)
+			foreach( $ids as $index => &$string ) {
+				$string = trim( $string );
+				if ( empty( $string ) ) continue;
+				$string = trim( esc_js( '#' . $string ) ); //Get in ID format (#%s) and trim just in case	
+			}
+			$elements = (array)apply_filters( 'has_js_elements', array() ); //Pass array of jQuery HTML elements (e.g., blockquote, article)
+			foreach( $elements as $index => &$string ) {
+				$string = trim( $string );
+				if ( empty( $string ) ) continue;
+				$string = trim( esc_js( $string ) );	
+			}
+			$content = array_merge( $classes, $ids, $elements );
 			$json_arr[ 'content' ] = implode(',', $content );
 			
 			//Text to display
@@ -208,13 +295,26 @@ class Highlight_And_Share {
 	 */
 	public function init_admin_settings() {
 		register_setting( 'highlight-and-share', 'highlight-and-share', array( $this, 'sanitization' ) );
-		add_settings_section( 'has-config', _x( 'Configuration', 'plugin settings heading' , 'highlight-and-share' ), array( $this, 'settings_section' ), 'highlight-and-share' );
+		
+		add_settings_section( 'has-config', _x( 'Content', 'plugin settings heading' , 'highlight-and-share' ), array( $this, 'settings_section' ), 'highlight-and-share' );
+		
 		add_settings_section( 'has-twitter', _x( 'Twitter Settings', 'plugin settings heading' , 'highlight-and-share' ), array( $this, 'settings_section' ), 'highlight-and-share' );
+		
 		add_settings_section( 'has-facebook', _x( 'Facebook Settings', 'plugin settings heading' , 'highlight-and-share' ), array( $this, 'settings_section' ), 'highlight-and-share' );
-		add_settings_field( 'hightlight-and-share-js-content', _x( 'Content Area', 'Label - Where in the HTML document to search for text to capture', 'highlight-and-share' ), array( $this, 'add_settings_field_js_content' ), 'highlight-and-share', 'has-config', array( 'label_for' => 'hightlight-and-share-js-content', 'desc' => __( 'Enter the content class to search for in the HTML.  You may comma-separate classes (e.g., entry-content,post,page).', 'highlight-and-share' ) ) );
+		
+		add_settings_section( 'has-advanced', _x( 'Advanced', 'plugin settings heading' , 'highlight-and-share' ), array( $this, 'settings_section' ), 'highlight-and-share' );
+		
+		add_settings_field( 'hightlight-and-share-content-enable', __( 'Add to Post Content', 'highlight-and-share' ), array( $this, 'add_settings_field_content_enable' ), 'highlight-and-share', 'has-config', array( 'desc' => __( 'Would you like to add sharing to the main content areas?', 'highlight-and-share' ) ) );
+		
+		add_settings_field( 'hightlight-and-share-excerpt-enable', __( 'Add to Excerpt Content', 'highlight-and-share' ), array( $this, 'add_settings_field_excerpt_enable' ), 'highlight-and-share', 'has-config', array( 'desc' => __( 'Would you like to add sharing to the excerpts?', 'highlight-and-share' ) ) );
+		
 		add_settings_field( 'hightlight-and-share-twitter-enable', __( 'Show Twitter Option', 'highlight-and-share' ), array( $this, 'add_settings_field_twitter_enable' ), 'highlight-and-share', 'has-twitter', array( 'desc' => __( 'Would you like to enable sharing via Twitter?', 'highlight-and-share' ) ) );
+		
 		add_settings_field( 'hightlight-and-share-twitter-handle', __( 'Twitter Username', 'highlight-and-share' ), array( $this, 'add_settings_field_twitter' ), 'highlight-and-share', 'has-twitter', array( 'label_for' => 'hightlight-and-share-twitter-handle', 'desc' => __( 'Enter Your Twittter Username', 'highlight-and-share' ) ) );
+		
 		add_settings_field( 'hightlight-and-share-facebook-enable', __( 'Show Facebook Option', 'highlight-and-share' ), array( $this, 'add_settings_field_facebook_enable' ), 'highlight-and-share', 'has-facebook', array( 'desc' => __( 'Would you like to enable sharing via Facebook?', 'highlight-and-share' ) ) );
+		
+		add_settings_field( 'hightlight-and-share-js-content', _x( 'jQuery classes', 'Label - Where in the HTML document to search for text to capture', 'highlight-and-share' ), array( $this, 'add_settings_field_js_content' ), 'highlight-and-share', 'has-advanced', array( 'label_for' => 'hightlight-and-share-js-content', 'desc' => __( 'Enter jQuery classes to search for in the HTML.  You must comma-separate classes (e.g., entry-content,post,page).', 'highlight-and-share' ) ) );
 		
 	}
 	
@@ -273,13 +373,13 @@ class Highlight_And_Share {
 					$output[ $key ] = sanitize_text_field( $value );
 				}
 			} elseif( 'js_content' == $key ) {
-				$js_content = $input[ $key ];
-				if( !preg_match( '/[-_0-9a-zA-Z]+(,[-_0-9a-zA-Z]+)*$/', $js_content ) ) {
-					add_settings_error( 'highlight-and-share', 'invalid_twitter', _x( 'You must enter valid comma-separated values for the content.', 'Invalid comma-separated values', 'highlight-and-share' ) );
+				$js_content = trim( $value );				
+				if( empty( $js_content ) || preg_match( '/[-_0-9a-zA-Z]+(,[-_0-9a-zA-Z]+)*$/', $js_content ) ) {
+					$output[ $key ] = sanitize_text_field( $js_content );
 				} else {
-					$output[ $key ] = sanitize_text_field( $value );
+					add_settings_error( 'highlight-and-share', 'invalid_twitter', _x( 'You must enter valid comma-separated values for the content.', 'Invalid comma-separated values', 'highlight-and-share' ) );
 				}
-			} elseif( 'show_twitter' == $key || 'show_facebook' == $key ) {
+			} elseif( ( 'show_twitter' || 'show_facebook' || 'enable_content' || 'enable_excerpt' ) == $key ) {
 				if ( $input[ $key ] == 'on' ) {
 					$output[ $key ] = true;	
 				} else {
@@ -387,6 +487,54 @@ class Highlight_And_Share {
 	}
 	
 	/**
+	 * Add Content option for sharing.
+	 *
+	 * Output checkbox for sharing on main post content
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 *
+	 * @see init_admin_settings
+	 *
+	 * @param array $args {
+	 		@type string $label_for Settings label and ID.
+	
+	 		@type string $desc Description for the setting.
+	 		
+	 }
+	 */
+	public function add_settings_field_content_enable( $args = array() ) {
+		$settings = $this->get_plugin_options();
+		$enable_content = isset( $settings[ 'enable_content' ] ) ? (bool)$settings[ 'enable_content' ] : true;
+		echo '<input name="highlight-and-share[enable_content]" value="off" type="hidden" />';
+		printf( '<input id="has-enable-content" type="checkbox" name="highlight-and-share[enable_content]" value="on" %s />&nbsp;<label for="has-enable-content">%s</label>', checked( true, $enable_content, false ), __( 'Enable Content?', 'highlight-and-share' ) );
+	}
+	
+	/**
+	 * Add Content option for sharing.
+	 *
+	 * Output checkbox for sharing on main post content
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 *
+	 * @see init_admin_settings
+	 *
+	 * @param array $args {
+	 		@type string $label_for Settings label and ID.
+	
+	 		@type string $desc Description for the setting.
+	 		
+	 }
+	 */
+	public function add_settings_field_excerpt_enable( $args = array() ) {
+		$settings = $this->get_plugin_options();
+		$enable_excerpt = isset( $settings[ 'enable_excerpt' ] ) ? (bool)$settings[ 'enable_excerpt' ] : true;
+		echo '<input name="highlight-and-share[enable_excerpt]" value="off" type="hidden" />';
+		printf( '<input id="has-enable-excerpt" type="checkbox" name="highlight-and-share[enable_excerpt]" value="on" %s />&nbsp;<label for="has-enable-excerpt">%s</label>', checked( true, $enable_excerpt, false ), __( 'Enable Excerpt?', 'highlight-and-share' ) );
+	}
+	
+	/**
 	 * Initialize and return plugin options.
 	 *
 	 * Return an array of plugin options.
@@ -407,10 +555,12 @@ class Highlight_And_Share {
 		
 		if ( false === $settings || !is_array( $settings ) ) {
 			$defaults = array(
-				'js_content' => 'entry-content',
+				'js_content' => '',
 				'twitter' => '',
 				'show_twitter' => true,
-				'show_facebook' => true
+				'show_facebook' => true,
+				'enable_content' => true,
+				'enable_excerpt' => true
 			);
 			update_option( 'highlight-and-share', $defaults );
 			return $defaults;
