@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Highlight and Share v1.0.0\n"
 "Report-Msgid-Bugs-To: Ronald Huereca <ronalfy@gmail.com>\n"
-"POT-Creation-Date: 2014-12-03 22:40-0600\n"
+"POT-Creation-Date: 2014-12-04 20:29-0600\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Ronald Huereca <ron@ronalfy.com>\n"
 "Language-Team: Ronald Huereca <ronalfy@gmail.com>\n"
@@ -23,95 +23,124 @@ msgstr ""
 "X-Generator: Poedit 1.5.3\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: highlight-and-share.php:101
+#: highlight-and-share.php:173
 msgctxt "Plugin settings link on the plugins page"
 msgid "Settings"
 msgstr ""
 
-#: highlight-and-share.php:145
+#: highlight-and-share.php:251
 msgctxt "Twitter share text"
 msgid "Tweet"
 msgstr ""
 
-#: highlight-and-share.php:146
+#: highlight-and-share.php:252
 msgctxt "Facebook share text"
 msgid "Share"
 msgstr ""
 
-#: highlight-and-share.php:171 highlight-and-share.php:188
+#: highlight-and-share.php:292 highlight-and-share.php:309
 msgctxt "Plugin Name - Settings Page Title"
 msgid "Highlight and Share"
 msgstr ""
 
-#: highlight-and-share.php:171
+#: highlight-and-share.php:292
 msgctxt "Plugin Name - Menu Item"
 msgid "Highlight and Share"
 msgstr ""
 
-#: highlight-and-share.php:211
+#: highlight-and-share.php:333
 msgctxt "plugin settings heading"
-msgid "Configuration"
+msgid "Content"
 msgstr ""
 
-#: highlight-and-share.php:212
+#: highlight-and-share.php:335
 msgctxt "plugin settings heading"
 msgid "Twitter Settings"
 msgstr ""
 
-#: highlight-and-share.php:213
+#: highlight-and-share.php:337
 msgctxt "plugin settings heading"
 msgid "Facebook Settings"
 msgstr ""
 
-#: highlight-and-share.php:214
-msgctxt "Label - Where in the HTML document to search for text to capture"
-msgid "Content Area"
+#: highlight-and-share.php:339
+msgctxt "plugin settings heading"
+msgid "Advanced"
 msgstr ""
 
-#: highlight-and-share.php:214
-msgid ""
-"Enter the content class to search for in the HTML.  You may comma-separate "
-"classes (e.g., entry-content,post,page)."
+#: highlight-and-share.php:341
+msgid "Add to Post Content"
 msgstr ""
 
-#: highlight-and-share.php:215
+#: highlight-and-share.php:341
+msgid "Would you like to add sharing to the main content areas?"
+msgstr ""
+
+#: highlight-and-share.php:343
+msgid "Add to Excerpt Content"
+msgstr ""
+
+#: highlight-and-share.php:343
+msgid "Would you like to add sharing to the excerpts?"
+msgstr ""
+
+#: highlight-and-share.php:345
 msgid "Show Twitter Option"
 msgstr ""
 
-#: highlight-and-share.php:215
+#: highlight-and-share.php:345
 msgid "Would you like to enable sharing via Twitter?"
 msgstr ""
 
-#: highlight-and-share.php:216
+#: highlight-and-share.php:347
 msgid "Twitter Username"
 msgstr ""
 
-#: highlight-and-share.php:216
+#: highlight-and-share.php:347
 msgid "Enter Your Twittter Username"
 msgstr ""
 
-#: highlight-and-share.php:217
+#: highlight-and-share.php:349
 msgid "Show Facebook Option"
 msgstr ""
 
-#: highlight-and-share.php:217
+#: highlight-and-share.php:349
 msgid "Would you like to enable sharing via Facebook?"
 msgstr ""
 
-#: highlight-and-share.php:271
+#: highlight-and-share.php:351
+msgctxt "Label - Where in the HTML document to search for text to capture"
+msgid "jQuery classes"
+msgstr ""
+
+#: highlight-and-share.php:351
+msgid ""
+"Enter jQuery classes to search for in the HTML.  You must comma-separate "
+"classes (e.g., entry-content,post,page)."
+msgstr ""
+
+#: highlight-and-share.php:405
 msgctxt "Twitter username error"
 msgid "You have entered an incorrect Twitter username"
 msgstr ""
 
-#: highlight-and-share.php:278
+#: highlight-and-share.php:414
 msgctxt "Invalid comma-separated values"
 msgid "You must enter valid comma-separated values for the content."
 msgstr ""
 
-#: highlight-and-share.php:362
+#: highlight-and-share.php:496
 msgid "Enable Twitter Sharing?"
 msgstr ""
 
-#: highlight-and-share.php:386
+#: highlight-and-share.php:520
 msgid "Enable Facebook Sharing?"
+msgstr ""
+
+#: highlight-and-share.php:544
+msgid "Enable Content?"
+msgstr ""
+
+#: highlight-and-share.php:568
+msgid "Enable Excerpt?"
 msgstr ""

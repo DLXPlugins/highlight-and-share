@@ -70,7 +70,7 @@ Use the plugin hook `has_show_css` and <a href="https://github.com/ronalfy/highl
 
 = Does this plugin work on mobile devices? =
 
-No, sadly it does not.
+Yes, it has successfully been tested on iOS and Android devices.
 
 = What Browsers Have You Tested This In? =
 
