@@ -35,6 +35,10 @@
 .has-facebook.has-no-twitter:after {
 	border-top: 10px solid #3c5a9e;
 }
+.has-facebook.has-mobile:after,
+.has-tweet.has-mobile:after {
+	display: none;	
+}
 .has-tweet:hover:after {
 	border-top: 10px solid #00aced;
 }

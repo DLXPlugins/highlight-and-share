@@ -79,11 +79,17 @@ class Highlight_And_Share {
 		$show_twitter = (bool)apply_filters( 'has_show_twitter', $settings[ 'show_twitter' ] );
 		if ( !$show_facebook && !$show_twitter ) return;
 		
-		//Disable if mobile
-		if ( wp_is_mobile() ) return;
-		
 		//Disable if on a feed
 		if ( is_feed() ) return;
+		
+		//Disable if mobile
+		if ( wp_is_mobile() ) {
+			if ( (bool)apply_filters( 'has_enable_mobile', true ) ) {
+				add_action( 'wp_enqueue_scripts', array( $this, 'add_scripts_mobile' ) );
+			} else {
+				return;
+			}
+		}
 		
 		//Load scripts
 		add_action( 'wp_enqueue_scripts', array( $this, 'add_scripts' ) );
@@ -180,7 +186,11 @@ class Highlight_And_Share {
 	 *
 	 */
 	public function add_scripts() {
-			wp_enqueue_script( 'highlight-and-share', $this->get_plugin_url( 'js/highlight-and-share.js' ), array( 'jquery' ), '20141205', true );
+			$deps = array( 'jquery' );
+			if ( wp_is_mobile() && apply_filters( 'has_enable_mobile', true ) ) { 
+				$deps[] = 'jquery.mobile';	
+			}
+			wp_enqueue_script( 'highlight-and-share', $this->get_plugin_url( 'js/highlight-and-share.js' ), $deps, '20141205', true );
 
 			/**Build JSON Object**/
 			$settings = $this->get_plugin_options();
@@ -196,6 +206,13 @@ class Highlight_And_Share {
 			//Override the filter if no username is present for twitter
 			if ( empty( $json_arr[ 'twitter_username' ] ) ) {
 				$json_arr[ 'show_twitter' ] = false;
+			}
+			
+			//Add mobile
+			if ( wp_is_mobile() ) {
+				$json_arr[ 'mobile' ] = true;	
+			} else {
+				$json_arr[ 'mobile' ] = false;		
 			}
 			
 			//Content areas
@@ -243,6 +260,21 @@ class Highlight_And_Share {
 			}	
 			
 			
+	}
+	
+	/**
+	 * Load mobile scripts
+	 *
+	 * Enqueue scripts/styles to enable mobile events
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 *
+	 * @see init
+	 *
+	 */
+	public function add_scripts_mobile() {
+		wp_enqueue_script( 'jquery.mobile', $this->get_plugin_url( 'js/jquery.mobile.custom.js' ), array( 'jquery' ), '1.4.5', true );	
 	}
 	
 	/**

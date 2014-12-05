@@ -18,7 +18,7 @@ jQuery( document ).ready( function( $ ) {
 	//Initialize events
 	var js_content = highlight_and_share.content;
 	if ( '' == js_content ) return;
-	$( 'body' ).on( 'mouseup', js_content, function( e ) {
+	$( 'body' ).on( 'mouseup vmouseup', js_content, function( e ) {
 		e.stopPropagation();
 		has_remove();
 		var selection = window.getSelection();
@@ -77,7 +77,16 @@ jQuery( document ).ready( function( $ ) {
 		
 		//Adjust CSS
 		tweet_clone.addClass( 'has-tweet' );
-		tweet_clone.css( { position: 'absolute', display: 'block', left: e.pageX-30, top: e.pageY-70 } );
+		if ( highlight_and_share.mobile ) {
+			tweet_clone.addClass( 'has-mobile' );	
+		}
+		var tweet_x = e.pageX - 30;
+		var tweet_y = e.pageY - 70;
+		if ( highlight_and_share.mobile ) {
+			tweet_x = e.pageX;	
+			tweet_y = e.pageY + 20;
+		}
+		tweet_clone.css( { position: 'absolute', display: 'block', left: tweet_x, top: tweet_y } );
 		
 		//Add to document
 		$( 'body' ).append( tweet_clone );		
@@ -99,17 +108,28 @@ jQuery( document ).ready( function( $ ) {
 		
 		//Get x coordinate of Facebook button
 		var facebook_x = e.pageX - 30;
-		if ( highlight_and_share.show_twitter ) {
+		var facebook_y = e.pageY-70;
+		if ( highlight_and_share.mobile ) {
+			facebook_x = e.pageX;	
+			 facebook_y = e.pageY + 20;
+		}
+		if ( highlight_and_share.show_twitter && !highlight_and_share.mobile ) {
 			var twitter_width = $( '.has-tweet:visible' ).width() + 10;
 			facebook_x = facebook_x + twitter_width;
+		} else if ( highlight_and_share.show_twitter && highlight_and_share.mobile ) {
+			facebook_y = facebook_y + $( '.has-tweet:visible' ).height() + 10;
 		}
+		
 		
 		//Adjust CSS
 		facebook_clone.addClass( 'has-facebook' );
 		if ( highlight_and_share.show_twitter == false ) {
 			facebook_clone.addClass( 'has-no-twitter' );
 		}
-		facebook_clone.css( { position: 'absolute', display: 'block', left: facebook_x, top: e.pageY-70 } );
+		if ( highlight_and_share.mobile ) {
+			facebook_clone.addClass( 'has-mobile' );	
+		}
+		facebook_clone.css( { position: 'absolute', display: 'block', left: facebook_x, top: facebook_y } );
 		
 		//Add to document
 		$( 'body' ).append( facebook_clone );

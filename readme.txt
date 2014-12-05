@@ -7,11 +7,11 @@ Stable tag: 1.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
-A WordPress plugin for highlighting text and sharing it via Twitter or Facebook.
+A WordPress plugin for highlighting text and sharing it via Twitter.
 
 == Description ==
 
-A WordPress plugin for highlighting text and sharing it via Twitter or Facebook.
+A WordPress plugin for highlighting text and sharing it via Twitter.
 
 Sharing selectable text is only possible via Twitter, but an option to share the post via Facebook is also present when highlighting text as a convenience. 
 
@@ -22,10 +22,11 @@ If you have a feature request, <a href="https://github.com/ronalfy/highlight-and
 <h3>Features</h3>
 
 <ul>
-<li>Override which content is selectable (using jQuery class notation without the dots).</li>
+<li>Enable or disable on main content and excerpts.</li>
 <li>Enable or disable Facebook sharing.</li>
 <li>Enable or disable Twitter sharing.</li>
 <li>Customize the Twitter username used.</li>
+<li>Advanced: Override which content is selectable (using jQuery class notation without the dots).</li>
 </ul>
 
 Advanced customization is allowed via hooks.  See the plugin's <a href="https://github.com/ronalfy/highlight-and-share#plugin-filters">GitHub page for filter documentation</a>.
@@ -46,12 +47,30 @@ If you would like to contribute a translation, please leave a support request wi
 
 You are welcome to help us out and <a href="https://github.com/ronalfy/highlight-and-share">contribute on GitHub</a>.
 
+<em>Plugin is powered by caffeine and vodka.</em>
+
 == Installation ==
 
 1. Just unzip and upload the "highlight-and-share" folder to your '/wp-content/plugins/' directory
 2. Activate the plugin through the 'Plugins' menu in WordPress
 
 == Frequently Asked Questions ==
+
+= Can I share text using Facebook? =
+
+Facebook disabled that portion of the sharing API, so no, it is not possible.  If you don't like Facebook sharing, you can disable it via the plugin's options.
+
+= Will you be adding more sharing services? =
+
+Possibly.  <a href="https://github.com/ronalfy/highlight-and-share/issues">Open up an issue</a>.
+
+= I want to include my own CSS.  How can I do that? =
+
+Use the plugin hook `has_show_css` and <a href="https://github.com/ronalfy/highlight-and-share#plugin-filters">disable CSS</a>.  You can then  include your own CSS in your theme.
+
+= Does this plugin work on mobile devices? =
+
+No, sadly it does not.
 
 = What Browsers Have You Tested This In? =
 
@@ -62,7 +81,6 @@ So far, the latest versions of Chrome, Firefox, and Safari.   IE testing is comi
 <li>Twenty Thirteen</li>
 <li>Twenty Fourteen</li>
 </ul>
-
 
 == Screenshots ==
 
