@@ -57,7 +57,7 @@ add_filter( 'has_show_twitter', '__return_true' ); //Disable or enable twitter s
 add_filter( 'has_load_css', '__return_true' ); //Disable or enable plugin's CSS - Use your own
 add_filter( 'has_enable_content', '__return_true' ); //Disable or enable main post content
 add_filter( 'has_enable_excerpt', '__return_true' ); //Disable or enable excerpt content
-add_filter( 'has_enable_mobile', __return_true' ); //Disable or enable on mobile devices
+add_filter( 'has_enable_mobile', '__return_true' ); //Disable or enable on mobile devices
 
 /* Override the Facebook share text (default is Share) */
 add_filter( 'has_facebook_text', 'has_override_facebook_text' );
