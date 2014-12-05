@@ -48,8 +48,17 @@ jQuery( document ).ready( function( $ ) {
 			has_facebook( title, href, e );
 		}
 	} );
-	$( 'body' ).on( 'click', '.has-tweet a', function( e ) {
+	var tweet_event = 'click';
+	if ( highlight_and_share.mobile ) {
+		tweet_event = 'vmousedown';	
+	}
+	$( 'body' ).on( tweet_event, '.has-tweet a', function( e ) {
 		e.preventDefault();
+		if ( highlight_and_share.mobile ) {
+			var selection = window.getSelection();
+			var text = selection.toString();
+			this.href = this.href.replace( '%text%', '"' + encodeURIComponent( text ) + '"' );
+		}
 		window.open( this.href,"tweetWindow","width=575,height=430,toolbar=false,menubar=false,location=false,status=false");
 		has_remove();
 	} );
@@ -69,7 +78,10 @@ jQuery( document ).ready( function( $ ) {
 		//Get template URL and replace with content - Format is https://twitter.com/intent/tweet?via=%username%&url=%url%&text=%text%
 		var tweet_url = tweet_clone.find( 'a' ).attr( 'href' );
 		tweet_url = tweet_url.replace( '%url%', encodeURIComponent( link ) );
-		tweet_url = tweet_url.replace( '%text%', '"' + encodeURIComponent( text ) + '"' );
+		
+		if ( !highlight_and_share.mobile ) {
+			tweet_url = tweet_url.replace( '%text%', '"' + encodeURIComponent( text ) + '"' );
+		}
 		tweet_url = tweet_url.replace( '%username%', encodeURIComponent( highlight_and_share.twitter_username ) );
 		
 		//Override URL in clone
