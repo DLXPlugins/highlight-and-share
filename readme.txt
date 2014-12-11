@@ -74,7 +74,7 @@ Yes, it has successfully been tested on iOS and Android devices.
 
 = What Browsers Have You Tested This In? =
 
-So far, the latest versions of Chrome, Firefox, and Safari.   IE testing is coming soon.
+So far, the latest versions of Chrome, Firefox, and Safari.   Works for IE9+
 
 = What Themes Have You Tested This In? =
 <ul>
