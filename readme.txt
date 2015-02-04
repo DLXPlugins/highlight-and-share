@@ -1,5 +1,5 @@
 === Highlight and Share ===
-Contributors: ronalfy
+Contributors: ronalfy, bigwing
 Tags: quote, sharing, twitter, facebook, social
 Requires at least: 3.5
 Tested up to: 4.1
