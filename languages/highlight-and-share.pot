@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Highlight and Share v1.0.0\n"
 "Report-Msgid-Bugs-To: Ronald Huereca <ronalfy@gmail.com>\n"
-"POT-Creation-Date: 2014-12-04 20:29-0600\n"
+"POT-Creation-Date: 2015-03-16 18:37-0600\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Ronald Huereca <ron@ronalfy.com>\n"
 "Language-Team: Ronald Huereca <ronalfy@gmail.com>\n"
@@ -23,124 +23,143 @@ msgstr ""
 "X-Generator: Poedit 1.5.3\n"
 "X-Poedit-SearchPath-0: .\n"
 
-#: highlight-and-share.php:173
+#: highlight-and-share.php:195
 msgctxt "Plugin settings link on the plugins page"
 msgid "Settings"
 msgstr ""
 
-#: highlight-and-share.php:251
+#: highlight-and-share.php:273
 msgctxt "Twitter share text"
 msgid "Tweet"
 msgstr ""
 
-#: highlight-and-share.php:252
+#: highlight-and-share.php:274
 msgctxt "Facebook share text"
 msgid "Share"
 msgstr ""
 
-#: highlight-and-share.php:292 highlight-and-share.php:309
+#: highlight-and-share.php:314 highlight-and-share.php:331
 msgctxt "Plugin Name - Settings Page Title"
 msgid "Highlight and Share"
 msgstr ""
 
-#: highlight-and-share.php:292
+#: highlight-and-share.php:314
 msgctxt "Plugin Name - Menu Item"
 msgid "Highlight and Share"
 msgstr ""
 
-#: highlight-and-share.php:333
+#: highlight-and-share.php:355
 msgctxt "plugin settings heading"
 msgid "Content"
 msgstr ""
 
-#: highlight-and-share.php:335
+#: highlight-and-share.php:357
 msgctxt "plugin settings heading"
 msgid "Twitter Settings"
 msgstr ""
 
-#: highlight-and-share.php:337
+#: highlight-and-share.php:359
 msgctxt "plugin settings heading"
 msgid "Facebook Settings"
 msgstr ""
 
-#: highlight-and-share.php:339
+#: highlight-and-share.php:361
+msgctxt "plugin settings heading"
+msgid "Post URL Settings"
+msgstr ""
+
+#: highlight-and-share.php:363
 msgctxt "plugin settings heading"
 msgid "Advanced"
 msgstr ""
 
-#: highlight-and-share.php:341
+#: highlight-and-share.php:365
 msgid "Add to Post Content"
 msgstr ""
 
-#: highlight-and-share.php:341
+#: highlight-and-share.php:365
 msgid "Would you like to add sharing to the main content areas?"
 msgstr ""
 
-#: highlight-and-share.php:343
+#: highlight-and-share.php:367
 msgid "Add to Excerpt Content"
 msgstr ""
 
-#: highlight-and-share.php:343
+#: highlight-and-share.php:367
 msgid "Would you like to add sharing to the excerpts?"
 msgstr ""
 
-#: highlight-and-share.php:345
+#: highlight-and-share.php:369
 msgid "Show Twitter Option"
 msgstr ""
 
-#: highlight-and-share.php:345
+#: highlight-and-share.php:369
 msgid "Would you like to enable sharing via Twitter?"
 msgstr ""
 
-#: highlight-and-share.php:347
+#: highlight-and-share.php:371
 msgid "Twitter Username"
 msgstr ""
 
-#: highlight-and-share.php:347
+#: highlight-and-share.php:371
 msgid "Enter Your Twittter Username"
 msgstr ""
 
-#: highlight-and-share.php:349
+#: highlight-and-share.php:373
 msgid "Show Facebook Option"
 msgstr ""
 
-#: highlight-and-share.php:349
+#: highlight-and-share.php:373
 msgid "Would you like to enable sharing via Facebook?"
 msgstr ""
 
-#: highlight-and-share.php:351
+#: highlight-and-share.php:375
+msgid "Shortlinks"
+msgstr ""
+
+#: highlight-and-share.php:375
+msgid ""
+"Please decide if you would like to use the default post URL or a shortened "
+"version."
+msgstr ""
+
+#: highlight-and-share.php:377
 msgctxt "Label - Where in the HTML document to search for text to capture"
 msgid "jQuery classes"
 msgstr ""
 
-#: highlight-and-share.php:351
+#: highlight-and-share.php:377
 msgid ""
 "Enter jQuery classes to search for in the HTML.  You must comma-separate "
 "classes (e.g., entry-content,post,page)."
 msgstr ""
 
-#: highlight-and-share.php:405
+#: highlight-and-share.php:433
 msgctxt "Twitter username error"
 msgid "You have entered an incorrect Twitter username"
 msgstr ""
 
-#: highlight-and-share.php:414
+#: highlight-and-share.php:442
 msgctxt "Invalid comma-separated values"
 msgid "You must enter valid comma-separated values for the content."
 msgstr ""
 
-#: highlight-and-share.php:496
+#: highlight-and-share.php:524
 msgid "Enable Twitter Sharing?"
 msgstr ""
 
-#: highlight-and-share.php:520
+#: highlight-and-share.php:548
 msgid "Enable Facebook Sharing?"
 msgstr ""
 
-#: highlight-and-share.php:544
+#: highlight-and-share.php:572
 msgid "Enable Content?"
 msgstr ""
 
-#: highlight-and-share.php:568
+#: highlight-and-share.php:596
 msgid "Enable Excerpt?"
+msgstr ""
+
+#: highlight-and-share.php:620
+msgid "Enable Shortlinks?"
 msgstr ""
