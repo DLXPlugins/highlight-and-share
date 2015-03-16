@@ -4,7 +4,7 @@ Plugin Name: Highlight and Share
 Plugin URI: http://wordpress.org/extend/plugins/highlight-and-share/
 Description: Highlight text and share via Twitter or Facebook
 Author: ronalfy
-Version: 1.0.0
+Version: 1.1.0
 Requires at least: 3.5
 Author URI: http://www.ronalfy.com
 Contributors: ronalfy
@@ -212,7 +212,7 @@ class Highlight_And_Share {
 			if ( wp_is_mobile() && apply_filters( 'has_enable_mobile', true ) ) { 
 				$deps[] = 'jquery.mobile';	
 			}
-			wp_enqueue_script( 'highlight-and-share', $this->get_plugin_url( 'js/highlight-and-share.js' ), $deps, '20141205', true );
+			wp_enqueue_script( 'highlight-and-share', $this->get_plugin_url( 'js/highlight-and-share.js' ), $deps, '20150316', true );
 
 			/**Build JSON Object**/
 			$settings = $this->get_plugin_options();
@@ -227,7 +227,7 @@ class Highlight_And_Share {
 			
 			//Override the filter if no username is present for twitter
 			if ( empty( $json_arr[ 'twitter_username' ] ) ) {
-				$json_arr[ 'show_twitter' ] = false;
+				$json_arr[ 'twitter_username' ] = '';
 			}
 			
 			//Add mobile
@@ -426,8 +426,10 @@ class Highlight_And_Share {
 		//Settings are being saved.  Update.
 		foreach( $input as $key => $value ) {
 			if ( 'twitter' == $key ) {
-				$twitter_username = $input[ $key ];
-				if ( !preg_match( '/^[a-zA-Z0-9_]{1,15}$/', $twitter_username ) ) {
+				$twitter_username = trim( $value );
+				if ( empty( $twitter_username ) ) {
+					$output[ $key ] ='';
+				} elseif ( !preg_match( '/^[a-zA-Z0-9_]{1,15}$/', $twitter_username ) ) {
 					add_settings_error( 'highlight-and-share', 'invalid_twitter', _x( 'You have entered an incorrect Twitter username', 'Twitter username error', 'highlight-and-share' ) );
 				} else {
 					$output[ $key ] = sanitize_text_field( $value );

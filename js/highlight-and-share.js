@@ -5,8 +5,10 @@ jQuery( document ).ready( function( $ ) {
 	
 	var has_load_html = function() {
 		var html = '';
-		if ( highlight_and_share.show_twitter ) {
+		if ( highlight_and_share.show_twitter && '' != highlight_and_share.twitter_username ) {
 			html += '<div class="has_tweet_template" style="display: none;"><a href="https://twitter.com/intent/tweet?via=%username%&url=%url%&text=%text%" target="_blank"><i class="fa fa-twitter"></i>&nbsp;' + highlight_and_share.tweet_text + '</a></div>';
+		} else if( highlight_and_share.show_twitter && '' == highlight_and_share.twitter_username ) {
+			html += '<div class="has_tweet_template" style="display: none;"><a href="https://twitter.com/intent/tweet?url=%url%&text=%text%" target="_blank"><i class="fa fa-twitter"></i>&nbsp;' + highlight_and_share.tweet_text + '</a></div>';
 		}
 		if ( highlight_and_share.show_facebook ) {
 			//Note, you must be on a publicly accesible URL to use this button
