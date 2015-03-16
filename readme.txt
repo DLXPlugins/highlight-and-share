@@ -2,8 +2,8 @@
 Contributors: ronalfy, bigwing
 Tags: quote, sharing, twitter, facebook, social
 Requires at least: 3.5
-Tested up to: 4.1
-Stable tag: 1.0.0
+Tested up to: 4.1.1
+Stable tag: 1.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -35,6 +35,7 @@ Advanced customization is allowed via hooks.  See the plugin's <a href="https://
 <ul>
 <li><a href=" https://wordpress.org/plugins/better-font-awesome/">Better Font Awesome</a> - Enables Twitter/Facebook sharing icons</li>
 <li><a href="https://wordpress.org/plugins/wordpress-seo/">WordPress SEO</a> - For Facebook OpenGraph data</li>
+<li><a href="https://wordpress.org/plugins/jetpack/">Jetpack</a> - For Shortlinks</li>
 </ul>
 
 <h3>Spread the Word</h3>
@@ -89,12 +90,20 @@ So far, the latest versions of Chrome, Firefox, and Safari.   Works for IE9+
 
 == Changelog ==
 
+= 1.1.0 =
+* Released 2015-03-2015
+* Added option for shortlink in the settings
+* Removed the requirement for having to set a Twitter handle
+
 = 1.0.0 =
 * Updated 2014-12-11 - Ensuring WordPress 4.1 compatibility 
 * Released 2014-12-03
 * Initial release on WordPress.org
 
 == Upgrade Notice ==
+
+= 1.1.0 =
+Added option for shortlink in the settings.  Removed the requirement for having to set a Twitter handle.
 
 = 1.0.0 =
 Initial release.
