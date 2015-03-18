@@ -102,6 +102,19 @@ function has_override_twitter_username( $username ) {
 }
 ```
 
+### Modifying jQuery Selectors
+The following demonstrates how to override the jQuery selectors used in choosing which content to share:
+```php
+//Demonstrates how to select paragraph text only
+
+add_filter( 'has_js_selectors', 'hs_custom_selectors', 10, 5 );
+function hs_custom_selectors( $selectors, $content = array(), $classes = array(), $ids = array(), $elements = array() ) {
+	//With $content, $classes, $ids, $elements, you can build your own selectors
+	//Or just override $selectors (a string) with your own custom ones
+	return '.has-content-area p, .has-excerpt-area p';	
+}
+```
+
 Credit
 -------------
 This script was originally observed on <a href="http://www.vogue.com/">Vogue.com</a> and was ported over for use in WordPress.
