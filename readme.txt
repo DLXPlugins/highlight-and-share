@@ -3,7 +3,7 @@ Contributors: ronalfy, bigwing
 Tags: quote, sharing, twitter, facebook, social
 Requires at least: 3.5
 Tested up to: 4.1.1
-Stable tag: 1.1.0
+Stable tag: 1.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -90,8 +90,12 @@ So far, the latest versions of Chrome, Firefox, and Safari.   Works for IE9+
 
 == Changelog ==
 
+= 1.1.1 =
+* Released 2015-03-18
+* Added filter for customizing the jQuery selectors
+
 = 1.1.0 =
-* Released 2015-03-2015
+* Released 2015-03-16
 * Added option for shortlink in the settings
 * Removed the requirement for having to set a Twitter handle
 
@@ -101,6 +105,9 @@ So far, the latest versions of Chrome, Firefox, and Safari.   Works for IE9+
 * Initial release on WordPress.org
 
 == Upgrade Notice ==
+
+= 1.1.1 =
+Added filter for customizing the jQuery selectors
 
 = 1.1.0 =
 Added option for shortlink in the settings.  Removed the requirement for having to set a Twitter handle.
