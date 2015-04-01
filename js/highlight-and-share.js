@@ -61,8 +61,9 @@ jQuery( document ).ready( function( $ ) {
 			var text = selection.toString();
 			this.href = this.href.replace( '%text%', '"' + encodeURIComponent( text ) + '"' );
 		}
-		window.open( this.href,"tweetWindow","width=575,height=430,toolbar=false,menubar=false,location=false,status=false");
+		window.open( this.href,"tweethighlight","width=575,height=430,toolbar=false,menubar=false,location=false,status=false");
 		has_remove();
+		return false;
 	} );
 	$( 'body' ).on( 'click', '.has-facebook a', function( e ) {
 		e.preventDefault();
