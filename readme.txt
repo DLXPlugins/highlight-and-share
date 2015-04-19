@@ -2,8 +2,8 @@
 Contributors: ronalfy, bigwing
 Tags: quote, sharing, twitter, facebook, social
 Requires at least: 3.5
-Tested up to: 4.1.1
-Stable tag: 1.1.1
+Tested up to: 4.2
+Stable tag: 1.1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -90,6 +90,11 @@ So far, the latest versions of Chrome, Firefox, and Safari.   Works for IE9+
 
 == Changelog ==
 
+= 1.1.2 =
+* Released 2015-04-19
+* Fixing issue with multiple twitter popups. 
+* Ensuring WordPress 4.2 compatibility.  
+
 = 1.1.1 =
 * Released 2015-03-18
 * Added filter for customizing the jQuery selectors
@@ -105,6 +110,9 @@ So far, the latest versions of Chrome, Firefox, and Safari.   Works for IE9+
 * Initial release on WordPress.org
 
 == Upgrade Notice ==
+
+= 1.1.2 =
+Fixing issue with multiple twitter popups. Ensuring WordPress 4.2 compatibility.  
 
 = 1.1.1 =
 Added filter for customizing the jQuery selectors
