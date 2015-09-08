@@ -101,9 +101,9 @@ function has_override_twitter_username( $username ) {
 	return 'wordpress';	
 }
 ```
+Some examples are below:
 
-###
-Disable sharing on a static front page.
+### Disable sharing on a static front page.
 ```php
  add_action( 'wp', function() {
 	if ( is_front_page() ) {
@@ -112,7 +112,7 @@ Disable sharing on a static front page.
 	}
 } );
 ```
-Modify the Content URL
+### Modify the Content URL
 ```php
 add_filter( 'has_content_url', function( $url, $post_id ) {
 	return 'https://wordpress.org';
