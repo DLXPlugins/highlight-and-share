@@ -102,6 +102,23 @@ function has_override_twitter_username( $username ) {
 }
 ```
 
+###
+Disable sharing on a static front page.
+```php
+ add_action( 'wp', function() {
+	if ( is_front_page() ) {
+		add_filter( 'has_show_facebook', '__return_false' );
+		add_filter( 'has_show_twitter', '__return_false' );
+	}
+} );
+```
+Modify the Content URL
+```php
+add_filter( 'has_content_url', function( $url, $post_id ) {
+	return 'https://wordpress.org';
+}, 10, 2 );
+```
+
 ### Modifying jQuery Selectors
 The following demonstrates how to override the jQuery selectors used in choosing which content to share:
 ```php
