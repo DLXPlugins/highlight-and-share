@@ -3,7 +3,7 @@ Contributors: ronalfy, bigwing
 Tags: quote, sharing, twitter, facebook, social
 Requires at least: 3.5
 Tested up to: 4.3
-Stable tag: 1.1.2
+Stable tag: 1.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -90,6 +90,12 @@ So far, the latest versions of Chrome, Firefox, and Safari.   Works for IE9+
 
 == Changelog ==
 
+= 1.2.0 =
+* Updated 2015-09-07
+* Fixed loading order of initial filters to be better overridable in the context of a WordPress query
+* Fixed typo in the admin section
+* Added filter to change content URL
+
 = 1.1.2 =
 * Updated 2015-08-20 - WordPress 4.3 compatibility 
 * Released 2015-04-19
@@ -111,6 +117,9 @@ So far, the latest versions of Chrome, Firefox, and Safari.   Works for IE9+
 * Initial release on WordPress.org
 
 == Upgrade Notice ==
+
+= 1.2.0 =
+New filters and better code initialization for third-party customization 
 
 = 1.1.2 =
 Fixing issue with multiple twitter popups. Ensuring WordPress 4.2 compatibility.  
