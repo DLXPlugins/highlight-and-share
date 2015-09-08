@@ -47,6 +47,8 @@ class Highlight_And_Share {
 	 */
 	private function __construct() {
 		add_action( 'init', array( $this, 'init' ), 9 );
+		
+		add_action( 'wp', array( $this, 'wp_loaded' ), 15 );
 			
 		//* Localization Code */
 		load_plugin_textdomain( 'highlight-and-share', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
@@ -73,6 +75,12 @@ class Highlight_And_Share {
 		
 		//Plugin settings
 		add_filter( 'plugin_action_links_' . plugin_basename(__FILE__) , array( $this, 'add_settings_link' ) );
+		
+			
+	} //end init
+	
+	public function wp_loaded() {
+		$settings = $this->get_plugin_options();
 		
 		//Skip loading if both twitter/facebook are turned off
 		$show_facebook = (bool)apply_filters( 'has_show_facebook', $settings[ 'show_facebook' ] );
@@ -101,7 +109,7 @@ class Highlight_And_Share {
 		if ( apply_filters( 'has_enable_excerpt', (bool)$settings[ 'enable_excerpt' ] ) ) { 
 			add_filter( 'the_excerpt', array( $this, 'excerpt_area' ) );
 		}		
-	} //end init
+	}
 	
 	/**
 	 * Add a class and data attribute around the main content.
