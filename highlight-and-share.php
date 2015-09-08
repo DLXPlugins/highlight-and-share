@@ -178,11 +178,11 @@ class Highlight_And_Share {
 	private function get_content_url( $post_id ) {
 		$settings = $this->get_plugin_options();
 		$enable_shortlinks = isset( $settings[ 'shortlinks' ] ) ? (bool)$settings[ 'shortlinks' ] : false;
+		$url = get_permalink( $post_id );
 		if ( $enable_shortlinks ) {
-			return wp_get_shortlink( $post_id );
-		} else {
-			return get_permalink( $post_id );	
+			$url  = wp_get_shortlink( $post_id );
 		}
+		return apply_filters( 'has_content_url', $url, $post_id );
 	}
 	
 	
