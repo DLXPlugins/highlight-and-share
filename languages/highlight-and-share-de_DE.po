@@ -1,0 +1,173 @@
+# WordPress Blank Pot
+# Copyright (C) 2014 ...
+# This file is distributed under the GNU General Public License v2 or later.
+msgid ""
+msgstr ""
+"Project-Id-Version: Highlight and Share v1.0.0\n"
+"Report-Msgid-Bugs-To: Ronald Huereca <ronalfy@gmail.com>\n"
+"POT-Creation-Date: 2015-10-29 13:18+0100\n"
+"PO-Revision-Date: \n"
+"Last-Translator: Konrad Tadesse <konrad.tadesse@publicispixelpark.com>\n"
+"Language-Team: Ronald Huereca <ronalfy@gmail.com>\n"
+"Language: de_DE\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
+"X-Textdomain-Support: yesX-Generator: Poedit 1.6.4\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"X-Poedit-KeywordsList: __;_e;esc_html_e;esc_html_x:1,2c;esc_html__;"
+"esc_attr_e;esc_attr_x:1,2c;esc_attr__;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;"
+"_x:1,2c;_n:1,2;_n_noop:1,2;__ngettext:1,2;__ngettext_noop:1,2;_c,"
+"_nc:4c,1,2\n"
+"X-Poedit-Basepath: ..\n"
+"X-Generator: Poedit 1.8.6\n"
+"X-Poedit-SearchPath-0: .\n"
+
+#: highlight-and-share.php:203
+msgctxt "Plugin settings link on the plugins page"
+msgid "Settings"
+msgstr "﻿Einstellungen"
+
+#: highlight-and-share.php:281
+msgctxt "Twitter share text"
+msgid "Tweet"
+msgstr "Tweet"
+
+#: highlight-and-share.php:282
+msgctxt "Facebook share text"
+msgid "Share"
+msgstr "Teilen"
+
+#: highlight-and-share.php:322 highlight-and-share.php:339
+msgctxt "Plugin Name - Settings Page Title"
+msgid "Highlight and Share"
+msgstr "Highlight and Share"
+
+#: highlight-and-share.php:322
+msgctxt "Plugin Name - Menu Item"
+msgid "Highlight and Share"
+msgstr "Highlight and Share"
+
+#: highlight-and-share.php:363
+msgctxt "plugin settings heading"
+msgid "Content"
+msgstr "Inhalt"
+
+#: highlight-and-share.php:365
+msgctxt "plugin settings heading"
+msgid "Twitter Settings"
+msgstr "Twitter Einstellungen"
+
+#: highlight-and-share.php:367
+msgctxt "plugin settings heading"
+msgid "Facebook Settings"
+msgstr "Facebook Einstellungen"
+
+#: highlight-and-share.php:369
+msgctxt "plugin settings heading"
+msgid "Post URL Settings"
+msgstr "Beitrags-URL Einstellungen"
+
+#: highlight-and-share.php:371
+msgctxt "plugin settings heading"
+msgid "Advanced"
+msgstr "Erweitert"
+
+#: highlight-and-share.php:373
+msgid "Add to Post Content"
+msgstr "Zum Beitrags Inhalt hinzufügen"
+
+#: highlight-and-share.php:373
+msgid "Would you like to add sharing to the main content areas?"
+msgstr "Möchten Sie Inhalte teilen zu den Hauptinhaltsbereichen hinzufügen?"
+
+#: highlight-and-share.php:375
+msgid "Add to Excerpt Content"
+msgstr "Zum Inhaltsauszug Inhalt hinzufügen"
+
+#: highlight-and-share.php:375
+msgid "Would you like to add sharing to the excerpts?"
+msgstr "Möchten Sie Inhaltsauszüge teilen aktivieren?"
+
+#: highlight-and-share.php:377
+msgid "Show Twitter Option"
+msgstr "Twitter Option anzeigen?"
+
+#: highlight-and-share.php:377
+msgid "Would you like to enable sharing via Twitter?"
+msgstr "Möchten Sie Inhalte auf Twitter teilen aktivieren?"
+
+#: highlight-and-share.php:379
+msgid "Twitter Username"
+msgstr "Twitter Name"
+
+#: highlight-and-share.php:379
+msgid "Enter Your Twitter Username"
+msgstr "Geben Sie Ihren Twitter  Namen ein"
+
+#: highlight-and-share.php:381
+msgid "Show Facebook Option"
+msgstr "Facebook Option anzeigen"
+
+#: highlight-and-share.php:381
+msgid "Would you like to enable sharing via Facebook?"
+msgstr "Möchten Sie Inhalte auf Facebook teilen aktivieren?"
+
+#: highlight-and-share.php:383
+msgid "Shortlinks"
+msgstr "Shortlinks"
+
+#: highlight-and-share.php:383
+msgid ""
+"Please decide if you would like to use the default post URL or a shortened "
+"version."
+msgstr ""
+"Möchten Sie die Standard Beitrags-URL oder die Shortlink Version verwenden?"
+
+#: highlight-and-share.php:385
+msgctxt "Label - Where in the HTML document to search for text to capture"
+msgid "jQuery classes"
+msgstr "jQuery Klassen"
+
+#: highlight-and-share.php:385
+msgid ""
+"Enter jQuery classes to search for in the HTML.  You must comma-separate "
+"classes (e.g., entry-content,post,page)."
+msgstr ""
+"Tragen Sie die jQuery Klassen für die Suche im HTML ein. Die Klassen "
+"müssen Komma getrennt sein: (z.B. entry-content, post, page)."
+
+#: highlight-and-share.php:441
+msgctxt "Twitter username error"
+msgid "You have entered an incorrect Twitter username"
+msgstr "Sie haben einen ungültigen Twitter Namen eingetragen"
+
+#: highlight-and-share.php:450
+msgctxt "Invalid comma-separated values"
+msgid "You must enter valid comma-separated values for the content."
+msgstr "Sie müssen gültige, Komma getrennte Werte für den Inhalt eingetragen"
+
+#: highlight-and-share.php:532
+msgid "Enable Twitter Sharing?"
+msgstr "Auf Twitter teilen aktivieren?"
+
+#: highlight-and-share.php:556
+msgid "Enable Facebook Sharing?"
+msgstr "Auf Facebook teilen aktivieren?"
+
+#: highlight-and-share.php:580
+msgid "Enable Content?"
+msgstr "Inhalt aktivieren?"
+
+#: highlight-and-share.php:604
+msgid "Enable Excerpt?"
+msgstr "Inhaltsauszug aktivieren?"
+
+#: highlight-and-share.php:628
+msgid "Enable Shortlinks?"
+msgstr "Shortlinks aktivieren?"
+
+#~ msgctxt "Highlight and share text"
+#~ msgid "Highlight and share"
+#~ msgstr "Markieren und teilen"
