@@ -5,7 +5,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: Highlight and Share v1.0.0\n"
 "Report-Msgid-Bugs-To: Ronald Huereca <ronalfy@gmail.com>\n"
-"POT-Creation-Date: 2015-11-07 12:56-0600\n"
+"POT-Creation-Date: 2015-11-07 13:07-0600\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Ronald Huereca <ron@ronalfy.com>\n"
 "Language-Team: Ronald Huereca <ronalfy@gmail.com>\n"
@@ -103,7 +103,6 @@ msgid "Twitter Username"
 msgstr "Użytkownik Twittera"
 
 #: highlight-and-share.php:391
-#, fuzzy
 msgid "Enter Your Twitter Username"
 msgstr "Wpisz nazwę swojego użytnikownika na Twitterze"
 

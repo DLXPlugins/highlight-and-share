@@ -3,7 +3,7 @@ Contributors: ronalfy, bigwing
 Tags: quote, sharing, twitter, facebook, social
 Requires at least: 3.5
 Tested up to: 4.4
-Stable tag: 1.2.5
+Stable tag: 1.2.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -94,6 +94,10 @@ So far, the latest versions of Chrome, Firefox, and Safari.   Works for IE9+
 
 == Changelog ==
 
+= 1.2.7
+* Released 2015-11-08
+* Fixing polish translation
+
 = 1.2.5 =
 * Released 2015-11-08
 * Added Polish translation
@@ -131,6 +135,9 @@ So far, the latest versions of Chrome, Firefox, and Safari.   Works for IE9+
 * Initial release on WordPress.org
 
 == Upgrade Notice ==
+
+= 1.2.7 =
+Fixing Polish translation
 
 = 1.2.5 =
 Added Polish translation and minified scripts
