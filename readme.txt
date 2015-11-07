@@ -3,7 +3,7 @@ Contributors: ronalfy, bigwing
 Tags: quote, sharing, twitter, facebook, social
 Requires at least: 3.5
 Tested up to: 4.4
-Stable tag: 1.2.1
+Stable tag: 1.2.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 
@@ -45,6 +45,7 @@ If you like this plugin, please help spread the word.  Rate the plugin.  Write a
 
 <ul>
 <li>German - Thanks <a href="https://wordpress.org/support/profile/tadesse">Tadesse</a></li>
+<li>Polish - Thanks <a href="https://wordpress.org/support/profile/grzegorzjanoszka">Grzegorz Janoszka</a></li>
 </ul>
 
 If you would like to contribute a translation, please leave a support request with a link to your translation  or <a href="http://www.ronalfy.com/contact/">get in touch</a>.
@@ -93,6 +94,11 @@ So far, the latest versions of Chrome, Firefox, and Safari.   Works for IE9+
 
 == Changelog ==
 
+= 1.2.5 =
+* Released 2015-11-08
+* Added Polish translation
+* Added minified scripts
+
 = 1.2.1 =
 * Updated 2015-10-29
 * Testing for WordPress 4.4
@@ -125,6 +131,9 @@ So far, the latest versions of Chrome, Firefox, and Safari.   Works for IE9+
 * Initial release on WordPress.org
 
 == Upgrade Notice ==
+
+= 1.2.5 =
+Added Polish translation and minified scripts
 
 = 1.2.1 =
 WordPress 4.4 preparation. Added German translation.
