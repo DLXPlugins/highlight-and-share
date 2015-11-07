@@ -220,7 +220,13 @@ class Highlight_And_Share {
 			if ( wp_is_mobile() && apply_filters( 'has_enable_mobile', true ) ) { 
 				$deps[] = 'jquery.mobile';	
 			}
-			wp_enqueue_script( 'highlight-and-share', $this->get_plugin_url( 'js/highlight-and-share.js' ), $deps, '20150316', true );
+			$main_script_uri = $this->get_plugin_url( 'js/highlight-and-share.min.js' );
+            if ( defined( 'SCRIPT_DEBUG' ) ) {
+            	if ( SCRIPT_DEBUG == true ) {
+            		$main_script_uri = $this->get_plugin_url( 'js/highlight-and-share.js' );
+            	}
+            }
+			wp_enqueue_script( 'highlight-and-share', $main_script_uri, $deps, '20150316', true );
 
 			/**Build JSON Object**/
 			$settings = $this->get_plugin_options();
@@ -303,9 +309,15 @@ class Highlight_And_Share {
 	 * @see init
 	 *
 	 */
-	public function add_scripts_mobile() {
-		wp_enqueue_script( 'jquery.mobile', $this->get_plugin_url( 'js/jquery.mobile.custom.js' ), array( 'jquery' ), '1.4.5', true );	
-	}
+    public function add_scripts_mobile() {
+        $main_script_uri = $this->get_plugin_url( 'js/jquery.mobile.custom.min.js' );
+        if ( defined( 'SCRIPT_DEBUG' ) ) {
+    		if ( SCRIPT_DEBUG == true ) {
+    			$main_script_uri = $this->get_plugin_url( 'js/jquery.mobile.custom.js' );
+    		}
+        }
+        wp_enqueue_script( 'jquery.mobile', $main_script_uri, array( 'jquery' ), '1.4.5', true );	
+    }
 	
 	/**
 	 * Initialize options page
