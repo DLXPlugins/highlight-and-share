@@ -394,6 +394,12 @@ class Highlight_And_Share {
 		
 		add_settings_section( 'has-facebook', _x( 'Facebook Settings', 'plugin settings heading' , 'highlight-and-share' ), array( $this, 'settings_section' ), 'highlight-and-share' );
 		
+		add_settings_section( 'has-linkedin', _x( 'LinkedIn Settings', 'plugin settings heading' , 'highlight-and-share' ), array( $this, 'settings_section' ), 'highlight-and-share' );
+		
+		add_settings_section( 'has-pinterest', _x( 'Pinterest Settings', 'plugin settings heading' , 'highlight-and-share' ), array( $this, 'settings_section' ), 'highlight-and-share' );
+		
+		add_settings_section( 'has-email', _x( 'E-mail Settings', 'plugin settings heading' , 'highlight-and-share' ), array( $this, 'settings_section' ), 'highlight-and-share' );
+		
 		add_settings_section( 'has-shortlink', _x( 'Post URL Settings', 'plugin settings heading' , 'highlight-and-share' ), array( $this, 'settings_section' ), 'highlight-and-share' );
 		
 		add_settings_section( 'has-advanced', _x( 'Advanced', 'plugin settings heading' , 'highlight-and-share' ), array( $this, 'settings_section' ), 'highlight-and-share' );
@@ -405,6 +411,12 @@ class Highlight_And_Share {
 		add_settings_field( 'hightlight-and-share-excerpt-enable', __( 'Add to Excerpt Content', 'highlight-and-share' ), array( $this, 'add_settings_field_excerpt_enable' ), 'highlight-and-share', 'has-config', array( 'desc' => __( 'Would you like to add sharing to the excerpts?', 'highlight-and-share' ) ) );
 		
 		add_settings_field( 'hightlight-and-share-twitter-enable', __( 'Show Twitter Option', 'highlight-and-share' ), array( $this, 'add_settings_field_twitter_enable' ), 'highlight-and-share', 'has-twitter', array( 'desc' => __( 'Would you like to enable sharing via Twitter?', 'highlight-and-share' ) ) );
+		
+		add_settings_field( 'hightlight-and-share-linkedin-enable', __( 'Show LinkedIn Option', 'highlight-and-share' ), array( $this, 'add_settings_field_linkedin_enable' ), 'highlight-and-share', 'has-linkedin', array( 'desc' => __( 'Would you like to enable sharing via LinkedIn?', 'highlight-and-share' ) ) );
+		
+		add_settings_field( 'hightlight-and-share-pinterest-enable', __( 'Show Pinterest Option', 'highlight-and-share' ), array( $this, 'add_settings_field_pinterest_enable' ), 'highlight-and-share', 'has-pinterest', array( 'desc' => __( 'Would you like to enable sharing via Pinterest?', 'highlight-and-share' ) ) );
+		
+		add_settings_field( 'hightlight-and-share-email-enable', __( 'Show E-mail Option', 'highlight-and-share' ), array( $this, 'add_settings_field_email_enable' ), 'highlight-and-share', 'has-email', array( 'desc' => __( 'Would you like to enable sharing via E-mail?', 'highlight-and-share' ) ) );
 		
 		add_settings_field( 'hightlight-and-share-twitter-handle', __( 'Twitter Username', 'highlight-and-share' ), array( $this, 'add_settings_field_twitter' ), 'highlight-and-share', 'has-twitter', array( 'label_for' => 'hightlight-and-share-twitter-handle', 'desc' => __( 'Enter Your Twitter Username', 'highlight-and-share' ) ) );
 		
@@ -586,6 +598,78 @@ class Highlight_And_Share {
 		$enable_twitter = isset( $settings[ 'show_twitter' ] ) ? (bool)$settings[ 'show_twitter' ] : true;
 		echo '<input name="highlight-and-share[show_twitter]" value="off" type="hidden" />';
 		printf( '<input id="has-show-twitter" type="checkbox" name="highlight-and-share[show_twitter]" value="on" %s />&nbsp;<label for="has-show-twitter">%s</label>', checked( true, $enable_twitter, false ), __( 'Enable Twitter Sharing?', 'highlight-and-share' ) );
+	}
+	
+	/**
+	 * Add LinkedIn Option for Sharing
+	 *
+	 * Output checkbox for displaying LinkedIn sharing.
+	 *
+	 * @since 2.0.0
+	 * @access public
+	 *
+	 * @see init_admin_settings
+	 *
+	 * @param array $args {
+	 		@type string $label_for Settings label and ID.
+	
+	 		@type string $desc Description for the setting.
+	 		
+	 }
+	 */
+	public function add_settings_field_linkedin_enable( $args = array() ) {
+		$settings = $this->get_plugin_options();
+		$linkedin = isset( $settings[ 'show_linkedin' ] ) ? (bool)$settings[ 'show_linkedin' ] : true;
+		echo '<input name="highlight-and-share[show_linkedin]" value="off" type="hidden" />';
+		printf( '<input id="has-show-linkedin" type="checkbox" name="highlight-and-share[show_linkedin]" value="on" %s />&nbsp;<label for="has-show-linkedin">%s</label>', checked( true, $linkedin, false ), __( 'Enable LinkedIn Sharing?', 'highlight-and-share' ) );
+	}
+	
+	/**
+	 * Add Pinterest Option for Sharing
+	 *
+	 * Output checkbox for displaying Pinterest sharing.
+	 *
+	 * @since 2.0.0
+	 * @access public
+	 *
+	 * @see init_admin_settings
+	 *
+	 * @param array $args {
+	 		@type string $label_for Settings label and ID.
+	
+	 		@type string $desc Description for the setting.
+	 		
+	 }
+	 */
+	public function add_settings_field_pinterest_enable( $args = array() ) {
+		$settings = $this->get_plugin_options();
+		$pinterest = isset( $settings[ 'show_pinterest' ] ) ? (bool)$settings[ 'show_pinterest' ] : true;
+		echo '<input name="highlight-and-share[show_pinterest]" value="off" type="hidden" />';
+		printf( '<input id="has-show-pinterest" type="checkbox" name="highlight-and-share[show_pinterest]" value="on" %s />&nbsp;<label for="has-show-pinterest">%s</label>', checked( true, $pinterest, false ), __( 'Enable Pinterest Sharing?', 'highlight-and-share' ) );
+	}
+	
+	/**
+	 * Add E-mail Option for Sharing
+	 *
+	 * Output checkbox for displaying E-mail sharing.
+	 *
+	 * @since 2.0.0
+	 * @access public
+	 *
+	 * @see init_admin_settings
+	 *
+	 * @param array $args {
+	 		@type string $label_for Settings label and ID.
+	
+	 		@type string $desc Description for the setting.
+	 		
+	 }
+	 */
+	public function add_settings_field_email_enable( $args = array() ) {
+		$settings = $this->get_plugin_options();
+		$email = isset( $settings[ 'show_email' ] ) ? (bool)$settings[ 'show_email' ] : true;
+		echo '<input name="highlight-and-share[show_email]" value="off" type="hidden" />';
+		printf( '<input id="has-show-email" type="checkbox" name="highlight-and-share[show_email]" value="on" %s />&nbsp;<label for="has-show-email">%s</label>', checked( true, $email, false ), __( 'Enable E-mail Sharing?', 'highlight-and-share' ) );
 	}
 	
 	/**
