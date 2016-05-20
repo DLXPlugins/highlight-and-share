@@ -4,7 +4,7 @@ jQuery( document ).ready( function( $ ) {
 	};
 	
 	var has_load_html = function() {
-		var html = '';
+		var html = '<div class="highlight-and-share-wrapper">';
 		if ( highlight_and_share.show_twitter && '' != highlight_and_share.twitter_username ) {
     		if ( highlight_and_share.icons == true ) {
         		html += '<div class="has_tweet_template" style="display: none;"><a href="https://twitter.com/intent/tweet?via=%username%&url=%url%&text=%text%" target="_blank"><i class="fa fa-twitter"></i>&nbsp;' + highlight_and_share.tweet_text + '</a></div>';
@@ -28,6 +28,15 @@ jQuery( document ).ready( function( $ ) {
                 html += '<div class="has_facebook_template" style="display: none;"><a href="https://www.facebook.com/sharer/sharer.php?u=%url%&t=%title%" target="_blank"><i class="fa fa-facebook"></i></a></div>';
             }
 		}
+		if ( highlight_and_share.show_linkedin ) {
+    		if ( highlight_and_share.icons == true ) {
+    			//Note, you must be on a publicly accesible URL to use this button
+    			html += '<div class="has_linkedin_template" style="display: none;"><a href="https://www.linkedin.com/shareArticle?mini=true&url=%url%&title=%title%" target="_blank"><i class="fa fa-linkedin"></i>&nbsp;' + highlight_and_share.linkedin_text + '</a></div>';
+            } else {
+                html += '<div class="has_linkedin_template" style="display: none;"><a href="https://www.linkedin.com/shareArticle?mini=true&url=%url%&title=%title%" target="_blank"><i class="fa fa-linkedin"></i></a></div>';
+            }
+		}
+		html += '</div><!-- #highlight-and-share-wrapper -->';
 		$( 'body' ).append( html );
 	};
 	

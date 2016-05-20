@@ -300,6 +300,9 @@ class Highlight_And_Share {
 			//Text to display
 			$json_arr[ 'tweet_text' ] = apply_filters( 'has_twitter_text', _x( 'Tweet', 'Twitter share text', 'highlight-and-share' ) );
 			$json_arr[ 'facebook_text' ] = apply_filters( 'has_facebook_text', _x( 'Share', 'Facebook share text', 'highlight-and-share' ) );
+			$json_arr[ 'linkedin_text' ] = apply_filters( 'has_linkedin_text', _x( 'LinkedIn', 'LinkedIn share text', 'highlight-and-share' ) );
+			$json_arr[ 'pinterest_text' ] = apply_filters( 'has_pinterest_text', _x( 'Pinterest', 'Pinterest share text', 'highlight-and-share' ) );
+			$json_arr[ 'email_text' ] = apply_filters( 'has_email_text', _x( 'E-mail', 'E-mail share text', 'highlight-and-share' ) );
 			
 			//Icons
 			$json_arr[ 'icons' ] = apply_filters( 'has_icons', $settings[ 'icons' ] );
