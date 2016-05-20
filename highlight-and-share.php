@@ -80,15 +80,18 @@ class Highlight_And_Share {
 	} //end init
 	
 	public function wp_loaded() {
+    	//Disable if on a feed
+		if ( is_feed() ) return;
+    	
 		$settings = $this->get_plugin_options();
 		
 		//Skip loading if both twitter/facebook are turned off
 		$show_facebook = (bool)apply_filters( 'has_show_facebook', $settings[ 'show_facebook' ] );
 		$show_twitter = (bool)apply_filters( 'has_show_twitter', $settings[ 'show_twitter' ] );
-		if ( !$show_facebook && !$show_twitter ) return;
-		
-		//Disable if on a feed
-		if ( is_feed() ) return;
+		$show_linkedin = (bool)apply_filters( 'has_show_linkedin', $settings[ 'show_linkedin' ] );
+		$show_pinterest = (bool)apply_filters( 'has_show_pinterest', $settings[ 'show_pinterest' ] );
+		$show_email = (bool)apply_filters( 'has_show_email', $settings[ 'show_email' ] );
+		if ( ! $show_facebook && ! $show_twitter && ! $show_linkedin && ! $show_pinterest && ! $show_email ) return;
 		
 		//Disable if mobile
 		if ( wp_is_mobile() ) {
@@ -237,6 +240,17 @@ class Highlight_And_Share {
 			
 			//Twitter
 			$json_arr[ 'show_twitter' ] = (bool)apply_filters( 'has_show_twitter', $settings[ 'show_twitter' ] );
+			
+			//Linked In
+			$json_arr[ 'show_linkedin' ] = (bool)apply_filters( 'has_show_linkedin', $settings[ 'show_linkedin' ] );
+			
+			//Pinterest
+			$json_arr[ 'show_pinterest' ] = (bool)apply_filters( 'has_show_pinterest', $settings[ 'show_pinterest' ] );
+			
+			//Email
+			$json_arr[ 'show_email' ] = (bool)apply_filters( 'has_show_email', $settings[ 'show_email' ] );
+			
+			//Twitter Username
 			$json_arr[ 'twitter_username' ] = trim( sanitize_text_field( apply_filters( 'has_twitter_username', $settings[ 'twitter' ] ) ) );
 			
 			//Override the filter if no username is present for twitter
@@ -287,6 +301,8 @@ class Highlight_And_Share {
 			$json_arr[ 'tweet_text' ] = apply_filters( 'has_twitter_text', _x( 'Tweet', 'Twitter share text', 'highlight-and-share' ) );
 			$json_arr[ 'facebook_text' ] = apply_filters( 'has_facebook_text', _x( 'Share', 'Facebook share text', 'highlight-and-share' ) );
 			
+			//Icons
+			$json_arr[ 'icons' ] = apply_filters( 'has_icons', $settings[ 'icons' ] );
 			//Localize
 			wp_localize_script( 'highlight-and-share', 'highlight_and_share', $json_arr );		
 			
@@ -371,7 +387,7 @@ class Highlight_And_Share {
 	 */
 	public function init_admin_settings() {
 		register_setting( 'highlight-and-share', 'highlight-and-share', array( $this, 'sanitization' ) );
-		
+		add_settings_section( 'has-display', _x( 'Display', 'plugin settings heading' , 'highlight-and-share' ), array( $this, 'settings_section' ), 'highlight-and-share' );
 		add_settings_section( 'has-config', _x( 'Content', 'plugin settings heading' , 'highlight-and-share' ), array( $this, 'settings_section' ), 'highlight-and-share' );
 		
 		add_settings_section( 'has-twitter', _x( 'Twitter Settings', 'plugin settings heading' , 'highlight-and-share' ), array( $this, 'settings_section' ), 'highlight-and-share' );
@@ -381,6 +397,8 @@ class Highlight_And_Share {
 		add_settings_section( 'has-shortlink', _x( 'Post URL Settings', 'plugin settings heading' , 'highlight-and-share' ), array( $this, 'settings_section' ), 'highlight-and-share' );
 		
 		add_settings_section( 'has-advanced', _x( 'Advanced', 'plugin settings heading' , 'highlight-and-share' ), array( $this, 'settings_section' ), 'highlight-and-share' );
+		
+		add_settings_field( 'hightlight-and-share-display-enable', __( 'Show Icons Only', 'highlight-and-share' ), array( $this, 'add_settings_field_display_enable' ), 'highlight-and-share', 'has-display', array( 'desc' => __( 'Show icons only. Recommended if you choose more than two options to show.', 'highlight-and-share' ) ) );
 		
 		add_settings_field( 'hightlight-and-share-content-enable', __( 'Add to Post Content', 'highlight-and-share' ), array( $this, 'add_settings_field_content_enable' ), 'highlight-and-share', 'has-config', array( 'desc' => __( 'Would you like to add sharing to the main content areas?', 'highlight-and-share' ) ) );
 		
@@ -443,6 +461,7 @@ class Highlight_And_Share {
 			}	
 			return $input;
 		}
+		//die( '<pre>' . print_r( $input, true ) );
 		//Settings are being saved.  Update.
 		foreach( $input as $key => $value ) {
 			if ( 'twitter' == $key ) {
@@ -461,7 +480,7 @@ class Highlight_And_Share {
 				} else {
 					add_settings_error( 'highlight-and-share', 'invalid_twitter', _x( 'You must enter valid comma-separated values for the content.', 'Invalid comma-separated values', 'highlight-and-share' ) );
 				}
-			} elseif( ( 'show_twitter' || 'show_facebook' || 'enable_content' || 'enable_excerpt' || 'shortlinks' ) == $key ) {
+			} elseif( ( 'show_twitter' || 'show_facebook' || 'enable_content' || 'enable_excerpt' || 'shortlinks' || 'icons' ) == $key ) {
 				if ( $input[ $key ] == 'on' ) {
 					$output[ $key ] = true;	
 				} else {
@@ -518,6 +537,31 @@ class Highlight_And_Share {
 		$js_content = isset( $settings[ 'twitter' ] ) ? $settings[ 'twitter' ] : '';
 		printf( '<p>%s</p>', esc_html( $args[ 'desc' ] ) );
 		printf( '<input id="%s" type="text" name="highlight-and-share[twitter]" value="%s" />', esc_attr( $args[ 'label_for' ] ), esc_attr( $js_content ) );
+	}
+	
+	/**
+	 * Option for displaying icons only
+	 *
+	 * Output icons only
+	 *
+	 * @since 2.0.0
+	 * @access public
+	 *
+	 * @see init_admin_settings
+	 *
+	 * @param array $args {
+	 		@type string $label_for Settings label and ID.
+	
+	 		@type string $desc Description for the setting.
+	 		
+	 }
+	 */
+	public function add_settings_field_display_enable( $args = array() ) {
+		$settings = $this->get_plugin_options();
+		$enable_icons = isset( $settings[ 'icons' ] ) ? (bool)$settings[ 'icons' ] : true;
+		echo '<input name="highlight-and-share[icons]" value="on" type="hidden" />';
+		printf( '<input id="has-show-icons" type="checkbox" name="highlight-and-share[icons]" value="off" %s />&nbsp;<label for="has-show-icons">%s</label>', checked( false, $enable_icons, false ), __( 'Enable Icons Only?', 'highlight-and-share' ) );
+		printf( '<div><em>%s</em></div>', esc_html( $args[ 'desc' ] ) );
 	}
 	
 	/**
@@ -659,18 +703,25 @@ class Highlight_And_Share {
 			$settings = $this->options;
 		}
 		
+		$defaults = array(
+			'js_content'     => '',
+			'twitter'        => '',
+			'show_twitter'   => true,
+			'show_facebook'  => true,
+			'show_linkedin'  => false,
+			'show_pinterest' => false,
+			'show_email'     => false,
+			'enable_content' => true,
+			'enable_excerpt' => true,
+			'shortlinks'     => false,
+			'icons'          => false,
+		);
+		
 		if ( false === $settings || !is_array( $settings ) ) {
-			$defaults = array(
-				'js_content' => '',
-				'twitter' => '',
-				'show_twitter' => true,
-				'show_facebook' => true,
-				'enable_content' => true,
-				'enable_excerpt' => true,
-				'shortlinks' => false
-			);
 			update_option( 'highlight-and-share', $defaults );
 			return $defaults;
+		} else {
+    		$settings = wp_parse_args( $settings, $defaults );
 		}
 		$this->options = $settings;
 		return $settings;
