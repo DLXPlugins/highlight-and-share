@@ -60,7 +60,80 @@ class Highlight_And_Share {
 		//* Localization Code */
 		load_plugin_textdomain( 'highlight-and-share', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 		
+		add_action( 'template_redirect', array( $this, 'maybe_show_email' ) );
+		
 	} //end constructor
+	
+	/**
+	 * Show the e-mail template
+	 *
+	 * Show the e-mail template
+	 *
+	 * @since 6.0.0
+	 * @access public
+	 *
+	 */
+	public function maybe_show_email() {
+    	if ( isset( $_GET[ 'action' ] ) && 'has_email' == $_GET[ 'action' ] &&  isset( $_GET[ 'nonce' ] ) ) {
+        	if ( ! wp_verify_nonce( $_GET[ 'nonce' ], 'has_email_option' ) ) {
+            	return;
+        	}
+        	?>
+        	<html>
+            	<head>
+                	<link rel='stylesheet' href='<?php echo esc_url( get_stylesheet_uri() ); ?>' type='text/css' media='all' />
+                	<script src="<?php echo esc_url( includes_url( '/js/jquery/jquery.js' ) ); ?>"></script>
+                	<style>
+                        body {
+                            padding: 20px;
+                        }	
+                    </style>
+                    <script>
+                        jQuery( document ).ready( function( $ ) {
+                           $( '#has_form' ).submit( function( e ) {
+                               e.preventDefault();
+                               ajax_object = {
+                                    action : 'has_form_submission',
+                                    _ajax  : $( '#_has_email_submission_nonce' ).val(),
+                                    title  : encodeURIComponent( $( '#title' ).val() ),
+                                    url    : encodeURIComponent( $( '#url' ).val() ),
+                                    name   : encodeURIComponent( $( '#your_name' ).val() ),
+                                    email  : encodeURIComponent( $( '#your_email' ).val() )  
+                               };
+                               console.log( ajax_object );
+                           } ); 
+                        } );    
+                    </script>
+
+            	</head>
+            	<body>
+                	<form method="POST" action="" id="has_form">
+                    	<?php
+                        wp_nonce_field( 'has_email_form_submission', '_has_email_submission_nonce', false, true );
+                        ?>
+                    	<div id="form-wrapper">
+                        	<div>
+                            	<input type="text" name="your_name" id="your_name" placeholder="<?php echo esc_attr( __( 'Your Name', 'highlight-and-share' ) ) ?>" /><br />
+                        	</div>
+                        	<br />
+                        	<div>
+                            	<input type="email" name="your_email" id="your_email" placeholder="<?php echo esc_attr( __( 'E-mail Address', 'highlight-and-share' ) ) ?>" /><br />
+                        	</div>
+
+                        	<br />
+                        	<input type="hidden" id="title" value="<?php echo esc_attr( urldecode( $_GET[ 'title' ] ) ); ?>" />
+                        	<input type="hidden" id="url" value="<?php echo esc_attr( urldecode( $_GET[ 'url' ] ) ); ?>" />
+                        	<div>
+                            	<input type="submit" name="submit" id="submit" value="<?php echo esc_attr( __( 'Submit', 'highlight-and-share' ) ); ?>" /><br />
+                        	</div>
+                    	</div><!-- #form-wrapper -->
+                	</form>
+            	</body>
+        	</html>
+        	<?php
+            exit();
+    	}
+	}
 	
 	/**
 	 * Get an error message
@@ -337,6 +410,8 @@ class Highlight_And_Share {
 			$url_email = add_query_arg( array(
 			    'action' => 'has_email',
 			    'nonce'  => wp_create_nonce( 'has_email_option' ),
+			    'title'  => '%title%',
+			    'url'    => '%url%'
             ),
                 home_url()
             );

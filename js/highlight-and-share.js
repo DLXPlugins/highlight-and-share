@@ -56,9 +56,9 @@ jQuery( document ).ready( function( $ ) {
 		if ( highlight_and_share.show_email ) {
     		if ( highlight_and_share.icons == true ) {
     			//Note, you must be on a publicly accesible URL to use this button
-    			html += '<div class="has_email" style="display: none;" data-type="linkedin"><a href="' + highlight_and_share.email_url + '" target="_blank"><i class="fa fa-email"></i>&nbsp;' + highlight_and_share.email_text + '</a></div>';
+    			html += '<div class="has_email" style="display: none;" data-type="email"><a href="' + highlight_and_share.email_url + '" target="_blank"><i class="fa fa-envelope"></i>&nbsp;' + highlight_and_share.email_text + '</a></div>';
             } else {
-                html += '<div class="has_linkedin" style="display: none;" data-type="linkedin"><a href="' + highlight_and_share.email_url + '" target="_blank"><i class="fa fa-email"></i></a></div>';
+                html += '<div class="has_linkedin" style="display: none;" data-type="email"><a href="' + highlight_and_share.email_url + '" target="_blank"><i class="fa fa-envelope"></i></a></div>';
             }
 		}
 		
@@ -121,7 +121,7 @@ jQuery( document ).ready( function( $ ) {
 	} );
 	$( 'body' ).on( 'click', '.has_email a', function( e ) {
 		e.preventDefault();
-    window.open( this.href,"email","width=575,height=430,toolbar=false,menubar=false,location=false,status=false");
+    window.open( this.href,"email","width=300,height=200,toolbar=false,menubar=false,location=false,status=false");
 		has_remove();
 	} );
 	
