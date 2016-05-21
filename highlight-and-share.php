@@ -18,6 +18,7 @@ WordPress SEO - Twitter/Facebook OpenGraph data - https://wordpress.org/plugins/
 class Highlight_And_Share {
 	private static $instance = null;
 	private $options = false;
+	private $error_email = false;
 		
 	/**
 	 * Return an instance of the class
@@ -49,6 +50,11 @@ class Highlight_And_Share {
 		add_action( 'init', array( $this, 'init' ), 9 );
 		
 		add_action( 'wp', array( $this, 'wp_loaded' ), 15 );
+		
+		// Get errors for email
+		$errors[ 'could_not_send' ] = esc_html__( 'Could not send the e-mail', 'highlight-and-share' );
+		$errors[ 'invalid_email' ] = esc_html__( 'Not a valid e-mail address', 'highlight-and-share' );
+		$errors[ 'email_sent' ] = esc_html__( 'Your email has been sent', 'highlight-and-share' );
 			
 		//* Localization Code */
 		load_plugin_textdomain( 'highlight-and-share', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
@@ -306,12 +312,16 @@ class Highlight_And_Share {
 			
 			//Icons
 			$json_arr[ 'icons' ] = apply_filters( 'has_icons', $settings[ 'icons' ] );
+			
+			// Nonce for e-mail
+			$json_arr[ 'nonce' ] = wp_create_nonce( 'has_email_option' );
+			
 			//Localize
 			wp_localize_script( 'highlight-and-share', 'highlight_and_share', $json_arr );		
 			
 			//Add CSS
 			if ( apply_filters( 'has_load_css', true ) ) {
-				wp_enqueue_style( 'highlight-and-share', $this->get_plugin_url( 'css/highlight-and-share.css' ), array(), '20141203', 'all' );
+				wp_enqueue_style( 'highlight-and-share', $this->get_plugin_url( 'css/highlight-and-share.css' ), array(), '20160521', 'all' );
 			}	
 			
 			
