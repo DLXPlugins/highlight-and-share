@@ -58,7 +58,7 @@ jQuery( document ).ready( function( $ ) {
     			//Note, you must be on a publicly accesible URL to use this button
     			html += '<div class="has_email" style="display: none;" data-type="email"><a href="' + highlight_and_share.email_url + '" target="_blank"><i class="fa fa-envelope"></i>&nbsp;' + highlight_and_share.email_text + '</a></div>';
             } else {
-                html += '<div class="has_linkedin" style="display: none;" data-type="email"><a href="' + highlight_and_share.email_url + '" target="_blank"><i class="fa fa-envelope"></i></a></div>';
+                html += '<div class="has_email" style="display: none;" data-type="email"><a href="' + highlight_and_share.email_url + '" target="_blank"><i class="fa fa-envelope"></i></a></div>';
             }
 		}
 		
