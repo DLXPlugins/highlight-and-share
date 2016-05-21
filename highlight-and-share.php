@@ -361,12 +361,7 @@ class Highlight_And_Share {
 			if ( wp_is_mobile() && apply_filters( 'has_enable_mobile', true ) ) { 
 				$deps[] = 'jquery.mobile';	
 			}
-			$main_script_uri = $this->get_plugin_url( 'js/highlight-and-share.min.js' );
-            if ( defined( 'SCRIPT_DEBUG' ) ) {
-            	if ( SCRIPT_DEBUG == true ) {
-            		$main_script_uri = $this->get_plugin_url( 'js/highlight-and-share.js' );
-            	}
-            }
+			$main_script_uri = $this->get_plugin_url( 'js/highlight-and-share.js' );
 			wp_enqueue_script( 'highlight-and-share', $main_script_uri, $deps, '20160521', true );
 
 			/**Build JSON Object**/
