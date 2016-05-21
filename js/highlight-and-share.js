@@ -39,7 +39,7 @@ jQuery( document ).ready( function( $ ) {
     			//Note, you must be on a publicly accesible URL to use this button
     			html += '<div class="has_linkedin" style="display: none;" data-type="linkedin"><a href="https://www.linkedin.com/shareArticle?mini=true&url=%url%&title=%title%" target="_blank"><i class="fa fa-linkedin"></i>&nbsp;' + highlight_and_share.linkedin_text + '</a></div>';
             } else {
-                html += '<div class="has_linkedin has_template" style="display: none;" data-type="linkedin"><a href="https://www.linkedin.com/shareArticle?mini=true&url=%url%&title=%title%" target="_blank"><i class="fa fa-linkedin"></i></a></div>';
+                html += '<div class="has_linkedin" style="display: none;" data-type="linkedin"><a href="https://www.linkedin.com/shareArticle?mini=true&url=%url%&title=%title%" target="_blank"><i class="fa fa-linkedin"></i></a></div>';
             }
 		}
 		html += '</div><!-- #highlight-and-share-wrapper -->';
