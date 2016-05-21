@@ -18,7 +18,7 @@ WordPress SEO - Twitter/Facebook OpenGraph data - https://wordpress.org/plugins/
 class Highlight_And_Share {
 	private static $instance = null;
 	private $options = false;
-	private $error_email = false;
+	private $errors = false;
 		
 	/**
 	 * Return an instance of the class
@@ -52,17 +52,48 @@ class Highlight_And_Share {
 		add_action( 'wp', array( $this, 'wp_loaded' ), 15 );
 		
 		// Get errors for email
-		$errors[ 'could_not_send' ] = esc_html__( 'Could not send the e-mail', 'highlight-and-share' );
-		$errors[ 'invalid_email' ] = esc_html__( 'Not a valid e-mail address', 'highlight-and-share' );
-		$errors[ 'email_sent' ] = esc_html__( 'Your email has been sent', 'highlight-and-share' );
-		$errors[ 'nonce_invalid' ] = esc_html__( 'Could not process your request', 'highlight-and-share' );
+		$this->errors[ 'could_not_send' ] = esc_html__( 'Could not send the e-mail', 'highlight-and-share' );
+		$this->errors[ 'invalid_email' ] = esc_html__( 'Not a valid e-mail address', 'highlight-and-share' );
+		$this->errors[ 'email_sent' ] = esc_html__( 'Your email has been sent', 'highlight-and-share' );
+		$this->errors[ 'nonce_invalid' ] = esc_html__( 'Could not process your request', 'highlight-and-share' );
+		$this->errors[ 'name' ] = esc_html__( 'You must supply a name', 'highlight-and-share' );
 			
 		//* Localization Code */
 		load_plugin_textdomain( 'highlight-and-share', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 		
 		add_action( 'template_redirect', array( $this, 'maybe_show_email' ) );
 		
+		// Ajax for form submissions
+		add_action( 'wp_ajax_has_form_submission', array( $this, 'ajax_send_has_email' ) );
+		add_action( 'wp_ajax_nopriv_has_form_submission', array( $this, 'ajax_send_has_email' ) );
+		
 	} //end constructor
+	
+	public function ajax_send_has_email() {
+    	check_ajax_referer( 'has_email_form_submission', '_ajax' );
+    	$email = trim( urldecode( $_POST[ 'email' ] ) );
+    	$name = trim( urldecode( $_POST[ 'name' ] ) );
+    	$url = urldecode( $_POST[ 'url' ] );
+    	$title = urldecode( $_POST[ 'title' ] );
+    	$return = array();
+    	if ( empty( $name ) ) {
+        	$return[ 'error' ] = $this->get_error( 'name' );
+        	die( json_encode( $return ) );
+    	}
+    	if ( ! is_email( $email ) ) {
+        	$return[ 'error' ] = $this->get_error( 'invalid_email' );
+        	die( json_encode( $return ) );
+    	}
+    	
+    	$message = sprintf( '%s wants to share a link with you.', esc_html( $name ) ) . "\n\n";
+    	$message .= sprintf( '%s', esc_html( $title ) ) . "\n\n";
+    	$message .= sprintf( '%s', esc_html( $url ) ) . "\n\n";
+    	
+    	error_log( $message );
+    	wp_mail( $email, __( 'Someone wants to share a link with you', 'highlight-and-share' ), $message );
+    	
+    	
+	}
 	
 	/**
 	 * Show the e-mail template
@@ -92,15 +123,22 @@ class Highlight_And_Share {
                         jQuery( document ).ready( function( $ ) {
                            $( '#has_form' ).submit( function( e ) {
                                e.preventDefault();
-                               ajax_object = {
+                                ajax_object = {
                                     action : 'has_form_submission',
                                     _ajax  : $( '#_has_email_submission_nonce' ).val(),
                                     title  : encodeURIComponent( $( '#title' ).val() ),
                                     url    : encodeURIComponent( $( '#url' ).val() ),
                                     name   : encodeURIComponent( $( '#your_name' ).val() ),
                                     email  : encodeURIComponent( $( '#your_email' ).val() )  
-                               };
-                               console.log( ajax_object );
+                                };
+                                $.post( '<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>', ajax_object, function( response ) {
+                                        if ( response.error ) {
+                                            alert( response.error );
+                                            return;
+                                        }
+                                        $( '#has_form' ).hide();
+                                        $( 'body' ).append( '<p>E-mail sent</p>' );
+                                }, 'json' );
                            } ); 
                         } );    
                     </script>
