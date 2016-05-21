@@ -801,7 +801,7 @@ class Highlight_And_Share {
 			'enable_content' => true,
 			'enable_excerpt' => true,
 			'shortlinks'     => false,
-			'icons'          => false,
+			'icons'          => true,
 		);
 		
 		if ( false === $settings || !is_array( $settings ) ) {
