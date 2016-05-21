@@ -55,11 +55,31 @@ class Highlight_And_Share {
 		$errors[ 'could_not_send' ] = esc_html__( 'Could not send the e-mail', 'highlight-and-share' );
 		$errors[ 'invalid_email' ] = esc_html__( 'Not a valid e-mail address', 'highlight-and-share' );
 		$errors[ 'email_sent' ] = esc_html__( 'Your email has been sent', 'highlight-and-share' );
+		$errors[ 'nonce_invalid' ] = esc_html__( 'Could not process your request', 'highlight-and-share' );
 			
 		//* Localization Code */
 		load_plugin_textdomain( 'highlight-and-share', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
 		
 	} //end constructor
+	
+	/**
+	 * Get an error message
+	 *
+	 * Get an error message based on a passed key
+	 *
+	 * @since 6.0.0
+	 * @access public
+	 *
+     * @param  string key to retrieve
+	 * @return string key value
+	 */
+	public function get_error( $key ) {
+    	if ( isset( $this->errors[ $key ] ) ) {
+        	return $this->errors[ $key ];
+    	} else {
+        	return '';
+    	}
+	}
 	
 	/**
 	 * Main plugin initialization
@@ -313,8 +333,14 @@ class Highlight_And_Share {
 			//Icons
 			$json_arr[ 'icons' ] = apply_filters( 'has_icons', $settings[ 'icons' ] );
 			
-			// Nonce for e-mail
-			$json_arr[ 'nonce' ] = wp_create_nonce( 'has_email_option' );
+			// URL for e-mail
+			$url_email = add_query_arg( array(
+			    'action' => 'has_email',
+			    'nonce'  => wp_create_nonce( 'has_email_option' ),
+            ),
+                home_url()
+            );
+			$json_arr[ 'email_url' ] = esc_url_raw( $url_email );
 			
 			//Localize
 			wp_localize_script( 'highlight-and-share', 'highlight_and_share', $json_arr );		

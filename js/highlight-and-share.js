@@ -42,6 +42,7 @@ jQuery( document ).ready( function( $ ) {
                 html += '<div class="has_linkedin" style="display: none;" data-type="linkedin"><a href="https://www.linkedin.com/shareArticle?mini=true&url=%url%&title=%title%" target="_blank"><i class="fa fa-linkedin"></i></a></div>';
             }
 		}
+		
 		//={URI-encoded URL of the page to pin}&media={URI-encoded URL of the image to pin}&description={optional URI-encoded description}"
 		if ( highlight_and_share.show_pinterest ) {
     		if ( highlight_and_share.icons == true ) {
@@ -49,6 +50,15 @@ jQuery( document ).ready( function( $ ) {
     			html += '<div class="has_pinterest" style="display: none;" data-type="pinterest"><a href="http://pinterest.com/pin/create/button/?url=%url%&description=%title%" target="_blank"><i class="fa fa-pinterest"></i>&nbsp;' + highlight_and_share.pinterest_text + '</a></div>';
             } else {
                 html += '<div class="has_pinterest" style="display: none;" data-type="pinterest"><a href="http://pinterest.com/pin/create/button/?url=%url%&description=%title%" target="_blank"><i class="fa fa-pinterest"></i></a></div>';
+            }
+		}
+		
+		if ( highlight_and_share.show_email ) {
+    		if ( highlight_and_share.icons == true ) {
+    			//Note, you must be on a publicly accesible URL to use this button
+    			html += '<div class="has_email" style="display: none;" data-type="linkedin"><a href="' + highlight_and_share.email_url + '" target="_blank"><i class="fa fa-email"></i>&nbsp;' + highlight_and_share.email_text + '</a></div>';
+            } else {
+                html += '<div class="has_linkedin" style="display: none;" data-type="linkedin"><a href="' + highlight_and_share.email_url + '" target="_blank"><i class="fa fa-email"></i></a></div>';
             }
 		}
 		
@@ -107,6 +117,11 @@ jQuery( document ).ready( function( $ ) {
 	$( 'body' ).on( 'click', '.has_pinterest a', function( e ) {
 		e.preventDefault();
     window.open( this.href,"pinterest","width=575,height=430,toolbar=false,menubar=false,location=false,status=false");
+		has_remove();
+	} );
+	$( 'body' ).on( 'click', '.has_email a', function( e ) {
+		e.preventDefault();
+    window.open( this.href,"email","width=575,height=430,toolbar=false,menubar=false,location=false,status=false");
 		has_remove();
 	} );
 	
