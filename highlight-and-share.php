@@ -91,6 +91,7 @@ class Highlight_And_Share {
     	
     	error_log( $message );
     	wp_mail( $email, __( 'Someone wants to share a link with you', 'highlight-and-share' ), $message );
+    	die( json_encode( array() ) );
     	
     	
 	}
