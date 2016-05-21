@@ -42,6 +42,16 @@ jQuery( document ).ready( function( $ ) {
                 html += '<div class="has_linkedin" style="display: none;" data-type="linkedin"><a href="https://www.linkedin.com/shareArticle?mini=true&url=%url%&title=%title%" target="_blank"><i class="fa fa-linkedin"></i></a></div>';
             }
 		}
+		//={URI-encoded URL of the page to pin}&media={URI-encoded URL of the image to pin}&description={optional URI-encoded description}"
+		if ( highlight_and_share.show_pinterest ) {
+    		if ( highlight_and_share.icons == true ) {
+    			//Note, you must be on a publicly accesible URL to use this button
+    			html += '<div class="has_pinterest" style="display: none;" data-type="pinterest"><a href="http://pinterest.com/pin/create/button/?url=%url%&description=%title%" target="_blank"><i class="fa fa-pinterest"></i>&nbsp;' + highlight_and_share.pinterest_text + '</a></div>';
+            } else {
+                html += '<div class="has_pinterest" style="display: none;" data-type="pinterest"><a href="http://pinterest.com/pin/create/button/?url=%url%&description=%title%" target="_blank"><i class="fa fa-pinterest"></i></a></div>';
+            }
+		}
+		
 		html += '</div><!-- #highlight-and-share-wrapper -->';
 		$( 'body' ).append( html );
 	};

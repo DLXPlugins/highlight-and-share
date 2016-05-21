@@ -25,6 +25,9 @@
 .highlight-and-share-wrapper div.has_linkedin {
     background: #0085AE;
 }
+.highlight-and-share-wrapper div.has_pinterest {
+    background: #CC2127;
+}
 .highlight-and-share-wrapper div.has_twitter:hover {
 	background: #00aced;
 }
@@ -34,19 +37,16 @@
 .highlight-and-share-wrapper div.has_linkedin:hover {
     background: #23a0c7;
 }
+.highlight-and-share-wrapper div.has_pinterest:hover {
+    background: #d93238;
+}
 .has_twitter:hover a,
 .has_facebook:hover a {
 	color: #FFF;
 }
-.has_twitter a,
-.has_twitter a:hover,
-.has_twitter a:visited,
-.has_facebook a,
-.has_facebook a:hover,
-.has_facebook a:visited,
-.has_linkedin a,
-.has_linkedin a:hover,
-.has_linkedin a:visited {
+.highlight-and-share-wrapper a,
+.highlight-and-share-wrapper a:hover,
+.highlight-and-share-wrapper a:visited {
 	font-family: 'FranklinGothic', Helvetica, sans-serif;
 	font-weight: bold;
 	text-transform: uppercase;
