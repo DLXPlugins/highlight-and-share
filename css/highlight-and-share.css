@@ -2,7 +2,6 @@
     display: none;
     width: 0;
     height: 0;
-    z-index: 10000;
 }
 .highlight-and-share-wrapper .fa {
     font-size: 14px;
