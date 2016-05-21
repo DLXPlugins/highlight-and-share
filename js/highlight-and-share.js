@@ -1,39 +1,45 @@
 jQuery( document ).ready( function( $ ) {
 	var has_remove = function() {
-		$( '.has-tweet,.has-facebook' ).remove();
+		$( '.highlight-and-share-wrapper:visible' ).remove();
+		console.log( 'heyyyyy' );
 	};
 	
 	var has_load_html = function() {
+    	if ( highlight_and_share.icons == true ) {
+        	var html = '<div class="highlight-and-share-wrapper" style="display: none">d';
+    	} else {
+        	var html = '<div class="highlight-and-share-wrapper has-icons" style="display: none">d';
+    	}
 		var html = '<div class="highlight-and-share-wrapper">';
 		if ( highlight_and_share.show_twitter && '' != highlight_and_share.twitter_username ) {
     		if ( highlight_and_share.icons == true ) {
-        		html += '<div class="has_tweet_template" style="display: none;"><a href="https://twitter.com/intent/tweet?via=%username%&url=%url%&text=%text%" target="_blank"><i class="fa fa-twitter"></i>&nbsp;' + highlight_and_share.tweet_text + '</a></div>';
+        		html += '<div class="has_twitter" style="display: none;" data-type="twitter"><a href="https://twitter.com/intent/tweet?via=%username%&url=%url%&text=%text%" target="_blank"><i class="fa fa-twitter"></i>&nbsp;' + highlight_and_share.tweet_text + '</a></div>';
     		} else {
-        		html += '<div class="has_tweet_template" style="display: none;"><a href="https://twitter.com/intent/tweet?via=%username%&url=%url%&text=%text%" target="_blank"><i class="fa fa-twitter"></i></a></div>';
+        		html += '<div class="has_twitter" style="display: none;" data-type="twitter"><a href="https://twitter.com/intent/tweet?via=%username%&url=%url%&text=%text%" target="_blank"><i class="fa fa-twitter"></i></a></div>';
 
     		}
 			
 		} else if( highlight_and_share.show_twitter && '' == highlight_and_share.twitter_username ) {
     		if ( highlight_and_share.icons == true ) {
-			    html += '<div class="has_tweet_template" style="display: none;"><a href="https://twitter.com/intent/tweet?url=%url%&text=%text%" target="_blank"><i class="fa fa-twitter"></i>&nbsp;' + highlight_and_share.tweet_text + '</a></div>';
+			    html += '<div class="has_twitter" style="display: none;" data-type="twitter"><a href="https://twitter.com/intent/tweet?url=%url%&text=%text%" target="_blank"><i class="fa fa-twitter"></i>&nbsp;' + highlight_and_share.tweet_text + '</a></div>';
 			 } else {
-    			html += '<div class="has_tweet_template" style="display: none;"><a href="https://twitter.com/intent/tweet?url=%url%&text=%text%" target="_blank"><i class="fa fa-twitter"></i></a></div>'; 
+    			html += '<div class="has_twitter" style="display: none;" data-type="twitter"><a href="https://twitter.com/intent/tweet?url=%url%&text=%text%" target="_blank"><i class="fa fa-twitter"></i></a></div>'; 
 			 }
 		}
 		if ( highlight_and_share.show_facebook ) {
     		if ( highlight_and_share.icons == true ) {
     			//Note, you must be on a publicly accesible URL to use this button
-    			html += '<div class="has_facebook_template" style="display: none;"><a href="https://www.facebook.com/sharer/sharer.php?u=%url%&t=%title%" target="_blank"><i class="fa fa-facebook"></i>&nbsp;' + highlight_and_share.facebook_text + '</a></div>';
+    			html += '<div class="has_facebook" style="display: none;" data-type="facebook"><a href="https://www.facebook.com/sharer/sharer.php?u=%url%&t=%title%" target="_blank"><i class="fa fa-facebook"></i>&nbsp;' + highlight_and_share.facebook_text + '</a></div>';
             } else {
-                html += '<div class="has_facebook_template" style="display: none;"><a href="https://www.facebook.com/sharer/sharer.php?u=%url%&t=%title%" target="_blank"><i class="fa fa-facebook"></i></a></div>';
+                html += '<div class="has_facebook" style="display: none;" data-type="facebook"><a href="https://www.facebook.com/sharer/sharer.php?u=%url%&t=%title%" target="_blank"><i class="fa fa-facebook"></i></a></div>';
             }
 		}
 		if ( highlight_and_share.show_linkedin ) {
     		if ( highlight_and_share.icons == true ) {
     			//Note, you must be on a publicly accesible URL to use this button
-    			html += '<div class="has_linkedin_template" style="display: none;"><a href="https://www.linkedin.com/shareArticle?mini=true&url=%url%&title=%title%" target="_blank"><i class="fa fa-linkedin"></i>&nbsp;' + highlight_and_share.linkedin_text + '</a></div>';
+    			html += '<div class="has_linkedin" style="display: none;" data-type="linkedin"><a href="https://www.linkedin.com/shareArticle?mini=true&url=%url%&title=%title%" target="_blank"><i class="fa fa-linkedin"></i>&nbsp;' + highlight_and_share.linkedin_text + '</a></div>';
             } else {
-                html += '<div class="has_linkedin_template" style="display: none;"><a href="https://www.linkedin.com/shareArticle?mini=true&url=%url%&title=%title%" target="_blank"><i class="fa fa-linkedin"></i></a></div>';
+                html += '<div class="has_linkedin has_template" style="display: none;" data-type="linkedin"><a href="https://www.linkedin.com/shareArticle?mini=true&url=%url%&title=%title%" target="_blank"><i class="fa fa-linkedin"></i></a></div>';
             }
 		}
 		html += '</div><!-- #highlight-and-share-wrapper -->';
@@ -48,6 +54,7 @@ jQuery( document ).ready( function( $ ) {
 		has_remove();
 		var selection = window.getSelection();
 		var text = selection.toString();
+		var title = '';
 
 		if ( '' == text ) {
 			return;
@@ -65,13 +72,7 @@ jQuery( document ).ready( function( $ ) {
 			title = $( document ).attr( 'title' );
 		}
 		
-		//Show the interface?
-		if( highlight_and_share.show_twitter == true ) {
-			has_tweet( text, href, e );
-		}
-		if( highlight_and_share.show_facebook == true ) {
-			has_facebook( title, href, e );
-		}
+		has_display( text, title, href, e );
 	} );
 	var tweet_event = 'click';
 	if ( highlight_and_share.mobile ) {
@@ -93,6 +94,44 @@ jQuery( document ).ready( function( $ ) {
 	    window.open( this.href,"sharer","width=575,height=430,toolbar=false,menubar=false,location=false,status=false");
 		has_remove();
 	} );
+	
+	var has_display = function( text, title, link, e ) {
+    	if ( false == highlight_and_share.show_twitter && false == highlight_and_share.show_facebook && false == highlight_and_share.show_linkedin && false == highlight_and_share.show_pinterest && false == highlight_and_share.show_email ) {
+        	return;
+    	}
+    	
+        wrapper_clone = $( '.highlight-and-share-wrapper' ).clone();
+        var wrapper_x = e.pageX - 30;
+		var wrapper_y = e.pageY - 70;
+		if ( highlight_and_share.mobile ) {
+			wrapper_x = e.pageX;	
+			wrapper_y = e.pageY + 20;
+		}
+		
+		wrapper_clone.css( { position: 'absolute', display: 'block', left: wrapper_x, top: wrapper_y, width: 'auto', height: 'auto' } );
+		
+		$children = wrapper_clone.find( 'div' );
+		$.each( $children, function( index, item ) {
+    		var div = $( this );
+    		var url = div.find( 'a' ).attr( 'href' );
+    		url = url.replace( '%url%', encodeURIComponent( link ) );
+		
+    		if ( ! highlight_and_share.mobile ) {
+    			url = url.replace( '%text%', '"' + encodeURIComponent( text ) + '"' );
+    		}
+    		url = url.replace( '%username%', encodeURIComponent( highlight_and_share.twitter_username ) );
+    		url = url.replace( '%title%', encodeURIComponent( title ) );
+            div.find( 'a' ).attr( 'href', url );
+            var css_class = div.attr( 'class' );
+            wrapper_clone.find( '.' + css_class ).attr( 'style', 'display: inline-block' ).html( div.html() );
+            
+		} );
+		
+		console.log( wrapper_clone );
+		
+		//Add to document
+		$( 'body' ).append( wrapper_clone );	
+	};
 	
 	var has_tweet = function( text, link, e ) {
 		if ( highlight_and_share.show_twitter == false ) return;
@@ -124,7 +163,7 @@ jQuery( document ).ready( function( $ ) {
 			tweet_x = e.pageX;	
 			tweet_y = e.pageY + 20;
 		}
-		tweet_clone.css( { position: 'absolute', display: 'block', left: tweet_x, top: tweet_y } );
+		tweet_clone.css( { position: 'absolute', display: 'block', left: tweet_x, top: tweet_y, width: 'inherit', height: 'inherit' } );
 		
 		//Add to document
 		$( 'body' ).append( tweet_clone );		

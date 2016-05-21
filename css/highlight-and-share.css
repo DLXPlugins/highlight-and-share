@@ -1,66 +1,52 @@
-.has-tweet .fa,
-.has-facebook .fa {
-	font-size: 14px;
+.highlight-and-share-wrapper {
+    display: none;
+    width: 0;
+    height: 0;
 }
-.has-tweet,
-.has-facebook {
-	height: 50px;
+.highlight-and-share-wrapper .fa {
+    font-size: 14px;
+}
+.highlight-and-share-wrapper div {
+	padding: 10px;
 	background: #32CCFE;
 	-moz-transition: background-color 200ms;
 	-o-transition: background-color 200ms;
 	-webkit-transition: background-color 200ms;
 	transition: background-color 200ms;
 	z-index: 1000;
+	margin-right: 5px;
 }
-.has-facebook {
+.highlight-and-share-wrapper div:last-child {
+    margin-right: 0;
+}
+.highlight-and-share-wrapper div.has_facebook {
 	background: #3c5a9e;
 }
-.has-tweet:after,
-.has-facebook.has-no-twitter:after {
-	content: "";
-	width: 0;
-	height: 0;
-	border-top: 10px solid #32CCFE;
-	border-right: 10px solid transparent;
-	border-left: 10px solid transparent;
-	margin-left: -10px;
-	position: absolute;
-	bottom: -10px;
-	left: 30px;
-	-moz-transition: border-color 200ms;
-	-o-transition: border-color 200ms;
-	-webkit-transition: border-color 200ms;
-	transition: border-color 200ms;
+.highlight-and-share-wrapper div.has_linkedin {
+    background: #0085AE;
 }
-.has-facebook.has-no-twitter:after {
-	border-top: 10px solid #3c5a9e;
-}
-.has-facebook.has-mobile:after,
-.has-tweet.has-mobile:after {
-	display: none;	
-}
-.has-tweet:hover:after {
-	border-top: 10px solid #00aced;
-}
-.has-tweet:hover {
+.highlight-and-share-wrapper div.has_twitter:hover {
 	background: #00aced;
 }
-.has-facebook.has-no-twitter:hover:after {
-	border-top: 10px solid #1F3C83;
-}
-.has-facebook:hover {
+.highlight-and-share-wrapper div.has_facebook:hover {
 	background: #1F3C83;
 }
-.has-tweet:hover a,
-.has-facebook:hover a {
+.highlight-and-share-wrapper div.has_linkedin:hover {
+    background: #23a0c7;
+}
+.has_twitter:hover a,
+.has_facebook:hover a {
 	color: #FFF;
 }
-.has-tweet a,
-.has-tweet a:hover,
-.has-tweet a:visited,
-.has-facebook a,
-.has-facebook a:hover,
-.has-facebook a:visited {
+.has_twitter a,
+.has_twitter a:hover,
+.has_twitter a:visited,
+.has_facebook a,
+.has_facebook a:hover,
+.has_facebook a:visited,
+.has_linkedin a,
+.has_linkedin a:hover,
+.has_linkedin a:visited {
 	font-family: 'FranklinGothic', Helvetica, sans-serif;
 	font-weight: bold;
 	text-transform: uppercase;
