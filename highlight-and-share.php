@@ -4,8 +4,8 @@ Plugin Name: Highlight and Share
 Plugin URI: http://wordpress.org/extend/plugins/highlight-and-share/
 Description: Highlight text and share via Twitter or Facebook
 Author: ronalfy
-Version: 1.2.7
-Requires at least: 3.5
+Version: 2.2.0
+Requires at least: 4.4
 Author URI: http://www.ronalfy.com
 Contributors: ronalfy
 Text Domain: highlight-and-share
@@ -362,7 +362,7 @@ class Highlight_And_Share {
 				$deps[] = 'jquery.mobile';	
 			}
 			$main_script_uri = $this->get_plugin_url( 'js/highlight-and-share.js' );
-			wp_enqueue_script( 'highlight-and-share', $main_script_uri, $deps, '20160521', true );
+			wp_enqueue_script( 'highlight-and-share', $main_script_uri, $deps, '20160522', true );
 
 			/**Build JSON Object**/
 			$settings = $this->get_plugin_options();
@@ -721,7 +721,8 @@ class Highlight_And_Share {
 		$enable_icons = isset( $settings[ 'icons' ] ) ? (bool)$settings[ 'icons' ] : true;
 		echo '<input name="highlight-and-share[icons]" value="on" type="hidden" />';
 		printf( '<input id="has-show-icons" type="checkbox" name="highlight-and-share[icons]" value="off" %s />&nbsp;<label for="has-show-icons">%s</label>', checked( false, $enable_icons, false ), __( 'Enable Icons Only?', 'highlight-and-share' ) );
-		printf( '<div><em>%s</em></div>', esc_html( $args[ 'desc' ] ) );
+		$bfa = sprintf( '<a href="%s">Requires %s or equivalent.</a>', 'https://wordpress.org/plugins/better-font-awesome/', __( 'Better Font Awesome', 'highlight-and-share' ) );
+		printf( '<div><em>%s<br />%s</em></div>', $bfa, esc_html( $args[ 'desc' ] ) );
 	}
 	
 	/**

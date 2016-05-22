@@ -93,11 +93,7 @@ jQuery( document ).ready( function( $ ) {
 		
 		has_display( text, title, href, e );
 	} );
-	var tweet_event = 'click';
-	if ( highlight_and_share.mobile ) {
-		tweet_event = 'vmousedown';	
-	}
-	$( 'body' ).on( tweet_event, '.has_twitter a', function( e ) {
+	$( 'body' ).on( 'click', '.has_twitter a', function( e ) {
 		e.preventDefault();
     window.open( this.href,"tweethighlight","width=575,height=430,toolbar=false,menubar=false,location=false,status=false");
 		has_remove();
