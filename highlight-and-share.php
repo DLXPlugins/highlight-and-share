@@ -117,7 +117,7 @@ class Highlight_And_Share {
                 	<script src="<?php echo esc_url( includes_url( '/js/jquery/jquery.js' ) ); ?>"></script>
                 	<style>
                         body {
-                            padding: 20px;
+                            text-align: center;
                         }	
                     </style>
                     <script>
@@ -146,27 +146,29 @@ class Highlight_And_Share {
 
             	</head>
             	<body>
-                	<form method="POST" action="" id="has_form">
-                    	<?php
-                        wp_nonce_field( 'has_email_form_submission', '_has_email_submission_nonce', false, true );
-                        ?>
-                    	<div id="form-wrapper">
-                        	<div>
-                            	<input type="text" name="your_name" id="your_name" placeholder="<?php echo esc_attr( __( 'Your Name', 'highlight-and-share' ) ) ?>" /><br />
-                        	</div>
-                        	<br />
-                        	<div>
-                            	<input type="email" name="your_email" id="your_email" placeholder="<?php echo esc_attr( __( 'E-mail Address', 'highlight-and-share' ) ) ?>" /><br />
-                        	</div>
-
-                        	<br />
-                        	<input type="hidden" id="title" value="<?php echo esc_attr( urldecode( $_GET[ 'title' ] ) ); ?>" />
-                        	<input type="hidden" id="url" value="<?php echo esc_attr( urldecode( $_GET[ 'url' ] ) ); ?>" />
-                        	<div>
-                            	<input type="submit" name="submit" id="submit" value="<?php echo esc_attr( __( 'Submit', 'highlight-and-share' ) ); ?>" /><br />
-                        	</div>
-                    	</div><!-- #form-wrapper -->
-                	</form>
+                	<main>
+                    	<article>
+                        	<form method="POST" action="" id="has_form">
+                            	<?php
+                                wp_nonce_field( 'has_email_form_submission', '_has_email_submission_nonce', false, true );
+                                ?>
+                            	<div id="form-wrapper">
+                                	<div>
+                                    	<p><input type="text" name="your_name" id="your_name" placeholder="<?php echo esc_attr( __( 'Your Name', 'highlight-and-share' ) ) ?>" /></p>
+                                	</div>
+                                	<div>
+                                    	<p><input type="email" name="your_email" id="your_email" placeholder="<?php echo esc_attr( __( 'E-mail Address', 'highlight-and-share' ) ) ?>" /></p>
+                                	</div>
+                                	<input type="hidden" id="title" value="<?php echo esc_attr( urldecode( $_GET[ 'title' ] ) ); ?>" />
+                                	<input type="hidden" id="url" value="<?php echo esc_attr( urldecode( $_GET[ 'url' ] ) ); ?>" />
+                                	<div>
+                                    	<p><input type="submit" name="submit" id="submit" value="<?php echo esc_attr( __( 'Submit', 'highlight-and-share' ) ); ?>" />
+                                    	</p>
+                                	</div>
+                            	</div><!-- #form-wrapper -->
+                        	</form>
+                    	</article>
+                	</main>
             	</body>
         	</html>
         	<?php

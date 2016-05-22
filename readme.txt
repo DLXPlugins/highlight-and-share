@@ -1,11 +1,12 @@
 === Highlight and Share ===
 Contributors: ronalfy, bigwing
 Tags: quote, sharing, twitter, facebook, social
-Requires at least: 3.5
+Requires at least: 4.4
 Tested up to: 4.5
-Stable tag: 1.2.7
+Stable tag: 2.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
+Donate link: https://mediaron.com/contribute/
 
 A WordPress plugin for highlighting text and sharing it via Twitter.
 
@@ -13,7 +14,7 @@ A WordPress plugin for highlighting text and sharing it via Twitter.
 
 A WordPress plugin for highlighting text and sharing it via Twitter.
 
-Sharing selectable text is only possible via Twitter, but an option to share the post via Facebook is also present when highlighting text as a convenience. 
+Sharing selectable text is only possible via Twitter, but an option to share the post via Facebook, LinkedIn, Pinterest, and E-mail are also present when highlighting text as a convenience. 
 
 This plugin is intended to be highly flexible in selecting content areas (via the Plugin's settings).  If you're looking for something more plug-and-play, please try <a href="https://wordpress.org/plugins/quotable/">Quotable</a>.
 
@@ -43,12 +44,7 @@ If you like this plugin, please help spread the word.  Rate the plugin.  Write a
 
 <h3>Translations</h3>
 
-<ul>
-<li>German - Thanks <a href="https://wordpress.org/support/profile/tadesse">Tadesse</a></li>
-<li>Polish - Thanks <a href="https://wordpress.org/support/profile/grzegorzjanoszka">Grzegorz Janoszka</a></li>
-</ul>
-
-If you would like to contribute a translation, please leave a support request with a link to your translation  or <a href="http://www.ronalfy.com/contact/">get in touch</a>.
+Please translate using the Translate button on this page.
 
 You are welcome to help us out and <a href="https://github.com/ronalfy/highlight-and-share">contribute on GitHub</a>.
 
@@ -93,6 +89,11 @@ So far, the latest versions of Chrome, Firefox, and Safari.   Works for IE9+
 2. Highlight and Share admin panel settings .
 
 == Changelog ==
+
+= 2.0.0 =
+* Released 2016-05-21
+* Enhancement: Added LinkedIn, Pinterest, and E-mail buttons
+* Enhancement: Allow icons only view.
 
 = 1.2.7
 * Released 2015-11-08
@@ -139,23 +140,5 @@ So far, the latest versions of Chrome, Firefox, and Safari.   Works for IE9+
 = 1.2.7 =
 Fixing Polish translation
 
-= 1.2.5 =
-Added Polish translation and minified scripts
-
-= 1.2.1 =
-WordPress 4.4 preparation. Added German translation.
-
-= 1.2.0 =
-New filters and better code initialization for third-party customization 
-
-= 1.1.2 =
-Fixing issue with multiple twitter popups. Ensuring WordPress 4.2 compatibility.  
-
-= 1.1.1 =
-Added filter for customizing the jQuery selectors
-
-= 1.1.0 =
-Added option for shortlink in the settings.  Removed the requirement for having to set a Twitter handle.
-
-= 1.0.0 =
-Initial release.
+= 2.0.0 =
+Added LinkedIn, Pinterest, and E-mail buttons Allow icons only view.

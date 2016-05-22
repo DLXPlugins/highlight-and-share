@@ -116,7 +116,7 @@ jQuery( document ).ready( function( $ ) {
 	} );
 	$( 'body' ).on( 'click', '.has_email a', function( e ) {
 		e.preventDefault();
-    window.open( this.href,"email","width=300,height=200,toolbar=false,menubar=false,location=false,status=false");
+    window.open( this.href,"email","width=350,height=300,toolbar=false,menubar=false,location=false,status=false");
 		has_remove();
 	} );
 	
