@@ -85,8 +85,9 @@ So far, the latest versions of Chrome, Firefox, and Safari.   Works for IE9+
 
 == Screenshots ==
 
-1. Highlight and Share on a post.
-2. Highlight and Share admin panel settings .
+1. Highlight and Share settings.
+2. Highlight and Share on a post with icons. 
+2. Highlight and Share on a post with all options showing.
 
 == Changelog ==
 
@@ -95,7 +96,7 @@ So far, the latest versions of Chrome, Firefox, and Safari.   Works for IE9+
 * Enhancement: Added LinkedIn, Pinterest, and E-mail buttons
 * Enhancement: Allow icons only view.
 
-= 1.2.7
+= 1.2.7 =
 * Released 2015-11-08
 * Fixing polish translation
 
