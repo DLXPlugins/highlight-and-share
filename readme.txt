@@ -3,7 +3,7 @@ Contributors: ronalfy, bigwing
 Tags: quote, sharing, twitter, facebook, social
 Requires at least: 4.4
 Tested up to: 4.6
-Stable tag: 2.0.0
+Stable tag: 2.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://mediaron.com/contribute/
@@ -48,8 +48,6 @@ Please translate using the Translate button on this page.
 
 You are welcome to help us out and <a href="https://github.com/ronalfy/highlight-and-share">contribute on GitHub</a>.
 
-<em>Plugin is powered by caffeine and vodka.</em>
-
 == Installation ==
 
 1. Just unzip and upload the "highlight-and-share" folder to your '/wp-content/plugins/' directory
@@ -90,6 +88,10 @@ So far, the latest versions of Chrome, Firefox, and Safari.   Works for IE9+
 3. Highlight and Share on a post with all options showing.
 
 == Changelog ==
+
+= 2.0.1 =
+* Released 2016-10-20
+* Fixing %text% issue in iOS10.
 
 = 2.0.0 =
 * Released 2016-05-21
@@ -138,8 +140,5 @@ So far, the latest versions of Chrome, Firefox, and Safari.   Works for IE9+
 
 == Upgrade Notice ==
 
-= 1.2.7 =
-Fixing Polish translation
-
-= 2.0.0 =
-Added LinkedIn, Pinterest, and E-mail buttons Allow icons only view.
+= 2.0.1 =
+Fixing %text% issue in iOS10.

@@ -141,9 +141,7 @@ jQuery( document ).ready( function( $ ) {
     		var url = div.find( 'a' ).attr( 'href' );
     		url = url.replace( '%url%', encodeURIComponent( link ) );
 		
-    		if ( ! highlight_and_share.mobile ) {
-    			url = url.replace( '%text%', '"' + encodeURIComponent( text ) + '"' );
-    		}
+    		url = url.replace( '%text%', '"' + encodeURIComponent( text ) + '"' );
     		url = url.replace( '%username%', encodeURIComponent( highlight_and_share.twitter_username ) );
     		url = url.replace( '%title%', encodeURIComponent( title ) );
             div.find( 'a' ).attr( 'href', url );
