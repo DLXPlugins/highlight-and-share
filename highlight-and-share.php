@@ -4,7 +4,7 @@ Plugin Name: Highlight and Share
 Plugin URI: http://wordpress.org/extend/plugins/highlight-and-share/
 Description: Highlight text and share via Twitter or Facebook
 Author: ronalfy
-Version: 2.0.1
+Version: 2.1.0
 Requires at least: 4.4
 Author URI: http://www.ronalfy.com
 Contributors: ronalfy
@@ -571,6 +571,7 @@ class Highlight_And_Share {
 		add_settings_field( 'hightlight-and-share-twitter-handle', __( 'Twitter Username', 'highlight-and-share' ), array( $this, 'add_settings_field_twitter' ), 'highlight-and-share', 'has-twitter', array( 'label_for' => 'hightlight-and-share-twitter-handle', 'desc' => __( 'Enter Your Twitter Username', 'highlight-and-share' ) ) );
 		
 		add_settings_field( 'hightlight-and-share-facebook-enable', __( 'Show Facebook Option', 'highlight-and-share' ), array( $this, 'add_settings_field_facebook_enable' ), 'highlight-and-share', 'has-facebook', array( 'desc' => __( 'Would you like to enable sharing via Facebook?', 'highlight-and-share' ) ) );
+		add_settings_field( 'hightlight-and-share-facebook-api', __( 'Facebook App ID', 'highlight-and-share' ), array( $this, 'add_settings_field_facebook_api' ), 'highlight-and-share', 'has-facebook', array( 'label_for' => 'hightlight-and-share-facebook-api', 'desc' => __( 'A Facebook App ID allows you to highlight text and share it.', 'highlight-and-share' ) ) );
 		
 		add_settings_field( 'hightlight-and-share-shortlink-enable', __( 'Shortlinks', 'highlight-and-share' ), array( $this, 'add_settings_field_shortlink_enable' ), 'highlight-and-share', 'has-shortlink', array( 'desc' => __( 'Please decide if you would like to use the default post URL or a shortened version.', 'highlight-and-share' ) ) );
 		
@@ -623,7 +624,7 @@ class Highlight_And_Share {
 			}	
 			return $input;
 		}
-		//die( '<pre>' . print_r( $input, true ) );
+
 		//Settings are being saved.  Update.
 		foreach( $input as $key => $value ) {
 			if ( 'twitter' == $key ) {
@@ -634,6 +635,14 @@ class Highlight_And_Share {
 					add_settings_error( 'highlight-and-share', 'invalid_twitter', _x( 'You have entered an incorrect Twitter username', 'Twitter username error', 'highlight-and-share' ) );
 				} else {
 					$output[ $key ] = sanitize_text_field( $value );
+				}
+			} elseif( 'facebook_app_id' == $key ) {
+				$app_id = absint( $value );
+				
+				if ( empty( $app_id ) || 0 === $app_id ) {
+					$output[ $key ] = '';
+				} else {
+					$output[ $key ] = $app_id;
 				}
 			} elseif( 'js_content' == $key ) {
 				$js_content = trim( $value );				
@@ -845,6 +854,35 @@ class Highlight_And_Share {
 		$enable_facebook = isset( $settings[ 'show_facebook' ] ) ? (bool)$settings[ 'show_facebook' ] : true;
 		echo '<input name="highlight-and-share[show_facebook]" value="off" type="hidden" />';
 		printf( '<input id="has-show-facebook" type="checkbox" name="highlight-and-share[show_facebook]" value="on" %s />&nbsp;<label for="has-show-facebook">%s</label>', checked( true, $enable_facebook, false ), __( 'Enable Facebook Sharing?', 'highlight-and-share' ) );
+	}
+	
+	/**
+	 * Add Facebook option for an Application ID.
+	 *
+	 * Add Facebook option for an Application ID.
+	 *
+	 * @since 2.1.0
+	 * @access public
+	 *
+	 * @see init_admin_settings
+	 *
+	 * @param array $args {
+	 		@type string $label_for Settings label and ID.
+	
+	 		@type string $desc Description for the setting.
+	 		
+	 }
+	 */
+	public function add_settings_field_facebook_api( $args = array() ) {
+		$settings = $this->get_plugin_options();
+		$app_id = isset( $settings[ 'facebook_app_id' ] ) ? absint( $settings[ 'facebook_app_id' ] ) : '';
+		if ( 0 === $app_id ) {
+			$app_id = '';
+		}
+		printf( '<p>%s</p>', esc_html( $args[ 'desc' ] ) );
+		printf( '<p><a href="%s">%s</a></p>', 'https://developers.facebook.com/apps', __( 'Requires a Facebook developer application.', 'highlight-and-share' ) );
+		printf( '<input id="%s" type="text" name="highlight-and-share[facebook_app_id]" value="%s" />', esc_attr( $args[ 'label_for' ] ), esc_attr( $app_id ) );
+		
 	}
 	
 	/**
