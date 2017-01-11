@@ -364,7 +364,7 @@ class Highlight_And_Share {
 				$deps[] = 'jquery.mobile';	
 			}
 			$main_script_uri = $this->get_plugin_url( 'js/highlight-and-share.js' );
-			wp_enqueue_script( 'highlight-and-share', $main_script_uri, $deps, '20161020', true );
+			wp_enqueue_script( 'highlight-and-share', $main_script_uri, $deps, '20170111', true );
 
 			/**Build JSON Object**/
 			$settings = $this->get_plugin_options();
@@ -441,6 +441,9 @@ class Highlight_And_Share {
 			
 			//Icons
 			$json_arr[ 'icons' ] = apply_filters( 'has_icons', $settings[ 'icons' ] );
+			
+			// Facebook API Key
+			$json_arr[ 'facebook_app_id' ] = isset( $settings[ 'facebook_app_id' ] ) ? absint( $settings[ 'facebook_app_id' ] ) : 0;
 			
 			// URL for e-mail
 			$url_email = add_query_arg( array(
