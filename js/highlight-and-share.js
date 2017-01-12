@@ -3,6 +3,8 @@ jQuery( document ).ready( function( $ ) {
 		$( '.highlight-and-share-wrapper:visible' ).remove();
 	};
 	
+	var has_selected_text = '';
+	
 	var has_load_html = function() {
 		if ( highlight_and_share.icons == true ) {
 			var html = '<div class="highlight-and-share-wrapper" style="display: none">d';
@@ -103,15 +105,21 @@ jQuery( document ).ready( function( $ ) {
 		
 		has_display( text, title, href, e );
 	} );
+	
+	$( 'body' ).on( 'mousedown vmousedown', '.has_twitter a,.has_facebook a', function( e ) {
+		has_selected_text = has_get_selection();
+	} );
 	$( 'body' ).on( 'click', '.has_twitter a', function( e ) {
 		e.preventDefault();
-	window.open( this.href,"tweethighlight","width=575,height=430,toolbar=false,menubar=false,location=false,status=false");
+		this.href = this.href.replace( '%text%', encodeURIComponent( has_selected_text ) );
+		window.open( this.href,"tweethighlight","width=575,height=430,toolbar=false,menubar=false,location=false,status=false");
 		has_remove();
 		return false;
 	} );
 	$( 'body' ).on( 'click', '.has_facebook a', function( e ) {
 		e.preventDefault();
-	window.open( this.href,"sharer","width=575,height=430,toolbar=false,menubar=false,location=false,status=false");
+		this.href = this.href.replace( '%text%', encodeURIComponent( has_selected_text ) );
+		window.open( this.href,"sharer","width=575,height=430,toolbar=false,menubar=false,location=false,status=false");
 		has_remove();
 	} );
 	$( 'body' ).on( 'click', '.has_linkedin a', function( e ) {
@@ -129,6 +137,12 @@ jQuery( document ).ready( function( $ ) {
 	window.open( this.href,"email","width=350,height=300,toolbar=false,menubar=false,location=false,status=false");
 		has_remove();
 	} );
+	
+	var has_get_selection = function() {
+		var selection = window.getSelection();
+		var text = selection.toString();
+		return text;
+	};
 	
 	var has_display = function( text, title, link, e ) {
 		if ( false == highlight_and_share.show_twitter && false == highlight_and_share.show_facebook && false == highlight_and_share.show_linkedin && false == highlight_and_share.show_pinterest && false == highlight_and_share.show_email ) {
@@ -150,8 +164,6 @@ jQuery( document ).ready( function( $ ) {
 			var div = $( this );
 			var url = div.find( 'a' ).attr( 'href' );
 			url = url.replace( '%url%', encodeURIComponent( link ) );
-		
-			url = url.replace( '%text%', '"' + encodeURIComponent( text ) + '"' );
 			url = url.replace( '%username%', encodeURIComponent( highlight_and_share.twitter_username ) );
 			url = url.replace( '%title%', encodeURIComponent( title ) );
 			div.find( 'a' ).attr( 'href', url );
