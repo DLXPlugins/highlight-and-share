@@ -3,7 +3,7 @@ Contributors: ronalfy, bigwing
 Tags: quote, sharing, twitter, facebook, social
 Requires at least: 4.4
 Tested up to: 4.7
-Stable tag: 2.1.1
+Stable tag: 2.1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://mediaron.com/contribute/
@@ -90,7 +90,7 @@ So far, the latest versions of Chrome, Firefox, and Safari.   Works for IE9+
 
 == Changelog ==
 
-= 2.1.1 =
+= 2.1.2 =
 * Released 2017-02-12
 * Fixing iOS/Android issue with highlighted text being only the initial selection.
 
@@ -149,5 +149,5 @@ So far, the latest versions of Chrome, Firefox, and Safari.   Works for IE9+
 
 == Upgrade Notice ==
 
-= 2.1.1 =
+= 2.1.2 =
 Fixing iOS/Android issue with highlighted text being only the initial selection.
