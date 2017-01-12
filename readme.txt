@@ -86,6 +86,7 @@ So far, the latest versions of Chrome, Firefox, and Safari.   Works for IE9+
 1. Highlight and Share settings.
 2. Highlight and Share on a post with icons. 
 3. Highlight and Share on a post with all options showing.
+4. Highlight and Share with custom CSS.
 
 == Changelog ==
 
