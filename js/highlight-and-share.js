@@ -106,9 +106,13 @@ jQuery( document ).ready( function( $ ) {
 		has_display( text, title, href, e );
 	} );
 	
-	$( 'body' ).on( 'mousedown vmousedown', '.has_twitter a,.has_facebook a', function( e ) {
-		has_selected_text = has_get_selection();
+	$( 'body' ).on( 'mousedown vmousedown', function( e ) {
+		has_get_selection();
 	} );
+	document.addEventListener("selectionchange", function() {
+		has_get_selection();
+	}, false);
+
 	$( 'body' ).on( 'click', '.has_twitter a', function( e ) {
 		e.preventDefault();
 		this.href = this.href.replace( '%text%', encodeURIComponent( has_selected_text ) );
@@ -141,7 +145,11 @@ jQuery( document ).ready( function( $ ) {
 	var has_get_selection = function() {
 		var selection = window.getSelection();
 		var text = selection.toString();
-		return text;
+		if ( '' == text ) {
+			return;
+		} else {
+			has_selected_text = text;
+		}
 	};
 	
 	var has_display = function( text, title, link, e ) {
