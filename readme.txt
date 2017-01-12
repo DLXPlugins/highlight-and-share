@@ -2,8 +2,8 @@
 Contributors: ronalfy, bigwing
 Tags: quote, sharing, twitter, facebook, social
 Requires at least: 4.4
-Tested up to: 4.6
-Stable tag: 2.1.0
+Tested up to: 4.7
+Stable tag: 2.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://mediaron.com/contribute/
@@ -90,6 +90,10 @@ So far, the latest versions of Chrome, Firefox, and Safari.   Works for IE9+
 
 == Changelog ==
 
+= 2.1.1 =
+* Released 2017-02-12
+* Fixing iOS/Android issue with highlighted text being only the initial selection.
+
 = 2.1.0 =
 * Released 2017-01-11
 * Sharing via Facebook is now possible if you create a Facebook application ID.
@@ -145,5 +149,5 @@ So far, the latest versions of Chrome, Firefox, and Safari.   Works for IE9+
 
 == Upgrade Notice ==
 
-= 2.1.0 =
-Sharing via Facebook is now possible if you create a Facebook application ID
+= 2.1.1 =
+Fixing iOS/Android issue with highlighted text being only the initial selection.
