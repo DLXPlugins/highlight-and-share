@@ -3,18 +3,18 @@ Contributors: ronalfy, bigwing
 Tags: quote, sharing, twitter, facebook, social
 Requires at least: 4.4
 Tested up to: 4.6
-Stable tag: 2.0.1
+Stable tag: 2.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://mediaron.com/contribute/
 
-A WordPress plugin for highlighting text and sharing it via Twitter.
+A WordPress plugin for highlighting text and sharing it via Twitter and Facebook.
 
 == Description ==
 
-A WordPress plugin for highlighting text and sharing it via Twitter.
+A WordPress plugin for highlighting text and sharing it via Twitter and Facebook.
 
-Sharing selectable text is only possible via Twitter, but an option to share the post via Facebook, LinkedIn, Pinterest, and E-mail are also present when highlighting text as a convenience. 
+Sharing selectable text is only possible via Twitter and Facebook, but an option to share the post via LinkedIn, Pinterest, and E-mail are also present when highlighting text as a convenience. 
 
 This plugin is intended to be highly flexible in selecting content areas (via the Plugin's settings).  If you're looking for something more plug-and-play, please try <a href="https://wordpress.org/plugins/quotable/">Quotable</a>.
 
@@ -89,6 +89,10 @@ So far, the latest versions of Chrome, Firefox, and Safari.   Works for IE9+
 
 == Changelog ==
 
+= 2.1.0 =
+* Released 2017-01-11
+* Sharing via Facebook is now possible if you create a Facebook application ID.
+
 = 2.0.1 =
 * Released 2016-10-20
 * Fixing %text% issue in iOS10.
@@ -140,5 +144,5 @@ So far, the latest versions of Chrome, Firefox, and Safari.   Works for IE9+
 
 == Upgrade Notice ==
 
-= 2.0.1 =
-Fixing %text% issue in iOS10.
+= 2.1.0 =
+Sharing via Facebook is now possible if you create a Facebook application ID
