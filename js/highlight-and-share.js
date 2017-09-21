@@ -165,7 +165,7 @@ jQuery( document ).ready( function( $ ) {
 			wrapper_y = e.pageY + 20;
 		}
 		
-		wrapper_clone.css( { position: 'absolute', display: 'block', left: wrapper_x, top: wrapper_y, width: 'auto', height: 'auto', 'z-index': 1000 } );
+		wrapper_clone.css( { position: 'absolute', display: 'block', left: wrapper_x, top: wrapper_y, width: 'auto', height: 'auto', 'z-index': 10000 } );
 		
 		$children = wrapper_clone.find( 'div' );
 		$.each( $children, function( index, item ) {
