@@ -1,9 +1,9 @@
 === Highlight and Share ===
 Contributors: ronalfy, bigwing
-Tags: quote, sharing, twitter, facebook, social
+Tags: highlight, share, twitter, facebook
 Requires at least: 4.4
-Tested up to: 4.8
-Stable tag: 2.1.2
+Tested up to: 4.9
+Stable tag: 2.1.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://mediaron.com/contribute/
@@ -90,6 +90,10 @@ So far, the latest versions of Chrome, Firefox, and Safari.   Works for IE9+
 
 == Changelog ==
 
+= 2.1.5 =
+* Released 2017-11-15
+* CSS adjustment for better theme compatibility.
+
 = 2.1.2 =
 * Released 2017-02-12
 * Fixing iOS/Android issue with highlighted text being only the initial selection.
@@ -148,6 +152,9 @@ So far, the latest versions of Chrome, Firefox, and Safari.   Works for IE9+
 * Initial release on WordPress.org
 
 == Upgrade Notice ==
+
+= 2.1.5 =
+CSS adjustment for better theme compatibility.
 
 = 2.1.2 =
 Fixing iOS/Android issue with highlighted text being only the initial selection.
