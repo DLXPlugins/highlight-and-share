@@ -157,7 +157,7 @@ jQuery( document ).ready( function( $ ) {
 			return;
 		}
 		
-		wrapper_clone = $( '.highlight-and-share-wrapper' ).clone();
+		wrapper_clone = $( '.highlight-and-share-wrapper:last' ).clone();
 		var wrapper_x = e.pageX - 30;
 		var wrapper_y = e.pageY - 70;
 		if ( highlight_and_share.mobile ) {
