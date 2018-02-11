@@ -75,12 +75,15 @@ class Highlight_And_Share {
     	$name = trim( urldecode( $_POST[ 'name' ] ) );
     	$url = urldecode( $_POST[ 'url' ] );
     	$title = urldecode( $_POST[ 'title' ] );
+    	$subject = urldecode( $_POST[ 'yourSubject' ] );
+    	$sender_email = urldecode( $_POST[ 'yourEmail' ] );
+    	
     	$return = array();
     	if ( empty( $name ) ) {
         	$return[ 'error' ] = $this->get_error( 'name' );
         	die( json_encode( $return ) );
     	}
-    	if ( ! is_email( $email ) ) {
+    	if ( ! is_email( $email ) || ! is_email( $sender_email ) ) {
         	$return[ 'error' ] = $this->get_error( 'invalid_email' );
         	die( json_encode( $return ) );
     	}
@@ -89,8 +92,10 @@ class Highlight_And_Share {
     	$message .= sprintf( '%s', esc_html( $title ) ) . "\n\n";
     	$message .= sprintf( '%s', esc_html( $url ) ) . "\n\n";
     	
-    	error_log( $message );
-    	wp_mail( $email, __( 'Someone wants to share a link with you', 'highlight-and-share' ), $message );
+    	$headers = array();
+    	$headers[] = sprintf( 'From: %s <%s>', esc_html( $name ), $sender_email );
+    	
+    	wp_mail( $email, esc_html( $subject ), $message, $headers );
     	die( json_encode( array() ) );
     	
     	
@@ -130,7 +135,9 @@ class Highlight_And_Share {
                                     title  : encodeURIComponent( $( '#title' ).val() ),
                                     url    : encodeURIComponent( $( '#url' ).val() ),
                                     name   : encodeURIComponent( $( '#your_name' ).val() ),
-                                    email  : encodeURIComponent( $( '#your_email' ).val() )  
+                                    email  : encodeURIComponent( $( '#email' ).val() ),
+                                    yourEmail: encodeURIComponent( $( '#your_email' ).val() ),
+                                    yourSubject:  encodeURIComponent( $( '#your_subject' ).val() )
                                 };
                                 $.post( '<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>', ajax_object, function( response ) {
                                         if ( response.error ) {
@@ -157,7 +164,13 @@ class Highlight_And_Share {
                                     	<p><input type="text" name="your_name" id="your_name" placeholder="<?php echo esc_attr( __( 'Your Name', 'highlight-and-share' ) ) ?>" /></p>
                                 	</div>
                                 	<div>
-                                    	<p><input type="email" name="your_email" id="your_email" placeholder="<?php echo esc_attr( __( 'E-mail Address', 'highlight-and-share' ) ) ?>" /></p>
+                                    	<p><input type="text" name="your_email" id="your_email" placeholder="<?php echo esc_attr( __( 'Your Email', 'highlight-and-share' ) ) ?>" /></p>
+                                	</div>
+                                	<div>
+                                    	<p><input type="text" name="your_subject" id="your_subject" value="<?php echo esc_attr( __( 'Someone wants to share a link with you', 'highlight-and-share' ) ) ?>" /></p>
+                                	</div>
+                                	<div>
+                                    	<p><input type="email" name="email" id="email" placeholder="<?php echo esc_attr( __( 'E-mail Address', 'highlight-and-share' ) ) ?>" /></p>
                                 	</div>
                                 	<input type="hidden" id="title" value="<?php echo esc_attr( urldecode( $_GET[ 'title' ] ) ); ?>" />
                                 	<input type="hidden" id="url" value="<?php echo esc_attr( urldecode( $_GET[ 'url' ] ) ); ?>" />
