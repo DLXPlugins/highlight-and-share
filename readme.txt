@@ -3,7 +3,7 @@ Contributors: ronalfy, bigwing
 Tags: highlight, share, twitter, facebook
 Requires at least: 4.4
 Tested up to: 4.9
-Stable tag: 2.1.7
+Stable tag: 2.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://mediaron.com/contribute/
@@ -90,6 +90,11 @@ So far, the latest versions of Chrome, Firefox, and Safari.   Works for IE9+
 
 == Changelog ==
 
+= 2.2.0 =
+* Released 2018-02-11
+* Added support for XING
+* Added better support for emailing
+
 = 2.1.7 =
 * Released 2018-02-10
 * JS Related bug where the wrong text was showing for Twitter sharing.
@@ -156,6 +161,9 @@ So far, the latest versions of Chrome, Firefox, and Safari.   Works for IE9+
 * Initial release on WordPress.org
 
 == Upgrade Notice ==
+
+= 2.2.0 =
+Added support for XING. Added better support for emailing.
 
 = 2.1.7 =
 JS Related bug where the wrong text was showing for Twitter sharing.

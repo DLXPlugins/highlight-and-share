@@ -4,7 +4,7 @@ Plugin Name: Highlight and Share
 Plugin URI: http://wordpress.org/extend/plugins/highlight-and-share/
 Description: Highlight text and share via Twitter or Facebook
 Author: ronalfy
-Version: 2.1.7
+Version: 2.2.0
 Requires at least: 4.4
 Author URI: http://www.ronalfy.com
 Contributors: ronalfy
@@ -478,7 +478,7 @@ class Highlight_And_Share {
 			
 			//Add CSS
 			if ( apply_filters( 'has_load_css', true ) ) {
-				wp_enqueue_style( 'highlight-and-share', $this->get_plugin_url( 'css/highlight-and-share.css' ), array(), '20160521', 'all' );
+				wp_enqueue_style( 'highlight-and-share', $this->get_plugin_url( 'css/highlight-and-share.css' ), array(), '20180211', 'all' );
 			}	
 			
 			
