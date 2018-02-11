@@ -29,6 +29,9 @@
 .highlight-and-share-wrapper div.has_pinterest {
     background: #CC2127;
 }
+.highlight-and-share-wrapper div.has_xing {
+	background: #be4bdb;
+}
 .highlight-and-share-wrapper div.has_email {
     background: #0074a2;
 }

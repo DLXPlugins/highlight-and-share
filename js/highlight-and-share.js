@@ -64,6 +64,16 @@ jQuery( document ).ready( function( $ ) {
 			}
 		}
 		
+		//={URI-encoded URL of the page to pin}&media={URI-encoded URL of the image to pin}&description={optional URI-encoded description}"
+		if ( highlight_and_share.show_xing ) {
+			if ( highlight_and_share.icons == true ) {
+				//Note, you must be on a publicly accesible URL to use this button
+				html += '<div class="has_xing" style="display: none;" data-type="xing"><a href="https://www.xing.com/spi/shares/new?url=%url%" target="_blank"><i class="fa fa-xing"></i>&nbsp;' + highlight_and_share.xing_text + '</a></div>';
+			} else {
+				html += '<div class="has_xing" style="display: none;" data-type="xing"><a href="https://www.xing.com/spi/shares/new?url=%url%" target="_blank"><i class="fa fa-xing"></i></a></div>';
+			}
+		}
+		
 		if ( highlight_and_share.show_email ) {
 			if ( highlight_and_share.icons == true ) {
 				//Note, you must be on a publicly accesible URL to use this button
@@ -134,6 +144,11 @@ jQuery( document ).ready( function( $ ) {
 	$( 'body' ).on( 'click', '.has_pinterest a', function( e ) {
 		e.preventDefault();
 	window.open( this.href,"pinterest","width=575,height=430,toolbar=false,menubar=false,location=false,status=false");
+		has_remove();
+	} );
+	$( 'body' ).on( 'click', '.has_xing a', function( e ) {
+		e.preventDefault();
+	window.open( this.href,"xing","width=575,height=430,toolbar=false,menubar=false,location=false,status=false");
 		has_remove();
 	} );
 	$( 'body' ).on( 'click', '.has_email a', function( e ) {
