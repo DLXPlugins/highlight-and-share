@@ -1,12 +1,12 @@
 <?php
 /*
 Plugin Name: Highlight and Share
-Plugin URI: http://wordpress.org/extend/plugins/highlight-and-share/
+Plugin URI: https://wordpress.org/plugins/highlight-and-share/
 Description: Highlight text and share via Twitter or Facebook
-Author: ronalfy
-Version: 2.2.0
+Author: Ronald Huereca
+Version: 2.2.2
 Requires at least: 4.4
-Author URI: http://www.ronalfy.com
+Author URI: https://mediaron.com
 Contributors: ronalfy
 Text Domain: highlight-and-share
 Domain Path: /languages
@@ -26,7 +26,7 @@ class Highlight_And_Share {
 	 * Return an instance of the Highlight and Share Class.
 	 *
 	 * @since 1.0.0
-	 * @access public static
+	 * @access public
 	 *
 	 * @return Highlight_And_Share class instance.
 	 */
@@ -383,23 +383,26 @@ class Highlight_And_Share {
 			$settings = $this->get_plugin_options();
 			$json_arr = array();
 			
-			//Facebook
+			// Facebook
 			$json_arr[ 'show_facebook' ] = (bool)apply_filters( 'has_show_facebook', $settings[ 'show_facebook' ] );
 			
-			//Twitter
+			// Twitter
 			$json_arr[ 'show_twitter' ] = (bool)apply_filters( 'has_show_twitter', $settings[ 'show_twitter' ] );
 			
-			//Linked In
+			// Linked In
 			$json_arr[ 'show_linkedin' ] = (bool)apply_filters( 'has_show_linkedin', $settings[ 'show_linkedin' ] );
 			
-			//Pinterest
+			// Pinterest
 			$json_arr[ 'show_pinterest' ] = (bool)apply_filters( 'has_show_pinterest', $settings[ 'show_pinterest' ] );
 			
-			//Email
+			// Email
 			$json_arr[ 'show_email' ] = (bool)apply_filters( 'has_show_email', $settings[ 'show_email' ] );
 			
-			//Email
+			// Xing
 			$json_arr[ 'show_xing' ] = (bool)apply_filters( 'has_show_xing', $settings[ 'show_xing' ] );
+
+			// Whatsapp
+			$json_arr[ 'show_whatsapp' ] = (bool)apply_filters( 'has_show_whatsapp', $settings[ 'show_whatsapp' ] );
 			
 			//Twitter Username
 			$json_arr[ 'twitter_username' ] = trim( sanitize_text_field( apply_filters( 'has_twitter_username', $settings[ 'twitter' ] ) ) );
@@ -453,6 +456,7 @@ class Highlight_And_Share {
 			$json_arr[ 'facebook_text' ] = apply_filters( 'has_facebook_text', _x( 'Share', 'Facebook share text', 'highlight-and-share' ) );
 			$json_arr[ 'linkedin_text' ] = apply_filters( 'has_linkedin_text', _x( 'LinkedIn', 'LinkedIn share text', 'highlight-and-share' ) );
 			$json_arr[ 'pinterest_text' ] = apply_filters( 'has_pinterest_text', _x( 'Pinterest', 'Pinterest share text', 'highlight-and-share' ) );
+			$json_arr[ 'whatsapp_text' ] = apply_filters( 'has_whatsapp_text', _x( 'WhatsApp', 'WhatsApp share text', 'highlight-and-share' ) );
 			$json_arr[ 'xing_text' ] = apply_filters( 'has_xing_text', _x( 'Xing', 'Xing share text', 'highlight-and-share' ) );
 			$json_arr[ 'email_text' ] = apply_filters( 'has_email_text', _x( 'E-mail', 'E-mail share text', 'highlight-and-share' ) );
 			
@@ -567,6 +571,8 @@ class Highlight_And_Share {
 		add_settings_section( 'has-linkedin', _x( 'LinkedIn Settings', 'plugin settings heading' , 'highlight-and-share' ), array( $this, 'settings_section' ), 'highlight-and-share' );
 		
 		add_settings_section( 'has-pinterest', _x( 'Pinterest Settings', 'plugin settings heading' , 'highlight-and-share' ), array( $this, 'settings_section' ), 'highlight-and-share' );
+
+		add_settings_section( 'has-whatsapp', _x( 'WhatsApp Settings', 'plugin settings heading' , 'highlight-and-share' ), array( $this, 'settings_section' ), 'highlight-and-share' );
 		
 		add_settings_section( 'has-xing', _x( 'Xing Settings', 'plugin settings heading' , 'highlight-and-share' ), array( $this, 'settings_section' ), 'highlight-and-share' );
 		
@@ -587,6 +593,8 @@ class Highlight_And_Share {
 		add_settings_field( 'hightlight-and-share-linkedin-enable', __( 'Show LinkedIn Option', 'highlight-and-share' ), array( $this, 'add_settings_field_linkedin_enable' ), 'highlight-and-share', 'has-linkedin', array( 'desc' => __( 'Would you like to enable sharing via LinkedIn?', 'highlight-and-share' ) ) );
 		
 		add_settings_field( 'hightlight-and-share-pinterest-enable', __( 'Show Pinterest Option', 'highlight-and-share' ), array( $this, 'add_settings_field_pinterest_enable' ), 'highlight-and-share', 'has-pinterest', array( 'desc' => __( 'Would you like to enable sharing via Pinterest?', 'highlight-and-share' ) ) );
+
+		add_settings_field( 'hightlight-and-share-whatsapp-enable', __( 'Show WhatsApp Option', 'highlight-and-share' ), array( $this, 'add_settings_field_whatsapp_enable' ), 'highlight-and-share', 'has-whatsapp', array( 'desc' => __( 'Would you like to enable sharing via WhatsApp?', 'highlight-and-share' ) ) );
 		
 		add_settings_field( 'hightlight-and-share-xing-enable', __( 'Show Xing Option', 'highlight-and-share' ), array( $this, 'add_settings_field_xing_enable' ), 'highlight-and-share', 'has-xing', array( 'desc' => __( 'Would you like to enable sharing via Xing?', 'highlight-and-share' ) ) );
 		
@@ -628,12 +636,13 @@ class Highlight_And_Share {
 	 * @see init_admin_settings
 	 *
 	 * @param array $input {
-	 		@type string $js_content Content to be parsed via Javascript.  Default 'entry-content'.
-	
-	 		@type string $twitter Twitter username.  Default ''.
-	 		@type bool $show_twitter Whether to show twitter share option.  Default true.
-	 		@type bool $show_facebook Whether to show facebook share option.  Default true
-	 }
+	 *		@type string $js_content Content to be parsed via Javascript.  Default 'entry-content'.
+	 *
+	 *		@type string $twitter Twitter username.  Default ''.
+	 *		@type bool $show_twitter Whether to show twitter share option.  Default true.
+	 *		@type bool $show_facebook Whether to show facebook share option.  Default true
+	 * }
+	 * 
 	 * @return array Sanitized array of options
 	 */
 	public function sanitization( $input = array() ) {
@@ -697,11 +706,10 @@ class Highlight_And_Share {
 	 * @see init_admin_settings
 	 *
 	 * @param array $args {
-	 		@type string $label_for Settings label and ID.
-	
-	 		@type string $desc Description for the setting.
-	 		
-	 }
+	 * 		An array of arguments.
+	 *		@type string $label_for Settings label and ID.
+	 *		@type string $desc Description for the setting.
+	 * }
 	 */
 	public function add_settings_field_js_content( $args = array() ) {
 		$settings = $this->get_plugin_options();
@@ -721,11 +729,10 @@ class Highlight_And_Share {
 	 * @see init_admin_settings
 	 *
 	 * @param array $args {
-	 		@type string $label_for Settings label and ID.
-	
-	 		@type string $desc Description for the setting.
-	 		
-	 }
+	 * 		An array of arguments.
+	 *		@type string $label_for Settings label and ID.
+	 *		@type string $desc Description for the setting.
+	 * }
 	 */
 	public function add_settings_field_twitter( $args = array() ) {
 		$settings = $this->get_plugin_options();
@@ -745,11 +752,10 @@ class Highlight_And_Share {
 	 * @see init_admin_settings
 	 *
 	 * @param array $args {
-	 		@type string $label_for Settings label and ID.
-	
-	 		@type string $desc Description for the setting.
-	 		
-	 }
+	 * 		An array of arguments.
+	 *		@type string $label_for Settings label and ID.
+	 *		@type string $desc Description for the setting.
+	 * }
 	 */
 	public function add_settings_field_display_enable( $args = array() ) {
 		$settings = $this->get_plugin_options();
@@ -771,11 +777,10 @@ class Highlight_And_Share {
 	 * @see init_admin_settings
 	 *
 	 * @param array $args {
-	 		@type string $label_for Settings label and ID.
-	
-	 		@type string $desc Description for the setting.
-	 		
-	 }
+	 * 		An array of arguments.
+	 *		@type string $label_for Settings label and ID.
+	 *		@type string $desc Description for the setting.
+	 * }
 	 */
 	public function add_settings_field_twitter_enable( $args = array() ) {
 		$settings = $this->get_plugin_options();
@@ -795,11 +800,10 @@ class Highlight_And_Share {
 	 * @see init_admin_settings
 	 *
 	 * @param array $args {
-	 		@type string $label_for Settings label and ID.
-	
-	 		@type string $desc Description for the setting.
-	 		
-	 }
+	 * 		An array of arguments.
+	 *		@type string $label_for Settings label and ID.
+	 *		@type string $desc Description for the setting.
+	 * }
 	 */
 	public function add_settings_field_linkedin_enable( $args = array() ) {
 		$settings = $this->get_plugin_options();
@@ -819,11 +823,10 @@ class Highlight_And_Share {
 	 * @see init_admin_settings
 	 *
 	 * @param array $args {
-	 		@type string $label_for Settings label and ID.
-	
-	 		@type string $desc Description for the setting.
-	 		
-	 }
+	 * 		An array of arguments.
+	 *		@type string $label_for Settings label and ID.
+	 *		@type string $desc Description for the setting.
+	 * }
 	 */
 	public function add_settings_field_pinterest_enable( $args = array() ) {
 		$settings = $this->get_plugin_options();
@@ -837,23 +840,45 @@ class Highlight_And_Share {
 	 *
 	 * Output checkbox for displaying Xing sharing.
 	 *
-	 * @since 2.1.0
+	 * @since 2.2.0
 	 * @access public
 	 *
 	 * @see init_admin_settings
 	 *
 	 * @param array $args {
-	 		@type string $label_for Settings label and ID.
-	
-	 		@type string $desc Description for the setting.
-	 		
-	 }
+	 * 		An array of arguments.
+	 *		@type string $label_for Settings label and ID.
+	 *		@type string $desc Description for the setting.
+	 * }
 	 */
 	public function add_settings_field_xing_enable( $args = array() ) {
 		$settings = $this->get_plugin_options();
 		$xing = isset( $settings[ 'show_xing' ] ) ? (bool)$settings[ 'show_xing' ] : true;
 		echo '<input name="highlight-and-share[show_xing]" value="off" type="hidden" />';
 		printf( '<input id="has-show-xing" type="checkbox" name="highlight-and-share[show_xing]" value="on" %s />&nbsp;<label for="has-show-xing">%s</label>', checked( true, $xing, false ), __( 'Enable Xing Sharing?', 'highlight-and-share' ) );
+	}
+
+	/**
+	 * Add WhatsApp Option for Sharing
+	 *
+	 * Output checkbox for displaying WhatsApp sharing.
+	 *
+	 * @since 2.2.2
+	 * @access public
+	 *
+	 * @see init_admin_settings
+	 *
+	 * @param array $args {
+	 * 		An array of arguments.
+	 *		@type string $label_for Settings label and ID.
+	 *		@type string $desc Description for the setting.
+	 *}
+	 */
+	public function add_settings_field_whatsapp_enable( $args = array() ) {
+		$settings = $this->get_plugin_options();
+		$whatsapp = isset( $settings[ 'show_whatsapp' ] ) ? (bool)$settings[ 'show_whatsapp' ] : true;
+		echo '<input name="highlight-and-share[show_whatsapp]" value="off" type="hidden" />';
+		printf( '<input id="has-show-whatsapp" type="checkbox" name="highlight-and-share[show_whatsapp]" value="on" %s />&nbsp;<label for="has-show-whatsapp">%s</label>', checked( true, $whatsapp, false ), __( 'Enable WhatsApp Sharing?', 'highlight-and-share' ) );
 	}
 	
 	/**
@@ -867,11 +892,11 @@ class Highlight_And_Share {
 	 * @see init_admin_settings
 	 *
 	 * @param array $args {
-	 		@type string $label_for Settings label and ID.
-	
-	 		@type string $desc Description for the setting.
-	 		
-	 }
+	 *		@type string $label_for Settings label and ID.
+	 *
+	 *		@type string $desc Description for the setting.
+	 *		
+	 * }
 	 */
 	public function add_settings_field_email_enable( $args = array() ) {
 		$settings = $this->get_plugin_options();
@@ -891,11 +916,10 @@ class Highlight_And_Share {
 	 * @see init_admin_settings
 	 *
 	 * @param array $args {
-	 		@type string $label_for Settings label and ID.
-	
-	 		@type string $desc Description for the setting.
-	 		
-	 }
+	 * 		An array of arguments.
+	 *		@type string $label_for Settings label and ID.
+	 *		@type string $desc Description for the setting.
+	 * }
 	 */
 	public function add_settings_field_facebook_enable( $args = array() ) {
 		$settings = $this->get_plugin_options();
@@ -915,11 +939,10 @@ class Highlight_And_Share {
 	 * @see init_admin_settings
 	 *
 	 * @param array $args {
-	 		@type string $label_for Settings label and ID.
-	
-	 		@type string $desc Description for the setting.
-	 		
-	 }
+	 * 		An array of arguments.
+	 *		@type string $label_for Settings label and ID.
+	 *		@type string $desc Description for the setting.
+	 * }
 	 */
 	public function add_settings_field_facebook_api( $args = array() ) {
 		$settings = $this->get_plugin_options();
@@ -944,11 +967,10 @@ class Highlight_And_Share {
 	 * @see init_admin_settings
 	 *
 	 * @param array $args {
-	 		@type string $label_for Settings label and ID.
-	
-	 		@type string $desc Description for the setting.
-	 		
-	 }
+	 * 		An array of arguments.
+	 *		@type string $label_for Settings label and ID.
+	 *		@type string $desc Description for the setting.
+	 * }
 	 */
 	public function add_settings_field_content_enable( $args = array() ) {
 		$settings = $this->get_plugin_options();
@@ -968,11 +990,10 @@ class Highlight_And_Share {
 	 * @see init_admin_settings
 	 *
 	 * @param array $args {
-	 		@type string $label_for Settings label and ID.
-	
-	 		@type string $desc Description for the setting.
-	 		
-	 }
+	 * 		An array of arguments.
+	 *		@type string $label_for Settings label and ID.
+	 *		@type string $desc Description for the setting.
+	 * }
 	 */
 	public function add_settings_field_excerpt_enable( $args = array() ) {
 		$settings = $this->get_plugin_options();
@@ -992,11 +1013,10 @@ class Highlight_And_Share {
 	 * @see init_admin_settings
 	 *
 	 * @param array $args {
-	 		@type string $label_for Settings label and ID.
-	
-	 		@type string $desc Description for the setting.
-	 		
-	 }
+	 * 		An array of arguments.
+	 *		@type string $label_for Settings label and ID.
+	 *		@type string $desc Description for the setting.
+	 * }
 	 */
 	public function add_settings_field_shortlink_enable( $args = array() ) {
 		$settings = $this->get_plugin_options();
@@ -1025,21 +1045,22 @@ class Highlight_And_Share {
 		}
 		
 		$defaults = array(
-			'js_content'     => '',
-			'twitter'        => '',
-			'show_twitter'   => true,
-			'show_facebook'  => true,
-			'show_linkedin'  => false,
-			'show_pinterest' => false,
-			'show_email'     => false,
-			'show_xing'      => false,
-			'enable_content' => true,
-			'enable_excerpt' => true,
-			'shortlinks'     => false,
-			'icons'          => true,
+			'js_content'         => '',
+			'twitter'            => '',
+			'show_twitter'       => true,
+			'show_facebook'      => true,
+			'show_linkedin'      => false,
+			'show_pinterest'     => false,
+			'show_email'         => false,
+			'show_whatsapp'      => false,
+			'show_xing'          => false,
+			'enable_content'     => true,
+			'enable_excerpt'     => true,
+			'shortlinks'         => false,
+			'icons'              => true,
 		);
 		
-		if ( false === $settings || !is_array( $settings ) ) {
+		if ( false === $settings || ! is_array( $settings ) ) {
 			update_option( 'highlight-and-share', $defaults );
 			return $defaults;
 		} else {
