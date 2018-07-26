@@ -377,7 +377,7 @@ class Highlight_And_Share {
 				$deps[] = 'jquery.mobile';	
 			}
 			$main_script_uri = $this->get_plugin_url( 'js/highlight-and-share.js' );
-			wp_enqueue_script( 'highlight-and-share', $main_script_uri, $deps, '20180210', true );
+			wp_enqueue_script( 'highlight-and-share', $main_script_uri, $deps, '20180725', true );
 
 			/**Build JSON Object**/
 			$settings = $this->get_plugin_options();
@@ -476,13 +476,14 @@ class Highlight_And_Share {
                 home_url()
             );
 			$json_arr[ 'email_url' ] = esc_url_raw( $url_email );
+			$json_arr[ 'from' ] = _x( 'From', 'For a URL', 'highlight-and-share' );
 			
 			//Localize
 			wp_localize_script( 'highlight-and-share', 'highlight_and_share', $json_arr );		
 			
 			//Add CSS
 			if ( apply_filters( 'has_load_css', true ) ) {
-				wp_enqueue_style( 'highlight-and-share', $this->get_plugin_url( 'css/highlight-and-share.css' ), array(), '20180211', 'all' );
+				wp_enqueue_style( 'highlight-and-share', $this->get_plugin_url( 'css/highlight-and-share.css' ), array(), '20180725', 'all' );
 			}	
 			
 			
