@@ -208,7 +208,7 @@ jQuery( document ).ready( function( $ ) {
 		} );
 				
 		//Add to document
-		$( 'body' ).append( wrapper_clone );	
+        setTimeout(function(){ $( 'body' ).append( wrapper_clone ); }, 100);
 	};
 	if ( highlight_and_share.show_twitter == true || highlight_and_share.show_facebook == true || highlight_and_share.show_linkedin == true || highlight_and_share.show_pinterest == true || highlight_and_share.show_email == true) {
 		has_load_html();
