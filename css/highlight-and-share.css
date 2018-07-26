@@ -32,6 +32,9 @@
 .highlight-and-share-wrapper div.has_xing {
 	background: #be4bdb;
 }
+.highlight-and-share-wrapper div.has_whatsapp {
+	background: #04e26a;
+}
 .highlight-and-share-wrapper div.has_email {
     background: #0074a2;
 }
@@ -49,6 +52,12 @@
 }
 .highlight-and-share-wrapper div.has_email:hover {
     background: #1388b7;
+}
+.highlight-and-share-wrapper div.has_xing:hover {
+	background: #a53bc0;
+}
+.highlight-and-share-wrapper div.has_whatsapp:hover {
+	background: #02b857;
 }
 .highlight-and-share-wrapper a,
 .highlight-and-share-wrapper a:hover,
