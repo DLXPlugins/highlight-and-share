@@ -64,13 +64,19 @@ jQuery( document ).ready( function( $ ) {
 			}
 		}
 		
-		//={URI-encoded URL of the page to pin}&media={URI-encoded URL of the image to pin}&description={optional URI-encoded description}"
 		if ( highlight_and_share.show_xing ) {
 			if ( highlight_and_share.icons == true ) {
-				//Note, you must be on a publicly accesible URL to use this button
 				html += '<div class="has_xing" style="display: none;" data-type="xing"><a href="https://www.xing.com/spi/shares/new?url=%url%" target="_blank"><i class="fa fa-xing"></i>&nbsp;' + highlight_and_share.xing_text + '</a></div>';
 			} else {
 				html += '<div class="has_xing" style="display: none;" data-type="xing"><a href="https://www.xing.com/spi/shares/new?url=%url%" target="_blank"><i class="fa fa-xing"></i></a></div>';
+			}
+		}
+
+		if ( highlight_and_share.show_whatsapp ) {
+			if ( highlight_and_share.icons == true ) {
+				html += '<div class="has_whatsapp" style="display: none;" data-type="whatsapp"><a href="https://wa.me/?text=%text%' + ' - ' + highlight_and_share.from + ': ' + '%url%" target="_blank"><i class="fa fa-whatsapp"></i>&nbsp;' + highlight_and_share.whatsapp_text + '</a></div>';
+			} else {
+				html += '<div class="has_whatsapp" style="display: none;" data-type="whatsapp"><a href="https://wa.me/?text=%text%' + ' - ' + highlight_and_share.from + ': ' + '%url%" target="_blank"><i class="fa fa-whatsapp"></i></a></div>';
 			}
 		}
 		
@@ -138,17 +144,23 @@ jQuery( document ).ready( function( $ ) {
 	} );
 	$( 'body' ).on( 'click', '.has_linkedin a', function( e ) {
 		e.preventDefault();
-	window.open( this.href,"linkedin","width=575,height=430,toolbar=false,menubar=false,location=false,status=false");
+		window.open( this.href,"linkedin","width=575,height=430,toolbar=false,menubar=false,location=false,status=false");
 		has_remove();
 	} );
 	$( 'body' ).on( 'click', '.has_pinterest a', function( e ) {
 		e.preventDefault();
-	window.open( this.href,"pinterest","width=575,height=430,toolbar=false,menubar=false,location=false,status=false");
+		window.open( this.href,"pinterest","width=575,height=430,toolbar=false,menubar=false,location=false,status=false");
 		has_remove();
 	} );
 	$( 'body' ).on( 'click', '.has_xing a', function( e ) {
 		e.preventDefault();
-	window.open( this.href,"xing","width=575,height=430,toolbar=false,menubar=false,location=false,status=false");
+		window.open( this.href,"xing","width=575,height=430,toolbar=false,menubar=false,location=false,status=false");
+		has_remove();
+	} );
+	$( 'body' ).on( 'click', '.has_whatsapp a', function( e ) {
+		e.preventDefault();
+		this.href = this.href.replace( '%text%', encodeURIComponent( has_selected_text ) );
+		window.open( this.href,"whatsapp","width=575,height=430,toolbar=false,menubar=false,location=false,status=false");
 		has_remove();
 	} );
 	$( 'body' ).on( 'click', '.has_email a', function( e ) {
