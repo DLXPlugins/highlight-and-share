@@ -5,7 +5,7 @@ A WordPress plugin for highlighting text and sharing it via Twitter or Facebook 
 
 Sharing selectable text is only possible via Twitter, but an option to share the post via Facebook is also present when highlighting text as a convenience. 
 
-This plugin is intended to be highly flexible in selecting content areas (via the Plugin's settings).  If you're looking for something more plug-and-play, please try <a href="https://wordpress.org/plugins/quotable/">Quotable</a>.
+This plugin is intended to be highly flexible in selecting content areas (via the Plugin's settings).
 
 If you have a feature request, please add an issue.
 
@@ -26,6 +26,7 @@ Recommended Plugins
 <ul>
 <li><a href="https://wordpress.org/plugins/better-font-awesome/">Better Font Awesome</a> - Enables Twitter/Facebook sharing icons</li>
 <li><a href="https://wordpress.org/plugins/wordpress-seo/">WordPress SEO</a> - For Facebook OpenGraph data</li>
+<li><a href="https://wordpress.org/plugins/jetpack/">JetPack</a> - for URL Shortlinks</li>
 </ul>
 
 Installation

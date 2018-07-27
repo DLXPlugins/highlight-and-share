@@ -2,7 +2,7 @@
 /*
 Plugin Name: Highlight and Share
 Plugin URI: https://wordpress.org/plugins/highlight-and-share/
-Description: Highlight text and share via Twitter or Facebook
+Description: Highlight text and share via Twitter or Facebook and many more
 Author: Ronald Huereca
 Version: 2.2.2
 Requires at least: 4.4

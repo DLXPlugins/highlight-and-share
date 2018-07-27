@@ -8,15 +8,15 @@ License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://mediaron.com/contribute/
 
-A WordPress plugin for highlighting text and sharing it via Twitter and Facebook.
+A WordPress plugin for highlighting text and sharing it via Twitter and Facebook and other services including LinkedIn, Email, Xing, and WhatsApp.
 
 == Description ==
 
-A WordPress plugin for highlighting text and sharing it via Twitter and Facebook.
+A WordPress plugin for highlighting text and sharing it via Twitter and Facebook and other services including LinkedIn, Email, Xing, and WhatsApp.
 
-Sharing selectable text is only possible via Twitter and Facebook, but an option to share the post via LinkedIn, Pinterest, and E-mail are also present when highlighting text as a convenience. 
+Sharing selectable text is only possible via Twitter, Facebook, and WhatsApp. However an option to share the post via LinkedIn, Pinterest, and E-mail are also present when highlighting text as a convenience. 
 
-This plugin is intended to be highly flexible in selecting content areas (via the Plugin's settings).  If you're looking for something more plug-and-play, please try <a href="https://wordpress.org/plugins/quotable/">Quotable</a>.
+This plugin is intended to be highly flexible in selecting content areas (via the Plugin's settings).
 
 If you have a feature request, <a href="https://github.com/ronalfy/highlight-and-share/issues">please add a GitHub issue</a>.
 
@@ -57,7 +57,7 @@ You are welcome to help us out and <a href="https://github.com/ronalfy/highlight
 
 = Can I share text using Facebook? =
 
-Facebook disabled that portion of the sharing API, so no, it is not possible.  If you don't like Facebook sharing, you can disable it via the plugin's options.
+You can if you have a Facebook App ID. They <a href="https://developers.facebook.com/">are easy to create</a>.
 
 = Will you be adding more sharing services? =
 
@@ -66,6 +66,8 @@ Possibly.  <a href="https://github.com/ronalfy/highlight-and-share/issues">Open 
 = I want to include my own CSS.  How can I do that? =
 
 Use the plugin hook `has_show_css` and <a href="https://github.com/ronalfy/highlight-and-share#plugin-filters">disable CSS</a>.  You can then  include your own CSS in your theme.
+
+For the black CSS file shown in the, adhere to <a href="https://jsfiddle.net/0ej4qufs/26/">the JSFiddle</a> and place the CSS in the WordPress customizer.
 
 = Does this plugin work on mobile devices? =
 
@@ -89,6 +91,10 @@ So far, the latest versions of Chrome, Firefox, and Safari.   Works for IE9+
 4. Highlight and Share with custom CSS.
 
 == Changelog ==
+
+= 2.2.2 =
+* Released 2018-07-27
+* Added support for WhatsApp
 
 = 2.2.0 =
 * Released 2018-02-11
@@ -161,6 +167,9 @@ So far, the latest versions of Chrome, Firefox, and Safari.   Works for IE9+
 * Initial release on WordPress.org
 
 == Upgrade Notice ==
+
+= 2.2.2 =
+Added support for WhatsApp
 
 = 2.2.0 =
 Added support for XING. Added better support for emailing.
