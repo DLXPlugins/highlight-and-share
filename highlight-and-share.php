@@ -406,6 +406,15 @@ class Highlight_And_Share {
 			
 			//Twitter Username
 			$json_arr[ 'twitter_username' ] = trim( sanitize_text_field( apply_filters( 'has_twitter_username', $settings[ 'twitter' ] ) ) );
+
+			// Font Awesome Icons
+			$json_arr[ 'twitter_fa_class' ] = sanitize_text_field( $settings[ 'twitter_fa_class' ] );
+			$json_arr[ 'facebook_fa_class' ] = sanitize_text_field( $settings[ 'facebook_fa_class' ] );
+			$json_arr[ 'linkedin_fa_class' ] = sanitize_text_field( $settings[ 'linkedin_fa_class' ] );
+			$json_arr[ 'pinterest_fa_class' ] = sanitize_text_field( $settings[ 'pinterest_fa_class' ] );
+			$json_arr[ 'xing_fa_class' ] = sanitize_text_field( $settings[ 'xing_fa_class' ] );
+			$json_arr[ 'whatsapp_fa_class' ] = sanitize_text_field( $settings[ 'whatsapp_fa_class' ] );
+			$json_arr[ 'email_fa_class' ] = sanitize_text_field( $settings[ 'email_fa_class' ] );
 			
 			//Override the filter if no username is present for twitter
 			if ( empty( $json_arr[ 'twitter_username' ] ) ) {
