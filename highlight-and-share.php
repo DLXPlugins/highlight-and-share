@@ -4,7 +4,7 @@ Plugin Name: Highlight and Share
 Plugin URI: https://wordpress.org/plugins/highlight-and-share/
 Description: Highlight text and share via Twitter or Facebook and many more
 Author: Ronald Huereca
-Version: 2.2.2
+Version: 2.3.0
 Requires at least: 4.4
 Author URI: https://mediaron.com
 Contributors: ronalfy
@@ -483,7 +483,31 @@ class Highlight_And_Share {
 			
 			//Add CSS
 			if ( apply_filters( 'has_load_css', true ) ) {
-				wp_enqueue_style( 'highlight-and-share', $this->get_plugin_url( 'css/highlight-and-share.css' ), array(), '20180725', 'all' );
+				switch( $settings[ 'theme' ] ) {
+					case 'off':
+						break;
+					case 'default':
+						wp_enqueue_style( 'highlight-and-share', $this->get_plugin_url( 'css/highlight-and-share.css' ), array(), '20180725', 'all' );
+						break;
+					case 'black':
+						wp_enqueue_style( 'highlight-and-share', $this->get_plugin_url( 'css/highlight-and-share-black.css' ), array(), '20180819', 'all' );
+						break;
+					case 'white':
+						wp_enqueue_style( 'highlight-and-share', $this->get_plugin_url( 'css/highlight-and-share-white.css' ), array(), '20180819', 'all' );
+						break;
+					case 'blue':
+						wp_enqueue_style( 'highlight-and-share', $this->get_plugin_url( 'css/highlight-and-share-blue.css' ), array(), '20180819', 'all' );
+						break;
+					case 'green':
+						wp_enqueue_style( 'highlight-and-share', $this->get_plugin_url( 'css/highlight-and-share-green.css' ), array(), '20180819', 'all' );
+						break;
+					case 'magenta':
+						wp_enqueue_style( 'highlight-and-share', $this->get_plugin_url( 'css/highlight-and-share-magenta.css' ), array(), '20180819', 'all' );
+						break;
+					default:
+						wp_enqueue_style( 'highlight-and-share', $this->get_plugin_url( 'css/highlight-and-share.css' ), array(), '20180725', 'all' );
+						break;
+				}
 			}	
 			
 			
@@ -584,6 +608,8 @@ class Highlight_And_Share {
 		add_settings_section( 'has-advanced', _x( 'Advanced', 'plugin settings heading' , 'highlight-and-share' ), array( $this, 'settings_section' ), 'highlight-and-share' );
 		
 		add_settings_field( 'hightlight-and-share-display-enable', __( 'Show Icons Only', 'highlight-and-share' ), array( $this, 'add_settings_field_display_enable' ), 'highlight-and-share', 'has-display', array( 'desc' => __( 'Show icons only. Recommended if you choose more than two options to show.', 'highlight-and-share' ) ) );
+
+		add_settings_field( 'hightlight-and-share-display-theme', __( 'Choose Theme', 'highlight-and-share' ), array( $this, 'add_settings_field_display_theme' ), 'highlight-and-share', 'has-display', array( 'desc' => __( 'Choose a theme to display on the front-end.', 'highlight-and-share' ) ) );
 		
 		add_settings_field( 'hightlight-and-share-content-enable', __( 'Add to Post Content', 'highlight-and-share' ), array( $this, 'add_settings_field_content_enable' ), 'highlight-and-share', 'has-config', array( 'desc' => __( 'Would you like to add sharing to the main content areas?', 'highlight-and-share' ) ) );
 		
@@ -685,6 +711,8 @@ class Highlight_And_Share {
 				} else {
 					add_settings_error( 'highlight-and-share', 'invalid_twitter', _x( 'You must enter valid comma-separated values for the content.', 'Invalid comma-separated values', 'highlight-and-share' ) );
 				}
+			} elseif( 'theme' == $key ) {
+				$output[ $key ] = sanitize_text_field( $value );
 			} elseif( ( 'show_twitter' || 'show_facebook' || 'enable_content' || 'enable_excerpt' || 'shortlinks' || 'icons' ) == $key ) {
 				if ( $input[ $key ] == 'on' ) {
 					$output[ $key ] = true;	
@@ -764,6 +792,39 @@ class Highlight_And_Share {
 		echo '<input name="highlight-and-share[icons]" value="on" type="hidden" />';
 		printf( '<input id="has-show-icons" type="checkbox" name="highlight-and-share[icons]" value="off" %s />&nbsp;<label for="has-show-icons">%s</label>', checked( false, $enable_icons, false ), __( 'Enable Icons Only?', 'highlight-and-share' ) );
 		$bfa = sprintf( '<a href="%s">Requires %s or equivalent.</a>', 'https://wordpress.org/plugins/better-font-awesome/', __( 'Better Font Awesome', 'highlight-and-share' ) );
+		printf( '<div><em>%s<br />%s</em></div>', $bfa, esc_html( $args[ 'desc' ] ) );
+	}
+
+	/**
+	 * Option for displaying a theme
+	 *
+	 * Option for displaying a theme
+	 *
+	 * @since 2.3.0
+	 * @access public
+	 *
+	 * @see init_admin_settings
+	 *
+	 * @param array $args {
+	 * 		An array of arguments.
+	 *		@type string $label_for Settings label and ID.
+	 *		@type string $desc Description for the setting.
+	 * }
+	 */
+	public function add_settings_field_display_theme( $args = array() ) {
+		$settings = $this->get_plugin_options();
+		$theme = isset( $settings[ 'theme' ] ) ? $settings[ 'theme' ] : 'default';
+		?>
+		<select name="highlight-and-share[theme]">
+			<option value="off" <?php selected( 'off', $theme, true); ?>><?php esc_html_e( 'Off', 'highlight-and-share' ); ?></option>
+			<option value="default" <?php selected( 'default', $theme, true); ?>><?php esc_html_e( 'Default', 'highlight-and-share' ); ?></option>
+			<option value="black" <?php selected( 'black', $theme, true); ?>><?php esc_html_e( 'Black (Icons Only)', 'highlight-and-share' ); ?></option>
+			<option value="white" <?php selected( 'white', $theme, true); ?>><?php esc_html_e( 'White (Icons Only)', 'highlight-and-share' ); ?></option>
+			<option value="magenta" <?php selected( 'magenta', $theme, true); ?>><?php esc_html_e( 'Magenta (Icons Only)', 'highlight-and-share' ); ?></option>
+			<option value="blue" <?php selected( 'blue', $theme, true); ?>><?php esc_html_e( 'Blue (Icons Only)', 'highlight-and-share' ); ?></option>
+			<option value="green" <?php selected( 'green', $theme, true); ?>><?php esc_html_e( 'Green (Icons Only)', 'highlight-and-share' ); ?></option>
+		</select>
+		<?php
 		printf( '<div><em>%s<br />%s</em></div>', $bfa, esc_html( $args[ 'desc' ] ) );
 	}
 	
@@ -1059,6 +1120,7 @@ class Highlight_And_Share {
 			'enable_excerpt'     => true,
 			'shortlinks'         => false,
 			'icons'              => true,
+			'theme'              => 'default',
 		);
 		
 		if ( false === $settings || ! is_array( $settings ) ) {

@@ -1,0 +1,130 @@
+/* Default HAS Styles */
+.highlight-and-share-wrapper {
+    display: none;
+    width: 0;
+    height: 0;
+}
+.highlight-and-share-wrapper .fa {
+    font-size: 14px;
+}
+.highlight-and-share-wrapper div {
+	padding: 10px;
+	background: #32CCFE;
+	-moz-transition: background-color 200ms;
+	-o-transition: background-color 200ms;
+	-webkit-transition: background-color 200ms;
+	transition: background-color 200ms;
+	z-index: 1000;
+	margin-right: 5px;
+	margin-bottom: 10px;
+}
+.highlight-and-share-wrapper div:last-child {
+    margin-right: 0;
+}
+.highlight-and-share-wrapper div.has_facebook {
+	background: #3c5a9e;
+}
+.highlight-and-share-wrapper div.has_linkedin {
+    background: #0085AE;
+}
+.highlight-and-share-wrapper div.has_pinterest {
+    background: #CC2127;
+}
+.highlight-and-share-wrapper div.has_email {
+    background: #0074a2;
+}
+.highlight-and-share-wrapper div.hax_xing {
+    background: #0074a2;
+}
+.highlight-and-share-wrapper div.has_whatsapp {
+    background: #0074a2;
+}
+.highlight-and-share-wrapper div.has_twitter:hover {
+	background: #00aced;
+}
+.highlight-and-share-wrapper div.has_facebook:hover {
+	background: #1F3C83;
+}
+.highlight-and-share-wrapper div.has_linkedin:hover {
+    background: #23a0c7;
+}
+.highlight-and-share-wrapper div.has_pinterest:hover {
+    background: #d93238;
+}
+.highlight-and-share-wrapper div.has_email:hover {
+    background: #1388b7;
+}
+.highlight-and-share-wrapper div.has_xing:hover {
+    background: #1388b7;
+}
+.highlight-and-share-wrapper div.has_whatsapp:hover {
+    background: #1388b7;
+}
+.highlight-and-share-wrapper a,
+.highlight-and-share-wrapper a:hover,
+.highlight-and-share-wrapper a:visited {
+	font-family: 'FranklinGothic', Helvetica, sans-serif;
+	font-weight: bold;
+	text-transform: uppercase;
+	letter-spacing: 0.150em;
+	font-size: 14px;
+	letter-spacing: .2em;
+	color: #FFF;
+	display: block;
+	height: 100%;
+	padding: 12px 20px;
+	text-decoration: none;
+}
+/* End Default HAS Styles */
+
+
+
+
+/* Size of the box and margin */
+div.highlight-and-share-wrapper div {
+	margin-right: 0;
+	padding: 0;	
+}
+
+/* Padding for the anchors */
+div.highlight-and-share-wrapper a, 
+div.highlight-and-share-wrapper a:hover, 
+div.highlight-and-share-wrapper a:visited {
+	padding: 10px;	
+}
+
+/* Regular color */
+div.highlight-and-share-wrapper div.has_twitter,
+div.highlight-and-share-wrapper div.has_facebook,
+div.highlight-and-share-wrapper div.has_linkedin,
+div.highlight-and-share-wrapper div.has_pinterest,
+div.highlight-and-share-wrapper div.has_email,
+div.highlight-and-share-wrapper div.has_xing,
+div.highlight-and-share-wrapper div.has_whatsapp
+ {
+	background: #0009c1;
+}
+
+/* Hover color */
+div.highlight-and-share-wrapper div.has_twitter:hover,
+div.highlight-and-share-wrapper div.has_facebook:hover,
+div.highlight-and-share-wrapper div.has_linkedin:hover,
+div.highlight-and-share-wrapper div.has_pinterest:hover,
+div.highlight-and-share-wrapper div.has_email:hover,
+div.highlight-and-share-wrapper div.has_xing:hover,
+div.highlight-and-share-wrapper div.has_whatsapp:hover{
+	background: #0008a4;
+}
+
+/* Speech Bubble */
+.highlight-and-share-wrapper:after {
+	content: "";
+	display: block;
+	position: absolute;
+	bottom: 0;
+	left: calc(50% - 10px);
+	border-top: 10px solid #0009c1;
+	border-top-color: #0009c1; 
+	border-left: 10px solid transparent;
+	border-right: 10px solid transparent;
+}
