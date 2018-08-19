@@ -509,8 +509,6 @@ class Highlight_And_Share {
 						break;
 				}
 			}	
-			
-			
 	}
 	
 	/**
@@ -609,7 +607,7 @@ class Highlight_And_Share {
 		
 		add_settings_field( 'hightlight-and-share-display-enable', __( 'Show Icons Only', 'highlight-and-share' ), array( $this, 'add_settings_field_display_enable' ), 'highlight-and-share', 'has-display', array( 'desc' => __( 'Show icons only. Recommended if you choose more than two options to show.', 'highlight-and-share' ) ) );
 
-		add_settings_field( 'hightlight-and-share-display-theme', __( 'Choose Theme', 'highlight-and-share' ), array( $this, 'add_settings_field_display_theme' ), 'highlight-and-share', 'has-display', array( 'desc' => __( 'Choose a theme to display on the front-end.', 'highlight-and-share' ) ) );
+		add_settings_field( 'hightlight-and-share-display-theme', __( 'Choose Theme', 'highlight-and-share' ), array( $this, 'add_settings_field_display_theme' ), 'highlight-and-share', 'has-display', array( 'desc' => __( 'Choose a theme to display on the front-end. Some themes require Show Icons Only to be enabled.', 'highlight-and-share' ) ) );
 		
 		add_settings_field( 'hightlight-and-share-content-enable', __( 'Add to Post Content', 'highlight-and-share' ), array( $this, 'add_settings_field_content_enable' ), 'highlight-and-share', 'has-config', array( 'desc' => __( 'Would you like to add sharing to the main content areas?', 'highlight-and-share' ) ) );
 		
@@ -635,6 +633,7 @@ class Highlight_And_Share {
 		add_settings_field( 'hightlight-and-share-shortlink-enable', __( 'Shortlinks', 'highlight-and-share' ), array( $this, 'add_settings_field_shortlink_enable' ), 'highlight-and-share', 'has-shortlink', array( 'desc' => __( 'Please decide if you would like to use the default post URL or a shortened version.', 'highlight-and-share' ) ) );
 		
 		add_settings_field( 'hightlight-and-share-js-content', _x( 'jQuery classes', 'Label - Where in the HTML document to search for text to capture', 'highlight-and-share' ), array( $this, 'add_settings_field_js_content' ), 'highlight-and-share', 'has-advanced', array( 'label_for' => 'hightlight-and-share-js-content', 'desc' => __( 'Enter jQuery classes to search for in the HTML.  You must comma-separate classes (e.g., entry-content,post,page).', 'highlight-and-share' ) ) );
+		add_settings_field( 'hightlight-and-share-fa-content', __( 'Font Awesome Classes', 'highlight-and-share' ), array( $this, 'add_settings_field_fa_content' ), 'highlight-and-share', 'has-advanced', array( 'label_for' => 'hightlight-and-share-fa-content', 'desc' => __( 'Enter your own Font Awesome classes for the icons.', 'highlight-and-share' ) ) );
 		
 	}
 	
@@ -684,41 +683,60 @@ class Highlight_And_Share {
 			}	
 			return $input;
 		}
-
 		//Settings are being saved.  Update.
 		foreach( $input as $key => $value ) {
-			if ( 'twitter' == $key ) {
-				$twitter_username = trim( $value );
-				if ( empty( $twitter_username ) ) {
-					$output[ $key ] ='';
-				} elseif ( !preg_match( '/^[a-zA-Z0-9_]{1,15}$/', $twitter_username ) ) {
-					add_settings_error( 'highlight-and-share', 'invalid_twitter', _x( 'You have entered an incorrect Twitter username', 'Twitter username error', 'highlight-and-share' ) );
-				} else {
+			switch( $key ) {
+				case 'twitter':
+					$twitter_username = trim( $value );
+					if ( empty( $twitter_username ) ) {
+						$output[ $key ] ='';
+					} elseif ( !preg_match( '/^[a-zA-Z0-9_]{1,15}$/', $twitter_username ) ) {
+						add_settings_error( 'highlight-and-share', 'invalid_twitter', _x( 'You have entered an incorrect Twitter username', 'Twitter username error', 'highlight-and-share' ) );
+					} else {
+						$output[ $key ] = sanitize_text_field( $value );
+					}
+					break;
+				case 'facebook_app_id':
+					$app_id = absint( $value );
+					
+					if ( empty( $app_id ) || 0 === $app_id ) {
+						$output[ $key ] = '';
+					} else {
+						$output[ $key ] = $app_id;
+					}
+					break;
+				case 'js_content':
+					if( empty( $js_content ) || preg_match( '/[-_0-9a-zA-Z]+(,[-_0-9a-zA-Z]+)*$/', $js_content ) ) {
+						$output[ $key ] = sanitize_text_field( $js_content );
+					} else {
+						add_settings_error( 'highlight-and-share', 'invalid_twitter', _x( 'You must enter valid comma-separated values for the content.', 'Invalid comma-separated values', 'highlight-and-share' ) );
+					}
+					break;
+				case 'theme':
 					$output[ $key ] = sanitize_text_field( $value );
-				}
-			} elseif( 'facebook_app_id' == $key ) {
-				$app_id = absint( $value );
+					break;
+				case 'twitter_fa_class':
+				case 'facebook_fa_class':
+				case 'linkedin_fa_class':
+				case 'pinterest_fa_class':
+				case 'xing_fa_class':
+				case 'whatsapp_fa_class':
+				case 'email_fa_class':
+					$output[ $key ] = sanitize_text_field( $value );
+					break;
+				case 'show_twitter':
+				case 'show_facebook':
+				case 'enable_content':
+				case 'enable_excerpt':
+				case 'shortlinks':
+				case 'icons':
+					if ( $input[ $key ] == 'on' ) {
+						$output[ $key ] = true;	
+					} else {
+						$output[ $key ] = false;
+					}
+					break;
 				
-				if ( empty( $app_id ) || 0 === $app_id ) {
-					$output[ $key ] = '';
-				} else {
-					$output[ $key ] = $app_id;
-				}
-			} elseif( 'js_content' == $key ) {
-				$js_content = trim( $value );				
-				if( empty( $js_content ) || preg_match( '/[-_0-9a-zA-Z]+(,[-_0-9a-zA-Z]+)*$/', $js_content ) ) {
-					$output[ $key ] = sanitize_text_field( $js_content );
-				} else {
-					add_settings_error( 'highlight-and-share', 'invalid_twitter', _x( 'You must enter valid comma-separated values for the content.', 'Invalid comma-separated values', 'highlight-and-share' ) );
-				}
-			} elseif( 'theme' == $key ) {
-				$output[ $key ] = sanitize_text_field( $value );
-			} elseif( ( 'show_twitter' || 'show_facebook' || 'enable_content' || 'enable_excerpt' || 'shortlinks' || 'icons' ) == $key ) {
-				if ( $input[ $key ] == 'on' ) {
-					$output[ $key ] = true;	
-				} else {
-					$output[ $key ] = false;
-				}
 			}
 		}
 		return $output;
@@ -745,6 +763,76 @@ class Highlight_And_Share {
 		$js_content = isset( $settings[ 'js_content' ] ) ? $settings[ 'js_content' ] : '';
 		printf( '<p>%s</p>', esc_html( $args[ 'desc' ] ) );
 		printf( '<input id="%s" type="text" name="highlight-and-share[js_content]" value="%s" />', esc_attr( $args[ 'label_for' ] ), esc_attr( $js_content ) );
+	}
+
+	/**
+	 * Output custom Font Awesome classes
+	 *
+	 * Output custom Font Awesome classes.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 *
+	 * @see init_admin_settings
+	 *
+	 * @param array $args {
+	 * 		An array of arguments.
+	 *		@type string $label_for Settings label and ID.
+	 *		@type string $desc Description for the setting.
+	 * }
+	 */
+	public function add_settings_field_fa_content( $args = array() ) {
+		$settings = $this->get_plugin_options();
+		$twitter_fa_class = isset( $settings[ 'twitter_fa_class' ] ) ? $settings[ 'twitter_fa_class' ] : '';
+		$facebook_fa_class = isset( $settings[ 'facebook_fa_class' ] ) ? $settings[ 'facebook_fa_class' ] : '';
+		$linkedin_fa_class = isset( $settings[ 'linkedin_fa_class' ] ) ? $settings[ 'linkedin_fa_class' ] : '';
+		$pinterest_fa_class = isset( $settings[ 'pinterest_fa_class' ] ) ? $settings[ 'pinterest_fa_class' ] : '';
+		$xing_fa_class = isset( $settings[ 'xing_fa_class' ] ) ? $settings[ 'xing_fa_class' ] : '';
+		$whatsapp_fa_class = isset( $settings[ 'whatsapp_fa_class' ] ) ? $settings[ 'whatsapp_fa_class' ] : '';
+		$email_fa_class = isset( $settings[ 'email_fa_class' ] ) ? $settings[ 'email_fa_class' ] : '';
+		printf( '<p>%s</p>', esc_html( $args[ 'desc' ] ) );
+		
+		// Twitter
+		echo '<p>';
+		printf( '<label for="twitter_fa_class"><strong>%s</strong></label><br />', esc_html__( 'Twitter Font Awesome Class', 'highlight-and-share' ) );
+		printf( '<input id="twitter_fa_class" type="text" name="highlight-and-share[twitter_fa_class]" value="%s" />', esc_attr( $twitter_fa_class ) );
+		echo '</p>';
+
+		// Facebook
+		echo '<p>';
+		printf( '<label for="facebook_fa_class"><strong>%s</strong></label><br />', esc_html__( 'Facebok Font Awesome Class', 'highlight-and-share' ) );
+		printf( '<input id="facebook_fa_class" type="text" name="highlight-and-share[facebook_fa_class]" value="%s" />', esc_attr( $facebook_fa_class ) );
+		echo '</p>';
+
+		// LinkedIn
+		echo '<p>';
+		printf( '<label for="linkedin_fa_class"><strong>%s</strong></label><br />', esc_html__( 'LinkedIn Font Awesome Class', 'highlight-and-share' ) );
+		printf( '<input id="linkedin_fa_class" type="text" name="highlight-and-share[linkedin_fa_class]" value="%s" />', esc_attr( $linkedin_fa_class ) );
+		echo '</p>';
+
+		// Pinterest
+		echo '<p>';
+		printf( '<label for="pinterest_fa_class"><strong>%s</strong></label><br />', esc_html__( 'Pinterest Font Awesome Class', 'highlight-and-share' ) );
+		printf( '<input id="pinterest_fa_class" type="text" name="highlight-and-share[pinterest_fa_class]" value="%s" />', esc_attr( $pinterest_fa_class ) );
+		echo '</p>';
+
+		// Xing
+		echo '<p>';
+		printf( '<label for="xing_fa_class"><strong>%s</strong></label><br />', esc_html__( 'Xing Font Awesome Class', 'highlight-and-share' ) );
+		printf( '<input id="xing_fa_class" type="text" name="highlight-and-share[xing_fa_class]" value="%s" />', esc_attr( $xing_fa_class ) );
+		echo '</p>';
+
+		// WhatsApp
+		echo '<p>';
+		printf( '<label for="whatsapp_fa_class"><strong>%s</strong></label><br />', esc_html__( 'WhatsApp Font Awesome Class', 'highlight-and-share' ) );
+		printf( '<input id="whatsapp_fa_class" type="text" name="highlight-and-share[whatsapp_fa_class]" value="%s" />', esc_attr( $whatsapp_fa_class ) );
+		echo '</p>';
+
+		// Email
+		echo '<p>';
+		printf( '<label for="email_fa_class"><strong>%s</strong></label><br />', esc_html__( 'Email Font Awesome Class', 'highlight-and-share' ) );
+		printf( '<input id="email_fa_class" type="text" name="highlight-and-share[email_fa_class]" value="%s" />', esc_attr( $email_fa_class ) );
+		echo '</p>';
 	}
 	
 	/**
@@ -1121,6 +1209,13 @@ class Highlight_And_Share {
 			'shortlinks'         => false,
 			'icons'              => true,
 			'theme'              => 'default',
+			'twitter_fa_class'   => 'fa fa-twitter',
+			'facebook_fa_class'  => 'fa fa-facebook',
+			'linkedin_fa_class'  => 'fa fa-linkedin',
+			'pinterest_fa_class' => 'fa fa-pinterest',
+			'xing_fa_class'      => 'fa fa-xing',
+			'whatsapp_fa_class'  => 'fa fa-whatsapp',
+			'email_fa_class'     => 'fa fa-envelope',
 		);
 		
 		if ( false === $settings || ! is_array( $settings ) ) {
