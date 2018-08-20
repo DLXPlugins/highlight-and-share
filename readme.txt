@@ -3,7 +3,7 @@ Contributors: ronalfy, bigwing
 Tags: highlight, share, twitter, facebook
 Requires at least: 4.4
 Tested up to: 4.9
-Stable tag: 2.3.0
+Stable tag: 2.3.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://mediaron.com/give/
@@ -106,6 +106,10 @@ So far, the latest versions of Chrome, Firefox, and Safari.   Works for IE9+
 
 == Changelog ==
 
+= 2.3.1 =
+* Released 2018-08-20
+* Bug fix: some settings weren't being saved correctly.
+
 = 2.3.0 =
 * Released 2018-08-19
 * Added the ability to select themes. No more need for custom CSS.
@@ -186,6 +190,9 @@ So far, the latest versions of Chrome, Firefox, and Safari.   Works for IE9+
 * Initial release on WordPress.org
 
 == Upgrade Notice ==
+
+= 2.3.1 =
+Bug fix: some settings weren't being saved correctly.
 
 = 2.3.0 =
 Added the ability to select themes. No more need for custom CSS. Added the ability to change FontAwesome classes for compatibility with FontAwesome 5.
