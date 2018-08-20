@@ -3,7 +3,7 @@ Contributors: ronalfy, bigwing
 Tags: highlight, share, twitter, facebook
 Requires at least: 4.4
 Tested up to: 4.9
-Stable tag: 2.2.2
+Stable tag: 2.3.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://mediaron.com/contribute/
@@ -23,11 +23,13 @@ If you have a feature request, <a href="https://github.com/ronalfy/highlight-and
 <h3>Features</h3>
 
 <ul>
+<li>Choose a theme for display.</li>
 <li>Enable or disable on main content and excerpts.</li>
 <li>Enable or disable Facebook sharing.</li>
 <li>Enable or disable Twitter sharing.</li>
 <li>Customize the Twitter username used.</li>
 <li>Advanced: Override which content is selectable (using jQuery class notation without the dots).</li>
+<li>Advanced: Override the Font Awesome classes, especially if you're using Font Awesome 5</li>
 </ul>
 
 Advanced customization is allowed via hooks.  See the plugin's <a href="https://github.com/ronalfy/highlight-and-share#plugin-filters">GitHub page for filter documentation</a>.
@@ -39,12 +41,7 @@ Advanced customization is allowed via hooks.  See the plugin's <a href="https://
 <li><a href="https://wordpress.org/plugins/jetpack/">Jetpack</a> - For Shortlinks</li>
 </ul>
 
-<h3>Spread the Word</h3>
-If you like this plugin, please help spread the word.  Rate the plugin.  Write about the plugin.  Something :)
-
-<h3>Translations</h3>
-
-Please translate using the Translate button on this page.
+> Please <a href="https://wordpress.org/support/plugin/highlight-and-share/reviews/#new-post">Rate the Plugin</a> or <a href="https://mediaron.com/give/">Give Back</a> to show support.
 
 You are welcome to help us out and <a href="https://github.com/ronalfy/highlight-and-share">contribute on GitHub</a>.
 
@@ -63,11 +60,25 @@ You can if you have a Facebook App ID. They <a href="https://developers.facebook
 
 Possibly.  <a href="https://github.com/ronalfy/highlight-and-share/issues">Open up an issue</a>.
 
+= I'm using Font Awesome 5 and the icons aren't showing up =
+
+FontAwesome 5 deprecated a lot of FontAwesome 4, so head to the settings and go under Advanced.
+
+* For Twitter, enter: `fab fa-twitter`
+* For Facebook, enter `fab fa-facebook`
+* For LinkedIn, enter `fab fa-linkedin`
+* For Pinterest, enter `fab fa-pinterest`
+* For Xing, enter `fab fa-xing`
+* For WhatsApp, enter `fab fa-whatsapp`
+* For Email, you can leave this as `fa fa-envelope` 
+
 = I want to include my own CSS.  How can I do that? =
 
-Use the plugin hook `has_show_css` and <a href="https://github.com/ronalfy/highlight-and-share#plugin-filters">disable CSS</a>.  You can then  include your own CSS in your theme.
+You can turn off the theme.
 
-For the black CSS file shown in the, adhere to <a href="https://jsfiddle.net/0ej4qufs/26/">the JSFiddle</a> and place the CSS in the WordPress customizer.
+You can then  include your own CSS in your theme.
+
+For the black CSS file shown in the, adhere to <a href="https://jsfiddle.net/0ej4qufs/26/">the JSFiddle</a> and place the CSS in the WordPress customizer. As of 2.3.0, themes are built in and there is no need to include custom styles.
 
 = Does this plugin work on mobile devices? =
 
@@ -86,11 +97,19 @@ So far, the latest versions of Chrome, Firefox, and Safari.   Works for IE9+
 == Screenshots ==
 
 1. Highlight and Share settings.
-2. Highlight and Share on a post with icons. 
-3. Highlight and Share on a post with all options showing.
-4. Highlight and Share with custom CSS.
+2. Highlight and Share Default Theme on a post with icons. 
+3. Highlight and Share Black Theme
+4. Highlight and Share White Theme
+5. Highlight and Share Magenta Theme
+6. Highlight and Share Blue Theme
+7. Highlight and Share Green Theme
 
 == Changelog ==
+
+= 2.3.0 =
+* Released 2018-08-19
+* Added the ability to select themes. No more need for custom CSS.
+* Added the ability to change FontAwesome classes for compatibility with FontAwesome 5.
 
 = 2.2.2 =
 * Released 2018-07-27
@@ -167,6 +186,9 @@ So far, the latest versions of Chrome, Firefox, and Safari.   Works for IE9+
 * Initial release on WordPress.org
 
 == Upgrade Notice ==
+
+= 2.3.0 =
+Added the ability to select themes. No more need for custom CSS. Added the ability to change FontAwesome classes for compatibility with FontAwesome 5.
 
 = 2.2.2 =
 Added support for WhatsApp
