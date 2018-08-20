@@ -715,6 +715,7 @@ class Highlight_And_Share {
 					}
 					break;
 				case 'js_content':
+					$js_content = trim( $value );
 					if( empty( $js_content ) || preg_match( '/[-_0-9a-zA-Z]+(,[-_0-9a-zA-Z]+)*$/', $js_content ) ) {
 						$output[ $key ] = sanitize_text_field( $js_content );
 					} else {
