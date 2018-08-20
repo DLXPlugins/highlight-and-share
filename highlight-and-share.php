@@ -377,7 +377,7 @@ class Highlight_And_Share {
 				$deps[] = 'jquery.mobile';	
 			}
 			$main_script_uri = $this->get_plugin_url( 'js/highlight-and-share.js' );
-			wp_enqueue_script( 'highlight-and-share', $main_script_uri, $deps, '20180725', true );
+			wp_enqueue_script( 'highlight-and-share', $main_script_uri, $deps, '20180819', true );
 
 			/**Build JSON Object**/
 			$settings = $this->get_plugin_options();
@@ -922,7 +922,7 @@ class Highlight_And_Share {
 			<option value="green" <?php selected( 'green', $theme, true); ?>><?php esc_html_e( 'Green (Icons Only)', 'highlight-and-share' ); ?></option>
 		</select>
 		<?php
-		printf( '<div><em>%s<br />%s</em></div>', $bfa, esc_html( $args[ 'desc' ] ) );
+		printf( '<div><em></em></div>', esc_html( $args[ 'desc' ] ) );
 	}
 	
 	/**
