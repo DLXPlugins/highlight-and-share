@@ -6,7 +6,7 @@ Tested up to: 4.9
 Stable tag: 2.3.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Donate link: https://mediaron.com/contribute/
+Donate link: https://mediaron.com/give/
 
 A WordPress plugin for highlighting text and sharing it via Twitter and Facebook and other services including LinkedIn, Email, Xing, and WhatsApp.
 
