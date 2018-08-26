@@ -487,11 +487,33 @@ class Highlight_And_Share {
 			$json_arr[ 'email_url' ] = esc_url_raw( $url_email );
 			$json_arr[ 'from' ] = _x( 'From', 'For a URL', 'highlight-and-share' );
 			
+			// For emails
+			if ( is_user_logged_in() ) {
+				$user = wp_get_current_user();
+				$json_arr[ 'email_your_name_value' ] = $user->display_name;
+				$json_arr[ 'email_from_value' ] = $user->user_email;
+			} else {
+				$json_arr[ 'email_your_name_value' ] = '';
+				$json_arr[ 'email_from_value' ] = '';
+			}
+
+			$json_arr[ 'nonce' ] = wp_create_nonce( 'has_email_nonce' );
+			$json_arr[ 'email_subject' ] = __( 'Your Subject', 'highlight-and-share' );
+			$json_arr[ 'email_your_name' ] = __( 'Your Name', 'highlight-and-share' );
+			$json_arr[ 'email_send_email' ] = __( 'Send to Email Address', 'highlight-and-share' );
+			$json_arr[ 'email_subject'] = __( 'Your Subject', 'highlight-and-share' );
+			$json_arr[ 'email_subject_text'] = __( 'Someone wants to share a link with you', 'highlight-and-share' );
+			$json_arr[ 'email_from' ] = __( 'Your Email Address', 'highlight-and-share' );
+			$json_arr[ 'email_send' ] = __( 'Send Email', 'highlight-and-share' );
+			$json_arr[ 'email_cancel' ] = __( 'Cancel', 'highlight-and-share' );
+			$json_arr[ 'email_loading' ] = $this->get_plugin_url( 'img/loading.gif' );
+
 			//Localize
 			wp_localize_script( 'highlight-and-share', 'highlight_and_share', $json_arr );		
 			
 			//Add CSS
 			if ( apply_filters( 'has_load_css', true ) ) {
+				wp_enqueue_style( 'highlight-and-share-email', $this->get_plugin_url( 'css/highlight-and-share-emails.css'), array(), '20180826', 'all' );
 				switch( $settings[ 'theme' ] ) {
 					case 'off':
 						break;
