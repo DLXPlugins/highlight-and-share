@@ -1,0 +1,58 @@
+.highlight-and-share-wrapper div.has_sharing_email {
+	width: 342px;
+	position: absolute;
+	z-index: 1001;
+	border: 1px solid #ccc;
+	padding: 15px;
+	background: #fff;
+	box-shadow: 0px 5px 20px rgba(0,0,0,.2);
+	text-align: left;
+}
+.highlight-and-share-wrapper div.has_sharing_email label {
+	font-size: 12px;
+    color: #333;
+    font-weight: bold;
+    display: block;
+    padding: 0 0 4px 0;
+    text-align: left;
+    text-shadow: none;
+}
+.highlight-and-share-wrapper div.has_sharing_email input[type="text"], 
+.highlight-and-share-wrapper div.has_sharing_email input[type="email"] {
+    width: 100%;
+    box-sizing: border-box;
+    -moz-box-sizing: border-box;
+    -webkit-box-sizing: border-box;
+    border: 1px solid #ccc;
+    margin-bottom: 1em;
+    background: #fff;
+    font-size: 12px;
+    color: #333;
+    max-width: none;
+	padding: 1px 3px;
+}
+.highlight-and-share-wrapper div.has_sharing_email #has_sharing_send {
+	text-decoration: none !important;
+	display: inline-block;
+	font-size: 12px;
+	font-family: "Open Sans", sans-serif;
+	font-weight: normal;
+	border-radius: 3px;
+	color: #777 !important;
+	background: #f8f8f8;
+	border: 1px solid #cccccc;
+	box-shadow: 0 1px 0 rgba(0,0,0,.08);
+	text-shadow: none;
+	line-height: 23px;
+	padding: 1px 8px 0px 5px;
+}
+.highlight-and-share-wrapper div.has_sharing_email a#has_sharing_cancel,
+.highlight-and-share-wrapper div.has_sharing_email a#has_sharing_cancel:hover,
+.highlight-and-share-wrapper div.has_sharing_email a#has_sharing_cancel:visited {
+	text-transform: capitalize;
+	padding: 0 0 0 1em;
+    font-size: 12px;
+	text-shadow: none;
+	color: #1e73be;
+	letter-spacing: inherit;
+}
