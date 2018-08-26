@@ -1,6 +1,7 @@
 jQuery( document ).ready( function( $ ) {
 	var has_remove = function() {
 		$( '.highlight-and-share-wrapper:visible' ).remove();
+		$('.has_sharing_email').css( 'display', 'none' );
 	};
 	
 	var has_selected_text = '';
@@ -87,6 +88,21 @@ jQuery( document ).ready( function( $ ) {
 			} else {
 				html += '<div class="has_email" style="display: none;" data-type="email"><a href="' + highlight_and_share.email_url + '" target="_blank"><i class="' + highlight_and_share.email_fa_class + '"></i></a></div>';
 			}
+			html += '<div class="has_sharing_email" style="display: none;">';
+			html += '<input type="hidden" name="has_email_nonce" val="' + highlight_and_share.nonce + '" />';
+			html += '<label for="has_target_email">' + highlight_and_share.email_send_email + '</label>';
+			html += '<input type="email" name="has_target_email" id="has_target_email" />';
+			html += '<label for="has_source_name">' + highlight_and_share.email_your_name + '</label>';
+			html += '<input type="text" name="has_source_name" id="has_source_name" value="' + highlight_and_share.email_your_name_value + '" />';
+			html += '<label for="has_email_subject">' + highlight_and_share.email_subject  + '</label>';
+			html += '<input type="text" name="has_email_subject" id="has_email_subject" value="' + highlight_and_share.email_subject_text + '" />';
+			html += '<label for="has_source_email">' + highlight_and_share.email_from + '</label>';
+			html += '<input type="email" name="has_source_email" id="has_source_email" value="' + highlight_and_share.email_from_value + '" />';
+			html += '<input type="submit" value="' + highlight_and_share.email_send + '" class="has_sharing_send" id="has_sharing_send" />';
+			html += '<a rel="nofollow" href="#cancel" class="has_sharing_cancel" id="has_sharing_cancel" style="display: inline;">' + highlight_and_share.email_cancel + '</a>';
+			html += '<img style="float:right; display: none;" class="has_sharing_loading" src="' +  highlight_and_share.email_loading + '" />';
+			html += '<div class="has_errors"></div>';
+			html += '</div><!-- #has_sharing_email -->';
 		}
 		
 		html += '</div><!-- #highlight-and-share-wrapper -->';
@@ -165,8 +181,17 @@ jQuery( document ).ready( function( $ ) {
 	} );
 	$( 'body' ).on( 'click', '.has_email a', function( e ) {
 		e.preventDefault();
-	window.open( this.href,"email","width=350,height=300,toolbar=false,menubar=false,location=false,status=false");
-		has_remove();
+		var $emails = $('.has_sharing_email');
+		var $top = $(this).parent();
+		$emails.css( 'left', $top.position().left + 'px' );
+		$emails.css( 'top', $top.position().top + $top.height() + 3 + 'px' );
+		$emails.slideToggle( 200 );
+	} );
+
+	// Email Cancel
+	$( 'body' ).on( 'click', 'a.has_sharing_cancel', function( e ) {
+		var $emails = $('.has_sharing_email');
+		$emails.slideToggle( 200 );
 	} );
 	
 	var has_get_selection = function() {
@@ -194,9 +219,10 @@ jQuery( document ).ready( function( $ ) {
 		
 		wrapper_clone.css( { position: 'absolute', display: 'block', left: wrapper_x, top: wrapper_y, width: 'auto', height: 'auto', 'z-index': 10000 } );
 		
-		$children = wrapper_clone.find( 'div' );
+		$children = wrapper_clone.find( 'div' ).not( '.has_sharing_email, .has_errors' );
 		$.each( $children, function( index, item ) {
 			var div = $( this );
+			console.log( div );
 			var url = div.find( 'a' ).attr( 'href' );
 			url = url.replace( '%url%', encodeURIComponent( link ) );
 			url = url.replace( '%username%', encodeURIComponent( highlight_and_share.twitter_username ) );
