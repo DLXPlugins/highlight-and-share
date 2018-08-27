@@ -3,7 +3,7 @@ Contributors: ronalfy, bigwing
 Tags: highlight, share, twitter, facebook
 Requires at least: 4.4
 Tested up to: 4.9
-Stable tag: 2.3.5
+Stable tag: 2.3.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://mediaron.com/give/
@@ -113,6 +113,10 @@ So far, the latest versions of Chrome, Firefox, and Safari.   Works for IE9+
 
 == Changelog ==
 
+= 2.3.6 =
+* Released 2018-08-28
+* Hotfix: Email styles failed to commit.
+
 = 2.3.5 =
 * Released 2018-08-26
 * Reworked email so it doesn't pop up in a new window and is shown inline very similar to JetPack's email functionality.
@@ -201,6 +205,9 @@ So far, the latest versions of Chrome, Firefox, and Safari.   Works for IE9+
 * Initial release on WordPress.org
 
 == Upgrade Notice ==
+
+= 2.3.6 =
+Hotfix: Email styles failed to commit.
 
 = 2.3.5 =
 Enhancement: Reworked email so it doesn't pop up in a new window and is shown inline very similar to JetPack's email functionality.
