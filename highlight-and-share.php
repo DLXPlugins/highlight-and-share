@@ -141,13 +141,13 @@ class Highlight_And_Share {
 		}
     	
     	$message = sprintf( __( '%s (%s) wants to share a link with you.', 'highlight-and-share' ), esc_html( $email_name ), esc_html( $email_from ) ) . "\r\n\n";
-    	$message .= sprintf( '%s', esc_html( $title ) ) . "\r\n\n";
+    	$message .= sprintf( '%s', esc_html( $title ) ) . "\r\n";
     	$message .= sprintf( '%s', esc_url( $url ) ) . "\r\n\n";
     	
     	$headers = array();
     	$headers[] = sprintf( 'From: %s <%s>', $email_name, $email_from );
     	
-    	wp_mail( $email, $subject, $message, $headers );
+    	wp_mail( $email_to, $email_subject, $message, $headers );
 		
 		$return[ 'message_title' ] = __( 'This post has been shared!', 'highlight-and-share' );
 		$return[ 'message_body' ] = sprintf( __( 'You have shared this post with %s', 'highlight-and-share' ), $email_to );
