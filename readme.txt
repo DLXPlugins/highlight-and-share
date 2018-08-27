@@ -20,6 +20,8 @@ This plugin is intended to be highly flexible in selecting content areas (via th
 
 If you have a feature request, <a href="https://github.com/ronalfy/highlight-and-share/issues">please add a GitHub issue</a>.
 
+https://www.youtube.com/watch?v=GMr4tmmKMz8
+
 <h3>Features</h3>
 
 <ul>
@@ -55,6 +57,10 @@ You are welcome to help us out and <a href="https://github.com/ronalfy/highlight
 = Can I share text using Facebook? =
 
 You can if you have a Facebook App ID. They <a href="https://developers.facebook.com/">are easy to create</a>.
+
+Here's a video showing you how: 
+
+https://www.youtube.com/watch?v=ZtcPacmr87E
 
 = Will you be adding more sharing services? =
 
