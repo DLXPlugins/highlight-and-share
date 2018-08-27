@@ -212,7 +212,10 @@ jQuery( document ).ready( function( $ ) {
 		$emails.find('.has_sharing_loading').css( 'display', 'none' );
 		$emails.find('.has_sharing_send').val( highlight_and_share.email_send ).prop( 'disabled', false );
 		$errors.css( 'display', 'none' );
-		$emails.slideToggle( 200 );
+		$emails.slideToggle( 200, function() {
+				$emails.find('.has_success_response').css( 'display', 'none' );
+				$emails.find( '.has_sharing_email_form_wrapper' ).css( 'display', 'block' );
+		} );
 	} );
 
 	// Email Send
@@ -278,12 +281,14 @@ jQuery( document ).ready( function( $ ) {
 				$emails.find('.has_sharing_loading').css( 'display', 'none' );
 			} else {
 				$emails.find( '.has_sharing_email_form_wrapper' ).css( 'display', 'none' );
+				$emails.find( '#has_target_email' ).val('');
+				$emails.find( '#has_source_name' ).val( response.message_source_name );
+				$emails.find( '#has_email_subject' ).val( response.message_subject );
+				$emails.find( '#has_source_email' ).val( response.message_source_email );
 				$emails.find( '.has_success_resposne_title' ).html( response.message_title );
 				$emails.find( '.has_success_response_body' ).html( response.message_body );
 				$emails.find( '.has_success_response' ).css( 'display', 'block' );
-			}
-			console.log( response );
-			
+			}			
 		}, 'json' );
 
 	} );
