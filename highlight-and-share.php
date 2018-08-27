@@ -107,12 +107,12 @@ class Highlight_And_Share {
 		// Set Email Variables
 		$email_to = trim( urldecode( $ajax_data[ 'has_target_email' ] ) );
 		$email_from = trim( urldecode( $ajax_data[ 'has_source_email' ] ) );
-		$email_name = trim( urldecode( $data[ 'has_source_name' ] ) );
-		$email_subject = trim( urldecode( $data[ 'has_email_subject' ] ) );
+		$email_name = trim( urldecode( $ajax_data[ 'has_source_name' ] ) );
+		$email_subject = trim( urldecode( $ajax_data[ 'has_email_subject' ] ) );
 
 		// Set title and url variables
-		$title = trim( urldecode( $data[ 'has_source_title' ] ) );
-		$url = trim( urldecode( $data[ 'has_source_url' ] ) );
+		$title = trim( urldecode( $ajax_data[ 'has_source_title' ] ) );
+		$url = trim( urldecode( $ajax_data[ 'has_source_url' ] ) );
 
 		// Check emails to destination
 		if( !is_email( $email_to ) ) {
@@ -128,14 +128,21 @@ class Highlight_And_Share {
 			wp_send_json( $return );
 		}
 
+		// Check emails from destination
+		if( empty( $email_name ) ) {
+			$return[ 'errors' ] = true;
+			$return[ 'message' ] = __( 'Your name cannot be empty.', 'highlight-and-share' );
+			wp_send_json( $return );
+		}
+
 		// Check Subject
 		if( empty( $email_subject ) ) {
 			$email_subject = __( '[Shared Post]', 'highlight-and-share' ) . ' ' . $title;
 		}
     	
-    	$message = sprintf( __( '%s (%s) wants to share a link with you.', 'highlight-and-share' ), esc_html( $name ), esc_html( $email_from ) ) . "\r\n\n";
+    	$message = sprintf( __( '%s (%s) wants to share a link with you.', 'highlight-and-share' ), esc_html( $email_name ), esc_html( $email_from ) ) . "\r\n\n";
     	$message .= sprintf( '%s', esc_html( $title ) ) . "\r\n\n";
-    	$message .= sprintf( '%s', esc_html( $url ) ) . "\r\n\n";
+    	$message .= sprintf( '%s', esc_url( $url ) ) . "\r\n\n";
     	
     	$headers = array();
     	$headers[] = sprintf( 'From: %s <%s>', $email_name, $email_from );
@@ -144,6 +151,9 @@ class Highlight_And_Share {
 		
 		$return[ 'message_title' ] = __( 'This post has been shared!', 'highlight-and-share' );
 		$return[ 'message_body' ] = sprintf( __( 'You have shared this post with %s', 'highlight-and-share' ), $email_to );
+		$return[ 'message_subject' ] = __( '[Shared Post]', 'highlight-and-share' ) . ' ' . $title;
+		$return[ 'message_source_name' ] = $email_name;
+		$return[ 'message_source_email' ] = $email_from;
 		wp_send_json( $return );
 	}
 	
@@ -336,7 +346,7 @@ class Highlight_And_Share {
 				$deps[] = 'jquery.mobile';	
 			}
 			$main_script_uri = $this->get_plugin_url( 'js/highlight-and-share.js' );
-			wp_enqueue_script( 'highlight-and-share', $main_script_uri, $deps, '20180819', true );
+			wp_enqueue_script( 'highlight-and-share', $main_script_uri, $deps, '20180826', true );
 
 			/**Build JSON Object**/
 			$settings = $this->get_plugin_options();
@@ -443,7 +453,6 @@ class Highlight_And_Share {
 				$json_arr[ 'email_your_name_value' ] = '';
 				$json_arr[ 'email_from_value' ] = '';
 			}
-
 			$json_arr[ 'nonce' ] = wp_create_nonce( 'has_email_nonce' );
 			$json_arr[ 'ajax_url' ] = admin_url( 'admin-ajax.php' );
 			$json_arr[ 'email_subject' ] = __( 'Your Subject', 'highlight-and-share' );
