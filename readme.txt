@@ -3,7 +3,7 @@ Contributors: ronalfy, bigwing
 Tags: highlight, share, twitter, facebook
 Requires at least: 4.4
 Tested up to: 4.9
-Stable tag: 2.3.1
+Stable tag: 2.3.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://mediaron.com/give/
@@ -19,6 +19,8 @@ Sharing selectable text is only possible via Twitter, Facebook, and WhatsApp. Ho
 This plugin is intended to be highly flexible in selecting content areas (via the Plugin's settings).
 
 If you have a feature request, <a href="https://github.com/ronalfy/highlight-and-share/issues">please add a GitHub issue</a>.
+
+https://www.youtube.com/watch?v=GMr4tmmKMz8
 
 <h3>Features</h3>
 
@@ -55,6 +57,10 @@ You are welcome to help us out and <a href="https://github.com/ronalfy/highlight
 = Can I share text using Facebook? =
 
 You can if you have a Facebook App ID. They <a href="https://developers.facebook.com/">are easy to create</a>.
+
+Here's a video showing you how: 
+
+https://www.youtube.com/watch?v=ZtcPacmr87E
 
 = Will you be adding more sharing services? =
 
@@ -103,8 +109,13 @@ So far, the latest versions of Chrome, Firefox, and Safari.   Works for IE9+
 5. Highlight and Share Magenta Theme
 6. Highlight and Share Blue Theme
 7. Highlight and Share Green Theme
+8. Email functionality
 
 == Changelog ==
+
+= 2.3.5 =
+* Released 2018-08-26
+* Reworked email so it doesn't pop up in a new window and is shown inline very similar to JetPack's email functionality.
 
 = 2.3.1 =
 * Released 2018-08-20
@@ -190,6 +201,9 @@ So far, the latest versions of Chrome, Firefox, and Safari.   Works for IE9+
 * Initial release on WordPress.org
 
 == Upgrade Notice ==
+
+= 2.3.5 =
+Enhancement: Reworked email so it doesn't pop up in a new window and is shown inline very similar to JetPack's email functionality.
 
 = 2.3.1 =
 Bug fix: some settings weren't being saved correctly.

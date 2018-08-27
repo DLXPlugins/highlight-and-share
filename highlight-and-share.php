@@ -4,7 +4,7 @@ Plugin Name: Highlight and Share
 Plugin URI: https://wordpress.org/plugins/highlight-and-share/
 Description: Highlight text and share via Twitter or Facebook and many more
 Author: Ronald Huereca
-Version: 2.3.1
+Version: 2.3.5
 Requires at least: 4.4
 Author URI: https://mediaron.com
 Contributors: ronalfy
@@ -60,134 +60,103 @@ class Highlight_And_Share {
 			
 		//* Localization Code */
 		load_plugin_textdomain( 'highlight-and-share', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
-		
-		add_action( 'template_redirect', array( $this, 'maybe_show_email' ) );
-		
+				
 		// Ajax for form submissions
 		add_action( 'wp_ajax_has_form_submission', array( $this, 'ajax_send_has_email' ) );
 		add_action( 'wp_ajax_nopriv_has_form_submission', array( $this, 'ajax_send_has_email' ) );
 		
 	} //end constructor
 	
-	public function ajax_send_has_email() {
-    	check_ajax_referer( 'has_email_form_submission', '_ajax' );
-    	$email = trim( urldecode( $_POST[ 'email' ] ) );
-    	$name = trim( urldecode( $_POST[ 'name' ] ) );
-    	$url = urldecode( $_POST[ 'url' ] );
-    	$title = urldecode( $_POST[ 'title' ] );
-    	$subject = urldecode( $_POST[ 'yourSubject' ] );
-    	$sender_email = urldecode( $_POST[ 'yourEmail' ] );
-    	
-    	$return = array();
-    	if ( empty( $name ) ) {
-        	$return[ 'error' ] = $this->get_error( 'name' );
-        	die( json_encode( $return ) );
-    	}
-    	if ( ! is_email( $email ) || ! is_email( $sender_email ) ) {
-        	$return[ 'error' ] = $this->get_error( 'invalid_email' );
-        	die( json_encode( $return ) );
-    	}
-    	
-    	$message = sprintf( '%s wants to share a link with you.', esc_html( $name ) ) . "\n\n";
-    	$message .= sprintf( '%s', esc_html( $title ) ) . "\n\n";
-    	$message .= sprintf( '%s', esc_html( $url ) ) . "\n\n";
-    	
-    	$headers = array();
-    	$headers[] = sprintf( 'From: %s <%s>', esc_html( $name ), $sender_email );
-    	
-    	wp_mail( $email, esc_html( $subject ), $message, $headers );
-    	die( json_encode( array() ) );
-    	
-    	
-	}
-	
 	/**
-	 * Show the e-mail template
+	 * Processes an Ajax Request for emails
 	 *
-	 * Show the e-mail template
+	 * Processes an Ajax Request for emails
 	 *
-	 * @since 6.0.0
+	 * @since 2.3.5
 	 * @access public
 	 *
+     * @param  array $data {
+	 * 		An array of Ajax posted data
+	 *		$has_email_nonce   string Nonce verifications
+	 *		$has_target_email  string Email To
+	 *		$has_source_name   string From Name
+	 * 		$has_email_subject string Email Subject
+	 * 		$has_source_email  string Email from
+	 * 		$has_source_title  string Source Title
+	 * 		$has_source_url    string Source URL
+	 * }
+	 * @return object JSON output
 	 */
-	public function maybe_show_email() {
-    	if ( isset( $_GET[ 'action' ] ) && 'has_email' == $_GET[ 'action' ] &&  isset( $_GET[ 'nonce' ] ) ) {
-        	if ( ! wp_verify_nonce( $_GET[ 'nonce' ], 'has_email_option' ) ) {
-            	return;
-        	}
-        	?>
-        	<html>
-            	<head>
-                	<link rel='stylesheet' href='<?php echo esc_url( get_stylesheet_uri() ); ?>' type='text/css' media='all' />
-                	<script src="<?php echo esc_url( includes_url( '/js/jquery/jquery.js' ) ); ?>"></script>
-                	<style>
-                        body {
-                            text-align: center;
-                        }	
-                    </style>
-                    <script>
-                        jQuery( document ).ready( function( $ ) {
-                           $( '#has_form' ).submit( function( e ) {
-                               e.preventDefault();
-                                ajax_object = {
-                                    action : 'has_form_submission',
-                                    _ajax  : $( '#_has_email_submission_nonce' ).val(),
-                                    title  : encodeURIComponent( $( '#title' ).val() ),
-                                    url    : encodeURIComponent( $( '#url' ).val() ),
-                                    name   : encodeURIComponent( $( '#your_name' ).val() ),
-                                    email  : encodeURIComponent( $( '#email' ).val() ),
-                                    yourEmail: encodeURIComponent( $( '#your_email' ).val() ),
-                                    yourSubject:  encodeURIComponent( $( '#your_subject' ).val() )
-                                };
-                                $.post( '<?php echo esc_url( admin_url( 'admin-ajax.php' ) ); ?>', ajax_object, function( response ) {
-                                        if ( response.error ) {
-                                            alert( response.error );
-                                            return;
-                                        }
-                                        $( '#has_form' ).hide();
-                                        $( 'body' ).append( '<p>E-mail sent</p>' );
-                                }, 'json' );
-                           } ); 
-                        } );    
-                    </script>
+	public function ajax_send_has_email() {
 
-            	</head>
-            	<body>
-                	<main>
-                    	<article>
-                        	<form method="POST" action="" id="has_form">
-                            	<?php
-                                wp_nonce_field( 'has_email_form_submission', '_has_email_submission_nonce', false, true );
-                                ?>
-                            	<div id="form-wrapper">
-                                	<div>
-                                    	<p><input type="text" name="your_name" id="your_name" placeholder="<?php echo esc_attr( __( 'Your Name', 'highlight-and-share' ) ) ?>" /></p>
-                                	</div>
-                                	<div>
-                                    	<p><input type="text" name="your_email" id="your_email" placeholder="<?php echo esc_attr( __( 'Your Email', 'highlight-and-share' ) ) ?>" /></p>
-                                	</div>
-                                	<div>
-                                    	<p><input type="text" name="your_subject" id="your_subject" value="<?php echo esc_attr( __( 'Someone wants to share a link with you', 'highlight-and-share' ) ) ?>" /></p>
-                                	</div>
-                                	<div>
-                                    	<p><input type="email" name="email" id="email" placeholder="<?php echo esc_attr( __( 'E-mail Address', 'highlight-and-share' ) ) ?>" /></p>
-                                	</div>
-                                	<input type="hidden" id="title" value="<?php echo esc_attr( urldecode( $_GET[ 'title' ] ) ); ?>" />
-                                	<input type="hidden" id="url" value="<?php echo esc_attr( urldecode( $_GET[ 'url' ] ) ); ?>" />
-                                	<div>
-                                    	<p><input type="submit" name="submit" id="submit" value="<?php echo esc_attr( __( 'Submit', 'highlight-and-share' ) ); ?>" />
-                                    	</p>
-                                	</div>
-                            	</div><!-- #form-wrapper -->
-                        	</form>
-                    	</article>
-                	</main>
-            	</body>
-        	</html>
-        	<?php
-            exit();
-    	}
+		// Get Ajx data
+		parse_str( $_POST[ 'data' ], $ajax_data );
+
+		// Set up initial return array
+		$return = array(
+			'errors' => false,
+		);
+
+		// Check the nonce
+		if( !wp_verify_nonce( $ajax_data[ 'has_email_nonce' ], 'has_email_nonce' ) ) {
+			$return[ 'errors' ] = true;
+			$return[ 'message' ] = __( 'Nonce could not be verified.', 'highlight-and-share' );
+			wp_send_json( $return );
+		}
+		
+		// Set Email Variables
+		$email_to = trim( urldecode( $ajax_data[ 'has_target_email' ] ) );
+		$email_from = trim( urldecode( $ajax_data[ 'has_source_email' ] ) );
+		$email_name = trim( urldecode( $ajax_data[ 'has_source_name' ] ) );
+		$email_subject = trim( urldecode( $ajax_data[ 'has_email_subject' ] ) );
+
+		// Set title and url variables
+		$title = trim( urldecode( $ajax_data[ 'has_source_title' ] ) );
+		$url = trim( urldecode( $ajax_data[ 'has_source_url' ] ) );
+
+		// Check emails to destination
+		if( !is_email( $email_to ) ) {
+			$return[ 'errors' ] = true;
+			$return[ 'message' ] = __( 'The Send email address is not a valid email address.', 'highlight-and-share' );
+			wp_send_json( $return );
+		}
+
+		// Check emails from destination
+		if( !is_email( $email_from ) ) {
+			$return[ 'errors' ] = true;
+			$return[ 'message' ] = __( 'Your email address is not a valid email address.', 'highlight-and-share' );
+			wp_send_json( $return );
+		}
+
+		// Check emails from destination
+		if( empty( $email_name ) ) {
+			$return[ 'errors' ] = true;
+			$return[ 'message' ] = __( 'Your name cannot be empty.', 'highlight-and-share' );
+			wp_send_json( $return );
+		}
+
+		// Check Subject
+		if( empty( $email_subject ) ) {
+			$email_subject = __( '[Shared Post]', 'highlight-and-share' ) . ' ' . $title;
+		}
+    	
+    	$message = sprintf( __( '%s (%s) wants to share a link with you.', 'highlight-and-share' ), esc_html( $email_name ), esc_html( $email_from ) ) . "\r\n\n";
+    	$message .= sprintf( '%s', esc_html( $title ) ) . "\r\n";
+    	$message .= sprintf( '%s', esc_url( $url ) ) . "\r\n\n";
+    	
+    	$headers = array();
+    	$headers[] = sprintf( 'From: %s <%s>', $email_name, $email_from );
+    	
+    	wp_mail( $email_to, $email_subject, $message, $headers );
+		
+		$return[ 'message_title' ] = __( 'This post has been shared!', 'highlight-and-share' );
+		$return[ 'message_body' ] = sprintf( __( 'You have shared this post with %s', 'highlight-and-share' ), $email_to );
+		$return[ 'message_subject' ] = __( '[Shared Post]', 'highlight-and-share' ) . ' ' . $title;
+		$return[ 'message_source_name' ] = $email_name;
+		$return[ 'message_source_email' ] = $email_from;
+		wp_send_json( $return );
 	}
+	
 	
 	/**
 	 * Get an error message
@@ -377,7 +346,7 @@ class Highlight_And_Share {
 				$deps[] = 'jquery.mobile';	
 			}
 			$main_script_uri = $this->get_plugin_url( 'js/highlight-and-share.js' );
-			wp_enqueue_script( 'highlight-and-share', $main_script_uri, $deps, '20180819', true );
+			wp_enqueue_script( 'highlight-and-share', $main_script_uri, $deps, '20180826', true );
 
 			/**Build JSON Object**/
 			$settings = $this->get_plugin_options();
@@ -475,23 +444,40 @@ class Highlight_And_Share {
 			// Facebook API Key
 			$json_arr[ 'facebook_app_id' ] = isset( $settings[ 'facebook_app_id' ] ) ? absint( $settings[ 'facebook_app_id' ] ) : 0;
 			
-			// URL for e-mail
-			$url_email = add_query_arg( array(
-			    'action' => 'has_email',
-			    'nonce'  => wp_create_nonce( 'has_email_option' ),
-			    'title'  => '%title%',
-			    'url'    => '%url%'
-            ),
-                home_url()
-            );
-			$json_arr[ 'email_url' ] = esc_url_raw( $url_email );
-			$json_arr[ 'from' ] = _x( 'From', 'For a URL', 'highlight-and-share' );
-			
+			// For emails
+			if ( is_user_logged_in() ) {
+				$user = wp_get_current_user();
+				$json_arr[ 'email_your_name_value' ] = $user->display_name;
+				$json_arr[ 'email_from_value' ] = $user->user_email;
+			} else {
+				$json_arr[ 'email_your_name_value' ] = '';
+				$json_arr[ 'email_from_value' ] = '';
+			}
+			$json_arr[ 'nonce' ] = wp_create_nonce( 'has_email_nonce' );
+			$json_arr[ 'ajax_url' ] = admin_url( 'admin-ajax.php' );
+			$json_arr[ 'email_subject' ] = __( 'Your Subject', 'highlight-and-share' );
+			$json_arr[ 'email_your_name' ] = __( 'Your Name', 'highlight-and-share' );
+			$json_arr[ 'email_send_email' ] = __( 'Send to Email Address', 'highlight-and-share' );
+			$json_arr[ 'email_subject'] = __( 'Your Subject', 'highlight-and-share' );
+			$json_arr[ 'email_subject_text'] = __( '[Shared Post]', 'highlight-and-share' ) . ' ' . '%title%';
+			$json_arr[ 'email_from' ] = __( 'Your Email Address', 'highlight-and-share' );
+			$json_arr[ 'email_send' ] = __( 'Send Email', 'highlight-and-share' );
+			$json_arr[ 'email_cancel' ] = __( 'Cancel', 'highlight-and-share' );
+			$json_arr[ 'email_close' ] = __( 'Close', 'highlight-and-share' );
+			$json_arr[ 'email_loading' ] = $this->get_plugin_url( 'img/loading.gif' );
+			$json_arr[ 'email_subject_error' ] = __( 'You must fill in a subject.', 'highlight-and-share' );
+			$json_arr[ 'email_email_to' ] = __( 'Send to Email Address is blank.', 'highlight-and-share' );
+			$json_arr[ 'email_email_from' ] = __( 'Your email address is blank.', 'highlight-and-share' );
+			$json_arr[ 'email_email_name' ] = __( 'Your name is blank.', 'highlight-and-share' );
+			$json_arr[ 'email_sending' ] = __( 'Sending...', 'highlight-and-share' );
+
+
 			//Localize
 			wp_localize_script( 'highlight-and-share', 'highlight_and_share', $json_arr );		
 			
 			//Add CSS
 			if ( apply_filters( 'has_load_css', true ) ) {
+				wp_enqueue_style( 'highlight-and-share-email', $this->get_plugin_url( 'css/highlight-and-share-emails.css'), array(), '20180826', 'all' );
 				switch( $settings[ 'theme' ] ) {
 					case 'off':
 						break;
