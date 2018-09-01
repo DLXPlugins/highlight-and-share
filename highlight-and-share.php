@@ -10,16 +10,16 @@ Author URI: https://mediaron.com
 Contributors: ronalfy
 Text Domain: highlight-and-share
 Domain Path: /languages
- 
+
 Recommended pre-requisite plugin - https://wordpress.org/plugins/better-font-awesome/
 WordPress SEO - Twitter/Facebook OpenGraph data - https://wordpress.org/plugins/wordpress-seo/
-*/ 
+*/
 
 class Highlight_And_Share {
 	private static $instance = null;
 	private $options = false;
 	private $errors = false;
-		
+
 	/**
 	 * Return an instance of the class
 	 *
@@ -36,11 +36,11 @@ class Highlight_And_Share {
 		}
 		return self::$instance;
 	} //end get_instance
-	
+
 	/**
 	 * Class constructor.
 	 *
-	 * Initialize plugin and load text domain for internationalization 
+	 * Initialize plugin and load text domain for internationalization
 	 *
 	 * @since 1.0.0
 	 * @access private
@@ -48,25 +48,25 @@ class Highlight_And_Share {
 	 */
 	private function __construct() {
 		add_action( 'init', array( $this, 'init' ), 9 );
-		
+
 		add_action( 'wp', array( $this, 'wp_loaded' ), 15 );
-		
+
 		// Get errors for email
 		$this->errors[ 'could_not_send' ] = esc_html__( 'Could not send the e-mail', 'highlight-and-share' );
 		$this->errors[ 'invalid_email' ] = esc_html__( 'Not a valid e-mail address', 'highlight-and-share' );
 		$this->errors[ 'email_sent' ] = esc_html__( 'Your email has been sent', 'highlight-and-share' );
 		$this->errors[ 'nonce_invalid' ] = esc_html__( 'Could not process your request', 'highlight-and-share' );
 		$this->errors[ 'name' ] = esc_html__( 'You must supply a name', 'highlight-and-share' );
-			
+
 		//* Localization Code */
 		load_plugin_textdomain( 'highlight-and-share', false, dirname( plugin_basename( __FILE__ ) ) . '/languages/' );
-				
+
 		// Ajax for form submissions
 		add_action( 'wp_ajax_has_form_submission', array( $this, 'ajax_send_has_email' ) );
 		add_action( 'wp_ajax_nopriv_has_form_submission', array( $this, 'ajax_send_has_email' ) );
-		
+
 	} //end constructor
-	
+
 	/**
 	 * Processes an Ajax Request for emails
 	 *
@@ -103,7 +103,7 @@ class Highlight_And_Share {
 			$return[ 'message' ] = __( 'Nonce could not be verified.', 'highlight-and-share' );
 			wp_send_json( $return );
 		}
-		
+
 		// Set Email Variables
 		$email_to = trim( urldecode( $ajax_data[ 'has_target_email' ] ) );
 		$email_from = trim( urldecode( $ajax_data[ 'has_source_email' ] ) );
@@ -139,16 +139,16 @@ class Highlight_And_Share {
 		if( empty( $email_subject ) ) {
 			$email_subject = __( '[Shared Post]', 'highlight-and-share' ) . ' ' . $title;
 		}
-    	
+
     	$message = sprintf( __( '%s (%s) wants to share a link with you.', 'highlight-and-share' ), esc_html( $email_name ), esc_html( $email_from ) ) . "\r\n\n";
     	$message .= sprintf( '%s', esc_html( $title ) ) . "\r\n";
     	$message .= sprintf( '%s', esc_url( $url ) ) . "\r\n\n";
-    	
+
     	$headers = array();
     	$headers[] = sprintf( 'From: %s <%s>', $email_name, $email_from );
-    	
+
     	wp_mail( $email_to, $email_subject, $message, $headers );
-		
+
 		$return[ 'message_title' ] = __( 'This post has been shared!', 'highlight-and-share' );
 		$return[ 'message_body' ] = sprintf( __( 'You have shared this post with %s', 'highlight-and-share' ), $email_to );
 		$return[ 'message_subject' ] = __( '[Shared Post]', 'highlight-and-share' ) . ' ' . $title;
@@ -156,8 +156,8 @@ class Highlight_And_Share {
 		$return[ 'message_source_email' ] = $email_from;
 		wp_send_json( $return );
 	}
-	
-	
+
+
 	/**
 	 * Get an error message
 	 *
@@ -176,7 +176,7 @@ class Highlight_And_Share {
         	return '';
     	}
 	}
-	
+
 	/**
 	 * Main plugin initialization
 	 *
@@ -190,23 +190,23 @@ class Highlight_And_Share {
 	 */
 	public function init() {
 		$settings = $this->get_plugin_options();
-				
+
 		//Admin Settings
 		add_action( 'admin_menu', array( $this, 'add_admin_menu' ) );
 		add_action( 'admin_init', array( $this, 'init_admin_settings' ) );
-		
+
 		//Plugin settings
 		add_filter( 'plugin_action_links_' . plugin_basename(__FILE__) , array( $this, 'add_settings_link' ) );
-		
-			
+
+
 	} //end init
-	
+
 	public function wp_loaded() {
     	//Disable if on a feed
 		if ( is_feed() ) return;
-    	
+
 		$settings = $this->get_plugin_options();
-		
+
 		//Skip loading if both twitter/facebook are turned off
 		$show_facebook = (bool)apply_filters( 'has_show_facebook', $settings[ 'show_facebook' ] );
 		$show_twitter = (bool)apply_filters( 'has_show_twitter', $settings[ 'show_twitter' ] );
@@ -214,7 +214,7 @@ class Highlight_And_Share {
 		$show_pinterest = (bool)apply_filters( 'has_show_pinterest', $settings[ 'show_pinterest' ] );
 		$show_email = (bool)apply_filters( 'has_show_email', $settings[ 'show_email' ] );
 		if ( ! $show_facebook && ! $show_twitter && ! $show_linkedin && ! $show_pinterest && ! $show_email ) return;
-		
+
 		//Disable if mobile
 		if ( wp_is_mobile() ) {
 			if ( (bool)apply_filters( 'has_enable_mobile', true ) ) {
@@ -223,19 +223,19 @@ class Highlight_And_Share {
 				return;
 			}
 		}
-		
+
 		//Load scripts
 		add_action( 'wp_enqueue_scripts', array( $this, 'add_scripts' ) );
-		
+
 		//Load content area
 		if ( apply_filters( 'has_enable_content', (bool)$settings[ 'enable_content' ] ) ) {
 			add_filter( 'the_content', array( $this, 'content_area' ) );
 		}
-		if ( apply_filters( 'has_enable_excerpt', (bool)$settings[ 'enable_excerpt' ] ) ) { 
+		if ( apply_filters( 'has_enable_excerpt', (bool)$settings[ 'enable_excerpt' ] ) ) {
 			add_filter( 'the_excerpt', array( $this, 'excerpt_area' ) );
-		}		
+		}
 	}
-	
+
 	/**
 	 * Add a class and data attribute around the main content.
 	 *
@@ -253,14 +253,14 @@ class Highlight_And_Share {
 		global $post;
 		if ( !in_the_loop( ) ) return $content;
 		if ( !is_object( $post ) ) return $content;
-		
+
 		$post_id = $post->ID;
 		$url = $this->get_content_url( $post_id );
 		$title = get_the_title( $post_id );
 		$content = sprintf( '<div class="has-content-area" data-url="%s" data-title="%s">%s</div>', esc_url( $url ), esc_attr( $title ), $content );
 		return $content;
 	}
-	
+
 	/**
 	 * Add a class and data attribute around the main excerpts.
 	 *
@@ -278,16 +278,16 @@ class Highlight_And_Share {
 		global $post;
 		if ( !in_the_loop( ) ) return $content;
 		if ( !is_object( $post ) ) return $content;
-		
+
 		$post_id = $post->ID;
 		$url = $this->get_content_url( $post_id );
 		$title = get_the_title( $post_id );
 		$content = sprintf( '<div class="has-excerpt-area" data-url="%s" data-title="%s">%s</div>', esc_url( $url ), esc_attr( $title ), $content );
 		return $content;
-		
-		
+
+
 	}
-	
+
 	/**
 	 * Retrieve a post's URL
 	 *
@@ -309,8 +309,8 @@ class Highlight_And_Share {
 		}
 		return apply_filters( 'has_content_url', $url, $post_id );
 	}
-	
-	
+
+
 	/**
 	 * Add a settings link to the plugin's options.
 	 *
@@ -324,10 +324,10 @@ class Highlight_And_Share {
 	 * @param array $links Array of plugin options
 	 * @return array $links Array of plugin options
 	 */
-	public function add_settings_link( $links ) { 
-		$settings_link = sprintf( '<a href="%s">%s</a>', esc_url( admin_url( 'options-general.php?page=highlight-and-share' ) ), _x( 'Settings', 'Plugin settings link on the plugins page', 'highlight-and-share' ) ); 
-			array_unshift($links, $settings_link); 
-			return $links; 
+	public function add_settings_link( $links ) {
+		$settings_link = sprintf( '<a href="%s">%s</a>', esc_url( admin_url( 'options-general.php?page=highlight-and-share' ) ), _x( 'Settings', 'Plugin settings link on the plugins page', 'highlight-and-share' ) );
+			array_unshift($links, $settings_link);
+			return $links;
 	}
 	/**
 	 * Load plugin scripts and styles
@@ -342,8 +342,8 @@ class Highlight_And_Share {
 	 */
 	public function add_scripts() {
 			$deps = array( 'jquery' );
-			if ( wp_is_mobile() && apply_filters( 'has_enable_mobile', true ) ) { 
-				$deps[] = 'jquery.mobile';	
+			if ( wp_is_mobile() && apply_filters( 'has_enable_mobile', true ) ) {
+				$deps[] = 'jquery.mobile';
 			}
 			$main_script_uri = $this->get_plugin_url( 'js/highlight-and-share.js' );
 			wp_enqueue_script( 'highlight-and-share', $main_script_uri, $deps, '20180826', true );
@@ -351,28 +351,28 @@ class Highlight_And_Share {
 			/**Build JSON Object**/
 			$settings = $this->get_plugin_options();
 			$json_arr = array();
-			
+
 			// Facebook
 			$json_arr[ 'show_facebook' ] = (bool)apply_filters( 'has_show_facebook', $settings[ 'show_facebook' ] );
-			
+
 			// Twitter
 			$json_arr[ 'show_twitter' ] = (bool)apply_filters( 'has_show_twitter', $settings[ 'show_twitter' ] );
-			
+
 			// Linked In
 			$json_arr[ 'show_linkedin' ] = (bool)apply_filters( 'has_show_linkedin', $settings[ 'show_linkedin' ] );
-			
+
 			// Pinterest
 			$json_arr[ 'show_pinterest' ] = (bool)apply_filters( 'has_show_pinterest', $settings[ 'show_pinterest' ] );
-			
+
 			// Email
 			$json_arr[ 'show_email' ] = (bool)apply_filters( 'has_show_email', $settings[ 'show_email' ] );
-			
+
 			// Xing
 			$json_arr[ 'show_xing' ] = (bool)apply_filters( 'has_show_xing', $settings[ 'show_xing' ] );
 
 			// Whatsapp
 			$json_arr[ 'show_whatsapp' ] = (bool)apply_filters( 'has_show_whatsapp', $settings[ 'show_whatsapp' ] );
-			
+
 			//Twitter Username
 			$json_arr[ 'twitter_username' ] = trim( sanitize_text_field( apply_filters( 'has_twitter_username', $settings[ 'twitter' ] ) ) );
 
@@ -384,19 +384,19 @@ class Highlight_And_Share {
 			$json_arr[ 'xing_fa_class' ] = sanitize_text_field( $settings[ 'xing_fa_class' ] );
 			$json_arr[ 'whatsapp_fa_class' ] = sanitize_text_field( $settings[ 'whatsapp_fa_class' ] );
 			$json_arr[ 'email_fa_class' ] = sanitize_text_field( $settings[ 'email_fa_class' ] );
-			
+
 			//Override the filter if no username is present for twitter
 			if ( empty( $json_arr[ 'twitter_username' ] ) ) {
 				$json_arr[ 'twitter_username' ] = '';
 			}
-			
+
 			//Add mobile
 			if ( wp_is_mobile() ) {
-				$json_arr[ 'mobile' ] = true;	
+				$json_arr[ 'mobile' ] = true;
 			} else {
-				$json_arr[ 'mobile' ] = false;		
+				$json_arr[ 'mobile' ] = false;
 			}
-			
+
 			//Content areas
 			$classes = apply_filters( 'has_js_classes', $settings[ 'js_content' ] ); //Pass comma separated values (e.g., entry-content,type-post,type-page)
 			$classes = explode( ',', $classes );
@@ -404,7 +404,7 @@ class Highlight_And_Share {
 				$classes[] = 'has-content-area';
 			}
 			if ( apply_filters( 'has_enable_excerpt', (bool)$settings[ 'enable_excerpt' ] ) ) {
-				$classes[] = 'has-excerpt-area';	
+				$classes[] = 'has-excerpt-area';
 			}
 			foreach( $classes as $index => &$string ) {
 				$string = trim( $string ); //Trim
@@ -418,17 +418,17 @@ class Highlight_And_Share {
 			foreach( $ids as $index => &$string ) {
 				$string = trim( $string );
 				if ( empty( $string ) ) continue;
-				$string = trim( esc_js( '#' . $string ) ); //Get in ID format (#%s) and trim just in case	
+				$string = trim( esc_js( '#' . $string ) ); //Get in ID format (#%s) and trim just in case
 			}
 			$elements = (array)apply_filters( 'has_js_elements', array() ); //Pass array of jQuery HTML elements (e.g., blockquote, article)
 			foreach( $elements as $index => &$string ) {
 				$string = trim( $string );
 				if ( empty( $string ) ) continue;
-				$string = trim( esc_js( $string ) );	
+				$string = trim( esc_js( $string ) );
 			}
 			$content = array_merge( $classes, $ids, $elements );
 			$json_arr[ 'content' ] = apply_filters( 'has_js_selectors', implode(',', $content ), $content, $classes, $ids, $elements );
-			
+
 			//Text to display
 			$json_arr[ 'tweet_text' ] = apply_filters( 'has_twitter_text', _x( 'Tweet', 'Twitter share text', 'highlight-and-share' ) );
 			$json_arr[ 'facebook_text' ] = apply_filters( 'has_facebook_text', _x( 'Share', 'Facebook share text', 'highlight-and-share' ) );
@@ -437,13 +437,13 @@ class Highlight_And_Share {
 			$json_arr[ 'whatsapp_text' ] = apply_filters( 'has_whatsapp_text', _x( 'WhatsApp', 'WhatsApp share text', 'highlight-and-share' ) );
 			$json_arr[ 'xing_text' ] = apply_filters( 'has_xing_text', _x( 'Xing', 'Xing share text', 'highlight-and-share' ) );
 			$json_arr[ 'email_text' ] = apply_filters( 'has_email_text', _x( 'E-mail', 'E-mail share text', 'highlight-and-share' ) );
-			
+
 			//Icons
 			$json_arr[ 'icons' ] = apply_filters( 'has_icons', $settings[ 'icons' ] );
-			
+
 			// Facebook API Key
 			$json_arr[ 'facebook_app_id' ] = isset( $settings[ 'facebook_app_id' ] ) ? absint( $settings[ 'facebook_app_id' ] ) : 0;
-			
+
 			// For emails
 			if ( is_user_logged_in() ) {
 				$user = wp_get_current_user();
@@ -473,8 +473,8 @@ class Highlight_And_Share {
 
 
 			//Localize
-			wp_localize_script( 'highlight-and-share', 'highlight_and_share', $json_arr );		
-			
+			wp_localize_script( 'highlight-and-share', 'highlight_and_share', $json_arr );
+
 			//Add CSS
 			if ( apply_filters( 'has_load_css', true ) ) {
 				wp_enqueue_style( 'highlight-and-share-email', $this->get_plugin_url( 'css/highlight-and-share-emails.css'), array(), '20180826', 'all' );
@@ -483,6 +483,9 @@ class Highlight_And_Share {
 						break;
 					case 'default':
 						wp_enqueue_style( 'highlight-and-share', $this->get_plugin_url( 'css/highlight-and-share.css' ), array(), '20180725', 'all' );
+						break;
+					case 'brand-colors':
+					wp_enqueue_style( 'highlight-and-share', $this->get_plugin_url( 'css/highlight-and-share-brand.css' ), array(), '20180901', 'all' );
 						break;
 					case 'black':
 						wp_enqueue_style( 'highlight-and-share', $this->get_plugin_url( 'css/highlight-and-share-black.css' ), array(), '20180819', 'all' );
@@ -503,9 +506,9 @@ class Highlight_And_Share {
 						wp_enqueue_style( 'highlight-and-share', $this->get_plugin_url( 'css/highlight-and-share.css' ), array(), '20180725', 'all' );
 						break;
 				}
-			}	
+			}
 	}
-	
+
 	/**
 	 * Load mobile scripts
 	 *
@@ -524,9 +527,9 @@ class Highlight_And_Share {
     			$main_script_uri = $this->get_plugin_url( 'js/jquery.mobile.custom.js' );
     		}
         }
-        wp_enqueue_script( 'jquery.mobile', $main_script_uri, array( 'jquery' ), '1.4.5', true );	
+        wp_enqueue_script( 'jquery.mobile', $main_script_uri, array( 'jquery' ), '1.4.5', true );
     }
-	
+
 	/**
 	 * Initialize options page
 	 *
@@ -537,11 +540,11 @@ class Highlight_And_Share {
 	 *
 	 * @see init
 	 *
-	 */	
+	 */
 	public function add_admin_menu() {
 		add_options_page( _x( 'Highlight and Share', 'Plugin Name - Settings Page Title', 'highlight-and-share' ), _x( 'Highlight and Share', 'Plugin Name - Menu Item', 'highlight-and-share' ), 'manage_options', 'highlight-and-share', array( $this, 'options_page' ) );
 	}
-	
+
 	/**
 	 * Output options page HTML.
 	 *
@@ -565,9 +568,9 @@ class Highlight_And_Share {
 	    </div>
     <?php
 	}
-	
+
 	/**
-	 * Initialize options 
+	 * Initialize options
 	 *
 	 * Initialize page settings, fields, and sections and their callbacks
 	 *
@@ -581,57 +584,57 @@ class Highlight_And_Share {
 		register_setting( 'highlight-and-share', 'highlight-and-share', array( $this, 'sanitization' ) );
 		add_settings_section( 'has-display', _x( 'Display', 'plugin settings heading' , 'highlight-and-share' ), array( $this, 'settings_section' ), 'highlight-and-share' );
 		add_settings_section( 'has-config', _x( 'Content', 'plugin settings heading' , 'highlight-and-share' ), array( $this, 'settings_section' ), 'highlight-and-share' );
-		
+
 		add_settings_section( 'has-twitter', _x( 'Twitter Settings', 'plugin settings heading' , 'highlight-and-share' ), array( $this, 'settings_section' ), 'highlight-and-share' );
-		
+
 		add_settings_section( 'has-facebook', _x( 'Facebook Settings', 'plugin settings heading' , 'highlight-and-share' ), array( $this, 'settings_section' ), 'highlight-and-share' );
-		
+
 		add_settings_section( 'has-linkedin', _x( 'LinkedIn Settings', 'plugin settings heading' , 'highlight-and-share' ), array( $this, 'settings_section' ), 'highlight-and-share' );
-		
+
 		add_settings_section( 'has-pinterest', _x( 'Pinterest Settings', 'plugin settings heading' , 'highlight-and-share' ), array( $this, 'settings_section' ), 'highlight-and-share' );
 
 		add_settings_section( 'has-whatsapp', _x( 'WhatsApp Settings', 'plugin settings heading' , 'highlight-and-share' ), array( $this, 'settings_section' ), 'highlight-and-share' );
-		
+
 		add_settings_section( 'has-xing', _x( 'Xing Settings', 'plugin settings heading' , 'highlight-and-share' ), array( $this, 'settings_section' ), 'highlight-and-share' );
-		
+
 		add_settings_section( 'has-email', _x( 'E-mail Settings', 'plugin settings heading' , 'highlight-and-share' ), array( $this, 'settings_section' ), 'highlight-and-share' );
-		
+
 		add_settings_section( 'has-shortlink', _x( 'Post URL Settings', 'plugin settings heading' , 'highlight-and-share' ), array( $this, 'settings_section' ), 'highlight-and-share' );
-		
+
 		add_settings_section( 'has-advanced', _x( 'Advanced', 'plugin settings heading' , 'highlight-and-share' ), array( $this, 'settings_section' ), 'highlight-and-share' );
-		
+
 		add_settings_field( 'hightlight-and-share-display-enable', __( 'Show Icons Only', 'highlight-and-share' ), array( $this, 'add_settings_field_display_enable' ), 'highlight-and-share', 'has-display', array( 'desc' => __( 'Show icons only. Recommended if you choose more than two options to show.', 'highlight-and-share' ) ) );
 
 		add_settings_field( 'hightlight-and-share-display-theme', __( 'Choose Theme', 'highlight-and-share' ), array( $this, 'add_settings_field_display_theme' ), 'highlight-and-share', 'has-display', array( 'desc' => __( 'Choose a theme to display on the front-end. Some themes require Show Icons Only to be enabled.', 'highlight-and-share' ) ) );
-		
+
 		add_settings_field( 'hightlight-and-share-content-enable', __( 'Add to Post Content', 'highlight-and-share' ), array( $this, 'add_settings_field_content_enable' ), 'highlight-and-share', 'has-config', array( 'desc' => __( 'Would you like to add sharing to the main content areas?', 'highlight-and-share' ) ) );
-		
+
 		add_settings_field( 'hightlight-and-share-excerpt-enable', __( 'Add to Excerpt Content', 'highlight-and-share' ), array( $this, 'add_settings_field_excerpt_enable' ), 'highlight-and-share', 'has-config', array( 'desc' => __( 'Would you like to add sharing to the excerpts?', 'highlight-and-share' ) ) );
-		
+
 		add_settings_field( 'hightlight-and-share-twitter-enable', __( 'Show Twitter Option', 'highlight-and-share' ), array( $this, 'add_settings_field_twitter_enable' ), 'highlight-and-share', 'has-twitter', array( 'desc' => __( 'Would you like to enable sharing via Twitter?', 'highlight-and-share' ) ) );
-		
+
 		add_settings_field( 'hightlight-and-share-linkedin-enable', __( 'Show LinkedIn Option', 'highlight-and-share' ), array( $this, 'add_settings_field_linkedin_enable' ), 'highlight-and-share', 'has-linkedin', array( 'desc' => __( 'Would you like to enable sharing via LinkedIn?', 'highlight-and-share' ) ) );
-		
+
 		add_settings_field( 'hightlight-and-share-pinterest-enable', __( 'Show Pinterest Option', 'highlight-and-share' ), array( $this, 'add_settings_field_pinterest_enable' ), 'highlight-and-share', 'has-pinterest', array( 'desc' => __( 'Would you like to enable sharing via Pinterest?', 'highlight-and-share' ) ) );
 
 		add_settings_field( 'hightlight-and-share-whatsapp-enable', __( 'Show WhatsApp Option', 'highlight-and-share' ), array( $this, 'add_settings_field_whatsapp_enable' ), 'highlight-and-share', 'has-whatsapp', array( 'desc' => __( 'Would you like to enable sharing via WhatsApp?', 'highlight-and-share' ) ) );
-		
+
 		add_settings_field( 'hightlight-and-share-xing-enable', __( 'Show Xing Option', 'highlight-and-share' ), array( $this, 'add_settings_field_xing_enable' ), 'highlight-and-share', 'has-xing', array( 'desc' => __( 'Would you like to enable sharing via Xing?', 'highlight-and-share' ) ) );
-		
+
 		add_settings_field( 'hightlight-and-share-email-enable', __( 'Show E-mail Option', 'highlight-and-share' ), array( $this, 'add_settings_field_email_enable' ), 'highlight-and-share', 'has-email', array( 'desc' => __( 'Would you like to enable sharing via E-mail?', 'highlight-and-share' ) ) );
-		
+
 		add_settings_field( 'hightlight-and-share-twitter-handle', __( 'Twitter Username', 'highlight-and-share' ), array( $this, 'add_settings_field_twitter' ), 'highlight-and-share', 'has-twitter', array( 'label_for' => 'hightlight-and-share-twitter-handle', 'desc' => __( 'Enter Your Twitter Username', 'highlight-and-share' ) ) );
-		
+
 		add_settings_field( 'hightlight-and-share-facebook-enable', __( 'Show Facebook Option', 'highlight-and-share' ), array( $this, 'add_settings_field_facebook_enable' ), 'highlight-and-share', 'has-facebook', array( 'desc' => __( 'Would you like to enable sharing via Facebook?', 'highlight-and-share' ) ) );
 		add_settings_field( 'hightlight-and-share-facebook-api', __( 'Facebook App ID', 'highlight-and-share' ), array( $this, 'add_settings_field_facebook_api' ), 'highlight-and-share', 'has-facebook', array( 'label_for' => 'hightlight-and-share-facebook-api', 'desc' => __( 'A Facebook App ID allows you to highlight text and share it.', 'highlight-and-share' ) ) );
-		
+
 		add_settings_field( 'hightlight-and-share-shortlink-enable', __( 'Shortlinks', 'highlight-and-share' ), array( $this, 'add_settings_field_shortlink_enable' ), 'highlight-and-share', 'has-shortlink', array( 'desc' => __( 'Please decide if you would like to use the default post URL or a shortened version.', 'highlight-and-share' ) ) );
-		
+
 		add_settings_field( 'hightlight-and-share-js-content', _x( 'jQuery classes', 'Label - Where in the HTML document to search for text to capture', 'highlight-and-share' ), array( $this, 'add_settings_field_js_content' ), 'highlight-and-share', 'has-advanced', array( 'label_for' => 'hightlight-and-share-js-content', 'desc' => __( 'Enter jQuery classes to search for in the HTML.  You must comma-separate classes (e.g., entry-content,post,page).', 'highlight-and-share' ) ) );
 		add_settings_field( 'hightlight-and-share-fa-content', __( 'Font Awesome Classes', 'highlight-and-share' ), array( $this, 'add_settings_field_fa_content' ), 'highlight-and-share', 'has-advanced', array( 'label_for' => 'hightlight-and-share-fa-content', 'desc' => __( 'Enter your own Font Awesome classes for the icons.', 'highlight-and-share' ) ) );
-		
+
 	}
-	
+
 	/**
 	 * Output settings HTML
 	 *
@@ -645,7 +648,7 @@ class Highlight_And_Share {
 	 */
 	public function settings_section() {
 	}
-	
+
 	/**
 	 * Sanitize options before they are saved.
 	 *
@@ -663,19 +666,19 @@ class Highlight_And_Share {
 	 *		@type bool $show_twitter Whether to show twitter share option.  Default true.
 	 *		@type bool $show_facebook Whether to show facebook share option.  Default true
 	 * }
-	 * 
+	 *
 	 * @return array Sanitized array of options
 	 */
 	public function sanitization( $input = array() ) {
 		$output = get_option( 'highlight-and-share' );
-		
+
 		//Check if settings are being initialized for the first time
 		if ( false === $output ) {
 			//No settings have been saved yet and we're being supplied with defaults
 			foreach( $input as $key => &$value ) {
 				if ( is_bool( $value ) ) continue;
 				$value = sanitize_text_field( $value );
-			}	
+			}
 			return $input;
 		}
 		//Settings are being saved.  Update.
@@ -693,7 +696,7 @@ class Highlight_And_Share {
 					break;
 				case 'facebook_app_id':
 					$app_id = absint( $value );
-					
+
 					if ( empty( $app_id ) || 0 === $app_id ) {
 						$output[ $key ] = '';
 					} else {
@@ -732,17 +735,17 @@ class Highlight_And_Share {
 				case 'show_pinterest':
 				case 'show_linkedin':
 					if ( $input[ $key ] == 'on' ) {
-						$output[ $key ] = true;	
+						$output[ $key ] = true;
 					} else {
 						$output[ $key ] = false;
 					}
 					break;
-				
+
 			}
 		}
 		return $output;
 	}
-	
+
 	/**
 	 * Add JavaScript content setting.
 	 *
@@ -792,7 +795,7 @@ class Highlight_And_Share {
 		$whatsapp_fa_class = isset( $settings[ 'whatsapp_fa_class' ] ) ? $settings[ 'whatsapp_fa_class' ] : '';
 		$email_fa_class = isset( $settings[ 'email_fa_class' ] ) ? $settings[ 'email_fa_class' ] : '';
 		printf( '<p>%s</p>', esc_html( $args[ 'desc' ] ) );
-		
+
 		// Twitter
 		echo '<p>';
 		printf( '<label for="twitter_fa_class"><strong>%s</strong></label><br />', esc_html__( 'Twitter Font Awesome Class', 'highlight-and-share' ) );
@@ -835,7 +838,7 @@ class Highlight_And_Share {
 		printf( '<input id="email_fa_class" type="text" name="highlight-and-share[email_fa_class]" value="%s" />', esc_attr( $email_fa_class ) );
 		echo '</p>';
 	}
-	
+
 	/**
 	 * Add Twitter username setting.
 	 *
@@ -858,7 +861,7 @@ class Highlight_And_Share {
 		printf( '<p>%s</p>', esc_html( $args[ 'desc' ] ) );
 		printf( '<input id="%s" type="text" name="highlight-and-share[twitter]" value="%s" />', esc_attr( $args[ 'label_for' ] ), esc_attr( $js_content ) );
 	}
-	
+
 	/**
 	 * Option for displaying icons only
 	 *
@@ -907,6 +910,7 @@ class Highlight_And_Share {
 		<select name="highlight-and-share[theme]">
 			<option value="off" <?php selected( 'off', $theme, true); ?>><?php esc_html_e( 'Off', 'highlight-and-share' ); ?></option>
 			<option value="default" <?php selected( 'default', $theme, true); ?>><?php esc_html_e( 'Default', 'highlight-and-share' ); ?></option>
+			<option value="brand-colors" <?php selected( 'brand-colors', $theme, true); ?>><?php esc_html_e( 'Brand Colors (Icons Only)', 'highlight-and-share' ); ?></option>
 			<option value="black" <?php selected( 'black', $theme, true); ?>><?php esc_html_e( 'Black (Icons Only)', 'highlight-and-share' ); ?></option>
 			<option value="white" <?php selected( 'white', $theme, true); ?>><?php esc_html_e( 'White (Icons Only)', 'highlight-and-share' ); ?></option>
 			<option value="magenta" <?php selected( 'magenta', $theme, true); ?>><?php esc_html_e( 'Magenta (Icons Only)', 'highlight-and-share' ); ?></option>
@@ -916,7 +920,7 @@ class Highlight_And_Share {
 		<?php
 		printf( '<div><em></em></div>', esc_html( $args[ 'desc' ] ) );
 	}
-	
+
 	/**
 	 * Add Twitter option for sharing.
 	 *
@@ -939,7 +943,7 @@ class Highlight_And_Share {
 		echo '<input name="highlight-and-share[show_twitter]" value="off" type="hidden" />';
 		printf( '<input id="has-show-twitter" type="checkbox" name="highlight-and-share[show_twitter]" value="on" %s />&nbsp;<label for="has-show-twitter">%s</label>', checked( true, $enable_twitter, false ), __( 'Enable Twitter Sharing?', 'highlight-and-share' ) );
 	}
-	
+
 	/**
 	 * Add LinkedIn Option for Sharing
 	 *
@@ -962,7 +966,7 @@ class Highlight_And_Share {
 		echo '<input name="highlight-and-share[show_linkedin]" value="off" type="hidden" />';
 		printf( '<input id="has-show-linkedin" type="checkbox" name="highlight-and-share[show_linkedin]" value="on" %s />&nbsp;<label for="has-show-linkedin">%s</label>', checked( true, $linkedin, false ), __( 'Enable LinkedIn Sharing?', 'highlight-and-share' ) );
 	}
-	
+
 	/**
 	 * Add Pinterest Option for Sharing
 	 *
@@ -985,7 +989,7 @@ class Highlight_And_Share {
 		echo '<input name="highlight-and-share[show_pinterest]" value="off" type="hidden" />';
 		printf( '<input id="has-show-pinterest" type="checkbox" name="highlight-and-share[show_pinterest]" value="on" %s />&nbsp;<label for="has-show-pinterest">%s</label>', checked( true, $pinterest, false ), __( 'Enable Pinterest Sharing?', 'highlight-and-share' ) );
 	}
-	
+
 	/**
 	 * Add Xing Option for Sharing
 	 *
@@ -1031,7 +1035,7 @@ class Highlight_And_Share {
 		echo '<input name="highlight-and-share[show_whatsapp]" value="off" type="hidden" />';
 		printf( '<input id="has-show-whatsapp" type="checkbox" name="highlight-and-share[show_whatsapp]" value="on" %s />&nbsp;<label for="has-show-whatsapp">%s</label>', checked( true, $whatsapp, false ), __( 'Enable WhatsApp Sharing?', 'highlight-and-share' ) );
 	}
-	
+
 	/**
 	 * Add E-mail Option for Sharing
 	 *
@@ -1046,7 +1050,7 @@ class Highlight_And_Share {
 	 *		@type string $label_for Settings label and ID.
 	 *
 	 *		@type string $desc Description for the setting.
-	 *		
+	 *
 	 * }
 	 */
 	public function add_settings_field_email_enable( $args = array() ) {
@@ -1055,7 +1059,7 @@ class Highlight_And_Share {
 		echo '<input name="highlight-and-share[show_email]" value="off" type="hidden" />';
 		printf( '<input id="has-show-email" type="checkbox" name="highlight-and-share[show_email]" value="on" %s />&nbsp;<label for="has-show-email">%s</label>', checked( true, $email, false ), __( 'Enable E-mail Sharing?', 'highlight-and-share' ) );
 	}
-	
+
 	/**
 	 * Add Facebook option for sharing.
 	 *
@@ -1078,7 +1082,7 @@ class Highlight_And_Share {
 		echo '<input name="highlight-and-share[show_facebook]" value="off" type="hidden" />';
 		printf( '<input id="has-show-facebook" type="checkbox" name="highlight-and-share[show_facebook]" value="on" %s />&nbsp;<label for="has-show-facebook">%s</label>', checked( true, $enable_facebook, false ), __( 'Enable Facebook Sharing?', 'highlight-and-share' ) );
 	}
-	
+
 	/**
 	 * Add Facebook option for an Application ID.
 	 *
@@ -1104,9 +1108,9 @@ class Highlight_And_Share {
 		printf( '<p>%s</p>', esc_html( $args[ 'desc' ] ) );
 		printf( '<p><a href="%s">%s</a></p>', 'https://developers.facebook.com/apps', __( 'Requires a Facebook developer application.', 'highlight-and-share' ) );
 		printf( '<input id="%s" type="text" name="highlight-and-share[facebook_app_id]" value="%s" />', esc_attr( $args[ 'label_for' ] ), esc_attr( $app_id ) );
-		
+
 	}
-	
+
 	/**
 	 * Add Content option for sharing.
 	 *
@@ -1129,7 +1133,7 @@ class Highlight_And_Share {
 		echo '<input name="highlight-and-share[enable_content]" value="off" type="hidden" />';
 		printf( '<input id="has-enable-content" type="checkbox" name="highlight-and-share[enable_content]" value="on" %s />&nbsp;<label for="has-enable-content">%s</label>', checked( true, $enable_content, false ), __( 'Enable Content?', 'highlight-and-share' ) );
 	}
-	
+
 	/**
 	 * Add Content option for sharing.
 	 *
@@ -1152,7 +1156,7 @@ class Highlight_And_Share {
 		echo '<input name="highlight-and-share[enable_excerpt]" value="off" type="hidden" />';
 		printf( '<input id="has-enable-excerpt" type="checkbox" name="highlight-and-share[enable_excerpt]" value="on" %s />&nbsp;<label for="has-enable-excerpt">%s</label>', checked( true, $enable_excerpt, false ), __( 'Enable Excerpt?', 'highlight-and-share' ) );
 	}
-	
+
 	/**
 	 * Add Shortlink Option for Sharing.
 	 *
@@ -1175,7 +1179,7 @@ class Highlight_And_Share {
 		echo '<input name="highlight-and-share[shortlinks]" value="off" type="hidden" />';
 		printf( '<input id="has-shortlinks" type="checkbox" name="highlight-and-share[shortlinks]" value="on" %s />&nbsp;<label for="has-shortlinks">%s</label>', checked( true, $enable_shortlinks, false ), __( 'Enable Shortlinks?', 'highlight-and-share' ) );
 	}
-	
+
 	/**
 	 * Initialize and return plugin options.
 	 *
@@ -1190,11 +1194,11 @@ class Highlight_And_Share {
 	 */
 	public function get_plugin_options() {
 		if ( false === $this->options ) {
-			$settings = get_option( 'highlight-and-share' );	
+			$settings = get_option( 'highlight-and-share' );
 		} else {
 			$settings = $this->options;
 		}
-		
+
 		$defaults = array(
 			'js_content'         => '',
 			'twitter'            => '',
@@ -1218,7 +1222,7 @@ class Highlight_And_Share {
 			'whatsapp_fa_class'  => 'fa fa-whatsapp',
 			'email_fa_class'     => 'fa fa-envelope',
 		);
-		
+
 		if ( false === $settings || ! is_array( $settings ) ) {
 			update_option( 'highlight-and-share', $defaults );
 			return $defaults;
@@ -1228,7 +1232,7 @@ class Highlight_And_Share {
 		$this->options = $settings;
 		return $settings;
 	}
-	
+
 	/**
 	 * Return a plugin path relative to the file system
 	 *
@@ -1237,16 +1241,16 @@ class Highlight_And_Share {
 	 * @since 1.0.0
 	 * @access public
 	 *
-	 * @param string $path Relative file path to plugin asset 
+	 * @param string $path Relative file path to plugin asset
 	 * @return string Full file path to plugin asset
 	 */
 	public function get_plugin_dir( $path = '' ) {
 		$dir = rtrim( plugin_dir_path(__FILE__), '/' );
 		if ( !empty( $path ) && is_string( $path) )
 			$dir .= '/' . ltrim( $path, '/' );
-		return $dir;		
+		return $dir;
 	}
-	
+
 	/**
 	 * Return a plugin path relative to the plugin URL
 	 *
@@ -1255,17 +1259,17 @@ class Highlight_And_Share {
 	 * @since 1.0.0
 	 * @access public
 	 *
-	 * @param string $path Relative URL to plugin asset 
+	 * @param string $path Relative URL to plugin asset
 	 * @return string Full URL to plugin asset
 	 */
 	public function get_plugin_url( $path = '' ) {
 		$dir = rtrim( plugin_dir_url(__FILE__), '/' );
 		if ( !empty( $path ) && is_string( $path) )
 			$dir .= '/' . ltrim( $path, '/' );
-		return $dir;	
+		return $dir;
 	}
-	
-	
+
+
 } //end class Highlight_And_Share
 
 add_action( 'plugins_loaded', 'highlightshare_instantiate' );
