@@ -65,7 +65,49 @@ class Highlight_And_Share {
 		add_action( 'wp_ajax_has_form_submission', array( $this, 'ajax_send_has_email' ) );
 		add_action( 'wp_ajax_nopriv_has_form_submission', array( $this, 'ajax_send_has_email' ) );
 
+		// For the customizer
+		add_action( 'customize_register', array( $this, 'customizer' ) );
+
 	} //end constructor
+
+	/**
+	 * Adds HAS to the customizer
+	 *
+	 * Adds HAS to the customizer
+	 *
+	 * @since 2.4.0
+	 * @access public
+	 *
+     * @param  WP_Customize_Manager $customizer Customizer object
+	 */
+	public function customizer( $customizer ) {
+		require_once $this->get_plugin_dir('includes/class-checkbox-icons.php');
+		$customizer->add_section('highlight-and-share', array(
+			'title'      => __( 'Highlight and Share', 'highlight-and-share' ),
+			'priority'   => 120,
+			'capability' => 'edit_theme_options'
+		) );
+		$customizer->add_setting( 'highlight-and-share[icons]',
+			array(
+				'capability'        => 'edit_theme_options',
+				'type'              => 'option',
+				'default'           => 'checked',
+				'value'             => 'off',
+			)
+		);
+		$customizer->add_control(
+			new HAS_Template_Checkbox(
+			$customizer,
+			'highlight-and-share[icons]',
+			array(
+				'type'     => 'checkbox',
+				'label'    => __( 'Icons Only', 'highlight-and-share' ),
+				'section'  => 'highlight-and-share',
+				'settings' => 'highlight-and-share[icons]',
+				'priority' => 10,
+			)
+		));
+	}
 
 	/**
 	 * Processes an Ajax Request for emails
