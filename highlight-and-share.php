@@ -106,7 +106,7 @@ class Highlight_And_Share {
 				'section'     => 'highlight-and-share',
 				'settings'    => 'highlight-and-share[icons]',
 				'priority'    => 10,
-				'description' => 'Requires Better Font Awesome plugin or equivalent'
+				'description' => 'Requires <a href="https://wordpress.org/plugins/better-font-awesome/">Better Font Awesome plugin</a> or equivalent'
 			)
 		));
 
@@ -435,10 +435,6 @@ class Highlight_And_Share {
 		//Plugin settings
 		add_filter( 'plugin_action_links_' . plugin_basename(__FILE__) , array( $this, 'add_settings_link' ) );
 
-		// Load customizer script
-		add_action( 'customize_controls_enqueue_scripts', array( $this, 'add_customizer_script' ) );
-
-
 	} //end init
 
 	public function wp_loaded() {
@@ -474,11 +470,6 @@ class Highlight_And_Share {
 		if ( apply_filters( 'has_enable_excerpt', (bool)$settings[ 'enable_excerpt' ] ) ) {
 			add_filter( 'the_excerpt', array( $this, 'excerpt_area' ) );
 		}
-	}
-
-	public function add_customizer_script() {
-		$main_script_uri = $this->get_plugin_url( 'js/highlight-and-share-customizer.js' );
-		wp_enqueue_script( 'highlight-and-share-customizer', $main_script_uri, array( 'jquery' ), '20180901', true );
 	}
 
 	/**
