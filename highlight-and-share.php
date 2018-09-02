@@ -106,7 +106,6 @@ class Highlight_And_Share {
 				'section'  => 'highlight-and-share',
 				'settings' => 'highlight-and-share[icons]',
 				'priority' => 10,
-				'title' => 'Dispay Icons'
 			)
 		));
 
@@ -136,6 +135,111 @@ class Highlight_And_Share {
 				)
 			)
 		);
+
+		// Show Twitter
+		$customizer->add_setting( 'highlight-and-share[show_twitter]',
+			array(
+				'capability'        => 'edit_theme_options',
+				'default'           => $options[ 'show_twitter' ],
+				'sanitize_callback' => array( $this, 'customizer_sanitize_checkbox' ),
+			)
+		);
+		$customizer->add_control(
+			new WP_Customize_Control(
+			$customizer,
+			'highlight-and-share[show_twitter]',
+			array(
+				'type'     => 'checkbox',
+				'label'    => __( 'Enable Twitter Sharing', 'highlight-and-share' ),
+				'section'  => 'highlight-and-share',
+				'settings' => 'highlight-and-share[show_twitter]',
+				'priority' => 10,
+			)
+		));
+
+		// Show Facebook
+		$customizer->add_setting( 'highlight-and-share[show_facebook]',
+			array(
+				'capability'        => 'edit_theme_options',
+				'default'           => $options[ 'show_facebook' ],
+				'sanitize_callback' => array( $this, 'customizer_sanitize_checkbox' ),
+			)
+		);
+		$customizer->add_control(
+			new WP_Customize_Control(
+			$customizer,
+			'highlight-and-share[show_facebook]',
+			array(
+				'type'     => 'checkbox',
+				'label'    => __( 'Enable Facebook Sharing', 'highlight-and-share' ),
+				'section'  => 'highlight-and-share',
+				'settings' => 'highlight-and-share[show_facebook]',
+				'priority' => 10,
+			)
+		));
+
+		// Show LinkedIn
+		$customizer->add_setting( 'highlight-and-share[show_linkedin]',
+			array(
+				'capability'        => 'edit_theme_options',
+				'default'           => $options[ 'show_linkedin' ],
+				'sanitize_callback' => array( $this, 'customizer_sanitize_checkbox' ),
+			)
+		);
+		$customizer->add_control(
+			new WP_Customize_Control(
+			$customizer,
+			'highlight-and-share[show_linkedin]',
+			array(
+				'type'     => 'checkbox',
+				'label'    => __( 'Enable LinkedIn Sharing', 'highlight-and-share' ),
+				'section'  => 'highlight-and-share',
+				'settings' => 'highlight-and-share[show_linkedin]',
+				'priority' => 10,
+			)
+		));
+
+		// Show Pinterest
+		$customizer->add_setting( 'highlight-and-share[show_pinterest]',
+			array(
+				'capability'        => 'edit_theme_options',
+				'default'           => $options[ 'show_pinterest' ],
+				'sanitize_callback' => array( $this, 'customizer_sanitize_checkbox' ),
+			)
+		);
+		$customizer->add_control(
+			new WP_Customize_Control(
+			$customizer,
+			'highlight-and-share[show_pinterest]',
+			array(
+				'type'     => 'checkbox',
+				'label'    => __( 'Enable Pinterest Sharing', 'highlight-and-share' ),
+				'section'  => 'highlight-and-share',
+				'settings' => 'highlight-and-share[show_pinterest]',
+				'priority' => 10,
+			)
+		));
+
+		// Show Xing
+		$customizer->add_setting( 'highlight-and-share[show_xing]',
+			array(
+				'capability'        => 'edit_theme_options',
+				'default'           => $options[ 'show_xing' ],
+				'sanitize_callback' => array( $this, 'customizer_sanitize_checkbox' ),
+			)
+		);
+		$customizer->add_control(
+			new WP_Customize_Control(
+			$customizer,
+			'highlight-and-share[show_xing]',
+			array(
+				'type'     => 'checkbox',
+				'label'    => __( 'Enable Xing Sharing', 'highlight-and-share' ),
+				'section'  => 'highlight-and-share',
+				'settings' => 'highlight-and-share[show_xing]',
+				'priority' => 10,
+			)
+		));
 	}
 
 	public function customizer_sanitize_checkbox( $input ) {
@@ -451,22 +555,48 @@ class Highlight_And_Share {
 			$json_arr = array();
 
 			// Facebook
-			$json_arr[ 'show_facebook' ] = (bool)apply_filters( 'has_show_facebook', $settings[ 'show_facebook' ] );
+			if( is_customize_preview()) {
+				$maybe_facebook = get_theme_mod( 'highlight-and-share');
+				$json_arr[ 'show_facebook' ] =  apply_filters( 'has_show_facebook', $maybe_facebook[ 'show_facebook' ] );
+			} else {
+				$json_arr[ 'show_facebook' ] = (bool)apply_filters( 'has_show_facebook', $settings[ 'show_facebook' ] );
+			}
 
 			// Twitter
-			$json_arr[ 'show_twitter' ] = (bool)apply_filters( 'has_show_twitter', $settings[ 'show_twitter' ] );
+			if( is_customize_preview()) {
+				$maybe_twitter = get_theme_mod( 'highlight-and-share');
+				$json_arr[ 'show_twitter' ] =  apply_filters( 'has_show_twitter', $maybe_twitter[ 'show_twitter' ] );
+			} else {
+				$json_arr[ 'show_twitter' ] = (bool)apply_filters( 'has_show_twitter', $settings[ 'show_twitter' ] );
+			}
+
 
 			// Linked In
-			$json_arr[ 'show_linkedin' ] = (bool)apply_filters( 'has_show_linkedin', $settings[ 'show_linkedin' ] );
+			if( is_customize_preview()) {
+				$maybe_linkedin = get_theme_mod( 'highlight-and-share');
+				$json_arr[ 'show_linkedin' ] =  apply_filters( 'has_show_linkedin', $maybe_linkedin[ 'show_linkedin' ] );
+			} else {
+				$json_arr[ 'show_linkedin' ] = (bool)apply_filters( 'has_show_linkedin', $settings[ 'show_linkedin' ] );
+			}
 
 			// Pinterest
-			$json_arr[ 'show_pinterest' ] = (bool)apply_filters( 'has_show_pinterest', $settings[ 'show_pinterest' ] );
+			if( is_customize_preview()) {
+				$maybe_pinterest = get_theme_mod( 'highlight-and-share');
+				$json_arr[ 'show_pinterest' ] =  apply_filters( 'has_show_pinterest', $maybe_linkedin[ 'show_pinterest' ] );
+			} else {
+				$json_arr[ 'show_pinterest' ] = (bool)apply_filters( 'has_show_pinterest', $settings[ 'show_pinterest' ] );
+			}
 
 			// Email
 			$json_arr[ 'show_email' ] = (bool)apply_filters( 'has_show_email', $settings[ 'show_email' ] );
 
 			// Xing
-			$json_arr[ 'show_xing' ] = (bool)apply_filters( 'has_show_xing', $settings[ 'show_xing' ] );
+			if( is_customize_preview()) {
+				$maybe_xing = get_theme_mod( 'highlight-and-share');
+				$json_arr[ 'show_xing' ] =  apply_filters( 'has_show_xing', $maybe_linkedin[ 'show_xing' ] );
+			} else {
+				$json_arr[ 'show_xing' ] = (bool)apply_filters( 'has_show_xing', $settings[ 'show_xing' ] );
+			}
 
 			// Whatsapp
 			$json_arr[ 'show_whatsapp' ] = (bool)apply_filters( 'has_show_whatsapp', $settings[ 'show_whatsapp' ] );
@@ -539,11 +669,8 @@ class Highlight_And_Share {
 			//Icons
 			if( is_customize_preview()) {
 				$maybe_icons = get_theme_mod( 'highlight-and-share');
-				if( isset( $maybe_icons[ 'icons' ] ) ) {
-					$json_arr[ 'icons' ] = !$maybe_icons[ 'icons' ];
-				} else {
-					$json_arr[ 'icons' ] = apply_filters( 'has_icons', $settings[ 'icons' ] );
-				}
+				$json_arr[ 'icons' ] =  apply_filters( 'has_icons', !$maybe_icons[ 'icons' ] );
+				error_log( print_r( $maybe_icons, true ) );
 			} else {
 				$json_arr[ 'icons' ] = apply_filters( 'has_icons', $settings[ 'icons' ] );
 			}
@@ -599,6 +726,19 @@ class Highlight_And_Share {
 			}
 	}
 
+	/**
+	 * Load stylesheets
+	 *
+	 * Enqueue styles
+	 *
+	 * @since 2.4.0
+	 * @access private
+	 *
+	 * @see add_scripts
+	 *
+	 * @param string $theme The theme to output
+	 *
+	 */
 	private function output_stylesheets( $theme ) {
 		switch( $theme ) {
 			case 'off':
