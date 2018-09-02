@@ -749,7 +749,7 @@ class Highlight_And_Share {
 			$json_arr[ 'email_email_from' ] = __( 'Your email address is blank.', 'highlight-and-share' );
 			$json_arr[ 'email_email_name' ] = __( 'Your name is blank.', 'highlight-and-share' );
 			$json_arr[ 'email_sending' ] = __( 'Sending...', 'highlight-and-share' );
-
+			$json_arr[ 'customizer_preview' ] = is_customize_preview();
 
 			//Localize
 			wp_localize_script( 'highlight-and-share', 'highlight_and_share', $json_arr );
