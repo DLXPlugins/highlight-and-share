@@ -68,7 +68,24 @@ class Highlight_And_Share {
 		// For the customizer
 		add_action( 'customize_register', array( $this, 'customizer' ) );
 
+		// For the icons
+		$this->maybe_migrate_icons();
+
 	} //end constructor
+
+	private function maybe_migrate_icons() {
+		$migrated_option = get_option( 'has_icons_migrated', false );
+		if ( false === $migrated_option ) {
+			$options = $this->get_plugin_options();
+			if( isset( $options[ 'icons' ] ) && false === $options[ 'icons' ] ) {
+				$options[ 'icons' ] = true;
+				update_option( 'highlight-and-share', $options );
+				$this->options = $options;
+				update_option( 'has_icons_migrated', 'true' );
+			}
+		}
+
+	}
 
 	/**
 	 * Adds HAS to the customizer
@@ -90,9 +107,8 @@ class Highlight_And_Share {
 		// Icons
 		$customizer->add_setting( 'highlight-and-share[icons]',
 			array(
-				'default'           => $options[ 'icons' ],
 				'capability'        => 'edit_theme_options',
-				'sanitize_callback' => array( $this, 'customizer_icon_sanitize_checkbox' ),
+				'sanitize_callback' => array( $this, 'customizer_sanitize_checkbox' ),
 				'type'              => 'option'
 			)
 		);
@@ -444,9 +460,7 @@ class Highlight_And_Share {
 			)
 		));
 	}
-	public function customizer_icon_sanitize_checkbox( $input ) {
-		return ($input) ? false : true;
-	}
+
 	public function customizer_sanitize_checkbox( $input ) {
 		//returns true if checkbox is checked
 		return ($input) ? true : false;
@@ -977,11 +991,10 @@ class Highlight_And_Share {
 			//Icons
 			if( is_customize_preview()) {
 				$maybe_icons = get_option( 'highlight-and-share' );
-				error_log( print_r( $maybe_icons, true ) );
 				if( isset( $maybe_icons[ 'icons' ] ) ) {
-					$json_arr[ 'icons' ] =  (bool)apply_filters( 'has_icons', $maybe_icons[ 'icons' ] );
+					$json_arr[ 'icons' ] =  apply_filters( 'has_icons', $maybe_icons[ 'icons' ] );
 				} else {
-					$json_arr[ 'icons' ] = (bool)apply_filters( 'has_icons', $settings[ 'icons' ] );
+					$json_arr[ 'icons' ] = apply_filters( 'has_icons', $settings[ 'icons' ] );
 				}
 			} else {
 				$json_arr[ 'icons' ] = apply_filters( 'has_icons', $settings[ 'icons' ] );
@@ -1455,9 +1468,9 @@ class Highlight_And_Share {
 	 */
 	public function add_settings_field_display_enable( $args = array() ) {
 		$settings = $this->get_plugin_options();
-		$enable_icons = isset( $settings[ 'icons' ] ) ? (bool)$settings[ 'icons' ] : true;
-		echo '<input name="highlight-and-share[icons]" value="on" type="hidden" />';
-		printf( '<input id="has-show-icons" type="checkbox" name="highlight-and-share[icons]" value="off" %s />&nbsp;<label for="has-show-icons">%s</label>', checked( false, $enable_icons, false ), __( 'Enable Icons Only?', 'highlight-and-share' ) );
+		$enable_icons = isset( $settings[ 'icons' ] ) ? (bool)$settings[ 'icons' ] : false;
+		echo '<input name="highlight-and-share[icons]" value="off" type="hidden" />';
+		printf( '<input id="has-show-icons" type="checkbox" name="highlight-and-share[icons]" value="on" %s />&nbsp;<label for="has-show-icons">%s</label>', checked( true, $enable_icons, false ), __( 'Enable Icons Only?', 'highlight-and-share' ) );
 		$bfa = sprintf( '<a href="%s">Requires %s or equivalent.</a>', 'https://wordpress.org/plugins/better-font-awesome/', __( 'Better Font Awesome', 'highlight-and-share' ) );
 		printf( '<div><em>%s<br />%s</em></div>', $bfa, esc_html( $args[ 'desc' ] ) );
 	}

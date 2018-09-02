@@ -7,14 +7,14 @@ jQuery( document ).ready( function( $ ) {
 	var has_selected_text = '';
 
 	var has_load_html = function() {
-		if ( highlight_and_share.icons == true ) {
+		if ( highlight_and_share.icons == false ) {
 			var html = '<div class="highlight-and-share-wrapper" style="display: none">d';
 		} else {
 			var html = '<div class="highlight-and-share-wrapper has-icons" style="display: none">d';
 		}
 		var html = '<div class="highlight-and-share-wrapper">';
 		if ( highlight_and_share.show_twitter && '' != highlight_and_share.twitter_username ) {
-			if ( highlight_and_share.icons == true ) {
+			if ( highlight_and_share.icons == false ) {
 				html += '<div class="has_twitter" style="display: none;" data-type="twitter"><a href="https://twitter.com/intent/tweet?via=%username%&url=%url%&text=%text%" target="_blank"><i class="' + highlight_and_share.twitter_fa_class + '"></i>&nbsp;' + highlight_and_share.tweet_text + '</a></div>';
 			} else {
 				html += '<div class="has_twitter" style="display: none;" data-type="twitter"><a href="https://twitter.com/intent/tweet?via=%username%&url=%url%&text=%text%" target="_blank"><i class="' + highlight_and_share.twitter_fa_class + '"></i></a></div>';
@@ -22,14 +22,14 @@ jQuery( document ).ready( function( $ ) {
 			}
 
 		} else if( highlight_and_share.show_twitter && '' == highlight_and_share.twitter_username ) {
-			if ( highlight_and_share.icons == true ) {
+			if ( highlight_and_share.icons == false ) {
 				   html += '<div class="has_twitter" style="display: none;" data-type="twitter"><a href="https://twitter.com/intent/tweet?url=%url%&text=%text%" target="_blank"><i class="' + highlight_and_share.twitter_fa_class + '"></i>&nbsp;' + highlight_and_share.tweet_text + '</a></div>';
 			 } else {
 				html += '<div class="has_twitter" style="display: none;" data-type="twitter"><a href="https://twitter.com/intent/tweet?url=%url%&text=%text%" target="_blank"><i class="' + highlight_and_share.twitter_fa_class + '"></i></a></div>';
 			 }
 		}
 		if ( highlight_and_share.show_facebook ) {
-			if ( highlight_and_share.icons == true ) {
+			if ( highlight_and_share.icons == false ) {
 				//Note, you must be on a publicly accesible URL to use this button
 				if ( '0' === highlight_and_share.facebook_app_id ) {
 		 			html += '<div class="has_facebook" style="display: none;" data-type="facebook"><a href="https://www.facebook.com/sharer/sharer.php?u=%url%&t=%title%" target="_blank"><i class="' + highlight_and_share.facebook_fa_class + '"></i>&nbsp;' + highlight_and_share.facebook_text + '</a></div>';
@@ -47,7 +47,7 @@ jQuery( document ).ready( function( $ ) {
 			}
 		}
 		if ( highlight_and_share.show_linkedin ) {
-			if ( highlight_and_share.icons == true ) {
+			if ( highlight_and_share.icons == false ) {
 				//Note, you must be on a publicly accesible URL to use this button
 				html += '<div class="has_linkedin" style="display: none;" data-type="linkedin"><a href="https://www.linkedin.com/shareArticle?mini=true&url=%url%&title=%title%" target="_blank"><i class="' + highlight_and_share.linkedin_fa_class + '"></i>&nbsp;' + highlight_and_share.linkedin_text + '</a></div>';
 			} else {
@@ -57,7 +57,7 @@ jQuery( document ).ready( function( $ ) {
 
 		//={URI-encoded URL of the page to pin}&media={URI-encoded URL of the image to pin}&description={optional URI-encoded description}"
 		if ( highlight_and_share.show_pinterest ) {
-			if ( highlight_and_share.icons == true ) {
+			if ( highlight_and_share.icons == false ) {
 				//Note, you must be on a publicly accesible URL to use this button
 				html += '<div class="has_pinterest" style="display: none;" data-type="pinterest"><a href="http://pinterest.com/pin/create/button/?url=%url%&description=%title%" target="_blank"><i class="' + highlight_and_share.pinterest_fa_class + '"></i>&nbsp;' + highlight_and_share.pinterest_text + '</a></div>';
 			} else {
@@ -66,7 +66,7 @@ jQuery( document ).ready( function( $ ) {
 		}
 
 		if ( highlight_and_share.show_xing ) {
-			if ( highlight_and_share.icons == true ) {
+			if ( highlight_and_share.icons == false ) {
 				html += '<div class="has_xing" style="display: none;" data-type="xing"><a href="https://www.xing.com/spi/shares/new?url=%url%" target="_blank"><i class="' + highlight_and_share.xing_fa_class + '"></i>&nbsp;' + highlight_and_share.xing_text + '</a></div>';
 			} else {
 				html += '<div class="has_xing" style="display: none;" data-type="xing"><a href="https://www.xing.com/spi/shares/new?url=%url%" target="_blank"><i class="' + highlight_and_share.xing_fa_class + '"></i></a></div>';
@@ -74,7 +74,7 @@ jQuery( document ).ready( function( $ ) {
 		}
 
 		if ( highlight_and_share.show_whatsapp ) {
-			if ( highlight_and_share.icons == true ) {
+			if ( highlight_and_share.icons == false ) {
 				html += '<div class="has_whatsapp" style="display: none;" data-type="whatsapp"><a href="https://wa.me/?text=%text%' + ' - ' + highlight_and_share.from + ': ' + '%url%" target="_blank"><i class="' + highlight_and_share.whatsapp_fa_class + '"></i>&nbsp;' + highlight_and_share.whatsapp_text + '</a></div>';
 			} else {
 				html += '<div class="has_whatsapp" style="display: none;" data-type="whatsapp"><a href="https://wa.me/?text=%text%' + ' - ' + highlight_and_share.from + ': ' + '%url%" target="_blank"><i class="' + highlight_and_share.whatsapp_fa_class + '"></i></a></div>';
@@ -82,7 +82,7 @@ jQuery( document ).ready( function( $ ) {
 		}
 
 		if ( highlight_and_share.show_email ) {
-			if ( highlight_and_share.icons == true ) {
+			if ( highlight_and_share.icons == false ) {
 				//Note, you must be on a publicly accesible URL to use this button
 				html += '<div class="has_email" style="display: none;" data-type="email"><a href="' + highlight_and_share.ajax_url + '" target="_blank"><i class="' + highlight_and_share.email_fa_class + '"></i>&nbsp;' + highlight_and_share.email_text + '</a></div>';
 			} else {
