@@ -87,6 +87,8 @@ class Highlight_And_Share {
 			'priority'   => 120,
 			'capability' => 'edit_theme_options'
 		) );
+
+		// Icons
 		$customizer->add_setting( 'highlight-and-share[icons]',
 			array(
 				'capability'        => 'edit_theme_options',
@@ -104,14 +106,55 @@ class Highlight_And_Share {
 				'section'  => 'highlight-and-share',
 				'settings' => 'highlight-and-share[icons]',
 				'priority' => 10,
+				'title' => 'Dispay Icons'
 			)
 		));
+
+		// Themes
+		$customizer->add_setting(
+			'highlight-and-share[theme]',
+			array(
+				'default' => 'default',
+				'sanitize_callback' => array( $this, 'customizer_sanitize_theme_select')
+			)
+		);
+		$customizer->add_control(
+			'highlight-and-share[theme]',
+			array(
+				'label' => esc_html__( 'Choose a Theme', 'highlight-and-share' ),
+				'section' => 'highlight-and-share',
+				'type' => 'select',
+				'choices' => array(
+					'off' => esc_html__( 'Off', 'highligh-and-share' ),
+					'default' => esc_html__( 'Default', 'highlight-and-share' ),
+					'brand-colors' => esc_html__( 'Brand Colors (Icons Only)', 'highlight-and-share' ),
+					'black' => 	esc_html__( 'Black (Icons Only)', 'highlight-and-share' ),
+					'white' => esc_html__( 'White (Icons Only)', 'highlight-and-share' ),
+					'magenta' => esc_html__( 'Magenta (Icons Only)', 'highlight-and-share' ),
+					'blue' => esc_html__( 'Blue (Icons Only)', 'highlight-and-share' ),
+					'green' => esc_html__( 'Green (Icons Only)', 'highlight-and-share' )
+				)
+			)
+		);
 	}
 
 	public function customizer_sanitize_checkbox( $input ) {
 
 		//returns true if checkbox is checked
 		return ($input) ? true : false;
+	}
+
+	public function customizer_sanitize_theme_select( $input, $setting ){
+
+		//input must be a slug: lowercase alphanumeric characters, dashes and underscores are allowed only
+		$input = sanitize_key($input);
+
+		//get the list of possible select options
+		$choices = $setting->manager->get_control( $setting->id )->choices;
+
+		//return input if valid or return default option
+		return ( array_key_exists( $input, $choices ) ? $input : $setting->default );
+
 	}
 
 	/**
@@ -496,7 +539,11 @@ class Highlight_And_Share {
 			//Icons
 			if( is_customize_preview()) {
 				$maybe_icons = get_theme_mod( 'highlight-and-share');
-				$json_arr[ 'icons' ] = !$maybe_icons[ 'icons' ];
+				if( isset( $maybe_icons[ 'icons' ] ) ) {
+					$json_arr[ 'icons' ] = !$maybe_icons[ 'icons' ];
+				} else {
+					$json_arr[ 'icons' ] = apply_filters( 'has_icons', $settings[ 'icons' ] );
+				}
 			} else {
 				$json_arr[ 'icons' ] = apply_filters( 'has_icons', $settings[ 'icons' ] );
 			}
@@ -539,35 +586,48 @@ class Highlight_And_Share {
 			//Add CSS
 			if ( apply_filters( 'has_load_css', true ) ) {
 				wp_enqueue_style( 'highlight-and-share-email', $this->get_plugin_url( 'css/highlight-and-share-emails.css'), array(), '20180826', 'all' );
-				switch( $settings[ 'theme' ] ) {
-					case 'off':
-						break;
-					case 'default':
-						wp_enqueue_style( 'highlight-and-share', $this->get_plugin_url( 'css/highlight-and-share.css' ), array(), '20180725', 'all' );
-						break;
-					case 'brand-colors':
-					wp_enqueue_style( 'highlight-and-share', $this->get_plugin_url( 'css/highlight-and-share-brand.css' ), array(), '20180901', 'all' );
-						break;
-					case 'black':
-						wp_enqueue_style( 'highlight-and-share', $this->get_plugin_url( 'css/highlight-and-share-black.css' ), array(), '20180819', 'all' );
-						break;
-					case 'white':
-						wp_enqueue_style( 'highlight-and-share', $this->get_plugin_url( 'css/highlight-and-share-white.css' ), array(), '20180819', 'all' );
-						break;
-					case 'blue':
-						wp_enqueue_style( 'highlight-and-share', $this->get_plugin_url( 'css/highlight-and-share-blue.css' ), array(), '20180819', 'all' );
-						break;
-					case 'green':
-						wp_enqueue_style( 'highlight-and-share', $this->get_plugin_url( 'css/highlight-and-share-green.css' ), array(), '20180819', 'all' );
-						break;
-					case 'magenta':
-						wp_enqueue_style( 'highlight-and-share', $this->get_plugin_url( 'css/highlight-and-share-magenta.css' ), array(), '20180819', 'all' );
-						break;
-					default:
-						wp_enqueue_style( 'highlight-and-share', $this->get_plugin_url( 'css/highlight-and-share.css' ), array(), '20180725', 'all' );
-						break;
+				if( is_customize_preview() ) {
+					$maybe_theme = get_theme_mod( 'highlight-and-share' );
+					if( isset( $maybe_theme[ 'theme' ] ) ) {
+						$this->output_stylesheets( $maybe_theme[ 'theme' ] );
+					} else {
+						$this->output_stylesheets( $settings[ 'theme' ] );
+					}
+				} else {
+					$this->output_stylesheets( $settings[ 'theme' ] );
 				}
 			}
+	}
+
+	private function output_stylesheets( $theme ) {
+		switch( $theme ) {
+			case 'off':
+				break;
+			case 'default':
+				wp_enqueue_style( 'highlight-and-share', $this->get_plugin_url( 'css/highlight-and-share.css' ), array(), '20180725', 'all' );
+				break;
+			case 'brand-colors':
+			wp_enqueue_style( 'highlight-and-share', $this->get_plugin_url( 'css/highlight-and-share-brand.css' ), array(), '20180901', 'all' );
+				break;
+			case 'black':
+				wp_enqueue_style( 'highlight-and-share', $this->get_plugin_url( 'css/highlight-and-share-black.css' ), array(), '20180819', 'all' );
+				break;
+			case 'white':
+				wp_enqueue_style( 'highlight-and-share', $this->get_plugin_url( 'css/highlight-and-share-white.css' ), array(), '20180819', 'all' );
+				break;
+			case 'blue':
+				wp_enqueue_style( 'highlight-and-share', $this->get_plugin_url( 'css/highlight-and-share-blue.css' ), array(), '20180819', 'all' );
+				break;
+			case 'green':
+				wp_enqueue_style( 'highlight-and-share', $this->get_plugin_url( 'css/highlight-and-share-green.css' ), array(), '20180819', 'all' );
+				break;
+			case 'magenta':
+				wp_enqueue_style( 'highlight-and-share', $this->get_plugin_url( 'css/highlight-and-share-magenta.css' ), array(), '20180819', 'all' );
+				break;
+			default:
+				wp_enqueue_style( 'highlight-and-share', $this->get_plugin_url( 'css/highlight-and-share.css' ), array(), '20180725', 'all' );
+				break;
+		}
 	}
 
 	/**
