@@ -65,14 +65,21 @@ class Highlight_And_Share {
 		add_action( 'wp_ajax_has_form_submission', array( $this, 'ajax_send_has_email' ) );
 		add_action( 'wp_ajax_nopriv_has_form_submission', array( $this, 'ajax_send_has_email' ) );
 
-		// For the customizer
-		add_action( 'customize_register', array( $this, 'customizer' ) );
-
 		// For the icons
 		$this->maybe_migrate_icons();
 
+		add_action( 'customize_register', array( $this, 'customizer' ) );
+
 	} //end constructor
 
+	/**
+	 * Migrates icon variable to be positive
+	 *
+	 * Migrates icon variable to be positive
+	 *
+	 * @since 2.4.0
+	 * @access public
+	 */
 	private function maybe_migrate_icons() {
 		$migrated_option = get_option( 'has_icons_migrated', false );
 		if ( false === $migrated_option ) {
@@ -84,7 +91,6 @@ class Highlight_And_Share {
 				update_option( 'has_icons_migrated', 'true' );
 			}
 		}
-
 	}
 
 	/**
@@ -461,11 +467,37 @@ class Highlight_And_Share {
 		));
 	}
 
+	/**
+	 * Sanitizes an input variable
+	 *
+	 * Sanitizes an input variable
+	 *
+	 * @since 2.4.0
+	 * @access public
+	 *
+     * @param bool $input Whether the input is checked or not
+	 *
+	 * @return bool Whether the input is checked or not
+	 */
 	public function customizer_sanitize_checkbox( $input ) {
+
 		//returns true if checkbox is checked
 		return ($input) ? true : false;
 	}
 
+	/**
+	 * Sanitizes a select variable
+	 *
+	 * Sanitizes a select variable
+	 *
+	 * @since 2.4.0
+	 * @access public
+	 *
+     * @param string                $input Value of the settings
+	 * @param WP_Customize_Setting  Customizer setting object
+	 *
+	 * @return bool Whether the input is checked or not
+	 */
 	public function customizer_sanitize_theme_select( $input, $setting ){
 
 		//input must be a slug: lowercase alphanumeric characters, dashes and underscores are allowed only
@@ -1257,8 +1289,6 @@ class Highlight_And_Share {
 	 */
 	public function sanitization( $input = array() ) {
 		$output = get_option( 'highlight-and-share' );
-
-		error_log( print_r( $input, true ) );
 
 		//Check if settings are being initialized for the first time
 		if ( false === $output ) {
