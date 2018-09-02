@@ -81,7 +81,7 @@ class Highlight_And_Share {
      * @param  WP_Customize_Manager $customizer Customizer object
 	 */
 	public function customizer( $customizer ) {
-		require_once $this->get_plugin_dir('includes/class-checkbox-icons.php');
+		$options = $this->get_plugin_options();
 		$customizer->add_section('highlight-and-share', array(
 			'title'      => __( 'Highlight and Share', 'highlight-and-share' ),
 			'priority'   => 120,
@@ -90,13 +90,12 @@ class Highlight_And_Share {
 		$customizer->add_setting( 'highlight-and-share[icons]',
 			array(
 				'capability'        => 'edit_theme_options',
-				'type'              => 'option',
-				'default'           => 'checked',
-				'value'             => 'off',
+				'default'           => !$options[ 'icons' ],
+				'sanitize_callback' => '__return_true',
 			)
 		);
 		$customizer->add_control(
-			new HAS_Template_Checkbox(
+			new WP_Customize_Control(
 			$customizer,
 			'highlight-and-share[icons]',
 			array(
@@ -105,6 +104,7 @@ class Highlight_And_Share {
 				'section'  => 'highlight-and-share',
 				'settings' => 'highlight-and-share[icons]',
 				'priority' => 10,
+				'default'  => true
 			)
 		));
 	}
@@ -240,6 +240,9 @@ class Highlight_And_Share {
 		//Plugin settings
 		add_filter( 'plugin_action_links_' . plugin_basename(__FILE__) , array( $this, 'add_settings_link' ) );
 
+		// Load customizer script
+		add_action( 'customize_controls_enqueue_scripts', array( $this, 'add_customizer_script' ) );
+
 
 	} //end init
 
@@ -276,6 +279,11 @@ class Highlight_And_Share {
 		if ( apply_filters( 'has_enable_excerpt', (bool)$settings[ 'enable_excerpt' ] ) ) {
 			add_filter( 'the_excerpt', array( $this, 'excerpt_area' ) );
 		}
+	}
+
+	public function add_customizer_script() {
+		$main_script_uri = $this->get_plugin_url( 'js/highlight-and-share-customizer.js' );
+		wp_enqueue_script( 'highlight-and-share-customizer', $main_script_uri, array( 'jquery' ), '20180901', true );
 	}
 
 	/**
