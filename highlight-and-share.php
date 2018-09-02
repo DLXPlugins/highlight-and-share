@@ -101,11 +101,12 @@ class Highlight_And_Share {
 			$customizer,
 			'highlight-and-share[icons]',
 			array(
-				'type'     => 'checkbox',
-				'label'    => __( 'Icons Only', 'highlight-and-share' ),
-				'section'  => 'highlight-and-share',
-				'settings' => 'highlight-and-share[icons]',
-				'priority' => 10,
+				'type'        => 'checkbox',
+				'label'       => __( 'Icons Only', 'highlight-and-share' ),
+				'section'     => 'highlight-and-share',
+				'settings'    => 'highlight-and-share[icons]',
+				'priority'    => 10,
+				'description' => 'Requires Better Font Awesome plugin or equivalent'
 			)
 		));
 
@@ -237,6 +238,48 @@ class Highlight_And_Share {
 				'label'    => __( 'Enable Xing Sharing', 'highlight-and-share' ),
 				'section'  => 'highlight-and-share',
 				'settings' => 'highlight-and-share[show_xing]',
+				'priority' => 10,
+			)
+		));
+
+		// Show Whatsapp
+		$customizer->add_setting( 'highlight-and-share[show_whatsapp]',
+			array(
+				'capability'        => 'edit_theme_options',
+				'default'           => $options[ 'show_whatsapp' ],
+				'sanitize_callback' => array( $this, 'customizer_sanitize_checkbox' ),
+			)
+		);
+		$customizer->add_control(
+			new WP_Customize_Control(
+			$customizer,
+			'highlight-and-share[show_whatsapp]',
+			array(
+				'type'     => 'checkbox',
+				'label'    => __( 'Enable WhatsApp Sharing', 'highlight-and-share' ),
+				'section'  => 'highlight-and-share',
+				'settings' => 'highlight-and-share[show_whatsapp]',
+				'priority' => 10,
+			)
+		));
+
+		// Show Email
+		$customizer->add_setting( 'highlight-and-share[show_email]',
+			array(
+				'capability'        => 'edit_theme_options',
+				'default'           => $options[ 'show_email' ],
+				'sanitize_callback' => array( $this, 'customizer_sanitize_checkbox' ),
+			)
+		);
+		$customizer->add_control(
+			new WP_Customize_Control(
+			$customizer,
+			'highlight-and-share[show_email]',
+			array(
+				'type'     => 'checkbox',
+				'label'    => __( 'Enable Email Sharing', 'highlight-and-share' ),
+				'section'  => 'highlight-and-share',
+				'settings' => 'highlight-and-share[show_email]',
 				'priority' => 10,
 			)
 		));
@@ -582,24 +625,34 @@ class Highlight_And_Share {
 			// Pinterest
 			if( is_customize_preview()) {
 				$maybe_pinterest = get_theme_mod( 'highlight-and-share');
-				$json_arr[ 'show_pinterest' ] =  apply_filters( 'has_show_pinterest', $maybe_linkedin[ 'show_pinterest' ] );
+				$json_arr[ 'show_pinterest' ] =  apply_filters( 'has_show_pinterest', $maybe_pinterest[ 'show_pinterest' ] );
 			} else {
 				$json_arr[ 'show_pinterest' ] = (bool)apply_filters( 'has_show_pinterest', $settings[ 'show_pinterest' ] );
 			}
 
 			// Email
-			$json_arr[ 'show_email' ] = (bool)apply_filters( 'has_show_email', $settings[ 'show_email' ] );
+			if( is_customize_preview()) {
+				$maybe_email = get_theme_mod( 'highlight-and-share');
+				$json_arr[ 'show_email' ] =  apply_filters( 'has_show_email', $maybe_email[ 'show_email' ] );
+			} else {
+				$json_arr[ 'show_email' ] = (bool)apply_filters( 'has_show_email', $settings[ 'show_email' ] );
+			}
 
 			// Xing
 			if( is_customize_preview()) {
 				$maybe_xing = get_theme_mod( 'highlight-and-share');
-				$json_arr[ 'show_xing' ] =  apply_filters( 'has_show_xing', $maybe_linkedin[ 'show_xing' ] );
+				$json_arr[ 'show_xing' ] =  apply_filters( 'has_show_xing', $maybe_xing[ 'show_xing' ] );
 			} else {
 				$json_arr[ 'show_xing' ] = (bool)apply_filters( 'has_show_xing', $settings[ 'show_xing' ] );
 			}
 
 			// Whatsapp
-			$json_arr[ 'show_whatsapp' ] = (bool)apply_filters( 'has_show_whatsapp', $settings[ 'show_whatsapp' ] );
+			if( is_customize_preview()) {
+				$maybe_whatsapp = get_theme_mod( 'highlight-and-share');
+				$json_arr[ 'show_whatsapp' ] =  apply_filters( 'has_show_whatsapp', $maybe_whatsapp[ 'show_whatsapp' ] );
+			} else {
+				$json_arr[ 'show_whatsapp' ] = (bool)apply_filters( 'has_show_whatsapp', $settings[ 'show_whatsapp' ] );
+			}
 
 			//Twitter Username
 			$json_arr[ 'twitter_username' ] = trim( sanitize_text_field( apply_filters( 'has_twitter_username', $settings[ 'twitter' ] ) ) );
