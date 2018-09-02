@@ -91,7 +91,7 @@ class Highlight_And_Share {
 			array(
 				'capability'        => 'edit_theme_options',
 				'default'           => !$options[ 'icons' ],
-				'sanitize_callback' => '__return_true',
+				'sanitize_callback' => array( $this, 'customizer_sanitize_checkbox' ),
 			)
 		);
 		$customizer->add_control(
@@ -104,9 +104,14 @@ class Highlight_And_Share {
 				'section'  => 'highlight-and-share',
 				'settings' => 'highlight-and-share[icons]',
 				'priority' => 10,
-				'default'  => true
 			)
 		));
+	}
+
+	public function customizer_sanitize_checkbox( $input ) {
+
+		//returns true if checkbox is checked
+		return ($input) ? true : false;
 	}
 
 	/**
@@ -489,7 +494,13 @@ class Highlight_And_Share {
 			$json_arr[ 'email_text' ] = apply_filters( 'has_email_text', _x( 'E-mail', 'E-mail share text', 'highlight-and-share' ) );
 
 			//Icons
-			$json_arr[ 'icons' ] = apply_filters( 'has_icons', $settings[ 'icons' ] );
+			if( is_customize_preview()) {
+				$maybe_icons = get_theme_mod( 'highlight-and-share');
+				$json_arr[ 'icons' ] = !$maybe_icons[ 'icons' ];
+			} else {
+				$json_arr[ 'icons' ] = apply_filters( 'has_icons', $settings[ 'icons' ] );
+			}
+
 
 			// Facebook API Key
 			$json_arr[ 'facebook_app_id' ] = isset( $settings[ 'facebook_app_id' ] ) ? absint( $settings[ 'facebook_app_id' ] ) : 0;
@@ -721,6 +732,8 @@ class Highlight_And_Share {
 	 */
 	public function sanitization( $input = array() ) {
 		$output = get_option( 'highlight-and-share' );
+
+		error_log( print_r( $input, true ) );
 
 		//Check if settings are being initialized for the first time
 		if ( false === $output ) {
