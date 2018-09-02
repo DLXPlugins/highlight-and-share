@@ -87,18 +87,16 @@ class Highlight_And_Share {
 			'priority'   => 120,
 			'capability' => 'edit_theme_options'
 		) );
-
 		// Icons
 		$customizer->add_setting( 'highlight-and-share[icons]',
 			array(
+				'default'           => $options[ 'icons' ],
 				'capability'        => 'edit_theme_options',
-				'default'           => !$options[ 'icons' ],
-				'sanitize_callback' => array( $this, 'customizer_sanitize_checkbox' ),
+				'sanitize_callback' => array( $this, 'customizer_icon_sanitize_checkbox' ),
+				'type'              => 'option'
 			)
 		);
 		$customizer->add_control(
-			new WP_Customize_Control(
-			$customizer,
 			'highlight-and-share[icons]',
 			array(
 				'type'        => 'checkbox',
@@ -108,14 +106,15 @@ class Highlight_And_Share {
 				'priority'    => 10,
 				'description' => 'Requires <a href="https://wordpress.org/plugins/better-font-awesome/">Better Font Awesome plugin</a> or equivalent'
 			)
-		));
+		);
 
 		// Themes
 		$customizer->add_setting(
 			'highlight-and-share[theme]',
 			array(
 				'default' => 'default',
-				'sanitize_callback' => array( $this, 'customizer_sanitize_theme_select')
+				'sanitize_callback' => array( $this, 'customizer_sanitize_theme_select'),
+				'type' => 'option'
 			)
 		);
 		$customizer->add_control(
@@ -143,6 +142,7 @@ class Highlight_And_Share {
 				'capability'        => 'edit_theme_options',
 				'default'           => $options[ 'show_twitter' ],
 				'sanitize_callback' => array( $this, 'customizer_sanitize_checkbox' ),
+				'type' => 'option'
 			)
 		);
 		$customizer->add_control(
@@ -164,6 +164,7 @@ class Highlight_And_Share {
 				'capability'        => 'edit_theme_options',
 				'default'           => $options[ 'show_facebook' ],
 				'sanitize_callback' => array( $this, 'customizer_sanitize_checkbox' ),
+				'type' => 'option'
 			)
 		);
 		$customizer->add_control(
@@ -185,6 +186,7 @@ class Highlight_And_Share {
 				'capability'        => 'edit_theme_options',
 				'default'           => $options[ 'show_linkedin' ],
 				'sanitize_callback' => array( $this, 'customizer_sanitize_checkbox' ),
+				'type' => 'option'
 			)
 		);
 		$customizer->add_control(
@@ -206,6 +208,7 @@ class Highlight_And_Share {
 				'capability'        => 'edit_theme_options',
 				'default'           => $options[ 'show_pinterest' ],
 				'sanitize_callback' => array( $this, 'customizer_sanitize_checkbox' ),
+				'type' => 'option'
 			)
 		);
 		$customizer->add_control(
@@ -227,6 +230,7 @@ class Highlight_And_Share {
 				'capability'        => 'edit_theme_options',
 				'default'           => $options[ 'show_xing' ],
 				'sanitize_callback' => array( $this, 'customizer_sanitize_checkbox' ),
+				'type' => 'option'
 			)
 		);
 		$customizer->add_control(
@@ -248,6 +252,7 @@ class Highlight_And_Share {
 				'capability'        => 'edit_theme_options',
 				'default'           => $options[ 'show_whatsapp' ],
 				'sanitize_callback' => array( $this, 'customizer_sanitize_checkbox' ),
+				'type' => 'option'
 			)
 		);
 		$customizer->add_control(
@@ -269,6 +274,7 @@ class Highlight_And_Share {
 				'capability'        => 'edit_theme_options',
 				'default'           => $options[ 'show_email' ],
 				'sanitize_callback' => array( $this, 'customizer_sanitize_checkbox' ),
+				'type' => 'option'
 			)
 		);
 		$customizer->add_control(
@@ -283,10 +289,165 @@ class Highlight_And_Share {
 				'priority' => 10,
 			)
 		));
+
+		// Show Twitter Font Awesome Class
+		$customizer->add_setting( 'highlight-and-share[twitter_fa_class]',
+			array(
+				'capability'        => 'edit_theme_options',
+				'default'           => $options[ 'twitter_fa_class' ],
+				'sanitize_callback' => 'sanitize_text_field',
+				'type' => 'option'
+			)
+		);
+		$customizer->add_control(
+			new WP_Customize_Control(
+			$customizer,
+			'highlight-and-share[twitter_fa_class]',
+			array(
+				'type'     => 'text',
+				'label'    => __( 'Twitter FontAwesome Class', 'highlight-and-share' ),
+				'section'  => 'highlight-and-share',
+				'settings' => 'highlight-and-share[twitter_fa_class]',
+				'priority' => 10,
+			)
+		));
+
+		// Show Facebook Font Awesome Class
+		$customizer->add_setting( 'highlight-and-share[facebook_fa_class]',
+			array(
+				'capability'        => 'edit_theme_options',
+				'default'           => $options[ 'facebook_fa_class' ],
+				'sanitize_callback' => 'sanitize_text_field',
+				'type' => 'option'
+			)
+		);
+		$customizer->add_control(
+			new WP_Customize_Control(
+			$customizer,
+			'highlight-and-share[facebook_fa_class]',
+			array(
+				'type'     => 'text',
+				'label'    => __( 'Facebook FontAwesome Class', 'highlight-and-share' ),
+				'section'  => 'highlight-and-share',
+				'settings' => 'highlight-and-share[facebook_fa_class]',
+				'priority' => 10,
+			)
+		));
+
+		// Show LinkedIn Font Awesome Class
+		$customizer->add_setting( 'highlight-and-share[linkedin_fa_class]',
+			array(
+				'capability'        => 'edit_theme_options',
+				'default'           => $options[ 'linkedin_fa_class' ],
+				'sanitize_callback' => 'sanitize_text_field',
+				'type' => 'option'
+			)
+		);
+		$customizer->add_control(
+			new WP_Customize_Control(
+			$customizer,
+			'highlight-and-share[linkedin_fa_class]',
+			array(
+				'type'     => 'text',
+				'label'    => __( 'LinkedIn FontAwesome Class', 'highlight-and-share' ),
+				'section'  => 'highlight-and-share',
+				'settings' => 'highlight-and-share[linkedin_fa_class]',
+				'priority' => 10,
+			)
+		));
+
+		// Show Pinterest Font Awesome Class
+		$customizer->add_setting( 'highlight-and-share[pinterest_fa_class]',
+			array(
+				'capability'        => 'edit_theme_options',
+				'default'           => $options[ 'pinterest_fa_class' ],
+				'sanitize_callback' => 'sanitize_text_field',
+				'type' => 'option'
+			)
+		);
+		$customizer->add_control(
+			new WP_Customize_Control(
+			$customizer,
+			'highlight-and-share[pinterest_fa_class]',
+			array(
+				'type'     => 'text',
+				'label'    => __( 'Pinterest FontAwesome Class', 'highlight-and-share' ),
+				'section'  => 'highlight-and-share',
+				'settings' => 'highlight-and-share[pinterest_fa_class]',
+				'priority' => 10,
+			)
+		));
+
+		// Show Xing Font Awesome Class
+		$customizer->add_setting( 'highlight-and-share[xing_fa_class]',
+			array(
+				'capability'        => 'edit_theme_options',
+				'default'           => $options[ 'xing_fa_class' ],
+				'sanitize_callback' => 'sanitize_text_field',
+				'type' => 'option'
+			)
+		);
+		$customizer->add_control(
+			new WP_Customize_Control(
+			$customizer,
+			'highlight-and-share[xing_fa_class]',
+			array(
+				'type'     => 'text',
+				'label'    => __( 'Xing FontAwesome Class', 'highlight-and-share' ),
+				'section'  => 'highlight-and-share',
+				'settings' => 'highlight-and-share[xing_fa_class]',
+				'priority' => 10,
+			)
+		));
+
+		// Show WhatsApp Font Awesome Class
+		$customizer->add_setting( 'highlight-and-share[whatsapp_fa_class]',
+			array(
+				'capability'        => 'edit_theme_options',
+				'default'           => $options[ 'whatsapp_fa_class' ],
+				'sanitize_callback' => 'sanitize_text_field',
+				'type' => 'option'
+			)
+		);
+		$customizer->add_control(
+			new WP_Customize_Control(
+			$customizer,
+			'highlight-and-share[whatsapp_fa_class]',
+			array(
+				'type'     => 'text',
+				'label'    => __( 'WhatsApp FontAwesome Class', 'highlight-and-share' ),
+				'section'  => 'highlight-and-share',
+				'settings' => 'highlight-and-share[whatsapp_fa_class]',
+				'priority' => 10,
+			)
+		));
+
+		// Show Email Font Awesome Class
+		$customizer->add_setting( 'highlight-and-share[email_fa_class]',
+			array(
+				'capability'        => 'edit_theme_options',
+				'default'           => $options[ 'email_fa_class' ],
+				'sanitize_callback' => 'sanitize_text_field',
+				'type' => 'option'
+			)
+		);
+		$customizer->add_control(
+			new WP_Customize_Control(
+			$customizer,
+			'highlight-and-share[email_fa_class]',
+			array(
+				'type'     => 'text',
+				'label'    => __( 'Email FontAwesome Class', 'highlight-and-share' ),
+				'section'  => 'highlight-and-share',
+				'settings' => 'highlight-and-share[email_fa_class]',
+				'priority' => 10,
+			)
+		));
 	}
-
+	public function customizer_icon_sanitize_checkbox( $input ) {
+		return ($input) ? false : true;
+	}
 	public function customizer_sanitize_checkbox( $input ) {
-
 		//returns true if checkbox is checked
 		return ($input) ? true : false;
 	}
@@ -590,16 +751,24 @@ class Highlight_And_Share {
 
 			// Facebook
 			if( is_customize_preview()) {
-				$maybe_facebook = get_theme_mod( 'highlight-and-share');
-				$json_arr[ 'show_facebook' ] =  apply_filters( 'has_show_facebook', $maybe_facebook[ 'show_facebook' ] );
+				$maybe_facebook = get_option( 'highlight-and-share');
+				if( !isset( $maybe_facebook[ 'show_facebook' ] ) ) {
+					$json_arr[ 'show_facebook' ] = (bool)apply_filters( 'has_show_facebook', $settings[ 'show_facebook' ] );
+				} else {
+					$json_arr[ 'show_facebook' ] =  apply_filters( 'has_show_facebook', $maybe_facebook[ 'show_facebook' ] );
+				}
 			} else {
 				$json_arr[ 'show_facebook' ] = (bool)apply_filters( 'has_show_facebook', $settings[ 'show_facebook' ] );
 			}
 
 			// Twitter
 			if( is_customize_preview()) {
-				$maybe_twitter = get_theme_mod( 'highlight-and-share');
-				$json_arr[ 'show_twitter' ] =  apply_filters( 'has_show_twitter', $maybe_twitter[ 'show_twitter' ] );
+				$maybe_twitter = get_option( 'highlight-and-share');
+				if( !isset( $maybe_twitter[ 'show_twitter' ] ) ) {
+					$json_arr[ 'show_twitter' ] = (bool)apply_filters( 'has_show_twitter', $settings[ 'show_twitter' ] );
+				} else {
+					$json_arr[ 'show_twitter' ] =  apply_filters( 'has_show_twitter', $maybe_twitter[ 'show_twitter' ] );
+				}
 			} else {
 				$json_arr[ 'show_twitter' ] = (bool)apply_filters( 'has_show_twitter', $settings[ 'show_twitter' ] );
 			}
@@ -607,40 +776,60 @@ class Highlight_And_Share {
 
 			// Linked In
 			if( is_customize_preview()) {
-				$maybe_linkedin = get_theme_mod( 'highlight-and-share');
-				$json_arr[ 'show_linkedin' ] =  apply_filters( 'has_show_linkedin', $maybe_linkedin[ 'show_linkedin' ] );
+				$maybe_linkedin = get_option( 'highlight-and-share');
+				if( !isset( $maybe_linkedin[ 'show_linkedin' ] ) ) {
+					$json_arr[ 'show_linkedin' ] = (bool)apply_filters( 'has_show_linkedin', $settings[ 'show_linkedin' ] );
+				} else {
+					$json_arr[ 'show_linkedin' ] =  apply_filters( 'has_show_linkedin', $maybe_linkedin[ 'show_linkedin' ] );
+				}
 			} else {
 				$json_arr[ 'show_linkedin' ] = (bool)apply_filters( 'has_show_linkedin', $settings[ 'show_linkedin' ] );
 			}
 
 			// Pinterest
 			if( is_customize_preview()) {
-				$maybe_pinterest = get_theme_mod( 'highlight-and-share');
-				$json_arr[ 'show_pinterest' ] =  apply_filters( 'has_show_pinterest', $maybe_pinterest[ 'show_pinterest' ] );
+				$maybe_pinterest = get_option( 'highlight-and-share');
+				if( !isset( $maybe_pinterest[ 'show_pinterest' ] ) ) {
+					$json_arr[ 'show_pinterest' ] = (bool)apply_filters( 'has_show_pinterest', $settings[ 'show_pinterest' ] );
+				} else {
+					$json_arr[ 'show_pinterest' ] =  apply_filters( 'has_show_pinterest', $maybe_pinterest[ 'show_pinterest' ] );
+				}
 			} else {
 				$json_arr[ 'show_pinterest' ] = (bool)apply_filters( 'has_show_pinterest', $settings[ 'show_pinterest' ] );
 			}
 
 			// Email
 			if( is_customize_preview()) {
-				$maybe_email = get_theme_mod( 'highlight-and-share');
-				$json_arr[ 'show_email' ] =  apply_filters( 'has_show_email', $maybe_email[ 'show_email' ] );
+				$maybe_email = get_option( 'highlight-and-share');
+				if( !isset( $$maybe_email[ 'show_email' ] ) ) {
+					$json_arr[ 'show_email' ] = (bool)apply_filters( 'has_show_email', $settings[ 'show_email' ] );
+				} else {
+					$json_arr[ 'show_email' ] =  apply_filters( 'has_show_email', $maybe_email[ 'show_email' ] );
+				}
 			} else {
 				$json_arr[ 'show_email' ] = (bool)apply_filters( 'has_show_email', $settings[ 'show_email' ] );
 			}
 
 			// Xing
 			if( is_customize_preview()) {
-				$maybe_xing = get_theme_mod( 'highlight-and-share');
-				$json_arr[ 'show_xing' ] =  apply_filters( 'has_show_xing', $maybe_xing[ 'show_xing' ] );
+				$maybe_xing = get_option( 'highlight-and-share');
+				if( !isset( $maybe_xing[ 'show_xing' ] ) ) {
+					$json_arr[ 'show_xing' ] = (bool)apply_filters( 'has_show_xing', $settings[ 'show_xing' ] );
+				} else {
+					$json_arr[ 'show_xing' ] =  apply_filters( 'has_show_xing', $maybe_xing[ 'show_xing' ] );
+				}
 			} else {
 				$json_arr[ 'show_xing' ] = (bool)apply_filters( 'has_show_xing', $settings[ 'show_xing' ] );
 			}
 
 			// Whatsapp
 			if( is_customize_preview()) {
-				$maybe_whatsapp = get_theme_mod( 'highlight-and-share');
-				$json_arr[ 'show_whatsapp' ] =  apply_filters( 'has_show_whatsapp', $maybe_whatsapp[ 'show_whatsapp' ] );
+				$maybe_whatsapp = get_option( 'highlight-and-share');
+				if( !isset( $maybe_whatsapp[ 'show_whatsapp' ] ) ) {
+					$json_arr[ 'show_whatsapp' ] = (bool)apply_filters( 'has_show_whatsapp', $settings[ 'show_whatsapp' ] );
+				} else {
+					$json_arr[ 'show_whatsapp' ] =  apply_filters( 'has_show_whatsapp', $maybe_whatsapp[ 'show_whatsapp' ] );
+				}
 			} else {
 				$json_arr[ 'show_whatsapp' ] = (bool)apply_filters( 'has_show_whatsapp', $settings[ 'show_whatsapp' ] );
 			}
@@ -648,14 +837,89 @@ class Highlight_And_Share {
 			//Twitter Username
 			$json_arr[ 'twitter_username' ] = trim( sanitize_text_field( apply_filters( 'has_twitter_username', $settings[ 'twitter' ] ) ) );
 
-			// Font Awesome Icons
-			$json_arr[ 'twitter_fa_class' ] = sanitize_text_field( $settings[ 'twitter_fa_class' ] );
-			$json_arr[ 'facebook_fa_class' ] = sanitize_text_field( $settings[ 'facebook_fa_class' ] );
-			$json_arr[ 'linkedin_fa_class' ] = sanitize_text_field( $settings[ 'linkedin_fa_class' ] );
-			$json_arr[ 'pinterest_fa_class' ] = sanitize_text_field( $settings[ 'pinterest_fa_class' ] );
-			$json_arr[ 'xing_fa_class' ] = sanitize_text_field( $settings[ 'xing_fa_class' ] );
-			$json_arr[ 'whatsapp_fa_class' ] = sanitize_text_field( $settings[ 'whatsapp_fa_class' ] );
-			$json_arr[ 'email_fa_class' ] = sanitize_text_field( $settings[ 'email_fa_class' ] );
+			// Twitter FontAwesome Class
+			if( is_customize_preview()) {
+				$font_awesome = get_option( 'highlight-and-share');
+				if( !isset( $font_awesome[ 'twitter_fa_class' ] ) ) {
+					$json_arr[ 'twitter_fa_class' ] = sanitize_text_field( $settings[ 'twitter_fa_class' ] );
+				} else {
+					$json_arr[ 'twitter_fa_class' ] = $font_awesome[ 'twitter_fa_class' ];
+				}
+			} else {
+				$json_arr[ 'twitter_fa_class' ] = sanitize_text_field( $settings[ 'twitter_fa_class' ] );
+			}
+
+			// Facebook FontAwesome Class
+			if( is_customize_preview()) {
+				$font_awesome = get_option( 'highlight-and-share');
+				if( !isset( $font_awesome[ 'facebook_fa_class' ] ) ) {
+					$json_arr[ 'facebook_fa_class' ] = sanitize_text_field( $settings[ 'facebook_fa_class' ] );
+				} else {
+					$json_arr[ 'facebook_fa_class' ] = $font_awesome[ 'facebook_fa_class' ];
+				}
+			} else {
+				$json_arr[ 'facebook_fa_class' ] = sanitize_text_field( $settings[ 'facebook_fa_class' ] );
+			}
+
+			// LinkedIn FontAwesome Class
+			if( is_customize_preview()) {
+				$font_awesome = get_option( 'highlight-and-share');
+				if( !isset( $font_awesome[ 'linkedin_fa_class' ] ) ) {
+					$json_arr[ 'linkedin_fa_class' ] = sanitize_text_field( $settings[ 'linkedin_fa_class' ] );
+				} else {
+					$json_arr[ 'linkedin_fa_class' ] = $font_awesome[ 'linkedin_fa_class' ];
+				}
+			} else {
+				$json_arr[ 'linkedin_fa_class' ] = sanitize_text_field( $settings[ 'linkedin_fa_class' ] );
+			}
+
+			// Pinterest FontAwesome Class
+			if( is_customize_preview()) {
+				$font_awesome = get_option( 'highlight-and-share');
+				if( !isset( $font_awesome[ 'pinterest_fa_class' ] ) ) {
+					$json_arr[ 'pinterest_fa_class' ] = sanitize_text_field( $settings[ 'pinterest_fa_class' ] );
+				} else {
+					$json_arr[ 'pinterest_fa_class' ] = $font_awesome[ 'pinterest_fa_class' ];
+				}
+			} else {
+				$json_arr[ 'pinterest_fa_class' ] = sanitize_text_field( $settings[ 'pinterest_fa_class' ] );
+			}
+
+			// Xing FontAwesome Class
+			if( is_customize_preview()) {
+				$font_awesome = get_option( 'highlight-and-share');
+				if( !isset( $font_awesome[ 'xing_fa_class' ] ) ) {
+					$json_arr[ 'xing_fa_class' ] = sanitize_text_field( $settings[ 'xing_fa_class' ] );
+				} else {
+					$json_arr[ 'xing_fa_class' ] = $font_awesome[ 'xing_fa_class' ];
+				}
+			} else {
+				$json_arr[ 'xing_fa_class' ] = sanitize_text_field( $settings[ 'xing_fa_class' ] );
+			}
+
+			// WhatsApp FontAwesome Class
+			if( is_customize_preview()) {
+				$font_awesome = get_option( 'highlight-and-share');
+				if( !isset( $font_awesome[ 'whatsapp_fa_class' ] ) ) {
+					$json_arr[ 'whatsapp_fa_class' ] = sanitize_text_field( $settings[ 'whatsapp_fa_class' ] );
+				} else {
+					$json_arr[ 'whatsapp_fa_class' ] = $font_awesome[ 'whatsapp_fa_class' ];
+				}
+			} else {
+				$json_arr[ 'whatsapp_fa_class' ] = sanitize_text_field( $settings[ 'whatsapp_fa_class' ] );
+			}
+
+			// Email FontAwesome Class
+			if( is_customize_preview()) {
+				$font_awesome = get_option( 'highlight-and-share');
+				if( !isset( $font_awesome[ 'email_fa_class' ] ) ) {
+					$json_arr[ 'email_fa_class' ] = sanitize_text_field( $settings[ 'email_fa_class' ] );
+				} else {
+					$json_arr[ 'email_fa_class' ] = $font_awesome[ 'email_fa_class' ];
+				}
+			} else {
+				$json_arr[ 'email_fa_class' ] = sanitize_text_field( $settings[ 'email_fa_class' ] );
+			}
 
 			//Override the filter if no username is present for twitter
 			if ( empty( $json_arr[ 'twitter_username' ] ) ) {
@@ -712,9 +976,13 @@ class Highlight_And_Share {
 
 			//Icons
 			if( is_customize_preview()) {
-				$maybe_icons = get_theme_mod( 'highlight-and-share');
-				$json_arr[ 'icons' ] =  apply_filters( 'has_icons', !$maybe_icons[ 'icons' ] );
+				$maybe_icons = get_option( 'highlight-and-share' );
 				error_log( print_r( $maybe_icons, true ) );
+				if( isset( $maybe_icons[ 'icons' ] ) ) {
+					$json_arr[ 'icons' ] =  (bool)apply_filters( 'has_icons', $maybe_icons[ 'icons' ] );
+				} else {
+					$json_arr[ 'icons' ] = (bool)apply_filters( 'has_icons', $settings[ 'icons' ] );
+				}
 			} else {
 				$json_arr[ 'icons' ] = apply_filters( 'has_icons', $settings[ 'icons' ] );
 			}
@@ -758,7 +1026,7 @@ class Highlight_And_Share {
 			if ( apply_filters( 'has_load_css', true ) ) {
 				wp_enqueue_style( 'highlight-and-share-email', $this->get_plugin_url( 'css/highlight-and-share-emails.css'), array(), '20180826', 'all' );
 				if( is_customize_preview() ) {
-					$maybe_theme = get_theme_mod( 'highlight-and-share' );
+					$maybe_theme = get_option( 'highlight-and-share' );
 					if( isset( $maybe_theme[ 'theme' ] ) ) {
 						$this->output_stylesheets( $maybe_theme[ 'theme' ] );
 					} else {
