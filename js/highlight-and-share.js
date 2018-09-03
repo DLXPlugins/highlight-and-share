@@ -3,70 +3,70 @@ jQuery( document ).ready( function( $ ) {
 		$( '.highlight-and-share-wrapper:visible' ).remove();
 		$('.has_sharing_email').css( 'display', 'none' );
 	};
-	
+
 	var has_selected_text = '';
-	
+
 	var has_load_html = function() {
-		if ( highlight_and_share.icons == true ) {
-			var html = '<div class="highlight-and-share-wrapper" style="display: none">d';
+		if ( highlight_and_share.icons == false ) {
+			var html = '<div class="highlight-and-share-wrapper" style="display: none">';
 		} else {
-			var html = '<div class="highlight-and-share-wrapper has-icons" style="display: none">d';
+			var html = '<div class="highlight-and-share-wrapper has-icons" style="display: none">';
 		}
 		var html = '<div class="highlight-and-share-wrapper">';
 		if ( highlight_and_share.show_twitter && '' != highlight_and_share.twitter_username ) {
-			if ( highlight_and_share.icons == true ) {
+			if ( highlight_and_share.icons == false ) {
 				html += '<div class="has_twitter" style="display: none;" data-type="twitter"><a href="https://twitter.com/intent/tweet?via=%username%&url=%url%&text=%text%" target="_blank"><i class="' + highlight_and_share.twitter_fa_class + '"></i>&nbsp;' + highlight_and_share.tweet_text + '</a></div>';
 			} else {
 				html += '<div class="has_twitter" style="display: none;" data-type="twitter"><a href="https://twitter.com/intent/tweet?via=%username%&url=%url%&text=%text%" target="_blank"><i class="' + highlight_and_share.twitter_fa_class + '"></i></a></div>';
 
 			}
-			
+
 		} else if( highlight_and_share.show_twitter && '' == highlight_and_share.twitter_username ) {
-			if ( highlight_and_share.icons == true ) {
+			if ( highlight_and_share.icons == false ) {
 				   html += '<div class="has_twitter" style="display: none;" data-type="twitter"><a href="https://twitter.com/intent/tweet?url=%url%&text=%text%" target="_blank"><i class="' + highlight_and_share.twitter_fa_class + '"></i>&nbsp;' + highlight_and_share.tweet_text + '</a></div>';
 			 } else {
-				html += '<div class="has_twitter" style="display: none;" data-type="twitter"><a href="https://twitter.com/intent/tweet?url=%url%&text=%text%" target="_blank"><i class="' + highlight_and_share.twitter_fa_class + '"></i></a></div>'; 
+				html += '<div class="has_twitter" style="display: none;" data-type="twitter"><a href="https://twitter.com/intent/tweet?url=%url%&text=%text%" target="_blank"><i class="' + highlight_and_share.twitter_fa_class + '"></i></a></div>';
 			 }
 		}
 		if ( highlight_and_share.show_facebook ) {
-			if ( highlight_and_share.icons == true ) {
+			if ( highlight_and_share.icons == false ) {
 				//Note, you must be on a publicly accesible URL to use this button
 				if ( '0' === highlight_and_share.facebook_app_id ) {
 		 			html += '<div class="has_facebook" style="display: none;" data-type="facebook"><a href="https://www.facebook.com/sharer/sharer.php?u=%url%&t=%title%" target="_blank"><i class="' + highlight_and_share.facebook_fa_class + '"></i>&nbsp;' + highlight_and_share.facebook_text + '</a></div>';
 				} else {
 		 			html += '<div class="has_facebook" style="display: none;" data-type="facebook"><a href="https://www.facebook.com/dialog/share?app_id=' + highlight_and_share.facebook_app_id + '&display=popup&amp;quote=%text%&href=%url%" target="_blank"><i class="' + highlight_and_share.facebook_fa_class + '"></i>&nbsp;' + highlight_and_share.facebook_text + '</a></div>';
 				}
-				
+
 			} else {
 				 if ( '0' === highlight_and_share.facebook_app_id ) {
 					html += '<div class="has_facebook" style="display: none;" data-type="facebook"><a href="https://www.facebook.com/sharer/sharer.php?u=%url%&t=%title%" target="_blank"><i class="' + highlight_and_share.facebook_fa_class + '"></i></a></div>';
 				  } else {
 				  	html += '<div class="has_facebook" style="display: none;" data-type="facebook"><a href="https://www.facebook.com/dialog/share?app_id=' + highlight_and_share.facebook_app_id + '&display=popup&amp;quote=%text%&href=%url%" target="_blank"><i class="' + highlight_and_share.facebook_fa_class + '"></i></a></div>';
 				  }
-				
+
 			}
 		}
 		if ( highlight_and_share.show_linkedin ) {
-			if ( highlight_and_share.icons == true ) {
+			if ( highlight_and_share.icons == false ) {
 				//Note, you must be on a publicly accesible URL to use this button
 				html += '<div class="has_linkedin" style="display: none;" data-type="linkedin"><a href="https://www.linkedin.com/shareArticle?mini=true&url=%url%&title=%title%" target="_blank"><i class="' + highlight_and_share.linkedin_fa_class + '"></i>&nbsp;' + highlight_and_share.linkedin_text + '</a></div>';
 			} else {
 				html += '<div class="has_linkedin" style="display: none;" data-type="linkedin"><a href="https://www.linkedin.com/shareArticle?mini=true&url=%url%&title=%title%" target="_blank"><i class="' + highlight_and_share.linkedin_fa_class + '"></i></a></div>';
 			}
 		}
-		
+
 		//={URI-encoded URL of the page to pin}&media={URI-encoded URL of the image to pin}&description={optional URI-encoded description}"
 		if ( highlight_and_share.show_pinterest ) {
-			if ( highlight_and_share.icons == true ) {
+			if ( highlight_and_share.icons == false ) {
 				//Note, you must be on a publicly accesible URL to use this button
 				html += '<div class="has_pinterest" style="display: none;" data-type="pinterest"><a href="http://pinterest.com/pin/create/button/?url=%url%&description=%title%" target="_blank"><i class="' + highlight_and_share.pinterest_fa_class + '"></i>&nbsp;' + highlight_and_share.pinterest_text + '</a></div>';
 			} else {
 				html += '<div class="has_pinterest" style="display: none;" data-type="pinterest"><a href="http://pinterest.com/pin/create/button/?url=%url%&description=%title%" target="_blank"><i class="' + highlight_and_share.pinterest_fa_class + '"></i></a></div>';
 			}
 		}
-		
+
 		if ( highlight_and_share.show_xing ) {
-			if ( highlight_and_share.icons == true ) {
+			if ( highlight_and_share.icons == false ) {
 				html += '<div class="has_xing" style="display: none;" data-type="xing"><a href="https://www.xing.com/spi/shares/new?url=%url%" target="_blank"><i class="' + highlight_and_share.xing_fa_class + '"></i>&nbsp;' + highlight_and_share.xing_text + '</a></div>';
 			} else {
 				html += '<div class="has_xing" style="display: none;" data-type="xing"><a href="https://www.xing.com/spi/shares/new?url=%url%" target="_blank"><i class="' + highlight_and_share.xing_fa_class + '"></i></a></div>';
@@ -74,23 +74,23 @@ jQuery( document ).ready( function( $ ) {
 		}
 
 		if ( highlight_and_share.show_whatsapp ) {
-			if ( highlight_and_share.icons == true ) {
+			if ( highlight_and_share.icons == false ) {
 				html += '<div class="has_whatsapp" style="display: none;" data-type="whatsapp"><a href="https://wa.me/?text=%text%' + ' - ' + highlight_and_share.from + ': ' + '%url%" target="_blank"><i class="' + highlight_and_share.whatsapp_fa_class + '"></i>&nbsp;' + highlight_and_share.whatsapp_text + '</a></div>';
 			} else {
 				html += '<div class="has_whatsapp" style="display: none;" data-type="whatsapp"><a href="https://wa.me/?text=%text%' + ' - ' + highlight_and_share.from + ': ' + '%url%" target="_blank"><i class="' + highlight_and_share.whatsapp_fa_class + '"></i></a></div>';
 			}
 		}
-		
+
 		if ( highlight_and_share.show_email ) {
-			if ( highlight_and_share.icons == true ) {
+			if ( highlight_and_share.icons == false ) {
 				//Note, you must be on a publicly accesible URL to use this button
-				html += '<div class="has_email" style="display: none;" data-type="email"><a href="' + highlight_and_share.email_url + '" target="_blank"><i class="' + highlight_and_share.email_fa_class + '"></i>&nbsp;' + highlight_and_share.email_text + '</a></div>';
+				html += '<div class="has_email" style="display: none;" data-type="email"><a href="' + highlight_and_share.ajax_url + '" target="_blank"><i class="' + highlight_and_share.email_fa_class + '"></i>&nbsp;' + highlight_and_share.email_text + '</a></div>';
 			} else {
-				html += '<div class="has_email" style="display: none;" data-type="email"><a href="' + highlight_and_share.email_url + '" target="_blank"><i class="' + highlight_and_share.email_fa_class + '"></i></a></div>';
+				html += '<div class="has_email" style="display: none;" data-type="email"><a href="' + highlight_and_share.ajax_url + '" target="_blank"><i class="' + highlight_and_share.email_fa_class + '"></i></a></div>';
 			}
 			html += '<div class="has_sharing_email" style="display: none;">';
 			html += '<div class="has_sharing_email_form_wrapper">';
-			html += '<form action="" method="post" id="has_email_form" class="has_email_form">'; 
+			html += '<form action="" method="post" id="has_email_form" class="has_email_form">';
 			html += '<input type="hidden" name="has_email_nonce" value="' + highlight_and_share.nonce + '" />';
 			html += '<label for="has_target_email">' + highlight_and_share.email_send_email + '</label>';
 			html += '<input type="email" name="has_target_email" id="has_target_email" />';
@@ -121,11 +121,11 @@ jQuery( document ).ready( function( $ ) {
 
 			html += '</div><!-- #has_sharing_email -->';
 		}
-		
+
 		html += '</div><!-- #highlight-and-share-wrapper -->';
 		$( 'body' ).append( html );
 	};
-	
+
 	//Initialize events
 	var js_content = highlight_and_share.content;
 	if ( '' == js_content ) return;
@@ -139,22 +139,22 @@ jQuery( document ).ready( function( $ ) {
 		if ( '' == text ) {
 			return;
 		}
-		
+
 		//Get URL
 		var href = $( this ).attr( 'data-url' );
 		if (typeof href == typeof undefined || href == false) {
 			href = $( location ).attr( 'href' );
 		}
-		
+
 		//Get Title
 		var title = $( this ).attr( 'data-title' );
 		if (typeof title == typeof undefined || title == false) {
 			title = $( document ).attr( 'title' );
 		}
-		
+
 		has_display( text, title, href, e );
 	} );
-	
+
 	$( 'body' ).on( 'mousedown vmousedown', function( e ) {
 		has_get_selection();
 	} );
@@ -164,6 +164,9 @@ jQuery( document ).ready( function( $ ) {
 
 	$( 'body' ).on( 'click', '.has_twitter a', function( e ) {
 		e.preventDefault();
+		if( highlight_and_share.customizer_preview ) {
+			return;
+		}
 		this.href = this.href.replace( '%text%', encodeURIComponent( has_selected_text ) );
 		window.open( this.href,"tweethighlight","width=575,height=430,toolbar=false,menubar=false,location=false,status=false");
 		has_remove();
@@ -171,33 +174,51 @@ jQuery( document ).ready( function( $ ) {
 	} );
 	$( 'body' ).on( 'click', '.has_facebook a', function( e ) {
 		e.preventDefault();
+		if( highlight_and_share.customizer_preview ) {
+			return;
+		}
 		this.href = this.href.replace( '%text%', encodeURIComponent( has_selected_text ) );
 		window.open( this.href,"sharer","width=575,height=430,toolbar=false,menubar=false,location=false,status=false");
 		has_remove();
 	} );
 	$( 'body' ).on( 'click', '.has_linkedin a', function( e ) {
 		e.preventDefault();
+		if( highlight_and_share.customizer_preview ) {
+			return;
+		}
 		window.open( this.href,"linkedin","width=575,height=430,toolbar=false,menubar=false,location=false,status=false");
 		has_remove();
 	} );
 	$( 'body' ).on( 'click', '.has_pinterest a', function( e ) {
 		e.preventDefault();
+		if( highlight_and_share.customizer_preview ) {
+			return;
+		}
 		window.open( this.href,"pinterest","width=575,height=430,toolbar=false,menubar=false,location=false,status=false");
 		has_remove();
 	} );
 	$( 'body' ).on( 'click', '.has_xing a', function( e ) {
 		e.preventDefault();
+		if( highlight_and_share.customizer_preview ) {
+			return;
+		}
 		window.open( this.href,"xing","width=575,height=430,toolbar=false,menubar=false,location=false,status=false");
 		has_remove();
 	} );
 	$( 'body' ).on( 'click', '.has_whatsapp a', function( e ) {
 		e.preventDefault();
+		if( highlight_and_share.customizer_preview ) {
+			return;
+		}
 		this.href = this.href.replace( '%text%', encodeURIComponent( has_selected_text ) );
 		window.open( this.href,"whatsapp","width=575,height=430,toolbar=false,menubar=false,location=false,status=false");
 		has_remove();
 	} );
 	$( 'body' ).on( 'click', '.has_email a', function( e ) {
 		e.preventDefault();
+		if( highlight_and_share.customizer_preview ) {
+			return;
+		}
 		var $emails = $('.has_sharing_email');
 		var $top = $(this).parent();
 		$emails.css( 'left', $top.position().left + 'px' );
@@ -220,9 +241,9 @@ jQuery( document ).ready( function( $ ) {
 
 	// Email Send
 	$( 'body' ).on( 'click', 'input.has_sharing_send', function( e ) {
-		
+
 		e.preventDefault();
-		
+
 		var $emails = $('.has_sharing_email:last');
 		var $errors = $emails.find('.has_errors');
 		$emails.find('.has_sharing_loading').css( 'display', 'none' );
@@ -288,11 +309,11 @@ jQuery( document ).ready( function( $ ) {
 				$emails.find( '.has_success_resposne_title' ).html( response.message_title );
 				$emails.find( '.has_success_response_body' ).html( response.message_body );
 				$emails.find( '.has_success_response' ).css( 'display', 'block' );
-			}			
+			}
 		}, 'json' );
 
 	} );
-	
+
 	var has_get_selection = function() {
 		var selection = window.getSelection();
 		var text = selection.toString();
@@ -302,22 +323,22 @@ jQuery( document ).ready( function( $ ) {
 			has_selected_text = text;
 		}
 	};
-	
+
 	var has_display = function( text, title, link, e ) {
 		if ( false == highlight_and_share.show_twitter && false == highlight_and_share.show_facebook && false == highlight_and_share.show_linkedin && false == highlight_and_share.show_pinterest && false == highlight_and_share.show_email ) {
 			return;
 		}
-		
+
 		wrapper_clone = $( '.highlight-and-share-wrapper:last' ).clone();
 		var wrapper_x = e.pageX - 30;
 		var wrapper_y = e.pageY - 70;
 		if ( highlight_and_share.mobile ) {
-			wrapper_x = e.pageX;	
+			wrapper_x = e.pageX;
 			wrapper_y = e.pageY + 20;
 		}
-		
+
 		wrapper_clone.css( { position: 'absolute', display: 'block', left: wrapper_x, top: wrapper_y, width: 'auto', height: 'auto', 'z-index': 10000 } );
-		
+
 		$children = wrapper_clone.find( '.has_whatsapp, .has_xing, .has_pinterest, .has_linkedin, .has_facebook, .has_twitter, .has_email' );
 		$.each( $children, function( index, item ) {
 			var div = $( this );
@@ -347,9 +368,9 @@ jQuery( document ).ready( function( $ ) {
 			input_val = input_val.replace( '%title%', title );
 			$input.val( input_val );
 		} );
-				
+
 		//Add to document
-		$( 'body' ).append( wrapper_clone );	
+		$( 'body' ).append( wrapper_clone );
 	};
 	if ( highlight_and_share.show_twitter == true || highlight_and_share.show_facebook == true || highlight_and_share.show_linkedin == true || highlight_and_share.show_pinterest == true || highlight_and_share.show_email == true) {
 		has_load_html();
