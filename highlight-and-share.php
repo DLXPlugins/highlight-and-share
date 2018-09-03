@@ -847,7 +847,7 @@ class Highlight_And_Share {
 			// Email
 			if( is_customize_preview()) {
 				$maybe_email = get_option( 'highlight-and-share');
-				if( !isset( $$maybe_email[ 'show_email' ] ) ) {
+				if( !isset( $maybe_email[ 'show_email' ] ) ) {
 					$json_arr[ 'show_email' ] = (bool)apply_filters( 'has_show_email', $settings[ 'show_email' ] );
 				} else {
 					$json_arr[ 'show_email' ] =  apply_filters( 'has_show_email', $maybe_email[ 'show_email' ] );

@@ -8,9 +8,9 @@ jQuery( document ).ready( function( $ ) {
 
 	var has_load_html = function() {
 		if ( highlight_and_share.icons == false ) {
-			var html = '<div class="highlight-and-share-wrapper" style="display: none">d';
+			var html = '<div class="highlight-and-share-wrapper" style="display: none">';
 		} else {
-			var html = '<div class="highlight-and-share-wrapper has-icons" style="display: none">d';
+			var html = '<div class="highlight-and-share-wrapper has-icons" style="display: none">';
 		}
 		var html = '<div class="highlight-and-share-wrapper">';
 		if ( highlight_and_share.show_twitter && '' != highlight_and_share.twitter_username ) {
