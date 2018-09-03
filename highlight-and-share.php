@@ -789,7 +789,7 @@ class Highlight_And_Share {
 				$deps[] = 'jquery.mobile';
 			}
 			$main_script_uri = $this->get_plugin_url( 'js/highlight-and-share.js' );
-			wp_enqueue_script( 'highlight-and-share', $main_script_uri, $deps, '20180826', true );
+			wp_enqueue_script( 'highlight-and-share', $main_script_uri, $deps, '20180902', true );
 
 			/**Build JSON Object**/
 			$settings = $this->get_plugin_options();
