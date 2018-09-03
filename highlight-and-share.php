@@ -4,7 +4,7 @@ Plugin Name: Highlight and Share
 Plugin URI: https://wordpress.org/plugins/highlight-and-share/
 Description: Highlight text and share via Twitter or Facebook and many more
 Author: Ronald Huereca
-Version: 2.3.6
+Version: 2.4.0
 Requires at least: 4.4
 Author URI: https://mediaron.com
 Contributors: ronalfy
@@ -83,8 +83,8 @@ class Highlight_And_Share {
 	private function maybe_migrate_icons() {
 		$migrated_option = get_option( 'has_icons_migrated', false );
 		if ( false === $migrated_option ) {
-			$options = $this->get_plugin_options();
-			if( isset( $options[ 'icons' ] ) && false === $options[ 'icons' ] ) {
+			$options = get_option( 'highlight-and-share', false );
+			if( false !== $options && isset( $options[ 'icons' ] ) && false === $options[ 'icons' ] ) {
 				$options[ 'icons' ] = true;
 				update_option( 'highlight-and-share', $options );
 				$this->options = $options;
@@ -1830,7 +1830,7 @@ class Highlight_And_Share {
 			'enable_content'     => true,
 			'enable_excerpt'     => true,
 			'shortlinks'         => false,
-			'icons'              => true,
+			'icons'              => false,
 			'theme'              => 'default',
 			'twitter_fa_class'   => 'fa fa-twitter',
 			'facebook_fa_class'  => 'fa fa-facebook',

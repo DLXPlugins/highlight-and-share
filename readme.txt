@@ -3,7 +3,7 @@ Contributors: ronalfy, bigwing
 Tags: highlight, share, twitter, facebook
 Requires at least: 4.4
 Tested up to: 4.9
-Stable tag: 2.3.6
+Stable tag: 2.4.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://mediaron.com/give/
@@ -14,7 +14,7 @@ A WordPress plugin for highlighting text and sharing it via Twitter and Facebook
 
 A WordPress plugin for highlighting text and sharing it via Twitter and Facebook and other services including LinkedIn, Email, Xing, and WhatsApp.
 
-Sharing selectable text is only possible via Twitter, Facebook, and WhatsApp. However an option to share the post via LinkedIn, Pinterest, and E-mail are also present when highlighting text as a convenience. 
+Sharing selectable text is only possible via Twitter, Facebook, and WhatsApp. However an option to share the post via LinkedIn, Pinterest, and E-mail are also present when highlighting text as a convenience.
 
 This plugin is intended to be highly flexible in selecting content areas (via the Plugin's settings).
 
@@ -58,7 +58,7 @@ You are welcome to help us out and <a href="https://github.com/ronalfy/highlight
 
 You can if you have a Facebook App ID. They <a href="https://developers.facebook.com/">are easy to create</a>.
 
-Here's a video showing you how: 
+Here's a video showing you how:
 
 https://www.youtube.com/watch?v=ZtcPacmr87E
 
@@ -76,7 +76,7 @@ FontAwesome 5 deprecated a lot of FontAwesome 4, so head to the settings and go 
 * For Pinterest, enter `fab fa-pinterest`
 * For Xing, enter `fab fa-xing`
 * For WhatsApp, enter `fab fa-whatsapp`
-* For Email, you can leave this as `fa fa-envelope` 
+* For Email, you can leave this as `fa fa-envelope`
 
 = I want to include my own CSS.  How can I do that? =
 
@@ -103,7 +103,7 @@ So far, the latest versions of Chrome, Firefox, and Safari.   Works for IE9+
 == Screenshots ==
 
 1. Highlight and Share settings.
-2. Highlight and Share Default Theme on a post with icons. 
+2. Highlight and Share Default Theme on a post with icons.
 3. Highlight and Share Black Theme
 4. Highlight and Share White Theme
 5. Highlight and Share Magenta Theme
@@ -112,6 +112,11 @@ So far, the latest versions of Chrome, Firefox, and Safari.   Works for IE9+
 8. Email functionality
 
 == Changelog ==
+
+= 2.4.0 =
+* Released 2018-09-02
+* New theme: Brand Colors (icons only).
+* Enhancement: You can now customize Highlight and Share through the customizer.
 
 = 2.3.6 =
 * Released 2018-08-28
@@ -185,10 +190,10 @@ So far, the latest versions of Chrome, Firefox, and Safari.   Works for IE9+
 * Added filter to change content URL
 
 = 1.1.2 =
-* Updated 2015-08-20 - WordPress 4.3 compatibility 
+* Updated 2015-08-20 - WordPress 4.3 compatibility
 * Released 2015-04-19
-* Fixing issue with multiple twitter popups. 
-* Ensuring WordPress 4.2 compatibility.  
+* Fixing issue with multiple twitter popups.
+* Ensuring WordPress 4.2 compatibility.
 
 = 1.1.1 =
 * Released 2015-03-18
@@ -200,11 +205,14 @@ So far, the latest versions of Chrome, Firefox, and Safari.   Works for IE9+
 * Removed the requirement for having to set a Twitter handle
 
 = 1.0.0 =
-* Updated 2014-12-11 - Ensuring WordPress 4.1 compatibility 
+* Updated 2014-12-11 - Ensuring WordPress 4.1 compatibility
 * Released 2014-12-03
 * Initial release on WordPress.org
 
 == Upgrade Notice ==
+
+= 2.4.0 =
+New theme: Brand Colors (icons only). Enhancement: You can now customize Highlight and Share through the customizer.
 
 = 2.3.6 =
 Hotfix: Email styles failed to commit.
