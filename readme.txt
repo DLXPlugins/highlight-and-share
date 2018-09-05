@@ -3,7 +3,7 @@ Contributors: ronalfy, bigwing
 Tags: highlight, share, twitter, facebook
 Requires at least: 4.4
 Tested up to: 4.9
-Stable tag: 2.4.0
+Stable tag: 2.4.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://mediaron.com/give/
@@ -19,6 +19,8 @@ Sharing selectable text is only possible via Twitter, Facebook, and WhatsApp. Ho
 This plugin is intended to be highly flexible in selecting content areas (via the Plugin's settings).
 
 If you have a feature request, <a href="https://github.com/ronalfy/highlight-and-share/issues">please add a GitHub issue</a>.
+
+> Please <a href="https://wordpress.org/support/plugin/highlight-and-share/reviews/#new-post">Rate the Plugin</a> or <a href="https://mediaron.com/give/">Give Back</a> to show support.
 
 https://www.youtube.com/watch?v=GMr4tmmKMz8
 
@@ -42,8 +44,6 @@ Advanced customization is allowed via hooks.  See the plugin's <a href="https://
 <li><a href="https://wordpress.org/plugins/wordpress-seo/">WordPress SEO</a> - For Facebook OpenGraph data</li>
 <li><a href="https://wordpress.org/plugins/jetpack/">Jetpack</a> - For Shortlinks</li>
 </ul>
-
-> Please <a href="https://wordpress.org/support/plugin/highlight-and-share/reviews/#new-post">Rate the Plugin</a> or <a href="https://mediaron.com/give/">Give Back</a> to show support.
 
 You are welcome to help us out and <a href="https://github.com/ronalfy/highlight-and-share">contribute on GitHub</a>.
 
@@ -112,6 +112,10 @@ So far, the latest versions of Chrome, Firefox, and Safari.   Works for IE9+
 8. Email functionality
 
 == Changelog ==
+
+= 2.4.1 =
+* Released 2018-09-05
+* Fix: Facebook App ID uses a different sanitzation technique to prevent App ID errors.
 
 = 2.4.0 =
 * Released 2018-09-02
@@ -210,6 +214,9 @@ So far, the latest versions of Chrome, Firefox, and Safari.   Works for IE9+
 * Initial release on WordPress.org
 
 == Upgrade Notice ==
+
+= 2.4.1 =
+Fix: Facebook App ID uses a different sanitzation technique to prevent App ID errors.
 
 = 2.4.0 =
 New theme: Brand Colors (icons only). Enhancement: You can now customize Highlight and Share through the customizer.
