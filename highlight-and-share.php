@@ -1034,7 +1034,7 @@ class Highlight_And_Share {
 
 
 			// Facebook API Key
-			$json_arr[ 'facebook_app_id' ] = isset( $settings[ 'facebook_app_id' ] ) ? absint( $settings[ 'facebook_app_id' ] ) : 0;
+			$json_arr[ 'facebook_app_id' ] = isset( $settings[ 'facebook_app_id' ] ) ? sanitize_text_field( $settings[ 'facebook_app_id' ] ) : 0;
 
 			// For emails
 			if ( is_user_logged_in() ) {
@@ -1313,7 +1313,7 @@ class Highlight_And_Share {
 					}
 					break;
 				case 'facebook_app_id':
-					$app_id = absint( $value );
+					$app_id = sanitize_text_field( $value );
 
 					if ( empty( $app_id ) || 0 === $app_id ) {
 						$output[ $key ] = '';
@@ -1719,7 +1719,7 @@ class Highlight_And_Share {
 	 */
 	public function add_settings_field_facebook_api( $args = array() ) {
 		$settings = $this->get_plugin_options();
-		$app_id = isset( $settings[ 'facebook_app_id' ] ) ? absint( $settings[ 'facebook_app_id' ] ) : '';
+		$app_id = isset( $settings[ 'facebook_app_id' ] ) ? sanitize_text_field( $settings[ 'facebook_app_id' ] ) : '';
 		if ( 0 === $app_id ) {
 			$app_id = '';
 		}
