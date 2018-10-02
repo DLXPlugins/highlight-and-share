@@ -3,7 +3,7 @@ Contributors: ronalfy, bigwing
 Tags: highlight, share, twitter, facebook
 Requires at least: 4.7
 Tested up to: 4.9
-Stable tag: 2.4.5
+Stable tag: 2.4.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://mediaron.com/give/
@@ -113,7 +113,7 @@ So far, the latest versions of Chrome, Firefox, and Safari.   Works for IE9+
 
 == Changelog ==
 
-= 2.4.5 =
+= 2.4.6 =
 * Released 2018-10-02
 * Added modal to emails for better mobile compatibility
 
@@ -219,7 +219,7 @@ So far, the latest versions of Chrome, Firefox, and Safari.   Works for IE9+
 
 == Upgrade Notice ==
 
-= 2.4.5 =
+= 2.4.6 =
 Added modal to emails for better mobile compatibility
 
 = 2.4.1 =

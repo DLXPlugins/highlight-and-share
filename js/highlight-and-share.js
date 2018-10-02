@@ -240,7 +240,7 @@ jQuery( document ).ready( function( $ ) {
 				showCloseButton: false,
 				showCancelButton: false,
 				showConfirmButton: false,
-				width: 320
+				width: '320px',
 			}
 		);
 		jQuery('#has_target_email').focus();
