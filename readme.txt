@@ -1,9 +1,9 @@
 === Highlight and Share ===
 Contributors: ronalfy, bigwing
 Tags: highlight, share, twitter, facebook
-Requires at least: 4.4
+Requires at least: 4.7
 Tested up to: 4.9
-Stable tag: 2.4.1
+Stable tag: 2.4.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://mediaron.com/give/
@@ -113,6 +113,10 @@ So far, the latest versions of Chrome, Firefox, and Safari.   Works for IE9+
 
 == Changelog ==
 
+= 2.4.5 =
+* Released 2018-10-02
+* Added modal to emails for better mobile compatibility
+
 = 2.4.1 =
 * Released 2018-09-05
 * Fix: Facebook App ID uses a different sanitzation technique to prevent App ID errors.
@@ -215,35 +219,8 @@ So far, the latest versions of Chrome, Firefox, and Safari.   Works for IE9+
 
 == Upgrade Notice ==
 
+= 2.4.5 =
+Added modal to emails for better mobile compatibility
+
 = 2.4.1 =
 Fix: Facebook App ID uses a different sanitzation technique to prevent App ID errors.
-
-= 2.4.0 =
-New theme: Brand Colors (icons only). Enhancement: You can now customize Highlight and Share through the customizer.
-
-= 2.3.6 =
-Hotfix: Email styles failed to commit.
-
-= 2.3.5 =
-Enhancement: Reworked email so it doesn't pop up in a new window and is shown inline very similar to JetPack's email functionality.
-
-= 2.3.1 =
-Bug fix: some settings weren't being saved correctly.
-
-= 2.3.0 =
-Added the ability to select themes. No more need for custom CSS. Added the ability to change FontAwesome classes for compatibility with FontAwesome 5.
-
-= 2.2.2 =
-Added support for WhatsApp
-
-= 2.2.0 =
-Added support for XING. Added better support for emailing.
-
-= 2.1.7 =
-JS Related bug where the wrong text was showing for Twitter sharing.
-
-= 2.1.5 =
-CSS adjustment for better theme compatibility.
-
-= 2.1.2 =
-Fixing iOS/Android issue with highlighted text being only the initial selection.

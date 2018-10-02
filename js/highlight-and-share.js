@@ -4,6 +4,10 @@ jQuery( document ).ready( function( $ ) {
 		$('.has_sharing_email').css( 'display', 'none' );
 	};
 
+	var title = '';
+	var link = '';
+	var href = '';
+
 	var has_selected_text = '';
 
 	var has_load_html = function() {
@@ -84,44 +88,11 @@ jQuery( document ).ready( function( $ ) {
 		if ( highlight_and_share.show_email ) {
 			if ( highlight_and_share.icons == false ) {
 				//Note, you must be on a publicly accesible URL to use this button
-				html += '<div class="has_email" style="display: none;" data-type="email"><a href="' + highlight_and_share.ajax_url + '" target="_blank"><i class="' + highlight_and_share.email_fa_class + '"></i>&nbsp;' + highlight_and_share.email_text + '</a></div>';
+				html += '<div class="has_email" style="display: none;" data-type="email" data-title="%title%" data-url="%url%"><a href="' + highlight_and_share.ajax_url + '" target="_blank"><i class="' + highlight_and_share.email_fa_class + '"></i>&nbsp;' + highlight_and_share.email_text + '</a></div>';
 			} else {
-				html += '<div class="has_email" style="display: none;" data-type="email"><a href="' + highlight_and_share.ajax_url + '" target="_blank"><i class="' + highlight_and_share.email_fa_class + '"></i></a></div>';
+				html += '<div class="has_email" style="display: none;" data-type="email" data-title="%title%" data-url="%url%"><a href="' + highlight_and_share.ajax_url + '" target="_blank"><i class="' + highlight_and_share.email_fa_class + '"></i></a></div>';
 			}
-			html += '<div class="has_sharing_email" style="display: none;">';
-			html += '<div class="has_sharing_email_form_wrapper">';
-			html += '<form action="" method="post" id="has_email_form" class="has_email_form">';
-			html += '<input type="hidden" name="has_email_nonce" value="' + highlight_and_share.nonce + '" />';
-			html += '<label for="has_target_email">' + highlight_and_share.email_send_email + '</label>';
-			html += '<input type="email" name="has_target_email" id="has_target_email" />';
-			html += '<label for="has_source_name">' + highlight_and_share.email_your_name + '</label>';
-			html += '<input type="text" name="has_source_name" id="has_source_name" value="' + highlight_and_share.email_your_name_value + '" />';
-			html += '<label for="has_email_subject">' + highlight_and_share.email_subject  + '</label>';
-			html += '<input type="text" class="has_email_subject" name="has_email_subject" id="has_email_subject" value="' + highlight_and_share.email_subject_text + '" />';
-			html += '<label for="has_source_email">' + highlight_and_share.email_from + '</label>';
-			html += '<input type="email" name="has_source_email" id="has_source_email" value="' + highlight_and_share.email_from_value + '" />';
-			html += '<input type="hidden" name="has_source_title" class="has_source_title" value="%title%" />';
-			html += '<input type="hidden" name="has_source_url" class="has_source_url" value="%url%" />';
-			html += '<input type="hidden" name="has_ajax_action" value="has_form_submission" />';
-			html += '<input type="submit" value="' + highlight_and_share.email_send + '" class="has_sharing_send" id="has_sharing_send" />';
-			html += '<a rel="nofollow" href="#cancel" class="has_sharing_cancel" id="has_sharing_cancel" style="display: inline;">' + highlight_and_share.email_cancel + '</a>';
-			html += '<img style="float:right; display: none;" class="has_sharing_loading" src="' +  highlight_and_share.email_loading + '" />';
-			html += '<div class="has_errors" style="display: none"></div>';
-			html += '</form>';
-			html += '</div><!-- .has_sharing_email_form_wrapper -->';
-			html += '<div class="has_success_response" style="display: none;">';
-			html += '<div class="has_success_resposne_title">';
-			html +=	'</div><!-- .has_success_resposne_title -->';
-			html += '<div class="has_success_response_body">';
-			html += '</div><!-- .has_success_response_body -->';
-			html += '<div class="has_success_response_close">'
-			html += '<a rel="nofollow" href="#cancel" class="has_sharing_cancel" id="has_sharing_cancel" style="display: inline;">' + highlight_and_share.email_close + '</a>';
-			html += '</div><!-- .has_success_response_close -->';
-			html += '</div><!-- .has_success_response -->'
-
-			html += '</div><!-- #has_sharing_email -->';
 		}
-
 		html += '</div><!-- #highlight-and-share-wrapper -->';
 		$( 'body' ).append( html );
 	};
@@ -134,25 +105,25 @@ jQuery( document ).ready( function( $ ) {
 		has_remove();
 		var selection = window.getSelection();
 		var text = selection.toString();
-		var title = '';
+		this.title = '';
 
 		if ( '' == text ) {
 			return;
 		}
 
 		//Get URL
-		var href = $( this ).attr( 'data-url' );
+		this.href = $( this ).attr( 'data-url' );
 		if (typeof href == typeof undefined || href == false) {
-			href = $( location ).attr( 'href' );
+			this.href = $( location ).attr( 'href' );
 		}
 
 		//Get Title
-		var title = $( this ).attr( 'data-title' );
-		if (typeof title == typeof undefined || title == false) {
-			title = $( document ).attr( 'title' );
+		this.title = $( this ).attr( 'data-title' );
+		if (typeof this.title == typeof undefined || this.title == false) {
+			this.title = $( document ).attr( 'title' );
 		}
 
-		has_display( text, title, href, e );
+		has_display( text, this.title, this.href, e );
 	} );
 
 	$( 'body' ).on( 'mousedown vmousedown', function( e ) {
@@ -219,24 +190,65 @@ jQuery( document ).ready( function( $ ) {
 		if( highlight_and_share.customizer_preview ) {
 			return;
 		}
-		var $emails = $('.has_sharing_email');
-		var $top = $(this).parent();
-		$emails.css( 'left', $top.position().left + 'px' );
-		$emails.css( 'top', $top.position().top + $top.height() + 3 + 'px' );
-		$emails.slideToggle( 200 );
+		//Get URL
+		var data_href = decodeURIComponent( $( this ).parent().attr( 'data-url' ) );
+
+		//Get Title
+		var data_title = decodeURIComponent( $( this ).parent().attr( 'data-title' ) );
+		var subject = highlight_and_share.email_subject_text;
+		subject = subject.replace( '%title%', data_title );
+		var html = '';
+		html += '<div class="has_sharing_email">';
+		html += '<div class="has_sharing_email_form_wrapper">';
+		html += '<form action="" method="post" id="has_email_form" class="has_email_form">';
+		html += '<input type="hidden" name="has_email_nonce" value="' + highlight_and_share.nonce + '" />';
+		html += '<label for="has_target_email">' + highlight_and_share.email_send_email + '</label>';
+		html += '<input type="email" name="has_target_email" id="has_target_email" />';
+		html += '<label for="has_source_name">' + highlight_and_share.email_your_name + '</label>';
+		html += '<input type="text" name="has_source_name" id="has_source_name" value="' + highlight_and_share.email_your_name_value + '" />';
+		html += '<label for="has_email_subject">' + highlight_and_share.email_subject  + '</label>';
+		html += '<input type="text" class="has_email_subject" name="has_email_subject" id="has_email_subject" value="' + subject + '" />';
+		html += '<label for="has_source_email">' + highlight_and_share.email_from + '</label>';
+		html += '<input type="email" name="has_source_email" id="has_source_email" value="' + highlight_and_share.email_from_value + '" />';
+		html += '<input type="hidden" name="has_source_title" class="has_source_title" value="' + data_title + '" />';
+		html += '<input type="hidden" name="has_source_url" class="has_source_url" value="' + data_href + '" />';
+		html += '<input type="hidden" name="has_ajax_action" value="has_form_submission" />';
+		html += '<input type="submit" value="' + highlight_and_share.email_send + '" class="has_sharing_send" id="has_sharing_send" />';
+		html += '<a rel="nofollow" href="#cancel" class="has_sharing_cancel" id="has_sharing_cancel" style="display: inline;">' + highlight_and_share.email_cancel + '</a>';
+		html += '<img style="float:right; display: none;" class="has_sharing_loading" src="' +  highlight_and_share.email_loading + '" />';
+		html += '<div class="has_errors" style="display: none"></div>';
+		html += '</form>';
+		html += '</div><!-- .has_sharing_email_form_wrapper -->';
+		html += '<div class="has_success_response" style="display: none;">';
+		html += '<div class="has_response_title">';
+		html +=	'</div><!-- .has_response_title -->';
+		html += '<div class="has_success_response_body">';
+		html += '</div><!-- .has_success_response_body -->';
+		html += '<div class="has_success_response_close">'
+		html += '<a rel="nofollow" href="#cancel" class="has_sharing_cancel" id="has_sharing_cancel" style="display: inline;">' + highlight_and_share.email_close + '</a>';
+		html += '</div><!-- .has_success_response_close -->';
+		html += '</div><!-- .has_success_response -->'
+
+		html += '</div><!-- #has_sharing_email -->';
+		
+		var html_jquery = jQuery(html);
+		swal(
+			{
+				title: highlight_and_share.email_share,
+				html: html_jquery.html(),
+				customClass: 'has-email-mobie',
+				showCloseButton: false,
+				showCancelButton: false,
+				showConfirmButton: false,
+				width: 400
+			}
+		);
+		jQuery('#has_target_email').focus();
 	} );
 
 	// Email Cancel
 	$( 'body' ).on( 'click', 'a.has_sharing_cancel', function( e ) {
-		var $emails = $('.has_sharing_email:last');
-		var $errors = $emails.find('.has_errors');
-		$emails.find('.has_sharing_loading').css( 'display', 'none' );
-		$emails.find('.has_sharing_send').val( highlight_and_share.email_send ).prop( 'disabled', false );
-		$errors.css( 'display', 'none' );
-		$emails.slideToggle( 200, function() {
-				$emails.find('.has_success_response').css( 'display', 'none' );
-				$emails.find( '.has_sharing_email_form_wrapper' ).css( 'display', 'block' );
-		} );
+		swal.close();
 	} );
 
 	// Email Send
@@ -244,8 +256,8 @@ jQuery( document ).ready( function( $ ) {
 
 		e.preventDefault();
 
-		var $emails = $('.has_sharing_email:last');
-		var $errors = $emails.find('.has_errors');
+		var $emails = $('.has_sharing_email_form_wrapper:first');
+		var $errors = $emails.find('.has_errors:first');
 		$emails.find('.has_sharing_loading').css( 'display', 'none' );
 		$errors.css( 'display', 'none' );
 
@@ -301,14 +313,14 @@ jQuery( document ).ready( function( $ ) {
 				$sending_button.prop( 'disabled', false );
 				$emails.find('.has_sharing_loading').css( 'display', 'none' );
 			} else {
-				$emails.find( '.has_sharing_email_form_wrapper' ).css( 'display', 'none' );
+				$emails.css( 'display', 'none' );
 				$emails.find( '#has_target_email' ).val('');
 				$emails.find( '#has_source_name' ).val( response.message_source_name );
 				$emails.find( '#has_email_subject' ).val( response.message_subject );
 				$emails.find( '#has_source_email' ).val( response.message_source_email );
-				$emails.find( '.has_success_resposne_title' ).html( response.message_title );
-				$emails.find( '.has_success_response_body' ).html( response.message_body );
-				$emails.find( '.has_success_response' ).css( 'display', 'block' );
+				$emails.parent().find( '.has_response_title' ).html( response.message_title );
+				$emails.parent().find( '.has_success_response_body' ).html( response.message_body );
+				$emails.parent().find( '.has_success_response' ).css( 'display', 'block' );
 			}
 		}, 'json' );
 
@@ -346,27 +358,19 @@ jQuery( document ).ready( function( $ ) {
 			url = url.replace( '%url%', encodeURIComponent( link ) );
 			url = url.replace( '%username%', encodeURIComponent( highlight_and_share.twitter_username ) );
 			url = url.replace( '%title%', encodeURIComponent( title ) );
+			var title_attr = div.attr('data-title');
+			if (typeof title_attr !== typeof undefined && title_attr !== false) {
+				title_attr = title_attr.replace( '%title%', encodeURIComponent( title ) );
+				div.attr('data-title', title_attr);
+			}
+			var url_attr = div.attr('data-url');
+			if (typeof url_attr !== typeof undefined && url_attr !== false) {
+				url_attr = url_attr.replace( '%url%', encodeURIComponent( link ) );
+				div.attr('data-url', url_attr);
+			}
 			div.find( 'a' ).attr( 'href', url );
 			var css_class = div.attr( 'class' );
 			wrapper_clone.find( '.' + css_class ).attr( 'style', 'display: inline-block' ).html( div.html() );
-		} );
-
-		// For hidden elements in the Email Send
-		$has_email_children = wrapper_clone.find( '.has_source_title, .has_source_url' );
-		$.each( $has_email_children, function( index, item ) {
-			var $input = $( this );
-			var input_val = $input.val();
-			input_val = input_val.replace( '%url%', encodeURIComponent( link ) );
-			input_val = input_val.replace( '%title%', encodeURIComponent( title ) );
-			$input.val( input_val );
-		} );
-		// For the subject
-		$has_subject = wrapper_clone.find( '.has_email_subject' );
-		$.each( $has_subject, function( index, item ) {
-			var $input = $( this );
-			var input_val = $input.val();
-			input_val = input_val.replace( '%title%', title );
-			$input.val( input_val );
 		} );
 
 		//Add to document

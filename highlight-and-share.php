@@ -4,8 +4,8 @@ Plugin Name: Highlight and Share
 Plugin URI: https://wordpress.org/plugins/highlight-and-share/
 Description: Highlight text and share via Twitter or Facebook and many more
 Author: Ronald Huereca
-Version: 2.4.1
-Requires at least: 4.4
+Version: 2.4.5
+Requires at least: 4.7
 Author URI: https://mediaron.com
 Contributors: ronalfy
 Text Domain: highlight-and-share
@@ -50,6 +50,8 @@ class Highlight_And_Share {
 		add_action( 'init', array( $this, 'init' ), 9 );
 
 		add_action( 'wp', array( $this, 'wp_loaded' ), 15 );
+
+		define( 'HIGHLIGHT_AND_SHARE_VERSION', '2.4.1');
 
 		// Get errors for email
 		$this->errors[ 'could_not_send' ] = esc_html__( 'Could not send the e-mail', 'highlight-and-share' );
@@ -788,8 +790,11 @@ class Highlight_And_Share {
 			if ( wp_is_mobile() && apply_filters( 'has_enable_mobile', true ) ) {
 				$deps[] = 'jquery.mobile';
 			}
+			$sweet_alert_uri = $this->get_plugin_url( 'js/sweetalert2.all.min.js');
+			$deps[] = 'sweetalert2';
+			wp_register_script( 'sweetalert2', $sweet_alert_uri, array( 'jquery' ), '7.28.4', true );
 			$main_script_uri = $this->get_plugin_url( 'js/highlight-and-share.js' );
-			wp_enqueue_script( 'highlight-and-share', $main_script_uri, $deps, '20180902', true );
+			wp_enqueue_script( 'highlight-and-share', $main_script_uri, $deps, HIGHLIGHT_AND_SHARE_VERSION, true );
 
 			/**Build JSON Object**/
 			$settings = $this->get_plugin_options();
@@ -1047,6 +1052,7 @@ class Highlight_And_Share {
 			}
 			$json_arr[ 'nonce' ] = wp_create_nonce( 'has_email_nonce' );
 			$json_arr[ 'ajax_url' ] = admin_url( 'admin-ajax.php' );
+			$json_arr[ 'email_share' ] = __( 'Share This Post Via Email', 'highlight-and-share' );
 			$json_arr[ 'email_subject' ] = __( 'Your Subject', 'highlight-and-share' );
 			$json_arr[ 'email_your_name' ] = __( 'Your Name', 'highlight-and-share' );
 			$json_arr[ 'email_send_email' ] = __( 'Send to Email Address', 'highlight-and-share' );
@@ -1069,7 +1075,7 @@ class Highlight_And_Share {
 
 			//Add CSS
 			if ( apply_filters( 'has_load_css', true ) ) {
-				wp_enqueue_style( 'highlight-and-share-email', $this->get_plugin_url( 'css/highlight-and-share-emails.css'), array(), '20180826', 'all' );
+				wp_enqueue_style( 'highlight-and-share-email', $this->get_plugin_url( 'css/highlight-and-share-emails.css'), array(), HIGHLIGHT_AND_SHARE_VERSION, 'all' );
 				if( is_customize_preview() ) {
 					$maybe_theme = get_option( 'highlight-and-share' );
 					if( isset( $maybe_theme[ 'theme' ] ) ) {
@@ -1101,28 +1107,28 @@ class Highlight_And_Share {
 			case 'off':
 				break;
 			case 'default':
-				wp_enqueue_style( 'highlight-and-share', $this->get_plugin_url( 'css/highlight-and-share.css' ), array(), '20180725', 'all' );
+				wp_enqueue_style( 'highlight-and-share', $this->get_plugin_url( 'css/highlight-and-share.css' ), array(), HIGHLIGHT_AND_SHARE_VERSION, 'all' );
 				break;
 			case 'brand-colors':
-			wp_enqueue_style( 'highlight-and-share', $this->get_plugin_url( 'css/highlight-and-share-brand.css' ), array(), '20180901', 'all' );
+			wp_enqueue_style( 'highlight-and-share', $this->get_plugin_url( 'css/highlight-and-share-brand.css' ), array(), HIGHLIGHT_AND_SHARE_VERSION, 'all' );
 				break;
 			case 'black':
-				wp_enqueue_style( 'highlight-and-share', $this->get_plugin_url( 'css/highlight-and-share-black.css' ), array(), '20180819', 'all' );
+				wp_enqueue_style( 'highlight-and-share', $this->get_plugin_url( 'css/highlight-and-share-black.css' ), array(), HIGHLIGHT_AND_SHARE_VERSION, 'all' );
 				break;
 			case 'white':
-				wp_enqueue_style( 'highlight-and-share', $this->get_plugin_url( 'css/highlight-and-share-white.css' ), array(), '20180819', 'all' );
+				wp_enqueue_style( 'highlight-and-share', $this->get_plugin_url( 'css/highlight-and-share-white.css' ), array(), HIGHLIGHT_AND_SHARE_VERSION, 'all' );
 				break;
 			case 'blue':
-				wp_enqueue_style( 'highlight-and-share', $this->get_plugin_url( 'css/highlight-and-share-blue.css' ), array(), '20180819', 'all' );
+				wp_enqueue_style( 'highlight-and-share', $this->get_plugin_url( 'css/highlight-and-share-blue.css' ), array(), HIGHLIGHT_AND_SHARE_VERSION, 'all' );
 				break;
 			case 'green':
-				wp_enqueue_style( 'highlight-and-share', $this->get_plugin_url( 'css/highlight-and-share-green.css' ), array(), '20180819', 'all' );
+				wp_enqueue_style( 'highlight-and-share', $this->get_plugin_url( 'css/highlight-and-share-green.css' ), array(), HIGHLIGHT_AND_SHARE_VERSION, 'all' );
 				break;
 			case 'magenta':
-				wp_enqueue_style( 'highlight-and-share', $this->get_plugin_url( 'css/highlight-and-share-magenta.css' ), array(), '20180819', 'all' );
+				wp_enqueue_style( 'highlight-and-share', $this->get_plugin_url( 'css/highlight-and-share-magenta.css' ), array(), HIGHLIGHT_AND_SHARE_VERSION, 'all' );
 				break;
 			default:
-				wp_enqueue_style( 'highlight-and-share', $this->get_plugin_url( 'css/highlight-and-share.css' ), array(), '20180725', 'all' );
+				wp_enqueue_style( 'highlight-and-share', $this->get_plugin_url( 'css/highlight-and-share.css' ), array(), HIGHLIGHT_AND_SHARE_VERSION, 'all' );
 				break;
 		}
 	}
