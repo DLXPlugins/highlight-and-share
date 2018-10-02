@@ -51,7 +51,7 @@ class Highlight_And_Share {
 
 		add_action( 'wp', array( $this, 'wp_loaded' ), 15 );
 
-		define( 'HIGHLIGHT_AND_SHARE_VERSION', '2.4.1');
+		define( 'HIGHLIGHT_AND_SHARE_VERSION', '2.4.5');
 
 		// Get errors for email
 		$this->errors[ 'could_not_send' ] = esc_html__( 'Could not send the e-mail', 'highlight-and-share' );
