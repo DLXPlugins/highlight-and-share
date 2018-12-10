@@ -3,7 +3,7 @@ Contributors: ronalfy, bigwing
 Tags: highlight, share, twitter, facebook
 Requires at least: 4.7
 Tested up to: 5.0
-Stable tag: 2.4.6
+Stable tag: 2.4.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://mediaron.com/give/
@@ -92,13 +92,7 @@ Yes, it has successfully been tested on iOS and Android devices.
 
 = What Browsers Have You Tested This In? =
 
-So far, the latest versions of Chrome, Firefox, and Safari.   Works for IE9+
-
-= What Themes Have You Tested This In? =
-<ul>
-<li>Twenty Thirteen</li>
-<li>Twenty Fourteen</li>
-</ul>
+So far, the latest versions of Chrome, Firefox, and Safari. Works for IE9+
 
 == Screenshots ==
 
@@ -112,6 +106,10 @@ So far, the latest versions of Chrome, Firefox, and Safari.   Works for IE9+
 8. Email functionality
 
 == Changelog ==
+
+= 2.4.7 =
+* Released 2018-12-10
+* Ensuring undefines do not show up when emailing
 
 = 2.4.6 =
 * Released 2018-10-02
@@ -218,6 +216,9 @@ So far, the latest versions of Chrome, Firefox, and Safari.   Works for IE9+
 * Initial release on WordPress.org
 
 == Upgrade Notice ==
+
+= 2.4.7 =
+Ensuring undefines do not show up when emailing
 
 = 2.4.6 =
 Added modal to emails for better mobile compatibility
