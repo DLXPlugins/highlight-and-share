@@ -195,6 +195,12 @@ jQuery( document ).ready( function( $ ) {
 
 		//Get Title
 		var data_title = decodeURIComponent( $( this ).parent().attr( 'data-title' ) );
+		if( typeof data_title == "undefined" ) {
+			data_title = '';
+		}
+		if( typeof data_href == "undefined" ) {
+			data_href = window.location.href;
+		}
 		var subject = highlight_and_share.email_subject_text;
 		subject = subject.replace( '%title%', data_title );
 		var html = '';
