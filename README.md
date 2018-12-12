@@ -3,9 +3,9 @@ Highlight and Share for WordPress
 
 A WordPress plugin for highlighting text and sharing it via Twitter or Facebook (<a href="https://wordpress.org/plugins/highlight-and-share/">Now available on WordPress.org!</a>).
 
-Sharing selectable text is only possible via Twitter, but an option to share the post via Facebook is also present when highlighting text as a convenience. 
+SA WordPress plugin for highlighting text and sharing it via Twitter and Facebook and other services including LinkedIn, Email, Xing, and WhatsApp.
 
-This plugin is intended to be highly flexible in selecting content areas (via the Plugin's settings).
+Sharing selectable text is only possible via Twitter, Facebook, and WhatsApp. However an option to share the post via LinkedIn, Pinterest, and E-mail are also present when highlighting text as a convenience.
 
 If you have a feature request, please add an issue.
 
@@ -63,19 +63,19 @@ add_filter( 'has_enable_mobile', '__return_true' ); //Disable or enable on mobil
 /* Override the Facebook share text (default is Share) */
 add_filter( 'has_facebook_text', 'has_override_facebook_text' );
 function has_override_facebook_text( $default ) {
-	return 'Facebook';	
+	return 'Facebook';
 }
 
 /* Override the Twitter share text (default is Tweet) */
 add_filter( 'has_twitter_text', 'has_override_twitter_text' );
 function has_override_twitter_text( $default ) {
-	return 'Twitter';	
+	return 'Twitter';
 }
 
 /* Override the JavaScript classes (assuming jQuery class format with no periods) */
 add_filter( 'has_js_classes', 'has_override_js_classes' );
 function has_override_js_classes( $content ) {
-	return 'entry-content,type-page,type-post';	
+	return 'entry-content,type-page,type-post';
 }
 
 /* Add JS IDs */
@@ -99,7 +99,7 @@ function has_override_js_elements( $content = array() ) {
 /* Override the Twitter username (no @ symbol needed) */
 add_filter( 'has_twitter_username', 'has_override_twitter_username' );
 function has_override_twitter_username( $username ) {
-	return 'wordpress';	
+	return 'wordpress';
 }
 ```
 Some examples are below:
@@ -129,7 +129,7 @@ add_filter( 'has_js_selectors', 'hs_custom_selectors', 10, 5 );
 function hs_custom_selectors( $selectors, $content = array(), $classes = array(), $ids = array(), $elements = array() ) {
 	//With $content, $classes, $ids, $elements, you can build your own selectors
 	//Or just override $selectors (a string) with your own custom ones
-	return '.has-content-area p, .has-excerpt-area p';	
+	return '.has-content-area p, .has-excerpt-area p';
 }
 ```
 
