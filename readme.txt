@@ -107,6 +107,10 @@ So far, the latest versions of Chrome, Firefox, and Safari. Works for IE9+
 
 == Changelog ==
 
+= 2.4.8 =
+* Released 2018-12-12
+* Highlighted text now shows in email notifications
+
 = 2.4.7 =
 * Released 2018-12-10
 * Ensuring undefines do not show up when emailing
@@ -216,6 +220,9 @@ So far, the latest versions of Chrome, Firefox, and Safari. Works for IE9+
 * Initial release on WordPress.org
 
 == Upgrade Notice ==
+
+= 2.4.8 =
+Highlighted text now shows in email notifications
 
 = 2.4.7 =
 Ensuring undefines do not show up when emailing
