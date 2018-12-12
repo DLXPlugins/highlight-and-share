@@ -555,6 +555,7 @@ class Highlight_And_Share {
 		$email_from = trim( urldecode( $ajax_data[ 'has_source_email' ] ) );
 		$email_name = trim( urldecode( $ajax_data[ 'has_source_name' ] ) );
 		$email_subject = trim( urldecode( $ajax_data[ 'has_email_subject' ] ) );
+		$email_selected_text = trim( urldecode( $ajax_data[ 'has_selected_text' ] ) );
 
 		// Set title and url variables
 		$title = trim( urldecode( $ajax_data[ 'has_source_title' ] ) );
@@ -586,9 +587,10 @@ class Highlight_And_Share {
 			$email_subject = __( '[Shared Post]', 'highlight-and-share' ) . ' ' . $title;
 		}
 
-    	$message = sprintf( __( '%s (%s) wants to share a link with you.', 'highlight-and-share' ), esc_html( $email_name ), esc_html( $email_from ) ) . "\r\n\n";
+		$message = sprintf( __( '%s (%s) wants to share a link with you.', 'highlight-and-share' ), esc_html( $email_name ), esc_html( $email_from ) ) . "\r\n\n";
+		$message .= sprintf( '"%s"', esc_html( $email_selected_text ) ) . "\r\n\r\n";
     	$message .= sprintf( '%s', esc_html( $title ) ) . "\r\n";
-    	$message .= sprintf( '%s', esc_url( $url ) ) . "\r\n\n";
+		$message .= sprintf( '%s', esc_url( $url ) ) . "\r\n\r\n";
 
     	$headers = array();
     	$headers[] = sprintf( 'From: %s <%s>', $email_name, $email_from );

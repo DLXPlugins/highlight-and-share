@@ -199,7 +199,7 @@ jQuery( document ).ready( function( $ ) {
 			data_title = '';
 		}
 		if( typeof data_href == "undefined" ) {
-			data_href = window.location.href;
+			data_href = window.location.title;
 		}
 		var subject = highlight_and_share.email_subject_text;
 		subject = subject.replace( '%title%', data_title );
@@ -212,6 +212,7 @@ jQuery( document ).ready( function( $ ) {
 		html += '<input type="email" name="has_target_email" id="has_target_email" />';
 		html += '<label for="has_source_name">' + highlight_and_share.email_your_name + '</label>';
 		html += '<input type="text" name="has_source_name" id="has_source_name" value="' + highlight_and_share.email_your_name_value + '" />';
+		html += '<textarea style="display: none" name="has_selected_text" id="has_selected_text">' + has_get_selection() + '</textarea>';
 		html += '<label for="has_email_subject">' + highlight_and_share.email_subject  + '</label>';
 		html += '<input type="text" class="has_email_subject" name="has_email_subject" id="has_email_subject" value="' + subject + '" />';
 		html += '<label for="has_source_email">' + highlight_and_share.email_from + '</label>';
@@ -236,7 +237,7 @@ jQuery( document ).ready( function( $ ) {
 		html += '</div><!-- .has_success_response -->'
 
 		html += '</div><!-- #has_sharing_email -->';
-		
+
 		var html_jquery = jQuery(html);
 		swal(
 			{
@@ -310,6 +311,8 @@ jQuery( document ).ready( function( $ ) {
 		// Serialize data
 		var form_data = $emails.find('#has_email_form').serialize();
 
+		console.log(form_data);
+
 		// Send Ajax data
 		$.post( highlight_and_share.ajax_url, { data: form_data, action: 'has_form_submission' }, function( response ) {
 			if( response.errors ) {
@@ -339,7 +342,9 @@ jQuery( document ).ready( function( $ ) {
 			return;
 		} else {
 			has_selected_text = text;
+			return has_selected_text;
 		}
+		return '';
 	};
 
 	var has_display = function( text, title, link, e ) {
