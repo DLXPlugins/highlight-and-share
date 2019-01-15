@@ -30,6 +30,9 @@
 .highlight-and-share-wrapper div.has_pinterest {
     background: #CC2127;
 }
+.highlight-and-share-wrapper div.has_copy {
+    background: #E8E8E8;
+}
 .highlight-and-share-wrapper div.has_email {
     background: #0074a2;
 }
@@ -50,6 +53,9 @@
 }
 .highlight-and-share-wrapper div.has_pinterest:hover {
     background: #d93238;
+}
+.highlight-and-share-wrapper div.has_copy:hover {
+    background: #E8E8E8;
 }
 .highlight-and-share-wrapper div.has_email:hover {
     background: #1388b7;
@@ -83,14 +89,14 @@
 /* Size of the box and margin */
 div.highlight-and-share-wrapper div {
 	margin-right: 0;
-	padding: 0;	
+	padding: 0;
 }
 
 /* Padding for the anchors */
-div.highlight-and-share-wrapper a, 
-div.highlight-and-share-wrapper a:hover, 
+div.highlight-and-share-wrapper a,
+div.highlight-and-share-wrapper a:hover,
 div.highlight-and-share-wrapper a:visited {
-	padding: 10px;	
+	padding: 10px;
 }
 
 /* Regular color */
@@ -100,7 +106,8 @@ div.highlight-and-share-wrapper div.has_linkedin,
 div.highlight-and-share-wrapper div.has_pinterest,
 div.highlight-and-share-wrapper div.has_email,
 div.highlight-and-share-wrapper div.has_xing,
-div.highlight-and-share-wrapper div.has_whatsapp
+div.highlight-and-share-wrapper div.has_whatsapp,
+div.highlight-and-share-wrapper div.has_copy
  {
 	background: #0009c1;
 }
@@ -112,7 +119,8 @@ div.highlight-and-share-wrapper div.has_linkedin:hover,
 div.highlight-and-share-wrapper div.has_pinterest:hover,
 div.highlight-and-share-wrapper div.has_email:hover,
 div.highlight-and-share-wrapper div.has_xing:hover,
-div.highlight-and-share-wrapper div.has_whatsapp:hover{
+div.highlight-and-share-wrapper div.has_whatsapp:hover,
+div.highlight-and-share-wrapper div.has_copy:hover{
 	background: #0008a4;
 }
 
@@ -124,7 +132,7 @@ div.highlight-and-share-wrapper div.has_whatsapp:hover{
 	bottom: 0;
 	left: calc(50% - 10px);
 	border-top: 10px solid #0009c1;
-	border-top-color: #0009c1; 
+	border-top-color: #0009c1;
 	border-left: 10px solid transparent;
 	border-right: 10px solid transparent;
 }

@@ -489,6 +489,28 @@ class Highlight_And_Share {
 				'priority' => 10,
 			)
 		));
+
+		// Show Email Font Awesome Class
+		$customizer->add_setting( 'highlight-and-share[copy_fa_class]',
+			array(
+				'capability'        => 'edit_theme_options',
+				'default'           => $options[ 'copy_fa_class' ],
+				'sanitize_callback' => 'sanitize_text_field',
+				'type' => 'option'
+			)
+		);
+		$customizer->add_control(
+			new WP_Customize_Control(
+			$customizer,
+			'highlight-and-share[copy_fa_class]',
+			array(
+				'type'     => 'text',
+				'label'    => __( 'Copy FontAwesome Class', 'highlight-and-share' ),
+				'section'  => 'highlight-and-share',
+				'settings' => 'highlight-and-share[copy_fa_class]',
+				'priority' => 10,
+			)
+		));
 	}
 
 	/**
@@ -682,7 +704,8 @@ class Highlight_And_Share {
 		$show_linkedin = (bool)apply_filters( 'has_show_linkedin', $settings[ 'show_linkedin' ] );
 		$show_pinterest = (bool)apply_filters( 'has_show_pinterest', $settings[ 'show_pinterest' ] );
 		$show_email = (bool)apply_filters( 'has_show_email', $settings[ 'show_email' ] );
-		if ( ! $show_facebook && ! $show_twitter && ! $show_linkedin && ! $show_pinterest && ! $show_email ) return;
+		$show_copy = (bool)apply_filters( 'has_show_copy', $settings[ 'show_email' ] );
+		if ( ! $show_facebook && ! $show_twitter && ! $show_linkedin && ! $show_pinterest && ! $show_email && ! $show_copy ) return;
 
 		//Disable if mobile
 		if ( wp_is_mobile() ) {
@@ -897,6 +920,18 @@ class Highlight_And_Share {
 				$json_arr[ 'show_xing' ] = (bool)apply_filters( 'has_show_xing', $settings[ 'show_xing' ] );
 			}
 
+			// Copy
+			if( is_customize_preview()) {
+				$maybe_copy = get_option( 'highlight-and-share');
+				if( !isset( $maybe_copy[ 'show_copy' ] ) ) {
+					$json_arr[ 'show_copy' ] = (bool)apply_filters( 'has_show_copy', $settings[ 'show_copy' ] );
+				} else {
+					$json_arr[ 'show_copy' ] =  apply_filters( 'has_show_copy', $maybe_xing[ 'show_copy' ] );
+				}
+			} else {
+				$json_arr[ 'show_copy' ] = (bool)apply_filters( 'has_show_copy', $settings[ 'show_copy' ] );
+			}
+
 			// Whatsapp
 			if( is_customize_preview()) {
 				$maybe_whatsapp = get_option( 'highlight-and-share');
@@ -1047,6 +1082,7 @@ class Highlight_And_Share {
 			$json_arr[ 'pinterest_text' ] = apply_filters( 'has_pinterest_text', _x( 'Pinterest', 'Pinterest share text', 'highlight-and-share' ) );
 			$json_arr[ 'whatsapp_text' ] = apply_filters( 'has_whatsapp_text', _x( 'WhatsApp', 'WhatsApp share text', 'highlight-and-share' ) );
 			$json_arr[ 'xing_text' ] = apply_filters( 'has_xing_text', _x( 'Xing', 'Xing share text', 'highlight-and-share' ) );
+			$json_arr[ 'copy_text' ] = apply_filters( 'has_copy_text', _x( 'Copy', 'Copy share text', 'highlight-and-share' ) );
 			$json_arr[ 'email_text' ] = apply_filters( 'has_email_text', _x( 'E-mail', 'E-mail share text', 'highlight-and-share' ) );
 
 			//Icons
