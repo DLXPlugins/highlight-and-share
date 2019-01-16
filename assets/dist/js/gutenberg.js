@@ -28596,7 +28596,8 @@ var _wp$components = wp.components,
     withAPIData = _wp$components.withAPIData;
 var _wp$editor = wp.editor,
     InspectorControls = _wp$editor.InspectorControls,
-    RichText = _wp$editor.RichText;
+    RichText = _wp$editor.RichText,
+    PanelColorSettings = _wp$editor.PanelColorSettings;
 
 var HAS_Click_To_Share = function (_Component) {
 	_inherits(HAS_Click_To_Share, _Component);
@@ -28626,29 +28627,273 @@ var HAS_Click_To_Share = function (_Component) {
 			    backgroundColor = _props$attributes.backgroundColor,
 			    textColor = _props$attributes.textColor,
 			    fontSize = _props$attributes.fontSize,
+			    clickText = _props$attributes.clickText,
+			    padding = _props$attributes.padding,
+			    border = _props$attributes.border,
+			    borderRounded = _props$attributes.borderRounded,
+			    borderColor = _props$attributes.borderColor,
+			    fontWeight = _props$attributes.fontWeight,
+			    clickShareFontSize = _props$attributes.clickShareFontSize,
+			    maxWidth = _props$attributes.maxWidth,
+			    alignment = _props$attributes.alignment,
+			    marginTop = _props$attributes.marginTop,
+			    marginRight = _props$attributes.marginRight,
+			    marginBottom = _props$attributes.marginBottom,
+			    marginLeft = _props$attributes.marginLeft,
 			    attributes = _props.attributes,
 			    isSelected = _props.isSelected,
 			    editable = _props.editable,
 			    className = _props.className,
 			    setAttributes = _props.setAttributes;
 
+			var onChangeBackgroundColor = function onChangeBackgroundColor(value) {
+				return setAttributes({ backgroundColor: value });
+			};
+			var onChangeTextColor = function onChangeTextColor(value) {
+				return setAttributes({ textColor: value });
+			};
+			var onChangeBorderColor = function onChangeBorderColor(value) {
+				return setAttributes({ borderColor: value });
+			};
+			var hasStyles = {
+				fontSize: fontSize + 'px',
+				padding: padding + 'px',
+				border: border + 'px solid ' + borderColor,
+				borderRadius: borderRounded + 'px',
+				backgroundColor: backgroundColor,
+				color: textColor,
+				maxWidth: maxWidth + '%',
+				marginLeft: marginLeft + 'px',
+				marginRight: marginRight + 'px',
+				marginBottom: marginBottom + 'px',
+				marginTop: marginTop + 'px'
+			};
+			if ('center' == alignment) {
+				hasStyles.margin = '0 auto';
+			}
+			if ('left' == alignment) {
+				hasStyles.float = 'left';
+			}
+			if ('right' == alignment) {
+				hasStyles.float = 'right';
+			}
+			var fontWeightArr = Array();
+			fontWeightArr.push({ label: __('Normal', 'highlight-and-share'), value: 100 });
+			fontWeightArr.push({ label: __('Bold', 'highlight-and-share'), value: 400 });
+			fontWeightArr.push({ label: __('Bolder', 'highlight-and-share'), value: 700 });
+
+			var alignmentArr = Array();
+			alignmentArr.push({ label: __('Left', 'highlight-and-share'), value: 'left' });
+			alignmentArr.push({ label: __('center', 'highlight-and-share'), value: 'center' });
+			alignmentArr.push({ label: __('right', 'highlight-and-share'), value: 'right' });
+
 			return wp.element.createElement(
-				'div',
-				{ className: 'has-click-to-share\'' },
-				wp.element.createElement(RichText, {
-					tagName: 'div',
-					placeholder: __('Add share text', 'highlight-and-share'),
-					value: shareText,
-					className: 'has-click-to-share-text',
-					style: {
-						color: textColor,
-						fontSize: fontSize + 'px'
-					},
-					formattingControls: [],
-					onChange: function onChange(value) {
-						_this2.onChangeValue(value);setAttributes({ shareText: value });
-					}
-				})
+				Fragment,
+				null,
+				wp.element.createElement(
+					InspectorControls,
+					null,
+					wp.element.createElement(
+						PanelBody,
+						{ title: __('Highlight and Share Settings', 'highlight-and-share') },
+						wp.element.createElement(PanelColorSettings, {
+							title: __('Background Color', 'highlight-and-share'),
+							initialOpen: false,
+							colorSettings: [{
+								value: backgroundColor,
+								onChange: onChangeBackgroundColor,
+								label: __('Background Color', 'highlight-and-share')
+							}]
+						}),
+						wp.element.createElement(PanelColorSettings, {
+							title: __('Text Color', 'highlight-and-share'),
+							initialOpen: false,
+							colorSettings: [{
+								value: textColor,
+								onChange: onChangeTextColor,
+								label: __('Text Color', 'highlight-and-share')
+							}]
+						}),
+						wp.element.createElement(SelectControl, {
+							label: __('Font Weight', 'highlight-and-share'),
+							value: fontWeight,
+							options: fontWeightArr,
+							onChange: function onChange(value) {
+								setAttributes({ fontWeight: value });
+							}
+						}),
+						wp.element.createElement(TextControl, {
+							label: __('Click to Share Text', 'highlight-and-share'),
+							value: clickText,
+							onChange: function onChange(value) {
+								_this2.props.setAttributes({ clickText: value });
+							}
+						})
+					),
+					wp.element.createElement(
+						PanelBody,
+						{ title: __('Spacing and Font Settings', 'highlight-and-share'), initialOpen: false },
+						wp.element.createElement(RangeControl, {
+							label: __('Font Size', 'highlight-and-share'),
+							value: fontSize,
+							onChange: function onChange(value) {
+								return _this2.props.setAttributes({ fontSize: value });
+							},
+							min: 10,
+							max: 40,
+							step: 1
+						}),
+						wp.element.createElement(RangeControl, {
+							label: __('Click to Share Font Size', 'highlight-and-share'),
+							value: clickShareFontSize,
+							onChange: function onChange(value) {
+								return _this2.props.setAttributes({ clickShareFontSize: value });
+							},
+							min: 10,
+							max: 40,
+							step: 1
+						}),
+						wp.element.createElement(RangeControl, {
+							label: __('Padding', 'highlight-and-share'),
+							value: padding,
+							onChange: function onChange(value) {
+								return _this2.props.setAttributes({ padding: value });
+							},
+							min: 0,
+							max: 60,
+							step: 1
+						}),
+						wp.element.createElement(RangeControl, {
+							label: __('Border', 'highlight-and-share'),
+							value: border,
+							onChange: function onChange(value) {
+								return _this2.props.setAttributes({ border: value });
+							},
+							min: 0,
+							max: 10,
+							step: 1
+						}),
+						wp.element.createElement(RangeControl, {
+							label: __('Border Rounded', 'highlight-and-share'),
+							value: borderRounded,
+							onChange: function onChange(value) {
+								return _this2.props.setAttributes({ borderRounded: value });
+							},
+							min: 0,
+							max: 20,
+							step: 1
+						}),
+						wp.element.createElement(PanelColorSettings, {
+							title: __('Border Color', 'highlight-and-share'),
+							initialOpen: false,
+							colorSettings: [{
+								value: borderColor,
+								onChange: onChangeBorderColor,
+								label: __('Border Color', 'highlight-and-share')
+							}]
+						})
+					),
+					wp.element.createElement(
+						PanelBody,
+						{ title: __('Alignment, Width, and Margins', 'highlight-and-share') },
+						wp.element.createElement(RangeControl, {
+							label: __('Max Width', 'highlight-and-share'),
+							value: maxWidth,
+							onChange: function onChange(value) {
+								return _this2.props.setAttributes({ maxWidth: value });
+							},
+							min: 0,
+							max: 100,
+							step: 5
+						}),
+						wp.element.createElement(SelectControl, {
+							label: __('Alignment', 'highlight-and-share'),
+							value: alignment,
+							options: alignmentArr,
+							onChange: function onChange(value) {
+								setAttributes({ alignment: value });
+							}
+						}),
+						wp.element.createElement(RangeControl, {
+							label: __('Margin Left', 'highlight-and-share'),
+							value: marginLeft,
+							onChange: function onChange(value) {
+								return _this2.props.setAttributes({ marginLeft: value });
+							},
+							min: 0,
+							max: 20,
+							step: 1
+						}),
+						wp.element.createElement(RangeControl, {
+							label: __('Margin Right', 'highlight-and-share'),
+							value: marginRight,
+							onChange: function onChange(value) {
+								return _this2.props.setAttributes({ marginRight: value });
+							},
+							min: 0,
+							max: 20,
+							step: 1
+						}),
+						wp.element.createElement(RangeControl, {
+							label: __('Margin Top', 'highlight-and-share'),
+							value: marginTop,
+							onChange: function onChange(value) {
+								return _this2.props.setAttributes({ marginTop: value });
+							},
+							min: 0,
+							max: 20,
+							step: 1
+						}),
+						wp.element.createElement(RangeControl, {
+							label: __('Margin Bottom', 'highlight-and-share'),
+							value: marginBottom,
+							onChange: function onChange(value) {
+								return _this2.props.setAttributes({ marginBottom: value });
+							},
+							min: 0,
+							max: 20,
+							step: 1
+						})
+					)
+				),
+				wp.element.createElement(
+					Fragment,
+					null,
+					wp.element.createElement(
+						'div',
+						{ className: (0, _classnames2.default)('has-click-to-share'), style: hasStyles },
+						wp.element.createElement(
+							'div',
+							{ className: 'has-click-to-share-wrapper' },
+							wp.element.createElement(RichText, {
+								tagName: 'div',
+								placeholder: __('Add share text', 'highlight-and-share'),
+								value: shareText,
+								className: 'has-click-to-share-text',
+								style: {
+									color: textColor,
+									fontSize: fontSize + 'px',
+									fontWeight: fontWeight
+								},
+								formattingControls: [],
+								onChange: function onChange(value) {
+									_this2.onChangeValue(value);setAttributes({ shareText: value });
+								}
+							}),
+							wp.element.createElement(
+								'div',
+								{ className: 'has-click-to-share-cta', style: { fontSize: clickShareFontSize } },
+								clickText,
+								' ',
+								wp.element.createElement(
+									'i',
+									{ 'class': 'material-icons', style: { fontSize: clickShareFontSize } },
+									'share'
+								)
+							)
+						)
+					)
+				)
 			);
 		}
 	}]);
