@@ -1,8 +1,8 @@
-# Copyright (C) 2019 ConvertKit
-# This file is distributed under the same license as the ConvertKit package.
+# Copyright (C) 2019 unnamed project
+# This file is distributed under the same license as the unnamed project package.
 msgid ""
 msgstr ""
-"Project-Id-Version: ConvertKit\n"
+"Project-Id-Version: unnamed project\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"

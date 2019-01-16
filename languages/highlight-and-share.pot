@@ -1,165 +1,580 @@
-# WordPress Blank Pot
-# Copyright (C) 2014 ...
-# This file is distributed under the GNU General Public License v2 or later.
+# Copyright (C) 2019 highlight-and-share
+# This file is distributed under the same license as the highlight-and-share package.
 msgid ""
 msgstr ""
-"Project-Id-Version: Highlight and Share v1.0.0\n"
-"Report-Msgid-Bugs-To: Ronald Huereca <ronalfy@gmail.com>\n"
-"POT-Creation-Date: 2015-11-07 12:54-0600\n"
-"PO-Revision-Date: \n"
-"Last-Translator: Ronald Huereca <ron@ronalfy.com>\n"
-"Language-Team: Ronald Huereca <ronalfy@gmail.com>\n"
-"Language: en_US\n"
+"Project-Id-Version: highlight-and-share\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"Plural-Forms: nplurals=2; plural=n != 1;\n"
-"X-Textdomain-Support: yesX-Generator: Poedit 1.6.4\n"
-"X-Poedit-SourceCharset: UTF-8\n"
-"X-Poedit-KeywordsList: __;_e;esc_html_e;esc_html_x:1,2c;esc_html__;"
-"esc_attr_e;esc_attr_x:1,2c;esc_attr__;_ex:1,2c;_nx:4c,1,2;_nx_noop:4c,1,2;"
-"_x:1,2c;_n:1,2;_n_noop:1,2;__ngettext:1,2;__ngettext_noop:1,2;_c,_nc:4c,1,2\n"
-"X-Poedit-Basepath: ../\n"
-"X-Generator: Poedit 1.5.3\n"
+"X-Poedit-Basepath: ..\n"
+"X-Poedit-KeywordsList: __;_e;_ex:1,2c;_n:1,2;_n_noop:1,2;_nx:1,2,4c;_nx_noop:1,2,3c;_x:1,2c;esc_attr__;esc_attr_e;esc_attr_x:1,2c;esc_html__;esc_html_e;esc_html_x:1,2c\n"
 "X-Poedit-SearchPath-0: .\n"
+"X-Poedit-SearchPathExcluded-0: *.js\n"
+"X-Poedit-SourceCharset: UTF-8\n"
+"Plural-Forms: nplurals=2; plural=(n != 1);\n"
 
-#: highlight-and-share.php:203
+#: blocks/class-has-click-to-share.php:37
+msgid "Click to Share"
+msgstr ""
+
+#: highlight-and-share.php:57
+msgid "Could not send the e-mail"
+msgstr ""
+
+#: highlight-and-share.php:58
+msgid "Not a valid e-mail address"
+msgstr ""
+
+#: highlight-and-share.php:59
+msgid "Your email has been sent"
+msgstr ""
+
+#: highlight-and-share.php:60
+msgid "Could not process your request"
+msgstr ""
+
+#: highlight-and-share.php:61
+msgid "You must supply a name"
+msgstr ""
+
+#: highlight-and-share.php:115
+msgid "Highlight and Share"
+msgstr ""
+
+#: highlight-and-share.php:131
+msgid "Icons Only"
+msgstr ""
+
+#: highlight-and-share.php:151
+msgid "Choose a Theme"
+msgstr ""
+
+#: highlight-and-share.php:156, highlight-and-share.php:1628
+msgid "Default"
+msgstr ""
+
+#: highlight-and-share.php:157, highlight-and-share.php:1629
+msgid "Brand Colors (Icons Only)"
+msgstr ""
+
+#: highlight-and-share.php:158, highlight-and-share.php:1630
+msgid "Black (Icons Only)"
+msgstr ""
+
+#: highlight-and-share.php:159, highlight-and-share.php:1631
+msgid "White (Icons Only)"
+msgstr ""
+
+#: highlight-and-share.php:160, highlight-and-share.php:1632
+msgid "Magenta (Icons Only)"
+msgstr ""
+
+#: highlight-and-share.php:161, highlight-and-share.php:1633
+msgid "Blue (Icons Only)"
+msgstr ""
+
+#: highlight-and-share.php:162, highlight-and-share.php:1634
+msgid "Green (Icons Only)"
+msgstr ""
+
+#: highlight-and-share.php:182
+msgid "Enable Twitter Sharing"
+msgstr ""
+
+#: highlight-and-share.php:204
+msgid "Enable Facebook Sharing"
+msgstr ""
+
+#: highlight-and-share.php:226
+msgid "Enable LinkedIn Sharing"
+msgstr ""
+
+#: highlight-and-share.php:248
+msgid "Enable Pinterest Sharing"
+msgstr ""
+
+#: highlight-and-share.php:270
+msgid "Enable Xing Sharing"
+msgstr ""
+
+#: highlight-and-share.php:292
+msgid "Enable WhatsApp Sharing"
+msgstr ""
+
+#: highlight-and-share.php:314
+msgid "Enable Email Sharing"
+msgstr ""
+
+#: highlight-and-share.php:336
+msgid "Enable Copy"
+msgstr ""
+
+#: highlight-and-share.php:358
+msgid "Twitter FontAwesome Class"
+msgstr ""
+
+#: highlight-and-share.php:380
+msgid "Facebook FontAwesome Class"
+msgstr ""
+
+#: highlight-and-share.php:402
+msgid "LinkedIn FontAwesome Class"
+msgstr ""
+
+#: highlight-and-share.php:424
+msgid "Pinterest FontAwesome Class"
+msgstr ""
+
+#: highlight-and-share.php:446
+msgid "Xing FontAwesome Class"
+msgstr ""
+
+#: highlight-and-share.php:468
+msgid "WhatsApp FontAwesome Class"
+msgstr ""
+
+#: highlight-and-share.php:490
+msgid "Email FontAwesome Class"
+msgstr ""
+
+#: highlight-and-share.php:512
+msgid "Copy FontAwesome Class"
+msgstr ""
+
+#: highlight-and-share.php:597
+msgid "Nonce could not be verified."
+msgstr ""
+
+#: highlight-and-share.php:615
+msgid "The Send email address is not a valid email address."
+msgstr ""
+
+#: highlight-and-share.php:622
+msgid "Your email address is not a valid email address."
+msgstr ""
+
+#: highlight-and-share.php:629
+msgid "Your name cannot be empty."
+msgstr ""
+
+#: highlight-and-share.php:635, highlight-and-share.php:650, highlight-and-share.php:1139
+msgid "[Shared Post]"
+msgstr ""
+
+#: highlight-and-share.php:638
+msgid "%s (%s) wants to share a link with you."
+msgstr ""
+
+#: highlight-and-share.php:648
+msgid "This post has been shared!"
+msgstr ""
+
+#: highlight-and-share.php:649
+msgid "You have shared this post with %s"
+msgstr ""
+
+#: highlight-and-share.php:824
 msgctxt "Plugin settings link on the plugins page"
 msgid "Settings"
 msgstr ""
 
-#: highlight-and-share.php:287
+#: highlight-and-share.php:1098
 msgctxt "Twitter share text"
 msgid "Tweet"
 msgstr ""
 
-#: highlight-and-share.php:288
+#: highlight-and-share.php:1099
 msgctxt "Facebook share text"
 msgid "Share"
 msgstr ""
 
-#: highlight-and-share.php:334 highlight-and-share.php:351
+#: highlight-and-share.php:1100
+msgctxt "LinkedIn share text"
+msgid "LinkedIn"
+msgstr ""
+
+#: highlight-and-share.php:1101
+msgctxt "Pinterest share text"
+msgid "Pinterest"
+msgstr ""
+
+#: highlight-and-share.php:1102
+msgctxt "WhatsApp share text"
+msgid "WhatsApp"
+msgstr ""
+
+#: highlight-and-share.php:1103
+msgctxt "Xing share text"
+msgid "Xing"
+msgstr ""
+
+#: highlight-and-share.php:1104
+msgctxt "Copy share text"
+msgid "Copy"
+msgstr ""
+
+#: highlight-and-share.php:1105
+msgctxt "E-mail share text"
+msgid "E-mail"
+msgstr ""
+
+#: highlight-and-share.php:1134
+msgid "Share This Post Via Email"
+msgstr ""
+
+#: highlight-and-share.php:1135, highlight-and-share.php:1138
+msgid "Your Subject"
+msgstr ""
+
+#: highlight-and-share.php:1136
+msgid "Your Name"
+msgstr ""
+
+#: highlight-and-share.php:1137
+msgid "Send to Email Address"
+msgstr ""
+
+#: highlight-and-share.php:1140
+msgid "Your Email Address"
+msgstr ""
+
+#: highlight-and-share.php:1141
+msgid "Send Email"
+msgstr ""
+
+#: highlight-and-share.php:1142
+msgid "Cancel"
+msgstr ""
+
+#: highlight-and-share.php:1143
+msgid "Close"
+msgstr ""
+
+#: highlight-and-share.php:1145
+msgid "You must fill in a subject."
+msgstr ""
+
+#: highlight-and-share.php:1146
+msgid "Send to Email Address is blank."
+msgstr ""
+
+#: highlight-and-share.php:1147
+msgid "Your email address is blank."
+msgstr ""
+
+#: highlight-and-share.php:1148
+msgid "Your name is blank."
+msgstr ""
+
+#: highlight-and-share.php:1149
+msgid "Sending..."
+msgstr ""
+
+#: highlight-and-share.php:1248, highlight-and-share.php:1265
 msgctxt "Plugin Name - Settings Page Title"
 msgid "Highlight and Share"
 msgstr ""
 
-#: highlight-and-share.php:334
+#: highlight-and-share.php:1248
 msgctxt "Plugin Name - Menu Item"
 msgid "Highlight and Share"
 msgstr ""
 
-#: highlight-and-share.php:375
+#: highlight-and-share.php:1288
+msgctxt "plugin settings heading"
+msgid "Display"
+msgstr ""
+
+#: highlight-and-share.php:1289
 msgctxt "plugin settings heading"
 msgid "Content"
 msgstr ""
 
-#: highlight-and-share.php:377
+#: highlight-and-share.php:1291
 msgctxt "plugin settings heading"
 msgid "Twitter Settings"
 msgstr ""
 
-#: highlight-and-share.php:379
+#: highlight-and-share.php:1293
 msgctxt "plugin settings heading"
 msgid "Facebook Settings"
 msgstr ""
 
-#: highlight-and-share.php:381
+#: highlight-and-share.php:1295
+msgctxt "plugin settings heading"
+msgid "LinkedIn Settings"
+msgstr ""
+
+#: highlight-and-share.php:1297
+msgctxt "plugin settings heading"
+msgid "Pinterest Settings"
+msgstr ""
+
+#: highlight-and-share.php:1299
+msgctxt "plugin settings heading"
+msgid "WhatsApp Settings"
+msgstr ""
+
+#: highlight-and-share.php:1301
+msgctxt "plugin settings heading"
+msgid "Xing Settings"
+msgstr ""
+
+#: highlight-and-share.php:1303
+msgctxt "plugin settings heading"
+msgid "Copy Settings"
+msgstr ""
+
+#: highlight-and-share.php:1305
+msgctxt "plugin settings heading"
+msgid "E-mail Settings"
+msgstr ""
+
+#: highlight-and-share.php:1307
 msgctxt "plugin settings heading"
 msgid "Post URL Settings"
 msgstr ""
 
-#: highlight-and-share.php:383
+#: highlight-and-share.php:1309
 msgctxt "plugin settings heading"
 msgid "Advanced"
 msgstr ""
 
-#: highlight-and-share.php:385
+#: highlight-and-share.php:1311
+msgid "Show Icons Only"
+msgstr ""
+
+#: highlight-and-share.php:1311
+msgid "Show icons only. Recommended if you choose more than two options to show."
+msgstr ""
+
+#: highlight-and-share.php:1313
+msgid "Choose Theme"
+msgstr ""
+
+#: highlight-and-share.php:1313
+msgid "Choose a theme to display on the front-end. Some themes require Show Icons Only to be enabled."
+msgstr ""
+
+#: highlight-and-share.php:1315
 msgid "Add to Post Content"
 msgstr ""
 
-#: highlight-and-share.php:385
+#: highlight-and-share.php:1315
 msgid "Would you like to add sharing to the main content areas?"
 msgstr ""
 
-#: highlight-and-share.php:387
+#: highlight-and-share.php:1317
 msgid "Add to Excerpt Content"
 msgstr ""
 
-#: highlight-and-share.php:387
+#: highlight-and-share.php:1317
 msgid "Would you like to add sharing to the excerpts?"
 msgstr ""
 
-#: highlight-and-share.php:389
+#: highlight-and-share.php:1319
 msgid "Show Twitter Option"
 msgstr ""
 
-#: highlight-and-share.php:389
+#: highlight-and-share.php:1319
 msgid "Would you like to enable sharing via Twitter?"
 msgstr ""
 
-#: highlight-and-share.php:391
+#: highlight-and-share.php:1321
+msgid "Show LinkedIn Option"
+msgstr ""
+
+#: highlight-and-share.php:1321
+msgid "Would you like to enable sharing via LinkedIn?"
+msgstr ""
+
+#: highlight-and-share.php:1323
+msgid "Show Pinterest Option"
+msgstr ""
+
+#: highlight-and-share.php:1323
+msgid "Would you like to enable sharing via Pinterest?"
+msgstr ""
+
+#: highlight-and-share.php:1325
+msgid "Show WhatsApp Option"
+msgstr ""
+
+#: highlight-and-share.php:1325
+msgid "Would you like to enable sharing via WhatsApp?"
+msgstr ""
+
+#: highlight-and-share.php:1327
+msgid "Show Xing Option"
+msgstr ""
+
+#: highlight-and-share.php:1327
+msgid "Would you like to enable sharing via Xing?"
+msgstr ""
+
+#: highlight-and-share.php:1329
+msgid "Show Copy Option"
+msgstr ""
+
+#: highlight-and-share.php:1329
+msgid "Would you like to enable sharing via copying?"
+msgstr ""
+
+#: highlight-and-share.php:1331
+msgid "Show E-mail Option"
+msgstr ""
+
+#: highlight-and-share.php:1331
+msgid "Would you like to enable sharing via E-mail?"
+msgstr ""
+
+#: highlight-and-share.php:1333
 msgid "Twitter Username"
 msgstr ""
 
-#: highlight-and-share.php:391
+#: highlight-and-share.php:1333
 msgid "Enter Your Twitter Username"
 msgstr ""
 
-#: highlight-and-share.php:393
+#: highlight-and-share.php:1335
 msgid "Show Facebook Option"
 msgstr ""
 
-#: highlight-and-share.php:393
+#: highlight-and-share.php:1335
 msgid "Would you like to enable sharing via Facebook?"
 msgstr ""
 
-#: highlight-and-share.php:395
+#: highlight-and-share.php:1336
+msgid "Facebook App ID"
+msgstr ""
+
+#: highlight-and-share.php:1336
+msgid "A Facebook App ID allows you to highlight text and share it."
+msgstr ""
+
+#: highlight-and-share.php:1338
 msgid "Shortlinks"
 msgstr ""
 
-#: highlight-and-share.php:395
-msgid ""
-"Please decide if you would like to use the default post URL or a shortened "
-"version."
+#: highlight-and-share.php:1338
+msgid "Please decide if you would like to use the default post URL or a shortened version."
 msgstr ""
 
-#: highlight-and-share.php:397
+#: highlight-and-share.php:1340
 msgctxt "Label - Where in the HTML document to search for text to capture"
 msgid "jQuery classes"
 msgstr ""
 
-#: highlight-and-share.php:397
-msgid ""
-"Enter jQuery classes to search for in the HTML.  You must comma-separate "
-"classes (e.g., entry-content,post,page)."
+#: highlight-and-share.php:1340
+msgid "Enter jQuery classes to search for in the HTML.  You must comma-separate classes (e.g., entry-content,post,page)."
 msgstr ""
 
-#: highlight-and-share.php:453
+#: highlight-and-share.php:1341
+msgid "Font Awesome Classes"
+msgstr ""
+
+#: highlight-and-share.php:1341
+msgid "Enter your own Font Awesome classes for the icons."
+msgstr ""
+
+#: highlight-and-share.php:1399
 msgctxt "Twitter username error"
 msgid "You have entered an incorrect Twitter username"
 msgstr ""
 
-#: highlight-and-share.php:462
+#: highlight-and-share.php:1418
 msgctxt "Invalid comma-separated values"
 msgid "You must enter valid comma-separated values for the content."
 msgstr ""
 
-#: highlight-and-share.php:544
+#: highlight-and-share.php:1511
+msgid "Twitter Font Awesome Class"
+msgstr ""
+
+#: highlight-and-share.php:1517
+msgid "Facebok Font Awesome Class"
+msgstr ""
+
+#: highlight-and-share.php:1523
+msgid "LinkedIn Font Awesome Class"
+msgstr ""
+
+#: highlight-and-share.php:1529
+msgid "Pinterest Font Awesome Class"
+msgstr ""
+
+#: highlight-and-share.php:1535
+msgid "Xing Font Awesome Class"
+msgstr ""
+
+#: highlight-and-share.php:1541
+msgid "WhatsApp Font Awesome Class"
+msgstr ""
+
+#: highlight-and-share.php:1547
+msgid "Copy Font Awesome Class"
+msgstr ""
+
+#: highlight-and-share.php:1553
+msgid "Email Font Awesome Class"
+msgstr ""
+
+#: highlight-and-share.php:1601
+msgid "Enable Icons Only?"
+msgstr ""
+
+#: highlight-and-share.php:1602
+msgid "Better Font Awesome"
+msgstr ""
+
+#: highlight-and-share.php:1627
+msgid "Off"
+msgstr ""
+
+#: highlight-and-share.php:1660
 msgid "Enable Twitter Sharing?"
 msgstr ""
 
-#: highlight-and-share.php:568
+#: highlight-and-share.php:1683
+msgid "Enable LinkedIn Sharing?"
+msgstr ""
+
+#: highlight-and-share.php:1706
+msgid "Enable Pinterest Sharing?"
+msgstr ""
+
+#: highlight-and-share.php:1729
+msgid "Enable Xing Sharing?"
+msgstr ""
+
+#: highlight-and-share.php:1752
+msgid "Enable WhatsApp Sharing?"
+msgstr ""
+
+#: highlight-and-share.php:1776
+msgid "Enable E-mail Sharing?"
+msgstr ""
+
+#: highlight-and-share.php:1800
+msgid "Enable Copying"
+msgstr ""
+
+#: highlight-and-share.php:1823
 msgid "Enable Facebook Sharing?"
 msgstr ""
 
-#: highlight-and-share.php:592
+#: highlight-and-share.php:1849
+msgid "Requires a Facebook developer application."
+msgstr ""
+
+#: highlight-and-share.php:1874
 msgid "Enable Content?"
 msgstr ""
 
-#: highlight-and-share.php:616
+#: highlight-and-share.php:1897
 msgid "Enable Excerpt?"
 msgstr ""
 
-#: highlight-and-share.php:640
+#: highlight-and-share.php:1920
 msgid "Enable Shortlinks?"
 msgstr ""

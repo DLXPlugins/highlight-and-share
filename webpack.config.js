@@ -113,10 +113,10 @@ if ( inProduction ) {
 
     // POT file.
     wpPot( {
-        package: 'ConvertKit',
-        domain: 'post-type-archive-mapping',
-        destFile: 'languages/post-type-archive-mapping.pot',
+        domain: 'highlight-and-share',
+        destFile: 'languages/highlight-and-share.pot',
         relativeTo: './',
+        src: '**/*.php'
     } );
 
     // Uglify JS.

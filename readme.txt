@@ -3,7 +3,7 @@ Contributors: ronalfy, bigwing
 Tags: highlight, share, twitter, facebook
 Requires at least: 4.7
 Tested up to: 5.0
-Stable tag: 2.4.8
+Stable tag: 3.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://mediaron.com/give/
@@ -17,6 +17,8 @@ A WordPress plugin for highlighting text and sharing it via Twitter and Facebook
 Sharing selectable text is only possible via Twitter, Facebook, and WhatsApp. However an option to share the post via LinkedIn, Pinterest, and E-mail are also present when highlighting text as a convenience.
 
 This plugin is intended to be highly flexible in selecting content areas (via the Plugin's settings).
+
+The plugin also has a Gutenberg block that is a click-to-share piece.
 
 If you have a feature request, <a href="https://github.com/ronalfy/highlight-and-share/issues">please add a GitHub issue</a>.
 
@@ -76,6 +78,7 @@ FontAwesome 5 deprecated a lot of FontAwesome 4, so head to the settings and go 
 * For Pinterest, enter `fab fa-pinterest`
 * For Xing, enter `fab fa-xing`
 * For WhatsApp, enter `fab fa-whatsapp`
+* For Copy, enter far `fa-copy`
 * For Email, you can leave this as `fa fa-envelope`
 
 = I want to include my own CSS.  How can I do that? =
@@ -106,6 +109,11 @@ So far, the latest versions of Chrome, Firefox, and Safari. Works for IE9+
 8. Email functionality
 
 == Changelog ==
+
+= 3.0.0 =
+* Released 2019-01-16
+* Added copy functionality.
+* Added Click to Share Gutenberg block.
 
 = 2.4.8 =
 * Released 2018-12-12
@@ -220,6 +228,9 @@ So far, the latest versions of Chrome, Firefox, and Safari. Works for IE9+
 * Initial release on WordPress.org
 
 == Upgrade Notice ==
+
+= 3.0.0 =
+Added copy functionality. Added Click to Share Gutenberg block.
 
 = 2.4.8 =
 Highlighted text now shows in email notifications

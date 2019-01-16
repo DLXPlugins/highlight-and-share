@@ -262,7 +262,7 @@ jQuery( document ).ready( function( $ ) {
 		html += '<input type="email" name="has_target_email" id="has_target_email" />';
 		html += '<label for="has_source_name">' + highlight_and_share.email_your_name + '</label>';
 		html += '<input type="text" name="has_source_name" id="has_source_name" value="' + highlight_and_share.email_your_name_value + '" />';
-		html += '<textarea style="display: none" name="has_selected_text" id="has_selected_text">' + has_get_selection() + '</textarea>';
+		html += '<textarea style="display: none" name="has_selected_text" id="has_selected_text">' + (text_to_copy ? text_to_copy : has_get_selection()) + '</textarea>';
 		html += '<label for="has_email_subject">' + highlight_and_share.email_subject  + '</label>';
 		html += '<input type="text" class="has_email_subject" name="has_email_subject" id="has_email_subject" value="' + subject + '" />';
 		html += '<label for="has_source_email">' + highlight_and_share.email_from + '</label>';

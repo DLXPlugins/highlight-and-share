@@ -846,6 +846,9 @@ class Highlight_And_Share {
 			wp_register_script( 'sweetalert2', $sweet_alert_uri, array( 'jquery' ), '7.28.4', true );
 			$main_script_uri = $this->get_plugin_url( 'js/highlight-and-share.js' );
 			wp_enqueue_script( 'highlight-and-share', $main_script_uri, $deps, HIGHLIGHT_AND_SHARE_VERSION, true );
+			if (function_exists( 'wp_set_script_translations' ) ) {
+				wp_set_script_translations( 'highlight-and-share', 'highlight-and-share' );
+			}
 
 			/**Build JSON Object**/
 			$settings = $this->get_plugin_options();
