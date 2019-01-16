@@ -12,3 +12,5 @@ wp-content/upgrade/
 wp-content/uploads/
 wp-content/wp-cache-config.php
 /deploy.sh
+
+\.DS_Store
