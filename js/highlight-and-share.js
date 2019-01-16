@@ -11,12 +11,8 @@ jQuery( document ).ready( function( $ ) {
 	var has_selected_text = '';
 
 	var has_load_html = function() {
-		if ( highlight_and_share.icons == false ) {
-			var html = '<div class="highlight-and-share-wrapper" style="display: none">';
-		} else {
-			var html = '<div class="highlight-and-share-wrapper has-icons" style="display: none">';
-		}
 		var html = '<div class="highlight-and-share-wrapper">';
+		var click_to_share = '<div class="highlight-and-share-wrapper-cts">';
 		if ( highlight_and_share.show_twitter && '' != highlight_and_share.twitter_username ) {
 			if ( highlight_and_share.icons == false ) {
 				html += '<div class="has_twitter" style="display: none;" data-type="twitter"><a href="https://twitter.com/intent/tweet?via=%username%&url=%url%&text=%text%" target="_blank"><i class="' + highlight_and_share.twitter_fa_class + '"></i>&nbsp;' + highlight_and_share.tweet_text + '</a></div>';
@@ -100,8 +96,11 @@ jQuery( document ).ready( function( $ ) {
 				html += '<div class="has_email" style="display: none;" data-type="email" data-title="%title%" data-url="%url%"><a href="' + highlight_and_share.ajax_url + '" target="_blank"><i class="' + highlight_and_share.email_fa_class + '"></i></a></div>';
 			}
 		}
+		click_to_share = html;
+		click_to_share += '</div>';
 		html += '</div><!-- #highlight-and-share-wrapper -->';
 		$( 'body' ).append( html );
+		$( 'body' ).append( click_to_share );
 	};
 
 	//Initialize events
