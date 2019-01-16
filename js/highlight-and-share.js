@@ -192,6 +192,11 @@ jQuery( document ).ready( function( $ ) {
 		window.open( this.href,"whatsapp","width=575,height=430,toolbar=false,menubar=false,location=false,status=false");
 		has_remove();
 	} );
+	$( 'body' ).on( 'click', '.has_copy a', function( e ) {
+		e.preventDefault();
+		document.execCommand("copy");
+		has_remove();
+	})
 	$( 'body' ).on( 'click', '.has_email a', function( e ) {
 		e.preventDefault();
 		if( highlight_and_share.customizer_preview ) {
