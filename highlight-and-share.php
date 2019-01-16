@@ -1019,6 +1019,18 @@ class Highlight_And_Share {
 				$json_arr[ 'whatsapp_fa_class' ] = sanitize_text_field( $settings[ 'whatsapp_fa_class' ] );
 			}
 
+			// Copy FontAwesome Class
+			if( is_customize_preview()) {
+				$font_awesome = get_option( 'highlight-and-share');
+				if( !isset( $font_awesome[ 'copy_fa_class' ] ) ) {
+					$json_arr[ 'copy_fa_class' ] = sanitize_text_field( $settings[ 'copy_fa_class' ] );
+				} else {
+					$json_arr[ 'copy_fa_class' ] = $font_awesome[ 'copy_fa_class' ];
+				}
+			} else {
+				$json_arr[ 'copy_fa_class' ] = sanitize_text_field( $settings[ 'copy_fa_class' ] );
+			}
+
 			// Email FontAwesome Class
 			if( is_customize_preview()) {
 				$font_awesome = get_option( 'highlight-and-share');
@@ -1281,6 +1293,8 @@ class Highlight_And_Share {
 
 		add_settings_section( 'has-xing', _x( 'Xing Settings', 'plugin settings heading' , 'highlight-and-share' ), array( $this, 'settings_section' ), 'highlight-and-share' );
 
+		add_settings_section( 'has-copy', _x( 'Copy Settings', 'plugin settings heading' , 'highlight-and-share' ), array( $this, 'settings_section' ), 'highlight-and-share' );
+
 		add_settings_section( 'has-email', _x( 'E-mail Settings', 'plugin settings heading' , 'highlight-and-share' ), array( $this, 'settings_section' ), 'highlight-and-share' );
 
 		add_settings_section( 'has-shortlink', _x( 'Post URL Settings', 'plugin settings heading' , 'highlight-and-share' ), array( $this, 'settings_section' ), 'highlight-and-share' );
@@ -1304,6 +1318,8 @@ class Highlight_And_Share {
 		add_settings_field( 'hightlight-and-share-whatsapp-enable', __( 'Show WhatsApp Option', 'highlight-and-share' ), array( $this, 'add_settings_field_whatsapp_enable' ), 'highlight-and-share', 'has-whatsapp', array( 'desc' => __( 'Would you like to enable sharing via WhatsApp?', 'highlight-and-share' ) ) );
 
 		add_settings_field( 'hightlight-and-share-xing-enable', __( 'Show Xing Option', 'highlight-and-share' ), array( $this, 'add_settings_field_xing_enable' ), 'highlight-and-share', 'has-xing', array( 'desc' => __( 'Would you like to enable sharing via Xing?', 'highlight-and-share' ) ) );
+
+		add_settings_field( 'hightlight-and-share-copy-enable', __( 'Show Copy Option', 'highlight-and-share' ), array( $this, 'add_settings_field_copy_enable' ), 'highlight-and-share', 'has-copy', array( 'desc' => __( 'Would you like to enable sharing via copying?', 'highlight-and-share' ) ) );
 
 		add_settings_field( 'hightlight-and-share-email-enable', __( 'Show E-mail Option', 'highlight-and-share' ), array( $this, 'add_settings_field_email_enable' ), 'highlight-and-share', 'has-email', array( 'desc' => __( 'Would you like to enable sharing via E-mail?', 'highlight-and-share' ) ) );
 
@@ -1405,6 +1421,7 @@ class Highlight_And_Share {
 				case 'xing_fa_class':
 				case 'whatsapp_fa_class':
 				case 'email_fa_class':
+				case 'copy_fa_class':
 					$output[ $key ] = sanitize_text_field( $value );
 					break;
 				case 'show_twitter':
@@ -1418,6 +1435,7 @@ class Highlight_And_Share {
 				case 'show_whatsapp':
 				case 'show_pinterest':
 				case 'show_linkedin':
+				case 'show_copy':
 					if ( $input[ $key ] == 'on' ) {
 						$output[ $key ] = true;
 					} else {
@@ -1478,6 +1496,7 @@ class Highlight_And_Share {
 		$xing_fa_class = isset( $settings[ 'xing_fa_class' ] ) ? $settings[ 'xing_fa_class' ] : '';
 		$whatsapp_fa_class = isset( $settings[ 'whatsapp_fa_class' ] ) ? $settings[ 'whatsapp_fa_class' ] : '';
 		$email_fa_class = isset( $settings[ 'email_fa_class' ] ) ? $settings[ 'email_fa_class' ] : '';
+		$copy_fa_class = isset( $settings[ 'copy_fa_class' ] ) ? $settings[ 'copy_fa_class' ] : '';
 		printf( '<p>%s</p>', esc_html( $args[ 'desc' ] ) );
 
 		// Twitter
@@ -1514,6 +1533,12 @@ class Highlight_And_Share {
 		echo '<p>';
 		printf( '<label for="whatsapp_fa_class"><strong>%s</strong></label><br />', esc_html__( 'WhatsApp Font Awesome Class', 'highlight-and-share' ) );
 		printf( '<input id="whatsapp_fa_class" type="text" name="highlight-and-share[whatsapp_fa_class]" value="%s" />', esc_attr( $whatsapp_fa_class ) );
+		echo '</p>';
+
+		// Copy
+		echo '<p>';
+		printf( '<label for="copy_fa_class"><strong>%s</strong></label><br />', esc_html__( 'Copy Font Awesome Class', 'highlight-and-share' ) );
+		printf( '<input id="copy_fa_class" type="text" name="highlight-and-share[copy_fa_class]" value="%s" />', esc_attr( $copy_fa_class ) );
 		echo '</p>';
 
 		// Email
@@ -1745,6 +1770,30 @@ class Highlight_And_Share {
 	}
 
 	/**
+	 * Add Copy Option for Sharing
+	 *
+	 * Output checkbox for displaying E-mail sharing.
+	 *
+	 * @since 3.0.0
+	 * @access public
+	 *
+	 * @see init_admin_settings
+	 *
+	 * @param array $args {
+	 *		@type string $label_for Settings label and ID.
+	 *
+	 *		@type string $desc Description for the setting.
+	 *
+	 * }
+	 */
+	public function add_settings_field_copy_enable( $args = array() ) {
+		$settings = $this->get_plugin_options();
+		$copy = isset( $settings[ 'show_copy' ] ) ? (bool)$settings[ 'show_copy' ] : true;
+		echo '<input name="highlight-and-share[show_copy]" value="off" type="hidden" />';
+		printf( '<input id="has-show-copy" type="checkbox" name="highlight-and-share[show_copy]" value="on" %s />&nbsp;<label for="has-show-copy">%s</label>', checked( true, $copy, false ), __( 'Enable Copying', 'highlight-and-share' ) );
+	}
+
+	/**
 	 * Add Facebook option for sharing.
 	 *
 	 * Output checkbox for displaying Facebook sharing.
@@ -1891,6 +1940,7 @@ class Highlight_And_Share {
 			'show_linkedin'      => false,
 			'show_pinterest'     => false,
 			'show_email'         => false,
+			'show_copy'          => false,
 			'show_whatsapp'      => false,
 			'show_xing'          => false,
 			'enable_content'     => true,
@@ -1905,6 +1955,7 @@ class Highlight_And_Share {
 			'xing_fa_class'      => 'fa fa-xing',
 			'whatsapp_fa_class'  => 'fa fa-whatsapp',
 			'email_fa_class'     => 'fa fa-envelope',
+			'copy_fa_class'      => 'fa fa-copy'
 		);
 
 		if ( false === $settings || ! is_array( $settings ) ) {

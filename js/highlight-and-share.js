@@ -84,6 +84,13 @@ jQuery( document ).ready( function( $ ) {
 				html += '<div class="has_whatsapp" style="display: none;" data-type="whatsapp"><a href="https://wa.me/?text=%text%' + ' - ' + highlight_and_share.from + ': ' + '%url%" target="_blank"><i class="' + highlight_and_share.whatsapp_fa_class + '"></i></a></div>';
 			}
 		}
+		if ( highlight_and_share.show_copy ) {
+			if ( highlight_and_share.icons == false ) {
+				html += '<div class="has_copy" style="display: none;" data-type="copy"><a href="#"><i class="' + highlight_and_share.copy_fa_class + '"></i>&nbsp;' + highlight_and_share.copy_text + '</a></div>';
+			} else {
+				html += '<div class="has_copy" style="display: none;" data-type="copy"><a href="#"><i class="' + highlight_and_share.copy_fa_class + '"></i></a></div>';
+			}
+		}
 
 		if ( highlight_and_share.show_email ) {
 			if ( highlight_and_share.icons == false ) {
@@ -362,7 +369,7 @@ jQuery( document ).ready( function( $ ) {
 
 		wrapper_clone.css( { position: 'absolute', display: 'block', left: wrapper_x, top: wrapper_y, width: 'auto', height: 'auto', 'z-index': 10000 } );
 
-		$children = wrapper_clone.find( '.has_whatsapp, .has_xing, .has_pinterest, .has_linkedin, .has_facebook, .has_twitter, .has_email' );
+		$children = wrapper_clone.find( '.has_whatsapp, .has_xing, .has_pinterest, .has_linkedin, .has_facebook, .has_twitter, .has_copy, .has_email' );
 		$.each( $children, function( index, item ) {
 			var div = $( this );
 			var url = div.find( 'a' ).attr( 'href' );
