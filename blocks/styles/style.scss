@@ -1,0 +1,33 @@
+/**
+ * Editor styles for the admin
+ */
+
+ .has-click-to-share {
+	position: relative;
+	&:after {
+        content: "";
+        display: table;
+        clear: both;
+	}
+	z-index: 1000;
+}
+.has-click-to-share-text {
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+	font-weight: 100;
+	line-height: 1.4;
+}
+.has-click-to-share-cta {
+	position: relative;
+	float: right;
+	font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
+	font-weight: 100;
+	font-size: 24px;
+}
+.has-click-prompt {
+	display: block;
+	position: absolute;
+	width: 100%;
+	height: 100%;
+	top: 0;
+	left: 0;
+}

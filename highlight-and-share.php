@@ -51,7 +51,7 @@ class Highlight_And_Share {
 
 		add_action( 'wp', array( $this, 'wp_loaded' ), 15 );
 
-		define( 'HIGHLIGHT_AND_SHARE_VERSION', '2.4.7=8');
+		define( 'HIGHLIGHT_AND_SHARE_VERSION', '3.0.0');
 
 		// Get errors for email
 		$this->errors[ 'could_not_send' ] = esc_html__( 'Could not send the e-mail', 'highlight-and-share' );
@@ -70,7 +70,11 @@ class Highlight_And_Share {
 		// For the icons
 		$this->maybe_migrate_icons();
 
+		// Customizer
 		add_action( 'customize_register', array( $this, 'customizer' ) );
+
+		// Gutenberg block
+		include 'blocks/class-has-click-to-share.php';
 
 	} //end constructor
 
