@@ -31,7 +31,7 @@
     background: #CC2127;
 }
 .highlight-and-share-wrapper div.has_copy {
-    background: #E8E8E8;
+    background: #222222;
 }
 .highlight-and-share-wrapper div.has_email {
     background: #0074a2;
@@ -55,7 +55,7 @@
     background: #d93238;
 }
 .highlight-and-share-wrapper div.has_copy:hover {
-    background: #E8e8e8;
+    background: #333333;
 }
 .highlight-and-share-wrapper div.has_email:hover {
     background: #1388b7;
