@@ -117,9 +117,11 @@ function has_click_to_share( $attributes ) {
 			<div class="has-click-to-share-text" style="color: <?php echo esc_attr( $attributes['textColor'] ); ?>; font-size: <?php echo esc_attr( $attributes['fontSize'] ); ?>px; font-weight: <?php echo esc_attr( $attributes['fontWeight'] ); ?>">
 				<?php echo wp_kses_post( $attributes['shareText'] ); ?>
 			</div>
-			<div class='has-click-to-share-cta' style="font-size: <?php echo esc_attr( $attributes['clickShareFontSize'] ); ?>">
+			<div class='has-click-to-share-cta' style="font-size: <?php echo esc_attr( $attributes['clickShareFontSize'] ); ?>; color: <?php echo esc_attr( $attributes['textColor'] ); ?>">
 			<?php echo wp_kses_post( $attributes['clickText'] ); ?> <i class="material-icons" style="font-size: <?php echo esc_attr( $attributes['clickShareFontSize'] ); ?>">share</i>
 			</div>
+			<a class="has-click-prompt" href="#">
+			</a>
 		</div>
 	</div>
 	<?php
