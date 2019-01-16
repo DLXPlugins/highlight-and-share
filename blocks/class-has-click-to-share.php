@@ -110,7 +110,9 @@ function has_click_to_share( $attributes ) {
 		if( 'right' == alignment ) {
 			hasStyles.float = 'right';
 		}
-		 */
+
+		*/
+		global $post;
 	?>
 	<div class='has-click-to-share' style="padding: <?php echo esc_attr( $attributes['padding'] ); ?>px; border: <?php echo esc_attr( $attributes['border'] . 'px solid' . ' ' . $attributes['borderColor'] ); ?>; border-radius: <?php echo esc_attr( $attributes['borderRounded'] ); ?>px; background-color: <?php echo esc_attr( $attributes['backgroundColor'] ); ?>; color: <?php echo esc_attr( $attributes['textColor'] ); ?>; max-width: <?php echo esc_attr( $attributes['maxWidth'] ); ?>%; margin-left: <?php echo esc_attr( $attributes['marginLeft'] ); ?>px; margin-right: <?php echo esc_attr( $attributes['marginRight'] ); ?>px; margin-bottom: <?php echo esc_attr( $attributes['marginBottom'] ); ?>px; margin-Top: <?php echo esc_attr( $attributes['marginTop'] ); ?>px; <?php echo 'center' === $attributes['alignment'] ? 'margin: 0 auto;' : ''; ?><?php echo 'left' === $attributes['alignment'] ? 'float: left;' : ''; ?><?php echo 'right' === $attributes['alignment'] ? 'float: right;' : ''; ?>">
 		<div class="has-click-to-share-wrapper">
@@ -120,7 +122,7 @@ function has_click_to_share( $attributes ) {
 			<div class='has-click-to-share-cta' style="font-size: <?php echo esc_attr( $attributes['clickShareFontSize'] ); ?>; color: <?php echo esc_attr( $attributes['textColor'] ); ?>">
 			<?php echo wp_kses_post( $attributes['clickText'] ); ?> <i class="material-icons" style="font-size: <?php echo esc_attr( $attributes['clickShareFontSize'] ); ?>">share</i>
 			</div>
-			<a class="has-click-prompt" href="#">
+			<a class="has-click-prompt" href="#" data-title="<?php echo esc_attr( $post->post_title ); ?>" data-url="<?php echo esc_url( get_permalink( $post->ID ) ); ?>">
 			</a>
 		</div>
 	</div>
