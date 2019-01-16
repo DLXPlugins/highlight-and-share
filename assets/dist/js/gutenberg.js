@@ -28596,8 +28596,7 @@ var _wp$components = wp.components,
     withAPIData = _wp$components.withAPIData;
 var _wp$editor = wp.editor,
     InspectorControls = _wp$editor.InspectorControls,
-    BlockAlignmentToolbar = _wp$editor.BlockAlignmentToolbar,
-    BlockControls = _wp$editor.BlockControls;
+    RichText = _wp$editor.RichText;
 
 var HAS_Click_To_Share = function (_Component) {
 	_inherits(HAS_Click_To_Share, _Component);
@@ -28605,16 +28604,51 @@ var HAS_Click_To_Share = function (_Component) {
 	function HAS_Click_To_Share() {
 		_classCallCheck(this, HAS_Click_To_Share);
 
-		return _possibleConstructorReturn(this, (HAS_Click_To_Share.__proto__ || Object.getPrototypeOf(HAS_Click_To_Share)).apply(this, arguments));
+		var _this = _possibleConstructorReturn(this, (HAS_Click_To_Share.__proto__ || Object.getPrototypeOf(HAS_Click_To_Share)).apply(this, arguments));
+
+		_this.onChangeValue = function (value) {
+			_this.setState({
+				shareText: value
+			});
+		};
+
+		return _this;
 	}
 
 	_createClass(HAS_Click_To_Share, [{
 		key: 'render',
 		value: function render() {
+			var _this2 = this;
+
+			var _props = this.props,
+			    _props$attributes = _props.attributes,
+			    shareText = _props$attributes.shareText,
+			    backgroundColor = _props$attributes.backgroundColor,
+			    textColor = _props$attributes.textColor,
+			    fontSize = _props$attributes.fontSize,
+			    attributes = _props.attributes,
+			    isSelected = _props.isSelected,
+			    editable = _props.editable,
+			    className = _props.className,
+			    setAttributes = _props.setAttributes;
+
 			return wp.element.createElement(
-				Fragment,
-				null,
-				'Hello World'
+				'div',
+				{ className: 'has-click-to-share\'' },
+				wp.element.createElement(RichText, {
+					tagName: 'div',
+					placeholder: __('Add share text', 'highlight-and-share'),
+					value: shareText,
+					className: 'has-click-to-share-text',
+					style: {
+						color: textColor,
+						fontSize: fontSize + 'px'
+					},
+					formattingControls: [],
+					onChange: function onChange(value) {
+						_this2.onChangeValue(value);setAttributes({ shareText: value });
+					}
+				})
 			);
 		}
 	}]);

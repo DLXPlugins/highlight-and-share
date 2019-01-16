@@ -38,8 +38,7 @@ const {
 
 const {
 	InspectorControls,
-	BlockAlignmentToolbar,
-	BlockControls,
+	RichText,
 } = wp.editor;
 
 class HAS_Click_To_Share extends Component {
@@ -47,11 +46,43 @@ class HAS_Click_To_Share extends Component {
 		super( ...arguments );
 	}
 
+	onChangeValue = (value) => {
+		this.setState( {
+			shareText: value
+		} );
+	}
+
 	render() {
+
+		let {
+			attributes: {
+				shareText,
+				backgroundColor,
+				textColor,
+				fontSize,
+
+			},
+			attributes,
+			isSelected,
+			editable,
+			className,
+			setAttributes
+		} = this.props;
 		return (
-			<Fragment>
-			Hello World
-			</Fragment>
+			<div className="has-click-to-share'">
+				<RichText
+					tagName="div"
+					placeholder={ __( 'Add share text', 'highlight-and-share' ) }
+					value={ shareText }
+					className='has-click-to-share-text'
+					style={ {
+						color: textColor,
+						fontSize: fontSize + 'px'
+					} }
+					formattingControls={[]}
+					onChange={ ( value ) => { this.onChangeValue(value); setAttributes( { shareText: value } ) } }
+				/>
+			</div>
 		)
 	}
 }
