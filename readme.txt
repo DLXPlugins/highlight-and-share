@@ -1,9 +1,9 @@
 === Highlight and Share ===
 Contributors: ronalfy, bigwing
-Tags: highlight, share, twitter, facebook
+Tags: highlight, share, twitter, facebook, block
 Requires at least: 4.7
 Tested up to: 5.0
-Stable tag: 3.0.0
+Stable tag: 3.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://mediaron.com/give/
@@ -12,7 +12,7 @@ A WordPress plugin for highlighting text and sharing it via Twitter and Facebook
 
 == Description ==
 
-A WordPress plugin for highlighting text and sharing it via Twitter and Facebook and other services including LinkedIn, Email, Xing, and WhatsApp.
+A WordPress plugin for highlighting text and sharing it via Twitter and Facebook and other services including LinkedIn, Email, Xing, and WhatsApp. There's also a built-in Gutenberg block that will allow your users to Click to Share.
 
 Sharing selectable text is only possible via Twitter, Facebook, and WhatsApp. However an option to share the post via LinkedIn, Pinterest, and E-mail are also present when highlighting text as a convenience.
 
@@ -36,6 +36,7 @@ https://www.youtube.com/watch?v=GMr4tmmKMz8
 <li>Customize the Twitter username used.</li>
 <li>Advanced: Override which content is selectable (using jQuery class notation without the dots).</li>
 <li>Advanced: Override the Font Awesome classes, especially if you're using Font Awesome 5</li>
+<lk>Advanced: Gutenberg block for Click to Share</li>
 </ul>
 
 Advanced customization is allowed via hooks.  See the plugin's <a href="https://github.com/ronalfy/highlight-and-share#plugin-filters">GitHub page for filter documentation</a>.
@@ -109,6 +110,10 @@ So far, the latest versions of Chrome, Firefox, and Safari. Works for IE9+
 8. Email functionality
 
 == Changelog ==
+
+= 3.0.1 =
+* Released 2019-01-17
+* Fixing multiple HAS interfaces showing in Gutenberg block.
 
 = 3.0.0 =
 * Released 2019-01-16
@@ -228,6 +233,9 @@ So far, the latest versions of Chrome, Firefox, and Safari. Works for IE9+
 * Initial release on WordPress.org
 
 == Upgrade Notice ==
+
+= 3.0.1 =
+Fixing multiple HAS interfaces showing in Gutenberg block.
 
 = 3.0.0 =
 Added copy functionality. Added Click to Share Gutenberg block.
