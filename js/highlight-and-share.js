@@ -122,8 +122,8 @@ jQuery( document ).ready( function( $ ) {
 		}
 		click_to_share += '</div>';
 		html += '</div><!-- #highlight-and-share-wrapper -->';
-		$( 'body' ).append( html );
 		$( 'body' ).append( click_to_share );
+		$( 'body' ).append( html );
 	};
 
 	//Initialize events

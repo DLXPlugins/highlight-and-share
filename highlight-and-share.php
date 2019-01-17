@@ -4,7 +4,7 @@ Plugin Name: Highlight and Share
 Plugin URI: https://wordpress.org/plugins/highlight-and-share/
 Description: Highlight text and share via Twitter or Facebook and many more
 Author: Ronald Huereca
-Version: 3.0.1
+Version: 3.0.3
 Requires at least: 4.7
 Author URI: https://mediaron.com
 Contributors: ronalfy
@@ -51,7 +51,7 @@ class Highlight_And_Share {
 
 		add_action( 'wp', array( $this, 'wp_loaded' ), 15 );
 
-		define( 'HIGHLIGHT_AND_SHARE_VERSION', '3.0.1');
+		define( 'HIGHLIGHT_AND_SHARE_VERSION', '3.0.3');
 
 		// Get errors for email
 		$this->errors[ 'could_not_send' ] = esc_html__( 'Could not send the e-mail', 'highlight-and-share' );
@@ -599,8 +599,8 @@ class Highlight_And_Share {
 		}
 
 		// Set Email Variables
-		$email_to = trim( urldecode( $ajax_data[ 'has_target_email' ] ) );
-		$email_from = trim( urldecode( $ajax_data[ 'has_source_email' ] ) );
+		$email_to = trim( sanitize_text_field( $ajax_data[ 'has_target_email' ] ) );
+		$email_from = trim( sanitize_text_field( $ajax_data[ 'has_source_email' ] ) );
 		$email_name = trim( urldecode( $ajax_data[ 'has_source_name' ] ) );
 		$email_subject = trim( urldecode( $ajax_data[ 'has_email_subject' ] ) );
 		$email_selected_text = trim( urldecode( $ajax_data[ 'has_selected_text' ] ) );
@@ -608,7 +608,7 @@ class Highlight_And_Share {
 		// Set title and url variables
 		$title = trim( urldecode( $ajax_data[ 'has_source_title' ] ) );
 		$url = trim( urldecode( $ajax_data[ 'has_source_url' ] ) );
-
+		error_log($email_to);
 		// Check emails to destination
 		if( !is_email( $email_to ) ) {
 			$return[ 'errors' ] = true;

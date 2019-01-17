@@ -3,7 +3,7 @@ Contributors: ronalfy, bigwing
 Tags: highlight, share, twitter, facebook, block
 Requires at least: 4.7
 Tested up to: 5.0
-Stable tag: 3.0.1
+Stable tag: 3.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://mediaron.com/give/
@@ -103,13 +103,21 @@ So far, the latest versions of Chrome, Firefox, and Safari. Works for IE9+
 1. Highlight and Share settings.
 2. Highlight and Share Default Theme on a post with icons.
 3. Highlight and Share Black Theme
-4. Highlight and Share White Theme
-5. Highlight and Share Magenta Theme
-6. Highlight and Share Blue Theme
-7. Highlight and Share Green Theme
+4. Highlight and Share Gutenberg block selection
+5. Highlight and Share Output for Click to Share
+6. Sharing Icons shown on Click to Share
+7. Red theme to show you what's possible with Gutenberg
 8. Email functionality
 
 == Changelog ==
+
+= 3.0.3 =
+* Released 2019-01-17
+* Hotfix: Regular text was not showing all icons
+
+= 3.0.2 =
+* Released 2019-01-17
+* Fixing issue when email addresses use an alias
 
 = 3.0.1 =
 * Released 2019-01-17
@@ -233,6 +241,12 @@ So far, the latest versions of Chrome, Firefox, and Safari. Works for IE9+
 * Initial release on WordPress.org
 
 == Upgrade Notice ==
+
+= 3.0.3 =
+Hotfix: Regular text was not showing all icons
+
+= 3.0.2 =
+Fixing issue when email addresses use an alias
 
 = 3.0.1 =
 Fixing multiple HAS interfaces showing in Gutenberg block.
