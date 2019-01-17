@@ -45,11 +45,21 @@ const {
 class HAS_Click_To_Share extends Component {
 	constructor() {
 		super( ...arguments );
+		this.state = {
+			shareText: __( 'Click to Share', 'highlight-and-share' ),
+			borderRadius: this.props.attributes.borderRadius
+		};
 	}
 
 	onChangeValue = (value) => {
 		this.setState( {
 			shareText: value
+		} );
+	}
+
+	borderRoundedChange = ( value ) => {
+		this.setState( {
+			borderRadius: value
 		} );
 	}
 
@@ -64,7 +74,7 @@ class HAS_Click_To_Share extends Component {
 				clickText,
 				padding,
 				border,
-				borderRounded,
+				borderRadius,
 				borderColor,
 				fontWeight,
 				clickShareFontSize,
@@ -88,7 +98,7 @@ class HAS_Click_To_Share extends Component {
 			fontSize: fontSize + 'px',
 			padding: padding + 'px',
 			border: `${border}px solid ${borderColor}`,
-			borderRadius: borderRounded + 'px',
+			borderRadius: borderRadius + 'px',
 			backgroundColor: backgroundColor,
 			color: textColor,
 			maxWidth: `${maxWidth}%`,
@@ -185,10 +195,10 @@ class HAS_Click_To_Share extends Component {
 					/>
 					<RangeControl
 						label={ __( 'Border Rounded', 'highlight-and-share' ) }
-						value={ borderRounded }
-						onChange={ ( value ) => this.props.setAttributes( { borderRounded: value } ) }
+						value={ this.state.borderRadius }
+						onChange={ ( value ) => { this.borderRoundedChange(value); this.props.setAttributes( { borderRadius: value } ) } }
 						min={ 0 }
-						max={ 20 }
+						max={ 30 }
 						step={ 1 }
 					/>
 					<PanelColorSettings

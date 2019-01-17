@@ -361,8 +361,6 @@ jQuery( document ).ready( function( $ ) {
 		// Serialize data
 		var form_data = $emails.find('#has_email_form').serialize();
 
-		console.log(form_data);
-
 		// Send Ajax data
 		$.post( highlight_and_share.ajax_url, { data: form_data, action: 'has_form_submission' }, function( response ) {
 			if( response.errors ) {
@@ -398,6 +396,7 @@ jQuery( document ).ready( function( $ ) {
 	};
 
 	var has_display = function( text, title, link, e ) {
+		has_remove();
 		if ( false == highlight_and_share.show_twitter && false == highlight_and_share.show_facebook && false == highlight_and_share.show_linkedin && false == highlight_and_share.show_pinterest && false == highlight_and_share.show_email ) {
 			return;
 		}
@@ -439,6 +438,7 @@ jQuery( document ).ready( function( $ ) {
 	};
 
 	var cts_display = function( text, title, link, e ) {
+		has_remove();
 		if ( false == highlight_and_share.show_twitter && false == highlight_and_share.show_facebook && false == highlight_and_share.show_linkedin && false == highlight_and_share.show_pinterest && false == highlight_and_share.show_email ) {
 			return;
 		}

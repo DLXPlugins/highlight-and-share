@@ -44,9 +44,9 @@ function has_register_block_attributes() {
 				'type' => 'int',
 				'default' => 0,
 			),
-			'borderRounded' => array(
-				'type' => 'string',
-				'default' => '0',
+			'borderRadius' => array(
+				'type' => 'int',
+				'default' => 0,
 			),
 			'borderColor' => array(
 				'type' => 'string',
@@ -88,33 +88,9 @@ function has_register_block_attributes() {
 
 function has_click_to_share( $attributes ) {
 	ob_start();
-	/*
-	fontSize: fontSize + 'px',
-			padding: padding + 'px',
-			border: `${border}px solid ${borderColor}`,
-			borderRadius: borderRounded + 'px',
-			backgroundColor: backgroundColor,
-			color: textColor,
-			maxWidth: `${maxWidth}%`,
-			marginLeft: marginLeft + 'px',
-			marginRight: marginRight + 'px',
-			marginBottom: marginBottom + 'px',
-			marginTop: marginTop + 'px'
-		};
-		if ( 'center' == alignment ) {
-			hasStyles.margin = '0 auto';
-		}
-		if( 'left' == alignment ) {
-			hasStyles.float = 'left';
-		}
-		if( 'right' == alignment ) {
-			hasStyles.float = 'right';
-		}
-
-		*/
-		global $post;
+	global $post;
 	?>
-	<div class='has-click-to-share' style="padding: <?php echo esc_attr( $attributes['padding'] ); ?>px; border: <?php echo esc_attr( $attributes['border'] . 'px solid' . ' ' . $attributes['borderColor'] ); ?>; border-radius: <?php echo esc_attr( $attributes['borderRounded'] ); ?>px; background-color: <?php echo esc_attr( $attributes['backgroundColor'] ); ?>; color: <?php echo esc_attr( $attributes['textColor'] ); ?>; max-width: <?php echo esc_attr( $attributes['maxWidth'] ); ?>%; margin-left: <?php echo esc_attr( $attributes['marginLeft'] ); ?>px; margin-right: <?php echo esc_attr( $attributes['marginRight'] ); ?>px; margin-bottom: <?php echo esc_attr( $attributes['marginBottom'] ); ?>px; margin-Top: <?php echo esc_attr( $attributes['marginTop'] ); ?>px; <?php echo 'center' === $attributes['alignment'] ? 'margin: 0 auto;' : ''; ?><?php echo 'left' === $attributes['alignment'] ? 'float: left;' : ''; ?><?php echo 'right' === $attributes['alignment'] ? 'float: right;' : ''; ?>">
+	<div class='has-click-to-share' style="padding: <?php echo esc_attr( $attributes['padding'] ); ?>px; border: <?php echo esc_attr( $attributes['border'] . 'px solid' . ' ' . $attributes['borderColor'] ); ?>; border-radius: <?php echo esc_attr( $attributes['borderRadius'] ); ?>px; background-color: <?php echo esc_attr( $attributes['backgroundColor'] ); ?>; color: <?php echo esc_attr( $attributes['textColor'] ); ?>; max-width: <?php echo esc_attr( $attributes['maxWidth'] ); ?>%; margin-left: <?php echo esc_attr( $attributes['marginLeft'] ); ?>px; margin-right: <?php echo esc_attr( $attributes['marginRight'] ); ?>px; margin-bottom: <?php echo esc_attr( $attributes['marginBottom'] ); ?>px; margin-Top: <?php echo esc_attr( $attributes['marginTop'] ); ?>px; <?php echo 'center' === $attributes['alignment'] ? 'margin: 0 auto;' : ''; ?><?php echo 'left' === $attributes['alignment'] ? 'float: left;' : ''; ?><?php echo 'right' === $attributes['alignment'] ? 'float: right;' : ''; ?>">
 		<div class="has-click-to-share-wrapper">
 			<div class="has-click-to-share-text" style="color: <?php echo esc_attr( $attributes['textColor'] ); ?>; font-size: <?php echo esc_attr( $attributes['fontSize'] ); ?>px; font-weight: <?php echo esc_attr( $attributes['fontWeight'] ); ?>">
 				<?php echo wp_kses_post( $attributes['shareText'] ); ?>
