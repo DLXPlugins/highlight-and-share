@@ -389,7 +389,7 @@ jQuery( document ).ready( function( $ ) {
 		if ( '' == text ) {
 			return;
 		} else {
-			has_selected_text = text;
+			has_selected_text = text_to_copy = text;
 			return has_selected_text;
 		}
 		return '';
