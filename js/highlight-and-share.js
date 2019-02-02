@@ -140,18 +140,19 @@ jQuery( document ).ready( function( $ ) {
 			return;
 		}
 
+		$parent = $( e.target ).parent('.has-content-area');
+
 		//Get URL
-		this.href = $( this ).attr( 'data-url' );
-		if (typeof href == typeof undefined || href == false) {
+		this.href = $parent.data( 'url' );
+		if (typeof this.href == typeof undefined || this.href == false) {
 			this.href = $( location ).attr( 'href' );
 		}
 
 		//Get Title
-		this.title = $( this ).attr( 'data-title' );
+		this.title = $parent.data( 'title' );
 		if (typeof this.title == typeof undefined || this.title == false) {
 			this.title = $( document ).attr( 'title' );
 		}
-
 		has_display( text, this.title, this.href, e );
 	} );
 	$( 'body' ).on( 'click', '.has-click-prompt', function( e ) {
@@ -420,13 +421,23 @@ jQuery( document ).ready( function( $ ) {
 			url = url.replace( '%title%', encodeURIComponent( title ) );
 			var title_attr = div.attr('data-title');
 			if (typeof title_attr !== typeof undefined && title_attr !== false) {
-				title_attr = title_attr.replace( '%title%', encodeURIComponent( title ) );
-				div.attr('data-title', title_attr);
+				// Try parent
+				var div_parent = div.parent();
+				var url_attr = div_parent.attr('data-title');
+				if( typeof url_attr !== typeof undefined && url_attr !== false ) {
+					title_attr = title_attr.replace( '%title%', encodeURIComponent( title ) );
+					div.attr('data-title', title_attr);
+				}
 			}
 			var url_attr = div.attr('data-url');
 			if (typeof url_attr !== typeof undefined && url_attr !== false) {
-				url_attr = url_attr.replace( '%url%', encodeURIComponent( link ) );
-				div.attr('data-url', url_attr);
+				// Try parent
+				var div_parent = div.parent();
+				var url_attr = div_parent.attr('data-url');
+				if( typeof url_attr !== typeof undefined && url_attr !== false ) {
+					url_attr = url_attr.replace( '%url%', encodeURIComponent( link ) );
+					div.attr('data-url', url_attr)
+				}
 			}
 			div.find( 'a' ).attr( 'href', url );
 			var css_class = div.attr( 'class' );
