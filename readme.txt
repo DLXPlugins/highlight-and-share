@@ -3,7 +3,7 @@ Contributors: ronalfy, bigwing
 Tags: highlight, share, twitter, facebook, block
 Requires at least: 4.7
 Tested up to: 5.0
-Stable tag: 3.0.3
+Stable tag: 3.0.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://mediaron.com/give/
@@ -110,6 +110,12 @@ So far, the latest versions of Chrome, Firefox, and Safari. Works for IE9+
 8. Email functionality
 
 == Changelog ==
+
+= 3.0.4 =
+* Released 2019-02-01
+* Fixed copy functionality when Gutenberg block is present
+* Fixed copy styling in default theme
+* Fixed URL shortening error when URL shortening is enabled
 
 = 3.0.3 =
 * Released 2019-01-17
@@ -241,6 +247,9 @@ So far, the latest versions of Chrome, Firefox, and Safari. Works for IE9+
 * Initial release on WordPress.org
 
 == Upgrade Notice ==
+
+= 3.0.4 =
+Fixed copy functionality when Gutenberg block is present. Fixed copy styling in default theme. Fixed URL shortening error when URL shortening is enabled.
 
 = 3.0.3 =
 Hotfix: Regular text was not showing all icons
