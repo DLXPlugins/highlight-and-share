@@ -2,7 +2,7 @@
 Contributors: ronalfy, bigwing
 Tags: highlight, share, twitter, facebook, block
 Requires at least: 4.7
-Tested up to: 5.0
+Tested up to: 5.1
 Stable tag: 3.0.4
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -24,7 +24,7 @@ If you have a feature request, <a href="https://github.com/ronalfy/highlight-and
 
 > Please <a href="https://wordpress.org/support/plugin/highlight-and-share/reviews/#new-post">Rate the Plugin</a> or <a href="https://mediaron.com/give/">Give Back</a> to show support.
 
-https://www.youtube.com/watch?v=GMr4tmmKMz8
+https://www.youtube.com/watch?v=j2ZiUqGLSwc&rel=0
 
 <h3>Features</h3>
 
@@ -36,7 +36,7 @@ https://www.youtube.com/watch?v=GMr4tmmKMz8
 <li>Customize the Twitter username used.</li>
 <li>Advanced: Override which content is selectable (using jQuery class notation without the dots).</li>
 <li>Advanced: Override the Font Awesome classes, especially if you're using Font Awesome 5</li>
-<lk>Advanced: Gutenberg block for Click to Share</li>
+<li>Advanced: Gutenberg block for Click to Share</li>
 </ul>
 
 Advanced customization is allowed via hooks.  See the plugin's <a href="https://github.com/ronalfy/highlight-and-share#plugin-filters">GitHub page for filter documentation</a>.
