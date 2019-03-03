@@ -247,10 +247,10 @@ jQuery( document ).ready( function( $ ) {
 
 		//Get Title
 		var data_title = decodeURIComponent( $parent.data('title') );
-		if( typeof data_title == "undefined" ) {
+		if( 'undefined' === data_title ) {
 			data_title = window.document.title;
 		}
-		if( typeof data_href == "undefined" ) {
+		if( 'undefined' === data_href ) {
 			data_href = window.location.href;
 		}
 		var subject = highlight_and_share.email_subject_text;

@@ -3,7 +3,7 @@ Contributors: ronalfy, bigwing
 Tags: highlight, share, twitter, facebook, block
 Requires at least: 4.7
 Tested up to: 5.1
-Stable tag: 3.0.5
+Stable tag: 3.0.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://mediaron.com/give/
@@ -110,6 +110,14 @@ So far, the latest versions of Chrome, Firefox, and Safari. Works for IE9+
 8. Email functionality
 
 == Changelog ==
+
+= 3.0.7 =
+* Released 2019-03-03
+* Hot fix for undefined JavaScript error in email popup
+
+= 3.0.6 =
+* Released 2019-03-03
+* Resolving undefined error in email popup
 
 = 3.0.5 =
 * Released 2019-03-03
@@ -251,6 +259,12 @@ So far, the latest versions of Chrome, Firefox, and Safari. Works for IE9+
 * Initial release on WordPress.org
 
 == Upgrade Notice ==
+
+= 3.0.7 =
+Hot fix for undefined JavaScript error in email popup
+
+= 3.0.6 =
+Resolving undefined error in email popup
 
 = 3.0.5 =
 Fixing email JavaScript error
