@@ -6,7 +6,7 @@ Description: Highlight text and share via Twitter or Facebook and many more
 Author: Ronald Huereca
 Version: 3.0.5
 Requires at least: 4.7
-Author URI: https://mediaron.com
+Author URI: https://mediaron.com/portfolio/highlight-and-share/
 Contributors: ronalfy
 Text Domain: highlight-and-share
 Domain Path: /languages
