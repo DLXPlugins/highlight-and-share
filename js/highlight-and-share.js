@@ -7,6 +7,7 @@ jQuery( document ).ready( function( $ ) {
 	var title = '';
 	var link = '';
 	var href = '';
+	var $parent = '';
 
 	var has_selected_text = '';
 	var text_to_copy = false;
@@ -242,15 +243,15 @@ jQuery( document ).ready( function( $ ) {
 			return;
 		}
 		//Get URL
-		var data_href = decodeURIComponent( $( this ).parent().attr( 'data-url' ) );
+		var data_href = decodeURIComponent( $parent.data( 'url' ) );
 
 		//Get Title
-		var data_title = decodeURIComponent( $( this ).parent().attr( 'data-title' ) );
+		var data_title = decodeURIComponent( $parent.data('title') );
 		if( typeof data_title == "undefined" ) {
-			data_title = '';
+			data_title = window.document.title;
 		}
 		if( typeof data_href == "undefined" ) {
-			data_href = window.location.title;
+			data_href = window.location.href;
 		}
 		var subject = highlight_and_share.email_subject_text;
 		subject = subject.replace( '%title%', data_title );
