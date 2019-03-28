@@ -243,10 +243,14 @@ jQuery( document ).ready( function( $ ) {
 			return;
 		}
 		//Get URL
-		var data_href = decodeURIComponent( $parent.data( 'url' ) );
+		if( $parent ) {
+			var data_href = decodeURIComponent( $parent.data( 'url' ) );
+			var data_title = decodeURIComponent( $parent.data('title') );
+		} else {
+			var data_href = 'undefined';
+			var data_title = 'undefined';
+		}
 
-		//Get Title
-		var data_title = decodeURIComponent( $parent.data('title') );
 		if( 'undefined' === data_title ) {
 			data_title = window.document.title;
 		}
