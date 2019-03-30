@@ -1,9 +1,9 @@
 === Highlight and Share ===
 Contributors: ronalfy, bigwing
-Tags: highlight, share, twitter, facebook, block
+Tags: highlight, share, twitter, facebook, block, gutenberg
 Requires at least: 4.7
 Tested up to: 5.1
-Stable tag: 3.0.7
+Stable tag: 3.0.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://mediaron.com/give/
@@ -110,6 +110,10 @@ So far, the latest versions of Chrome, Firefox, and Safari. Works for IE9+
 8. Email functionality
 
 == Changelog ==
+
+= 3.0.8 =
+* Released 2019-03-30
+* Fixing bug in Click to Share email functionality and honering margins on Click to Share block;
 
 = 3.0.7 =
 * Released 2019-03-03
@@ -260,38 +264,5 @@ So far, the latest versions of Chrome, Firefox, and Safari. Works for IE9+
 
 == Upgrade Notice ==
 
-= 3.0.7 =
-Hot fix for undefined JavaScript error in email popup
-
-= 3.0.6 =
-Resolving undefined error in email popup
-
-= 3.0.5 =
-Fixing email JavaScript error
-
-= 3.0.4 =
-Fixed copy functionality when Gutenberg block is present. Fixed copy styling in default theme. Fixed URL shortening error when URL shortening is enabled.
-
-= 3.0.3 =
-Hotfix: Regular text was not showing all icons
-
-= 3.0.2 =
-Fixing issue when email addresses use an alias
-
-= 3.0.1 =
-Fixing multiple HAS interfaces showing in Gutenberg block.
-
-= 3.0.0 =
-Added copy functionality. Added Click to Share Gutenberg block.
-
-= 2.4.8 =
-Highlighted text now shows in email notifications
-
-= 2.4.7 =
-Ensuring undefines do not show up when emailing
-
-= 2.4.6 =
-Added modal to emails for better mobile compatibility
-
-= 2.4.1 =
-Fix: Facebook App ID uses a different sanitzation technique to prevent App ID errors.
+= 3.0.8 =
+Fixing bug in Click to Share email functionality and honering margins on Click to Share block;
