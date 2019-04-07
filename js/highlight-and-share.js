@@ -21,7 +21,7 @@ jQuery( document ).ready( function( $ ) {
 				html += string;
 				click_to_share += string;
 			} else {
-				var string = '<div class="has_twitter" style="display: none;" data-type="twitter"><a href="https://twitter.com/intent/tweet?via=%username%&url=%url%&text=%text%" target="_blank"><i class="' + highlight_and_share.twitter_fa_class + '"></i></a></div>';
+				var string = '<div class="has_twitter" style="display: none;" data-type="twitter"><a href="https://twitter.com/intent/tweet?via=%username%&url=%url%&text=%text%" target="_blank"><i class="' + highlight_and_share.twitter_fa_class + '"></i><span class="has-text">&nbsp;' + highlight_and_share.tweet_text + '</span></a></div>';
 				html += string;
 				click_to_share += string;
 			}
@@ -32,7 +32,7 @@ jQuery( document ).ready( function( $ ) {
 				   html += string;
 					click_to_share += string;
 			 } else {
-				var string = '<div class="has_twitter" style="display: none;" data-type="twitter"><a href="https://twitter.com/intent/tweet?url=%url%&text=%text%" target="_blank"><i class="' + highlight_and_share.twitter_fa_class + '"></i></a></div>';
+				var string = '<div class="has_twitter" style="display: none;" data-type="twitter"><a href="https://twitter.com/intent/tweet?url=%url%&text=%text%" target="_blank"><i class="' + highlight_and_share.twitter_fa_class + '"></i><span class="has-text">&nbsp;' + highlight_and_share.tweet_text + '</span></a></div>';
 				html += string;
 				click_to_share += string;
 			 }
@@ -50,9 +50,9 @@ jQuery( document ).ready( function( $ ) {
 
 			} else {
 				 if ( '0' === highlight_and_share.facebook_app_id ) {
-					html += '<div class="has_facebook" style="display: none;" data-type="facebook"><a href="https://www.facebook.com/sharer/sharer.php?u=%url%&t=%title%" target="_blank"><i class="' + highlight_and_share.facebook_fa_class + '"></i></a></div>';
+					html += '<div class="has_facebook" style="display: none;" data-type="facebook"><a href="https://www.facebook.com/sharer/sharer.php?u=%url%&t=%title%" target="_blank"><i class="' + highlight_and_share.facebook_fa_class + '"></i><span class="has-text">' + highlight_and_share.facebook_text + '</span></a></div>';
 				  } else {
-					  var string = '<div class="has_facebook" style="display: none;" data-type="facebook"><a href="https://www.facebook.com/dialog/share?app_id=' + highlight_and_share.facebook_app_id + '&display=popup&amp;quote=%text%&href=%url%" target="_blank"><i class="' + highlight_and_share.facebook_fa_class + '"></i></a></div>';
+					  var string = '<div class="has_facebook" style="display: none;" data-type="facebook"><a href="https://www.facebook.com/dialog/share?app_id=' + highlight_and_share.facebook_app_id + '&display=popup&amp;quote=%text%&href=%url%" target="_blank"><i class="' + highlight_and_share.facebook_fa_class + '"></i><span class="has-text">&nbsp;' + highlight_and_share.facebook_text + '</span></a></div>';
 					  html += string;
 					  click_to_share += string;
 				  }
@@ -64,7 +64,7 @@ jQuery( document ).ready( function( $ ) {
 				//Note, you must be on a publicly accesible URL to use this button
 				html += '<div class="has_linkedin" style="display: none;" data-type="linkedin"><a href="https://www.linkedin.com/shareArticle?mini=true&url=%url%&title=%title%" target="_blank"><i class="' + highlight_and_share.linkedin_fa_class + '"></i>&nbsp;' + highlight_and_share.linkedin_text + '</a></div>';
 			} else {
-				html += '<div class="has_linkedin" style="display: none;" data-type="linkedin"><a href="https://www.linkedin.com/shareArticle?mini=true&url=%url%&title=%title%" target="_blank"><i class="' + highlight_and_share.linkedin_fa_class + '"></i></a></div>';
+				html += '<div class="has_linkedin" style="display: none;" data-type="linkedin"><a href="https://www.linkedin.com/shareArticle?mini=true&url=%url%&title=%title%" target="_blank"><i class="' + highlight_and_share.linkedin_fa_class + '"></i><span class="has-text">&nbsp;' + highlight_and_share.linkedin_text + '</span></a></div>';
 			}
 		}
 
@@ -74,7 +74,7 @@ jQuery( document ).ready( function( $ ) {
 				//Note, you must be on a publicly accesible URL to use this button
 				html += '<div class="has_pinterest" style="display: none;" data-type="pinterest"><a href="http://pinterest.com/pin/create/button/?url=%url%&description=%title%" target="_blank"><i class="' + highlight_and_share.pinterest_fa_class + '"></i>&nbsp;' + highlight_and_share.pinterest_text + '</a></div>';
 			} else {
-				html += '<div class="has_pinterest" style="display: none;" data-type="pinterest"><a href="http://pinterest.com/pin/create/button/?url=%url%&description=%title%" target="_blank"><i class="' + highlight_and_share.pinterest_fa_class + '"></i></a></div>';
+				html += '<div class="has_pinterest" style="display: none;" data-type="pinterest"><a href="http://pinterest.com/pin/create/button/?url=%url%&description=%title%" target="_blank"><i class="' + highlight_and_share.pinterest_fa_class + '"></i><span class="has-text">&nbsp;' + highlight_and_share.pinterest_text + '</span></a></div>';
 			}
 		}
 
@@ -82,7 +82,7 @@ jQuery( document ).ready( function( $ ) {
 			if ( highlight_and_share.icons == false ) {
 				html += '<div class="has_xing" style="display: none;" data-type="xing"><a href="https://www.xing.com/spi/shares/new?url=%url%" target="_blank"><i class="' + highlight_and_share.xing_fa_class + '"></i>&nbsp;' + highlight_and_share.xing_text + '</a></div>';
 			} else {
-				html += '<div class="has_xing" style="display: none;" data-type="xing"><a href="https://www.xing.com/spi/shares/new?url=%url%" target="_blank"><i class="' + highlight_and_share.xing_fa_class + '"></i></a></div>';
+				html += '<div class="has_xing" style="display: none;" data-type="xing"><a href="https://www.xing.com/spi/shares/new?url=%url%" target="_blank"><i class="' + highlight_and_share.xing_fa_class + '"></i><span class="has-text">&nbsp;' + highlight_and_share.xing_text + '</span></a></div>';
 			}
 		}
 
@@ -92,7 +92,7 @@ jQuery( document ).ready( function( $ ) {
 				html += string;
 			 	click_to_share += string;
 			} else {
-				var string = '<div class="has_whatsapp" style="display: none;" data-type="whatsapp"><a href="https://wa.me/?text=%text%: ' + '%url%" target="_blank"><i class="' + highlight_and_share.whatsapp_fa_class + '"></i></a></div>';
+				var string = '<div class="has_whatsapp" style="display: none;" data-type="whatsapp"><a href="https://wa.me/?text=%text%: ' + '%url%" target="_blank"><i class="' + highlight_and_share.whatsapp_fa_class + '"></i><span class="has-text">&nbsp;' + highlight_and_share.whatsapp_text + '</span></a></div>';
 				html += string;
 				click_to_share += string;
 			}
@@ -103,7 +103,7 @@ jQuery( document ).ready( function( $ ) {
 				html += string;
 				click_to_share += string;
 			} else {
-				var string = '<div class="has_copy" style="display: none;" data-type="copy"><a href="#"><i class="' + highlight_and_share.copy_fa_class + '"></i></a></div>';
+				var string = '<div class="has_copy" style="display: none;" data-type="copy"><a href="#"><i class="' + highlight_and_share.copy_fa_class + '"></i><span class="has-text">&nbsp;' + highlight_and_share.copy_text + '</span></a></div>';
 				html += string;
 				click_to_share += string;
 			}
@@ -116,7 +116,7 @@ jQuery( document ).ready( function( $ ) {
 				html += string;
 				click_to_share += string;
 			} else {
-				var string = '<div class="has_email" style="display: none;" data-type="email" data-title="%title%" data-url="%url%"><a href="' + highlight_and_share.ajax_url + '" target="_blank"><i class="' + highlight_and_share.email_fa_class + '"></i></a></div>';
+				var string = '<div class="has_email" style="display: none;" data-type="email" data-title="%title%" data-url="%url%"><a href="' + highlight_and_share.ajax_url + '" target="_blank"><i class="' + highlight_and_share.email_fa_class + '"></i><span class="has-text">&nbsp;' + highlight_and_share.email_text + '</span></a></div>';
 				html += string;
 				click_to_share += string;
 			}
