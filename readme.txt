@@ -3,7 +3,7 @@ Contributors: ronalfy, bigwing
 Tags: highlight, share, twitter, facebook, block, gutenberg
 Requires at least: 4.7
 Tested up to: 5.1
-Stable tag: 3.0.8
+Stable tag: 3.0.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://mediaron.com/give/
@@ -111,9 +111,13 @@ So far, the latest versions of Chrome, Firefox, and Safari. Works for IE9+
 
 == Changelog ==
 
+= 3.0.9 =
+* Released 2019-04-07
+* Show service on hover.
+
 = 3.0.8 =
 * Released 2019-03-30
-* Fixing bug in Click to Share email functionality and honering margins on Click to Share block;
+* Fixing bug in Click to Share email functionality and honering margins on Click to Share block.
 
 = 3.0.7 =
 * Released 2019-03-03
@@ -263,6 +267,9 @@ So far, the latest versions of Chrome, Firefox, and Safari. Works for IE9+
 * Initial release on WordPress.org
 
 == Upgrade Notice ==
+
+= 3.0.9 =
+Show service on hover.
 
 = 3.0.8 =
 Fixing bug in Click to Share email functionality and honering margins on Click to Share block;
