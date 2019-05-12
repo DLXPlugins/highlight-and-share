@@ -408,14 +408,8 @@ jQuery( document ).ready( function( $ ) {
 		}
 
 		wrapper_clone = $( '.highlight-and-share-wrapper:last' ).clone();
-		var wrapper_x = e.pageX - 30;
-		var wrapper_y = e.pageY - 70;
-		if ( highlight_and_share.mobile ) {
-			wrapper_x = e.pageX;
-			wrapper_y = e.pageY + 20;
-		}
 
-		wrapper_clone.css( { position: 'absolute', display: 'block', left: wrapper_x, top: wrapper_y, width: 'auto', height: 'auto', 'z-index': 10000 } );
+		wrapper_clone.css( { position: 'absolute', display: 'block', width: 'auto', height: 'auto', 'z-index': 10000 } );
 
 		$children = wrapper_clone.find( '.has_whatsapp, .has_xing, .has_pinterest, .has_linkedin, .has_facebook, .has_twitter, .has_copy, .has_email' );
 		$.each( $children, function( index, item ) {
@@ -451,6 +445,18 @@ jQuery( document ).ready( function( $ ) {
 
 		//Add to document
 		$( 'body' ).append( wrapper_clone );
+
+		var wrapper_x = e.pageX - Math.floor( jQuery( '.highlight-and-share-wrapper:visible' ).width() / 2 );
+		if( wrapper_x < 0 ) {
+			wrapper_x = 20;
+		} else if ( ( wrapper_x + jQuery( '.highlight-and-share-wrapper:visible' ).width() ) > jQuery( 'body' ).width() ) {
+			wrapper_x = jQuery( 'body' ).width() - jQuery( '.highlight-and-share-wrapper:visible' ).width();
+		}
+		var wrapper_y = e.pageY - jQuery( '.highlight-and-share-wrapper:visible' ).height() - 20;
+		wrapper_clone.css( {
+			left: wrapper_x,
+			top: wrapper_y
+		});
 	};
 
 	var cts_display = function( text, title, link, e ) {
