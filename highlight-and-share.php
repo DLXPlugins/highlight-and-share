@@ -157,6 +157,7 @@ class Highlight_And_Share {
 					'brand-colors' => esc_html__( 'Brand Colors (Icons Only)', 'highlight-and-share' ),
 					'black' => 	esc_html__( 'Black (Icons Only)', 'highlight-and-share' ),
 					'white' => esc_html__( 'White (Icons Only)', 'highlight-and-share' ),
+					'cyan' => esc_html__( 'Cyan (Icons Only)', 'highlight-and-share' ),
 					'magenta' => esc_html__( 'Magenta (Icons Only)', 'highlight-and-share' ),
 					'blue' => esc_html__( 'Blue (Icons Only)', 'highlight-and-share' ),
 					'green' => esc_html__( 'Green (Icons Only)', 'highlight-and-share' )
@@ -1203,6 +1204,9 @@ class Highlight_And_Share {
 			case 'green':
 				wp_enqueue_style( 'highlight-and-share', $this->get_plugin_url( 'css/highlight-and-share-green.css' ), array(), HIGHLIGHT_AND_SHARE_VERSION, 'all' );
 				break;
+			case 'cyan':
+				wp_enqueue_style( 'highlight-and-share', $this->get_plugin_url( 'css/highlight-and-share-cyan.css' ), array(), HIGHLIGHT_AND_SHARE_VERSION, 'all' );
+				break;
 			case 'magenta':
 				wp_enqueue_style( 'highlight-and-share', $this->get_plugin_url( 'css/highlight-and-share-magenta.css' ), array(), HIGHLIGHT_AND_SHARE_VERSION, 'all' );
 				break;
@@ -1629,6 +1633,7 @@ class Highlight_And_Share {
 			<option value="brand-colors" <?php selected( 'brand-colors', $theme, true); ?>><?php esc_html_e( 'Brand Colors (Icons Only)', 'highlight-and-share' ); ?></option>
 			<option value="black" <?php selected( 'black', $theme, true); ?>><?php esc_html_e( 'Black (Icons Only)', 'highlight-and-share' ); ?></option>
 			<option value="white" <?php selected( 'white', $theme, true); ?>><?php esc_html_e( 'White (Icons Only)', 'highlight-and-share' ); ?></option>
+			<option value="cyan" <?php selected( 'cyan', $theme, true); ?>><?php esc_html_e( 'Cyan (Icons Only)', 'highlight-and-share' ); ?></option>
 			<option value="magenta" <?php selected( 'magenta', $theme, true); ?>><?php esc_html_e( 'Magenta (Icons Only)', 'highlight-and-share' ); ?></option>
 			<option value="blue" <?php selected( 'blue', $theme, true); ?>><?php esc_html_e( 'Blue (Icons Only)', 'highlight-and-share' ); ?></option>
 			<option value="green" <?php selected( 'green', $theme, true); ?>><?php esc_html_e( 'Green (Icons Only)', 'highlight-and-share' ); ?></option>
