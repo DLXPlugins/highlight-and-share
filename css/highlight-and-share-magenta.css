@@ -45,9 +45,6 @@
 .highlight-and-share-wrapper span.has-text {
 	display: none;
 }
-.highlight-and-share-wrapper div:hover span.has-text {
-	display: inline-block;
-}
 .highlight-and-share-wrapper div.has_twitter:hover {
 	background: #00aced;
 }
