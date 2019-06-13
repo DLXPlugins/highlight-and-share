@@ -171,7 +171,7 @@ jQuery( document ).ready( function( $ ) {
 		has_get_selection();
 	}, false);
 
-	$( 'body' ).on( 'click', '.has_twitter a', function( e ) {
+	$( 'body' ).on( 'click', '.has_twitter a:visible', function( e ) {
 		e.preventDefault();
 		if( highlight_and_share.customizer_preview ) {
 			return;
@@ -181,7 +181,7 @@ jQuery( document ).ready( function( $ ) {
 		has_remove();
 		return false;
 	} );
-	$( 'body' ).on( 'click', '.has_facebook a', function( e ) {
+	$( 'body' ).on( 'click', '.has_facebook a:visible', function( e ) {
 		e.preventDefault();
 		if( highlight_and_share.customizer_preview ) {
 			return;
@@ -190,7 +190,7 @@ jQuery( document ).ready( function( $ ) {
 		window.open( this.href,"sharer","width=575,height=430,toolbar=false,menubar=false,location=false,status=false");
 		has_remove();
 	} );
-	$( 'body' ).on( 'click', '.has_linkedin a', function( e ) {
+	$( 'body' ).on( 'click', '.has_linkedin a:visible', function( e ) {
 		e.preventDefault();
 		if( highlight_and_share.customizer_preview ) {
 			return;
@@ -198,7 +198,7 @@ jQuery( document ).ready( function( $ ) {
 		window.open( this.href,"linkedin","width=575,height=430,toolbar=false,menubar=false,location=false,status=false");
 		has_remove();
 	} );
-	$( 'body' ).on( 'click', '.has_pinterest a', function( e ) {
+	$( 'body' ).on( 'click', '.has_pinterest a:visible', function( e ) {
 		e.preventDefault();
 		if( highlight_and_share.customizer_preview ) {
 			return;
@@ -206,7 +206,7 @@ jQuery( document ).ready( function( $ ) {
 		window.open( this.href,"pinterest","width=575,height=430,toolbar=false,menubar=false,location=false,status=false");
 		has_remove();
 	} );
-	$( 'body' ).on( 'click', '.has_xing a', function( e ) {
+	$( 'body' ).on( 'click', '.has_xing a:visible', function( e ) {
 		e.preventDefault();
 		if( highlight_and_share.customizer_preview ) {
 			return;
@@ -214,7 +214,7 @@ jQuery( document ).ready( function( $ ) {
 		window.open( this.href,"xing","width=575,height=430,toolbar=false,menubar=false,location=false,status=false");
 		has_remove();
 	} );
-	$( 'body' ).on( 'click', '.has_whatsapp a', function( e ) {
+	$( 'body' ).on( 'click', '.has_whatsapp a:visible', function( e ) {
 		e.preventDefault();
 		if( highlight_and_share.customizer_preview ) {
 			return;
@@ -223,7 +223,7 @@ jQuery( document ).ready( function( $ ) {
 		window.open( this.href,"whatsapp","width=575,height=430,toolbar=false,menubar=false,location=false,status=false");
 		has_remove();
 	} );
-	$( 'body' ).on( 'click', '.has_copy a', function( e ) {
+	$( 'body' ).on( 'click', '.has_copy a:visible', function( e ) {
 		e.preventDefault();
 		if( false == text_to_copy ) {
 			document.execCommand("copy");
@@ -237,7 +237,7 @@ jQuery( document ).ready( function( $ ) {
 		}
 		has_remove();
 	})
-	$( 'body' ).on( 'click', '.has_email a', function( e ) {
+	$( 'body' ).on( 'click', '.has_email a:visible', function( e ) {
 		e.preventDefault();
 		if( highlight_and_share.customizer_preview ) {
 			return;
