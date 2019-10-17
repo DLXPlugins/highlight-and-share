@@ -3,7 +3,7 @@ Contributors: ronalfy, bigwing
 Tags: highlight, share, twitter, facebook, block, gutenberg
 Requires at least: 4.7
 Tested up to: 5.2
-Stable tag: 3.1.1
+Stable tag: 3.1.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://mediaron.com/give/
@@ -110,6 +110,10 @@ So far, the latest versions of Chrome, Firefox, and Safari. Works for IE9+
 8. Email functionality
 
 == Changelog ==
+
+= 3.1.2 =
+* Released 2019-07-10
+* Prevent HAS from showing in the admin area.
 
 = 3.1.1 =
 * Released 2019-06-13
@@ -278,6 +282,9 @@ So far, the latest versions of Chrome, Firefox, and Safari. Works for IE9+
 * Initial release on WordPress.org
 
 == Upgrade Notice ==
+
+= 3.1.2 =
+Prevent HAS from showing in the admin area.
 
 = 3.1.1 =
 Fixing infinite loop issue with JS errors when clicking on the buttons.
