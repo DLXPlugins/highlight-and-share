@@ -11,12 +11,7 @@
 const { __ } = wp.i18n; // Import __() from wp.i18n
 const { registerBlockType } = wp.blocks; // Import registerBlockType() from wp.blocks
 
-// Import CSS
-import './styles/style.scss';
-import './styles/editor.scss';
-
 // Import JS
-import 'idempotent-babel-polyfill';
 import edit from './edit';
 
 // Extend component
