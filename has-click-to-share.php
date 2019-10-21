@@ -86,7 +86,6 @@ function has_register_block_attributes() {
 			'render_callback' => 'has_click_to_share',
 			'editor_script'   => 'has-click-to-share',
 			'editor_style'    => 'has-style-admin-css',
-			'style'           => 'has-style-frontend-css',
 		)
 	);
 }
@@ -117,6 +116,31 @@ function has_click_to_share( $attributes ) {
 }
 
 /**
+ * Enqueue assets for the front-end.
+ */
+function has_blocks_frontend_assets() {
+	if ( is_singular() ) {
+		$post_id = get_the_ID();
+		if ( has_block( 'has/click-to-share', $post_id ) ) {
+			wp_register_style(
+				'google-material-icons',
+				'https://fonts.googleapis.com/icon?family=Material+Icons',
+				array(),
+				HIGHLIGHT_AND_SHARE_VERSION,
+				'all'
+			);
+			wp_enqueue_style(
+				'has-style-frontend-css',
+				Highlight_And_Share::get_instance()->get_plugin_url( 'dist/blocks.style.build.css' ),
+				array( 'google-material-icons' ),
+				HIGHLIGHT_AND_SHARE_VERSION,
+				'all'
+			);
+		}
+	}
+}
+
+/**
  * Enqueue assets for backend editor
  *
  * @since 1.0.0
@@ -124,16 +148,17 @@ function has_click_to_share( $attributes ) {
 function has_blocks_editor_assets() {
 
 	// Load the compiled blocks into the editor.
-
 	wp_register_style(
-		'has-style-admin-css',
-		Highlight_And_Share::get_instance()->get_plugin_url( 'dist/blocks.editor.build.css' ),
+		'google-material-icons',
+		'https://fonts.googleapis.com/icon?family=Material+Icons',
+		array(),
 		HIGHLIGHT_AND_SHARE_VERSION,
 		'all'
 	);
 	wp_register_style(
-		'has-style-frontend-css',
-		Highlight_And_Share::get_instance()->get_plugin_url( 'dist/blocks.style.build.css' ),
+		'has-style-admin-css',
+		Highlight_And_Share::get_instance()->get_plugin_url( 'dist/blocks.editor.build.css' ),
+		array( 'google-material-icons' ),
 		HIGHLIGHT_AND_SHARE_VERSION,
 		'all'
 	);
@@ -153,5 +178,6 @@ function has_blocks_editor_assets() {
 	);
 }
 add_action( 'enqueue_block_editor_assets', 'has_blocks_editor_assets' );
+add_action( 'enqueue_block_assets', 'has_blocks_frontend_assets' );
 
 add_action( 'init', 'has_register_block_attributes' );
