@@ -5,7 +5,7 @@ Plugin Name: Highlight and Share
 Plugin URI: https://wordpress.org/plugins/highlight-and-share/
 Description: Highlight text and share via Twitter or Facebook and many more
 Author: Ronald Huereca
-Version: 3.1.2
+Version: 3.1.5
 Requires at least: 4.7
 Author URI: https://mediaron.com/portfolio/highlight-and-share/
 Contributors: ronalfy
@@ -71,7 +71,7 @@ class Highlight_And_Share {
 
 		add_action( 'wp', array( $this, 'wp_loaded' ), 15 );
 
-		define( 'HIGHLIGHT_AND_SHARE_VERSION', '3.1.1' );
+		define( 'HIGHLIGHT_AND_SHARE_VERSION', '3.1.5' );
 
 		// Get errors for email.
 		$this->errors['could_not_send'] = esc_html__( 'Could not send the e-mail', 'highlight-and-share' );

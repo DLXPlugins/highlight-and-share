@@ -3,7 +3,7 @@ Contributors: ronalfy, bigwing
 Tags: highlight, share, twitter, facebook, block, gutenberg
 Requires at least: 4.7
 Tested up to: 5.2
-Stable tag: 3.1.2
+Stable tag: 3.1.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://mediaron.com/give/
@@ -110,6 +110,10 @@ So far, the latest versions of Chrome, Firefox, and Safari. Works for IE9+
 8. Email functionality
 
 == Changelog ==
+
+= 3.1.5 =
+* Released 2019-10-20
+* Code cleanup and smaller footprint for Gutenberg block.
 
 = 3.1.2 =
 * Released 2019-07-10
@@ -283,17 +287,5 @@ So far, the latest versions of Chrome, Firefox, and Safari. Works for IE9+
 
 == Upgrade Notice ==
 
-= 3.1.2 =
-Prevent HAS from showing in the admin area.
-
-= 3.1.1 =
-Fixing infinite loop issue with JS errors when clicking on the buttons.
-
-= 3.1.0 =
-Removing show service on hover (was conflicting on smaller screens). Adding Cyan theme (icons only). Fixing highlight position on desktop/mobile to it doesn't go off screen. Fixing highlight position on Gutenberg block so that it's centered above the block.
-
-= 3.0.9 =
-Show service on hover.
-
-= 3.0.8 =
-Fixing bug in Click to Share email functionality and honering margins on Click to Share block;
+= 3.1.5 =
+Code cleanup and smaller footprint for Gutenberg block.

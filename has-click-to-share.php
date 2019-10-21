@@ -165,7 +165,7 @@ function has_blocks_editor_assets() {
 	wp_register_script(
 		'has-click-to-share',
 		Highlight_And_Share::get_instance()->get_plugin_url( 'dist/blocks.build.js' ),
-		array( 'wp-blocks', 'wp-element' ),
+		array( 'wp-blocks', 'wp-element', 'wp-i18n' ),
 		HIGHLIGHT_AND_SHARE_VERSION,
 		true
 	);
@@ -176,6 +176,7 @@ function has_blocks_editor_assets() {
 			'svg' => Highlight_And_Share::get_instance()->get_plugin_url( 'img/share.svg' ),
 		)
 	);
+	wp_set_script_translations( 'has-click-to-share', 'highlight-and-share' );
 }
 add_action( 'enqueue_block_editor_assets', 'has_blocks_editor_assets' );
 add_action( 'enqueue_block_assets', 'has_blocks_frontend_assets' );
