@@ -80,3 +80,11 @@
 	padding: 12px 20px;
 	text-decoration: none;
 }
+.has-inline-text {
+	background-color: rgb(255, 239, 177);
+	color: black;
+	cursor: pointer;
+}
+.has-inline-text:hover {
+	background-color: rgb(252, 214, 60);
+}

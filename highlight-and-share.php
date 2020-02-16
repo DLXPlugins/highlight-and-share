@@ -2073,7 +2073,6 @@ class Highlight_And_Share {
 		printf( '<p>%s</p>', esc_html( $args['desc'] ) );
 		printf( '<p><a href="%s">%s</a></p>', 'https://developers.facebook.com/apps', esc_html__( 'Requires a Facebook developer application.', 'highlight-and-share' ) );
 		printf( '<input id="%s" type="text" name="highlight-and-share[facebook_app_id]" value="%s" />', esc_attr( $args['label_for'] ), esc_attr( $app_id ) );
-
 	}
 
 	/**

@@ -15,15 +15,18 @@ jQuery( document ).ready( function( $ ) {
 	var has_load_html = function() {
 		var html = '<div class="highlight-and-share-wrapper">';
 		var click_to_share = '<div class="highlight-and-share-wrapper-cts highlight-and-share-wrapper">';
+		var inline_share = '<div class="highlight-and-share-wrapper-inline highlight-and-share-wrapper">';
 		if ( highlight_and_share.show_twitter && '' != highlight_and_share.twitter_username ) {
 			if ( highlight_and_share.icons == false ) {
 				var string = '<div class="has_twitter" style="display: none;" data-type="twitter"><a href="https://twitter.com/intent/tweet?via=%username%&url=%url%&text=%text%" target="_blank"><i class="' + highlight_and_share.twitter_fa_class + '"></i>&nbsp;' + highlight_and_share.tweet_text + '</a></div>';
 				html += string;
 				click_to_share += string;
+				inline_share += string;
 			} else {
 				var string = '<div class="has_twitter" style="display: none;" data-type="twitter"><a href="https://twitter.com/intent/tweet?via=%username%&url=%url%&text=%text%" target="_blank"><i class="' + highlight_and_share.twitter_fa_class + '"></i><span class="has-text">&nbsp;' + highlight_and_share.tweet_text + '</span></a></div>';
 				html += string;
 				click_to_share += string;
+				inline_share += string;
 			}
 
 		} else if( highlight_and_share.show_twitter && '' == highlight_and_share.twitter_username ) {
@@ -31,10 +34,12 @@ jQuery( document ).ready( function( $ ) {
 				   var string = '<div class="has_twitter" style="display: none;" data-type="twitter"><a href="https://twitter.com/intent/tweet?url=%url%&text=%text%" target="_blank"><i class="' + highlight_and_share.twitter_fa_class + '"></i>&nbsp;' + highlight_and_share.tweet_text + '</a></div>';
 				   html += string;
 					click_to_share += string;
+					inline_share += string;
 			 } else {
 				var string = '<div class="has_twitter" style="display: none;" data-type="twitter"><a href="https://twitter.com/intent/tweet?url=%url%&text=%text%" target="_blank"><i class="' + highlight_and_share.twitter_fa_class + '"></i><span class="has-text">&nbsp;' + highlight_and_share.tweet_text + '</span></a></div>';
 				html += string;
 				click_to_share += string;
+				inline_share += string;
 			 }
 		}
 		if ( highlight_and_share.show_facebook ) {
@@ -46,6 +51,7 @@ jQuery( document ).ready( function( $ ) {
 					 var string = '<div class="has_facebook" style="display: none;" data-type="facebook"><a href="https://www.facebook.com/dialog/share?app_id=' + highlight_and_share.facebook_app_id + '&display=popup&amp;quote=%text%&href=%url%" target="_blank"><i class="' + highlight_and_share.facebook_fa_class + '"></i>&nbsp;' + highlight_and_share.facebook_text + '</a></div>';
 					 html += string;
 					 click_to_share += string;
+					 inline_share += string;
 				}
 
 			} else {
@@ -55,6 +61,7 @@ jQuery( document ).ready( function( $ ) {
 					  var string = '<div class="has_facebook" style="display: none;" data-type="facebook"><a href="https://www.facebook.com/dialog/share?app_id=' + highlight_and_share.facebook_app_id + '&display=popup&amp;quote=%text%&href=%url%" target="_blank"><i class="' + highlight_and_share.facebook_fa_class + '"></i><span class="has-text">&nbsp;' + highlight_and_share.facebook_text + '</span></a></div>';
 					  html += string;
 					  click_to_share += string;
+					  inline_share += string;
 				  }
 
 			}
@@ -90,11 +97,13 @@ jQuery( document ).ready( function( $ ) {
 			if ( highlight_and_share.icons == false ) {
 				var string = '<div class="has_whatsapp" style="display: none;" data-type="whatsapp"><a href="https://wa.me/?text=%text%: ' + '%url%" target="_blank"><i class="' + highlight_and_share.whatsapp_fa_class + '"></i>&nbsp;' + highlight_and_share.whatsapp_text + '</a></div>';
 				html += string;
-			 	click_to_share += string;
+				 click_to_share += string;
+				 inline_share += string;
 			} else {
 				var string = '<div class="has_whatsapp" style="display: none;" data-type="whatsapp"><a href="https://wa.me/?text=%text%: ' + '%url%" target="_blank"><i class="' + highlight_and_share.whatsapp_fa_class + '"></i><span class="has-text">&nbsp;' + highlight_and_share.whatsapp_text + '</span></a></div>';
 				html += string;
 				click_to_share += string;
+				inline_share += string;
 			}
 		}
 		if ( highlight_and_share.show_copy ) {
@@ -102,10 +111,12 @@ jQuery( document ).ready( function( $ ) {
 				var string = '<div class="has_copy" style="display: none;" data-type="copy"><a href="#"><i class="' + highlight_and_share.copy_fa_class + '"></i>&nbsp;' + highlight_and_share.copy_text + '</a></div>';
 				html += string;
 				click_to_share += string;
+				inline_share += string;
 			} else {
 				var string = '<div class="has_copy" style="display: none;" data-type="copy"><a href="#"><i class="' + highlight_and_share.copy_fa_class + '"></i><span class="has-text">&nbsp;' + highlight_and_share.copy_text + '</span></a></div>';
 				html += string;
 				click_to_share += string;
+				inline_share += string;
 			}
 		}
 
@@ -115,14 +126,18 @@ jQuery( document ).ready( function( $ ) {
 				var string = '<div class="has_email" style="display: none;" data-type="email" data-title="%title%" data-url="%url%"><a href="' + highlight_and_share.ajax_url + '" target="_blank"><i class="' + highlight_and_share.email_fa_class + '"></i>&nbsp;' + highlight_and_share.email_text + '</a></div>';
 				html += string;
 				click_to_share += string;
+				inline_share += string;
 			} else {
 				var string = '<div class="has_email" style="display: none;" data-type="email" data-title="%title%" data-url="%url%"><a href="' + highlight_and_share.ajax_url + '" target="_blank"><i class="' + highlight_and_share.email_fa_class + '"></i><span class="has-text">&nbsp;' + highlight_and_share.email_text + '</span></a></div>';
 				html += string;
 				click_to_share += string;
+				inline_share += string;
 			}
 		}
 		click_to_share += '</div>';
+		inline_share += '</div>';
 		html += '</div><!-- #highlight-and-share-wrapper -->';
+		$( 'body' ).append( inline_share );
 		$( 'body' ).append( click_to_share );
 		$( 'body' ).append( html );
 	};
@@ -162,6 +177,29 @@ jQuery( document ).ready( function( $ ) {
 		var text = $target.siblings( '.has-click-to-share-text' ).text().trim();
 		text_to_copy = text;
 		cts_display( text, $target.data('title'), $target.data('url'), e );
+	} );
+	$( 'body' ).on( 'click', '.has-inline-text', function( e ) {
+		e.preventDefault();
+		if ( $( '.highlight-and-share-wrapper-inline' ).is( ':visible' ) ) {
+			has_remove();
+			return;
+		}
+		$parent = $( e.target ).parents('.has-content-area');
+
+		//Get URL
+		var href = $parent.data( 'url' );
+		if (typeof href == typeof undefined || href == false) {
+			href = $( location ).attr( 'href' );
+		}
+
+		//Get Title
+		var title = $parent.data( 'title' );
+		if (typeof title == typeof undefined || title == false) {
+			title = $( document ).attr( 'title' );
+		}
+
+		var text = jQuery( this ).text().trim();
+		inline_has_display( text, title, href, e );
 	} );
 
 	$( 'body' ).on( 'mousedown vmousedown', function( e ) {
@@ -466,6 +504,51 @@ jQuery( document ).ready( function( $ ) {
 		}
 
 		wrapper_clone = $( '.highlight-and-share-wrapper-cts:last' ).clone();
+
+		wrapper_clone.css( { position: 'absolute', display: 'block', width: 'auto', height: 'auto', 'z-index': 10000 } );
+
+		$children = wrapper_clone.find( '.has_whatsapp, .has_facebook, .has_twitter, .has_copy, .has_email' );
+		$.each( $children, function( index, item ) {
+			var div = $( this );
+			var url = div.find( 'a' ).attr( 'href' );
+			url = url.replace( '%url%', encodeURIComponent( link ) );
+			url = url.replace( '%username%', encodeURIComponent( highlight_and_share.twitter_username ) );
+			url = url.replace( '%title%', encodeURIComponent( title ) );
+			url = url.replace( '%text%', encodeURIComponent( text ) );
+			var title_attr = div.attr('data-title');
+			if (typeof title_attr !== typeof undefined && title_attr !== false) {
+				title_attr = title_attr.replace( '%title%', encodeURIComponent( title ) );
+				div.attr('data-title', title_attr);
+			}
+			var url_attr = div.attr('data-url');
+			if (typeof url_attr !== typeof undefined && url_attr !== false) {
+				url_attr = url_attr.replace( '%url%', encodeURIComponent( link ) );
+				div.attr('data-url', url_attr);
+			}
+			div.find( 'a' ).attr( 'href', url );
+			var css_class = div.attr( 'class' );
+			wrapper_clone.find( '.' + css_class ).attr( 'style', 'display: inline-block' ).html( div.html() );
+		} );
+
+		//Add to document
+		$( 'body' ).append( wrapper_clone );
+		var wrapper_x = Math.floor( jQuery( e.target).offset().left + ( jQuery( e.target ).width() / 2 ) - ( jQuery( '.highlight-and-share-wrapper:visible' ).width() / 2 ) );
+		if( wrapper_x < 0 ) {
+			wrapper_x = 20;
+		} else if ( ( wrapper_x + jQuery( '.highlight-and-share-wrapper:visible' ).width() ) > jQuery( 'body' ).width() ) {
+			wrapper_x = jQuery( 'body' ).width() - jQuery( '.highlight-and-share-wrapper:visible' ).width();
+		}
+		var wrapper_y = jQuery( e.target).offset().top - jQuery( '.highlight-and-share-wrapper:visible' ).height();
+		wrapper_clone.css( { left: wrapper_x, top: wrapper_y } );
+	};
+	var inline_has_display = function( text, title, link, e ) {
+		has_remove();
+		text_to_copy = text;
+		if ( false == highlight_and_share.show_twitter && false == highlight_and_share.show_facebook && false == highlight_and_share.show_linkedin && false == highlight_and_share.show_pinterest && false == highlight_and_share.show_email ) {
+			return;
+		}
+
+		wrapper_clone = $( '.highlight-and-share-wrapper-inline:last' ).clone();
 
 		wrapper_clone.css( { position: 'absolute', display: 'block', width: 'auto', height: 'auto', 'z-index': 10000 } );
 
