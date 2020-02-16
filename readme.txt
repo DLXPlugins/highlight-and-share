@@ -2,8 +2,8 @@
 Contributors: ronalfy, bigwing
 Tags: highlight, share, twitter, facebook, block, gutenberg
 Requires at least: 4.7
-Tested up to: 5.2
-Stable tag: 3.1.5
+Tested up to: 5.3
+Stable tag: 3.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://mediaron.com/give/
@@ -100,16 +100,16 @@ So far, the latest versions of Chrome, Firefox, and Safari. Works for IE9+
 
 == Screenshots ==
 
-1. Highlight and Share settings.
-2. Highlight and Share Default Theme on a post with icons.
-3. Highlight and Share Black Theme
-4. Highlight and Share Gutenberg block selection
-5. Highlight and Share Output for Click to Share
-6. Sharing Icons shown on Click to Share
-7. Red theme to show you what's possible with Gutenberg
-8. Email functionality
+1. Highlighting and Sharing.
+2. Click to Share block in Gutenberg.
+3. Custom highlighted text in Gutenberg.
+4. Custom highlighted text on the front-end.
 
 == Changelog ==
+
+= 3.2.0 =
+* Released 2020-02-16
+* Added inline highlighting formatting option in Gutenberg.
 
 = 3.1.5 =
 * Released 2019-10-20
@@ -287,5 +287,5 @@ So far, the latest versions of Chrome, Firefox, and Safari. Works for IE9+
 
 == Upgrade Notice ==
 
-= 3.1.5 =
-Code cleanup and smaller footprint for Gutenberg block.
+= 3.2.0 =
+Added inline highlighting formatting option in Gutenberg.
