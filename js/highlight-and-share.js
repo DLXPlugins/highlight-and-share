@@ -15,7 +15,7 @@ jQuery( document ).ready( function( $ ) {
 	var has_load_html = function() {
 		var html = '<div class="highlight-and-share-wrapper">';
 		var click_to_share = '<div class="highlight-and-share-wrapper-cts highlight-and-share-wrapper">';
-		var inline_share = '<div class="highlight-and-share-wrapper-inline highlight-and-share-inline-wrapper">';
+		var inline_share = '<div class="highlight-and-share-wrapper-inline highlight-and-share-wrapper">';
 		if ( highlight_and_share.show_twitter && '' != highlight_and_share.twitter_username ) {
 			if ( highlight_and_share.icons == false ) {
 				var string = '<div class="has_twitter" style="display: none;" data-type="twitter"><a href="https://twitter.com/intent/tweet?via=%username%&url=%url%&text=%text%" target="_blank"><i class="' + highlight_and_share.twitter_fa_class + '"></i>&nbsp;' + highlight_and_share.tweet_text + '</a></div>';
@@ -559,13 +559,13 @@ jQuery( document ).ready( function( $ ) {
 
 		//Add to document
 		$( 'body' ).append( wrapper_clone );
-		var wrapper_x = Math.floor( jQuery( e.target).offset().left + ( jQuery( e.target ).width() / 2 ) - ( jQuery( '.highlight-and-share-inline-wrapper:visible' ).width() / 2 ) );
+		var wrapper_x = Math.floor( jQuery( e.target).offset().left + ( jQuery( e.target ).width() / 2 ) - ( jQuery( '.highlight-and-share-wrapper:visible' ).width() / 2 ) );
 		if( wrapper_x < 0 ) {
 			wrapper_x = 20;
-		} else if ( ( wrapper_x + jQuery( '.highlight-and-share-inline-wrapper:visible' ).width() ) > jQuery( 'body' ).width() ) {
-			wrapper_x = jQuery( 'body' ).width() - jQuery( '.highlight-and-share-inline-wrapper:visible' ).width();
+		} else if ( ( wrapper_x + jQuery( '.highlight-and-share-wrapper:visible' ).width() ) > jQuery( 'body' ).width() ) {
+			wrapper_x = jQuery( 'body' ).width() - jQuery( '.highlight-and-share-wrapper:visible' ).width();
 		}
-		var wrapper_y = jQuery( e.target).offset().top - jQuery( '.highlight-and-share-inline-wrapper:visible' ).height();
+		var wrapper_y = jQuery( e.target).offset().top - jQuery( '.highlight-and-share-wrapper:visible' ).height();
 		wrapper_clone.css( { left: wrapper_x, top: wrapper_y } );
 	};
 	if ( highlight_and_share.show_twitter == true || highlight_and_share.show_facebook == true || highlight_and_share.show_linkedin == true || highlight_and_share.show_pinterest == true || highlight_and_share.show_email == true) {
