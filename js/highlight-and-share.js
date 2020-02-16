@@ -178,11 +178,28 @@ jQuery( document ).ready( function( $ ) {
 		text_to_copy = text;
 		cts_display( text, $target.data('title'), $target.data('url'), e );
 	} );
-	$( 'body' ).on( 'hover', '.has-inline-text', function( e ) {
+	$( 'body' ).on( 'click', '.has-inline-text', function( e ) {
 		e.preventDefault();
-		var $target = jQuery( e.target );
+		if ( $( '.highlight-and-share-wrapper-inline' ).is( ':visible' ) ) {
+			has_remove();
+			return;
+		}
+		$parent = $( e.target ).parents('.has-content-area');
+
+		//Get URL
+		var href = $parent.data( 'url' );
+		if (typeof href == typeof undefined || href == false) {
+			href = $( location ).attr( 'href' );
+		}
+
+		//Get Title
+		var title = $parent.data( 'title' );
+		if (typeof title == typeof undefined || title == false) {
+			title = $( document ).attr( 'title' );
+		}
+
 		var text = jQuery( this ).text().trim();
-		inline_has_display( text, $target.data('title'), $target.data('url'), e );
+		inline_has_display( text, title, href, e );
 	} );
 
 	$( 'body' ).on( 'mousedown vmousedown', function( e ) {
