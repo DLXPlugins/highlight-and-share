@@ -526,6 +526,7 @@ jQuery( document ).ready( function( $ ) {
 	};
 	var inline_has_display = function( text, title, link, e ) {
 		has_remove();
+		text_to_copy = text;
 		if ( false == highlight_and_share.show_twitter && false == highlight_and_share.show_facebook && false == highlight_and_share.show_linkedin && false == highlight_and_share.show_pinterest && false == highlight_and_share.show_email ) {
 			return;
 		}
