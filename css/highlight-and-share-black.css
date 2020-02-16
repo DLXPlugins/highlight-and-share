@@ -142,3 +142,11 @@ div.highlight-and-share-wrapper div.has_copy:hover{
 	border-left: 10px solid transparent;
 	border-right: 10px solid transparent;
 }
+.has-inline-text {
+	background-color: rgb(255, 239, 177);
+	color: black;
+	cursor: pointer;
+}
+.has-inline-text:hover {
+	background-color: rgb(252, 214, 60);
+}

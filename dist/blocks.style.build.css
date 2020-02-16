@@ -34,3 +34,11 @@
   height: 100%;
   top: 0;
   left: 0; }
+
+.has-inline-text {
+  background-color: #ffefb1;
+  color: black;
+  cursor: pointer; }
+
+.has-inline-text:hover {
+  background-color: #fcd63c; }
