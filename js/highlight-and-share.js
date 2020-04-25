@@ -199,14 +199,14 @@ jQuery( document ).ready( function( $ ) {
 		}
 
 		var text = jQuery( this ).text().trim();
-		inline_has_display( text, title, href, e );
+		inline_has_display( text, title, href, jQuery( this ) );
 	} );
 
 	$( 'body' ).on( 'mousedown vmousedown', function( e ) {
-		has_get_selection();
+		//has_get_selection();
 	} );
 	document.addEventListener("selectionchange", function() {
-		has_get_selection();
+		//has_get_selection();
 	}, false);
 
 	$( 'body' ).on( 'click', '.has_twitter a:visible', function( e ) {
@@ -577,13 +577,18 @@ jQuery( document ).ready( function( $ ) {
 
 		//Add to document
 		$( 'body' ).append( wrapper_clone );
-		var wrapper_x = Math.floor( jQuery( e.target).offset().left + ( jQuery( e.target ).width() / 2 ) - ( jQuery( '.highlight-and-share-wrapper:visible' ).width() / 2 ) );
+		var wrapper_x = Math.floor( e.offset().left + ( e.width() / 2 ) - ( jQuery( '.highlight-and-share-wrapper:visible' ).width() / 2 ) );
 		if( wrapper_x < 0 ) {
 			wrapper_x = 20;
 		} else if ( ( wrapper_x + jQuery( '.highlight-and-share-wrapper:visible' ).width() ) > jQuery( 'body' ).width() ) {
 			wrapper_x = jQuery( 'body' ).width() - jQuery( '.highlight-and-share-wrapper:visible' ).width();
 		}
-		var wrapper_y = jQuery( e.target).offset().top - jQuery( '.highlight-and-share-wrapper:visible' ).height();
+		var wrapper_y = 0;
+		if( /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent) ) {
+			wrapper_y = e.position().top;
+		} else {
+			wrapper_y = e.offset().top - jQuery( '.highlight-and-share-wrapper:visible' ).height();;
+		}
 		wrapper_clone.css( { left: wrapper_x, top: wrapper_y } );
 	};
 	if ( highlight_and_share.show_twitter == true || highlight_and_share.show_facebook == true || highlight_and_share.show_linkedin == true || highlight_and_share.show_pinterest == true || highlight_and_share.show_email == true) {
