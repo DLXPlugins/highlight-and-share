@@ -203,10 +203,10 @@ jQuery( document ).ready( function( $ ) {
 	} );
 
 	$( 'body' ).on( 'mousedown vmousedown', function( e ) {
-		//has_get_selection();
+		has_get_selection();
 	} );
 	document.addEventListener("selectionchange", function() {
-		//has_get_selection();
+		has_get_selection();
 	}, false);
 
 	$( 'body' ).on( 'click', '.has_twitter a:visible', function( e ) {
