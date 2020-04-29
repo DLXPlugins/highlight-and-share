@@ -3,7 +3,7 @@ Contributors: ronalfy, bigwing
 Tags: highlight, share, twitter, facebook, block, gutenberg
 Requires at least: 4.7
 Tested up to: 5.4
-Stable tag: 3.2.9
+Stable tag: 3.2.10
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://mediaron.com/give/
@@ -106,6 +106,10 @@ So far, the latest versions of Chrome, Firefox, and Safari. Works for IE9+
 4. Custom highlighted text on the front-end.
 
 == Changelog ==
+
+= 3.2.10 =
+* Released 2020-04-29
+* Fixed compatiblity issues with Page Builders.
 
 = 3.2.9 =
 * Released 2020-02-24
@@ -290,6 +294,9 @@ So far, the latest versions of Chrome, Firefox, and Safari. Works for IE9+
 * Initial release on WordPress.org
 
 == Upgrade Notice ==
+
+= 3.2.10 =
+Fixed compatiblity issues with Page Builders.
 
 = 3.2.9 =
 Fixing inline highlighting on mobile devices.
