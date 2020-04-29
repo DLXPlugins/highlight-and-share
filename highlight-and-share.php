@@ -902,6 +902,16 @@ class Highlight_And_Share {
 	 * @see init
 	 */
 	public function add_scripts() {
+		// Divi compatibility.
+		if ( isset( $_GET['et_fb'] ) ) { // phpcs:ignore
+			return;
+		}
+		// Beaver Builder compatibility.
+		if ( class_exists( 'FLBuilderModel' ) ) {
+			if ( FLBuilderModel::is_builder_enabled() ) {
+				return;
+			}
+		}
 		$deps = array( 'jquery' );
 		if ( wp_is_mobile() && apply_filters( 'has_enable_mobile', true ) ) {
 			$deps[] = 'jquery.mobile';

@@ -146,7 +146,6 @@ jQuery( document ).ready( function( $ ) {
 	var js_content = highlight_and_share.content;
 	if ( '' == js_content ) return;
 	$( 'body' ).on( 'mouseup vmouseup', js_content, function( e ) {
-		e.stopPropagation();
 		has_remove();
 		var selection = window.getSelection();
 		var text = selection.toString();
