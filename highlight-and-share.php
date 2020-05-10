@@ -2,12 +2,12 @@
 
 /*
 Plugin Name: Highlight and Share
-Plugin URI: https://wordpress.org/plugins/highlight-and-share/
+Plugin URI: https://mediaron.com/highlight-and-share
 Description: Highlight text and share via Twitter or Facebook and many more
-Author: Ronald Huereca
-Version: 3.2.10
+Author: MediaRon LLC
+Version: 3.2.11
 Requires at least: 4.7
-Author URI: https://mediaron.com/portfolio/highlight-and-share/
+Author URI: https://mediaron.com
 Contributors: ronalfy
 Text Domain: highlight-and-share
 Domain Path: /languages
@@ -71,7 +71,7 @@ class Highlight_And_Share {
 
 		add_action( 'wp', array( $this, 'wp_loaded' ), 15 );
 
-		define( 'HIGHLIGHT_AND_SHARE_VERSION', '3.2.10' );
+		define( 'HIGHLIGHT_AND_SHARE_VERSION', '3.2.11' );
 
 		// Get errors for email.
 		$this->errors['could_not_send'] = esc_html__( 'Could not send the e-mail', 'highlight-and-share' );
@@ -1262,7 +1262,7 @@ class Highlight_And_Share {
 	private function output_stylesheets( $theme ) {
 		switch ( $theme ) {
 			case 'off':
-				break;
+				return;
 			case 'default':
 				wp_enqueue_style( 'highlight-and-share', $this->get_plugin_url( 'css/highlight-and-share.css' ), array(), HIGHLIGHT_AND_SHARE_VERSION, 'all' );
 				break;
@@ -1291,6 +1291,22 @@ class Highlight_And_Share {
 				wp_enqueue_style( 'highlight-and-share', $this->get_plugin_url( 'css/highlight-and-share.css' ), array(), HIGHLIGHT_AND_SHARE_VERSION, 'all' );
 				break;
 		}
+		add_filter( 'body_class', array( $this, 'add_body_class' ), 10, 2 );
+	}
+
+	/**
+	 * Add a body class for styling.
+	 *
+	 * @since 3.2.11
+	.*
+	 * @param array $classes Array of class names.
+	 * @param array $class   Array of additional classnaes added to the body.
+	 *
+	 * @return array Updated classnames.
+	 */
+	public function add_body_class( $classes, $class ) {
+		$classes[] = 'has-body';
+		return $classes;
 	}
 
 	/**

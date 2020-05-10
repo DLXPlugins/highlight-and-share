@@ -69,9 +69,9 @@
 .highlight-and-share-wrapper div.has_whatsapp:hover {
     background: #1388b7;
 }
-.highlight-and-share-wrapper a,
-.highlight-and-share-wrapper a:hover,
-.highlight-and-share-wrapper a:visited {
+body.has-body .highlight-and-share-wrapper a,
+body.has-body .highlight-and-share-wrapper a:hover,
+body.has-body .highlight-and-share-wrapper a:visited {
 	font-family: 'FranklinGothic', Helvetica, sans-serif;
 	font-weight: bold;
 	text-transform: uppercase;

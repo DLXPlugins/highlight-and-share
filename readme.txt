@@ -3,7 +3,7 @@ Contributors: ronalfy, bigwing
 Tags: highlight, share, twitter, facebook, block, gutenberg
 Requires at least: 4.7
 Tested up to: 5.4
-Stable tag: 3.2.10
+Stable tag: 3.2.11
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://mediaron.com/give/
@@ -106,6 +106,10 @@ So far, the latest versions of Chrome, Firefox, and Safari. Works for IE9+
 4. Custom highlighted text on the front-end.
 
 == Changelog ==
+
+= 3.2.11 =
+* Released 2020-05-10
+* Adjusting styles (particularly for Elementor Pro) to be more specific in intention of what the colors of the highlighting interface is.
 
 = 3.2.10 =
 * Released 2020-04-29
@@ -295,11 +299,5 @@ So far, the latest versions of Chrome, Firefox, and Safari. Works for IE9+
 
 == Upgrade Notice ==
 
-= 3.2.10 =
-Fixed compatiblity issues with Page Builders.
-
-= 3.2.9 =
-Fixing inline highlighting on mobile devices.
-
-= 3.2.0 =
-Added inline highlighting formatting option in Gutenberg.
+= 3.2.11 =
+Adjusting styles (particularly for Elementor Pro) to be more specific in intention of what the colors of the highlighting interface is.
