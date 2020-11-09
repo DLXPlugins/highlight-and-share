@@ -142,7 +142,7 @@ function has_blocks_editor_assets() {
 
 	wp_register_style(
 		'has-style-admin-css',
-		Highlight_And_Share::get_instance()->get_plugin_url( 'dist/has-cta-editor.css' ),
+		Highlight_And_Share::get_instance()->get_plugin_url( 'dist/has-cts-editor.css' ),
 		array(),
 		HIGHLIGHT_AND_SHARE_VERSION,
 		'all'

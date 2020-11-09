@@ -1,9 +1,9 @@
 === Highlight and Share ===
-Contributors: ronalfy, bigwing
-Tags: highlight, share, twitter, facebook, block, gutenberg
+Contributors: ronalfy
+Tags: highlight, share, click to tweet, twitter, tweet, block
 Requires at least: 4.7
-Tested up to: 5.4
-Stable tag: 3.2.11
+Tested up to: 5.5
+Stable tag: 3.3.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://mediaron.com/give/
@@ -18,7 +18,7 @@ Sharing selectable text is only possible via Twitter, Facebook, and WhatsApp. Ho
 
 This plugin is intended to be highly flexible in selecting content areas (via the Plugin's settings).
 
-The plugin also has a Gutenberg block that is a click-to-share piece.
+The plugin also has a Gutenberg block that is a click-to-share/click-to-tweet piece.
 
 If you have a feature request, <a href="https://github.com/ronalfy/highlight-and-share/issues">please add a GitHub issue</a>.
 
@@ -69,18 +69,9 @@ https://www.youtube.com/watch?v=ZtcPacmr87E
 
 Possibly.  <a href="https://github.com/ronalfy/highlight-and-share/issues">Open up an issue</a>.
 
-= I'm using Font Awesome 5 and the icons aren't showing up =
+= Where did my icons go? =
 
-FontAwesome 5 deprecated a lot of FontAwesome 4, so head to the settings and go under Advanced.
-
-* For Twitter, enter: `fab fa-twitter`
-* For Facebook, enter `fab fa-facebook`
-* For LinkedIn, enter `fab fa-linkedin`
-* For Pinterest, enter `fab fa-pinterest`
-* For Xing, enter `fab fa-xing`
-* For WhatsApp, enter `fab fa-whatsapp`
-* For Copy, enter far `fa-copy`
-* For Email, you can leave this as `fa fa-envelope`
+Since people are having issues with the icons, I decided to do SVG includes instead. This should be more reliable and faster.
 
 = I want to include my own CSS.  How can I do that? =
 
@@ -106,6 +97,17 @@ So far, the latest versions of Chrome, Firefox, and Safari. Works for IE9+
 4. Custom highlighted text on the front-end.
 
 == Changelog ==
+
+= 3.3.0 =
+* Released 2020-11-09
+* Removed Font Awesome requirement.
+* Improve a little performance around the blocks and scripts.
+* Remove Pinterest. It stopped working a long time ago.
+* Removed icons from customizer and admin panel.
+* Added SVG sprite for icon retrieval.
+* Ensures all the themes were correct for the new icons.
+* Fixed a few small errors in the Click to Share/Click to Tweet block.
+* More changes coming soon: https://mediaron.com/highlight-and-share/
 
 = 3.2.11 =
 * Released 2020-05-10
@@ -299,5 +301,5 @@ So far, the latest versions of Chrome, Firefox, and Safari. Works for IE9+
 
 == Upgrade Notice ==
 
-= 3.2.11 =
-Adjusting styles (particularly for Elementor Pro) to be more specific in intention of what the colors of the highlighting interface is.
+= 3.3.0 =
+Numerous appearance and performance improvements. Now works without Font Awesome 5 icon set installed.
