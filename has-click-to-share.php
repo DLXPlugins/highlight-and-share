@@ -124,7 +124,7 @@ function has_blocks_frontend_assets() {
 		if ( has_block( 'has/click-to-share', $post_id ) ) {
 			wp_enqueue_style(
 				'has-style-frontend-css',
-				Highlight_And_Share::get_instance()->get_plugin_url( 'dist/blocks.style.build.css' ),
+				Highlight_And_Share::get_instance()->get_plugin_url( 'dist/has-cts-style.css' ),
 				array(),
 				HIGHLIGHT_AND_SHARE_VERSION,
 				'all'
@@ -140,24 +140,16 @@ function has_blocks_frontend_assets() {
  */
 function has_blocks_editor_assets() {
 
-	// Load the compiled blocks into the editor.
-	wp_register_style(
-		'google-material-icons',
-		'https://fonts.googleapis.com/icon?family=Material+Icons',
-		array(),
-		HIGHLIGHT_AND_SHARE_VERSION,
-		'all'
-	);
 	wp_register_style(
 		'has-style-admin-css',
-		Highlight_And_Share::get_instance()->get_plugin_url( 'dist/blocks.editor.build.css' ),
-		array( 'google-material-icons' ),
+		Highlight_And_Share::get_instance()->get_plugin_url( 'dist/has-cta-editor.css' ),
+		array(),
 		HIGHLIGHT_AND_SHARE_VERSION,
 		'all'
 	);
 	wp_register_script(
 		'has-click-to-share',
-		Highlight_And_Share::get_instance()->get_plugin_url( 'dist/blocks.build.js' ),
+		Highlight_And_Share::get_instance()->get_plugin_url( 'dist/has-cts.js' ),
 		array( 'wp-blocks', 'wp-element', 'wp-i18n' ),
 		HIGHLIGHT_AND_SHARE_VERSION,
 		true
