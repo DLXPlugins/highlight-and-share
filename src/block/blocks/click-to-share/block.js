@@ -32,10 +32,20 @@ export const name = 'has/click-to-share';
  *                             registered; otherwise `undefined`.
  */
 registerBlockType( 'has/click-to-share', { // Block name. Block names must be string that contains a namespace prefix. Example: my-plugin/my-custom-block.
-	title: __( 'Click to Share' ), // Block title.
-	icon: <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24"><path d="M0 0h24v24H0z" fill="none"/><path d="M18 16.08c-.76 0-1.44.3-1.96.77L8.91 12.7c.05-.23.09-.46.09-.7s-.04-.47-.09-.7l7.05-4.11c.54.5 1.25.81 2.04.81 1.66 0 3-1.34 3-3s-1.34-3-3-3-3 1.34-3 3c0 .24.04.47.09.7L8.04 9.81C7.5 9.31 6.79 9 6 9c-1.66 0-3 1.34-3 3s1.34 3 3 3c.79 0 1.5-.31 2.04-.81l7.12 4.16c-.05.21-.08.43-.08.65 0 1.61 1.31 2.92 2.92 2.92 1.61 0 2.92-1.31 2.92-2.92s-1.31-2.92-2.92-2.92z"/></svg>,
+	title: __( 'Highlight and Share: Click to Share', 'highlight-and-share' ), // Block title.
+	desription: __( 'A block for clicking and sharing text.', 'highlight-and-share' ),
+	icon: <svg aria-hidden="true" focusable="false" data-prefix="fas" data-icon="share-alt" class="svg-inline--fa fa-share-alt fa-w-14" role="img" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512"><path fill="currentColor" d="M352 320c-22.608 0-43.387 7.819-59.79 20.895l-102.486-64.054a96.551 96.551 0 0 0 0-41.683l102.486-64.054C308.613 184.181 329.392 192 352 192c53.019 0 96-42.981 96-96S405.019 0 352 0s-96 42.981-96 96c0 7.158.79 14.13 2.276 20.841L155.79 180.895C139.387 167.819 118.608 160 96 160c-53.019 0-96 42.981-96 96s42.981 96 96 96c22.608 0 43.387-7.819 59.79-20.895l102.486 64.054A96.301 96.301 0 0 0 256 416c0 53.019 42.981 96 96 96s96-42.981 96-96-42.981-96-96-96z"></path></svg>,
 	category: 'common', // Block category — Group blocks together based on common traits E.g. common, formatting, layout widgets, embed.
-
+	keywords: [
+		__( 'click', 'highlight-and-share' ),
+		__( 'social', 'highlight-and-share' ),
+		__( 'better', 'highlight-and-share' ),
+		__( 'tweet', 'highlight-and-share' ),
+		__( 'twitter', 'highlight-and-share' ),
+		__( 'facebook', 'highlight-and-share' ),
+		__( 'share', 'highlight-and-share' ),
+		__( 'feature', 'highlight-and-share' ),
+	],
 	edit: edit,
 
 	// Render via PHP

@@ -5,15 +5,12 @@ Plugin Name: Highlight and Share
 Plugin URI: https://mediaron.com/highlight-and-share
 Description: Highlight text and share via Twitter or Facebook and many more
 Author: MediaRon LLC
-Version: 3.2.11
-Requires at least: 4.7
+Version: 3.3.0
+Requires at least: 5.5
 Author URI: https://mediaron.com
 Contributors: ronalfy
 Text Domain: highlight-and-share
 Domain Path: /languages
-
-Recommended pre-requisite plugin - https://wordpress.org/plugins/better-font-awesome/
-WordPress SEO - Twitter/Facebook OpenGraph data - https://wordpress.org/plugins/wordpress-seo/
 */
 
 /**
@@ -71,7 +68,7 @@ class Highlight_And_Share {
 
 		add_action( 'wp', array( $this, 'wp_loaded' ), 15 );
 
-		define( 'HIGHLIGHT_AND_SHARE_VERSION', '3.2.11' );
+		define( 'HIGHLIGHT_AND_SHARE_VERSION', '3.3.0' );
 
 		// Get errors for email.
 		$this->errors['could_not_send'] = esc_html__( 'Could not send the e-mail', 'highlight-and-share' );
@@ -262,30 +259,6 @@ class Highlight_And_Share {
 			)
 		);
 
-		// Show Pinterest.
-		$customizer->add_setting(
-			'highlight-and-share[show_pinterest]',
-			array(
-				'capability'        => 'edit_theme_options',
-				'default'           => $options['show_pinterest'],
-				'sanitize_callback' => array( $this, 'customizer_sanitize_checkbox' ),
-				'type'              => 'option',
-			)
-		);
-		$customizer->add_control(
-			new WP_Customize_Control(
-				$customizer,
-				'highlight-and-share[show_pinterest]',
-				array(
-					'type'     => 'checkbox',
-					'label'    => __( 'Enable Pinterest Sharing', 'highlight-and-share' ),
-					'section'  => 'highlight-and-share',
-					'settings' => 'highlight-and-share[show_pinterest]',
-					'priority' => 10,
-				)
-			)
-		);
-
 		// Show Xing.
 		$customizer->add_setting(
 			'highlight-and-share[show_xing]',
@@ -358,7 +331,7 @@ class Highlight_And_Share {
 			)
 		);
 
-		// Show Pinterest.
+		// Show Copy.
 		$customizer->add_setting(
 			'highlight-and-share[show_copy]',
 			array(
@@ -377,198 +350,6 @@ class Highlight_And_Share {
 					'label'    => __( 'Enable Copy', 'highlight-and-share' ),
 					'section'  => 'highlight-and-share',
 					'settings' => 'highlight-and-share[show_copy]',
-					'priority' => 10,
-				)
-			)
-		);
-
-		// Show Twitter Font Awesome Class.
-		$customizer->add_setting(
-			'highlight-and-share[twitter_fa_class]',
-			array(
-				'capability'        => 'edit_theme_options',
-				'default'           => $options['twitter_fa_class'],
-				'sanitize_callback' => 'sanitize_text_field',
-				'type'              => 'option',
-			)
-		);
-		$customizer->add_control(
-			new WP_Customize_Control(
-				$customizer,
-				'highlight-and-share[twitter_fa_class]',
-				array(
-					'type'     => 'text',
-					'label'    => __( 'Twitter FontAwesome Class', 'highlight-and-share' ),
-					'section'  => 'highlight-and-share',
-					'settings' => 'highlight-and-share[twitter_fa_class]',
-					'priority' => 10,
-				)
-			)
-		);
-
-		// Show Facebook Font Awesome Class.
-		$customizer->add_setting(
-			'highlight-and-share[facebook_fa_class]',
-			array(
-				'capability'        => 'edit_theme_options',
-				'default'           => $options['facebook_fa_class'],
-				'sanitize_callback' => 'sanitize_text_field',
-				'type'              => 'option',
-			)
-		);
-		$customizer->add_control(
-			new WP_Customize_Control(
-				$customizer,
-				'highlight-and-share[facebook_fa_class]',
-				array(
-					'type'     => 'text',
-					'label'    => __( 'Facebook FontAwesome Class', 'highlight-and-share' ),
-					'section'  => 'highlight-and-share',
-					'settings' => 'highlight-and-share[facebook_fa_class]',
-					'priority' => 10,
-				)
-			)
-		);
-
-		// Show LinkedIn Font Awesome Class.
-		$customizer->add_setting(
-			'highlight-and-share[linkedin_fa_class]',
-			array(
-				'capability'        => 'edit_theme_options',
-				'default'           => $options['linkedin_fa_class'],
-				'sanitize_callback' => 'sanitize_text_field',
-				'type'              => 'option',
-			)
-		);
-		$customizer->add_control(
-			new WP_Customize_Control(
-				$customizer,
-				'highlight-and-share[linkedin_fa_class]',
-				array(
-					'type'     => 'text',
-					'label'    => __( 'LinkedIn FontAwesome Class', 'highlight-and-share' ),
-					'section'  => 'highlight-and-share',
-					'settings' => 'highlight-and-share[linkedin_fa_class]',
-					'priority' => 10,
-				)
-			)
-		);
-
-		// Show Pinterest Font Awesome Class.
-		$customizer->add_setting(
-			'highlight-and-share[pinterest_fa_class]',
-			array(
-				'capability'        => 'edit_theme_options',
-				'default'           => $options['pinterest_fa_class'],
-				'sanitize_callback' => 'sanitize_text_field',
-				'type'              => 'option',
-			)
-		);
-		$customizer->add_control(
-			new WP_Customize_Control(
-				$customizer,
-				'highlight-and-share[pinterest_fa_class]',
-				array(
-					'type'     => 'text',
-					'label'    => __( 'Pinterest FontAwesome Class', 'highlight-and-share' ),
-					'section'  => 'highlight-and-share',
-					'settings' => 'highlight-and-share[pinterest_fa_class]',
-					'priority' => 10,
-				)
-			)
-		);
-
-		// Show Xing Font Awesome Class.
-		$customizer->add_setting(
-			'highlight-and-share[xing_fa_class]',
-			array(
-				'capability'        => 'edit_theme_options',
-				'default'           => $options['xing_fa_class'],
-				'sanitize_callback' => 'sanitize_text_field',
-				'type'              => 'option',
-			)
-		);
-		$customizer->add_control(
-			new WP_Customize_Control(
-				$customizer,
-				'highlight-and-share[xing_fa_class]',
-				array(
-					'type'     => 'text',
-					'label'    => __( 'Xing FontAwesome Class', 'highlight-and-share' ),
-					'section'  => 'highlight-and-share',
-					'settings' => 'highlight-and-share[xing_fa_class]',
-					'priority' => 10,
-				)
-			)
-		);
-
-		// Show WhatsApp Font Awesome Class.
-		$customizer->add_setting(
-			'highlight-and-share[whatsapp_fa_class]',
-			array(
-				'capability'        => 'edit_theme_options',
-				'default'           => $options['whatsapp_fa_class'],
-				'sanitize_callback' => 'sanitize_text_field',
-				'type'              => 'option',
-			)
-		);
-		$customizer->add_control(
-			new WP_Customize_Control(
-				$customizer,
-				'highlight-and-share[whatsapp_fa_class]',
-				array(
-					'type'     => 'text',
-					'label'    => __( 'WhatsApp FontAwesome Class', 'highlight-and-share' ),
-					'section'  => 'highlight-and-share',
-					'settings' => 'highlight-and-share[whatsapp_fa_class]',
-					'priority' => 10,
-				)
-			)
-		);
-
-		// Show Email Font Awesome Class.
-		$customizer->add_setting(
-			'highlight-and-share[email_fa_class]',
-			array(
-				'capability'        => 'edit_theme_options',
-				'default'           => $options['email_fa_class'],
-				'sanitize_callback' => 'sanitize_text_field',
-				'type'              => 'option',
-			)
-		);
-		$customizer->add_control(
-			new WP_Customize_Control(
-				$customizer,
-				'highlight-and-share[email_fa_class]',
-				array(
-					'type'     => 'text',
-					'label'    => __( 'Email FontAwesome Class', 'highlight-and-share' ),
-					'section'  => 'highlight-and-share',
-					'settings' => 'highlight-and-share[email_fa_class]',
-					'priority' => 10,
-				)
-			)
-		);
-
-		// Show Email Font Awesome Class.
-		$customizer->add_setting(
-			'highlight-and-share[copy_fa_class]',
-			array(
-				'capability'        => 'edit_theme_options',
-				'default'           => $options['copy_fa_class'],
-				'sanitize_callback' => 'sanitize_text_field',
-				'type'              => 'option',
-			)
-		);
-		$customizer->add_control(
-			new WP_Customize_Control(
-				$customizer,
-				'highlight-and-share[copy_fa_class]',
-				array(
-					'type'     => 'text',
-					'label'    => __( 'Copy FontAwesome Class', 'highlight-and-share' ),
-					'section'  => 'highlight-and-share',
-					'settings' => 'highlight-and-share[copy_fa_class]',
 					'priority' => 10,
 				)
 			)
@@ -754,13 +535,12 @@ class Highlight_And_Share {
 		$settings = $this->get_plugin_options();
 
 		// Skip loading if both twitter/facebook are turned off.
-		$show_facebook  = (bool) apply_filters( 'has_show_facebook', $settings['show_facebook'] );
-		$show_twitter   = (bool) apply_filters( 'has_show_twitter', $settings['show_twitter'] );
-		$show_linkedin  = (bool) apply_filters( 'has_show_linkedin', $settings['show_linkedin'] );
-		$show_pinterest = (bool) apply_filters( 'has_show_pinterest', $settings['show_pinterest'] );
-		$show_email     = (bool) apply_filters( 'has_show_email', $settings['show_email'] );
-		$show_copy      = (bool) apply_filters( 'has_show_copy', $settings['show_email'] );
-		if ( ! $show_facebook && ! $show_twitter && ! $show_linkedin && ! $show_pinterest && ! $show_email && ! $show_copy ) {
+		$show_facebook = (bool) apply_filters( 'has_show_facebook', $settings['show_facebook'] );
+		$show_twitter  = (bool) apply_filters( 'has_show_twitter', $settings['show_twitter'] );
+		$show_linkedin = (bool) apply_filters( 'has_show_linkedin', $settings['show_linkedin'] );
+		$show_email    = (bool) apply_filters( 'has_show_email', $settings['show_email'] );
+		$show_copy     = (bool) apply_filters( 'has_show_copy', $settings['show_email'] );
+		if ( ! $show_facebook && ! $show_twitter && ! $show_linkedin && ! $show_email && ! $show_copy ) {
 			return;
 		}
 
@@ -776,6 +556,9 @@ class Highlight_And_Share {
 		// Load scripts.
 		add_action( 'wp_enqueue_scripts', array( $this, 'add_scripts' ) );
 
+		// Load html.
+		add_action( 'wp_footer', array( $this, 'add_footer_html' ) );
+
 		// Load content area.
 		if ( apply_filters( 'has_enable_content', (bool) $settings['enable_content'] ) ) {
 			add_filter( 'the_content', array( $this, 'content_area' ) );
@@ -783,6 +566,152 @@ class Highlight_And_Share {
 		if ( apply_filters( 'has_enable_excerpt', (bool) $settings['enable_excerpt'] ) ) {
 			add_filter( 'the_excerpt', array( $this, 'excerpt_area' ) );
 		}
+	}
+
+	public function add_footer_html() {
+		$settings       = $this->get_plugin_options();
+		$html           = '<div class="highlight-and-share-wrapper">';
+		$click_to_share = '<div class="highlight-and-share-wrapper-cts highlight-and-share-wrapper">';
+		$inline_share   = '<div class="highlight-and-share-wrapper-inline highlight-and-share-wrapper">';
+		if ( $settings['show_twitter'] && '' !== $settings['twitter'] ) {
+			if ( ! $settings['icons'] ) {
+				$string          = '<div class="has_twitter" style="display: none;" data-type="twitter"><a href="https://twitter.com/intent/tweet?via=%username%&url=%url%&text=%text%" target="_blank"><svg class="has-icon"><use xlink:href="#has-twitter-icon"></use>&nbsp;' . esc_html( apply_filters( 'has_twitter_text', _x( 'Tweet', 'Twitter share text', 'highlight-and-share' ) ) ) . '</a></div>';
+				$html           .= $string;
+				$click_to_share .= $string;
+				$inline_share   .= $string;
+			} else {
+				$string         = '<div class="has_twitter" style="display: none;" data-type="twitter"><a href="https://twitter.com/intent/tweet?via=%username%&url=%url%&text=%text%" target="_blank"><svg class="has-icon"><use xlink:href="#has-twitter-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_twitter_text', _x( 'Tweet', 'Twitter share text', 'highlight-and-share' ) ) ) . '</span></a></div>';
+				$html          .= $string;
+				$click_to_share .= $string;
+				$inline_share  .= $string;
+			}
+		} elseif ( $settings['show_twitter'] && '' === $settings['twitter'] ) {
+			if ( ! $settings['icons'] ) {
+				$string          = '<div class="has_twitter" style="display: none;" data-type="twitter"><a href="https://twitter.com/intent/tweet?url=%url%&text=%text%" target="_blank"><svg class="has-icon"><use xlink:href="#has-twitter-icon"></use>&nbsp;' . esc_html( apply_filters( 'has_twitter_text', _x( 'Tweet', 'Twitter share text', 'highlight-and-share' ) ) ) . '</a></div>';
+				$html           .= $string;
+				$click_to_share .= $string;
+				$inline_share   .= $string;
+			} else {
+				$string          = '<div class="has_twitter" style="display: none;" data-type="twitter"><a href="https://twitter.com/intent/tweet?url=%url%&text=%text%" target="_blank"><svg class="has-icon"><use xlink:href="#has-twitter-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_twitter_text', _x( 'Tweet', 'Twitter share text', 'highlight-and-share' ) ) ) . '</span></a></div>';
+				$html           .= $string;
+				$click_to_share .= $string;
+				$inline_share   .= $string;
+			}
+		}
+		if ( $settings['show_facebook'] ) {
+			if ( ! $settings['icons'] ) {
+				// Note, you must be on a publicly accesible URL to use this button.
+				if ( 0 === $settings['facebook_app_id'] ) {
+					$html .= '<div class="has_facebook" style="display: none;" data-type="facebook"><a href="https://www.facebook.com/sharer/sharer.php?u=%url%&t=%title%" target="_blank"><svg class="has-icon"><use xlink:href="#has-facebook-icon"></use></svg>&nbsp;' . esc_html( apply_filters( 'has_facebook_text', _x( 'Share', 'Facebook share text', 'highlight-and-share' ) ) ) . '</a></div>';
+				} else {
+					$tring           = '<div class="has_facebook" style="display: none;" data-type="facebook"><a href="https://www.facebook.com/dialog/share?app_id=' . esc_attr( $settings['facebook_app_id'] ) . '&display=popup&amp;quote=%text%&href=%url%" target="_blank"><svg class="has-icon"><use xlink:href="#has-facebook-icon"></use></svg>&nbsp;' . esc_html( apply_filters( 'has_facebook_text', _x( 'Share', 'Facebook share text', 'highlight-and-share' ) ) ) . '</a></div>';
+					$html           .= $string;
+					$click_to_share .= $string;
+					$inline_share   .= $string;
+				}
+			} else {
+				if ( 0 === $settings['facebook_app_id'] ) {
+					$html .= '<div class="has_facebook" style="display: none;" data-type="facebook"><a href="https://www.facebook.com/sharer/sharer.php?u=%url%&t=%title%" target="_blank"><svg class="has-icon"><use xlink:href="#has-facebook-icon"></use></svg><span class="has-text">' . esc_html( apply_filters( 'has_facebook_text', _x( 'Share', 'Facebook share text', 'highlight-and-share' ) ) ) . '</span></a></div>';
+				} else {
+					$string          = '<div class="has_facebook" style="display: none;" data-type="facebook"><a href="https://www.facebook.com/dialog/share?app_id=' . esc_attr( $settings['facebook_app_id'] ) . '&display=popup&amp;quote=%text%&href=%url%" target="_blank"><svg class="has-icon"><use xlink:href="#has-facebook-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_facebook_text', _x( 'Share', 'Facebook share text', 'highlight-and-share' ) ) ) . '</span></a></div>';
+					$html           .= $string;
+					$click_to_share .= $string;
+					$inline_share   .= $string;
+				}
+			}
+		}
+		if ( $settings['show_linkedin'] ) {
+			if ( ! $settings['icons'] ) {
+				// Note, you must be on a publicly accesible URL to use this button
+				$html .= '<div class="has_linkedin" style="display: none;" data-type="linkedin"><a href="https://www.linkedin.com/shareArticle?mini=true&url=%url%&title=%title%" target="_blank"><svg class="has-icon"><use xlink:href="#has-linkedin-icon"></use></svg>&nbsp;' . esc_html( apply_filters( 'has_linkedin_text', _x( 'LinkedIn', 'LinkedIn share text', 'highlight-and-share' ) ) ) . '</a></div>';
+			} else {
+				$html .= '<div class="has_linkedin" style="display: none;" data-type="linkedin"><a href="https://www.linkedin.com/shareArticle?mini=true&url=%url%&title=%title%" target="_blank"><svg class="has-icon"><use xlink:href="#has-linkedin-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_linkedin_text', _x( 'LinkedIn', 'LinkedIn share text', 'highlight-and-share' ) ) ) . '</span></a></div>';
+			}
+		}
+
+		if ( $settings['show_xing'] ) {
+			if ( ! $settings['icons'] ) {
+				$html .= '<div class="has_xing" style="display: none;" data-type="xing"><a href="https://www.xing.com/spi/shares/new?url=%url%" target="_blank"><svg class="has-icon"><use xlink:href="#has-xing-icon"></use></svg>&nbsp;' . esc_html( apply_filters( 'has_xing_text', _x( 'Xing', 'Xing share text', 'highlight-and-share' ) ) ) . '</a></div>';
+			} else {
+				$html .= '<div class="has_xing" style="display: none;" data-type="xing"><a href="https://www.xing.com/spi/shares/new?url=%url%" target="_blank"><svg class="has-icon"><use xlink:href="#has-xing-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_xing_text', _x( 'Xing', 'Xing share text', 'highlight-and-share' ) ) ) . '</span></a></div>';
+			}
+		}
+
+		if ( $settings['show_whatsapp'] ) {
+			if ( ! $settings['icons'] ) {
+				$string          = '<div class="has_whatsapp" style="display: none;" data-type="whatsapp"><a href="https://wa.me/?text=%text%: ' . '%url%" target="_blank"><svg class="has-icon"><use xlink:href="#has-whatsapp-icon"></use></svg>&nbsp;' . esc_html( apply_filters( 'has_whatsapp_text', _x( 'WhatsApp', 'WhatsApp share text', 'highlight-and-share' ) ) ) . '</a></div>';
+				$html           .= $string;
+				$click_to_share .= $string;
+				$inline_share   .= $string;
+			} else {
+				$string          = '<div class="has_whatsapp" style="display: none;" data-type="whatsapp"><a href="https://wa.me/?text=%text%: ' . '%url%" target="_blank"><svg class="has-icon"><use xlink:href="#has-whatsapp-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_whatsapp_text', _x( 'WhatsApp', 'WhatsApp share text', 'highlight-and-share' ) ) ) . '</span></a></div>';
+				$html           .= $string;
+				$click_to_share .= $string;
+				$inline_share   .= $string;
+			}
+		}
+		if ( $settings['show_copy'] ) {
+			if ( ! $settings['icons'] ) {
+				$string          = '<div class="has_copy" style="display: none;" data-type="copy"><a href="#"><svg class="has-icon"><use xlink:href="#has-copy-icon"></use>&nbsp;' . esc_html( apply_filters( 'has_copy_text', _x( 'Copy', 'Copy share text', 'highlight-and-share' ) ) ) . '</a></div>';
+				$html           .= $string;
+				$click_to_share .= $string;
+				$inline_share   .= $tring;
+			} else {
+				$string          = '<div class="has_copy" style="display: none;" data-type="copy"><a href="#"><svg class="has-icon"><use xlink:href="#has-copy-icon"></use><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_copy_text', _x( 'Copy', 'Copy share text', 'highlight-and-share' ) ) ) . '</span></a></div>';
+				$html           .= $string;
+				$click_to_share .= $string;
+				$inline_share   .= $string;
+			}
+		}
+
+		if ( $settings['show_email'] ) {
+			if ( ! $settings['icons'] ) {
+				// Note, you must be on a publicly accesible URL to use this button
+				$string          = '<div class="has_email" style="display: none;" data-type="email" data-title="%title%" data-url="%url%"><a href="' . esc_url( admin_url( 'admin-ajax.php' ) ) . '" target="_blank"><svg class="has-icon"><use xlink:href="#has-email-icon"></use></svg>&nbsp;' . esc_html( apply_filters( 'has_email_text', _x( 'E-mail', 'E-mail share text', 'highlight-and-share' ) ) ) . '</a></div>';
+				$html           .= $string;
+				$click_to_share .= $string;
+				$inline_share   .= $string;
+			} else {
+				$string          = '<div class="has_email" style="display: none;" data-type="email" data-title="%title%" data-url="%url%"><a href="' . esc_url( admin_url( 'admin-ajax.php' ) ) . '" target="_blank"><svg class="has-icon"><use xlink:href="#has-email-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_email_text', _x( 'E-mail', 'E-mail share text', 'highlight-and-share' ) ) ) . '</span></a></div>';
+				$html           .= $string;
+				$click_to_share .= $string;
+				$inline_share   .= $string;
+			}
+		}
+		$click_to_share .= '</div>';
+		$inline_share   .= '</div>';
+		$html           .= '</div><!-- #highlight-and-share-wrapper -->';
+		echo $inline_share;
+		echo $click_to_share;
+		echo $html;
+		?>
+		<svg width="0" height="0" class="hidden">
+			<symbol aria-hidden="true" data-prefix="fas" data-icon="twitter" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="has-twitter-icon">
+				<path fill="currentColor" d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"></path>
+			</symbol>
+			<symbol aria-hidden="true" data-prefix="fas" data-icon="facebook" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" id="has-facebook-icon">
+				<path fill="currentColor" d="M279.14 288l14.22-92.66h-88.91v-60.13c0-25.35 12.42-50.06 52.24-50.06h40.42V6.26S260.43 0 225.36 0c-73.22 0-121.08 44.38-121.08 124.72v70.62H22.89V288h81.39v224h100.17V288z"></path>
+			</symbol>
+			<symbol aria-hidden="true" data-prefix="fas" data-icon="at" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="has-email-icon">
+				<path fill="currentColor" d="M256 8C118.941 8 8 118.919 8 256c0 137.059 110.919 248 248 248 48.154 0 95.342-14.14 135.408-40.223 12.005-7.815 14.625-24.288 5.552-35.372l-10.177-12.433c-7.671-9.371-21.179-11.667-31.373-5.129C325.92 429.757 291.314 440 256 440c-101.458 0-184-82.542-184-184S154.542 72 256 72c100.139 0 184 57.619 184 160 0 38.786-21.093 79.742-58.17 83.693-17.349-.454-16.91-12.857-13.476-30.024l23.433-121.11C394.653 149.75 383.308 136 368.225 136h-44.981a13.518 13.518 0 0 0-13.432 11.993l-.01.092c-14.697-17.901-40.448-21.775-59.971-21.775-74.58 0-137.831 62.234-137.831 151.46 0 65.303 36.785 105.87 96 105.87 26.984 0 57.369-15.637 74.991-38.333 9.522 34.104 40.613 34.103 70.71 34.103C462.609 379.41 504 307.798 504 232 504 95.653 394.023 8 256 8zm-21.68 304.43c-22.249 0-36.07-15.623-36.07-40.771 0-44.993 30.779-72.729 58.63-72.729 22.292 0 35.601 15.241 35.601 40.77 0 45.061-33.875 72.73-58.161 72.73z"></path>
+			</symbol>
+			<symbol aria-hidden="true" data-prefix="fas" data-icon="linkedin" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" id="has-linkedin-icon">
+				<path fill="currentColor" d="M100.28 448H7.4V148.9h92.88zM53.79 108.1C24.09 108.1 0 83.5 0 53.8a53.79 53.79 0 0 1 107.58 0c0 29.7-24.1 54.3-53.79 54.3zM447.9 448h-92.68V302.4c0-34.7-.7-79.2-48.29-79.2-48.29 0-55.69 37.7-55.69 76.7V448h-92.78V148.9h89.08v40.8h1.3c12.4-23.5 42.69-48.3 87.88-48.3 94 0 111.28 61.9 111.28 142.3V448z"></path>
+			</symbol>
+			<symbol aria-hidden="true" data-prefix="fas" data-icon="xing" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512" id="has-xing-icon">
+				<path fill="currentColor" d="M162.7 210c-1.8 3.3-25.2 44.4-70.1 123.5-4.9 8.3-10.8 12.5-17.7 12.5H9.8c-7.7 0-12.1-7.5-8.5-14.4l69-121.3c.2 0 .2-.1 0-.3l-43.9-75.6c-4.3-7.8.3-14.1 8.5-14.1H100c7.3 0 13.3 4.1 18 12.2l44.7 77.5zM382.6 46.1l-144 253v.3L330.2 466c3.9 7.1.2 14.1-8.5 14.1h-65.2c-7.6 0-13.6-4-18-12.2l-92.4-168.5c3.3-5.8 51.5-90.8 144.8-255.2 4.6-8.1 10.4-12.2 17.5-12.2h65.7c8 0 12.3 6.7 8.5 14.1z"></path>
+			</symbol>
+			<symbol aria-hidden="true" data-prefix="fas" data-icon="whatsapp" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" id="has-whatsapp-icon">
+				<path fill="currentColor" d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.9 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z"></path>
+			</symbol>
+			<symbol aria-hidden="true" data-prefix="fas" data-icon="copy" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" id="has-copy-icon">
+				<path fill="currentColor" d="M320 448v40c0 13.255-10.745 24-24 24H24c-13.255 0-24-10.745-24-24V120c0-13.255 10.745-24 24-24h72v296c0 30.879 25.121 56 56 56h168zm0-344V0H152c-13.255 0-24 10.745-24 24v368c0 13.255 10.745 24 24 24h272c13.255 0 24-10.745 24-24V128H344c-13.2 0-24-10.8-24-24zm120.971-31.029L375.029 7.029A24 24 0 0 0 358.059 0H352v96h96v-6.059a24 24 0 0 0-7.029-16.97z"></path>
+			</symbol>
+			<symbol aria-hidden="true" data-prefix="fas" data-icon="share" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" id="has-share-icon">
+				<path fill="currentColor" d="M352 320c-22.608 0-43.387 7.819-59.79 20.895l-102.486-64.054a96.551 96.551 0 0 0 0-41.683l102.486-64.054C308.613 184.181 329.392 192 352 192c53.019 0 96-42.981 96-96S405.019 0 352 0s-96 42.981-96 96c0 7.158.79 14.13 2.276 20.841L155.79 180.895C139.387 167.819 118.608 160 96 160c-53.019 0-96 42.981-96 96s42.981 96 96 96c22.608 0 43.387-7.819 59.79-20.895l102.486 64.054A96.301 96.301 0 0 0 256 416c0 53.019 42.981 96 96 96s96-42.981 96-96-42.981-96-96-96z"></path>
+			</symbol>
+		</svg>
+		<?php
 	}
 
 	/**
@@ -967,18 +896,6 @@ class Highlight_And_Share {
 			$json_arr['show_linkedin'] = (bool) apply_filters( 'has_show_linkedin', $settings['show_linkedin'] );
 		}
 
-		// Pinterest.
-		if ( is_customize_preview() ) {
-			$maybe_pinterest = get_option( 'highlight-and-share' );
-			if ( ! isset( $maybe_pinterest['show_pinterest'] ) ) {
-				$json_arr['show_pinterest'] = (bool) apply_filters( 'has_show_pinterest', $settings['show_pinterest'] );
-			} else {
-				$json_arr['show_pinterest'] = apply_filters( 'has_show_pinterest', $maybe_pinterest['show_pinterest'] );
-			}
-		} else {
-			$json_arr['show_pinterest'] = (bool) apply_filters( 'has_show_pinterest', $settings['show_pinterest'] );
-		}
-
 		// Email.
 		if ( is_customize_preview() ) {
 			$maybe_email = get_option( 'highlight-and-share' );
@@ -1064,18 +981,6 @@ class Highlight_And_Share {
 			}
 		} else {
 			$json_arr['linkedin_fa_class'] = sanitize_text_field( $settings['linkedin_fa_class'] );
-		}
-
-		// Pinterest FontAwesome Class.
-		if ( is_customize_preview() ) {
-			$font_awesome = get_option( 'highlight-and-share' );
-			if ( ! isset( $font_awesome['pinterest_fa_class'] ) ) {
-				$json_arr['pinterest_fa_class'] = sanitize_text_field( $settings['pinterest_fa_class'] );
-			} else {
-				$json_arr['pinterest_fa_class'] = $font_awesome['pinterest_fa_class'];
-			}
-		} else {
-			$json_arr['pinterest_fa_class'] = sanitize_text_field( $settings['pinterest_fa_class'] );
 		}
 
 		// Xing FontAwesome Class.
@@ -1175,14 +1080,13 @@ class Highlight_And_Share {
 		$json_arr['content'] = apply_filters( 'has_js_selectors', implode( ',', $content ), $content, $classes, $ids, $elements );
 
 		// Text to display.
-		$json_arr['tweet_text']     = apply_filters( 'has_twitter_text', _x( 'Tweet', 'Twitter share text', 'highlight-and-share' ) );
-		$json_arr['facebook_text']  = apply_filters( 'has_facebook_text', _x( 'Share', 'Facebook share text', 'highlight-and-share' ) );
-		$json_arr['linkedin_text']  = apply_filters( 'has_linkedin_text', _x( 'LinkedIn', 'LinkedIn share text', 'highlight-and-share' ) );
-		$json_arr['pinterest_text'] = apply_filters( 'has_pinterest_text', _x( 'Pinterest', 'Pinterest share text', 'highlight-and-share' ) );
-		$json_arr['whatsapp_text']  = apply_filters( 'has_whatsapp_text', _x( 'WhatsApp', 'WhatsApp share text', 'highlight-and-share' ) );
-		$json_arr['xing_text']      = apply_filters( 'has_xing_text', _x( 'Xing', 'Xing share text', 'highlight-and-share' ) );
-		$json_arr['copy_text']      = apply_filters( 'has_copy_text', _x( 'Copy', 'Copy share text', 'highlight-and-share' ) );
-		$json_arr['email_text']     = apply_filters( 'has_email_text', _x( 'E-mail', 'E-mail share text', 'highlight-and-share' ) );
+		$json_arr['tweet_text']    = apply_filters( 'has_twitter_text', _x( 'Tweet', 'Twitter share text', 'highlight-and-share' ) );
+		$json_arr['facebook_text'] = apply_filters( 'has_facebook_text', _x( 'Share', 'Facebook share text', 'highlight-and-share' ) );
+		$json_arr['linkedin_text'] = apply_filters( 'has_linkedin_text', _x( 'LinkedIn', 'LinkedIn share text', 'highlight-and-share' ) );
+		$json_arr['whatsapp_text'] = apply_filters( 'has_whatsapp_text', _x( 'WhatsApp', 'WhatsApp share text', 'highlight-and-share' ) );
+		$json_arr['xing_text']     = apply_filters( 'has_xing_text', _x( 'Xing', 'Xing share text', 'highlight-and-share' ) );
+		$json_arr['copy_text']     = apply_filters( 'has_copy_text', _x( 'Copy', 'Copy share text', 'highlight-and-share' ) );
+		$json_arr['email_text']    = apply_filters( 'has_email_text', _x( 'E-mail', 'E-mail share text', 'highlight-and-share' ) );
 
 		// Icons.
 		if ( is_customize_preview() ) {
@@ -1417,13 +1321,6 @@ class Highlight_And_Share {
 		);
 
 		add_settings_section(
-			'has-pinterest',
-			_x( 'Pinterest Settings', 'plugin settings heading', 'highlight-and-share' ),
-			array( $this, 'settings_section' ),
-			'highlight-and-share'
-		);
-
-		add_settings_section(
 			'has-whatsapp',
 			_x( 'WhatsApp Settings', 'plugin settings heading', 'highlight-and-share' ),
 			array( $this, 'settings_section' ),
@@ -1532,17 +1429,6 @@ class Highlight_And_Share {
 		);
 
 		add_settings_field(
-			'hightlight-and-share-pinterest-enable',
-			__( 'Show Pinterest Option', 'highlight-and-share' ),
-			array( $this, 'add_settings_field_pinterest_enable' ),
-			'highlight-and-share',
-			'has-pinterest',
-			array(
-				'desc' => __( 'Would you like to enable sharing via Pinterest?', 'highlight-and-share' ),
-			)
-		);
-
-		add_settings_field(
 			'hightlight-and-share-whatsapp-enable',
 			__( 'Show WhatsApp Option', 'highlight-and-share' ),
 			array( $this, 'add_settings_field_whatsapp_enable' ),
@@ -1643,18 +1529,6 @@ class Highlight_And_Share {
 				'desc'      => __( 'Enter jQuery classes to search for in the HTML.  You must comma-separate classes (e.g., entry-content,post,page).', 'highlight-and-share' ),
 			)
 		);
-
-		add_settings_field(
-			'hightlight-and-share-fa-content',
-			__( 'Font Awesome Classes', 'highlight-and-share' ),
-			array( $this, 'add_settings_field_fa_content' ),
-			'highlight-and-share',
-			'has-advanced',
-			array(
-				'label_for' => 'hightlight-and-share-fa-content',
-				'desc'      => __( 'Enter your own Font Awesome classes for the icons.', 'highlight-and-share' ),
-			)
-		);
 	}
 
 	/**
@@ -1734,7 +1608,6 @@ class Highlight_And_Share {
 				case 'twitter_fa_class':
 				case 'facebook_fa_class':
 				case 'linkedin_fa_class':
-				case 'pinterest_fa_class':
 				case 'xing_fa_class':
 				case 'whatsapp_fa_class':
 				case 'email_fa_class':
@@ -1750,7 +1623,6 @@ class Highlight_And_Share {
 				case 'show_email':
 				case 'show_xing':
 				case 'show_whatsapp':
-				case 'show_pinterest':
 				case 'show_linkedin':
 				case 'show_copy':
 					if ( 'on' === $input[ $key ] ) {
@@ -1782,79 +1654,6 @@ class Highlight_And_Share {
 		$js_content = isset( $settings['js_content'] ) ? $settings['js_content'] : '';
 		printf( '<p>%s</p>', esc_html( $args['desc'] ) );
 		printf( '<input id="%s" type="text" name="highlight-and-share[js_content]" value="%s" />', esc_attr( $args['label_for'] ), esc_attr( $js_content ) );
-	}
-
-	/**
-	 * Output custom Font Awesome classes
-	 *
-	 * Output custom Font Awesome classes.
-	 *
-	 * @since 1.0.0
-	 * @access public
-	 *
-	 * @see init_admin_settings
-	 *
-	 * @param array $args Array of arguments.
-	 */
-	public function add_settings_field_fa_content( $args = array() ) {
-		$settings           = $this->get_plugin_options();
-		$twitter_fa_class   = isset( $settings['twitter_fa_class'] ) ? $settings['twitter_fa_class'] : '';
-		$facebook_fa_class  = isset( $settings['facebook_fa_class'] ) ? $settings['facebook_fa_class'] : '';
-		$linkedin_fa_class  = isset( $settings['linkedin_fa_class'] ) ? $settings['linkedin_fa_class'] : '';
-		$pinterest_fa_class = isset( $settings['pinterest_fa_class'] ) ? $settings['pinterest_fa_class'] : '';
-		$xing_fa_class      = isset( $settings['xing_fa_class'] ) ? $settings['xing_fa_class'] : '';
-		$whatsapp_fa_class  = isset( $settings['whatsapp_fa_class'] ) ? $settings['whatsapp_fa_class'] : '';
-		$email_fa_class     = isset( $settings['email_fa_class'] ) ? $settings['email_fa_class'] : '';
-		$copy_fa_class      = isset( $settings['copy_fa_class'] ) ? $settings['copy_fa_class'] : '';
-		printf( '<p>%s</p>', esc_html( $args['desc'] ) );
-
-		// Twitter.
-		echo '<p>';
-		printf( '<label for="twitter_fa_class"><strong>%s</strong></label><br />', esc_html__( 'Twitter Font Awesome Class', 'highlight-and-share' ) );
-		printf( '<input id="twitter_fa_class" type="text" name="highlight-and-share[twitter_fa_class]" value="%s" />', esc_attr( $twitter_fa_class ) );
-		echo '</p>';
-
-		// Facebook.
-		echo '<p>';
-		printf( '<label for="facebook_fa_class"><strong>%s</strong></label><br />', esc_html__( 'Facebok Font Awesome Class', 'highlight-and-share' ) );
-		printf( '<input id="facebook_fa_class" type="text" name="highlight-and-share[facebook_fa_class]" value="%s" />', esc_attr( $facebook_fa_class ) );
-		echo '</p>';
-
-		// LinkedIn.
-		echo '<p>';
-		printf( '<label for="linkedin_fa_class"><strong>%s</strong></label><br />', esc_html__( 'LinkedIn Font Awesome Class', 'highlight-and-share' ) );
-		printf( '<input id="linkedin_fa_class" type="text" name="highlight-and-share[linkedin_fa_class]" value="%s" />', esc_attr( $linkedin_fa_class ) );
-		echo '</p>';
-
-		// Pinterest.
-		echo '<p>';
-		printf( '<label for="pinterest_fa_class"><strong>%s</strong></label><br />', esc_html__( 'Pinterest Font Awesome Class', 'highlight-and-share' ) );
-		printf( '<input id="pinterest_fa_class" type="text" name="highlight-and-share[pinterest_fa_class]" value="%s" />', esc_attr( $pinterest_fa_class ) );
-		echo '</p>';
-
-		// Xing.
-		echo '<p>';
-		printf( '<label for="xing_fa_class"><strong>%s</strong></label><br />', esc_html__( 'Xing Font Awesome Class', 'highlight-and-share' ) );
-		printf( '<input id="xing_fa_class" type="text" name="highlight-and-share[xing_fa_class]" value="%s" />', esc_attr( $xing_fa_class ) );
-		echo '</p>';
-
-		// WhatsApp.
-		echo '<p>';
-		printf( '<label for="whatsapp_fa_class"><strong>%s</strong></label><br />', esc_html__( 'WhatsApp Font Awesome Class', 'highlight-and-share' ) );
-		printf( '<input id="whatsapp_fa_class" type="text" name="highlight-and-share[whatsapp_fa_class]" value="%s" />', esc_attr( $whatsapp_fa_class ) );
-		echo '</p>';
-
-		// Copy.
-		echo '<p>';
-		printf( '<label for="copy_fa_class"><strong>%s</strong></label><br />', esc_html__( 'Copy Font Awesome Class', 'highlight-and-share' ) );
-		printf( '<input id="copy_fa_class" type="text" name="highlight-and-share[copy_fa_class]" value="%s" />', esc_attr( $copy_fa_class ) );
-		echo '</p>';
-
-		// Email.
-		echo '<p>';
-		printf( '<label for="email_fa_class"><strong>%s</strong></label><br />', esc_html__( 'Email Font Awesome Class', 'highlight-and-share' ) );
-		printf( '<input id="email_fa_class" type="text" name="highlight-and-share[email_fa_class]" value="%s" />', esc_attr( $email_fa_class ) );
-		echo '</p>';
 	}
 
 	/**
@@ -1964,25 +1763,6 @@ class Highlight_And_Share {
 		$linkedin = isset( $settings['show_linkedin'] ) ? (bool) $settings['show_linkedin'] : true;
 		echo '<input name="highlight-and-share[show_linkedin]" value="off" type="hidden" />';
 		printf( '<input id="has-show-linkedin" type="checkbox" name="highlight-and-share[show_linkedin]" value="on" %s />&nbsp;<label for="has-show-linkedin">%s</label>', checked( true, $linkedin, false ), esc_html__( 'Enable LinkedIn Sharing?', 'highlight-and-share' ) );
-	}
-
-	/**
-	 * Add Pinterest Option for Sharing
-	 *
-	 * Output checkbox for displaying Pinterest sharing.
-	 *
-	 * @since 2.0.0
-	 * @access public
-	 *
-	 * @see init_admin_settings
-	 *
-	 * @param array $args Array of arguments.
-	 */
-	public function add_settings_field_pinterest_enable( $args = array() ) {
-		$settings  = $this->get_plugin_options();
-		$pinterest = isset( $settings['show_pinterest'] ) ? (bool) $settings['show_pinterest'] : true;
-		echo '<input name="highlight-and-share[show_pinterest]" value="off" type="hidden" />';
-		printf( '<input id="has-show-pinterest" type="checkbox" name="highlight-and-share[show_pinterest]" value="on" %s />&nbsp;<label for="has-show-pinterest">%s</label>', checked( true, $pinterest, false ), esc_html__( 'Enable Pinterest Sharing?', 'highlight-and-share' ) );
 	}
 
 	/**
@@ -2180,29 +1960,20 @@ class Highlight_And_Share {
 		}
 
 		$defaults = array(
-			'js_content'         => '',
-			'twitter'            => '',
-			'show_twitter'       => true,
-			'show_facebook'      => true,
-			'show_linkedin'      => false,
-			'show_pinterest'     => false,
-			'show_email'         => false,
-			'show_copy'          => false,
-			'show_whatsapp'      => false,
-			'show_xing'          => false,
-			'enable_content'     => true,
-			'enable_excerpt'     => true,
-			'shortlinks'         => false,
-			'icons'              => false,
-			'theme'              => 'default',
-			'twitter_fa_class'   => 'fa fa-twitter',
-			'facebook_fa_class'  => 'fa fa-facebook',
-			'linkedin_fa_class'  => 'fa fa-linkedin',
-			'pinterest_fa_class' => 'fa fa-pinterest',
-			'xing_fa_class'      => 'fa fa-xing',
-			'whatsapp_fa_class'  => 'fa fa-whatsapp',
-			'email_fa_class'     => 'fa fa-envelope',
-			'copy_fa_class'      => 'fa fa-copy',
+			'js_content'     => '',
+			'twitter'        => '',
+			'show_twitter'   => true,
+			'show_facebook'  => true,
+			'show_linkedin'  => false,
+			'show_email'     => false,
+			'show_copy'      => false,
+			'show_whatsapp'  => false,
+			'show_xing'      => false,
+			'enable_content' => true,
+			'enable_excerpt' => true,
+			'shortlinks'     => false,
+			'icons'          => false,
+			'theme'          => 'default',
 		);
 
 		if ( false === $settings || ! is_array( $settings ) ) {
