@@ -27,11 +27,11 @@ function has_register_block_attributes() {
 					'default' => '#000000',
 				),
 				'fontSize'           => array(
-					'type'    => 'int',
+					'type'    => 'integer',
 					'default' => 24,
 				),
 				'clickShareFontSize' => array(
-					'type'    => 'int',
+					'type'    => 'integer',
 					'default' => 24,
 				),
 				'clickText'          => array(
@@ -39,15 +39,15 @@ function has_register_block_attributes() {
 					'default' => __( 'Click to Share', 'highlight-and-share' ),
 				),
 				'padding'            => array(
-					'type'    => 'int',
+					'type'    => 'integer',
 					'default' => 0,
 				),
 				'border'             => array(
-					'type'    => 'int',
+					'type'    => 'integer',
 					'default' => 0,
 				),
 				'borderRadius'       => array(
-					'type'    => 'int',
+					'type'    => 'integer',
 					'default' => 0,
 				),
 				'borderColor'        => array(
@@ -55,11 +55,11 @@ function has_register_block_attributes() {
 					'default' => '#FFFFFF',
 				),
 				'fontWeight'         => array(
-					'type'    => 'int',
+					'type'    => 'integer',
 					'default' => 100,
 				),
 				'maxWidth'           => array(
-					'type'    => 'int',
+					'type'    => 'integer',
 					'default' => 100,
 				),
 				'alignment'          => array(
@@ -67,19 +67,19 @@ function has_register_block_attributes() {
 					'default' => 'center',
 				),
 				'marginLeft'         => array(
-					'type'    => 'int',
+					'type'    => 'integer',
 					'default' => 0,
 				),
 				'marginRight'        => array(
-					'type'    => 'int',
+					'type'    => 'integer',
 					'default' => 0,
 				),
 				'marginBottom'       => array(
-					'type'    => 'int',
+					'type'    => 'integer',
 					'default' => 0,
 				),
 				'marginTop'          => array(
-					'type'    => 'int',
+					'type'    => 'integer',
 					'default' => 0,
 				),
 			),
@@ -105,7 +105,7 @@ function has_click_to_share( $attributes ) {
 				<?php echo wp_kses_post( $attributes['shareText'] ); ?>
 			</div>
 			<div class='has-click-to-share-cta' style="font-size: <?php echo esc_attr( $attributes['clickShareFontSize'] ); ?>; color: <?php echo esc_attr( $attributes['textColor'] ); ?>">
-			<?php echo wp_kses_post( $attributes['clickText'] ); ?> <i class="material-icons" style="font-size: <?php echo esc_attr( $attributes['clickShareFontSize'] ); ?>">share</i>
+			<?php echo wp_kses_post( $attributes['clickText'] ); ?> <svg width="<?php echo esc_attr( $attributes['clickShareFontSize'] ); ?>px" height="<?php echo esc_attr( $attributes['clickShareFontSize'] ); ?>px" class="has-cts-block-icon"><use xlink:href="#has-share-icon"></use></svg>
 			</div>
 			<a class="has-click-prompt" href="#" data-title="<?php echo esc_attr( $post->post_title ); ?>" data-url="<?php echo esc_url( get_permalink( $post->ID ) ); ?>">
 			</a>
@@ -122,17 +122,10 @@ function has_blocks_frontend_assets() {
 	if ( is_singular() ) {
 		$post_id = get_the_ID();
 		if ( has_block( 'has/click-to-share', $post_id ) ) {
-			wp_register_style(
-				'google-material-icons',
-				'https://fonts.googleapis.com/icon?family=Material+Icons',
-				array(),
-				HIGHLIGHT_AND_SHARE_VERSION,
-				'all'
-			);
 			wp_enqueue_style(
 				'has-style-frontend-css',
 				Highlight_And_Share::get_instance()->get_plugin_url( 'dist/blocks.style.build.css' ),
-				array( 'google-material-icons' ),
+				array(),
 				HIGHLIGHT_AND_SHARE_VERSION,
 				'all'
 			);
