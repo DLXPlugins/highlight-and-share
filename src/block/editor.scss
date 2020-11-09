@@ -3,28 +3,27 @@
  */
 
 .has-click-to-share {
-    .has-click-to-share-text {
-        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
-        font-weight: 100;
-    }
-    .has-click-to-share-cta {
-        float: right;
-        font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
-        font-weight: 100;
-        font-size: 24px;
-    }
-    &:after {
-        content: "";
-        display: table;
-        clear: both;
-    }
-
+	.has-click-to-share-text {
+		font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+		font-weight: 100;
+	}
+	.has-click-to-share-cta {
+		float: right;
+		font-family: 'Helvetica Neue', Helvetica, Arial, sans-serif !important;
+		font-weight: 100;
+		font-size: 24px;
+	}
+	&:after {
+		content: '';
+		display: table;
+		clear: both;
+	}
 }
 .has-inline-text {
-    background-color: rgb(255, 239, 177);
-    color: black;
-    cursor: pointer;
+	background-color: rgb(255, 239, 177);
+	color: black;
+	cursor: pointer;
 }
 .has-inline-text:hover {
-    background-color: rgb(252, 214, 60);
+	background-color: rgb(252, 214, 60);
 }
