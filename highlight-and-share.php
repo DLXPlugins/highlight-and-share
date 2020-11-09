@@ -1261,6 +1261,7 @@ class Highlight_And_Share {
 		?>
 		<div class="wrap">
 			<h2><?php echo esc_html( _x( 'Highlight and Share', 'Plugin Name - Settings Page Title', 'highlight-and-share' ) ); ?></h2>
+			<p class="description"><a href="https://mediaron.com/highlight-and-share/">Support and Documentation</a></p>
 			<form action="<?php echo esc_url( admin_url( 'options.php' ) ); ?>" method="POST">
 				<?php settings_fields( 'highlight-and-share' ); ?>
 				<?php do_settings_sections( 'highlight-and-share' ); ?>

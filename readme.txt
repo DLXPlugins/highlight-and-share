@@ -1,8 +1,8 @@
 === Highlight and Share ===
 Contributors: ronalfy
 Tags: highlight, share, click to tweet, twitter, tweet, block
-Requires at least: 4.7
-Tested up to: 5.5
+Requires at least: 5.5
+Tested up to: 5.6
 Stable tag: 3.3.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
@@ -12,7 +12,9 @@ A WordPress plugin for highlighting text and sharing it via Twitter and Facebook
 
 == Description ==
 
-A WordPress plugin for highlighting text and sharing it via Twitter and Facebook and other services including LinkedIn, Email, Xing, and WhatsApp. There's also a built-in Gutenberg block that will allow your users to Click to Share.
+A WordPress plugin for highlighting text and sharing it via Twitter and Facebook and other services including LinkedIn, Email, Xing, and WhatsApp. There's also a built-in Gutenberg block that will allow your users to Click to Share/Tweet.
+
+For support, <a href="https://mediaron.com/highlight-and-share/">please check out our documentation</a>.
 
 Sharing selectable text is only possible via Twitter, Facebook, and WhatsApp. However an option to share the post via LinkedIn, Pinterest, and E-mail are also present when highlighting text as a convenience.
 
@@ -20,15 +22,16 @@ This plugin is intended to be highly flexible in selecting content areas (via th
 
 The plugin also has a Gutenberg block that is a click-to-share/click-to-tweet piece.
 
-If you have a feature request, <a href="https://github.com/ronalfy/highlight-and-share/issues">please add a GitHub issue</a>.
+If you have a feature request, <a href="https://github.com/mediaron/highlight-and-share/issues">please add a GitHub issue</a>.
 
-> Please <a href="https://wordpress.org/support/plugin/highlight-and-share/reviews/#new-post">Rate the Plugin</a> or <a href="https://mediaron.com/give/">Give Back</a> to show support.
+> Please <a href="https://wordpress.org/support/plugin/highlight-and-share/reviews/#new-post">Rate the Plugin</a>.
 
 https://www.youtube.com/watch?v=j2ZiUqGLSwc&rel=0
 
 <h3>Features</h3>
 
 <ul>
+<li>A free alternative to Better Click to Tweet.</li>
 <li>Choose a theme for display.</li>
 <li>Enable or disable on main content and excerpts.</li>
 <li>Enable or disable Facebook sharing.</li>
@@ -36,19 +39,12 @@ https://www.youtube.com/watch?v=j2ZiUqGLSwc&rel=0
 <li>Customize the Twitter username used.</li>
 <li>Advanced: Override which content is selectable (using jQuery class notation without the dots).</li>
 <li>Advanced: Override the Font Awesome classes, especially if you're using Font Awesome 5</li>
-<li>Advanced: Gutenberg block for Click to Share</li>
+<li>Advanced: Gutenberg block for Click to Share/Tweet</li>
 </ul>
 
-Advanced customization is allowed via hooks.  See the plugin's <a href="https://github.com/ronalfy/highlight-and-share#plugin-filters">GitHub page for filter documentation</a>.
+Advanced customization is allowed via hooks.  See the plugin's <a href="https://mediaron.com/highlight-and-share/">documentation</a>.
 
-<h3>Recommended Plugins</h3>
-<ul>
-<li><a href=" https://wordpress.org/plugins/better-font-awesome/">Better Font Awesome</a> - Enables Twitter/Facebook sharing icons</li>
-<li><a href="https://wordpress.org/plugins/wordpress-seo/">WordPress SEO</a> - For Facebook OpenGraph data</li>
-<li><a href="https://wordpress.org/plugins/jetpack/">Jetpack</a> - For Shortlinks</li>
-</ul>
-
-You are welcome to help us out and <a href="https://github.com/ronalfy/highlight-and-share">contribute on GitHub</a>.
+You are welcome to help us out and <a href="https://github.com/mediaron/highlight-and-share">contribute on GitHub</a>.
 
 == Installation ==
 
@@ -65,6 +61,10 @@ Here's a video showing you how:
 
 https://www.youtube.com/watch?v=ZtcPacmr87E
 
+= You Moved Your Minimum Requirement to WordPress 5.5? Why? =
+
+Several people are having JavaScript issues. I want to make sure these are fixed so that this plugin is as reliable as possible.
+
 = Will you be adding more sharing services? =
 
 Possibly.  <a href="https://github.com/ronalfy/highlight-and-share/issues">Open up an issue</a>.
@@ -75,11 +75,7 @@ Since people are having issues with the icons, I decided to do SVG includes inst
 
 = I want to include my own CSS.  How can I do that? =
 
-You can turn off the theme.
-
-You can then  include your own CSS in your theme.
-
-For the black CSS file shown in the, adhere to <a href="https://jsfiddle.net/0ej4qufs/26/">the JSFiddle</a> and place the CSS in the WordPress customizer. As of 2.3.0, themes are built in and there is no need to include custom styles.
+You can turn off the theme and include CSS in your own theme.
 
 = Does this plugin work on mobile devices? =
 
