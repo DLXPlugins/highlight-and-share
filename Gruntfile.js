@@ -3,7 +3,7 @@ module.exports = function (grunt) {
 		compress: {
 			main: {
 			  options: {
-				archive: 'highlight-and-share'
+				archive: 'highlight-and-share.zip'
 			  },
 			  files: [
 				{src: ['highlight-and-share.php'], dest: '/', filter: 'isFile'}, // includes files in path
