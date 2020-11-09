@@ -1,4 +1,9 @@
 /* Default HAS Styles */
+.has-icon {
+	width: 14px;
+	vertical-align: middle;
+	height: 14px;
+}
 .highlight-and-share-wrapper {
     display: none;
     width: 0;

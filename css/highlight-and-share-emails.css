@@ -1,3 +1,8 @@
+.has-icon {
+	width: 14px;
+	vertical-align: middle;
+	height: 14px;
+}
 .has-email-mobie {
 	z-index: 2000;
 }
