@@ -120,16 +120,13 @@ function has_click_to_share( $attributes ) {
  */
 function has_blocks_frontend_assets() {
 	if ( is_singular() ) {
-		$post_id = get_the_ID();
-		if ( has_block( 'has/click-to-share', $post_id ) ) {
-			wp_enqueue_style(
-				'has-style-frontend-css',
-				Highlight_And_Share::get_instance()->get_plugin_url( 'dist/has-cts-style.css' ),
-				array(),
-				HIGHLIGHT_AND_SHARE_VERSION,
-				'all'
-			);
-		}
+		wp_enqueue_style(
+			'has-style-frontend-css',
+			Highlight_And_Share::get_instance()->get_plugin_url( 'dist/has-cts-style.css' ),
+			array(),
+			HIGHLIGHT_AND_SHARE_VERSION,
+			'all'
+		);
 	}
 }
 
@@ -154,11 +151,27 @@ function has_blocks_editor_assets() {
 		HIGHLIGHT_AND_SHARE_VERSION,
 		true
 	);
+	$has_inline_themes = array(
+		'has-inline-theme-default' => __( 'Default', 'highlight-and-share' ),
+		'has-inline-theme-dark' => __( 'Dark', 'highlight-and-share' ),
+		'has-inline-theme-light' => __( 'Light', 'highlight-and-share' ),
+		'has-inline-theme-dark-blue' => __( 'Dark Blue', 'highlight-and-share' ),
+		'has-inline-theme-dark-blue-animating' => __( 'Dark Blue Animating', 'highlight-and-share' ),
+		'has-inline-theme-highlight-blue' => __( 'Highlight Blue', 'highlight-and-share' ),
+		'has-inline-theme-highlight-green' => __( 'Highlight Green', 'highlight-and-share' ),
+		'has-inline-theme-highlight-pink' => __( 'Highlight Pink', 'highlight-and-share' ),
+		'has-inline-theme-highlight-red' => __( 'Highlight Red', 'highlight-and-share' ),
+
+		'has-inline-theme-highlight' => __( 'Highlight Yellow', 'highlight-and-share' ),
+		
+	);
+	$has_inline_themes = apply_filters( 'has_inline_themes', $has_inline_themes );
 	wp_localize_script(
 		'has-click-to-share',
 		'has_gutenberg',
 		array(
 			'svg' => Highlight_And_Share::get_instance()->get_plugin_url( 'img/share.svg' ),
+			'themes' => $has_inline_themes,
 		)
 	);
 	wp_set_script_translations( 'has-click-to-share', 'highlight-and-share' );

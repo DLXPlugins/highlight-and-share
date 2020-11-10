@@ -12,7 +12,7 @@ import './block/style.scss';
 import './block/editor.scss';
 import './block/blocks/click-to-share/block';
 
-const { PanelBody, PanelRow, TextControl, Popover, Button, CheckboxControl, withSpokenMessages } = wp.components;
+const { PanelBody, PanelRow, TextControl, SelectControl, Popover, Button, CheckboxControl, withSpokenMessages } = wp.components;
 const { __, _x } = wp.i18n;
 const {registerFormatType, getActiveFormat, applyFormat, toggleFormat, removeFormat } = window.wp.richText;
 const { Fragment, Component } = wp.element;
@@ -24,19 +24,29 @@ const {
 	AlignmentToolbar,
 	PanelColorSettings,
 	RichTextToolbarButton,
-} = window.wp.editor;
+} = wp.blockEditor;
 registerFormatType( 'has/inline', {
-	title: __( 'Inline Share', 'metronet-tag-manager' ),
+	title: __( 'Highlight and Share', 'highlight-and-share' ),
 	tagName: 'span',
 	attributes: {
 		onclick: 'onclick',
-		className: 'has-inline-text',
+		class: 'class',
+		data_theme: 'data-theme',
 	},
 	className: 'has-inline-text',
 	edit: withSpokenMessages( class HASInline extends Component {
 		constructor() {
 			super( ...arguments );
+
+			const format = getActiveFormat(this.props.value, 'has/inline');
+			let theme = 'has-inline-theme-default';
+			if ( undefined != format ) {
+				theme = format.attributes.data_theme || theme;
+			}
 			this.state = {
+				classname: 'has-inline-theme-default',
+				modal: false,
+				theme: theme,
 			};
 		}
 		onClick = () => {
@@ -56,6 +66,32 @@ registerFormatType( 'has/inline', {
 					}
 				) );
 			}
+			let theme = '';
+
+			if ( this.state.modal == false || this.props.isActive ) {
+				let format = getActiveFormat(this.props.value, 'has/inline');
+				if ( undefined != format ) {
+					
+					theme = format.attributes.theme;
+					this.setState( { theme: theme } );
+				}
+				this.setState(
+					{
+						modal: true,
+						theme: theme,
+					}
+				);
+			} else {
+				this.setState(
+					{
+						modal: false,
+						theme: theme,
+					}
+				);
+			}
+		}
+		onCancel = () => {
+			this.setState( { modal: false } );
 		}
 		onRemove = () => {
 			this.props.onChange( removeFormat(
@@ -64,12 +100,15 @@ registerFormatType( 'has/inline', {
 			) );
 			return;
 		}
-		onSave = () => {
+		onSave = ( themeValue = false ) => {
 			this.props.onChange( applyFormat(
 				this.props.value,
 				{
 					type: 'has/inline',
 					attributes: {
+						class: `has-inline-text`,
+						theme: themeValue ? themeValue: this.state.theme,
+						data_theme: themeValue ? themeValue: this.state.theme,
 					}
 				}
 			) );
@@ -77,6 +116,18 @@ registerFormatType( 'has/inline', {
 		render() {
 			let isActive = this.props.isActive;
 			let format = getActiveFormat(this.props.value, 'has/inline');
+			let renderModal = false;
+			if ( ( this.state.modal && this.props.value.start != this.props.value.end ) || ( isActive && undefined !== format ) ) {
+				renderModal = true;
+			} else {
+				renderModal = false;
+			}			
+
+			// Inline themes
+			let inlineThemes = [];
+			for (var key in has_gutenberg.themes) {
+				inlineThemes.push({ value: key, label: has_gutenberg.themes[key] });
+			}
 			return (
 				<Fragment>
 					{false === this.props.isActive &&
@@ -92,6 +143,26 @@ registerFormatType( 'has/inline', {
 							title={__('Highlight and Share', 'highlight-and-share')}
 							onClick={this.onClick}
 						/>
+					}
+					{renderModal && format !== undefined &&
+						<Fragment>
+							<Popover position="top" noArrow>
+								<div className="has-inline-theme-edit">
+									<h2>{__('Select a Highlight Theme', 'highlight-and-share')}</h2>
+									<SelectControl
+						label={__("Themes", "highlight-and-share")}
+						options={inlineThemes}
+						value={format.attributes.data_theme}
+						onChange={(value) => {
+							this.setState( {
+								theme: value,
+							});
+							this.onSave( value );
+						}}
+					/>
+								</div>
+							</Popover>
+						</Fragment>
 					}
 				</Fragment>
 			)

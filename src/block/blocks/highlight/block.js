@@ -1,4 +1,4 @@
-const { PanelBody, PanelRow, TextControl, Popover, Button, CheckboxControl, withSpokenMessages } = wp.components;
+const { PanelBody, PanelRow, Popover, TextControl, Popover, Button, CheckboxControl, withSpokenMessages } = wp.components;
 const { __, _x } = wp.i18n;
 const {registerFormatType, getActiveFormat, applyFormat, toggleFormat, removeFormat } = window.wp.richText;
 const { Fragment, Component } = wp.element;
