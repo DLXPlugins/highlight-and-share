@@ -140,7 +140,7 @@ jQuery( document ).ready( function( $ ) {
 			return;
 		}
 		this.href = this.href.replace( '%text%', encodeURIComponent( has_selected_text ) );
-		window.open( this.href,"reddit","width=575,height=430,toolbar=false,menubar=false,location=false,status=false");
+		window.open( this.href );
 		has_remove();
 	} );
 	$( 'body' ).on( 'click', '.has_copy a:visible', function( e ) {
