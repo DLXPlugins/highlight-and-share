@@ -152,25 +152,25 @@ function has_blocks_editor_assets() {
 		true
 	);
 	$has_inline_themes = array(
-		'has-inline-theme-default' => __( 'Default', 'highlight-and-share' ),
-		'has-inline-theme-dark' => __( 'Dark', 'highlight-and-share' ),
-		'has-inline-theme-light' => __( 'Light', 'highlight-and-share' ),
-		'has-inline-theme-dark-blue' => __( 'Dark Blue', 'highlight-and-share' ),
-		'has-inline-theme-dark-blue-animating' => __( 'Dark Blue Animating', 'highlight-and-share' ),
-		'has-inline-theme-highlight-blue' => __( 'Highlight Blue', 'highlight-and-share' ),
-		'has-inline-theme-highlight-green' => __( 'Highlight Green', 'highlight-and-share' ),
-		'has-inline-theme-highlight-pink' => __( 'Highlight Pink', 'highlight-and-share' ),
-		'has-inline-theme-highlight-red' => __( 'Highlight Red', 'highlight-and-share' ),
+		'has-inline-theme-default'             => __( 'Default', 'highlight-and-share' ),
+		'has-inline-theme-dark'                => __( 'Dark', 'highlight-and-share' ),
+		'has-inline-theme-light'               => __( 'Light', 'highlight-and-share' ),
+		'has-inline-theme-dark-blue'           => __( 'Dark Blue', 'highlight-and-share' ),
+		'has-inline-theme-dark-blue-animating' => __( 'Dark Blue Animating (Experimental)', 'highlight-and-share' ),
+		'has-inline-theme-highlight-blue'      => __( 'Highlight Blue', 'highlight-and-share' ),
+		'has-inline-theme-highlight-green'     => __( 'Highlight Green', 'highlight-and-share' ),
+		'has-inline-theme-highlight-pink'      => __( 'Highlight Pink', 'highlight-and-share' ),
+		'has-inline-theme-highlight-red'       => __( 'Highlight Red', 'highlight-and-share' ),
 
-		'has-inline-theme-highlight' => __( 'Highlight Yellow', 'highlight-and-share' ),
-		
+		'has-inline-theme-highlight'           => __( 'Highlight Yellow', 'highlight-and-share' ),
+
 	);
 	$has_inline_themes = apply_filters( 'has_inline_themes', $has_inline_themes );
 	wp_localize_script(
 		'has-click-to-share',
 		'has_gutenberg',
 		array(
-			'svg' => Highlight_And_Share::get_instance()->get_plugin_url( 'img/share.svg' ),
+			'svg'    => Highlight_And_Share::get_instance()->get_plugin_url( 'img/share.svg' ),
 			'themes' => $has_inline_themes,
 		)
 	);
