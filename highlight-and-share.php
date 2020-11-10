@@ -118,6 +118,25 @@ class Highlight_And_Share {
 	}
 
 	/**
+	 * Get the main themes.
+	 */
+	public function get_main_themes() {
+		$default_themes = array(
+			'off'          => esc_html__( 'Off', 'highligh-and-share' ),
+			'default'      => esc_html__( 'Default', 'highlight-and-share' ),
+			'brand-colors' => esc_html__( 'Brand Colors (Icons Only)', 'highlight-and-share' ),
+			'black'        => esc_html__( 'Black (Icons Only)', 'highlight-and-share' ),
+			'purple'       => esc_html__( 'Purple (Icons Only)', 'highlight-and-share' ),
+			'white'        => esc_html__( 'White (Icons Only)', 'highlight-and-share' ),
+			'cyan'         => esc_html__( 'Cyan (Icons Only)', 'highlight-and-share' ),
+			'magenta'      => esc_html__( 'Magenta (Icons Only)', 'highlight-and-share' ),
+			'blue'         => esc_html__( 'Blue (Icons Only)', 'highlight-and-share' ),
+			'green'        => esc_html__( 'Green (Icons Only)', 'highlight-and-share' ),
+		);
+		return apply_filters( 'has_main_themes', $default_themes );
+	}
+
+	/**
 	 * Adds HAS to the customizer
 	 *
 	 * Adds HAS to the customizer
@@ -173,18 +192,7 @@ class Highlight_And_Share {
 				'label'   => esc_html__( 'Choose a Theme', 'highlight-and-share' ),
 				'section' => 'highlight-and-share',
 				'type'    => 'select',
-				'choices' => array(
-					'off'          => esc_html__( 'Off', 'highligh-and-share' ),
-					'default'      => esc_html__( 'Default', 'highlight-and-share' ),
-					'brand-colors' => esc_html__( 'Brand Colors (Icons Only)', 'highlight-and-share' ),
-					'black'        => esc_html__( 'Black (Icons Only)', 'highlight-and-share' ),
-					'purple'       => esc_html__( 'Purple (Icons Only)', 'highlight-and-share' ),
-					'white'        => esc_html__( 'White (Icons Only)', 'highlight-and-share' ),
-					'cyan'         => esc_html__( 'Cyan (Icons Only)', 'highlight-and-share' ),
-					'magenta'      => esc_html__( 'Magenta (Icons Only)', 'highlight-and-share' ),
-					'blue'         => esc_html__( 'Blue (Icons Only)', 'highlight-and-share' ),
-					'green'        => esc_html__( 'Green (Icons Only)', 'highlight-and-share' ),
-				),
+				'choices' => $this->get_main_themes(),
 			)
 		);
 
@@ -1419,6 +1427,17 @@ class Highlight_And_Share {
 		);
 
 		add_settings_field(
+			'hightlight-and-share-mobile-enable',
+			__( 'Show on Mobile', 'highlight-and-share' ),
+			array( $this, 'add_settings_field_mobile_enable' ),
+			'highlight-and-share',
+			'has-config',
+			array(
+				'desc' => __( 'Would you like to show on mobile?', 'highlight-and-share' ),
+			)
+		);
+
+		add_settings_field(
 			'hightlight-and-share-content-enable',
 			__( 'Add to Post Content', 'highlight-and-share' ),
 			array( $this, 'add_settings_field_content_enable' ),
@@ -1661,6 +1680,7 @@ class Highlight_And_Share {
 					break;
 				case 'show_twitter':
 				case 'show_facebook':
+				case 'enable_mobile':
 				case 'enable_content':
 				case 'enable_excerpt':
 				case 'shortlinks':
@@ -1669,6 +1689,7 @@ class Highlight_And_Share {
 				case 'show_xing':
 				case 'show_whatsapp':
 				case 'show_linkedin':
+				case 'show_telegram':
 				case 'show_reddit':
 				case 'show_copy':
 					if ( 'on' === $input[ $key ] ) {
@@ -1738,8 +1759,6 @@ class Highlight_And_Share {
 		$enable_icons = isset( $settings['icons'] ) ? (bool) $settings['icons'] : false;
 		echo '<input name="highlight-and-share[icons]" value="off" type="hidden" />';
 		printf( '<input id="has-show-icons" type="checkbox" name="highlight-and-share[icons]" value="on" %s />&nbsp;<label for="has-show-icons">%s</label>', checked( true, $enable_icons, false ), esc_html__( 'Enable Icons Only?', 'highlight-and-share' ) );
-		$bfa = sprintf( '<a href="%s">Requires %s or equivalent.</a>', 'https://wordpress.org/plugins/better-font-awesome/', __( 'Better Font Awesome', 'highlight-and-share' ) );
-		printf( '<div><em>%s<br />%s</em></div>', $bfa, esc_html( $args['desc'] ) ); // phpcs:ignore
 	}
 
 	/**
@@ -1947,6 +1966,25 @@ class Highlight_And_Share {
 		printf( '<p>%s</p>', esc_html( $args['desc'] ) );
 		printf( '<p><a href="%s">%s</a></p>', 'https://developers.facebook.com/apps', esc_html__( 'Requires a Facebook developer application.', 'highlight-and-share' ) );
 		printf( '<input id="%s" type="text" name="highlight-and-share[facebook_app_id]" value="%s" />', esc_attr( $args['label_for'] ), esc_attr( $app_id ) );
+	}
+
+	/**
+	 * Add mobile option for sharing.
+	 *
+	 * Output checkbox for sharing on main post content
+	 *
+	 * @since 3.4.0
+	 * @access public
+	 *
+	 * @see init_admin_settings
+	 *
+	 * @param array $args Array of arguments.
+	 */
+	public function add_settings_field_mobile_enable( $args = array() ) {
+		$settings       = $this->get_plugin_options();
+		$enable_content = isset( $settings['enable_mobile'] ) ? (bool) $settings['enable_mobile'] : true;
+		echo '<input name="highlight-and-share[enable_mobile]" value="off" type="hidden" />';
+		printf( '<input id="has-enable-content" type="checkbox" name="highlight-and-share[enable_mobile]" value="on" %s />&nbsp;<label for="has-enable-content">%s</label>', checked( true, $enable_content, false ), esc_html__( 'Enable on Mobile?', 'highlight-and-share' ) );
 	}
 
 	/**
