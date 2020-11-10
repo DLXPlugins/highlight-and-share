@@ -32,6 +32,7 @@ registerFormatType( 'has/inline', {
 		onclick: 'onclick',
 		class: 'class',
 		data_theme: 'data-theme',
+		data_inline_type: 'data-inline-type'
 	},
 	className: 'has-inline-text',
 	edit: withSpokenMessages( class HASInline extends Component {
@@ -40,13 +41,16 @@ registerFormatType( 'has/inline', {
 
 			const format = getActiveFormat(this.props.value, 'has/inline');
 			let theme = 'has-inline-theme-default';
+			let inlineType= 'inline';
 			if ( undefined != format ) {
 				theme = format.attributes.data_theme || theme;
+				inlineType = format.attributtes.data_inline_type || inlineType
 			}
 			this.state = {
 				classname: 'has-inline-theme-default',
 				modal: false,
 				theme: theme,
+				inlineType: inlineType,
 			};
 		}
 		onClick = () => {
@@ -66,19 +70,20 @@ registerFormatType( 'has/inline', {
 					}
 				) );
 			}
-			let theme = '';
+			let theme = this.state.theme;
+			let inlineType = this.state.inlineType;
 
 			if ( this.state.modal == false || this.props.isActive ) {
 				let format = getActiveFormat(this.props.value, 'has/inline');
 				if ( undefined != format ) {
 					
-					theme = format.attributes.theme;
-					this.setState( { theme: theme } );
+					theme = format.attributes.data_theme;
+					inlineType = format.attributes.data_inline_type;
+					this.setState( { theme: theme, inlineType: inlineType } );
 				}
 				this.setState(
 					{
 						modal: true,
-						theme: theme,
 					}
 				);
 			} else {
@@ -86,6 +91,7 @@ registerFormatType( 'has/inline', {
 					{
 						modal: false,
 						theme: theme,
+						inlineType: inlineType,
 					}
 				);
 			}
@@ -100,15 +106,28 @@ registerFormatType( 'has/inline', {
 			) );
 			return;
 		}
-		onSave = ( themeValue = false ) => {
+		onSaveTheme = ( themeValue = false ) => {
 			this.props.onChange( applyFormat(
 				this.props.value,
 				{
 					type: 'has/inline',
 					attributes: {
 						class: `has-inline-text`,
-						theme: themeValue ? themeValue: this.state.theme,
+						data_inline_type: this.state.inlineType,
 						data_theme: themeValue ? themeValue: this.state.theme,
+					}
+				}
+			) );
+		}
+		onSaveInlineType = ( inlineType = false ) => {
+			this.props.onChange( applyFormat(
+				this.props.value,
+				{
+					type: 'has/inline',
+					attributes: {
+						class: `has-inline-text`,
+						data_inline_type: inlineType ? inlineType: this.state.inlineType,
+						data_theme: this.state.theme,
 					}
 				}
 			) );
@@ -121,7 +140,15 @@ registerFormatType( 'has/inline', {
 				renderModal = true;
 			} else {
 				renderModal = false;
-			}			
+			}
+
+			const inlineTypes = [
+				{
+					value: 'inline', label: __( 'Inline', 'highlight-and-share' ),
+				},
+				{ value: 'inline-block', label: __('Inline Block', 'highlight-and-share' ) },
+				{ value: 'block', label: __('Block', 'highlight-and-share' ) },
+			];
 
 			// Inline themes
 			let inlineThemes = [];
@@ -148,7 +175,6 @@ registerFormatType( 'has/inline', {
 						<Fragment>
 							<Popover position="top" noArrow>
 								<div className="has-inline-theme-edit">
-									<h2>{__('Select a Highlight Theme', 'highlight-and-share')}</h2>
 									<SelectControl
 						label={__("Themes", "highlight-and-share")}
 						options={inlineThemes}
@@ -157,7 +183,18 @@ registerFormatType( 'has/inline', {
 							this.setState( {
 								theme: value,
 							});
-							this.onSave( value );
+							this.onSaveTheme( value );
+						}}
+					/>
+					<SelectControl
+						label={__("Inline Type", "highlight-and-share")}
+						options={inlineTypes}
+						value={format.attributes.data_inline_type}
+						onChange={(value) => {
+							this.setState( {
+								inlineType: value,
+							});
+							this.onSaveInlineType( value );
 						}}
 					/>
 								</div>
