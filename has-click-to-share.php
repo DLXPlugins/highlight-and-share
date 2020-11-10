@@ -154,16 +154,8 @@ function has_blocks_editor_assets() {
 	$has_inline_themes = array(
 		'has-inline-theme-default'             => __( 'Default', 'highlight-and-share' ),
 		'has-inline-theme-dark'                => __( 'Dark', 'highlight-and-share' ),
-		'has-inline-theme-light'               => __( 'Light', 'highlight-and-share' ),
-		'has-inline-theme-dark-blue'           => __( 'Dark Blue', 'highlight-and-share' ),
-		'has-inline-theme-dark-blue-animating' => __( 'Dark Blue Animating (Experimental)', 'highlight-and-share' ),
-		'has-inline-theme-highlight-blue'      => __( 'Highlight Blue', 'highlight-and-share' ),
-		'has-inline-theme-highlight-green'     => __( 'Highlight Green', 'highlight-and-share' ),
-		'has-inline-theme-highlight-pink'      => __( 'Highlight Pink', 'highlight-and-share' ),
-		'has-inline-theme-highlight-red'       => __( 'Highlight Red', 'highlight-and-share' ),
-
+		'has-inline-theme-light'                => __( 'Light', 'highlight-and-share' ),
 		'has-inline-theme-highlight'           => __( 'Highlight Yellow', 'highlight-and-share' ),
-
 	);
 	$has_inline_themes = apply_filters( 'has_inline_themes', $has_inline_themes );
 	wp_localize_script(
@@ -175,6 +167,7 @@ function has_blocks_editor_assets() {
 		)
 	);
 	wp_set_script_translations( 'has-click-to-share', 'highlight-and-share' );
+	do_action( 'has_enqueue_block_styles_scripts' );
 }
 add_action( 'enqueue_block_editor_assets', 'has_blocks_editor_assets' );
 add_action( 'enqueue_block_assets', 'has_blocks_frontend_assets' );

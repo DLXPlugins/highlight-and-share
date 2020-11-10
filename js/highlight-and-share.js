@@ -143,6 +143,15 @@ jQuery( document ).ready( function( $ ) {
 		window.open( this.href );
 		has_remove();
 	} );
+	$( 'body' ).on( 'click', '.has_telegram a:visible', function( e ) {
+		e.preventDefault();
+		if( highlight_and_share.customizer_preview ) {
+			return;
+		}
+		this.href = this.href.replace( '%text%', encodeURIComponent( has_selected_text ) );
+		window.open( this.href );
+		has_remove();
+	} );
 	$( 'body' ).on( 'click', '.has_copy a:visible', function( e ) {
 		e.preventDefault();
 		if( false == text_to_copy ) {
@@ -331,7 +340,7 @@ jQuery( document ).ready( function( $ ) {
 
 		wrapper_clone.css( { position: 'absolute', display: 'block', width: 'auto', height: 'auto', 'z-index': 10000 } );
 
-		$children = wrapper_clone.find( '.has_whatsapp, .has_xing, .has_pinterest, .has_linkedin, .has_facebook, .has_twitter, .has_copy, .has_email, .has_reddit' );
+		$children = wrapper_clone.find( '.has_whatsapp, .has_xing, .has_pinterest, .has_linkedin, .has_facebook, .has_twitter, .has_copy, .has_email, .has_reddit, .has_telegram' );
 		$.each( $children, function( index, item ) {
 			var div = $( this );
 			var url = div.find( 'a' ).attr( 'href' );
@@ -389,7 +398,7 @@ jQuery( document ).ready( function( $ ) {
 
 		wrapper_clone.css( { position: 'absolute', display: 'block', width: 'auto', height: 'auto', 'z-index': 10000 } );
 
-		$children = wrapper_clone.find( '.has_whatsapp, .has_facebook, .has_twitter, .has_copy, .has_email, .has_reddit' );
+		$children = wrapper_clone.find( '.has_whatsapp, .has_facebook, .has_twitter, .has_copy, .has_email, .has_reddit, .has_telegram' );
 		$.each( $children, function( index, item ) {
 			var div = $( this );
 			var url = div.find( 'a' ).attr( 'href' );
@@ -434,7 +443,7 @@ jQuery( document ).ready( function( $ ) {
 
 		wrapper_clone.css( { position: 'absolute', display: 'block', width: 'auto', height: 'auto', 'z-index': 10000 } );
 
-		$children = wrapper_clone.find( '.has_whatsapp, .has_facebook, .has_twitter, .has_copy, .has_email, .has_reddit' );
+		$children = wrapper_clone.find( '.has_whatsapp, .has_facebook, .has_twitter, .has_copy, .has_email, .has_reddit, .has_telegram' );
 		$.each( $children, function( index, item ) {
 			var div = $( this );
 			var url = div.find( 'a' ).attr( 'href' );
