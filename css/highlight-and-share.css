@@ -49,6 +49,9 @@
 .highlight-and-share-wrapper div.has_reddit {
 	background: #FF4500;
 }
+.highlight-and-share-wrapper div.has_telegram {
+	background: #278fd6;
+}
 .highlight-and-share-wrapper div.has_twitter:hover {
 	background: #00aced;
 }
@@ -75,6 +78,9 @@
 }
 .highlight-and-share-wrapper div.has_reddit:hover {
 	background: #eb4407;
+}
+.highlight-and-share-wrapper div.has_telegram:hover {
+	background: #2587ca;
 }
 body.has-body .highlight-and-share-wrapper a,
 body.has-body .highlight-and-share-wrapper a:hover,
