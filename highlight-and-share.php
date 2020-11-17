@@ -118,6 +118,25 @@ class Highlight_And_Share {
 	}
 
 	/**
+	 * Get the main themes.
+	 */
+	public function get_main_themes() {
+		$default_themes = array(
+			'off'          => esc_html__( 'Off', 'highligh-and-share' ),
+			'default'      => esc_html__( 'Default', 'highlight-and-share' ),
+			'brand-colors' => esc_html__( 'Brand Colors (Icons Only)', 'highlight-and-share' ),
+			'black'        => esc_html__( 'Black (Icons Only)', 'highlight-and-share' ),
+			'purple'       => esc_html__( 'Purple (Icons Only)', 'highlight-and-share' ),
+			'white'        => esc_html__( 'White (Icons Only)', 'highlight-and-share' ),
+			'cyan'         => esc_html__( 'Cyan (Icons Only)', 'highlight-and-share' ),
+			'magenta'      => esc_html__( 'Magenta (Icons Only)', 'highlight-and-share' ),
+			'blue'         => esc_html__( 'Blue (Icons Only)', 'highlight-and-share' ),
+			'green'        => esc_html__( 'Green (Icons Only)', 'highlight-and-share' ),
+		);
+		return apply_filters( 'has_main_themes', $default_themes );
+	}
+
+	/**
 	 * Adds HAS to the customizer
 	 *
 	 * Adds HAS to the customizer
@@ -173,17 +192,7 @@ class Highlight_And_Share {
 				'label'   => esc_html__( 'Choose a Theme', 'highlight-and-share' ),
 				'section' => 'highlight-and-share',
 				'type'    => 'select',
-				'choices' => array(
-					'off'          => esc_html__( 'Off', 'highligh-and-share' ),
-					'default'      => esc_html__( 'Default', 'highlight-and-share' ),
-					'brand-colors' => esc_html__( 'Brand Colors (Icons Only)', 'highlight-and-share' ),
-					'black'        => esc_html__( 'Black (Icons Only)', 'highlight-and-share' ),
-					'white'        => esc_html__( 'White (Icons Only)', 'highlight-and-share' ),
-					'cyan'         => esc_html__( 'Cyan (Icons Only)', 'highlight-and-share' ),
-					'magenta'      => esc_html__( 'Magenta (Icons Only)', 'highlight-and-share' ),
-					'blue'         => esc_html__( 'Blue (Icons Only)', 'highlight-and-share' ),
-					'green'        => esc_html__( 'Green (Icons Only)', 'highlight-and-share' ),
-				),
+				'choices' => $this->get_main_themes(),
 			)
 		);
 
@@ -540,13 +549,17 @@ class Highlight_And_Share {
 		$show_linkedin = (bool) apply_filters( 'has_show_linkedin', $settings['show_linkedin'] );
 		$show_email    = (bool) apply_filters( 'has_show_email', $settings['show_email'] );
 		$show_copy     = (bool) apply_filters( 'has_show_copy', $settings['show_email'] );
-		if ( ! $show_facebook && ! $show_twitter && ! $show_linkedin && ! $show_email && ! $show_copy ) {
+		$show_reddit   = (bool) apply_filters( 'has_show_reddit', isset( $settings['show_reddit'] ) ? $settings['show_reddit'] : false );
+		$show_telegram = (bool) apply_filters( 'has_show_telegram', isset( $settings['show_telegram'] ) ? $settings['show_telegram'] : false );
+		if ( ! $show_facebook && ! $show_twitter && ! $show_linkedin && ! $show_email && ! $show_copy && ! $show_reddit && ! $show_telegram ) {
 			return;
 		}
 
+		$show_on_mobile = (bool) apply_filters( 'has_enable_mobile', isset( $settings['enable_mobile'] ) ? $settings['enable_mobile'] : true );
+
 		// Disable if mobile.
 		if ( wp_is_mobile() ) {
-			if ( (bool) apply_filters( 'has_enable_mobile', true ) ) {
+			if ( $show_on_mobile ) {
 				add_action( 'wp_enqueue_scripts', array( $this, 'add_scripts_mobile' ) );
 			} else {
 				return;
@@ -568,6 +581,9 @@ class Highlight_And_Share {
 		}
 	}
 
+	/**
+	 * Add general interface and SVG sprites.
+	 */
 	public function add_footer_html() {
 		$settings       = $this->get_plugin_options();
 		$html           = '<div class="highlight-and-share-wrapper">';
@@ -580,10 +596,10 @@ class Highlight_And_Share {
 				$click_to_share .= $string;
 				$inline_share   .= $string;
 			} else {
-				$string         = '<div class="has_twitter" style="display: none;" data-type="twitter"><a href="https://twitter.com/intent/tweet?via=%username%&url=%url%&text=%text%" target="_blank"><svg class="has-icon"><use xlink:href="#has-twitter-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_twitter_text', _x( 'Tweet', 'Twitter share text', 'highlight-and-share' ) ) ) . '</span></a></div>';
-				$html          .= $string;
+				$string          = '<div class="has_twitter" style="display: none;" data-type="twitter"><a href="https://twitter.com/intent/tweet?via=%username%&url=%url%&text=%text%" target="_blank"><svg class="has-icon"><use xlink:href="#has-twitter-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_twitter_text', _x( 'Tweet', 'Twitter share text', 'highlight-and-share' ) ) ) . '</span></a></div>';
+				$html           .= $string;
 				$click_to_share .= $string;
-				$inline_share  .= $string;
+				$inline_share   .= $string;
 			}
 		} elseif ( $settings['show_twitter'] && '' === $settings['twitter'] ) {
 			if ( ! $settings['icons'] ) {
@@ -637,6 +653,30 @@ class Highlight_And_Share {
 			}
 		}
 
+		if ( $settings['show_reddit'] ) {
+			if ( ! $settings['icons'] ) {
+				$string = '<div class="has_reddit" style="display: none;" data-type="reddit"><a href="https://www.reddit.com/submit?resubmit=true&url=%url&title=%title" target="_blank"><svg class="has-icon"><use xlink:href="#has-reddit-icon"></use></svg>&nbsp;' . esc_html( apply_filters( 'has_reddit_text', _x( 'Reddit', 'Reddit share text', 'highlight-and-share' ) ) ) . '</a></div>';
+				$html  .= $string;
+			} else {
+				$string = '<div class="has_reddit" style="display: none;" data-type="reddit"><a href="https://www.reddit.com/submit?resubmit=true&url=%url%&title=%title%" target="_blank"><svg class="has-icon"><use xlink:href="#has-reddit-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_reddit_text', _x( 'Reddit', 'Reddit share text', 'highlight-and-share' ) ) ) . '</span></a></div>';
+				$html  .= $string;
+			}
+		}
+
+		if ( $settings['show_telegram'] ) {
+			if ( ! $settings['icons'] ) {
+				$string          = '<div class="has_telegram" style="display: none;" data-type="telegram"><a href="https://t.me/share/url?url=%url%&text=%text%" target="_blank"><svg class="has-icon"><use xlink:href="#has-telegram-icon"></use></svg>&nbsp;' . esc_html( apply_filters( 'has_telegram_text', _x( 'Telegram', 'Telegram share text', 'highlight-and-share' ) ) ) . '</a></div>';
+				$html           .= $string;
+				$click_to_share .= $string;
+				$inline_share   .= $string;
+			} else {
+				$string          = '<div class="has_telegram" style="display: none;" data-type="telegram"><a href="https://t.me/share/url?url=%url%&text=%text%" target="_blank"><svg class="has-icon"><use xlink:href="#has-telegram-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_telegram_text', _x( 'Telegram', 'Telegram share text', 'highlight-and-share' ) ) ) . '</span></a></div>';
+				$html           .= $string;
+				$click_to_share .= $string;
+				$inline_share   .= $string;
+			}
+		}
+
 		if ( $settings['show_whatsapp'] ) {
 			if ( ! $settings['icons'] ) {
 				$string          = '<div class="has_whatsapp" style="display: none;" data-type="whatsapp"><a href="https://wa.me/?text=%text%: ' . '%url%" target="_blank"><svg class="has-icon"><use xlink:href="#has-whatsapp-icon"></use></svg>&nbsp;' . esc_html( apply_filters( 'has_whatsapp_text', _x( 'WhatsApp', 'WhatsApp share text', 'highlight-and-share' ) ) ) . '</a></div>';
@@ -678,6 +718,7 @@ class Highlight_And_Share {
 				$inline_share   .= $string;
 			}
 		}
+
 		$click_to_share .= '</div>';
 		$inline_share   .= '</div>';
 		$html           .= '</div><!-- #highlight-and-share-wrapper -->';
@@ -709,6 +750,12 @@ class Highlight_And_Share {
 			</symbol>
 			<symbol aria-hidden="true" data-prefix="fas" data-icon="share" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" id="has-share-icon">
 				<path fill="currentColor" d="M352 320c-22.608 0-43.387 7.819-59.79 20.895l-102.486-64.054a96.551 96.551 0 0 0 0-41.683l102.486-64.054C308.613 184.181 329.392 192 352 192c53.019 0 96-42.981 96-96S405.019 0 352 0s-96 42.981-96 96c0 7.158.79 14.13 2.276 20.841L155.79 180.895C139.387 167.819 118.608 160 96 160c-53.019 0-96 42.981-96 96s42.981 96 96 96c22.608 0 43.387-7.819 59.79-20.895l102.486 64.054A96.301 96.301 0 0 0 256 416c0 53.019 42.981 96 96 96s96-42.981 96-96-42.981-96-96-96z"></path>
+			</symbol>
+			<symbol aria-hidden="true" data-prefix="fab" data-icon="reddit" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="has-reddit-icon">
+				<path fill="currentColor" d="M440.3 203.5c-15 0-28.2 6.2-37.9 15.9-35.7-24.7-83.8-40.6-137.1-42.3L293 52.3l88.2 19.8c0 21.6 17.6 39.2 39.2 39.2 22 0 39.7-18.1 39.7-39.7s-17.6-39.7-39.7-39.7c-15.4 0-28.7 9.3-35.3 22l-97.4-21.6c-4.9-1.3-9.7 2.2-11 7.1L246.3 177c-52.9 2.2-100.5 18.1-136.3 42.8-9.7-10.1-23.4-16.3-38.4-16.3-55.6 0-73.8 74.6-22.9 100.1-1.8 7.9-2.6 16.3-2.6 24.7 0 83.8 94.4 151.7 210.3 151.7 116.4 0 210.8-67.9 210.8-151.7 0-8.4-.9-17.2-3.1-25.1 49.9-25.6 31.5-99.7-23.8-99.7zM129.4 308.9c0-22 17.6-39.7 39.7-39.7 21.6 0 39.2 17.6 39.2 39.7 0 21.6-17.6 39.2-39.2 39.2-22 .1-39.7-17.6-39.7-39.2zm214.3 93.5c-36.4 36.4-139.1 36.4-175.5 0-4-3.5-4-9.7 0-13.7 3.5-3.5 9.7-3.5 13.2 0 27.8 28.5 120 29 149 0 3.5-3.5 9.7-3.5 13.2 0 4.1 4 4.1 10.2.1 13.7zm-.8-54.2c-21.6 0-39.2-17.6-39.2-39.2 0-22 17.6-39.7 39.2-39.7 22 0 39.7 17.6 39.7 39.7-.1 21.5-17.7 39.2-39.7 39.2z"></path>
+			</symbol>
+			<symbol aria-hidden="true" data-prefix="fab" data-icon="telegram" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" id="has-telegram-icon">
+				<path fill="currentColor" d="M446.7 98.6l-67.6 318.8c-5.1 22.5-18.4 28.1-37.3 17.5l-103-75.9-49.7 47.8c-5.5 5.5-10.1 10.1-20.7 10.1l7.4-104.9 190.9-172.5c8.3-7.4-1.8-11.5-12.9-4.1L117.8 284 16.2 252.2c-22.1-6.9-22.5-22.1 4.6-32.7L418.2 66.4c18.4-6.9 34.5 4.1 28.5 32.2z"></path>
 			</symbol>
 		</svg>
 		<?php
@@ -816,6 +863,8 @@ class Highlight_And_Share {
 	 */
 	public function add_settings_link( $links ) {
 		$settings_link = sprintf( '<a href="%s">%s</a>', esc_url( admin_url( 'options-general.php?page=highlight-and-share' ) ), _x( 'Settings', 'Plugin settings link on the plugins page', 'highlight-and-share' ) );
+		$docs_link     = sprintf( '<a href="%s">%s</a>', esc_url( 'https://mediaron.com/highlight-and-share/' ), _x( 'Documentation and Support', 'Plugin settings link on the plugins page', 'highlight-and-share' ) );
+			array_unshift( $links, $docs_link );
 			array_unshift( $links, $settings_link );
 			return $links;
 	}
@@ -1176,6 +1225,9 @@ class Highlight_And_Share {
 			case 'black':
 				wp_enqueue_style( 'highlight-and-share', $this->get_plugin_url( 'css/highlight-and-share-black.css' ), array(), HIGHLIGHT_AND_SHARE_VERSION, 'all' );
 				break;
+			case 'purple':
+				wp_enqueue_style( 'highlight-and-share', $this->get_plugin_url( 'css/highlight-and-share-purple.css' ), array(), HIGHLIGHT_AND_SHARE_VERSION, 'all' );
+				break;
 			case 'white':
 				wp_enqueue_style( 'highlight-and-share', $this->get_plugin_url( 'css/highlight-and-share-white.css' ), array(), HIGHLIGHT_AND_SHARE_VERSION, 'all' );
 				break;
@@ -1193,9 +1245,34 @@ class Highlight_And_Share {
 				break;
 			default:
 				wp_enqueue_style( 'highlight-and-share', $this->get_plugin_url( 'css/highlight-and-share.css' ), array(), HIGHLIGHT_AND_SHARE_VERSION, 'all' );
+				do_action( 'has_default_theme', $theme );
 				break;
 		}
 		add_filter( 'body_class', array( $this, 'add_body_class' ), 10, 2 );
+	}
+
+	/**
+	 * Retrieve inline theme slugs and themes.
+	 */
+	public function get_inline_themes() {
+		$has_inline_themes = array(
+			'has-inline-theme-default'         => __( 'Default', 'highlight-and-share' ),
+			'has-inline-theme-dark'            => __( 'Dark', 'highlight-and-share' ),
+			'has-inline-theme-light'           => __( 'Light', 'highlight-and-share' ),
+			'has-inline-theme-blood-red'       => __( 'Blood Red', 'highlight-and-share' ),
+			'has-inline-theme-dark-blue'       => __( 'Dark Blue', 'highlight-and-share' ),
+			'has-inline-theme-fire'            => __( 'Fire', 'highlight-and-share' ),
+			'has-inline-theme-glow-blue'       => __( 'Glow Blue', 'highlight-and-share' ),
+			'has-inline-theme-highlight'       => __( 'Highlight Yellow', 'highlight-and-share' ),
+			'has-inline-theme-highlight-blue'  => __( 'Highlight Blue', 'highlight-and-share' ),
+			'has-inline-theme-highlight-green' => __( 'Highlight Green', 'highlight-and-share' ),
+			'has-inline-theme-highlight-pink'  => __( 'Highlight Pink', 'highlight-and-share' ),
+			'has-inline-theme-highlight-red'   => __( 'Highlight Red', 'highlight-and-share' ),
+			'has-inline-theme-purple'          => __( 'Purple', 'highlight-and-share' ),
+			'has-inline-theme-rust'            => __( 'Rust', 'highlight-and-share' ),
+		);
+		$has_inline_themes = apply_filters( 'has_inline_themes', $has_inline_themes );
+		return $has_inline_themes;
 	}
 
 	/**
@@ -1315,6 +1392,20 @@ class Highlight_And_Share {
 		);
 
 		add_settings_section(
+			'has-reddit',
+			_x( 'Reddit Settings', 'plugin settings heading', 'highlight-and-share' ),
+			array( $this, 'settings_section' ),
+			'highlight-and-share'
+		);
+
+		add_settings_section(
+			'has-telegram',
+			_x( 'Telegram Settings', 'plugin settings heading', 'highlight-and-share' ),
+			array( $this, 'settings_section' ),
+			'highlight-and-share'
+		);
+
+		add_settings_section(
 			'has-linkedin',
 			_x( 'LinkedIn Settings', 'plugin settings heading', 'highlight-and-share' ),
 			array( $this, 'settings_section' ),
@@ -1386,6 +1477,17 @@ class Highlight_And_Share {
 		);
 
 		add_settings_field(
+			'hightlight-and-share-mobile-enable',
+			__( 'Show on Mobile', 'highlight-and-share' ),
+			array( $this, 'add_settings_field_mobile_enable' ),
+			'highlight-and-share',
+			'has-config',
+			array(
+				'desc' => __( 'Would you like to show on mobile?', 'highlight-and-share' ),
+			)
+		);
+
+		add_settings_field(
 			'hightlight-and-share-content-enable',
 			__( 'Add to Post Content', 'highlight-and-share' ),
 			array( $this, 'add_settings_field_content_enable' ),
@@ -1415,6 +1517,28 @@ class Highlight_And_Share {
 			'has-twitter',
 			array(
 				'desc' => __( 'Would you like to enable sharing via Twitter?', 'highlight-and-share' ),
+			)
+		);
+
+		add_settings_field(
+			'hightlight-and-share-reddit-enable',
+			__( 'Show Reddit Option', 'highlight-and-share' ),
+			array( $this, 'add_settings_field_reddit_enable' ),
+			'highlight-and-share',
+			'has-reddit',
+			array(
+				'desc' => __( 'Would you like to enable sharing via Reddit?', 'highlight-and-share' ),
+			)
+		);
+
+		add_settings_field(
+			'hightlight-and-share-telegram-enable',
+			__( 'Show Telegram Option', 'highlight-and-share' ),
+			array( $this, 'add_settings_field_telegram_enable' ),
+			'highlight-and-share',
+			'has-telegram',
+			array(
+				'desc' => __( 'Would you like to enable sharing via Telegram?', 'highlight-and-share' ),
 			)
 		);
 
@@ -1617,6 +1741,7 @@ class Highlight_And_Share {
 					break;
 				case 'show_twitter':
 				case 'show_facebook':
+				case 'enable_mobile':
 				case 'enable_content':
 				case 'enable_excerpt':
 				case 'shortlinks':
@@ -1625,6 +1750,8 @@ class Highlight_And_Share {
 				case 'show_xing':
 				case 'show_whatsapp':
 				case 'show_linkedin':
+				case 'show_telegram':
+				case 'show_reddit':
 				case 'show_copy':
 					if ( 'on' === $input[ $key ] ) {
 						$output[ $key ] = true;
@@ -1693,8 +1820,6 @@ class Highlight_And_Share {
 		$enable_icons = isset( $settings['icons'] ) ? (bool) $settings['icons'] : false;
 		echo '<input name="highlight-and-share[icons]" value="off" type="hidden" />';
 		printf( '<input id="has-show-icons" type="checkbox" name="highlight-and-share[icons]" value="on" %s />&nbsp;<label for="has-show-icons">%s</label>', checked( true, $enable_icons, false ), esc_html__( 'Enable Icons Only?', 'highlight-and-share' ) );
-		$bfa = sprintf( '<a href="%s">Requires %s or equivalent.</a>', 'https://wordpress.org/plugins/better-font-awesome/', __( 'Better Font Awesome', 'highlight-and-share' ) );
-		printf( '<div><em>%s<br />%s</em></div>', $bfa, esc_html( $args['desc'] ) ); // phpcs:ignore
 	}
 
 	/**
@@ -1712,17 +1837,16 @@ class Highlight_And_Share {
 	public function add_settings_field_display_theme( $args = array() ) {
 		$settings = $this->get_plugin_options();
 		$theme    = isset( $settings['theme'] ) ? $settings['theme'] : 'default';
+		$themes   = $this->get_main_themes();
 		?>
 		<select name="highlight-and-share[theme]">
-			<option value="off" <?php selected( 'off', $theme, true ); ?>><?php esc_html_e( 'Off', 'highlight-and-share' ); ?></option>
-			<option value="default" <?php selected( 'default', $theme, true ); ?>><?php esc_html_e( 'Default', 'highlight-and-share' ); ?></option>
-			<option value="brand-colors" <?php selected( 'brand-colors', $theme, true ); ?>><?php esc_html_e( 'Brand Colors (Icons Only)', 'highlight-and-share' ); ?></option>
-			<option value="black" <?php selected( 'black', $theme, true ); ?>><?php esc_html_e( 'Black (Icons Only)', 'highlight-and-share' ); ?></option>
-			<option value="white" <?php selected( 'white', $theme, true ); ?>><?php esc_html_e( 'White (Icons Only)', 'highlight-and-share' ); ?></option>
-			<option value="cyan" <?php selected( 'cyan', $theme, true ); ?>><?php esc_html_e( 'Cyan (Icons Only)', 'highlight-and-share' ); ?></option>
-			<option value="magenta" <?php selected( 'magenta', $theme, true ); ?>><?php esc_html_e( 'Magenta (Icons Only)', 'highlight-and-share' ); ?></option>
-			<option value="blue" <?php selected( 'blue', $theme, true ); ?>><?php esc_html_e( 'Blue (Icons Only)', 'highlight-and-share' ); ?></option>
-			<option value="green" <?php selected( 'green', $theme, true ); ?>><?php esc_html_e( 'Green (Icons Only)', 'highlight-and-share' ); ?></option>
+			<?php
+			foreach ( $themes as $slug => $label ) :
+				?>
+				<option value="<?php echo esc_attr( $slug ); ?>" <?php selected( $theme, $slug, true ); ?>><?php echo esc_html( $label ); ?></option>
+				<?php
+			endforeach;
+			?>
 		</select>
 		<?php
 		printf( '<div><em></em></div>', esc_html( $args['desc'] ) );
@@ -1764,6 +1888,44 @@ class Highlight_And_Share {
 		$linkedin = isset( $settings['show_linkedin'] ) ? (bool) $settings['show_linkedin'] : true;
 		echo '<input name="highlight-and-share[show_linkedin]" value="off" type="hidden" />';
 		printf( '<input id="has-show-linkedin" type="checkbox" name="highlight-and-share[show_linkedin]" value="on" %s />&nbsp;<label for="has-show-linkedin">%s</label>', checked( true, $linkedin, false ), esc_html__( 'Enable LinkedIn Sharing?', 'highlight-and-share' ) );
+	}
+
+	/**
+	 * Add Reddit Option for Sharing
+	 *
+	 * Output checkbox for displaying Reddit sharing.
+	 *
+	 * @since 3.3.5
+	 * @access public
+	 *
+	 * @see init_admin_settings
+	 *
+	 * @param array $args Array of arguments.
+	 */
+	public function add_settings_field_reddit_enable( $args = array() ) {
+		$settings = $this->get_plugin_options();
+		$reddit   = isset( $settings['show_reddit'] ) ? (bool) $settings['show_reddit'] : false;
+		echo '<input name="highlight-and-share[show_reddit]" value="off" type="hidden" />';
+		printf( '<input id="has-show-reddit" type="checkbox" name="highlight-and-share[show_reddit]" value="on" %s />&nbsp;<label for="has-show-reddit">%s</label>', checked( true, $reddit, false ), esc_html__( 'Enable Reddit Sharing?', 'highlight-and-share' ) );
+	}
+
+	/**
+	 * Add Telegram Option for Sharing
+	 *
+	 * Output checkbox for displaying Telegram sharing.
+	 *
+	 * @since 3.3.5
+	 * @access public
+	 *
+	 * @see init_admin_settings
+	 *
+	 * @param array $args Array of arguments.
+	 */
+	public function add_settings_field_telegram_enable( $args = array() ) {
+		$settings = $this->get_plugin_options();
+		$telegram = isset( $settings['show_telegram'] ) ? (bool) $settings['show_telegram'] : false;
+		echo '<input name="highlight-and-share[show_telegram]" value="off" type="hidden" />';
+		printf( '<input id="has-show-telegram" type="checkbox" name="highlight-and-share[show_telegram]" value="on" %s />&nbsp;<label for="has-show-telegram">%s</label>', checked( true, $telegram, false ), esc_html__( 'Enable Telegram Sharing?', 'highlight-and-share' ) );
 	}
 
 	/**
@@ -1885,6 +2047,25 @@ class Highlight_And_Share {
 	}
 
 	/**
+	 * Add mobile option for sharing.
+	 *
+	 * Output checkbox for sharing on main post content
+	 *
+	 * @since 3.4.0
+	 * @access public
+	 *
+	 * @see init_admin_settings
+	 *
+	 * @param array $args Array of arguments.
+	 */
+	public function add_settings_field_mobile_enable( $args = array() ) {
+		$settings       = $this->get_plugin_options();
+		$enable_content = isset( $settings['enable_mobile'] ) ? (bool) $settings['enable_mobile'] : true;
+		echo '<input name="highlight-and-share[enable_mobile]" value="off" type="hidden" />';
+		printf( '<input id="has-enable-content" type="checkbox" name="highlight-and-share[enable_mobile]" value="on" %s />&nbsp;<label for="has-enable-content">%s</label>', checked( true, $enable_content, false ), esc_html__( 'Enable on Mobile?', 'highlight-and-share' ) );
+	}
+
+	/**
 	 * Add Content option for sharing.
 	 *
 	 * Output checkbox for sharing on main post content
@@ -1970,6 +2151,9 @@ class Highlight_And_Share {
 			'show_copy'      => false,
 			'show_whatsapp'  => false,
 			'show_xing'      => false,
+			'enable_mobile'  => true,
+			'show_reddit'    => false,
+			'show_telegram'  => false,
 			'enable_content' => true,
 			'enable_excerpt' => true,
 			'shortlinks'     => false,

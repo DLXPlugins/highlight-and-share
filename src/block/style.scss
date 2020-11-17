@@ -1,6 +1,7 @@
 /**
  * Editor styles for the admin
  */
+ @import "inline-themes.scss";
 
 .has-click-to-share {
 	position: relative;
@@ -30,12 +31,4 @@
 	height: 100%;
 	top: 0;
 	left: 0;
-}
-.has-inline-text {
-	background-color: rgb(255, 239, 177);
-	color: black;
-	cursor: pointer;
-}
-.has-inline-text:hover {
-	background-color: rgb(252, 214, 60);
 }

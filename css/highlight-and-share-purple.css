@@ -36,6 +36,9 @@
     background: #CC2127;
 }
 .highlight-and-share-wrapper div.has_copy {
+    background: #EEEEEE;
+}
+.highlight-and-share-wrapper div.has_copy {
     background: #E8E8E8;
 }
 .highlight-and-share-wrapper div.has_email {
@@ -63,7 +66,7 @@
     background: #d93238;
 }
 .highlight-and-share-wrapper div.has_copy:hover {
-    background: #E8e8e8;
+    background: #E8E8E8;
 }
 .highlight-and-share-wrapper div.has_email:hover {
     background: #1388b7;
@@ -83,7 +86,7 @@ body.has-body .highlight-and-share-wrapper a:visited {
 	letter-spacing: 0.150em;
 	font-size: 14px;
 	letter-spacing: .2em;
-	color: #FFF;
+	color: #f8f8f8;
 	display: block;
 	height: 100%;
 	padding: 12px 20px;
@@ -119,7 +122,7 @@ div.highlight-and-share-wrapper div.has_copy,
 div.highlight-and-share-wrapper div.has_reddit,
 div.highlight-and-share-wrapper div.has_telegram
  {
-	background: #FF00FF;
+	background: #8364E8;
 }
 
 /* Hover color */
@@ -132,8 +135,8 @@ div.highlight-and-share-wrapper div.has_xing:hover,
 div.highlight-and-share-wrapper div.has_whatsapp:hover,
 div.highlight-and-share-wrapper div.has_copy:hover,
 div.highlight-and-share-wrapper div.has_reddit:hover,
-div.highlight-and-share-wrapper div.has_telegram:hover {
-	background: #c700c7;
+div.highlight-and-share-wrapper div.has_telegram:hover{
+	background: #714EE4;
 }
 
 /* Speech Bubble */
@@ -143,8 +146,8 @@ div.highlight-and-share-wrapper div.has_telegram:hover {
 	position: absolute;
 	bottom: 0;
 	left: calc(50% - 10px);
-	border-top: 10px solid #FF00FF;
-	border-top-color: #FF00FF;
+	border-top: 10px solid #8364E8;
+	border-top-color: #8364E8;
 	border-left: 10px solid transparent;
 	border-right: 10px solid transparent;
 }

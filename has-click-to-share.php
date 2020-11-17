@@ -119,17 +119,14 @@ function has_click_to_share( $attributes ) {
  * Enqueue assets for the front-end.
  */
 function has_blocks_frontend_assets() {
-	if ( is_singular() ) {
-		$post_id = get_the_ID();
-		if ( has_block( 'has/click-to-share', $post_id ) ) {
-			wp_enqueue_style(
-				'has-style-frontend-css',
-				Highlight_And_Share::get_instance()->get_plugin_url( 'dist/has-cts-style.css' ),
-				array(),
-				HIGHLIGHT_AND_SHARE_VERSION,
-				'all'
-			);
-		}
+	if ( is_singular() || is_page() ) {
+		wp_enqueue_style(
+			'has-style-frontend-css',
+			Highlight_And_Share::get_instance()->get_plugin_url( 'dist/has-cts-style.css' ),
+			array(),
+			HIGHLIGHT_AND_SHARE_VERSION,
+			'all'
+		);
 	}
 }
 
@@ -154,14 +151,16 @@ function has_blocks_editor_assets() {
 		HIGHLIGHT_AND_SHARE_VERSION,
 		true
 	);
+
 	wp_localize_script(
 		'has-click-to-share',
 		'has_gutenberg',
 		array(
-			'svg' => Highlight_And_Share::get_instance()->get_plugin_url( 'img/share.svg' ),
+			'svg'    => Highlight_And_Share::get_instance()->get_plugin_url( 'img/share.svg' ),
 		)
 	);
 	wp_set_script_translations( 'has-click-to-share', 'highlight-and-share' );
+	do_action( 'has_enqueue_block_styles_scripts' );
 }
 add_action( 'enqueue_block_editor_assets', 'has_blocks_editor_assets' );
 add_action( 'enqueue_block_assets', 'has_blocks_frontend_assets' );

@@ -115,7 +115,9 @@ div.highlight-and-share-wrapper div.has_pinterest,
 div.highlight-and-share-wrapper div.has_email,
 div.highlight-and-share-wrapper div.has_xing,
 div.highlight-and-share-wrapper div.has_whatsapp,
-div.highlight-and-share-wrapper div.has_copy
+div.highlight-and-share-wrapper div.has_copy,
+div.highlight-and-share-wrapper div.has_reddit,
+div.highlight-and-share-wrapper div.has_telegram
  {
 	background: #03ac27;
 }
@@ -128,7 +130,9 @@ div.highlight-and-share-wrapper div.has_pinterest:hover,
 div.highlight-and-share-wrapper div.has_email:hover,
 div.highlight-and-share-wrapper div.has_xing:hover,
 div.highlight-and-share-wrapper div.has_whatsapp:hover,
-div.highlight-and-share-wrapper div.has_copy:hover{
+div.highlight-and-share-wrapper div.has_copy:hover,
+div.highlight-and-share-wrapper div.has_reddit:hover,
+div.highlight-and-share-wrapper div.has_telegram:hover {
 	background: #029a23;
 }
 
