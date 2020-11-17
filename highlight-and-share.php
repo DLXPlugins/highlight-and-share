@@ -555,9 +555,11 @@ class Highlight_And_Share {
 			return;
 		}
 
+		$show_on_mobile = (bool) apply_filters( 'has_enable_mobile', isset( $settings['enable_mobile'] ) ? $settings['enable_mobile'] : true );
+
 		// Disable if mobile.
 		if ( wp_is_mobile() ) {
-			if ( (bool) apply_filters( 'has_enable_mobile', true ) ) {
+			if ( $show_on_mobile ) {
 				add_action( 'wp_enqueue_scripts', array( $this, 'add_scripts_mobile' ) );
 			} else {
 				return;
@@ -757,7 +759,6 @@ class Highlight_And_Share {
 			</symbol>
 		</svg>
 		<?php
-		// Reddit: https://www.reddit.com/submit?resubmit=true&url=https://www.ronalfy.com&title=This%20is%20a%20test&desc=test
 	}
 
 	/**
@@ -2149,6 +2150,9 @@ class Highlight_And_Share {
 			'show_copy'      => false,
 			'show_whatsapp'  => false,
 			'show_xing'      => false,
+			'enable_mobile'  => true,
+			'show_reddit'    => false,
+			'show_telegram'  => false,
 			'enable_content' => true,
 			'enable_excerpt' => true,
 			'shortlinks'     => false,
