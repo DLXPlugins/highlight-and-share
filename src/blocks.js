@@ -12,7 +12,7 @@ import './block/style.scss';
 import './block/editor.scss';
 import './block/blocks/click-to-share/block';
 
-const {__, _x} = wp.i18n;
+const {__} = wp.i18n;
 const {registerFormatType, applyFormat, removeFormat} = window.wp.richText;
 const {Fragment} = wp.element;
 const {RichTextToolbarButton} = wp.blockEditor;
