@@ -1,9 +1,9 @@
 === Highlight and Share ===
 Contributors: ronalfy
 Tags: highlight, share, click to tweet, twitter, tweet, block
-Requires at least: 5.5
+Requires at least: 5.1
 Tested up to: 5.6
-Stable tag: 3.3.0
+Stable tag: 3.3.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://mediaron.com/give/
@@ -61,13 +61,9 @@ Here's a video showing you how:
 
 https://www.youtube.com/watch?v=ZtcPacmr87E
 
-= You Moved Your Minimum Requirement to WordPress 5.5? Why? =
-
-Several people are having JavaScript issues. I want to make sure these are fixed so that this plugin is as reliable as possible.
-
 = Will you be adding more sharing services? =
 
-Possibly.  <a href="https://github.com/ronalfy/highlight-and-share/issues">Open up an issue</a>.
+Possibly.  <a href="https://github.com/ronalfy/highlight-and-share/issues">Please open up an issue</a>.
 
 = Where did my icons go? =
 
@@ -93,6 +89,12 @@ So far, the latest versions of Chrome, Firefox, and Safari. Works for IE9+
 4. Custom highlighted text on the front-end.
 
 == Changelog ==
+
+= 3.3.5 =
+* Released 2020-11-16
+* Added Reddit sharing option.
+* Added Telegram sharing option.
+* Added purple theme.
 
 = 3.3.0 =
 * Released 2020-11-09
@@ -296,6 +298,9 @@ So far, the latest versions of Chrome, Firefox, and Safari. Works for IE9+
 * Initial release on WordPress.org
 
 == Upgrade Notice ==
+
+= 3.3.5 =
+Added Reddit sharing option. Added Telegram sharing option. Added purple theme.
 
 = 3.3.0 =
 Numerous appearance and performance improvements. Now works without Font Awesome 5 icon set installed.
