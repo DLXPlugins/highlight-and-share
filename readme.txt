@@ -83,10 +83,10 @@ So far, the latest versions of Chrome, Firefox, and Safari. Works for IE9+
 
 == Screenshots ==
 
-1. Highlighting and Sharing.
-2. Click to Share block in Gutenberg.
-3. Custom highlighted text in Gutenberg.
-4. Custom highlighted text on the front-end.
+1. Highlight and Share Default Appearance.
+2. Brand Colors With Icons Only.
+3. Purple Theme. There are several themes to choose from.
+4. Inline Highlighting Example with Purple Theme.
 
 == Changelog ==
 
