@@ -3,20 +3,20 @@ Contributors: ronalfy
 Tags: highlight, share, click to tweet, twitter, tweet, block
 Requires at least: 5.1
 Tested up to: 5.6
-Stable tag: 3.3.5
+Stable tag: 3.3.6
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://mediaron.com/give/
 
-A WordPress plugin for highlighting text and sharing it via Twitter and Facebook and other services including LinkedIn, Email, Xing, and WhatsApp.
+A WordPress plugin for highlighting text and sharing it via Twitter and Facebook and other services including LinkedIn, Email, Xing, Telegram, Reddit, and WhatsApp.
 
 == Description ==
 
-A WordPress plugin for highlighting text and sharing it via Twitter and Facebook and other services including LinkedIn, Email, Xing, and WhatsApp. There's also a built-in Gutenberg block that will allow your users to Click to Share/Tweet.
+A WordPress plugin for highlighting text and sharing it via Twitter and Facebook and other services including LinkedIn, Email, Xing, Telegram, and WhatsApp. There's also a built-in Gutenberg block that will allow your users to Click to Share/Tweet.
 
 For support, <a href="https://mediaron.com/highlight-and-share/">please check out our documentation</a>.
 
-Sharing selectable text is only possible via Twitter, Facebook, and WhatsApp. However an option to share the post via LinkedIn, Pinterest, and E-mail are also present when highlighting text as a convenience.
+Sharing selectable text is only possible via Twitter, Facebook, Telegram, and WhatsApp. However an option to share the post via LinkedIn, Reddit, and E-mail are also present when highlighting text as a convenience.
 
 This plugin is intended to be highly flexible in selecting content areas (via the Plugin's settings).
 
@@ -89,6 +89,10 @@ So far, the latest versions of Chrome, Firefox, and Safari. Works for IE9+
 4. Custom highlighted text on the front-end.
 
 == Changelog ==
+
+= 3.3.6 =
+* Released 2020-12-01
+* Fixing undefined notice errors in logs and JavaScript.
 
 = 3.3.5 =
 * Released 2020-11-16
@@ -298,6 +302,9 @@ So far, the latest versions of Chrome, Firefox, and Safari. Works for IE9+
 * Initial release on WordPress.org
 
 == Upgrade Notice ==
+
+= 3.3.6 =
+Fixing undefined notice errors in logs and JavaScript.
 
 = 3.3.5 =
 Added Reddit sharing option. Added Telegram sharing option. Added purple theme.
