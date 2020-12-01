@@ -5,7 +5,7 @@ Plugin Name: Highlight and Share
 Plugin URI: https://mediaron.com/highlight-and-share
 Description: Highlight text and share via Twitter or Facebook and many more
 Author: MediaRon LLC
-Version: 3.3.5
+Version: 3.3.6
 Requires at least: 5.1
 Author URI: https://mediaron.com
 Contributors: ronalfy
@@ -995,90 +995,6 @@ class Highlight_And_Share {
 
 		// Twitter Username.
 		$json_arr['twitter_username'] = trim( sanitize_text_field( apply_filters( 'has_twitter_username', $settings['twitter'] ) ) );
-
-		// Twitter FontAwesome Class.
-		if ( is_customize_preview() ) {
-			$font_awesome = get_option( 'highlight-and-share' );
-			if ( ! isset( $font_awesome['twitter_fa_class'] ) ) {
-				$json_arr['twitter_fa_class'] = sanitize_text_field( $settings['twitter_fa_class'] );
-			} else {
-				$json_arr['twitter_fa_class'] = $font_awesome['twitter_fa_class'];
-			}
-		} else {
-			$json_arr['twitter_fa_class'] = sanitize_text_field( $settings['twitter_fa_class'] );
-		}
-
-		// Facebook FontAwesome Class.
-		if ( is_customize_preview() ) {
-			$font_awesome = get_option( 'highlight-and-share' );
-			if ( ! isset( $font_awesome['facebook_fa_class'] ) ) {
-				$json_arr['facebook_fa_class'] = sanitize_text_field( $settings['facebook_fa_class'] );
-			} else {
-				$json_arr['facebook_fa_class'] = $font_awesome['facebook_fa_class'];
-			}
-		} else {
-			$json_arr['facebook_fa_class'] = sanitize_text_field( $settings['facebook_fa_class'] );
-		}
-
-		// LinkedIn FontAwesome Class.
-		if ( is_customize_preview() ) {
-			$font_awesome = get_option( 'highlight-and-share' );
-			if ( ! isset( $font_awesome['linkedin_fa_class'] ) ) {
-				$json_arr['linkedin_fa_class'] = sanitize_text_field( $settings['linkedin_fa_class'] );
-			} else {
-				$json_arr['linkedin_fa_class'] = $font_awesome['linkedin_fa_class'];
-			}
-		} else {
-			$json_arr['linkedin_fa_class'] = sanitize_text_field( $settings['linkedin_fa_class'] );
-		}
-
-		// Xing FontAwesome Class.
-		if ( is_customize_preview() ) {
-			$font_awesome = get_option( 'highlight-and-share' );
-			if ( ! isset( $font_awesome['xing_fa_class'] ) ) {
-				$json_arr['xing_fa_class'] = sanitize_text_field( $settings['xing_fa_class'] );
-			} else {
-				$json_arr['xing_fa_class'] = $font_awesome['xing_fa_class'];
-			}
-		} else {
-			$json_arr['xing_fa_class'] = sanitize_text_field( $settings['xing_fa_class'] );
-		}
-
-		// WhatsApp FontAwesome Class.
-		if ( is_customize_preview() ) {
-			$font_awesome = get_option( 'highlight-and-share' );
-			if ( ! isset( $font_awesome['whatsapp_fa_class'] ) ) {
-				$json_arr['whatsapp_fa_class'] = sanitize_text_field( $settings['whatsapp_fa_class'] );
-			} else {
-				$json_arr['whatsapp_fa_class'] = $font_awesome['whatsapp_fa_class'];
-			}
-		} else {
-			$json_arr['whatsapp_fa_class'] = sanitize_text_field( $settings['whatsapp_fa_class'] );
-		}
-
-		// Copy FontAwesome Class.
-		if ( is_customize_preview() ) {
-			$font_awesome = get_option( 'highlight-and-share' );
-			if ( ! isset( $font_awesome['copy_fa_class'] ) ) {
-				$json_arr['copy_fa_class'] = sanitize_text_field( $settings['copy_fa_class'] );
-			} else {
-				$json_arr['copy_fa_class'] = $font_awesome['copy_fa_class'];
-			}
-		} else {
-			$json_arr['copy_fa_class'] = sanitize_text_field( $settings['copy_fa_class'] );
-		}
-
-		// Email FontAwesome Class.
-		if ( is_customize_preview() ) {
-			$font_awesome = get_option( 'highlight-and-share' );
-			if ( ! isset( $font_awesome['email_fa_class'] ) ) {
-				$json_arr['email_fa_class'] = sanitize_text_field( $settings['email_fa_class'] );
-			} else {
-				$json_arr['email_fa_class'] = $font_awesome['email_fa_class'];
-			}
-		} else {
-			$json_arr['email_fa_class'] = sanitize_text_field( $settings['email_fa_class'] );
-		}
 
 		// Override the filter if no username is present for twitter.
 		if ( empty( $json_arr['twitter_username'] ) ) {
