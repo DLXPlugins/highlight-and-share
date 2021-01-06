@@ -33,7 +33,7 @@
 		"@fortawesome/react-fontawesome": "^0.1.12",
 		"@hookform/resolvers": "^1.0.1",
 		"autoprefixer": "^10.0.1",
-		"axios": "^0.21.0",
+		"axios": "^0.21.1",
 		"babel-loader": "^8.1.0",
 		"babel-minify-webpack-plugin": "^0.3.1",
 		"babel-plugin-minify-mangle-names": "^0.5.0",
