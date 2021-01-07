@@ -1308,50 +1308,8 @@ class Highlight_And_Share {
 		);
 
 		add_settings_section(
-			'has-reddit',
-			_x( 'Reddit Settings', 'plugin settings heading', 'highlight-and-share' ),
-			array( $this, 'settings_section' ),
-			'highlight-and-share'
-		);
-
-		add_settings_section(
-			'has-telegram',
-			_x( 'Telegram Settings', 'plugin settings heading', 'highlight-and-share' ),
-			array( $this, 'settings_section' ),
-			'highlight-and-share'
-		);
-
-		add_settings_section(
-			'has-linkedin',
-			_x( 'LinkedIn Settings', 'plugin settings heading', 'highlight-and-share' ),
-			array( $this, 'settings_section' ),
-			'highlight-and-share'
-		);
-
-		add_settings_section(
-			'has-whatsapp',
-			_x( 'WhatsApp Settings', 'plugin settings heading', 'highlight-and-share' ),
-			array( $this, 'settings_section' ),
-			'highlight-and-share'
-		);
-
-		add_settings_section(
-			'has-xing',
-			_x( 'Xing Settings', 'plugin settings heading', 'highlight-and-share' ),
-			array( $this, 'settings_section' ),
-			'highlight-and-share'
-		);
-
-		add_settings_section(
-			'has-copy',
-			_x( 'Copy Settings', 'plugin settings heading', 'highlight-and-share' ),
-			array( $this, 'settings_section' ),
-			'highlight-and-share'
-		);
-
-		add_settings_section(
-			'has-email',
-			_x( 'E-mail Settings', 'plugin settings heading', 'highlight-and-share' ),
+			'has-social',
+			_x( 'Social Sharing Services', 'plugin settings heading', 'highlight-and-share' ),
 			array( $this, 'settings_section' ),
 			'highlight-and-share'
 		);
@@ -1441,7 +1399,7 @@ class Highlight_And_Share {
 			__( 'Show Reddit Option', 'highlight-and-share' ),
 			array( $this, 'add_settings_field_reddit_enable' ),
 			'highlight-and-share',
-			'has-reddit',
+			'has-social',
 			array(
 				'desc' => __( 'Would you like to enable sharing via Reddit?', 'highlight-and-share' ),
 			)
@@ -1452,7 +1410,7 @@ class Highlight_And_Share {
 			__( 'Show Telegram Option', 'highlight-and-share' ),
 			array( $this, 'add_settings_field_telegram_enable' ),
 			'highlight-and-share',
-			'has-telegram',
+			'has-social',
 			array(
 				'desc' => __( 'Would you like to enable sharing via Telegram?', 'highlight-and-share' ),
 			)
@@ -1463,7 +1421,7 @@ class Highlight_And_Share {
 			__( 'Show LinkedIn Option', 'highlight-and-share' ),
 			array( $this, 'add_settings_field_linkedin_enable' ),
 			'highlight-and-share',
-			'has-linkedin',
+			'has-social',
 			array(
 				'desc' => __( 'Would you like to enable sharing via LinkedIn?', 'highlight-and-share' ),
 			)
@@ -1474,7 +1432,7 @@ class Highlight_And_Share {
 			__( 'Show WhatsApp Option', 'highlight-and-share' ),
 			array( $this, 'add_settings_field_whatsapp_enable' ),
 			'highlight-and-share',
-			'has-whatsapp',
+			'has-social',
 			array(
 				'desc' => __( 'Would you like to enable sharing via WhatsApp?', 'highlight-and-share' ),
 			)
@@ -1485,7 +1443,7 @@ class Highlight_And_Share {
 			__( 'Show Xing Option', 'highlight-and-share' ),
 			array( $this, 'add_settings_field_xing_enable' ),
 			'highlight-and-share',
-			'has-xing',
+			'has-social',
 			array(
 				'desc' => __( 'Would you like to enable sharing via Xing?', 'highlight-and-share' ),
 			)
@@ -1496,7 +1454,7 @@ class Highlight_And_Share {
 			__( 'Show Copy Option', 'highlight-and-share' ),
 			array( $this, 'add_settings_field_copy_enable' ),
 			'highlight-and-share',
-			'has-copy',
+			'has-social',
 			array(
 				'desc' => __( 'Would you like to enable sharing via copying?', 'highlight-and-share' ),
 			)
@@ -1507,7 +1465,7 @@ class Highlight_And_Share {
 			__( 'Show E-mail Option', 'highlight-and-share' ),
 			array( $this, 'add_settings_field_email_enable' ),
 			'highlight-and-share',
-			'has-email',
+			'has-social',
 			array(
 				'desc' => __( 'Would you like to enable sharing via E-mail?', 'highlight-and-share' ),
 			)
