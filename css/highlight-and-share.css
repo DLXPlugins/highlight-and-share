@@ -52,6 +52,9 @@
 .highlight-and-share-wrapper div.has_telegram {
 	background: #278fd6;
 }
+.highlight-and-share-wrapper div.has_signal {
+	background: #3a76f0;
+}
 .highlight-and-share-wrapper div.has_twitter:hover {
 	background: #00aced;
 }
@@ -81,6 +84,9 @@
 }
 .highlight-and-share-wrapper div.has_telegram:hover {
 	background: #2587ca;
+}
+.highlight-and-share-wrapper div.has_signal:hover {
+	background: #366ee1;
 }
 body.has-body .highlight-and-share-wrapper a,
 body.has-body .highlight-and-share-wrapper a:hover,
