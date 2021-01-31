@@ -3,7 +3,7 @@ Contributors: ronalfy
 Tags: highlight, social sharing, click to tweet, click to share, highlight text
 Requires at least: 5.1
 Tested up to: 5.6
-Stable tag: 3.3.7
+Stable tag: 3.3.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://github.com/sponsors/MediaRon
@@ -87,6 +87,10 @@ So far, the latest versions of Chrome, Firefox, and Safari. Works for IE9+
 4. Inline Highlighting Example with Purple Theme.
 
 == Changelog ==
+
+= 3.3.8 =
+* Released 2021-01-31
+* Fixing typo in the Dark CSS theme.
 
 = 3.3.7 =
 * Released 2021-01-30
@@ -304,6 +308,9 @@ So far, the latest versions of Chrome, Firefox, and Safari. Works for IE9+
 * Initial release on WordPress.org
 
 == Upgrade Notice ==
+
+= 3.3.8 =
+Fixing typo in the Dark CSS theme.
 
 = 3.3.7 =
 Documentation update. Preparation for Signal service if it ever allows sharing.
