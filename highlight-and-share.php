@@ -1,9 +1,9 @@
 <?php // phpcs:ignore
 
 /*
-Plugin Name: Highlight and Share
+Plugin Name: Highlight and Share - Social Sharing By Highlighting Text
 Plugin URI: https://mediaron.com/highlight-and-share
-Description: Highlight text and share via Twitter or Facebook and many more
+Description: Allows you to highlight text and enable social sharing to share with services including Twitter, Facebook, LinkedIn, Xing, Telegram, Reddit, WhatsApp, and email.
 Author: MediaRon LLC
 Version: 3.3.7
 Requires at least: 5.1

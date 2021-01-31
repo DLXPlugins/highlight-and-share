@@ -1,57 +1,55 @@
-=== Highlight and Share ===
+=== Highlight and Share - Social Sharing By Highlighting Text ===
 Contributors: ronalfy
-Tags: highlight, share, click to tweet, twitter, tweet, block
+Tags: highlight, social sharing, click to tweet, click to share, highlight text
 Requires at least: 5.1
 Tested up to: 5.6
-Stable tag: 3.3.6
+Stable tag: 3.3.7
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Donate link: https://mediaron.com/give/
+Donate link: https://github.com/sponsors/MediaRon
 
-A WordPress plugin for highlighting text and sharing it via Twitter and Facebook and other services including LinkedIn, Email, Xing, Telegram, Reddit, and WhatsApp.
+Allows you to highlight text and enable social sharing to share with services including Twitter, Facebook, LinkedIn, Xing, Telegram, Reddit, WhatsApp, and email.
 
 == Description ==
 
-A WordPress plugin for highlighting text and sharing it via Twitter and Facebook and other services including LinkedIn, Email, Xing, Telegram, and WhatsApp. There's also a built-in Gutenberg block that will allow your users to Click to Share/Tweet.
+https://www.youtube.com/watch?v=j2ZiUqGLSwc&rel=0
 
-For support, <a href="https://mediaron.com/highlight-and-share/">please check out our documentation</a>.
+A social sharing plugin that allows you to highlight text and and share amonst several social networks including Twitter, Facebook, LinkedIn, Xing, Telegram, Reddit, WhatsApp, and email.
 
-Sharing selectable text is only possible via Twitter, Facebook, Telegram, and WhatsApp. However an option to share the post via LinkedIn, Reddit, and E-mail are also present when highlighting text as a convenience.
+> <a href="https://github.com/sponsors/MediaRon">Sponsor This Plugin</a> - Please show your support by sponsoring or rating the plugin ❤️️
 
-This plugin is intended to be highly flexible in selecting content areas (via the Plugin's settings).
-
-The plugin also has a Gutenberg block that is a click-to-share/click-to-tweet piece.
+Click to Tweet functionality is allowed via highlighting text or using the Gutenberg block or inline highlighting for social sharing.
 
 If you have a feature request, <a href="https://github.com/mediaron/highlight-and-share/issues">please add a GitHub issue</a>.
-
-> Please <a href="https://wordpress.org/support/plugin/highlight-and-share/reviews/#new-post">Rate the Plugin</a>.
-
-https://www.youtube.com/watch?v=j2ZiUqGLSwc&rel=0
 
 <h3>Features</h3>
 
 <ul>
 <li>A free alternative to Better Click to Tweet.</li>
-<li>Choose a theme for display.</li>
+<li>Choose from many themes for display.</li>
 <li>Enable or disable on main content and excerpts.</li>
 <li>Enable or disable Facebook sharing.</li>
 <li>Enable or disable Twitter sharing.</li>
 <li>Customize the Twitter username used.</li>
 <li>Advanced: Override which content is selectable (using jQuery class notation without the dots).</li>
 <li>Advanced: Override the Font Awesome classes, especially if you're using Font Awesome 5</li>
-<li>Advanced: Gutenberg block for Click to Share/Tweet</li>
+<li>Advanced: Gutenberg block for Click to Share and Click to Tweet functionality</li>
 </ul>
 
 Advanced customization is allowed via hooks.  See the plugin's <a href="https://mediaron.com/highlight-and-share/">documentation</a>.
 
-You are welcome to help us out and <a href="https://github.com/mediaron/highlight-and-share">contribute on GitHub</a>.
+> <a href="https://github.com/sponsors/MediaRon">Sponsor This Plugin</a> - Please show your support by sponsoring or rating the plugin ❤️️
 
 == Installation ==
 
-1. Just unzip and upload the "highlight-and-share" folder to your '/wp-content/plugins/' directory
-2. Activate the plugin through the 'Plugins' menu in WordPress
+1. Search Highlight and Share in the plugin's screen.
+2. Install and activate.
 
 == Frequently Asked Questions ==
+
+= Can I share text using Signal? =
+
+Signal doesn't have a sharing API currently.
 
 = Can I share text using Facebook? =
 
@@ -89,6 +87,10 @@ So far, the latest versions of Chrome, Firefox, and Safari. Works for IE9+
 4. Inline Highlighting Example with Purple Theme.
 
 == Changelog ==
+
+= 3.3.7 =
+* Released 2021-01-30
+* Documentation update.
 
 = 3.3.6 =
 * Released 2020-12-01
@@ -302,6 +304,9 @@ So far, the latest versions of Chrome, Firefox, and Safari. Works for IE9+
 * Initial release on WordPress.org
 
 == Upgrade Notice ==
+
+= 3.3.7 =
+Documentation update. Preparation for Signal service if it ever allows sharing.
 
 = 3.3.6 =
 Fixing undefined notice errors in logs and JavaScript.
