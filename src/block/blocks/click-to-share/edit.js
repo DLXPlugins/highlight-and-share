@@ -8,26 +8,14 @@ const {Component, Fragment} = wp.element;
 
 const {__} = wp.i18n;
 
-const {decodeEntities} = wp.htmlEntities;
-
-const {apiFetch} = wp;
-
-const {registerStore} = wp.data;
-
 const {
 	PanelBody,
-	Placeholder,
-	QueryControls,
 	RangeControl,
 	SelectControl,
-	Spinner,
 	TextControl,
-	ToggleControl,
-	Toolbar,
-	withAPIData,
 } = wp.components;
 
-const {InspectorControls, RichText, PanelColorSettings} = wp.editor;
+const {InspectorControls, RichText, PanelColorSettings} = wp.blockEditor;
 
 class HAS_Click_To_Share extends Component {
 	constructor() {
@@ -305,7 +293,7 @@ class HAS_Click_To_Share extends Component {
 									fontSize: fontSize + 'px',
 									fontWeight: fontWeight,
 								}}
-								formattingControls={[]}
+								allowedFormats={[]}
 								onChange={(value) => {
 									this.onChangeValue(value);
 									setAttributes({shareText: value});
@@ -317,7 +305,10 @@ class HAS_Click_To_Share extends Component {
 							>
 								{clickText}{' '}
 								<svg
-									style={{width: clickShareFontSize, height: clickShareFontSize}}
+									style={{
+										width: clickShareFontSize,
+										height: clickShareFontSize,
+									}}
 									aria-hidden='true'
 									focusable='false'
 									data-prefix='fas'
