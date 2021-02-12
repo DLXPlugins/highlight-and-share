@@ -1324,6 +1324,13 @@ class Highlight_And_Share {
 		);
 
 		add_settings_section(
+			'has-text',
+			_x( 'Text Settings', 'plugin settings heading', 'highlight-and-share' ),
+			array( $this, 'settings_section' ),
+			'highlight-and-share'
+		);
+
+		add_settings_section(
 			'has-twitter',
 			_x( 'Twitter Settings', 'plugin settings heading', 'highlight-and-share' ),
 			array( $this, 'settings_section' ),
@@ -1388,6 +1395,30 @@ class Highlight_And_Share {
 			'has-config',
 			array(
 				'desc' => __( 'Would you like to show on mobile?', 'highlight-and-share' ),
+			)
+		);
+
+		add_settings_field(
+			'hightlight-and-share-text-prefix',
+			__( 'Sharing Text Before', 'highlight-and-share' ),
+			array( $this, 'add_settings_field_prefix' ),
+			'highlight-and-share',
+			'has-text',
+			array(
+				'desc' => __( 'Choose a prefix to go before the sharing text such as a quote.', 'highlight-and-share' ),
+				'label_for' => 'hightlight-and-share-prefix',
+			)
+		);
+
+		add_settings_field(
+			'hightlight-and-share-text-suffix',
+			__( 'Sharing Text After', 'highlight-and-share' ),
+			array( $this, 'add_settings_field_suffix' ),
+			'highlight-and-share',
+			'has-text',
+			array(
+				'desc' => __( 'Choose a suffix to go after the sharing text such as a quote.', 'highlight-and-share' ),
+				'label_for' => 'hightlight-and-share-suffix',
 			)
 		);
 
@@ -1675,7 +1706,10 @@ class Highlight_And_Share {
 						$output[ $key ] = false;
 					}
 					break;
-
+				case 'sharing_prefix':
+				case 'sharing_suffix':
+					$output[ $key ] = sanitize_text_field( $value );
+					break;
 			}
 		}
 		return $output;
@@ -1717,6 +1751,44 @@ class Highlight_And_Share {
 		$js_content = isset( $settings['twitter'] ) ? $settings['twitter'] : '';
 		printf( '<p>%s</p>', esc_html( $args['desc'] ) );
 		printf( '<input id="%s" type="text" name="highlight-and-share[twitter]" value="%s" />', esc_attr( $args['label_for'] ), esc_attr( $js_content ) );
+	}
+
+	/**
+	 * Add a prefix to the sharing text.
+	 *
+	 * Output text input HTML for the sharing prefix.
+	 *
+	 * @since 3.4.0
+	 * @access public
+	 *
+	 * @see init_admin_settings
+	 *
+	 * @param array $args Array of arguments.
+	 */
+	public function add_settings_field_prefix( $args = array() ) {
+		$settings   = $this->get_plugin_options();
+		$prefix = isset( $settings['sharing_prefix'] ) ? $settings['sharing_prefix'] : '';
+		printf( '<p>%s</p>', esc_html( $args['desc'] ) );
+		printf( '<input id="%s" type="text" name="highlight-and-share[sharing_prefix]" value="%s" />', esc_attr( $args['label_for'] ), esc_attr( $prefix ) );
+	}
+
+	/**
+	 * Add a suffix to the sharing text.
+	 *
+	 * Output text input HTML for the sharing suffix.
+	 *
+	 * @since 3.4.0
+	 * @access public
+	 *
+	 * @see init_admin_settings
+	 *
+	 * @param array $args Array of arguments.
+	 */
+	public function add_settings_field_suffix( $args = array() ) {
+		$settings   = $this->get_plugin_options();
+		$suffix = isset( $settings['sharing_suffix'] ) ? $settings['sharing_suffix'] : '';
+		printf( '<p>%s</p>', esc_html( $args['desc'] ) );
+		printf( '<input id="%s" type="text" name="highlight-and-share[sharing_suffix]" value="%s" />', esc_attr( $args['label_for'] ), esc_attr( $suffix ) );
 	}
 
 	/**
@@ -2095,6 +2167,8 @@ class Highlight_And_Share {
 			'shortlinks'     => false,
 			'icons'          => false,
 			'theme'          => 'default',
+			'sharing_prefix' => '',
+			'sharing_suffix' => '',
 		);
 
 		if ( false === $settings || ! is_array( $settings ) ) {
