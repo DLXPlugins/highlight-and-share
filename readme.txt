@@ -1,9 +1,9 @@
-=== Highlight and Share - Social Sharing By Highlighting Text ===
+=== Social Sharing Plugin -- Highlight and Share ===
 Contributors: ronalfy
-Tags: highlight, social sharing, click to tweet, click to share, highlight text
+Tags: highlight, social sharing, click to tweet, sharing, highlight text
 Requires at least: 5.1
-Tested up to: 5.6
-Stable tag: 3.3.8
+Tested up to: 5.7
+Stable tag: 3.4.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://github.com/sponsors/MediaRon
@@ -87,6 +87,12 @@ So far, the latest versions of Chrome, Firefox, and Safari. Works for IE9+
 4. Inline Highlighting Example with Purple Theme.
 
 == Changelog ==
+
+= 3.4.0 =
+* Released 2021-02-12
+* Tested with WordPress 5.7.
+* Updating Gutenberg functionality to fix deprecations.
+* Added a prefix/suffix you can use to add quotations or other text around a text share.
 
 = 3.3.8 =
 * Released 2021-01-31
@@ -309,17 +315,6 @@ So far, the latest versions of Chrome, Firefox, and Safari. Works for IE9+
 
 == Upgrade Notice ==
 
-= 3.3.8 =
-Fixing typo in the Dark CSS theme.
+= 3.4.0 =
 
-= 3.3.7 =
-Documentation update. Preparation for Signal service if it ever allows sharing.
-
-= 3.3.6 =
-Fixing undefined notice errors in logs and JavaScript.
-
-= 3.3.5 =
-Added Reddit sharing option. Added Telegram sharing option. Added purple theme.
-
-= 3.3.0 =
-Numerous appearance and performance improvements. Now works without Font Awesome 5 icon set installed.
+Tested with WordPress 5.7 beta 2. Updating Gutenberg functionality to fix deprecations. Added a prefix/suffix you can use to add quotations or other text around a text share.
