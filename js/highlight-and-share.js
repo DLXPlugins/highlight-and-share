@@ -11,6 +11,10 @@ jQuery( document ).ready( function( $ ) {
 
 	var has_selected_text = '';
 	var text_to_copy = false;
+	var prefix = highlight_and_share.prefix;
+	var suffix = highlight_and_share.suffix;
+
+	console.log( prefix );
 
 	var has_load_html = function() {
 		
@@ -88,6 +92,8 @@ jQuery( document ).ready( function( $ ) {
 			return;
 		}
 		this.href = this.href.replace( '%text%', encodeURIComponent( has_selected_text ) );
+		this.href = this.href.replace( '%prefix%', encodeURIComponent( prefix ) );
+		this.href = this.href.replace( '%suffix%', encodeURIComponent( suffix ) );
 		window.open( this.href,"tweethighlight","width=575,height=430,toolbar=false,menubar=false,location=false,status=false");
 		has_remove();
 		return false;
@@ -98,6 +104,8 @@ jQuery( document ).ready( function( $ ) {
 			return;
 		}
 		this.href = this.href.replace( '%text%', encodeURIComponent( has_selected_text ) );
+		this.href = this.href.replace( '%prefix%', encodeURIComponent( prefix ) );
+		this.href = this.href.replace( '%suffix%', encodeURIComponent( suffix ) );
 		window.open( this.href,"sharer","width=575,height=430,toolbar=false,menubar=false,location=false,status=false");
 		has_remove();
 	} );
@@ -131,6 +139,8 @@ jQuery( document ).ready( function( $ ) {
 			return;
 		}
 		this.href = this.href.replace( '%text%', encodeURIComponent( has_selected_text ) );
+		this.href = this.href.replace( '%prefix%', encodeURIComponent( prefix ) );
+		this.href = this.href.replace( '%suffix%', encodeURIComponent( suffix ) );
 		window.open( this.href,"whatsapp","width=575,height=430,toolbar=false,menubar=false,location=false,status=false");
 		has_remove();
 	} );
@@ -140,6 +150,8 @@ jQuery( document ).ready( function( $ ) {
 			return;
 		}
 		this.href = this.href.replace( '%text%', encodeURIComponent( has_selected_text ) );
+		this.href = this.href.replace( '%prefix%', encodeURIComponent( prefix ) );
+		this.href = this.href.replace( '%suffix%', encodeURIComponent( suffix ) );
 		window.open( this.href );
 		has_remove();
 	} );
@@ -149,6 +161,8 @@ jQuery( document ).ready( function( $ ) {
 			return;
 		}
 		this.href = this.href.replace( '%text%', encodeURIComponent( has_selected_text ) );
+		this.href = this.href.replace( '%prefix%', encodeURIComponent( prefix ) );
+		this.href = this.href.replace( '%suffix%', encodeURIComponent( suffix ) );
 		window.open( this.href );
 		has_remove();
 	} );
@@ -158,6 +172,8 @@ jQuery( document ).ready( function( $ ) {
 			return;
 		}
 		this.href = this.href.replace( '%text%', encodeURIComponent( has_selected_text ) );
+		this.href = this.href.replace( '%prefix%', encodeURIComponent( prefix ) );
+		this.href = this.href.replace( '%suffix%', encodeURIComponent( suffix ) );
 		window.open( this.href );
 		has_remove();
 	} );
