@@ -249,7 +249,7 @@ jQuery( document ).ready( function( $ ) {
 		html += '</div><!-- #has_sharing_email -->';
 
 		var html_jquery = jQuery(html);
-		swal(
+		swal.fire(
 			{
 				title: highlight_and_share.email_share,
 				html: html_jquery.html(),
