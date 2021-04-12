@@ -365,7 +365,7 @@ jQuery( document ).ready( function( $ ) {
 
 		wrapper_clone.css( { position: 'absolute', display: 'block', width: 'auto', height: 'auto', 'z-index': 10000 } );
 
-		$children = wrapper_clone.find( '.has_whatsapp, .has_xing, .has_pinterest, .has_linkedin, .has_facebook, .has_twitter, .has_copy, .has_email, .has_reddit, .has_telegram, .has_signal' );
+		$children = wrapper_clone.find( '.has_whatsapp, .has_xing, .has_pinterest, .has_linkedin, .has_facebook, .has_twitter, .has_copy, .has_email, .has_reddit, .has_telegram, .has_signal, .has_quora' );
 		$.each( $children, function( index, item ) {
 			var div = $( this );
 			var url = div.find( 'a' ).attr( 'href' );
@@ -423,7 +423,7 @@ jQuery( document ).ready( function( $ ) {
 
 		wrapper_clone.css( { position: 'absolute', display: 'block', width: 'auto', height: 'auto', 'z-index': 10000 } );
 
-		$children = wrapper_clone.find( '.has_whatsapp, .has_facebook, .has_twitter, .has_copy, .has_email, .has_reddit, .has_telegram, .has_signal' );
+		$children = wrapper_clone.find( '.has_whatsapp, .has_facebook, .has_twitter, .has_copy, .has_email, .has_reddit, .has_telegram, .has_signal, .has_quora' );
 		$.each( $children, function( index, item ) {
 			var div = $( this );
 			var url = div.find( 'a' ).attr( 'href' );
@@ -468,7 +468,7 @@ jQuery( document ).ready( function( $ ) {
 
 		wrapper_clone.css( { position: 'absolute', display: 'block', width: 'auto', height: 'auto', 'z-index': 10000 } );
 
-		$children = wrapper_clone.find( '.has_whatsapp, .has_facebook, .has_twitter, .has_copy, .has_email, .has_reddit, .has_telegram, .has_signal' );
+		$children = wrapper_clone.find( '.has_whatsapp, .has_facebook, .has_twitter, .has_copy, .has_email, .has_reddit, .has_telegram, .has_signal, .has_quora' );
 		$.each( $children, function( index, item ) {
 			var div = $( this );
 			var url = div.find( 'a' ).attr( 'href' );

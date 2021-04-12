@@ -5,7 +5,7 @@ Plugin Name: Highlight and Share
 Plugin URI: https://mediaron.com/highlight-and-share
 Description: Allows you to highlight text and enable social sharing to share with services including Twitter, Facebook, LinkedIn, Xing, Telegram, Reddit, WhatsApp, and email.
 Author: MediaRon LLC
-Version: 3.4.1
+Version: 3.5.0
 Requires at least: 5.1
 Author URI: https://mediaron.com
 Contributors: ronalfy
@@ -68,7 +68,7 @@ class Highlight_And_Share {
 
 		add_action( 'wp', array( $this, 'wp_loaded' ), 15 );
 
-		define( 'HIGHLIGHT_AND_SHARE_VERSION', '3.4.1' );
+		define( 'HIGHLIGHT_AND_SHARE_VERSION', '3.5.0' );
 
 		// Get errors for email.
 		$this->errors['could_not_send'] = esc_html__( 'Could not send the e-mail', 'highlight-and-share' );
@@ -552,7 +552,8 @@ class Highlight_And_Share {
 		$show_reddit   = (bool) apply_filters( 'has_show_reddit', isset( $settings['show_reddit'] ) ? $settings['show_reddit'] : false );
 		$show_telegram = (bool) apply_filters( 'has_show_telegram', isset( $settings['show_telegram'] ) ? $settings['show_telegram'] : false );
 		$show_signal   = false; // (bool) apply_filters( 'has_show_signal', isset( $settings['show_signal'] ) ? $settings['show_signal'] : false );
-		if ( ! $show_facebook && ! $show_twitter && ! $show_linkedin && ! $show_email && ! $show_copy && ! $show_reddit && ! $show_telegram && ! $show_signal ) {
+		$show_quora = (bool) apply_filters( 'has_show_quora', isset( $settings['show_quora'] ) ? $settings['show_quora'] : false );
+		if ( ! $show_facebook && ! $show_twitter && ! $show_linkedin && ! $show_email && ! $show_copy && ! $show_reddit && ! $show_telegram && ! $show_signal && ! $show_quora ) {
 			return;
 		}
 
@@ -678,6 +679,20 @@ class Highlight_And_Share {
 			}
 		}
 
+		if ( $settings['show_quora'] ) {
+			if ( ! $settings['icons'] ) {
+				$string          = '<div class="has_quora" style="display: none;" data-type="quora"><a href="https://www.quora.com/share?url=%url%&title=%title%" target="_blank"><svg class="has-icon"><use xlink:href="#has-quora-icon"></use></svg>&nbsp;' . esc_html( apply_filters( 'has_quora_text', _x( 'Quora', 'Quora share text', 'highlight-and-share' ) ) ) . '</a></div>';
+				$html           .= $string;
+				$click_to_share .= $string;
+				$inline_share   .= $string;
+			} else {
+				$string          = '<div class="has_quora" style="display: none;" data-type="quora"><a href="https://www.quora.com/share?url=%url%&title=%title%" target="_blank"><svg class="has-icon"><use xlink:href="#has-quora-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_quora_text', _x( 'Quora', 'Quora share text', 'highlight-and-share' ) ) ) . '</span></a></div>';
+				$html           .= $string;
+				$click_to_share .= $string;
+				$inline_share   .= $string;
+			}
+		}
+
 		if ( false && $settings['show_signal'] ) {
 			if ( ! $settings['icons'] ) {
 				$string          = '<div class="has_signal" style="display: none;" data-type="signal"><a href="signal://send?text=%text%" target="_blank"><svg class="has-icon"><use xlink:href="#has-signal-icon"></use></svg>&nbsp;' . esc_html( apply_filters( 'has_signal_text', _x( 'Signal', 'Signal share text', 'highlight-and-share' ) ) ) . '</a></div>';
@@ -771,6 +786,9 @@ class Highlight_And_Share {
 			</symbol>
 			<symbol aria-hidden="true" data-prefix="fab" data-icon="telegram" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" id="has-telegram-icon">
 				<path fill="currentColor" d="M446.7 98.6l-67.6 318.8c-5.1 22.5-18.4 28.1-37.3 17.5l-103-75.9-49.7 47.8c-5.5 5.5-10.1 10.1-20.7 10.1l7.4-104.9 190.9-172.5c8.3-7.4-1.8-11.5-12.9-4.1L117.8 284 16.2 252.2c-22.1-6.9-22.5-22.1 4.6-32.7L418.2 66.4c18.4-6.9 34.5 4.1 28.5 32.2z"></path>
+			</symbol>
+			<symbol aria-hidden="true" data-prefix="fab" data-icon="quora" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" id="has-quora-icon">
+				<path fill="currentColor" d="M440.5 386.7h-29.3c-1.5 13.5-10.5 30.8-33 30.8-20.5 0-35.3-14.2-49.5-35.8 44.2-34.2 74.7-87.5 74.7-153C403.5 111.2 306.8 32 205 32 105.3 32 7.3 111.7 7.3 228.7c0 134.1 131.3 221.6 249 189C276 451.3 302 480 351.5 480c81.8 0 90.8-75.3 89-93.3zM297 329.2C277.5 300 253.3 277 205.5 277c-30.5 0-54.3 10-69 22.8l12.2 24.3c6.2-3 13-4 19.8-4 35.5 0 53.7 30.8 69.2 61.3-10 3-20.7 4.2-32.7 4.2-75 0-107.5-53-107.5-156.7C97.5 124.5 130 71 205 71c76.2 0 108.7 53.5 108.7 157.7.1 41.8-5.4 75.6-16.7 100.5z"></path>
 			</symbol>
 			<symbol aria-hidden="true" data-prefix="fab" data-icon="signal" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" id="has-signal-icon">
 				<g>
@@ -1492,6 +1510,17 @@ class Highlight_And_Share {
 		);
 
 		add_settings_field(
+			'hightlight-and-share-quora-enable',
+			__( 'Show Quora Option', 'highlight-and-share' ),
+			array( $this, 'add_settings_field_quora_enable' ),
+			'highlight-and-share',
+			'has-social',
+			array(
+				'desc' => __( 'Would you like to enable sharing via Quora?', 'highlight-and-share' ),
+			)
+		);
+
+		add_settings_field(
 			'hightlight-and-share-linkedin-enable',
 			__( 'Show LinkedIn Option', 'highlight-and-share' ),
 			array( $this, 'add_settings_field_linkedin_enable' ),
@@ -1701,6 +1730,7 @@ class Highlight_And_Share {
 				case 'show_linkedin':
 				case 'show_telegram':
 				case 'show_signal':
+				case 'show_quora':
 				case 'show_reddit':
 				case 'show_copy':
 					if ( 'on' === $input[ $key ] ) {
@@ -1917,6 +1947,25 @@ class Highlight_And_Share {
 		$telegram = isset( $settings['show_telegram'] ) ? (bool) $settings['show_telegram'] : false;
 		echo '<input name="highlight-and-share[show_telegram]" value="off" type="hidden" />';
 		printf( '<input id="has-show-telegram" type="checkbox" name="highlight-and-share[show_telegram]" value="on" %s />&nbsp;<label for="has-show-telegram">%s</label>', checked( true, $telegram, false ), esc_html__( 'Enable Telegram Sharing?', 'highlight-and-share' ) );
+	}
+
+	/**
+	 * Add Quora Option for Sharing
+	 *
+	 * Output checkbox for displaying Quora sharing.
+	 *
+	 * @since 4.5.0
+	 * @access public
+	 *
+	 * @see init_admin_settings
+	 *
+	 * @param array $args Array of arguments.
+	 */
+	public function add_settings_field_quora_enable( $args = array() ) {
+		$settings = $this->get_plugin_options();
+		$quora    = isset( $settings['show_quora'] ) ? (bool) $settings['show_quora'] : false;
+		echo '<input name="highlight-and-share[show_quora]" value="off" type="hidden" />';
+		printf( '<input id="has-show-quora" type="checkbox" name="highlight-and-share[show_quora]" value="on" %s />&nbsp;<label for="has-show-quora">%s</label>', checked( true, $quora, false ), esc_html__( 'Enable Quora Sharing?', 'highlight-and-share' ) );
 	}
 
 	/**
@@ -2165,6 +2214,7 @@ class Highlight_And_Share {
 			'show_reddit'    => false,
 			'show_telegram'  => false,
 			'show_signal'    => false,
+			'show_quora'     => false,
 			'enable_content' => true,
 			'enable_excerpt' => true,
 			'shortlinks'     => false,
