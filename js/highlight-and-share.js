@@ -117,6 +117,14 @@ jQuery( document ).ready( function( $ ) {
 		window.open( this.href,"linkedin","width=575,height=430,toolbar=false,menubar=false,location=false,status=false");
 		has_remove();
 	} );
+	$( 'body' ).on( 'click', '.has_ok:visible', function( e ) {
+		e.preventDefault();
+		if( highlight_and_share.customizer_preview ) {
+			return;
+		}
+		window.open( this.href,"ok","width=575,height=430,toolbar=false,menubar=false,location=false,status=false");
+		has_remove();
+	} );
 	$( 'body' ).on( 'click', '.has_pinterest a:visible', function( e ) {
 		e.preventDefault();
 		if( highlight_and_share.customizer_preview ) {
@@ -365,7 +373,7 @@ jQuery( document ).ready( function( $ ) {
 
 		wrapper_clone.css( { position: 'absolute', display: 'block', width: 'auto', height: 'auto', 'z-index': 10000 } );
 
-		$children = wrapper_clone.find( '.has_whatsapp, .has_xing, .has_pinterest, .has_linkedin, .has_facebook, .has_twitter, .has_copy, .has_email, .has_reddit, .has_telegram, .has_signal' );
+		$children = wrapper_clone.find( '.has_whatsapp, .has_xing, .has_pinterest, .has_linkedin, .has_ok, .has_facebook, .has_twitter, .has_copy, .has_email, .has_reddit, .has_telegram, .has_signal' );
 		$.each( $children, function( index, item ) {
 			var div = $( this );
 			var url = div.find( 'a' ).attr( 'href' );
@@ -460,7 +468,7 @@ jQuery( document ).ready( function( $ ) {
 	var inline_has_display = function( text, title, link, e ) {
 		has_remove();
 		text_to_copy = text;
-		if ( false == highlight_and_share.show_twitter && false == highlight_and_share.show_facebook && false == highlight_and_share.show_linkedin && false == highlight_and_share.show_pinterest && false == highlight_and_share.show_email ) {
+		if ( false == highlight_and_share.show_twitter && false == highlight_and_share.show_facebook && false == highlight_and_share.show_linkedin && false === highlight_and_share.show_ok && false == highlight_and_share.show_pinterest && false == highlight_and_share.show_email ) {
 			return;
 		}
 
@@ -507,7 +515,7 @@ jQuery( document ).ready( function( $ ) {
 		}
 		wrapper_clone.css( { left: wrapper_x, top: wrapper_y } );
 	};
-	if ( highlight_and_share.show_twitter == true || highlight_and_share.show_facebook == true || highlight_and_share.show_linkedin == true || highlight_and_share.show_pinterest == true || highlight_and_share.show_email == true) {
+	if ( highlight_and_share.show_twitter == true || highlight_and_share.show_facebook == true || highlight_and_share.show_linkedin == true || highlight_and_share.show_pinterest == true || highlight_and_share.show_email == true || highlight_and_share.show_ok == true ) {
 		has_load_html();
 	}
 } );

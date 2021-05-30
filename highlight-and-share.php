@@ -268,6 +268,30 @@ class Highlight_And_Share {
 			)
 		);
 
+		// Show LinkedIn.
+		$customizer->add_setting(
+			'highlight-and-share[show_ok]',
+			array(
+				'capability'        => 'edit_theme_options',
+				'default'           => $options['show_ok'],
+				'sanitize_callback' => array( $this, 'customizer_sanitize_checkbox' ),
+				'type'              => 'option',
+			)
+		);
+		$customizer->add_control(
+			new WP_Customize_Control(
+				$customizer,
+				'highlight-and-share[show_ok]',
+				array(
+					'type'     => 'checkbox',
+					'label'    => __( 'Enable Odnoklassniki (Однокла́ссники) Sharing', 'highlight-and-share' ),
+					'section'  => 'highlight-and-share',
+					'settings' => 'highlight-and-share[show_ok]',
+					'priority' => 10,
+				)
+			)
+		);
+
 		// Show Xing.
 		$customizer->add_setting(
 			'highlight-and-share[show_xing]',
@@ -547,12 +571,13 @@ class Highlight_And_Share {
 		$show_facebook = (bool) apply_filters( 'has_show_facebook', $settings['show_facebook'] );
 		$show_twitter  = (bool) apply_filters( 'has_show_twitter', $settings['show_twitter'] );
 		$show_linkedin = (bool) apply_filters( 'has_show_linkedin', $settings['show_linkedin'] );
+		$show_ok = (bool) apply_filters( 'has_show_ok', $settings['show_ok'] );
 		$show_email    = (bool) apply_filters( 'has_show_email', $settings['show_email'] );
 		$show_copy     = (bool) apply_filters( 'has_show_copy', $settings['show_email'] );
 		$show_reddit   = (bool) apply_filters( 'has_show_reddit', isset( $settings['show_reddit'] ) ? $settings['show_reddit'] : false );
 		$show_telegram = (bool) apply_filters( 'has_show_telegram', isset( $settings['show_telegram'] ) ? $settings['show_telegram'] : false );
 		$show_signal   = false; // (bool) apply_filters( 'has_show_signal', isset( $settings['show_signal'] ) ? $settings['show_signal'] : false );
-		if ( ! $show_facebook && ! $show_twitter && ! $show_linkedin && ! $show_email && ! $show_copy && ! $show_reddit && ! $show_telegram && ! $show_signal ) {
+		if ( ! $show_facebook && ! $show_twitter && ! $show_linkedin && ! $show_ok && ! $show_email && ! $show_copy && ! $show_reddit && ! $show_telegram && ! $show_signal ) {
 			return;
 		}
 
@@ -643,6 +668,14 @@ class Highlight_And_Share {
 				$html .= '<div class="has_linkedin" style="display: none;" data-type="linkedin"><a href="https://www.linkedin.com/shareArticle?mini=true&url=%url%&title=%title%" target="_blank"><svg class="has-icon"><use xlink:href="#has-linkedin-icon"></use></svg>&nbsp;' . esc_html( apply_filters( 'has_linkedin_text', _x( 'LinkedIn', 'LinkedIn share text', 'highlight-and-share' ) ) ) . '</a></div>';
 			} else {
 				$html .= '<div class="has_linkedin" style="display: none;" data-type="linkedin"><a href="https://www.linkedin.com/shareArticle?mini=true&url=%url%&title=%title%" target="_blank"><svg class="has-icon"><use xlink:href="#has-linkedin-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_linkedin_text', _x( 'LinkedIn', 'LinkedIn share text', 'highlight-and-share' ) ) ) . '</span></a></div>';
+			}
+		}
+		if ( $settings['show_ok'] ) {
+			if ( ! $settings['icons'] ) {
+				// Note, you must be on a publicly accesible URL to use this button
+				$html .= '<div class="has_ok" style="display: none;" data-type="ok"><a href="https://connect.ok.ru/offer?url=%url%&title=%title%" target="_blank"><svg class="has-icon"><use xlink:href="#has-ok-icon"></use></svg>&nbsp;' . esc_html( apply_filters( 'has_ok_text', _x( 'Odnoklassniki', 'Odnoklassniki share text', 'highlight-and-share' ) ) ) . '</a></div>';
+			} else {
+				$html .= '<div class="has_ok" style="display: none;" data-type="ok"><a href="https://connect.ok.ru/offer?url=%url%&title=%title%" target="_blank"><svg class="has-icon"><use xlink:href="#has-ok-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_ok_text', _x( 'Odnoklassniki', 'Odnoklassniki share text', 'highlight-and-share' ) ) ) . '</span></a></div>';
 			}
 		}
 
@@ -779,7 +812,7 @@ class Highlight_And_Share {
 			</symbol>
 			<symbol aria-hidden="true" data-prefix="ok" data-icon="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="has-ok-icon">
 				<g>
-					<path d="M357.1,324.5c-24.1,15.3-57.2,21.4-79.1,23.6l18.4,18.1l67,67c24.5,25.1-15.4,64.4-40.2,40.2c-16.8-17-41.4-41.6-67-67.3
+					<path fill="currentColor" d="M357.1,324.5c-24.1,15.3-57.2,21.4-79.1,23.6l18.4,18.1l67,67c24.5,25.1-15.4,64.4-40.2,40.2c-16.8-17-41.4-41.6-67-67.3
 						l-67,67.2c-24.8,24.2-64.7-15.5-39.9-40.2c17-17,41.4-41.6,67-67l18.1-18.1c-21.6-2.3-55.3-8-79.6-23.6
 						c-28.6-18.5-41.2-29.3-30.1-51.8c6.5-12.8,24.3-23.6,48-5c0,0,31.9,25.4,83.4,25.4s83.4-25.4,83.4-25.4c23.6-18.5,41.4-7.8,48,5
 						C398.3,295.1,385.7,305.9,357.1,324.5L357.1,324.5z M142,145c0-63,51.2-114,114-114s114,51,114,114c0,62.7-51.2,113.7-114,113.7
@@ -975,6 +1008,18 @@ class Highlight_And_Share {
 			}
 		} else {
 			$json_arr['show_linkedin'] = (bool) apply_filters( 'has_show_linkedin', $settings['show_linkedin'] );
+		}
+
+		// Odnoklassniki.
+		if ( is_customize_preview() ) {
+			$maybe_linkedin = get_option( 'highlight-and-share' );
+			if ( ! isset( $maybe_linkedin['show_ok'] ) ) {
+				$json_arr['show_ok'] = (bool) apply_filters( 'has_show_ok', $settings['show_ok'] );
+			} else {
+				$json_arr['show_ok'] = apply_filters( 'has_show_ok', $maybe_linkedin['show_ok'] );
+			}
+		} else {
+			$json_arr['show_ok'] = (bool) apply_filters( 'has_show_ok', $settings['show_ok'] );
 		}
 
 		// Email.
@@ -1512,6 +1557,17 @@ class Highlight_And_Share {
 		);
 
 		add_settings_field(
+			'hightlight-and-share-ok-enable',
+			__( 'Show Odnoklassniki Option', 'highlight-and-share' ),
+			array( $this, 'add_settings_field_ok_enable' ),
+			'highlight-and-share',
+			'has-social',
+			array(
+				'desc' => __( 'Would you like to enable sharing via Odnoklassniki?', 'highlight-and-share' ),
+			)
+		);
+
+		add_settings_field(
 			'hightlight-and-share-whatsapp-enable',
 			__( 'Show WhatsApp Option', 'highlight-and-share' ),
 			array( $this, 'add_settings_field_whatsapp_enable' ),
@@ -1708,6 +1764,7 @@ class Highlight_And_Share {
 				case 'show_xing':
 				case 'show_whatsapp':
 				case 'show_linkedin':
+				case 'show_ok':
 				case 'show_telegram':
 				case 'show_signal':
 				case 'show_reddit':
@@ -1888,6 +1945,25 @@ class Highlight_And_Share {
 		$linkedin = isset( $settings['show_linkedin'] ) ? (bool) $settings['show_linkedin'] : true;
 		echo '<input name="highlight-and-share[show_linkedin]" value="off" type="hidden" />';
 		printf( '<input id="has-show-linkedin" type="checkbox" name="highlight-and-share[show_linkedin]" value="on" %s />&nbsp;<label for="has-show-linkedin">%s</label>', checked( true, $linkedin, false ), esc_html__( 'Enable LinkedIn Sharing?', 'highlight-and-share' ) );
+	}
+
+	/**
+	 * Add Odnoklassniki Option for Sharing
+	 *
+	 * Output checkbox for displaying Odnoklassniki sharing.
+	 *
+	 * @since 2.0.0
+	 * @access public
+	 *
+	 * @see init_admin_settings
+	 *
+	 * @param array $args Array of arguments.
+	 */
+	public function add_settings_field_ok_enable( $args = array() ) {
+		$settings = $this->get_plugin_options();
+		$linkedin = isset( $settings['show_ok'] ) ? (bool) $settings['show_ok'] : true;
+		echo '<input name="highlight-and-share[show_ok]" value="off" type="hidden" />';
+		printf( '<input id="has-show-ok" type="checkbox" name="highlight-and-share[show_ok]" value="on" %s />&nbsp;<label for="has-show-ok">%s</label>', checked( true, $linkedin, false ), esc_html__( 'Enable Odnoklassniki (Однокла́ссники) Sharing?', 'highlight-and-share' ) );
 	}
 
 	/**
@@ -2166,6 +2242,7 @@ class Highlight_And_Share {
 			'show_twitter'   => true,
 			'show_facebook'  => true,
 			'show_linkedin'  => false,
+			'show_ok'        => false,
 			'show_email'     => false,
 			'show_copy'      => false,
 			'show_whatsapp'  => false,
