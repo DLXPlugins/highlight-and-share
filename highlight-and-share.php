@@ -3,7 +3,7 @@
 /*
 Plugin Name: Highlight and Share
 Plugin URI: https://mediaron.com/highlight-and-share
-Description: Allows you to highlight text and enable social sharing to share with services including Twitter, Facebook, LinkedIn, Xing, Telegram, Reddit, WhatsApp, and email.
+Description: Allows you to highlight text and enable social sharing to share with services including Twitter, Facebook, LinkedIn, Xing, Telegram, Reddit, WhatsApp, email, and others.
 Author: MediaRon LLC
 Version: 3.4.1
 Requires at least: 5.1
@@ -268,7 +268,7 @@ class Highlight_And_Share {
 			)
 		);
 
-		// Show LinkedIn.
+		// Show OK.
 		$customizer->add_setting(
 			'highlight-and-share[show_ok]',
 			array(
@@ -287,6 +287,30 @@ class Highlight_And_Share {
 					'label'    => __( 'Enable Odnoklassniki (Однокла́ссники) Sharing', 'highlight-and-share' ),
 					'section'  => 'highlight-and-share',
 					'settings' => 'highlight-and-share[show_ok]',
+					'priority' => 10,
+				)
+			)
+		);
+
+		// Show VKontakte.
+		$customizer->add_setting(
+			'highlight-and-share[show_vk]',
+			array(
+				'capability'        => 'edit_theme_options',
+				'default'           => $options['show_vk'],
+				'sanitize_callback' => array( $this, 'customizer_sanitize_checkbox' ),
+				'type'              => 'option',
+			)
+		);
+		$customizer->add_control(
+			new WP_Customize_Control(
+				$customizer,
+				'highlight-and-share[show_vk]',
+				array(
+					'type'     => 'checkbox',
+					'label'    => __( 'Enable VKontakte Sharing', 'highlight-and-share' ),
+					'section'  => 'highlight-and-share',
+					'settings' => 'highlight-and-share[show_vk]',
 					'priority' => 10,
 				)
 			)
@@ -572,6 +596,7 @@ class Highlight_And_Share {
 		$show_twitter  = (bool) apply_filters( 'has_show_twitter', $settings['show_twitter'] );
 		$show_linkedin = (bool) apply_filters( 'has_show_linkedin', $settings['show_linkedin'] );
 		$show_ok = (bool) apply_filters( 'has_show_ok', $settings['show_ok'] );
+		$show_vk = (bool) apply_filters( 'has_show_vk', $settings['show_vk'] );
 		$show_email    = (bool) apply_filters( 'has_show_email', $settings['show_email'] );
 		$show_copy     = (bool) apply_filters( 'has_show_copy', $settings['show_email'] );
 		$show_reddit   = (bool) apply_filters( 'has_show_reddit', isset( $settings['show_reddit'] ) ? $settings['show_reddit'] : false );
@@ -676,6 +701,14 @@ class Highlight_And_Share {
 				$html .= '<div class="has_ok" style="display: none;" data-type="ok"><a href="https://connect.ok.ru/offer?url=%url%&title=%title%" target="_blank"><svg class="has-icon"><use xlink:href="#has-ok-icon"></use></svg>&nbsp;' . esc_html( apply_filters( 'has_ok_text', _x( 'Odnoklassniki', 'Odnoklassniki share text', 'highlight-and-share' ) ) ) . '</a></div>';
 			} else {
 				$html .= '<div class="has_ok" style="display: none;" data-type="ok"><a href="https://connect.ok.ru/offer?url=%url%&title=%title%" target="_blank"><svg class="has-icon"><use xlink:href="#has-ok-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_ok_text', _x( 'Odnoklassniki', 'Odnoklassniki share text', 'highlight-and-share' ) ) ) . '</span></a></div>';
+			}
+		}
+		if ( $settings['show_vk'] ) {
+			if ( ! $settings['icons'] ) {
+				// Note, you must be on a publicly accesible URL to use this button
+				$html .= '<div class="has_vk" style="display: none;" data-type="vk"><a href="http://vk.com/share.php?url=%url%&title=%title%&description=%text%" target="_blank"><svg class="has-icon"><use xlink:href="#has-vk-icon"></use></svg>&nbsp;' . esc_html( apply_filters( 'has_vk_text', _x( 'VKontakte', 'VKontakte share text', 'highlight-and-share' ) ) ) . '</a></div>';
+			} else {
+				$html .= '<div class="has_vk" style="display: none;" data-type="vk"><a href="http://vk.com/share.php?url=%url%&title=%title%&description=%text%" target="_blank"><svg class="has-icon"><use xlink:href="#has-vk-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_vk_text', _x( 'VKontakte', 'VKontakte share text', 'highlight-and-share' ) ) ) . '</span></a></div>';
 			}
 		}
 
@@ -817,6 +850,16 @@ class Highlight_And_Share {
 						c-28.6-18.5-41.2-29.3-30.1-51.8c6.5-12.8,24.3-23.6,48-5c0,0,31.9,25.4,83.4,25.4s83.4-25.4,83.4-25.4c23.6-18.5,41.4-7.8,48,5
 						C398.3,295.1,385.7,305.9,357.1,324.5L357.1,324.5z M142,145c0-63,51.2-114,114-114s114,51,114,114c0,62.7-51.2,113.7-114,113.7
 						S142,207.7,142,145L142,145z M200,145c0,30.8,25.1,56,56,56s56-25.1,56-56c0-31.1-25.1-56.2-56-56.2S200,113.9,200,145z"/>
+				</g>
+			</symbol>
+			<symbol aria-hidden="true" data-prefix="vk" data-icon="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 700 700" id="has-vk-icon">
+				<g
+					style="fill:none;fill-rule:evenodd"
+					transform="translate(0,664)"
+				>
+					<path fill="currentColor" d="m 1073.3513,-606.40537 h 196.278 c 179.2103,0 221.8795,42.66915 221.8795,221.8795 v 196.27799 c 0,179.2103512 -42.6692,221.879451 -221.8795,221.879451 h -196.278 c -179.21038,0 -221.87951,-42.6691298 -221.87951,-221.879451 v -196.27801 c 0,-179.21035 42.66913,-221.87946 221.87951,-221.87948 z" />
+					<path fill="currentColor" d="m 1375.0576,-393.98425 c 2.9513,-9.7072 0,-16.85429 -14.1342,-16.85429 h -46.6693 c -11.8763,0 -17.3521,6.16927 -20.3212,12.97854 0,0 -23.7347,56.82106 -57.3544,93.74763 -10.8806,10.66728 -15.8232,14.08081 -21.7613,14.08081 -2.969,0 -7.2715,-3.39577 -7.2715,-13.12075 v -90.83194 c 0,-11.66288 -3.4491,-16.85429 -13.3341,-16.85429 h -73.3553 c -7.4138,0 -11.8763,5.40476 -11.8763,10.54286 0,11.0406 16.8188,13.60078 18.5433,44.67814 v 67.52388 c 0,14.80973 -2.7202,17.49433 -8.6583,17.49433 -15.8231,0 -54.3143,-57.08773 -77.16,-122.40705 -4.4447,-12.71185 -8.9427,-17.83214 -20.8723,-17.83214 h -46.68718 c -13.3341,0 -16.0009,6.16925 -16.0009,12.97852 0,12.12515 15.8232,72.35973 73.69318,152.02656 38.58,54.40315 92.8942,83.89819 142.3726,83.89819 29.6729,0 33.3353,-6.54262 33.3353,-17.83216 v -41.12238 c 0,-13.10297 2.809,-15.71646 12.214,-15.71646 6.9338,0 18.7922,3.41353 46.4916,29.63728 31.6463,31.09512 36.8555,45.03372 54.6698,45.03372 h 46.6694 c 13.3341,0 20.0189,-6.54262 16.1787,-19.46781 -4.2313,-12.88962 -19.3433,-31.57515 -39.38,-53.74532 -10.8807,-12.62294 -27.2016,-26.22375 -32.1441,-33.03302 -6.9338,-8.72941 -4.9603,-12.62294 0,-20.39227 0,0 56.8566,-78.68897 62.7947,-105.41058 z" />
+					<path fill="currentColor" d="m 567.69877,-429.06912 c 3.15618,-10.38133 0,-18.0247 -15.11579,-18.0247 h -49.91013 c -12.70096,0 -18.55706,6.59763 -21.73232,13.87977 0,0 -25.38286,60.76685 -61.33724,100.25768 -11.63627,11.40806 -16.92197,15.05863 -23.27242,15.05863 -3.17519,0 -7.77644,-3.63156 -7.77644,-14.0319 v -97.13948 c 0,-12.47278 -3.68869,-18.0247 -14.26014,-18.0247 h -78.44923 c -7.92857,0 -12.70097,5.78005 -12.70097,11.27491 0,11.80736 17.98666,14.54527 19.83094,47.78071 v 72.21293 c 0,15.83815 -2.9091,18.70918 -9.25948,18.70918 -16.92197,0 -58.08598,-61.05206 -82.51817,-130.90731 -4.75337,-13.59458 -9.56381,-19.07042 -22.32175,-19.07042 h -49.92915 c -14.26014,0 -17.11213,6.59763 -17.11213,13.87977 0,12.96714 16.92197,77.38454 78.81059,162.58363 41.25909,58.18101 99.34506,89.72424 152.25931,89.72424 31.73343,0 35.65018,-6.99691 35.65018,-19.07043 v -43.978 c 0,-14.01288 3.00405,-16.80786 13.0622,-16.80786 7.41521,0 20.09716,3.65057 49.71998,31.69536 33.84387,33.25443 39.41486,48.16093 58.46622,48.16093 h 49.91026 c 14.26,0 21.40913,-6.99691 17.30216,-20.81966 -4.5252,-13.78473 -20.68653,-33.76783 -42.11468,-57.47752 -11.63621,-13.49953 -29.09043,-28.04479 -34.37631,-35.32694 -7.41508,-9.33557 -5.30458,-13.4995 0,-21.80835 0,0 60.80491,-84.15334 67.15549,-112.73048 z" />
 				</g>
 			</symbol>
 		</svg>
@@ -1012,14 +1055,26 @@ class Highlight_And_Share {
 
 		// Odnoklassniki.
 		if ( is_customize_preview() ) {
-			$maybe_linkedin = get_option( 'highlight-and-share' );
-			if ( ! isset( $maybe_linkedin['show_ok'] ) ) {
+			$maybe_ok = get_option( 'highlight-and-share' );
+			if ( ! isset( $maybe_ok['show_ok'] ) ) {
 				$json_arr['show_ok'] = (bool) apply_filters( 'has_show_ok', $settings['show_ok'] );
 			} else {
-				$json_arr['show_ok'] = apply_filters( 'has_show_ok', $maybe_linkedin['show_ok'] );
+				$json_arr['show_ok'] = apply_filters( 'has_show_ok', $maybe_ok['show_ok'] );
 			}
 		} else {
 			$json_arr['show_ok'] = (bool) apply_filters( 'has_show_ok', $settings['show_ok'] );
+		}
+
+		// VKontakte.
+		if ( is_customize_preview() ) {
+			$maybe_vk = get_option( 'highlight-and-share' );
+			if ( ! isset( $maybe_vk['show_vk'] ) ) {
+				$json_arr['show_vk'] = (bool) apply_filters( 'has_show_vk', $settings['show_vk'] );
+			} else {
+				$json_arr['show_vk'] = apply_filters( 'has_show_vk', $maybe_vk['show_vk'] );
+			}
+		} else {
+			$json_arr['show_vk'] = (bool) apply_filters( 'has_show_vk', $settings['show_vk'] );
 		}
 
 		// Email.
@@ -1125,6 +1180,8 @@ class Highlight_And_Share {
 		$json_arr['tweet_text']    = apply_filters( 'has_twitter_text', _x( 'Tweet', 'Twitter share text', 'highlight-and-share' ) );
 		$json_arr['facebook_text'] = apply_filters( 'has_facebook_text', _x( 'Share', 'Facebook share text', 'highlight-and-share' ) );
 		$json_arr['linkedin_text'] = apply_filters( 'has_linkedin_text', _x( 'LinkedIn', 'LinkedIn share text', 'highlight-and-share' ) );
+		$json_arr['ok_text'] = apply_filters( 'has_ok_text', _x( 'Odnoklassniki', 'Odnoklassniki share text', 'highlight-and-share' ) );
+		$json_arr['vk_text'] = apply_filters( 'has_vk_text', _x( 'VKontakte', 'VKontakte share text', 'highlight-and-share' ) );
 		$json_arr['whatsapp_text'] = apply_filters( 'has_whatsapp_text', _x( 'WhatsApp', 'WhatsApp share text', 'highlight-and-share' ) );
 		$json_arr['xing_text']     = apply_filters( 'has_xing_text', _x( 'Xing', 'Xing share text', 'highlight-and-share' ) );
 		$json_arr['copy_text']     = apply_filters( 'has_copy_text', _x( 'Copy', 'Copy share text', 'highlight-and-share' ) );
@@ -1557,17 +1614,6 @@ class Highlight_And_Share {
 		);
 
 		add_settings_field(
-			'hightlight-and-share-ok-enable',
-			__( 'Show Odnoklassniki Option', 'highlight-and-share' ),
-			array( $this, 'add_settings_field_ok_enable' ),
-			'highlight-and-share',
-			'has-social',
-			array(
-				'desc' => __( 'Would you like to enable sharing via Odnoklassniki?', 'highlight-and-share' ),
-			)
-		);
-
-		add_settings_field(
 			'hightlight-and-share-whatsapp-enable',
 			__( 'Show WhatsApp Option', 'highlight-and-share' ),
 			array( $this, 'add_settings_field_whatsapp_enable' ),
@@ -1586,6 +1632,28 @@ class Highlight_And_Share {
 			'has-social',
 			array(
 				'desc' => __( 'Would you like to enable sharing via Xing?', 'highlight-and-share' ),
+			)
+		);
+
+		add_settings_field(
+			'hightlight-and-share-ok-enable',
+			__( 'Show Odnoklassniki Option', 'highlight-and-share' ),
+			array( $this, 'add_settings_field_ok_enable' ),
+			'highlight-and-share',
+			'has-social',
+			array(
+				'desc' => __( 'Would you like to enable sharing via Odnoklassniki?', 'highlight-and-share' ),
+			)
+		);
+
+		add_settings_field(
+			'hightlight-and-share-vk-enable',
+			__( 'Show VKontakte Option', 'highlight-and-share' ),
+			array( $this, 'add_settings_field_vk_enable' ),
+			'highlight-and-share',
+			'has-social',
+			array(
+				'desc' => __( 'Would you like to enable sharing via Odnoklassniki?', 'highlight-and-share' ),
 			)
 		);
 
@@ -1747,6 +1815,7 @@ class Highlight_And_Share {
 				case 'twitter_fa_class':
 				case 'facebook_fa_class':
 				case 'linkedin_fa_class':
+				case 'ok_fa_class':
 				case 'xing_fa_class':
 				case 'whatsapp_fa_class':
 				case 'email_fa_class':
@@ -1765,6 +1834,7 @@ class Highlight_And_Share {
 				case 'show_whatsapp':
 				case 'show_linkedin':
 				case 'show_ok':
+				case 'show_vk':
 				case 'show_telegram':
 				case 'show_signal':
 				case 'show_reddit':
@@ -1945,6 +2015,25 @@ class Highlight_And_Share {
 		$linkedin = isset( $settings['show_linkedin'] ) ? (bool) $settings['show_linkedin'] : true;
 		echo '<input name="highlight-and-share[show_linkedin]" value="off" type="hidden" />';
 		printf( '<input id="has-show-linkedin" type="checkbox" name="highlight-and-share[show_linkedin]" value="on" %s />&nbsp;<label for="has-show-linkedin">%s</label>', checked( true, $linkedin, false ), esc_html__( 'Enable LinkedIn Sharing?', 'highlight-and-share' ) );
+	}
+
+	/**
+	 * Add VKontakte Option for Sharing
+	 *
+	 * Output checkbox for displaying VKontakte sharing.
+	 *
+	 * @since 2.0.0
+	 * @access public
+	 *
+	 * @see init_admin_settings
+	 *
+	 * @param array $args Array of arguments.
+	 */
+	public function add_settings_field_vk_enable( $args = array() ) {
+		$settings = $this->get_plugin_options();
+		$vk = isset( $settings['show_vk'] ) ? (bool) $settings['show_vk'] : true;
+		echo '<input name="highlight-and-share[show_vk]" value="off" type="hidden" />';
+		printf( '<input id="has-show-vk" type="checkbox" name="highlight-and-share[show_vk]" value="on" %s />&nbsp;<label for="has-show-vk">%s</label>', checked( true, $vk, false ), esc_html__( 'Enable VKontakte Sharing?', 'highlight-and-share' ) );
 	}
 
 	/**
@@ -2243,6 +2332,7 @@ class Highlight_And_Share {
 			'show_facebook'  => true,
 			'show_linkedin'  => false,
 			'show_ok'        => false,
+			'show_vk'        => false,
 			'show_email'     => false,
 			'show_copy'      => false,
 			'show_whatsapp'  => false,
