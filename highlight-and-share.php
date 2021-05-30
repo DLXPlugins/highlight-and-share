@@ -126,6 +126,7 @@ class Highlight_And_Share {
 			'default'      => esc_html__( 'Default', 'highlight-and-share' ),
 			'brand-colors' => esc_html__( 'Brand Colors (Icons Only)', 'highlight-and-share' ),
 			'colorful-circles'        => esc_html__( 'Colorful Circles (Icons Only)', 'highlight-and-share' ),
+			'colorful-glass-circles'        => esc_html__( 'Colorful Glass Circles (Icons Only)', 'highlight-and-share' ),
 			'black'        => esc_html__( 'Black (Icons Only)', 'highlight-and-share' ),
 			'purple'       => esc_html__( 'Purple (Icons Only)', 'highlight-and-share' ),
 			'white'        => esc_html__( 'White (Icons Only)', 'highlight-and-share' ),
@@ -1284,6 +1285,9 @@ class Highlight_And_Share {
 				break;
 			case 'colorful-circles':
 				wp_enqueue_style( 'highlight-and-share', $this->get_plugin_url( 'css/highlight-and-share-circles.css' ), array(), HIGHLIGHT_AND_SHARE_VERSION, 'all' );
+				break;
+			case 'colorful-glass-circles':
+				wp_enqueue_style( 'highlight-and-share', $this->get_plugin_url( 'css/highlight-and-share-circles-glass.css' ), array(), HIGHLIGHT_AND_SHARE_VERSION, 'all' );
 				break;
 			case 'purple':
 				wp_enqueue_style( 'highlight-and-share', $this->get_plugin_url( 'css/highlight-and-share-purple.css' ), array(), HIGHLIGHT_AND_SHARE_VERSION, 'all' );
