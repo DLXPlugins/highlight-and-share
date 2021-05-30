@@ -125,6 +125,7 @@ class Highlight_And_Share {
 			'off'          => esc_html__( 'Off', 'highligh-and-share' ),
 			'default'      => esc_html__( 'Default', 'highlight-and-share' ),
 			'brand-colors' => esc_html__( 'Brand Colors (Icons Only)', 'highlight-and-share' ),
+			'colorful-circles'        => esc_html__( 'Colorful Circles (Icons Only)', 'highlight-and-share' ),
 			'black'        => esc_html__( 'Black (Icons Only)', 'highlight-and-share' ),
 			'purple'       => esc_html__( 'Purple (Icons Only)', 'highlight-and-share' ),
 			'white'        => esc_html__( 'White (Icons Only)', 'highlight-and-share' ),
@@ -772,7 +773,7 @@ class Highlight_And_Share {
 				$html .= '<div class="has_vk" style="display: none;" data-type="vk"><a href="http://vk.com/share.php?url=%url%&title=%title%&description=%text%" target="_blank"><svg class="has-icon"><use xlink:href="#has-vk-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_vk_text', _x( 'VKontakte', 'VKontakte share text', 'highlight-and-share' ) ) ) . '</span></a></div>';
 			}
 		}
-		
+
 		if ( $settings['show_copy'] ) {
 			if ( ! $settings['icons'] ) {
 				$string          = '<div class="has_copy" style="display: none;" data-type="copy"><a href="#"><svg class="has-icon"><use xlink:href="#has-copy-icon"></use></svg>&nbsp;' . esc_html( apply_filters( 'has_copy_text', _x( 'Copy', 'Copy share text', 'highlight-and-share' ) ) ) . '</a></div>';
@@ -1280,6 +1281,9 @@ class Highlight_And_Share {
 				break;
 			case 'black':
 				wp_enqueue_style( 'highlight-and-share', $this->get_plugin_url( 'css/highlight-and-share-black.css' ), array(), HIGHLIGHT_AND_SHARE_VERSION, 'all' );
+				break;
+			case 'colorful-circles':
+				wp_enqueue_style( 'highlight-and-share', $this->get_plugin_url( 'css/highlight-and-share-circles.css' ), array(), HIGHLIGHT_AND_SHARE_VERSION, 'all' );
 				break;
 			case 'purple':
 				wp_enqueue_style( 'highlight-and-share', $this->get_plugin_url( 'css/highlight-and-share-purple.css' ), array(), HIGHLIGHT_AND_SHARE_VERSION, 'all' );
