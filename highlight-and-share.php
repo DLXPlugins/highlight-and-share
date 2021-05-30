@@ -268,6 +268,30 @@ class Highlight_And_Share {
 			)
 		);
 
+		// Show LinkedIn.
+		$customizer->add_setting(
+			'highlight-and-share[show_ok]',
+			array(
+				'capability'        => 'edit_theme_options',
+				'default'           => $options['show_ok'],
+				'sanitize_callback' => array( $this, 'customizer_sanitize_checkbox' ),
+				'type'              => 'option',
+			)
+		);
+		$customizer->add_control(
+			new WP_Customize_Control(
+				$customizer,
+				'highlight-and-share[show_ok]',
+				array(
+					'type'     => 'checkbox',
+					'label'    => __( 'Enable Odnoklassniki (Однокла́ссники) Sharing', 'highlight-and-share' ),
+					'section'  => 'highlight-and-share',
+					'settings' => 'highlight-and-share[show_ok]',
+					'priority' => 10,
+				)
+			)
+		);
+
 		// Show Xing.
 		$customizer->add_setting(
 			'highlight-and-share[show_xing]',
@@ -547,12 +571,13 @@ class Highlight_And_Share {
 		$show_facebook = (bool) apply_filters( 'has_show_facebook', $settings['show_facebook'] );
 		$show_twitter  = (bool) apply_filters( 'has_show_twitter', $settings['show_twitter'] );
 		$show_linkedin = (bool) apply_filters( 'has_show_linkedin', $settings['show_linkedin'] );
+		$show_ok = (bool) apply_filters( 'has_show_ok', $settings['show_ok'] );
 		$show_email    = (bool) apply_filters( 'has_show_email', $settings['show_email'] );
 		$show_copy     = (bool) apply_filters( 'has_show_copy', $settings['show_email'] );
 		$show_reddit   = (bool) apply_filters( 'has_show_reddit', isset( $settings['show_reddit'] ) ? $settings['show_reddit'] : false );
 		$show_telegram = (bool) apply_filters( 'has_show_telegram', isset( $settings['show_telegram'] ) ? $settings['show_telegram'] : false );
 		$show_signal   = false; // (bool) apply_filters( 'has_show_signal', isset( $settings['show_signal'] ) ? $settings['show_signal'] : false );
-		if ( ! $show_facebook && ! $show_twitter && ! $show_linkedin && ! $show_email && ! $show_copy && ! $show_reddit && ! $show_telegram && ! $show_signal ) {
+		if ( ! $show_facebook && ! $show_twitter && ! $show_linkedin && ! $show_ok && ! $show_email && ! $show_copy && ! $show_reddit && ! $show_telegram && ! $show_signal ) {
 			return;
 		}
 
@@ -643,6 +668,14 @@ class Highlight_And_Share {
 				$html .= '<div class="has_linkedin" style="display: none;" data-type="linkedin"><a href="https://www.linkedin.com/shareArticle?mini=true&url=%url%&title=%title%" target="_blank"><svg class="has-icon"><use xlink:href="#has-linkedin-icon"></use></svg>&nbsp;' . esc_html( apply_filters( 'has_linkedin_text', _x( 'LinkedIn', 'LinkedIn share text', 'highlight-and-share' ) ) ) . '</a></div>';
 			} else {
 				$html .= '<div class="has_linkedin" style="display: none;" data-type="linkedin"><a href="https://www.linkedin.com/shareArticle?mini=true&url=%url%&title=%title%" target="_blank"><svg class="has-icon"><use xlink:href="#has-linkedin-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_linkedin_text', _x( 'LinkedIn', 'LinkedIn share text', 'highlight-and-share' ) ) ) . '</span></a></div>';
+			}
+		}
+		if ( $settings['show_ok'] ) {
+			if ( ! $settings['icons'] ) {
+				// Note, you must be on a publicly accesible URL to use this button
+				$html .= '<div class="has_ok" style="display: none;" data-type="ok"><a href="https://connect.ok.ru/offer?url=%url%&title=%title%" target="_blank"><svg class="has-icon"><use xlink:href="#has-ok-icon"></use></svg>&nbsp;' . esc_html( apply_filters( 'has_ok_text', _x( 'Odnoklassniki', 'Odnoklassniki share text', 'highlight-and-share' ) ) ) . '</a></div>';
+			} else {
+				$html .= '<div class="has_ok" style="display: none;" data-type="ok"><a href="https://connect.ok.ru/offer?url=%url%&title=%title%" target="_blank"><svg class="has-icon"><use xlink:href="#has-ok-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_ok_text', _x( 'Odnoklassniki', 'Odnoklassniki share text', 'highlight-and-share' ) ) ) . '</span></a></div>';
 			}
 		}
 
@@ -741,7 +774,7 @@ class Highlight_And_Share {
 		echo $click_to_share;
 		echo $html;
 		?>
-		<svg width="0" height="0" class="hidden">
+		<svg width="0" height="0" class="hidden" style="display: none;">
 			<symbol aria-hidden="true" data-prefix="fas" data-icon="twitter" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="has-twitter-icon">
 				<path fill="currentColor" d="M459.37 151.716c.325 4.548.325 9.097.325 13.645 0 138.72-105.583 298.558-298.558 298.558-59.452 0-114.68-17.219-161.137-47.106 8.447.974 16.568 1.299 25.34 1.299 49.055 0 94.213-16.568 130.274-44.832-46.132-.975-84.792-31.188-98.112-72.772 6.498.974 12.995 1.624 19.818 1.624 9.421 0 18.843-1.3 27.614-3.573-48.081-9.747-84.143-51.98-84.143-102.985v-1.299c13.969 7.797 30.214 12.67 47.431 13.319-28.264-18.843-46.781-51.005-46.781-87.391 0-19.492 5.197-37.36 14.294-52.954 51.655 63.675 129.3 105.258 216.365 109.807-1.624-7.797-2.599-15.918-2.599-24.04 0-57.828 46.782-104.934 104.934-104.934 30.213 0 57.502 12.67 76.67 33.137 23.715-4.548 46.456-13.32 66.599-25.34-7.798 24.366-24.366 44.833-46.132 57.827 21.117-2.273 41.584-8.122 60.426-16.243-14.292 20.791-32.161 39.308-52.628 54.253z"></path>
 			</symbol>
@@ -775,6 +808,15 @@ class Highlight_And_Share {
 			<symbol aria-hidden="true" data-prefix="fab" data-icon="signal" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 256 256" id="has-signal-icon">
 				<g>
 					<path d="M97.2800192,3.739673 L100.160021,15.3787704 C88.8306631,18.1647705 77.9879854,22.6484879 68.0000023,28.6777391 L61.8399988,18.3985363 C72.8467373,11.7537029 84.7951803,6.81153332 97.2800192,3.739673 Z M158.720055,3.739673 L155.840053,15.3787704 C167.169411,18.1647705 178.012089,22.6484879 188.000072,28.6777391 L194.200075,18.3985363 C183.180932,11.7499974 171.218739,6.80771878 158.720055,3.739673 L158.720055,3.739673 Z M18.3999736,61.8351679 C11.7546212,72.8410466 6.81206547,84.7885562 3.73996516,97.2724198 L15.3799719,100.152197 C18.1661896,88.8237238 22.6502573,77.981893 28.6799796,67.9946902 L18.3999736,61.8351679 Z M11.9999699,127.990038 C11.9961044,122.172725 12.4306685,116.363392 13.2999707,110.611385 L1.43996383,108.811525 C-0.479938607,121.525138 -0.479938607,134.454937 1.43996383,147.168551 L13.2999707,145.36869 C12.4306685,139.616684 11.9961044,133.807351 11.9999699,127.990038 L11.9999699,127.990038 Z M194.160075,237.581539 L188.000072,227.302336 C178.024494,233.327885 167.195565,237.811494 155.880053,240.601305 L158.760055,252.240403 C171.231048,249.164732 183.165742,244.222671 194.160075,237.581539 L194.160075,237.581539 Z M244.000104,127.990038 C244.00397,133.807351 243.569406,139.616684 242.700103,145.36869 L254.56011,147.168551 C256.480013,134.454937 256.480013,121.525138 254.56011,108.811525 L242.700103,110.611385 C243.569406,116.363392 244.00397,122.172725 244.000104,127.990038 Z M252.260109,158.707656 L240.620102,155.827879 C237.833884,167.156352 233.349817,177.998183 227.320094,187.985385 L237.6001,194.184905 C244.249159,183.166622 249.191823,171.205364 252.260109,158.707656 L252.260109,158.707656 Z M145.380047,242.701142 C133.858209,244.43447 122.141865,244.43447 110.620027,242.701142 L108.820026,254.560223 C121.534632,256.479975 134.465442,256.479975 147.180048,254.560223 L145.380047,242.701142 Z M221.380091,196.804701 C214.461479,206.174141 206.175877,214.452354 196.800077,221.362797 L203.920081,231.022048 C214.262958,223.418011 223.404944,214.303705 231.040097,203.984145 L221.380091,196.804701 Z M196.800077,34.6172785 C206.177345,41.5338058 214.463023,49.8188367 221.380091,59.1953726 L231.040097,51.9959309 C223.429284,41.6822474 214.31457,32.5682452 204.000081,24.9580276 L196.800077,34.6172785 Z M34.619983,59.1953726 C41.5370506,49.8188367 49.8227288,41.5338058 59.1999972,34.6172785 L51.9999931,24.9580276 C41.6855038,32.5682452 32.5707896,41.6822474 24.9599774,51.9959309 L34.619983,59.1953726 Z M237.6001,61.8351679 L227.320094,67.9946902 C233.346114,77.969489 237.830073,88.7975718 240.620102,100.1122 L252.260109,97.2324229 C249.184198,84.7624043 244.241751,72.8286423 237.6001,61.8351679 L237.6001,61.8351679 Z M110.620027,13.2989317 C122.141865,11.5656035 133.858209,11.5656035 145.380047,13.2989317 L147.180048,1.43985134 C134.465442,-0.479901112 121.534632,-0.479901112 108.820026,1.43985134 L110.620027,13.2989317 Z M40.7799866,234.201801 L15.9999722,239.981353 L21.7799756,215.203275 L10.0999688,212.463487 L4.3199655,237.241566 C3.3734444,241.28318 4.58320332,245.526897 7.51859925,248.462064 C10.4539952,251.39723 14.6980441,252.606895 18.7399738,251.660448 L43.4999881,245.980888 L40.7799866,234.201801 Z M12.5999703,201.764317 L24.279977,204.484106 L28.2799793,187.305438 C22.4496684,177.507146 18.1025197,166.899584 15.3799719,155.827879 L3.73996516,158.707656 C6.34937618,169.311891 10.3154147,179.535405 15.539972,189.125297 L12.5999703,201.764317 Z M68.6000027,227.762301 L51.4199927,231.761991 L54.1399943,243.441085 L66.7800016,240.501313 C76.3706428,245.725462 86.5949557,249.691191 97.2000192,252.300398 L100.080021,240.6613 C89.0307035,237.906432 78.4495684,233.532789 68.6800027,227.682307 L68.6000027,227.762301 Z M128.000037,23.9980665 C90.1565244,24.0177003 55.3105242,44.590631 37.01511,77.715217 C18.7196958,110.839803 19.8628631,151.287212 39.9999861,183.325747 L29.9999803,225.982439 L72.660005,215.983214 C110.077932,239.548522 158.307237,236.876754 192.892851,209.322653 C227.478464,181.768552 240.856271,135.358391 226.242944,93.6248278 C211.629616,51.8912646 172.221191,23.9617202 128.000037,23.9980665 Z" fill="currentColor"></path>
+				</g>
+			</symbol>
+			<symbol aria-hidden="true" data-prefix="ok" data-icon="logo" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="has-ok-icon">
+				<g>
+					<path fill="currentColor" d="M357.1,324.5c-24.1,15.3-57.2,21.4-79.1,23.6l18.4,18.1l67,67c24.5,25.1-15.4,64.4-40.2,40.2c-16.8-17-41.4-41.6-67-67.3
+						l-67,67.2c-24.8,24.2-64.7-15.5-39.9-40.2c17-17,41.4-41.6,67-67l18.1-18.1c-21.6-2.3-55.3-8-79.6-23.6
+						c-28.6-18.5-41.2-29.3-30.1-51.8c6.5-12.8,24.3-23.6,48-5c0,0,31.9,25.4,83.4,25.4s83.4-25.4,83.4-25.4c23.6-18.5,41.4-7.8,48,5
+						C398.3,295.1,385.7,305.9,357.1,324.5L357.1,324.5z M142,145c0-63,51.2-114,114-114s114,51,114,114c0,62.7-51.2,113.7-114,113.7
+						S142,207.7,142,145L142,145z M200,145c0,30.8,25.1,56,56,56s56-25.1,56-56c0-31.1-25.1-56.2-56-56.2S200,113.9,200,145z"/>
 				</g>
 			</symbol>
 		</svg>
@@ -966,6 +1008,18 @@ class Highlight_And_Share {
 			}
 		} else {
 			$json_arr['show_linkedin'] = (bool) apply_filters( 'has_show_linkedin', $settings['show_linkedin'] );
+		}
+
+		// Odnoklassniki.
+		if ( is_customize_preview() ) {
+			$maybe_linkedin = get_option( 'highlight-and-share' );
+			if ( ! isset( $maybe_linkedin['show_ok'] ) ) {
+				$json_arr['show_ok'] = (bool) apply_filters( 'has_show_ok', $settings['show_ok'] );
+			} else {
+				$json_arr['show_ok'] = apply_filters( 'has_show_ok', $maybe_linkedin['show_ok'] );
+			}
+		} else {
+			$json_arr['show_ok'] = (bool) apply_filters( 'has_show_ok', $settings['show_ok'] );
 		}
 
 		// Email.
@@ -1503,6 +1557,17 @@ class Highlight_And_Share {
 		);
 
 		add_settings_field(
+			'hightlight-and-share-ok-enable',
+			__( 'Show Odnoklassniki Option', 'highlight-and-share' ),
+			array( $this, 'add_settings_field_ok_enable' ),
+			'highlight-and-share',
+			'has-social',
+			array(
+				'desc' => __( 'Would you like to enable sharing via Odnoklassniki?', 'highlight-and-share' ),
+			)
+		);
+
+		add_settings_field(
 			'hightlight-and-share-whatsapp-enable',
 			__( 'Show WhatsApp Option', 'highlight-and-share' ),
 			array( $this, 'add_settings_field_whatsapp_enable' ),
@@ -1699,6 +1764,7 @@ class Highlight_And_Share {
 				case 'show_xing':
 				case 'show_whatsapp':
 				case 'show_linkedin':
+				case 'show_ok':
 				case 'show_telegram':
 				case 'show_signal':
 				case 'show_reddit':
@@ -1879,6 +1945,25 @@ class Highlight_And_Share {
 		$linkedin = isset( $settings['show_linkedin'] ) ? (bool) $settings['show_linkedin'] : true;
 		echo '<input name="highlight-and-share[show_linkedin]" value="off" type="hidden" />';
 		printf( '<input id="has-show-linkedin" type="checkbox" name="highlight-and-share[show_linkedin]" value="on" %s />&nbsp;<label for="has-show-linkedin">%s</label>', checked( true, $linkedin, false ), esc_html__( 'Enable LinkedIn Sharing?', 'highlight-and-share' ) );
+	}
+
+	/**
+	 * Add Odnoklassniki Option for Sharing
+	 *
+	 * Output checkbox for displaying Odnoklassniki sharing.
+	 *
+	 * @since 2.0.0
+	 * @access public
+	 *
+	 * @see init_admin_settings
+	 *
+	 * @param array $args Array of arguments.
+	 */
+	public function add_settings_field_ok_enable( $args = array() ) {
+		$settings = $this->get_plugin_options();
+		$linkedin = isset( $settings['show_ok'] ) ? (bool) $settings['show_ok'] : true;
+		echo '<input name="highlight-and-share[show_ok]" value="off" type="hidden" />';
+		printf( '<input id="has-show-ok" type="checkbox" name="highlight-and-share[show_ok]" value="on" %s />&nbsp;<label for="has-show-ok">%s</label>', checked( true, $linkedin, false ), esc_html__( 'Enable Odnoklassniki (Однокла́ссники) Sharing?', 'highlight-and-share' ) );
 	}
 
 	/**
@@ -2157,6 +2242,7 @@ class Highlight_And_Share {
 			'show_twitter'   => true,
 			'show_facebook'  => true,
 			'show_linkedin'  => false,
+			'show_ok'        => false,
 			'show_email'     => false,
 			'show_copy'      => false,
 			'show_whatsapp'  => false,
