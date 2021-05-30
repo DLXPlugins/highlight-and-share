@@ -122,18 +122,18 @@ class Highlight_And_Share {
 	 */
 	public function get_main_themes() {
 		$default_themes = array(
-			'off'          => esc_html__( 'Off', 'highligh-and-share' ),
-			'default'      => esc_html__( 'Default', 'highlight-and-share' ),
-			'brand-colors' => esc_html__( 'Brand Colors (Icons Only)', 'highlight-and-share' ),
-			'colorful-circles'        => esc_html__( 'Colorful Circles (Icons Only)', 'highlight-and-share' ),
-			'colorful-glass-circles'        => esc_html__( 'Colorful Glass Circles (Icons Only)', 'highlight-and-share' ),
-			'black'        => esc_html__( 'Black (Icons Only)', 'highlight-and-share' ),
-			'purple'       => esc_html__( 'Purple (Icons Only)', 'highlight-and-share' ),
-			'white'        => esc_html__( 'White (Icons Only)', 'highlight-and-share' ),
-			'cyan'         => esc_html__( 'Cyan (Icons Only)', 'highlight-and-share' ),
-			'magenta'      => esc_html__( 'Magenta (Icons Only)', 'highlight-and-share' ),
-			'blue'         => esc_html__( 'Blue (Icons Only)', 'highlight-and-share' ),
-			'green'        => esc_html__( 'Green (Icons Only)', 'highlight-and-share' ),
+			'off'                    => esc_html__( 'Off', 'highligh-and-share' ),
+			'default'                => esc_html__( 'Default', 'highlight-and-share' ),
+			'brand-colors'           => esc_html__( 'Brand Colors (Icons Only)', 'highlight-and-share' ),
+			'colorful-circles'       => esc_html__( 'Colorful Circles (Icons Only)', 'highlight-and-share' ),
+			'colorful-glass-circles' => esc_html__( 'Colorful Glass Circles (Icons Only)', 'highlight-and-share' ),
+			'black'                  => esc_html__( 'Black (Icons Only)', 'highlight-and-share' ),
+			'purple'                 => esc_html__( 'Purple (Icons Only)', 'highlight-and-share' ),
+			'white'                  => esc_html__( 'White (Icons Only)', 'highlight-and-share' ),
+			'cyan'                   => esc_html__( 'Cyan (Icons Only)', 'highlight-and-share' ),
+			'magenta'                => esc_html__( 'Magenta (Icons Only)', 'highlight-and-share' ),
+			'blue'                   => esc_html__( 'Blue (Icons Only)', 'highlight-and-share' ),
+			'green'                  => esc_html__( 'Green (Icons Only)', 'highlight-and-share' ),
 		);
 		return apply_filters( 'has_main_themes', $default_themes );
 	}
@@ -597,8 +597,8 @@ class Highlight_And_Share {
 		$show_facebook = (bool) apply_filters( 'has_show_facebook', $settings['show_facebook'] );
 		$show_twitter  = (bool) apply_filters( 'has_show_twitter', $settings['show_twitter'] );
 		$show_linkedin = (bool) apply_filters( 'has_show_linkedin', $settings['show_linkedin'] );
-		$show_ok = (bool) apply_filters( 'has_show_ok', $settings['show_ok'] );
-		$show_vk = (bool) apply_filters( 'has_show_vk', $settings['show_vk'] );
+		$show_ok       = (bool) apply_filters( 'has_show_ok', $settings['show_ok'] );
+		$show_vk       = (bool) apply_filters( 'has_show_vk', $settings['show_vk'] );
 		$show_email    = (bool) apply_filters( 'has_show_email', $settings['show_email'] );
 		$show_copy     = (bool) apply_filters( 'has_show_copy', $settings['show_email'] );
 		$show_reddit   = (bool) apply_filters( 'has_show_reddit', isset( $settings['show_reddit'] ) ? $settings['show_reddit'] : false );
@@ -1184,8 +1184,8 @@ class Highlight_And_Share {
 		$json_arr['tweet_text']    = apply_filters( 'has_twitter_text', _x( 'Tweet', 'Twitter share text', 'highlight-and-share' ) );
 		$json_arr['facebook_text'] = apply_filters( 'has_facebook_text', _x( 'Share', 'Facebook share text', 'highlight-and-share' ) );
 		$json_arr['linkedin_text'] = apply_filters( 'has_linkedin_text', _x( 'LinkedIn', 'LinkedIn share text', 'highlight-and-share' ) );
-		$json_arr['ok_text'] = apply_filters( 'has_ok_text', _x( 'Odnoklassniki', 'Odnoklassniki share text', 'highlight-and-share' ) );
-		$json_arr['vk_text'] = apply_filters( 'has_vk_text', _x( 'VKontakte', 'VKontakte share text', 'highlight-and-share' ) );
+		$json_arr['ok_text']       = apply_filters( 'has_ok_text', _x( 'Odnoklassniki', 'Odnoklassniki share text', 'highlight-and-share' ) );
+		$json_arr['vk_text']       = apply_filters( 'has_vk_text', _x( 'VKontakte', 'VKontakte share text', 'highlight-and-share' ) );
 		$json_arr['whatsapp_text'] = apply_filters( 'has_whatsapp_text', _x( 'WhatsApp', 'WhatsApp share text', 'highlight-and-share' ) );
 		$json_arr['xing_text']     = apply_filters( 'has_xing_text', _x( 'Xing', 'Xing share text', 'highlight-and-share' ) );
 		$json_arr['copy_text']     = apply_filters( 'has_copy_text', _x( 'Copy', 'Copy share text', 'highlight-and-share' ) );
@@ -2041,7 +2041,7 @@ class Highlight_And_Share {
 	 */
 	public function add_settings_field_vk_enable( $args = array() ) {
 		$settings = $this->get_plugin_options();
-		$vk = isset( $settings['show_vk'] ) ? (bool) $settings['show_vk'] : true;
+		$vk       = isset( $settings['show_vk'] ) ? (bool) $settings['show_vk'] : true;
 		echo '<input name="highlight-and-share[show_vk]" value="off" type="hidden" />';
 		printf( '<input id="has-show-vk" type="checkbox" name="highlight-and-share[show_vk]" value="on" %s />&nbsp;<label for="has-show-vk">%s</label>', checked( true, $vk, false ), esc_html__( 'Enable VKontakte Sharing?', 'highlight-and-share' ) );
 	}
