@@ -35,6 +35,9 @@
 .highlight-and-share-wrapper div.has_ok {
     background: #ee8208;
 }
+.highlight-and-share-wrapper div.has_vk {
+    background: #2372f5;
+}
 .highlight-and-share-wrapper div.has_pinterest {
     background: #CC2127;
 }
@@ -73,6 +76,9 @@
 }
 .highlight-and-share-wrapper div.has_ok:hover {
     background: #dc7909;
+}
+.highlight-and-share-wrapper div.has_vk:hover {
+    background: #256be0;
 }
 .highlight-and-share-wrapper div.has_pinterest:hover {
     background: #d93238;
