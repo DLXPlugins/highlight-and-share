@@ -117,14 +117,6 @@ jQuery( document ).ready( function( $ ) {
 		window.open( this.href,"linkedin","width=575,height=430,toolbar=false,menubar=false,location=false,status=false");
 		has_remove();
 	} );
-	$( 'body' ).on( 'click', '.has_ok:visible', function( e ) {
-		e.preventDefault();
-		if( highlight_and_share.customizer_preview ) {
-			return;
-		}
-		window.open( this.href,"ok","width=575,height=430,toolbar=false,menubar=false,location=false,status=false");
-		has_remove();
-	} );
 	$( 'body' ).on( 'click', '.has_vk a:visible', function( e ) {
 		e.preventDefault();
 		if( highlight_and_share.customizer_preview ) {
