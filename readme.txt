@@ -3,7 +3,7 @@ Contributors: ronalfy
 Tags: highlight, social sharing, click to tweet, sharing, highlight text
 Requires at least: 5.1
 Tested up to: 5.7
-Stable tag: 3.5.0
+Stable tag: 3.5.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://github.com/sponsors/MediaRon
@@ -89,6 +89,10 @@ So far, the latest versions of Chrome, Firefox, and Safari. Works for IE9+
 6. Circular Glass Theme.
 
 == Changelog ==
+
+= 3.5.1 =
+* Released 2021-05-30
+* Adjusting glass styles to be more inline with glassmorphism.
 
 = 3.5.0 =
 * Released 2021-05-29
@@ -327,5 +331,5 @@ So far, the latest versions of Chrome, Firefox, and Safari. Works for IE9+
 
 == Upgrade Notice ==
 
-= 3.5.0 =
+= 3.5.1 =
 Added two new themes: circular, and circular glass. Added two new social networks: Odnoklassniki and VKontakte. Fixed SVG bug on the front-end where it could cause extra space at the bottom of a theme.
