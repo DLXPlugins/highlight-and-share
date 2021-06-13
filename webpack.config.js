@@ -43,6 +43,7 @@ module.exports = [
 			"has-cts": ["./src/blocks.js"],
 			"has-cts-editor": "./src/block/editor.scss",
 			"has-cts-style": "./src/block/style.scss",
+			"has-admin-style": "./src/admin.scss",
 		},
 		output: {
 			filename: "[name].js",
