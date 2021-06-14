@@ -1423,23 +1423,25 @@ class Highlight_And_Share {
 				<div class="has-logo-wrapper">
 					<h2 id="has-logo" style="display: flex; align-items: center;"><img style="width: 700px; height: 76px; margin-right: 20px;" src="<?php echo esc_url( $this->get_plugin_url( '/img/plugin-logo-horizontal.png' ) ); ?>" alt="Higlight and Share" /></h2>
 					<ul>
-						<li><a href="https://mediaron.com/highlight-and-share/">Docs</a></li>
-						<li><a href="https://github.com/sponsors/MediaRon">Sponsor</a></li>
-						<li><a href="https://wordpress.org/support/plugin/highlight-and-share/reviews/">Rate Us</a></li>
+						<li><a href="https://mediaron.com/highlight-and-share/"><?php esc_html_e( 'Docs', 'highlight-and-share' ); ?></a></li>
+						<li><a href="https://github.com/sponsors/MediaRon"><?php esc_html_e( 'Sponsor', 'highlight-and-share' ); ?></a></li>
+						<li><a href="https://wordpress.org/support/plugin/highlight-and-share/reviews/"><?php esc_html_e( 'Rate Us', 'highlight-and-share' ); ?></a></li>
 					</ul>
 				</div>
+				<hr />
 				<form action="<?php echo esc_url( admin_url( 'options.php' ) ); ?>" method="POST">
 					<?php settings_fields( 'highlight-and-share' ); ?>
 					<?php do_settings_sections( 'highlight-and-share' ); ?>
 					<?php submit_button(); ?>
 				</form>
+				<div class="has-logo-wrapper">
+					<ul>
+						<li><a href="https://mediaron.com/highlight-and-share/"><?php esc_html_e( 'Docs', 'highlight-and-share' ); ?></a></li>
+						<li><a href="https://github.com/sponsors/MediaRon"><?php esc_html_e( 'Sponsor', 'highlight-and-share' ); ?></a></li>
+						<li><a href="https://wordpress.org/support/plugin/highlight-and-share/reviews/"><?php esc_html_e( 'Rate Us', 'highlight-and-share' ); ?></a></li>
+					</ul>
+				</div>
 			</div>
-			<p>
-				<ul>
-					<li><a href="https://mediaron.com/highlight-and-share/">Documentation</a></li>
-					<li><a href="https://github.com/sponsors/MediaRon">Sponsor this Plugin</a></li>
-				</ul>
-			</p>
 		</div>
 		<?php
 	}
