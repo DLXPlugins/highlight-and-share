@@ -7,14 +7,13 @@ jQuery( document ).ready( function( $ ) {
 	var title = '';
 	var link = '';
 	var href = '';
+	var hashtags = '';
 	var $parent = '';
 
 	var has_selected_text = '';
 	var text_to_copy = false;
 	var prefix = highlight_and_share.prefix;
 	var suffix = highlight_and_share.suffix;
-
-	console.log( prefix );
 
 	var has_load_html = function() {
 		
@@ -46,7 +45,13 @@ jQuery( document ).ready( function( $ ) {
 		if (typeof this.title == typeof undefined || this.title == false) {
 			this.title = $( document ).attr( 'title' );
 		}
-		has_display( text, this.title, this.href, e );
+
+		//Get Hashtags
+		this.hashtags = $parent.data( 'hashtags' );
+		if (typeof this.hashtags == typeof undefined || this.hashtags == false) {
+			this.hashtags = '';
+		}
+		has_display( text, this.title, this.href, this.hashtags, e );
 	} );
 	$( 'body' ).on( 'click', '.has-click-prompt', function( e ) {
 		e.preventDefault();
@@ -75,8 +80,14 @@ jQuery( document ).ready( function( $ ) {
 			title = $( document ).attr( 'title' );
 		}
 
+		//Get Title
+		var hashtags = $parent.data( 'hashtags' );
+		if (typeof hashtags == typeof undefined || hashtags == false) {
+			hashtags = '';
+		}
+
 		var text = jQuery( this ).text().trim();
-		inline_has_display( text, title, href, jQuery( this ) );
+		inline_has_display( text, title, href, hashtags, jQuery( this ) );
 	} );
 
 	$( 'body' ).on( 'mousedown vmousedown', function( e ) {
@@ -364,7 +375,7 @@ jQuery( document ).ready( function( $ ) {
 		return '';
 	};
 
-	var has_display = function( text, title, link, e ) {
+	var has_display = function( text, title, link, hashtags, e ) {
 		has_remove();
 		if ( false == highlight_and_share.show_twitter && false == highlight_and_share.show_facebook && false == highlight_and_share.show_linkedin && false == highlight_and_share.show_ok && false == highlight_and_share.show_vk && false == highlight_and_share.show_pinterest && false == highlight_and_share.show_email ) {
 			return;
@@ -378,9 +389,15 @@ jQuery( document ).ready( function( $ ) {
 		$.each( $children, function( index, item ) {
 			var div = $( this );
 			var url = div.find( 'a' ).attr( 'href' );
+
+			var username = highlight_and_share.twitter_username;
+			if ( hashtags.length > 0 ) {
+				username = username + "\n\r" + hashtags;
+			}
+
 			url = url.replace( '%url%', encodeURIComponent( link ) );
-			url = url.replace( '%username%', encodeURIComponent( highlight_and_share.twitter_username ) );
-			url = url.replace( '%title%', encodeURIComponent( title ) );
+			url = url.replace( '%username%', encodeURIComponent( username ) );
+			url = url.replace( '%title%', encodeURIComponent( title ) );			
 			url = url.replace( '%text%', encodeURIComponent( text ) );
 			var title_attr = div.attr('data-title');
 			if (typeof title_attr !== typeof undefined && title_attr !== false) {
@@ -400,6 +417,16 @@ jQuery( document ).ready( function( $ ) {
 				if( typeof url_attr !== typeof undefined && url_attr !== false ) {
 					url_attr = url_attr.replace( '%url%', encodeURIComponent( link ) );
 					div.attr('data-url', url_attr)
+				}
+			}
+			var hashtags_attr = div.attr('data-hashtags');
+			if (typeof hashtags_attr !== typeof undefined && hashtags_attr !== false) {
+				// Try parent
+				var div_parent = div.parent();
+				var hashtags_attr = div_parent.attr('data-hashtags');
+				if( typeof hashtags_attr !== typeof undefined && hashtags_attr !== false ) {
+					hashtags_attr = hashtags_attr.replace( '%hashtags%', encodeURIComponent( link ) );
+					div.attr('data-hashtags', hashtags_attr)
 				}
 			}
 			div.find( 'a' ).attr( 'href', url );
@@ -467,7 +494,7 @@ jQuery( document ).ready( function( $ ) {
 		var wrapper_y = jQuery( e.target).offset().top - jQuery( '.highlight-and-share-wrapper:visible' ).height();
 		wrapper_clone.css( { left: wrapper_x, top: wrapper_y } );
 	};
-	var inline_has_display = function( text, title, link, e ) {
+	var inline_has_display = function( text, title, link, hashtags, e ) {
 		has_remove();
 		text_to_copy = text;
 		if ( false == highlight_and_share.show_twitter && false == highlight_and_share.show_facebook && false == highlight_and_share.show_linkedin && false == highlight_and_share.show_vk && false == highlight_and_share.show_ok && false == highlight_and_share.show_pinterest && false == highlight_and_share.show_email ) {

@@ -581,24 +581,24 @@ class Highlight_And_Share {
 		// Plugin settings.
 		add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( $this, 'add_settings_link' ) );
 
-		// Register Hash Tags Taxonomy.
+		// Register Hashtags Taxonomy.
 		$labels = array(
-			'name'                       => _x( 'Hash Tags', 'Taxonomy General Name', 'highlight-and-share' ),
-			'singular_name'              => _x( 'Hash Tag', 'Taxonomy Singular Name', 'highlight-and-share' ),
-			'menu_name'                  => __( 'Hash Tags', 'highlight-and-share' ),
-			'all_items'                  => __( 'All Hash Tags', 'highlight-and-share' ),
-			'parent_item'                => __( 'Parent Hash Tag', 'highlight-and-share' ),
-			'parent_item_colon'          => __( 'Hash Tag:', 'highlight-and-share' ),
+			'name'                       => _x( 'Hashtags', 'Taxonomy General Name', 'highlight-and-share' ),
+			'singular_name'              => _x( 'Hashtag', 'Taxonomy Singular Name', 'highlight-and-share' ),
+			'menu_name'                  => __( 'Hashtags', 'highlight-and-share' ),
+			'all_items'                  => __( 'All Hashtags', 'highlight-and-share' ),
+			'parent_item'                => __( 'Parent Hashtag', 'highlight-and-share' ),
+			'parent_item_colon'          => __( 'Hashtag:', 'highlight-and-share' ),
 			'new_item_name'              => __( 'New Hashtag', 'highlight-and-share' ),
 			'add_new_item'               => __( 'Add New Hashtag', 'highlight-and-share' ),
-			'edit_item'                  => __( 'Edit Hash Tag', 'highlight-and-share' ),
-			'update_item'                => __( 'Update Hash Tag', 'highlight-and-share' ),
-			'view_item'                  => __( 'View Hash Tag', 'highlight-and-share' ),
+			'edit_item'                  => __( 'Edit Hashtag', 'highlight-and-share' ),
+			'update_item'                => __( 'Update Hashtag', 'highlight-and-share' ),
+			'view_item'                  => __( 'View Hashtag', 'highlight-and-share' ),
 			'separate_items_with_commas' => __( 'Separate hash tags with commas', 'highlight-and-share' ),
 			'add_or_remove_items'        => __( 'Add or remove hash tags', 'highlight-and-share' ),
 			'choose_from_most_used'      => __( 'Choose from the most used', 'highlight-and-share' ),
-			'popular_items'              => __( 'Popular Hash Tags', 'highlight-and-share' ),
-			'search_items'               => __( 'Search Hash Tags', 'highlight-and-share' ),
+			'popular_items'              => __( 'Popular Hashtags', 'highlight-and-share' ),
+			'search_items'               => __( 'Search Hashtags', 'highlight-and-share' ),
 			'not_found'                  => __( 'Not Found', 'highlight-and-share' ),
 			'no_terms'                   => __( 'No items', 'highlight-and-share' ),
 			'items_list'                 => __( 'Items list', 'highlight-and-share' ),
@@ -616,7 +616,29 @@ class Highlight_And_Share {
 			'show_in_rest'      => true,
 			'show_in_menu'      => false,
 		);
-		register_taxonomy( 'hashtags', array( 'post', 'page' ), $args );
+
+		/**
+		 * Allow others to modify the taxonomy args for hashtags.
+		 */
+		$args = apply_filters( 'has_hashtags_taxonomy_args', $args );
+
+		/**
+		 * Allow others to programmatically add or substract post types that hashtags are enabled for.
+		 */
+		$supported_post_types = apply_filters(
+			'has_hashtags_post_types',
+			array(
+				'post',
+				'page',
+			)
+		);
+
+		/**
+		 * Allow others to turn off hashtags.
+		 */
+		if ( apply_filters( 'has_show_hashtags_taxonomy', true ) ) {
+			register_taxonomy( 'hashtags', $supported_post_types, $args );
+		}
 
 	}
 
@@ -953,8 +975,36 @@ class Highlight_And_Share {
 		$post_id = $post->ID;
 		$url     = $this->get_content_url( $post_id );
 		$title   = get_the_title( $post_id );
-		$content = sprintf( '<div class="has-content-area" data-url="%s" data-title="%s">%s</div>', esc_url( $url ), esc_attr( $title ), $content );
+		$content = sprintf( '<div class="has-content-area" data-url="%s" data-title="%s" data-hashtags="%s">%s</div>', esc_url( $url ), esc_attr( $title ), esc_attr( $this->get_hashtags( $post_id ) ), $content );
 		return $content;
+	}
+
+	/**
+	 * Retrieve hashtags for a post/page.
+	 *
+	 * @param int $post_id The post ID to retrieve hashtags for.
+	 */
+	public function get_hashtags( $post_id ) {
+		$hashtags_raw = wp_get_object_terms( $post_id, 'hashtags' );
+
+		if ( empty( $hashtags_raw ) ) {
+			return '';
+		}
+
+		$hashtags = array();
+		foreach ( $hashtags_raw as $hashtag_term ) {
+			// Strip out pound sign in case it was entered accidentally.
+			$hashtag = str_replace( '#', '', $hashtag_term->name );
+
+			// Check for white-space.
+			$hashtag = preg_replace( '/\s+/', '', $hashtag );
+			$hashtag = sanitize_text_field( $hashtag );
+
+			// Populate hashtags.
+			$hashtags[] = '#' . $hashtag;
+		}
+
+		return implode( ' ', $hashtags );
 	}
 
 	/**
@@ -985,7 +1035,7 @@ class Highlight_And_Share {
 		$post_id = $post->ID;
 		$url     = $this->get_content_url( $post_id );
 		$title   = get_the_title( $post_id );
-		$content = sprintf( '<div class="has-excerpt-area" data-url="%s" data-title="%s">%s</div>', esc_url( $url ), esc_attr( $title ), $content );
+		$content = sprintf( '<div class="has-excerpt-area" data-url="%s" data-title="%s" data-hashtags="%s">%s</div>', esc_url( $url ), esc_attr( $title ), esc_attr( $this->get_hashtags( $post_id ) ), $content );
 		return $content;
 	}
 
