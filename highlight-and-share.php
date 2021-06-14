@@ -581,6 +581,43 @@ class Highlight_And_Share {
 		// Plugin settings.
 		add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( $this, 'add_settings_link' ) );
 
+		// Register Hash Tags Taxonomy.
+		$labels = array(
+			'name'                       => _x( 'Hash Tags', 'Taxonomy General Name', 'highlight-and-share' ),
+			'singular_name'              => _x( 'Hash Tag', 'Taxonomy Singular Name', 'highlight-and-share' ),
+			'menu_name'                  => __( 'Hash Tags', 'highlight-and-share' ),
+			'all_items'                  => __( 'All Hash Tags', 'highlight-and-share' ),
+			'parent_item'                => __( 'Parent Hash Tag', 'highlight-and-share' ),
+			'parent_item_colon'          => __( 'Hash Tag:', 'highlight-and-share' ),
+			'new_item_name'              => __( 'New Hashtag', 'highlight-and-share' ),
+			'add_new_item'               => __( 'Add New Hashtag', 'highlight-and-share' ),
+			'edit_item'                  => __( 'Edit Hash Tag', 'highlight-and-share' ),
+			'update_item'                => __( 'Update Hash Tag', 'highlight-and-share' ),
+			'view_item'                  => __( 'View Hash Tag', 'highlight-and-share' ),
+			'separate_items_with_commas' => __( 'Separate hash tags with commas', 'highlight-and-share' ),
+			'add_or_remove_items'        => __( 'Add or remove hash tags', 'highlight-and-share' ),
+			'choose_from_most_used'      => __( 'Choose from the most used', 'highlight-and-share' ),
+			'popular_items'              => __( 'Popular Hash Tags', 'highlight-and-share' ),
+			'search_items'               => __( 'Search Hash Tags', 'highlight-and-share' ),
+			'not_found'                  => __( 'Not Found', 'highlight-and-share' ),
+			'no_terms'                   => __( 'No items', 'highlight-and-share' ),
+			'items_list'                 => __( 'Items list', 'highlight-and-share' ),
+			'items_list_navigation'      => __( 'Items list navigation', 'highlight-and-share' ),
+		);
+		$args   = array(
+			'labels'            => $labels,
+			'hierarchical'      => false,
+			'public'            => true,
+			'show_ui'           => true,
+			'show_admin_column' => false,
+			'show_in_nav_menus' => false,
+			'show_tagcloud'     => false,
+			'rewrite'           => false,
+			'show_in_rest'      => true,
+			'show_in_menu'      => false,
+		);
+		register_taxonomy( 'hashtags', array( 'post', 'page' ), $args );
+
 	}
 
 	/**
