@@ -576,6 +576,7 @@ class Highlight_And_Share {
 		// Admin Settings.
 		add_action( 'admin_menu', array( $this, 'add_admin_menu' ) );
 		add_action( 'admin_init', array( $this, 'init_admin_settings' ) );
+		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ) );
 
 		// Plugin settings.
 		add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( $this, 'add_settings_link' ) );
@@ -691,7 +692,7 @@ class Highlight_And_Share {
 		}
 		if ( $settings['show_linkedin'] ) {
 			if ( ! $settings['icons'] ) {
-				// Note, you must be on a publicly accesible URL to use this button
+				// Note, you must be on a publicly accesible URL to use this button.
 				$html .= '<div class="has_linkedin" style="display: none;" data-type="linkedin"><a href="https://www.linkedin.com/shareArticle?mini=true&url=%url%&title=%title%" target="_blank"><svg class="has-icon"><use xlink:href="#has-linkedin-icon"></use></svg>&nbsp;' . esc_html( apply_filters( 'has_linkedin_text', _x( 'LinkedIn', 'LinkedIn share text', 'highlight-and-share' ) ) ) . '</a></div>';
 			} else {
 				$html .= '<div class="has_linkedin" style="display: none;" data-type="linkedin"><a href="https://www.linkedin.com/shareArticle?mini=true&url=%url%&title=%title%" target="_blank"><svg class="has-icon"><use xlink:href="#has-linkedin-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_linkedin_text', _x( 'LinkedIn', 'LinkedIn share text', 'highlight-and-share' ) ) ) . '</span></a></div>';
@@ -746,12 +747,12 @@ class Highlight_And_Share {
 
 		if ( $settings['show_whatsapp'] ) {
 			if ( ! $settings['icons'] ) {
-				$string          = '<div class="has_whatsapp" style="display: none;" data-type="whatsapp"><a href="https://wa.me/?text=%prefix%%text%%suffix%: ' . '%url%" target="_blank"><svg class="has-icon"><use xlink:href="#has-whatsapp-icon"></use></svg>&nbsp;' . esc_html( apply_filters( 'has_whatsapp_text', _x( 'WhatsApp', 'WhatsApp share text', 'highlight-and-share' ) ) ) . '</a></div>';
+				$string          = '<div class="has_whatsapp" style="display: none;" data-type="whatsapp"><a href="https://wa.me/?text=%prefix%%text%%suffix%: ' . '%url%" target="_blank"><svg class="has-icon"><use xlink:href="#has-whatsapp-icon"></use></svg>&nbsp;' . esc_html( apply_filters( 'has_whatsapp_text', _x( 'WhatsApp', 'WhatsApp share text', 'highlight-and-share' ) ) ) . '</a></div>'; // phpcs:ignore
 				$html           .= $string;
 				$click_to_share .= $string;
 				$inline_share   .= $string;
 			} else {
-				$string          = '<div class="has_whatsapp" style="display: none;" data-type="whatsapp"><a href="https://wa.me/?text=%prefix%%text%%suffix%: ' . '%url%" target="_blank"><svg class="has-icon"><use xlink:href="#has-whatsapp-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_whatsapp_text', _x( 'WhatsApp', 'WhatsApp share text', 'highlight-and-share' ) ) ) . '</span></a></div>';
+				$string          = '<div class="has_whatsapp" style="display: none;" data-type="whatsapp"><a href="https://wa.me/?text=%prefix%%text%%suffix%: ' . '%url%" target="_blank"><svg class="has-icon"><use xlink:href="#has-whatsapp-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_whatsapp_text', _x( 'WhatsApp', 'WhatsApp share text', 'highlight-and-share' ) ) ) . '</span></a></div>'; // phpcs:ignore
 				$html           .= $string;
 				$click_to_share .= $string;
 				$inline_share   .= $string;
@@ -760,7 +761,7 @@ class Highlight_And_Share {
 
 		if ( $settings['show_ok'] ) {
 			if ( ! $settings['icons'] ) {
-				// Note, you must be on a publicly accesible URL to use this button
+				// Note, you must be on a publicly accesible URL to use this button.
 				$html .= '<div class="has_ok" style="display: none;" data-type="ok"><a href="https://connect.ok.ru/offer?url=%url%&title=%title%" target="_blank"><svg class="has-icon"><use xlink:href="#has-ok-icon"></use></svg>&nbsp;' . esc_html( apply_filters( 'has_ok_text', _x( 'Odnoklassniki', 'Odnoklassniki share text', 'highlight-and-share' ) ) ) . '</a></div>';
 			} else {
 				$html .= '<div class="has_ok" style="display: none;" data-type="ok"><a href="https://connect.ok.ru/offer?url=%url%&title=%title%" target="_blank"><svg class="has-icon"><use xlink:href="#has-ok-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_ok_text', _x( 'Odnoklassniki', 'Odnoklassniki share text', 'highlight-and-share' ) ) ) . '</span></a></div>';
@@ -768,7 +769,7 @@ class Highlight_And_Share {
 		}
 		if ( $settings['show_vk'] ) {
 			if ( ! $settings['icons'] ) {
-				// Note, you must be on a publicly accesible URL to use this button
+				// Note, you must be on a publicly accesible URL to use this button.
 				$html .= '<div class="has_vk" style="display: none;" data-type="vk"><a href="http://vk.com/share.php?url=%url%&title=%title%&description=%text%" target="_blank"><svg class="has-icon"><use xlink:href="#has-vk-icon"></use></svg>&nbsp;' . esc_html( apply_filters( 'has_vk_text', _x( 'VKontakte', 'VKontakte share text', 'highlight-and-share' ) ) ) . '</a></div>';
 			} else {
 				$html .= '<div class="has_vk" style="display: none;" data-type="vk"><a href="http://vk.com/share.php?url=%url%&title=%title%&description=%text%" target="_blank"><svg class="has-icon"><use xlink:href="#has-vk-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_vk_text', _x( 'VKontakte', 'VKontakte share text', 'highlight-and-share' ) ) ) . '</span></a></div>';
@@ -791,7 +792,7 @@ class Highlight_And_Share {
 
 		if ( $settings['show_email'] ) {
 			if ( ! $settings['icons'] ) {
-				// Note, you must be on a publicly accesible URL to use this button
+				// Note, you must be on a publicly accesible URL to use this button.
 				$string          = '<div class="has_email" style="display: none;" data-type="email" data-title="%title%" data-url="%url%"><a href="' . esc_url( admin_url( 'admin-ajax.php' ) ) . '" target="_blank"><svg class="has-icon"><use xlink:href="#has-email-icon"></use></svg>&nbsp;' . esc_html( apply_filters( 'has_email_text', _x( 'E-mail', 'E-mail share text', 'highlight-and-share' ) ) ) . '</a></div>';
 				$html           .= $string;
 				$click_to_share .= $string;
@@ -807,9 +808,9 @@ class Highlight_And_Share {
 		$click_to_share .= '</div>';
 		$inline_share   .= '</div>';
 		$html           .= '</div><!-- #highlight-and-share-wrapper -->';
-		echo $inline_share;
-		echo $click_to_share;
-		echo $html;
+		echo $inline_share; // phpcs:ignore
+		echo $click_to_share; // phpcs:ignore
+		echo $html; // phpcs:ignore
 		?>
 		<svg width="0" height="0" class="hidden" style="display: none;">
 			<symbol aria-hidden="true" data-prefix="fas" data-icon="twitter" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="has-twitter-icon">
@@ -868,6 +869,23 @@ class Highlight_And_Share {
 			</symbol>
 		</svg>
 		<?php
+	}
+
+	/**
+	 * Enqueue the HAS admin stylesheet.
+	 */
+	public function enqueue_admin_scripts( $hook ) {
+		if ( 'settings_page_highlight-and-share' === $hook ) {
+			wp_enqueue_style(
+				'has-admin',
+				$this->get_plugin_url( '/dist/has-admin-style.css' ),
+				array(),
+				HIGHLIGHT_AND_SHARE_VERSION,
+				'all'
+			);
+			wp_enqueue_script( 'fancybox', $this->get_plugin_url( '/fancybox/jquery.fancybox.min.js' ), array( 'jquery' ), HIGHLIGHT_AND_SHARE_VERSION, true );
+			wp_enqueue_style( 'fancybox', $this->get_plugin_url( '/fancybox/jquery.fancybox.min.css' ), array(), HIGHLIGHT_AND_SHARE_VERSION, 'all' );
+		}
 	}
 
 	/**
@@ -1401,19 +1419,27 @@ class Highlight_And_Share {
 	public function options_page() {
 		?>
 		<div class="wrap">
-			<h2 style="display: flex; align-items: center;"><img style="width: 64px; height: 64px; margin-right: 20px;" src="<?php echo esc_url( $this->get_plugin_url( '/img/plugin-logo-square.png' ) ); ?>" /><?php echo esc_html( _x( 'Highlight and Share', 'Plugin Name - Settings Page Title', 'highlight-and-share' ) ); ?></h2>
+			<div class="has-form-wrapper">
+				<div class="has-logo-wrapper">
+					<h2 id="has-logo" style="display: flex; align-items: center;"><img style="width: 700px; height: 76px; margin-right: 20px;" src="<?php echo esc_url( $this->get_plugin_url( '/img/plugin-logo-horizontal.png' ) ); ?>" alt="Higlight and Share" /></h2>
+					<ul>
+						<li><a href="https://mediaron.com/highlight-and-share/">Docs</a></li>
+						<li><a href="https://github.com/sponsors/MediaRon">Sponsor</a></li>
+						<li><a href="https://wordpress.org/support/plugin/highlight-and-share/reviews/">Rate Us</a></li>
+					</ul>
+				</div>
+				<form action="<?php echo esc_url( admin_url( 'options.php' ) ); ?>" method="POST">
+					<?php settings_fields( 'highlight-and-share' ); ?>
+					<?php do_settings_sections( 'highlight-and-share' ); ?>
+					<?php submit_button(); ?>
+				</form>
+			</div>
 			<p>
 				<ul>
 					<li><a href="https://mediaron.com/highlight-and-share/">Documentation</a></li>
 					<li><a href="https://github.com/sponsors/MediaRon">Sponsor this Plugin</a></li>
 				</ul>
 			</p>
-			<hr />
-			<form action="<?php echo esc_url( admin_url( 'options.php' ) ); ?>" method="POST">
-				<?php settings_fields( 'highlight-and-share' ); ?>
-				<?php do_settings_sections( 'highlight-and-share' ); ?>
-				<?php submit_button(); ?>
-			</form>
 		</div>
 		<?php
 	}
@@ -1987,6 +2013,21 @@ class Highlight_And_Share {
 		</select>
 		<?php
 		printf( '<div><em></em></div>', esc_html( $args['desc'] ) );
+		?>
+		<h4><?php esc_html_e( 'Preview', 'highlight-and-share' ); ?></h4>
+		<ul class="has-admin-preview">
+			<li><a data-fancybox="has-gallery" data-animation-effect="zoom" data-animation-duration="1000" data-fancybox data-caption="<?php esc_html_e( 'Black theme', 'highlight-and-share' ); ?>" href="<?php echo esc_url( $this->get_plugin_url( '/img/screenshot-black.png' ) ); ?>"><?php esc_html_e( 'Black Theme', 'highlight-and-share' ); ?></a></li>
+			<li><a data-fancybox="has-gallery" data-animation-effect="zoom" data-animation-duration="1000" data-fancybox data-caption="<?php esc_html_e( 'Blue theme', 'highlight-and-share' ); ?>" href="<?php echo esc_url( $this->get_plugin_url( '/img/screenshot-blue.png' ) ); ?>"><?php esc_html_e( 'Blue Theme', 'highlight-and-share' ); ?></a></li>
+			<li><a data-fancybox="has-gallery" data-animation-effect="zoom" data-animation-duration="1000" data-fancybox data-caption="<?php esc_html_e( 'Branded theme', 'highlight-and-share' ); ?>" href="<?php echo esc_url( $this->get_plugin_url( '/img/screenshot-brand.png' ) ); ?>"><?php esc_html_e( 'Branded Theme', 'highlight-and-share' ); ?></a></li>
+			<li><a data-fancybox="has-gallery" data-animation-effect="zoom" data-animation-duration="1000" data-fancybox data-caption="<?php esc_html_e( 'Circular Glass theme', 'highlight-and-share' ); ?>" href="<?php echo esc_url( $this->get_plugin_url( '/img/screenshot-circles-glass.png' ) ); ?>"><?php esc_html_e( 'Circular Glass Theme', 'highlight-and-share' ); ?></a></li>
+			<li><a data-fancybox="has-gallery" data-animation-effect="zoom" data-animation-duration="1000" data-fancybox data-caption="<?php esc_html_e( 'Circular Colors theme', 'highlight-and-share' ); ?>" href="<?php echo esc_url( $this->get_plugin_url( '/img/screenshot-color-circles.png' ) ); ?>"><?php esc_html_e( 'Circular Colors Theme', 'highlight-and-share' ); ?></a></li>
+			<li><a data-fancybox="has-gallery" data-animation-effect="zoom" data-animation-duration="1000" data-fancybox data-caption="<?php esc_html_e( 'Cyan theme', 'highlight-and-share' ); ?>" href="<?php echo esc_url( $this->get_plugin_url( '/img/screenshot-cyan.png' ) ); ?>"><?php esc_html_e( 'Cyan Theme', 'highlight-and-share' ); ?></a></li>
+			<li><a data-fancybox="has-gallery" data-animation-effect="zoom" data-animation-duration="1000" data-fancybox data-caption="<?php esc_html_e( 'Default theme', 'highlight-and-share' ); ?>" href="<?php echo esc_url( $this->get_plugin_url( '/img/screenshot-default.png' ) ); ?>"><?php esc_html_e( 'Default Theme', 'highlight-and-share' ); ?></a></li>
+			<li><a data-fancybox="has-gallery" data-animation-effect="zoom" data-animation-duration="1000" data-fancybox data-caption="<?php esc_html_e( 'Green theme', 'highlight-and-share' ); ?>" href="<?php echo esc_url( $this->get_plugin_url( '/img/screenshot-green.png' ) ); ?>"><?php esc_html_e( 'Green Theme', 'highlight-and-share' ); ?></a></li>
+			<li><a data-fancybox="has-gallery" data-animation-effect="zoom" data-animation-duration="1000" data-fancybox data-caption="<?php esc_html_e( 'Magenta theme', 'highlight-and-share' ); ?>" href="<?php echo esc_url( $this->get_plugin_url( '/img/screenshot-magenta.png' ) ); ?>"><?php esc_html_e( 'Magenta Theme', 'highlight-and-share' ); ?></a></li>
+			<li><a data-fancybox="has-gallery" data-animation-effect="zoom" data-animation-duration="1000" data-fancybox data-caption="<?php esc_html_e( 'Purple theme', 'highlight-and-share' ); ?>" href="<?php echo esc_url( $this->get_plugin_url( '/img/screenshot-purple.png' ) ); ?>"><?php esc_html_e( 'Purple Theme', 'highlight-and-share' ); ?></a></li>
+			<li><a data-fancybox="has-gallery" data-animation-effect="zoom" data-animation-duration="1000" data-fancybox data-caption="<?php esc_html_e( 'White theme', 'highlight-and-share' ); ?>" href="<?php echo esc_url( $this->get_plugin_url( '/img/screenshot-white.png' ) ); ?>"><?php esc_html_e( 'White Theme', 'highlight-and-share' ); ?></a></li>
+		<?php
 	}
 
 	/**
