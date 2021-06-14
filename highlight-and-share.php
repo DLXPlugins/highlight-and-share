@@ -2013,6 +2013,21 @@ class Highlight_And_Share {
 		</select>
 		<?php
 		printf( '<div><em></em></div>', esc_html( $args['desc'] ) );
+		?>
+		<h3><?php esc_html_e( 'Preview', 'highlight-and-share' ); ?></h3>
+		<ul class="has-admin-preview">
+			<li><a data-fancybox="has-gallery" data-animation-effect="zoom" data-animation-duration="1000" data-fancybox data-caption="<?php esc_html_e( 'Black theme', 'highlight-and-share' ); ?>" href="<?php echo esc_url( $this->get_plugin_url( '/img/screenshot-black.png' ) ); ?>"><?php esc_html_e( 'Black Theme', 'highlight-and-share' ); ?></a></li>
+			<li><a data-fancybox="has-gallery" data-animation-effect="zoom" data-animation-duration="1000" data-fancybox data-caption="<?php esc_html_e( 'Blue theme', 'highlight-and-share' ); ?>" href="<?php echo esc_url( $this->get_plugin_url( '/img/screenshot-blue.png' ) ); ?>"><?php esc_html_e( 'Blue Theme', 'highlight-and-share' ); ?></a></li>
+			<li><a data-fancybox="has-gallery" data-animation-effect="zoom" data-animation-duration="1000" data-fancybox data-caption="<?php esc_html_e( 'Branded theme', 'highlight-and-share' ); ?>" href="<?php echo esc_url( $this->get_plugin_url( '/img/screenshot-brand.png' ) ); ?>"><?php esc_html_e( 'Branded Theme', 'highlight-and-share' ); ?></a></li>
+			<li><a data-fancybox="has-gallery" data-animation-effect="zoom" data-animation-duration="1000" data-fancybox data-caption="<?php esc_html_e( 'Circular Glass theme', 'highlight-and-share' ); ?>" href="<?php echo esc_url( $this->get_plugin_url( '/img/screenshot-circles-glass.png' ) ); ?>"><?php esc_html_e( 'Circular Glass Theme', 'highlight-and-share' ); ?></a></li>
+			<li><a data-fancybox="has-gallery" data-animation-effect="zoom" data-animation-duration="1000" data-fancybox data-caption="<?php esc_html_e( 'Circular Colors theme', 'highlight-and-share' ); ?>" href="<?php echo esc_url( $this->get_plugin_url( '/img/screenshot-circles-glass.png' ) ); ?>"><?php esc_html_e( 'Circular Colors Theme', 'highlight-and-share' ); ?></a></li>
+			<li><a data-fancybox="has-gallery" data-animation-effect="zoom" data-animation-duration="1000" data-fancybox data-caption="<?php esc_html_e( 'Cyan theme', 'highlight-and-share' ); ?>" href="<?php echo esc_url( $this->get_plugin_url( '/img/screenshot-cyan.png' ) ); ?>"><?php esc_html_e( 'Cyan Theme', 'highlight-and-share' ); ?></a></li>
+			<li><a data-fancybox="has-gallery" data-animation-effect="zoom" data-animation-duration="1000" data-fancybox data-caption="<?php esc_html_e( 'Default theme', 'highlight-and-share' ); ?>" href="<?php echo esc_url( $this->get_plugin_url( '/img/screenshot-default.png' ) ); ?>"><?php esc_html_e( 'Default Theme', 'highlight-and-share' ); ?></a></li>
+			<li><a data-fancybox="has-gallery" data-animation-effect="zoom" data-animation-duration="1000" data-fancybox data-caption="<?php esc_html_e( 'Green theme', 'highlight-and-share' ); ?>" href="<?php echo esc_url( $this->get_plugin_url( '/img/screenshot-green.png' ) ); ?>"><?php esc_html_e( 'Green Theme', 'highlight-and-share' ); ?></a></li>
+			<li><a data-fancybox="has-gallery" data-animation-effect="zoom" data-animation-duration="1000" data-fancybox data-caption="<?php esc_html_e( 'Magenta theme', 'highlight-and-share' ); ?>" href="<?php echo esc_url( $this->get_plugin_url( '/img/screenshot-magenta.png' ) ); ?>"><?php esc_html_e( 'Magenta Theme', 'highlight-and-share' ); ?></a></li>
+			<li><a data-fancybox="has-gallery" data-animation-effect="zoom" data-animation-duration="1000" data-fancybox data-caption="<?php esc_html_e( 'Purple theme', 'highlight-and-share' ); ?>" href="<?php echo esc_url( $this->get_plugin_url( '/img/screenshot-purple.png' ) ); ?>"><?php esc_html_e( 'Purple Theme', 'highlight-and-share' ); ?></a></li>
+			<li><a data-fancybox="has-gallery" data-animation-effect="zoom" data-animation-duration="1000" data-fancybox data-caption="<?php esc_html_e( 'White theme', 'highlight-and-share' ); ?>" href="<?php echo esc_url( $this->get_plugin_url( '/img/screenshot-white.png' ) ); ?>"><?php esc_html_e( 'White Theme', 'highlight-and-share' ); ?></a></li>
+		<?php
 	}
 
 	/**
