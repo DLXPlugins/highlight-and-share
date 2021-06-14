@@ -883,6 +883,8 @@ class Highlight_And_Share {
 				HIGHLIGHT_AND_SHARE_VERSION,
 				'all'
 			);
+			wp_enqueue_script( 'fancybox', $this->get_plugin_url( '/fancybox/jquery.fancybox.min.js' ), array( 'jquery' ), HIGHLIGHT_AND_SHARE_VERSION, true );
+			wp_enqueue_style( 'fancybox', $this->get_plugin_url( '/fancybox/jquery.fancybox.min.css' ), array(), HIGHLIGHT_AND_SHARE_VERSION, 'all' );
 		}
 	}
 
