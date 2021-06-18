@@ -581,6 +581,69 @@ class Highlight_And_Share {
 		// Plugin settings.
 		add_filter( 'plugin_action_links_' . plugin_basename( __FILE__ ), array( $this, 'add_settings_link' ) );
 
+		// Register Hashtags Taxonomy.
+		$labels = array(
+			'name'                       => _x( 'Hashtags', 'Taxonomy General Name', 'highlight-and-share' ),
+			'singular_name'              => _x( 'Hashtag', 'Taxonomy Singular Name', 'highlight-and-share' ),
+			'menu_name'                  => __( 'Hashtags', 'highlight-and-share' ),
+			'all_items'                  => __( 'All Hashtags', 'highlight-and-share' ),
+			'parent_item'                => __( 'Parent Hashtag', 'highlight-and-share' ),
+			'parent_item_colon'          => __( 'Hashtag:', 'highlight-and-share' ),
+			'new_item_name'              => __( 'New Hashtag', 'highlight-and-share' ),
+			'add_new_item'               => __( 'Add New Hashtag', 'highlight-and-share' ),
+			'edit_item'                  => __( 'Edit Hashtag', 'highlight-and-share' ),
+			'update_item'                => __( 'Update Hashtag', 'highlight-and-share' ),
+			'view_item'                  => __( 'View Hashtag', 'highlight-and-share' ),
+			'separate_items_with_commas' => __( 'Separate hash tags with commas', 'highlight-and-share' ),
+			'add_or_remove_items'        => __( 'Add or remove hash tags', 'highlight-and-share' ),
+			'choose_from_most_used'      => __( 'Choose from the most used', 'highlight-and-share' ),
+			'popular_items'              => __( 'Popular Hashtags', 'highlight-and-share' ),
+			'search_items'               => __( 'Search Hashtags', 'highlight-and-share' ),
+			'not_found'                  => __( 'Not Found', 'highlight-and-share' ),
+			'no_terms'                   => __( 'No items', 'highlight-and-share' ),
+			'items_list'                 => __( 'Items list', 'highlight-and-share' ),
+			'items_list_navigation'      => __( 'Items list navigation', 'highlight-and-share' ),
+		);
+		$args   = array(
+			'labels'            => $labels,
+			'hierarchical'      => false,
+			'public'            => true,
+			'show_ui'           => true,
+			'show_admin_column' => false,
+			'show_in_nav_menus' => false,
+			'show_tagcloud'     => false,
+			'rewrite'           => false,
+			'show_in_rest'      => true,
+			'show_in_menu'      => false,
+		);
+
+		if ( ! $settings['enable_hashtags'] ) {
+			return false;
+		}
+
+		/**
+		 * Allow others to modify the taxonomy args for hashtags.
+		 */
+		$args = apply_filters( 'has_hashtags_taxonomy_args', $args );
+
+		/**
+		 * Allow others to programmatically add or substract post types that hashtags are enabled for.
+		 */
+		$supported_post_types = apply_filters(
+			'has_hashtags_post_types',
+			array(
+				'post',
+				'page',
+			)
+		);
+
+		/**
+		 * Allow others to turn off hashtags.
+		 */
+		if ( apply_filters( 'has_show_hashtags_taxonomy', true ) ) {
+			register_taxonomy( 'hashtags', $supported_post_types, $args );
+		}
+
 	}
 
 	/**
@@ -604,7 +667,7 @@ class Highlight_And_Share {
 		$show_copy     = (bool) apply_filters( 'has_show_copy', $settings['show_email'] );
 		$show_reddit   = (bool) apply_filters( 'has_show_reddit', isset( $settings['show_reddit'] ) ? $settings['show_reddit'] : false );
 		$show_telegram = (bool) apply_filters( 'has_show_telegram', isset( $settings['show_telegram'] ) ? $settings['show_telegram'] : false );
-		$show_signal   = false; // (bool) apply_filters( 'has_show_signal', isset( $settings['show_signal'] ) ? $settings['show_signal'] : false );
+		$show_signal   = false;
 		if ( ! $show_facebook && ! $show_twitter && ! $show_linkedin && ! $show_ok && ! $show_email && ! $show_copy && ! $show_reddit && ! $show_telegram && ! $show_signal ) {
 			return;
 		}
@@ -645,12 +708,12 @@ class Highlight_And_Share {
 		$inline_share   = '<div class="highlight-and-share-wrapper-inline highlight-and-share-wrapper">';
 		if ( $settings['show_twitter'] && '' !== $settings['twitter'] ) {
 			if ( ! $settings['icons'] ) {
-				$string          = '<div class="has_twitter" style="display: none;" data-type="twitter"><a href="https://twitter.com/intent/tweet?via=%username%&url=%url%&text=%prefix%%text%%suffix%" target="_blank"><svg class="has-icon"><use xlink:href="#has-twitter-icon"></use></svg>&nbsp;' . esc_html( apply_filters( 'has_twitter_text', _x( 'Tweet', 'Twitter share text', 'highlight-and-share' ) ) ) . '</a></div>';
+				$string          = '<div class="has_twitter" style="display: none;" data-type="twitter"><a href="https://twitter.com/intent/tweet?via=%username%&url=%url%&text=%prefix%%text%%suffix%&hashtags=%hashtags%" target="_blank"><svg class="has-icon"><use xlink:href="#has-twitter-icon"></use></svg>&nbsp;' . esc_html( apply_filters( 'has_twitter_text', _x( 'Tweet', 'Twitter share text', 'highlight-and-share' ) ) ) . '</a></div>';
 				$html           .= $string;
 				$click_to_share .= $string;
 				$inline_share   .= $string;
 			} else {
-				$string          = '<div class="has_twitter" style="display: none;" data-type="twitter"><a href="https://twitter.com/intent/tweet?via=%username%&url=%url%&text=%prefix%%text%%suffix%" target="_blank"><svg class="has-icon"><use xlink:href="#has-twitter-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_twitter_text', _x( 'Tweet', 'Twitter share text', 'highlight-and-share' ) ) ) . '</span></a></div>';
+				$string          = '<div class="has_twitter" style="display: none;" data-type="twitter"><a href="https://twitter.com/intent/tweet?via=%username%&url=%url%&text=%prefix%%text%%suffix%&hashtags=%hashtags%" target="_blank"><svg class="has-icon"><use xlink:href="#has-twitter-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_twitter_text', _x( 'Tweet', 'Twitter share text', 'highlight-and-share' ) ) ) . '</span></a></div>';
 				$html           .= $string;
 				$click_to_share .= $string;
 				$inline_share   .= $string;
@@ -873,6 +936,8 @@ class Highlight_And_Share {
 
 	/**
 	 * Enqueue the HAS admin stylesheet.
+	 *
+	 * @param string $hook The hook for the settings page admin menu.
 	 */
 	public function enqueue_admin_scripts( $hook ) {
 		if ( 'settings_page_highlight-and-share' === $hook ) {
@@ -916,8 +981,40 @@ class Highlight_And_Share {
 		$post_id = $post->ID;
 		$url     = $this->get_content_url( $post_id );
 		$title   = get_the_title( $post_id );
-		$content = sprintf( '<div class="has-content-area" data-url="%s" data-title="%s">%s</div>', esc_url( $url ), esc_attr( $title ), $content );
+		$content = sprintf( '<div class="has-content-area" data-url="%s" data-title="%s" data-hashtags="%s">%s</div>', esc_url( $url ), esc_attr( $title ), esc_attr( $this->get_hashtags( $post_id ) ), $content );
 		return $content;
+	}
+
+	/**
+	 * Retrieve hashtags for a post/page.
+	 *
+	 * @param int $post_id The post ID to retrieve hashtags for.
+	 */
+	public function get_hashtags( $post_id ) {
+		$options = $this->get_plugin_options();
+		if ( ! $options['enable_hashtags'] ) {
+			return '';
+		}
+		$hashtags_raw = wp_get_object_terms( $post_id, 'hashtags' );
+
+		if ( empty( $hashtags_raw ) ) {
+			return '';
+		}
+
+		$hashtags = array();
+		foreach ( $hashtags_raw as $hashtag_term ) {
+			// Strip out pound sign in case it was entered accidentally.
+			$hashtag = str_replace( '#', '', $hashtag_term->name );
+
+			// Check for white-space.
+			$hashtag = preg_replace( '/\s+/', '', $hashtag );
+			$hashtag = sanitize_text_field( $hashtag );
+
+			// Populate hashtags.
+			$hashtags[] = $hashtag;
+		}
+
+		return implode( ',', $hashtags );
 	}
 
 	/**
@@ -948,7 +1045,7 @@ class Highlight_And_Share {
 		$post_id = $post->ID;
 		$url     = $this->get_content_url( $post_id );
 		$title   = get_the_title( $post_id );
-		$content = sprintf( '<div class="has-excerpt-area" data-url="%s" data-title="%s">%s</div>', esc_url( $url ), esc_attr( $title ), $content );
+		$content = sprintf( '<div class="has-excerpt-area" data-url="%s" data-title="%s" data-hashtags="%s">%s</div>', esc_url( $url ), esc_attr( $title ), esc_attr( $this->get_hashtags( $post_id ) ), $content );
 		return $content;
 	}
 
@@ -1421,11 +1518,11 @@ class Highlight_And_Share {
 		<div class="wrap">
 			<div class="has-form-wrapper">
 				<div class="has-logo-wrapper">
-					<h2 id="has-logo" style="display: flex; align-items: center;"><img style="width: 700px; height: 76px; margin-right: 20px;" src="<?php echo esc_url( $this->get_plugin_url( '/img/plugin-logo-horizontal.png' ) ); ?>" alt="Higlight and Share" /></h2>
+					<h2 id="has-logo" style="display: flex; align-items: center;"><img style="width: 700px; height: 91px; margin-right: 20px;" src="<?php echo esc_url( $this->get_plugin_url( '/img/plugin-logo-horizontal.png' ) ); ?>" alt="Higlight and Share" /></h2>
 					<ul>
-						<li><a href="https://mediaron.com/highlight-and-share/"><?php esc_html_e( 'Docs', 'highlight-and-share' ); ?></a></li>
-						<li><a href="https://github.com/sponsors/MediaRon"><?php esc_html_e( 'Sponsor', 'highlight-and-share' ); ?></a></li>
-						<li><a href="https://wordpress.org/support/plugin/highlight-and-share/reviews/"><?php esc_html_e( 'Rate Us', 'highlight-and-share' ); ?></a></li>
+						<li><a href="https://mediaron.com/highlight-and-share/"><i class="dashicons dashicons-media-document"></i> <?php esc_html_e( 'Docs', 'highlight-and-share' ); ?></a></li>
+						<li><a href="https://github.com/sponsors/MediaRon"><i class="dashicons dashicons-groups"></i> <?php esc_html_e( 'Sponsor', 'highlight-and-share' ); ?></a></li>
+						<li><a href="https://wordpress.org/support/plugin/highlight-and-share/reviews/"><i class="dashicons dashicons-star-filled"></i> <?php esc_html_e( 'Rate Us', 'highlight-and-share' ); ?></a></li>
 					</ul>
 				</div>
 				<hr />
@@ -1434,11 +1531,12 @@ class Highlight_And_Share {
 					<?php do_settings_sections( 'highlight-and-share' ); ?>
 					<?php submit_button(); ?>
 				</form>
+				<hr />
 				<div class="has-logo-wrapper">
 					<ul>
-						<li><a href="https://mediaron.com/highlight-and-share/"><?php esc_html_e( 'Docs', 'highlight-and-share' ); ?></a></li>
-						<li><a href="https://github.com/sponsors/MediaRon"><?php esc_html_e( 'Sponsor', 'highlight-and-share' ); ?></a></li>
-						<li><a href="https://wordpress.org/support/plugin/highlight-and-share/reviews/"><?php esc_html_e( 'Rate Us', 'highlight-and-share' ); ?></a></li>
+						<li><a href="https://mediaron.com/highlight-and-share/"><i class="dashicons dashicons-media-document"></i> <?php esc_html_e( 'Docs', 'highlight-and-share' ); ?></a></li>
+						<li><a href="https://github.com/sponsors/MediaRon"><i class="dashicons dashicons-groups"></i> <?php esc_html_e( 'Sponsor', 'highlight-and-share' ); ?></a></li>
+						<li><a href="https://wordpress.org/support/plugin/highlight-and-share/reviews/"><i class="dashicons dashicons-star-filled"></i> <?php esc_html_e( 'Rate Us', 'highlight-and-share' ); ?></a></li>
 					</ul>
 				</div>
 			</div>
@@ -1730,6 +1828,18 @@ class Highlight_And_Share {
 		);
 
 		add_settings_field(
+			'hightlight-and-share-twitter-hashtags',
+			__( 'Twitter Hashtags', 'highlight-and-share' ),
+			array( $this, 'add_settings_field_twitter_hashtags' ),
+			'highlight-and-share',
+			'has-twitter',
+			array(
+				'label_for' => 'hightlight-and-share-twitter-hashtags',
+				'desc'      => __( 'Enable Twitter Hashtags', 'highlight-and-share' ),
+			)
+		);
+
+		add_settings_field(
 			'hightlight-and-share-facebook-enable',
 			__( 'Show Facebook Option', 'highlight-and-share' ),
 			array( $this, 'add_settings_field_facebook_enable' ),
@@ -1877,6 +1987,7 @@ class Highlight_And_Share {
 				case 'show_signal':
 				case 'show_reddit':
 				case 'show_copy':
+				case 'enable_hashtags':
 					if ( 'on' === $input[ $key ] ) {
 						$output[ $key ] = true;
 					} else {
@@ -2261,6 +2372,25 @@ class Highlight_And_Share {
 	}
 
 	/**
+	 * Add Twitter hashtags option for sharing.
+	 *
+	 * Output checkbox for displaying Twitter hashtags.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 *
+	 * @see init_admin_settings
+	 *
+	 * @param array $args Array of arguments.
+	 */
+	public function add_settings_field_twitter_hashtags( $args = array() ) {
+		$settings        = $this->get_plugin_options();
+		$enable_hashtags = isset( $settings['enable_hashtags'] ) ? (bool) $settings['enable_hashtags'] : true;
+		echo '<input name="highlight-and-share[enable_hashtags]" value="off" type="hidden" />';
+		printf( '<input id="has-enable-twitter-hashtags" type="checkbox" name="highlight-and-share[enable_hashtags]" value="on" %s />&nbsp;<label for="has-enable-twitter-hashtags">%s</label>', checked( true, $enable_hashtags, false ), esc_html__( 'Enable Twitter Hashtags', 'highlight-and-share' ) );
+	}
+
+	/**
 	 * Add Facebook option for an Application ID.
 	 *
 	 * Add Facebook option for an Application ID.
@@ -2357,6 +2487,10 @@ class Highlight_And_Share {
 		$enable_shortlinks = isset( $settings['shortlinks'] ) ? (bool) $settings['shortlinks'] : false;
 		echo '<input name="highlight-and-share[shortlinks]" value="off" type="hidden" />';
 		printf( '<input id="has-shortlinks" type="checkbox" name="highlight-and-share[shortlinks]" value="on" %s />&nbsp;<label for="has-shortlinks">%s</label>', checked( true, $enable_shortlinks, false ), esc_html__( 'Enable Shortlinks?', 'highlight-and-share' ) );
+		echo sprintf(
+			'<p class="description">%s</p>',
+			esc_html__( 'You must have a third-party shortlink plugin enabled. Jetpack is the recommended and easiest solution to install.', 'highlight-and-share' )
+		);
 	}
 
 	/**
@@ -2379,28 +2513,29 @@ class Highlight_And_Share {
 		}
 
 		$defaults = array(
-			'js_content'     => '',
-			'twitter'        => '',
-			'show_twitter'   => true,
-			'show_facebook'  => true,
-			'show_linkedin'  => false,
-			'show_ok'        => false,
-			'show_vk'        => false,
-			'show_email'     => false,
-			'show_copy'      => false,
-			'show_whatsapp'  => false,
-			'show_xing'      => false,
-			'enable_mobile'  => true,
-			'show_reddit'    => false,
-			'show_telegram'  => false,
-			'show_signal'    => false,
-			'enable_content' => true,
-			'enable_excerpt' => true,
-			'shortlinks'     => false,
-			'icons'          => false,
-			'theme'          => 'default',
-			'sharing_prefix' => '',
-			'sharing_suffix' => '',
+			'js_content'      => '',
+			'twitter'         => '',
+			'show_twitter'    => true,
+			'show_facebook'   => true,
+			'show_linkedin'   => false,
+			'show_ok'         => false,
+			'show_vk'         => false,
+			'show_email'      => false,
+			'show_copy'       => false,
+			'show_whatsapp'   => false,
+			'show_xing'       => false,
+			'enable_mobile'   => true,
+			'show_reddit'     => false,
+			'show_telegram'   => false,
+			'show_signal'     => false,
+			'enable_content'  => true,
+			'enable_excerpt'  => true,
+			'enable_hashtags' => true,
+			'shortlinks'      => false,
+			'icons'           => false,
+			'theme'           => 'default',
+			'sharing_prefix'  => '',
+			'sharing_suffix'  => '',
 		);
 
 		if ( false === $settings || ! is_array( $settings ) ) {
