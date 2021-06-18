@@ -5,7 +5,7 @@ Plugin Name: Highlight and Share
 Plugin URI: https://mediaron.com/highlight-and-share
 Description: Allows you to highlight text and enable social sharing to share with services including Twitter, Facebook, LinkedIn, Xing, Telegram, Reddit, WhatsApp, email, and others.
 Author: MediaRon LLC
-Version: 3.5.1
+Version: 3.5.5
 Requires at least: 5.1
 Author URI: https://mediaron.com
 Contributors: ronalfy
@@ -68,7 +68,7 @@ class Highlight_And_Share {
 
 		add_action( 'wp', array( $this, 'wp_loaded' ), 15 );
 
-		define( 'HIGHLIGHT_AND_SHARE_VERSION', '3.5.1' );
+		define( 'HIGHLIGHT_AND_SHARE_VERSION', '3.5.5' );
 
 		// Get errors for email.
 		$this->errors['could_not_send'] = esc_html__( 'Could not send the e-mail', 'highlight-and-share' );

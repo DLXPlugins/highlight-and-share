@@ -3,7 +3,7 @@ Contributors: ronalfy
 Tags: highlight, social sharing, click to tweet, sharing, highlight text
 Requires at least: 5.1
 Tested up to: 5.7
-Stable tag: 3.5.1
+Stable tag: 3.5.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://github.com/sponsors/MediaRon
@@ -89,6 +89,11 @@ So far, the latest versions of Chrome, Firefox, and Safari. Works for IE9+
 6. Circular Glass Theme.
 
 == Changelog ==
+
+= 3.5.5 =
+* Released 2021-06-18
+* Added Hashtag support for Twitter.
+* See https://mediaron.com/highlight-and-share-now-supports-hashtags/ for more details.
 
 = 3.5.1 =
 * Released 2021-05-30
@@ -330,6 +335,9 @@ So far, the latest versions of Chrome, Firefox, and Safari. Works for IE9+
 * Initial release on WordPress.org
 
 == Upgrade Notice ==
+
+= 3.5.5 =
+New Twitter hashtag support. Add hashtags like you would do tags on a post or page using the new Hashtags item. This only works for posts/pages, but you can add more support programmatically. You can also disable hashtags if desired.
 
 = 3.5.1 =
 Added two new themes: circular, and circular glass. Added two new social networks: Odnoklassniki and VKontakte. Fixed SVG bug on the front-end where it could cause extra space at the bottom of a theme.
