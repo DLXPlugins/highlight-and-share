@@ -391,14 +391,13 @@ jQuery( document ).ready( function( $ ) {
 			var url = div.find( 'a' ).attr( 'href' );
 
 			var username = highlight_and_share.twitter_username;
-			if ( hashtags.length > 0 ) {
-				username = username + "\n\r" + hashtags;
-			}
+			var twitter_hashtags = hashtags;
 
 			url = url.replace( '%url%', encodeURIComponent( link ) );
 			url = url.replace( '%username%', encodeURIComponent( username ) );
 			url = url.replace( '%title%', encodeURIComponent( title ) );			
 			url = url.replace( '%text%', encodeURIComponent( text ) );
+			url = url.replace( '%hashtags%', encodeURIComponent( twitter_hashtags ) );
 			var title_attr = div.attr('data-title');
 			if (typeof title_attr !== typeof undefined && title_attr !== false) {
 				// Try parent
