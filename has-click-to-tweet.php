@@ -8,10 +8,10 @@
 /**
  * Registers the `core/latest-posts` block on server.
  */
-function has_register_block_attributes() {
+function has_register_click_to_tweet_block_attributes() {
 
 	register_block_type(
-		'has/click-to-share',
+		'has/click-to-tweet',
 		array(
 			'attributes'      => array(
 				'shareText'          => array(
@@ -83,7 +83,7 @@ function has_register_block_attributes() {
 					'default' => 0,
 				),
 			),
-			'render_callback' => 'has_click_to_share',
+			'render_callback' => 'has_click_to_tweet',
 			'editor_script'   => 'has-click-to-share',
 			'editor_style'    => 'has-style-admin-css',
 		)
@@ -95,7 +95,7 @@ function has_register_block_attributes() {
  *
  * @param array $attributes Array of attributes for the Gutenberg block.
  */
-function has_click_to_share( $attributes ) {
+function has_click_to_tweet( $attributes ) {
 	ob_start();
 	global $post;
 	?>
@@ -115,74 +115,4 @@ function has_click_to_share( $attributes ) {
 	return ob_get_clean();
 }
 
-/**
- * Enqueue assets for the front-end.
- */
-function has_blocks_frontend_assets() {
-	if ( is_singular() || is_page() ) {
-		wp_enqueue_style(
-			'has-style-frontend-css',
-			Highlight_And_Share::get_instance()->get_plugin_url( 'dist/has-cts-style.css' ),
-			array(),
-			HIGHLIGHT_AND_SHARE_VERSION,
-			'all'
-		);
-	}
-}
-
-/**
- * Enqueue assets for backend editor
- *
- * @since 1.0.0
- */
-function has_blocks_editor_assets() {
-
-	wp_register_style(
-		'has-style-admin-css',
-		Highlight_And_Share::get_instance()->get_plugin_url( 'dist/has-cts-editor.css' ),
-		array(),
-		HIGHLIGHT_AND_SHARE_VERSION,
-		'all'
-	);
-	wp_register_script(
-		'has-click-to-share',
-		Highlight_And_Share::get_instance()->get_plugin_url( 'dist/has-cts.js' ),
-		array( 'wp-blocks', 'wp-element', 'wp-i18n' ),
-		HIGHLIGHT_AND_SHARE_VERSION,
-		true
-	);
-
-	wp_localize_script(
-		'has-click-to-share',
-		'has_gutenberg',
-		array(
-			'svg' => Highlight_And_Share::get_instance()->get_plugin_url( 'img/share.svg' ),
-		)
-	);
-	wp_set_script_translations( 'has-click-to-share', 'highlight-and-share' );
-	do_action( 'has_enqueue_block_styles_scripts' );
-}
-add_action( 'enqueue_block_editor_assets', 'has_blocks_editor_assets' );
-add_action( 'enqueue_block_assets', 'has_blocks_frontend_assets' );
-
-add_action( 'init', 'has_register_block_attributes' );
-
-/**
- * Add HAS block category
- *
- * @param array   $categories Block Categories.
- * @param WP_Post $post Post object.
- */
-function has_add_block_category( $categories, $post ) {
-	return array_merge(
-		$categories,
-		array(
-			array(
-				'slug'  => 'has',
-				'title' => __( 'Highlight and Share', 'highlight-and-share' ),
-			),
-		)
-	);
-}
-add_filter( 'block_categories', 'has_add_block_category', 10, 2 );
-
+add_action( 'init', 'has_register_click_to_tweet_block_attributes' );

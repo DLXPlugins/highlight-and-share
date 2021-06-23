@@ -8,17 +8,12 @@ const { Component, Fragment } = wp.element;
 
 const { __ } = wp.i18n;
 
-const {
-	PanelBody,
-	RangeControl,
-	SelectControl,
-	TextControl,
-} = wp.components;
+const { PanelBody, RangeControl, SelectControl, TextControl } = wp.components;
 
 const { InspectorControls, RichText, PanelColorSettings } = wp.blockEditor;
 
 // eslint-disable-next-line camelcase
-class HAS_Click_To_Share extends Component {
+class hasClickToTweet extends Component {
 	constructor() {
 		super( ...arguments );
 		this.state = {
@@ -330,4 +325,4 @@ class HAS_Click_To_Share extends Component {
 }
 
 // eslint-disable-next-line camelcase
-export default HAS_Click_To_Share;
+export default hasClickToTweet;
