@@ -1,69 +1,35 @@
-const TerserPlugin = require("terser-webpack-plugin");
-const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const autoprefixer = require( 'autoprefixer' );
-const FixStyleOnlyEntriesPlugin = require("webpack-fix-style-only-entries");
-
-
-// Configuration for the ExtractTextPlugin — DRY rule.
-const extractConfig = {
-	use: [
-		// "postcss" loader applies autoprefixer to our CSS.
-		{ loader: 'raw-loader' },
-		{
-			loader: 'postcss-loader',
-			options: {
-				ident: 'postcss',
-				plugins: [
-					autoprefixer( {
-						browsers: [
-							'>1%',
-							'last 4 versions',
-							'Firefox ESR',
-							'not ie < 9', // React doesn't support IE8 anyway
-						],
-						flexbox: 'no-2009',
-					} ),
-				],
-			},
-		},
-		// "sass" loader converts SCSS to CSS.
-		{
-			loader: 'sass-loader',
-			options: {
-				outputStyle: 'compressed',
-			},
-		},
-	],
-};
+const TerserPlugin = require( 'terser-webpack-plugin' );
+const MiniCssExtractPlugin = require( 'mini-css-extract-plugin' );
+const FixStyleOnlyEntriesPlugin = require( 'webpack-fix-style-only-entries' );
 
 module.exports = [
 	{
 		mode: process.env.NODE_ENV,
 		entry: {
-			"has-cts": ["./src/blocks.js"],
-			"has-cts-editor": "./src/block/editor.scss",
-			"has-cts-style": "./src/block/style.scss",
-			"has-admin-style": "./src/admin.scss",
+			'has-cts': [ './src/blocks.js' ],
+			'has-cts-editor': './src/block/editor.scss',
+			'has-cts-style': './src/block/style.scss',
+			'has-admin-style': './src/admin.scss',
 		},
 		output: {
-			filename: "[name].js",
-			sourceMapFilename: "[name].js.map",
+			filename: '[name].js',
+			sourceMapFilename: '[name].js.map',
 		},
 		module: {
 			rules: [
 				{
 					test: /\.(js|jsx)$/,
 					exclude: /(node_modules|bower_components)/,
-					loader: "babel-loader",
+					loader: 'babel-loader',
 					options: {
-						presets: ["@babel/preset-env", "@babel/preset-react"],
+						presets: [ '@babel/preset-env', '@babel/preset-react' ],
 						plugins: [
-							"@babel/plugin-proposal-class-properties",
-							"@babel/plugin-transform-arrow-functions",
+							'@babel/plugin-proposal-class-properties',
+							'@babel/plugin-transform-arrow-functions',
 						],
 					},
 				},
-				{ 
+				{
 					test: /\.scss$/,
 					exclude: /(node_modules|bower_components)/,
 					use: [
@@ -71,20 +37,20 @@ module.exports = [
 							loader: MiniCssExtractPlugin.loader,
 						},
 						{
-							loader: "css-loader",
+							loader: 'css-loader',
 							options: {
 								sourceMap: true,
 							},
 						},
-						"sass-loader",
+						'sass-loader',
 					],
-				}
+				},
 			],
 		},
 		optimization: {
 			minimize: true,
 			minimizer: [
-				new TerserPlugin({
+				new TerserPlugin( {
 					terserOptions: {
 						ecma: undefined,
 						parse: {},
@@ -99,7 +65,7 @@ module.exports = [
 						keep_fnames: false,
 						safari10: false,
 					},
-				}),
+				} ),
 			],
 		},
 		plugins: [
@@ -107,5 +73,5 @@ module.exports = [
 			new MiniCssExtractPlugin(),
 		],
 	},
-	
+
 ];

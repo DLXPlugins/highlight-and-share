@@ -1638,6 +1638,17 @@ class Highlight_And_Share {
 		);
 
 		add_settings_field(
+			'hightlight-and-share-display-inline',
+			__( 'Inline Highlighting Theme', 'highlight-and-share' ),
+			array( $this, 'add_settings_field_display_inline' ),
+			'highlight-and-share',
+			'has-display',
+			array(
+				'desc' => __( 'Change the theme of inline highlighting', 'highlight-and-share' ),
+			)
+		);
+
+		add_settings_field(
 			'hightlight-and-share-mobile-enable',
 			__( 'Show on Mobile', 'highlight-and-share' ),
 			array( $this, 'add_settings_field_mobile_enable' ),
@@ -2116,6 +2127,51 @@ class Highlight_And_Share {
 		$themes   = $this->get_main_themes();
 		?>
 		<select name="highlight-and-share[theme]">
+			<?php
+			foreach ( $themes as $slug => $label ) :
+				?>
+				<option value="<?php echo esc_attr( $slug ); ?>" <?php selected( $theme, $slug, true ); ?>><?php echo esc_html( $label ); ?></option>
+				<?php
+			endforeach;
+			?>
+		</select>
+		<?php
+		printf( '<div><em></em></div>', esc_html( $args['desc'] ) );
+		?>
+		<h4><?php esc_html_e( 'Preview', 'highlight-and-share' ); ?></h4>
+		<ul class="has-admin-preview">
+			<li><a data-fancybox="has-gallery" data-animation-effect="zoom" data-animation-duration="1000" data-fancybox data-caption="<?php esc_html_e( 'Black theme', 'highlight-and-share' ); ?>" href="<?php echo esc_url( $this->get_plugin_url( '/img/screenshot-black.png' ) ); ?>"><?php esc_html_e( 'Black Theme', 'highlight-and-share' ); ?></a></li>
+			<li><a data-fancybox="has-gallery" data-animation-effect="zoom" data-animation-duration="1000" data-fancybox data-caption="<?php esc_html_e( 'Blue theme', 'highlight-and-share' ); ?>" href="<?php echo esc_url( $this->get_plugin_url( '/img/screenshot-blue.png' ) ); ?>"><?php esc_html_e( 'Blue Theme', 'highlight-and-share' ); ?></a></li>
+			<li><a data-fancybox="has-gallery" data-animation-effect="zoom" data-animation-duration="1000" data-fancybox data-caption="<?php esc_html_e( 'Branded theme', 'highlight-and-share' ); ?>" href="<?php echo esc_url( $this->get_plugin_url( '/img/screenshot-brand.png' ) ); ?>"><?php esc_html_e( 'Branded Theme', 'highlight-and-share' ); ?></a></li>
+			<li><a data-fancybox="has-gallery" data-animation-effect="zoom" data-animation-duration="1000" data-fancybox data-caption="<?php esc_html_e( 'Circular Glass theme', 'highlight-and-share' ); ?>" href="<?php echo esc_url( $this->get_plugin_url( '/img/screenshot-circles-glass.png' ) ); ?>"><?php esc_html_e( 'Circular Glass Theme', 'highlight-and-share' ); ?></a></li>
+			<li><a data-fancybox="has-gallery" data-animation-effect="zoom" data-animation-duration="1000" data-fancybox data-caption="<?php esc_html_e( 'Circular Colors theme', 'highlight-and-share' ); ?>" href="<?php echo esc_url( $this->get_plugin_url( '/img/screenshot-color-circles.png' ) ); ?>"><?php esc_html_e( 'Circular Colors Theme', 'highlight-and-share' ); ?></a></li>
+			<li><a data-fancybox="has-gallery" data-animation-effect="zoom" data-animation-duration="1000" data-fancybox data-caption="<?php esc_html_e( 'Cyan theme', 'highlight-and-share' ); ?>" href="<?php echo esc_url( $this->get_plugin_url( '/img/screenshot-cyan.png' ) ); ?>"><?php esc_html_e( 'Cyan Theme', 'highlight-and-share' ); ?></a></li>
+			<li><a data-fancybox="has-gallery" data-animation-effect="zoom" data-animation-duration="1000" data-fancybox data-caption="<?php esc_html_e( 'Default theme', 'highlight-and-share' ); ?>" href="<?php echo esc_url( $this->get_plugin_url( '/img/screenshot-default.png' ) ); ?>"><?php esc_html_e( 'Default Theme', 'highlight-and-share' ); ?></a></li>
+			<li><a data-fancybox="has-gallery" data-animation-effect="zoom" data-animation-duration="1000" data-fancybox data-caption="<?php esc_html_e( 'Green theme', 'highlight-and-share' ); ?>" href="<?php echo esc_url( $this->get_plugin_url( '/img/screenshot-green.png' ) ); ?>"><?php esc_html_e( 'Green Theme', 'highlight-and-share' ); ?></a></li>
+			<li><a data-fancybox="has-gallery" data-animation-effect="zoom" data-animation-duration="1000" data-fancybox data-caption="<?php esc_html_e( 'Magenta theme', 'highlight-and-share' ); ?>" href="<?php echo esc_url( $this->get_plugin_url( '/img/screenshot-magenta.png' ) ); ?>"><?php esc_html_e( 'Magenta Theme', 'highlight-and-share' ); ?></a></li>
+			<li><a data-fancybox="has-gallery" data-animation-effect="zoom" data-animation-duration="1000" data-fancybox data-caption="<?php esc_html_e( 'Purple theme', 'highlight-and-share' ); ?>" href="<?php echo esc_url( $this->get_plugin_url( '/img/screenshot-purple.png' ) ); ?>"><?php esc_html_e( 'Purple Theme', 'highlight-and-share' ); ?></a></li>
+			<li><a data-fancybox="has-gallery" data-animation-effect="zoom" data-animation-duration="1000" data-fancybox data-caption="<?php esc_html_e( 'White theme', 'highlight-and-share' ); ?>" href="<?php echo esc_url( $this->get_plugin_url( '/img/screenshot-white.png' ) ); ?>"><?php esc_html_e( 'White Theme', 'highlight-and-share' ); ?></a></li>
+		<?php
+	}
+
+	/**
+	 * Option for displaying a inline theme
+	 *
+	 * Option for displaying a inline theme
+	 *
+	 * @since 2.3.0
+	 * @access public
+	 *
+	 * @see init_admin_settings
+	 *
+	 * @param array $args Array of arguments.
+	 */
+	public function add_settings_field_display_inline( $args = array() ) {
+		$settings = $this->get_plugin_options();
+		$theme    = isset( $settings['theme_inline'] ) ? $settings['theme_inline'] : 'default';
+		$themes   = $this->get_main_themes();
+		?>
+		<select name="highlight-and-share[theme_inline]">
 			<?php
 			foreach ( $themes as $slug => $label ) :
 				?>
