@@ -22,7 +22,6 @@ class HAS_Click_To_Share extends Component {
 	constructor() {
 		super( ...arguments );
 		this.state = {
-			shareText: __( 'Click to Share', 'highlight-and-share' ),
 			borderRadius: this.props.attributes.borderRadius,
 		};
 	}

@@ -157,6 +157,12 @@ function has_blocks_editor_assets() {
 		'has_gutenberg',
 		array(
 			'svg' => Highlight_And_Share::get_instance()->get_plugin_url( 'img/share.svg' ),
+			'templates' => array(
+				'light' => esc_html__( 'Light', 'highlight-and-share' ),
+				'dark' => esc_html__( 'Dark', 'highlight-and-share' ),
+				'purple' => esc_html__( 'Purple', 'highlight-and-share' ),
+				'pink' => esc_html__( 'Pink', 'highlight-and-share' ),
+			)
 		)
 	);
 	wp_set_script_translations( 'has-click-to-share', 'highlight-and-share' );

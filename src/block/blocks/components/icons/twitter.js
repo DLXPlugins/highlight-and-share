@@ -1,4 +1,4 @@
-const hasTwitterIcon = ( props ) => {
+const TwitterIcon = ( props ) => {
 	return (
 		<svg
 			aria-hidden="true"
@@ -17,4 +17,4 @@ const hasTwitterIcon = ( props ) => {
 	);
 };
 
-export default hasTwitterIcon;
+export default TwitterIcon;

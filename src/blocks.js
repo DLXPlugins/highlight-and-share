@@ -8,8 +8,8 @@
  * All blocks should be included here since this is the file that
  * Webpack is compiling as the input file.
  */
-import './block/style.scss';
-import './block/editor.scss';
+import './block/blocks/scss/style.scss';
+import './block/blocks/scss/editor.scss';
 import './block/blocks/click-to-share/block';
 import './block/blocks/click-to-tweet/block';
 import hasIcon from './has-icon';

@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /**
  * BLOCK: Basic with ESNext
  *
@@ -16,7 +17,7 @@ import edit from './edit';
 
 export const name = 'has/click-to-tweet';
 
-import hasTwitterIcon from './has-twitter-icon';
+import TwitterIcon from '../components/icons/twitter';
 
 /**
  * Register Basic Block.
@@ -31,34 +32,10 @@ import hasTwitterIcon from './has-twitter-icon';
  *                             registered; otherwise `undefined`.
  */
 registerBlockType( 'has/click-to-tweet', { // Block name. Block names must be string that contains a namespace prefix. Example: my-plugin/my-custom-block.
-	title: __( 'Highlight and Share: Click to Tweet', 'highlight-and-share' ), // Block title.
-	icon: hasTwitterIcon,
+	title: __( 'Click to Tweet', 'highlight-and-share' ), // Block title.
+	icon: <TwitterIcon width="24" height="24" />,
 	category: 'has', // Block category — Group blocks together based on common traits E.g. common, formatting, layout widgets, embed.
-	description: __(
-		'Add Click to Tweet functionality.',
-		'highlight-and-share'
-	),
-	keywords: [
-		__( 'highlight', 'highlight-and-share' ),
-		__( 'share', 'poost-type-archive-mapping' ),
-		__( 'click', 'highlight-and-share' ),
-		__( 'tweet', 'highlight-and-share' ),
-		__( 'social', 'highlight-and-share' ),
-		__( 'twitter', 'highlight-and-share' ),
-
-	],
-	supports: {
-		anchor: true,
-		html: false,
-	},
-	example: {
-		attributes: {
-			preview: true,
-		},
-	},
 	edit,
-
-	// Render via PHP
 	save() {
 		return null;
 	},

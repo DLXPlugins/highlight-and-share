@@ -93,6 +93,7 @@ class Highlight_And_Share {
 		// Gutenberg block.
 		if ( function_exists( 'register_block_type' ) ) {
 			include 'has-click-to-share.php';
+			include 'has-click-to-tweet.php';
 		}
 	}
 

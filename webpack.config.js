@@ -7,8 +7,8 @@ module.exports = [
 		mode: process.env.NODE_ENV,
 		entry: {
 			'has-cts': [ './src/blocks.js' ],
-			'has-cts-editor': './src/block/editor.scss',
-			'has-cts-style': './src/block/style.scss',
+			'has-cts-editor': './src/block/blocks/scss/editor.scss',
+			'has-cts-style': './src/block/blocks/scss/style.scss',
 			'has-admin-style': './src/admin.scss',
 		},
 		output: {
