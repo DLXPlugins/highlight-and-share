@@ -8,7 +8,7 @@ const { useEffect, useState } = wp.element;
 
 const { __ } = wp.i18n;
 
-const { PanelBody, Toolbar, ToolbarDropdownMenu, ToolbarGroup } = wp.components;
+const { PanelBody, Toolbar, ToolbarGroup, ToolbarButton, Popover } = wp.components;
 
 const { InspectorControls, RichText, BlockControls, useBlockProps } = wp.blockEditor;
 
@@ -18,10 +18,14 @@ import CircleLight from '../components/icons/circle-light';
 import CirclePink from '../components/icons/circle-pink';
 import CirclePurple from '../components/icons/circle-purple';
 import CircleBlue from '../components/icons/circle-blue';
-
+import EditIcon from '../components/icons/edit';
 import PaintbrushIcon from '../components/icons/paintbrush';
+import SettingsIcon from '../components/icons/settings';
 
 const HasClickToTweet = ( props ) => {
+	// State.
+	const [editTweetPopoverVisible, setEditTweetPopoverVisible] = useState( false );
+
 	// Shortcuts.
 	const { attributes, setAttributes } = props;
 
@@ -44,6 +48,20 @@ const HasClickToTweet = ( props ) => {
 			} );
 		}
 	}, [] );
+
+	const toggleEditTweetVisibility = () => {
+        setEditTweetPopoverVisible( ! editTweetPopoverVisible );
+    };
+
+	const editTweetPopover = () => {
+		return (
+			<Popover position="top" noArrow={ false } onFocusOutside={ () => {
+				setEditTweetPopoverVisible( false );
+			}}>
+				<h2>blah</h2>
+			</Popover>
+		);
+	};
 
 	const hexCodes = {
 		light: '#BFBFBF',
@@ -70,74 +88,94 @@ const HasClickToTweet = ( props ) => {
 				{ inspectorControls }
 			</InspectorControls>
 			<BlockControls>
-				<ToolbarGroup
-					icon={ <PaintbrushIcon width="24" height="24" fill={ hexCodes[ template ] } /> }
-					label={ __( 'Select a Theme', 'highlight-and-share' ) }
-					isCollapsed={ true }
-					popoverProps={ { className: `has-click-to-tweet-popover ${template}` } }
-					controls={ [
-						{
-							title: __( 'Blue Theme', 'highlight-and-share' ),
-							isActive: template === 'blue',
-							icon: <CircleBlue width="16" height="16" className={ template === 'blue' ? 'has selected' : '' } />,
-							onClick: () => {
-								setAttributes( {
-									template: 'blue',
-								} );
+				<>
+					<ToolbarGroup
+						icon={ <PaintbrushIcon width="24" height="24" fill={ hexCodes[ template ] } /> }
+						label={ __( 'Select a Theme', 'highlight-and-share' ) }
+						isCollapsed={ true }
+						popoverProps={ { className: `has-click-to-tweet-popover ${ template }` } }
+						controls={ [
+							{
+								title: __( 'Blue Theme', 'highlight-and-share' ),
+								isActive: template === 'blue',
+								icon: <CircleBlue width="16" height="16" className={ template === 'blue' ? 'has selected' : '' } />,
+								onClick: () => {
+									setAttributes( {
+										template: 'blue',
+									} );
+								},
 							},
-						},
-						{
-							title: __( 'Dark Theme', 'highlight-and-share' ),
-							isActive: template === 'dark',
-							icon: <CircleDark width="16" height="16" className={ template === 'dark' ? 'has selected' : '' } />,
-							onClick: () => {
-								setAttributes( {
-									template: 'dark',
-								} );
+							{
+								title: __( 'Dark Theme', 'highlight-and-share' ),
+								isActive: template === 'dark',
+								icon: <CircleDark width="16" height="16" className={ template === 'dark' ? 'has selected' : '' } />,
+								onClick: () => {
+									setAttributes( {
+										template: 'dark',
+									} );
+								},
 							},
-						},
-						{
-							title: __( 'Light Theme', 'highlight-and-share' ),
-							isActive: template === 'light',
-							icon: <CircleLight width="16" height="16" className={ template === 'light' ? 'has selected' : '' } />,
-							onClick: () => {
-								setAttributes( {
-									template: 'light',
-								} );
+							{
+								title: __( 'Light Theme', 'highlight-and-share' ),
+								isActive: template === 'light',
+								icon: <CircleLight width="16" height="16" className={ template === 'light' ? 'has selected' : '' } />,
+								onClick: () => {
+									setAttributes( {
+										template: 'light',
+									} );
+								},
 							},
-						},
-						{
-							title: __( 'Pink Theme', 'highlight-and-share' ),
-							isActive: template === 'pink',
-							icon: <CirclePink width="16" height="16" className={ template === 'pink' ? 'has selected' : '' } />,
-							onClick: () => {
-								setAttributes( {
-									template: 'pink',
-								} );
+							{
+								title: __( 'Pink Theme', 'highlight-and-share' ),
+								isActive: template === 'pink',
+								icon: <CirclePink width="16" height="16" className={ template === 'pink' ? 'has selected' : '' } />,
+								onClick: () => {
+									setAttributes( {
+										template: 'pink',
+									} );
+								},
 							},
-						},
-						{
-							title: __( 'Purple Theme', 'highlight-and-share' ),
-							isActive: template === 'purple',
-							icon: <CirclePurple width="16" height="16" className={ template === 'purple' ? 'has selected' : '' } />,
-							onClick: () => {
-								setAttributes( {
-									template: 'purple',
-								} );
+							{
+								title: __( 'Purple Theme', 'highlight-and-share' ),
+								isActive: template === 'purple',
+								icon: <CirclePurple width="16" height="16" className={ template === 'purple' ? 'has selected' : '' } />,
+								onClick: () => {
+									setAttributes( {
+										template: 'purple',
+									} );
+								},
 							},
-						},
-						{
-							title: __( 'Red Theme', 'highlight-and-share' ),
-							isActive: template === 'red',
-							icon: <CircleRed width="16" height="16" className={ template === 'red' ? 'has selected' : '' } />,
-							onClick: () => {
-								setAttributes( {
-									template: 'red',
-								} );
+							{
+								title: __( 'Red Theme', 'highlight-and-share' ),
+								isActive: template === 'red',
+								icon: <CircleRed width="16" height="16" className={ template === 'red' ? 'has selected' : '' } />,
+								onClick: () => {
+									setAttributes( {
+										template: 'red',
+									} );
+								},
 							},
-						},
-					] }
-				/>
+						] }
+					/>
+					<ToolbarGroup
+						icon={ <SettingsIcon width="24" height="24" /> }
+						label={ __( 'Tweet Settings', 'highlight-and-share' ) }
+						isCollapsed={ true }
+						controls={ [
+							{
+								icon: <EditIcon width="16" height="16" />,
+								title:__( 'Edit Tweet', 'highlight-and-share' ),
+								isActive: editTweetPopoverVisible === true,
+								onClick: () => {
+									toggleEditTweetVisibility();
+								},
+							},
+						] }
+					/>
+					{ editTweetPopoverVisible && (
+						editTweetPopover()
+					) }
+				</>
 			</BlockControls>
 			<div className={ classnames( 'has-click-to-share' ) }>
 				<div className="has-click-to-tweet-wrapper">
@@ -154,6 +192,7 @@ const HasClickToTweet = ( props ) => {
 					/>
 				</div>
 			</div>
+			
 		</>
 	);
 };
