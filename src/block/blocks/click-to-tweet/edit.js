@@ -4,6 +4,7 @@
  */
 
 import classnames from 'classnames';
+import twttr from '../validation/twitter';
 
 const { useEffect, useState } = wp.element;
 
@@ -18,6 +19,7 @@ const {
 	TextareaControl,
 	Button,
 	TabPanel,
+	FormTokenField,
 } = wp.components;
 
 const { InspectorControls, RichText, BlockControls } = wp.blockEditor;
@@ -43,6 +45,7 @@ const HasClickToTweet = ( props ) => {
 		show_copy,
 		show_permalink,
 		template,
+		hashtags,
 		button_style,
 		share_text,
 		share_text_override,
@@ -331,6 +334,24 @@ const HasClickToTweet = ( props ) => {
 												setAttributes( {
 													share_text_override: value,
 												} );
+											} }
+										/>
+										<FormTokenField 
+											value={ hashtags }
+											placeholder={ __( 'Enter hashtags separated by commas.', 'highlight-and-share' ) }
+											tokenizeOnSpace={ true }
+											label={ __( 'Hashtags', 'highlight-and-share' ) }
+											onChange={ ( tokens ) => {
+												const filteredTokens = [];
+												tokens.forEach(function (item, index) {
+													const replacement = item.replace( '\#', '' ); // Strip hashtag symbol.
+													const hashtag = twttr.txt.extractHashtags( '#' + replacement ); // Add it back in for extraction.
+													// Check if array contains anything.
+													if ( typeof hashtag[0] !== 'undefined' ) {
+														filteredTokens.push( hashtag[0] );
+													}
+												  });
+												setAttributes( { hashtags: filteredTokens } )
 											} }
 										/>
 									</>
