@@ -1,3 +1,4 @@
+/* eslint-disable camelcase */
 /**
  * External dependencies
  */
@@ -8,9 +9,18 @@ const { useEffect, useState } = wp.element;
 
 const { __ } = wp.i18n;
 
-const { PanelBody, Toolbar, ToolbarGroup, ToolbarButton, Popover } = wp.components;
+const {
+	PanelBody,
+	PanelRow,
+	ToolbarGroup,
+	Popover,
+	ToggleControl,
+	TextareaControl,
+	Button,
+	TabPanel,
+} = wp.components;
 
-const { InspectorControls, RichText, BlockControls, useBlockProps } = wp.blockEditor;
+const { InspectorControls, RichText, BlockControls } = wp.blockEditor;
 
 import CircleRed from '../components/icons/circle-red';
 import CircleDark from '../components/icons/circle-dark';
@@ -18,13 +28,12 @@ import CircleLight from '../components/icons/circle-light';
 import CirclePink from '../components/icons/circle-pink';
 import CirclePurple from '../components/icons/circle-purple';
 import CircleBlue from '../components/icons/circle-blue';
-import EditIcon from '../components/icons/edit';
 import PaintbrushIcon from '../components/icons/paintbrush';
-import SettingsIcon from '../components/icons/settings';
+import TwitterIcon from '../components/icons/twitter';
 
 const HasClickToTweet = ( props ) => {
 	// State.
-	const [editTweetPopoverVisible, setEditTweetPopoverVisible] = useState( false );
+	const [ editTweetPopoverVisible, setEditTweetPopoverVisible ] = useState( false );
 
 	// Shortcuts.
 	const { attributes, setAttributes } = props;
@@ -37,6 +46,7 @@ const HasClickToTweet = ( props ) => {
 		button_style,
 		share_text,
 		share_text_override,
+		share_text_override_enabled,
 	} = attributes;
 
 	useEffect( () => {
@@ -50,16 +60,53 @@ const HasClickToTweet = ( props ) => {
 	}, [] );
 
 	const toggleEditTweetVisibility = () => {
-        setEditTweetPopoverVisible( ! editTweetPopoverVisible );
-    };
+		setEditTweetPopoverVisible( ! editTweetPopoverVisible );
+	};
 
 	const editTweetPopover = () => {
+		if ( editTweetPopoverVisible ) {
+			return (
+				<Popover
+					position="left"
+					noArrow={ false }
+					className="has-tweet-popover"
+					expandOnMobile={ true }
+				>
+					<TextareaControl
+						help={ __(
+							'If your share text is too long, you can enter your Tweet content here.',
+							'highlight-and-share'
+						) }
+						value={ share_text_override }
+						onChange={ ( value ) => {
+							setAttributes( {
+								share_text_override: value,
+							} );
+						} }
+					/>
+				</Popover>
+			);
+		}
+	};
+
+	const editTweetButton = () => {
 		return (
-			<Popover position="top" noArrow={ false } onFocusOutside={ () => {
-				setEditTweetPopoverVisible( false );
-			}}>
-				<h2>blah</h2>
-			</Popover>
+			<PanelRow>
+				<Button
+					className="is-secondary"
+					isPressed={ editTweetPopoverVisible }
+					showTooltip={ true }
+					label={ __(
+						'Displays a text box so you can customize the tweet.',
+						'highlight-and-share'
+					) }
+					text={ __( 'Edit Tweet Content', 'highlight-and-share' ) }
+					onClick={ () => {
+						toggleEditTweetVisibility();
+					} }
+				/>
+				{ editTweetPopover() }
+			</PanelRow>
 		);
 	};
 
@@ -76,21 +123,40 @@ const HasClickToTweet = ( props ) => {
 		<>
 			<PanelBody
 				initialOpen={ true }
-				title={ __( 'Appearance', 'highlight-and-share' ) }
+				title={ __( 'Tweet Settings', 'highlight-and-share' ) }
 			>
-				<div>test</div>
+				<>
+					<ToggleControl
+						label={ __( 'Override Twitter Content', 'highlight-and-share' ) }
+						checked={ share_text_override_enabled }
+						onChange={ ( value ) => {
+							setAttributes( {
+								share_text_override_enabled: value,
+							} );
+						} }
+						help={ __(
+							'Check this option to override the default sharing text (e.g., the quote is too large for Twitter and you would like to shorten it).',
+							'highlight-and-share'
+						) }
+					/>
+					{ editTweetButton() }
+				</>
 			</PanelBody>
 		</>
 	);
 	return (
 		<>
-			<InspectorControls>
-				{ inspectorControls }
-			</InspectorControls>
+			<InspectorControls>{ inspectorControls }</InspectorControls>
 			<BlockControls>
 				<>
 					<ToolbarGroup
-						icon={ <PaintbrushIcon width="24" height="24" fill={ hexCodes[ template ] } /> }
+						icon={
+							<PaintbrushIcon
+								width="24"
+								height="24"
+								fill={ hexCodes[ template ] }
+							/>
+						}
 						label={ __( 'Select a Theme', 'highlight-and-share' ) }
 						isCollapsed={ true }
 						popoverProps={ { className: `has-click-to-tweet-popover ${ template }` } }
@@ -98,7 +164,13 @@ const HasClickToTweet = ( props ) => {
 							{
 								title: __( 'Blue Theme', 'highlight-and-share' ),
 								isActive: template === 'blue',
-								icon: <CircleBlue width="16" height="16" className={ template === 'blue' ? 'has selected' : '' } />,
+								icon: (
+									<CircleBlue
+										width="16"
+										height="16"
+										className={ template === 'blue' ? 'has selected' : '' }
+									/>
+								),
 								onClick: () => {
 									setAttributes( {
 										template: 'blue',
@@ -108,7 +180,13 @@ const HasClickToTweet = ( props ) => {
 							{
 								title: __( 'Dark Theme', 'highlight-and-share' ),
 								isActive: template === 'dark',
-								icon: <CircleDark width="16" height="16" className={ template === 'dark' ? 'has selected' : '' } />,
+								icon: (
+									<CircleDark
+										width="16"
+										height="16"
+										className={ template === 'dark' ? 'has selected' : '' }
+									/>
+								),
 								onClick: () => {
 									setAttributes( {
 										template: 'dark',
@@ -118,7 +196,13 @@ const HasClickToTweet = ( props ) => {
 							{
 								title: __( 'Light Theme', 'highlight-and-share' ),
 								isActive: template === 'light',
-								icon: <CircleLight width="16" height="16" className={ template === 'light' ? 'has selected' : '' } />,
+								icon: (
+									<CircleLight
+										width="16"
+										height="16"
+										className={ template === 'light' ? 'has selected' : '' }
+									/>
+								),
 								onClick: () => {
 									setAttributes( {
 										template: 'light',
@@ -128,7 +212,13 @@ const HasClickToTweet = ( props ) => {
 							{
 								title: __( 'Pink Theme', 'highlight-and-share' ),
 								isActive: template === 'pink',
-								icon: <CirclePink width="16" height="16" className={ template === 'pink' ? 'has selected' : '' } />,
+								icon: (
+									<CirclePink
+										width="16"
+										height="16"
+										className={ template === 'pink' ? 'has selected' : '' }
+									/>
+								),
 								onClick: () => {
 									setAttributes( {
 										template: 'pink',
@@ -138,7 +228,13 @@ const HasClickToTweet = ( props ) => {
 							{
 								title: __( 'Purple Theme', 'highlight-and-share' ),
 								isActive: template === 'purple',
-								icon: <CirclePurple width="16" height="16" className={ template === 'purple' ? 'has selected' : '' } />,
+								icon: (
+									<CirclePurple
+										width="16"
+										height="16"
+										className={ template === 'purple' ? 'has selected' : '' }
+									/>
+								),
 								onClick: () => {
 									setAttributes( {
 										template: 'purple',
@@ -148,7 +244,13 @@ const HasClickToTweet = ( props ) => {
 							{
 								title: __( 'Red Theme', 'highlight-and-share' ),
 								isActive: template === 'red',
-								icon: <CircleRed width="16" height="16" className={ template === 'red' ? 'has selected' : '' } />,
+								icon: (
+									<CircleRed
+										width="16"
+										height="16"
+										className={ template === 'red' ? 'has selected' : '' }
+									/>
+								),
 								onClick: () => {
 									setAttributes( {
 										template: 'red',
@@ -157,42 +259,88 @@ const HasClickToTweet = ( props ) => {
 							},
 						] }
 					/>
-					<ToolbarGroup
-						icon={ <SettingsIcon width="24" height="24" /> }
-						label={ __( 'Tweet Settings', 'highlight-and-share' ) }
-						isCollapsed={ true }
-						controls={ [
-							{
-								icon: <EditIcon width="16" height="16" />,
-								title:__( 'Edit Tweet', 'highlight-and-share' ),
-								isActive: editTweetPopoverVisible === true,
-								onClick: () => {
-									toggleEditTweetVisibility();
-								},
-							},
-						] }
-					/>
-					{ editTweetPopoverVisible && (
-						editTweetPopover()
-					) }
 				</>
 			</BlockControls>
-			<div className={ classnames( 'has-click-to-share' ) }>
-				<div className="has-click-to-tweet-wrapper">
-					<RichText
-						tagName="div"
-						placeholder={ __( 'Add text to share', 'highlight-and-share' ) }
-						value={ share_text }
-						preserveWhiteSpace={ true }
-						className="has-click-to-tweet-text"
-						allowedFormats={ [ 'core/bold', 'core/italic', 'core/text-color', 'core/subscript', 'core/superscript', 'core/strikethrough', 'core/link' ] }
-						onChange={ ( value ) => {
-							setAttributes( { share_text: value } );
+			<div className={ classnames( 'has-click-to-tweet' ) }>
+				<div className="has-click-to-tweet-tabs">
+					<TabPanel
+						activeClass="active-tab"
+						tabs={ [
+							{
+								title: __( 'Appearance', 'highlight-and-share' ),
+								name: 'appearance',
+								className: 'has-tab-appearance',
+							},
+							{
+								title: __( 'Tweet Settings', 'highlight-and-share' ),
+								name: 'settings',
+								className: 'has-tab-settings',
+							},
+						] }
+					>
+						{ ( tab ) => {
+							let tabContent;
+							if ( 'appearance' === tab.name ) {
+								tabContent = (
+									<div className="has-click-to-tweet-wrapper">
+										<RichText
+											tagName="div"
+											placeholder={ __(
+												'Add text to share',
+												'highlight-and-share'
+											) }
+											value={ share_text }
+											preserveWhiteSpace={ true }
+											className="has-click-to-tweet-text"
+											allowedFormats={ [
+												'core/bold',
+												'core/italic',
+												'core/text-color',
+												'core/subscript',
+												'core/superscript',
+												'core/strikethrough',
+												'core/link',
+											] }
+											onChange={ ( value ) => {
+												setAttributes( { share_text: value } );
+											} }
+										/>
+									</div>
+								);
+							} else if ( 'settings' === tab.name ) {
+								tabContent = (
+									<>
+										<ToggleControl
+											label={ __( 'Customize Twitter Content', 'highlight-and-share' ) }
+											checked={ share_text_override_enabled }
+											onChange={ ( value ) => {
+												setAttributes( {
+													share_text_override_enabled: value,
+												} );
+											} }
+											help={ __(
+												'If your quote is too large for Twitter, you can create custom tweet content here.',
+												'highlight-and-share'
+											) }
+										/>
+										<TextareaControl 
+											label={ __( 'Custom Tweet Content', 'highlight-and-share' ) }
+											help={ __( 'Enter your custom tweet content here if your quote is too long for Twitter' ) }
+											value={ share_text_override }
+											onChange={ ( value ) => {
+												setAttributes( {
+													share_text_override: value,
+												} );
+											} }
+										/>
+									</>
+								);
+							}
+							return <div>{ tabContent }</div>;
 						} }
-					/>
+					</TabPanel>
 				</div>
 			</div>
-			
 		</>
 	);
 };

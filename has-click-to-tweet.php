@@ -14,32 +14,36 @@ function has_register_click_to_tweet_block_attributes() {
 		'has/click-to-tweet',
 		array(
 			'attributes'      => array(
-				'show_copy'           => array(
+				'show_copy'                   => array(
 					'type'    => 'boolean',
 					'default' => true,
 				),
-				'show_permalink'      => array(
+				'show_permalink'              => array(
 					'type'    => 'boolean',
 					'default' => true,
 				),
-				'template'            => array(
+				'template'                    => array(
 					'type'    => 'string',
 					'default' => 'light',
 				),
-				'button_style'        => array(
+				'button_style'                => array(
 					'type'    => 'string',
 					'default' => 'default',
 				),
-				'share_text'          => array(
+				'share_text'                  => array(
 					'type'    => 'string',
 					'default' => '',
 				),
-				'share_text_override' => array(
+				'share_text_override'         => array(
 					'type'    => 'string',
 					'default' => '',
 				),
-				'align' => array(
-					'type' => 'string',
+				'share_text_override_enabled' => array(
+					'type'    => 'boolean',
+					'default' => false,
+				),
+				'align'                       => array(
+					'type'    => 'string',
 					'default' => 'center',
 				),
 			),
