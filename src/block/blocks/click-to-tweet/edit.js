@@ -326,16 +326,18 @@ const HasClickToTweet = ( props ) => {
 												'highlight-and-share'
 											) }
 										/>
-										<TextareaControl 
-											label={ __( 'Custom Tweet Content', 'highlight-and-share' ) }
-											help={ __( 'Enter your custom tweet content here if your quote is too long for Twitter' ) }
-											value={ share_text_override }
-											onChange={ ( value ) => {
-												setAttributes( {
-													share_text_override: value,
-												} );
-											} }
-										/>
+										{ share_text_override_enabled &&
+											<TextareaControl 
+												label={ __( 'Custom Tweet Content', 'highlight-and-share' ) }
+												help={ __( 'Enter your custom tweet content here if your quote is too long for Twitter' ) }
+												value={ share_text_override }
+												onChange={ ( value ) => {
+													setAttributes( {
+														share_text_override: value,
+													} );
+												} }
+											/>
+										}
 										<FormTokenField 
 											value={ hashtags }
 											placeholder={ __( 'Enter hashtags separated by commas.', 'highlight-and-share' ) }
