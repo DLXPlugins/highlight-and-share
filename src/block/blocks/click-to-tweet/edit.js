@@ -16,6 +16,7 @@ const {
 	ToolbarGroup,
 	Popover,
 	ToggleControl,
+	TextControl,
 	TextareaControl,
 	Button,
 	TabPanel,
@@ -46,6 +47,7 @@ const HasClickToTweet = ( props ) => {
 		show_permalink,
 		template,
 		hashtags,
+		twitter_username,
 		button_style,
 		share_text,
 		share_text_override,
@@ -327,7 +329,7 @@ const HasClickToTweet = ( props ) => {
 											) }
 										/>
 										{ share_text_override_enabled &&
-											<TextareaControl 
+											<TextareaControl
 												label={ __( 'Custom Tweet Content', 'highlight-and-share' ) }
 												help={ __( 'Enter your custom tweet content here if your quote is too long for Twitter' ) }
 												value={ share_text_override }
@@ -338,22 +340,42 @@ const HasClickToTweet = ( props ) => {
 												} }
 											/>
 										}
-										<FormTokenField 
+										<FormTokenField
 											value={ hashtags }
 											placeholder={ __( 'Enter hashtags separated by commas.', 'highlight-and-share' ) }
 											tokenizeOnSpace={ true }
 											label={ __( 'Hashtags', 'highlight-and-share' ) }
 											onChange={ ( tokens ) => {
 												const filteredTokens = [];
-												tokens.forEach(function (item, index) {
+												tokens.forEach( function( item, index ) {
 													const replacement = item.replace( '\#', '' ); // Strip hashtag symbol.
 													const hashtag = twttr.txt.extractHashtags( '#' + replacement ); // Add it back in for extraction.
 													// Check if array contains anything.
-													if ( typeof hashtag[0] !== 'undefined' ) {
-														filteredTokens.push( hashtag[0] );
+													if ( typeof hashtag[ 0 ] !== 'undefined' ) {
+														filteredTokens.push( hashtag[ 0 ] );
 													}
-												  });
-												setAttributes( { hashtags: filteredTokens } )
+												} );
+												setAttributes( { hashtags: filteredTokens } );
+											} }
+										/>
+										<TextControl
+											label={ __( 'Tweet Credit (via)', 'highlight-and-share' ) }
+											help={ __( 'Enter the Twitter username you would like to credit. Leave empty for no credit.' ) }
+											value={ twitter_username }
+											onChange={ ( value ) => {
+												const replacement = value.replace( '\@', '' ); // Strip @ symbol.
+												if ( value.length > 0 ) {
+													const usernames = twttr.txt.extractMentions( '@' + replacement );
+													if ( typeof usernames[ 0 ] !== 'undefined' ) {
+														setAttributes( {
+															twitter_username: '@' + usernames[ 0 ],
+														} );
+														return;
+													}
+												}
+												setAttributes( {
+													twitter_username: value,
+												} );
 											} }
 										/>
 									</>
