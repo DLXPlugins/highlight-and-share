@@ -38,6 +38,10 @@ function has_register_click_to_tweet_block_attributes() {
 					'type'    => 'string',
 					'default' => '',
 				),
+				'share_button_text' => array(
+					'type' => 'string',
+					'default' => __( 'Click to Tweet', 'highlight-and-share' ),
+				),
 				'share_text_override_enabled' => array(
 					'type'    => 'boolean',
 					'default' => false,
@@ -53,6 +57,14 @@ function has_register_click_to_tweet_block_attributes() {
 				'twitter_username' => array(
 					'type' => 'string',
 					'default' => '',
+				),
+				'maximum_width' => array(
+					'type' => 'number',
+					'default' => 850,
+				),
+				'maximum_width_unit' => array(
+					'type' => 'string',
+					'default' => 'px',
 				),
 			),
 			'render_callback' => 'has_click_to_tweet',

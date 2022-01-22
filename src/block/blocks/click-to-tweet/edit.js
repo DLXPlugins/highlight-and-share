@@ -5,8 +5,14 @@
 
 import classnames from 'classnames';
 import twttr from '../validation/twitter';
+import IconCircle from '../components/icons/Circle';
+import UnitChooser from '../components/unit-picker';
+import TwitterIcon from '../components/icons/twitter';
+import PaintbrushIcon from '../components/icons/paintbrush';
 
 const { useEffect, useState } = wp.element;
+
+const { createHooks } = wp.hooks;
 
 const { __ } = wp.i18n;
 
@@ -21,18 +27,14 @@ const {
 	Button,
 	TabPanel,
 	FormTokenField,
+	RangeControl,
 } = wp.components;
 
 const { InspectorControls, RichText, BlockControls } = wp.blockEditor;
 
-import CircleRed from '../components/icons/circle-red';
-import CircleDark from '../components/icons/circle-dark';
-import CircleLight from '../components/icons/circle-light';
-import CirclePink from '../components/icons/circle-pink';
-import CirclePurple from '../components/icons/circle-purple';
-import CircleBlue from '../components/icons/circle-blue';
-import PaintbrushIcon from '../components/icons/paintbrush';
-import TwitterIcon from '../components/icons/twitter';
+
+
+
 
 const HasClickToTweet = ( props ) => {
 	// State.
@@ -52,6 +54,9 @@ const HasClickToTweet = ( props ) => {
 		share_text,
 		share_text_override,
 		share_text_override_enabled,
+		share_button_text,
+		maximum_width,
+		maximum_width_unit,
 	} = attributes;
 
 	useEffect( () => {
@@ -131,24 +136,139 @@ const HasClickToTweet = ( props ) => {
 				title={ __( 'Tweet Settings', 'highlight-and-share' ) }
 			>
 				<>
-					<ToggleControl
-						label={ __( 'Override Twitter Content', 'highlight-and-share' ) }
-						checked={ share_text_override_enabled }
-						onChange={ ( value ) => {
+					<UnitChooser
+						label={ __( 'Maximum Width', 'highlight-and-share' ) }
+						value={ maximum_width_unit }
+						units={ [ 'px', 'em', '%' ] }
+						onClick={ ( value ) => {
 							setAttributes( {
-								share_text_override_enabled: value,
+								maximum_width_unit: value,
 							} );
 						} }
-						help={ __(
-							'Check this option to override the default sharing text (e.g., the quote is too large for Twitter and you would like to shorten it).',
-							'highlight-and-share'
-						) }
 					/>
-					{ editTweetButton() }
+
+					<TextControl
+						type={ 'number' }
+						value={ maximum_width ? maximum_width : '' }
+						onChange={ ( value ) => {
+							setAttributes( {
+								maximum_width: parseFloat( value ),
+							} );
+						} }
+					/>
 				</>
 			</PanelBody>
 		</>
 	);
+	// Todo - Make this readable via JSON.
+	let toolbarThemes = [
+		{
+			title: __( 'Blue Theme', 'highlight-and-share' ),
+			isActive: template === 'blue',
+			icon: (
+				<IconCircle
+					height="16"
+					width="16"
+					hexColor={ hexCodes.blue }
+					className={ template === 'blue' ? 'has selected' : '' }
+				/>
+			),
+			onClick: () => {
+				setAttributes( {
+					template: 'blue',
+				} );
+			},
+		},
+		{
+			title: __( 'Dark Theme', 'highlight-and-share' ),
+			isActive: template === 'dark',
+			icon: (
+				<IconCircle
+					height="16"
+					width="16"
+					hexColor={ hexCodes.dark }
+					className={ template === 'dark' ? 'has selected' : '' }
+				/>
+			),
+			onClick: () => {
+				setAttributes( {
+					template: 'dark',
+				} );
+			},
+		},
+		{
+			title: __( 'Light Theme', 'highlight-and-share' ),
+			isActive: template === 'light',
+			icon: (
+				<IconCircle
+					height="16"
+					width="16"
+					hexColor={ hexCodes.light }
+					className={ template === 'light' ? 'has selected' : '' }
+				/>
+			),
+			onClick: () => {
+				setAttributes( {
+					template: 'light',
+				} );
+			},
+		},
+		{
+			title: __( 'Pink Theme', 'highlight-and-share' ),
+			isActive: template === 'pink',
+			icon: (
+				<IconCircle
+					height="16"
+					width="16"
+					hexColor={ hexCodes.pink }
+					className={ template === 'pink' ? 'has selected' : '' }
+				/>
+			),
+			onClick: () => {
+				setAttributes( {
+					template: 'pink',
+				} );
+			},
+		},
+		{
+			title: __( 'Purple Theme', 'highlight-and-share' ),
+			isActive: template === 'purple',
+			icon: (
+				<IconCircle
+					height="16"
+					width="16"
+					hexColor={ hexCodes.purple }
+					className={ template === 'purple' ? 'has selected' : '' }
+				/>
+			),
+			onClick: () => {
+				setAttributes( {
+					template: 'purple',
+				} );
+			},
+		},
+		{
+			title: __( 'Red Theme', 'highlight-and-share' ),
+			isActive: template === 'red',
+			icon: (
+				<IconCircle
+					height="16"
+					width="16"
+					hexColor={ hexCodes.red }
+					className={ template === 'red' ? 'has selected' : '' }
+				/>
+			),
+			onClick: () => {
+				setAttributes( {
+					template: 'red',
+				} );
+			},
+		},
+	];
+
+	// Start theme hooks. Find a way through PHP perhaps?
+	const toolbarThemeHook = createHooks();
+	toolbarThemes = toolbarThemeHook.applyFilters( 'has_ctt_react_themes', toolbarThemes ); // Allow others to add themes via React.
 	return (
 		<>
 			<InspectorControls>{ inspectorControls }</InspectorControls>
@@ -166,107 +286,14 @@ const HasClickToTweet = ( props ) => {
 						isCollapsed={ true }
 						popoverProps={ { className: `has-click-to-tweet-popover ${ template }` } }
 						controls={ [
-							{
-								title: __( 'Blue Theme', 'highlight-and-share' ),
-								isActive: template === 'blue',
-								icon: (
-									<CircleBlue
-										width="16"
-										height="16"
-										className={ template === 'blue' ? 'has selected' : '' }
-									/>
-								),
-								onClick: () => {
-									setAttributes( {
-										template: 'blue',
-									} );
-								},
-							},
-							{
-								title: __( 'Dark Theme', 'highlight-and-share' ),
-								isActive: template === 'dark',
-								icon: (
-									<CircleDark
-										width="16"
-										height="16"
-										className={ template === 'dark' ? 'has selected' : '' }
-									/>
-								),
-								onClick: () => {
-									setAttributes( {
-										template: 'dark',
-									} );
-								},
-							},
-							{
-								title: __( 'Light Theme', 'highlight-and-share' ),
-								isActive: template === 'light',
-								icon: (
-									<CircleLight
-										width="16"
-										height="16"
-										className={ template === 'light' ? 'has selected' : '' }
-									/>
-								),
-								onClick: () => {
-									setAttributes( {
-										template: 'light',
-									} );
-								},
-							},
-							{
-								title: __( 'Pink Theme', 'highlight-and-share' ),
-								isActive: template === 'pink',
-								icon: (
-									<CirclePink
-										width="16"
-										height="16"
-										className={ template === 'pink' ? 'has selected' : '' }
-									/>
-								),
-								onClick: () => {
-									setAttributes( {
-										template: 'pink',
-									} );
-								},
-							},
-							{
-								title: __( 'Purple Theme', 'highlight-and-share' ),
-								isActive: template === 'purple',
-								icon: (
-									<CirclePurple
-										width="16"
-										height="16"
-										className={ template === 'purple' ? 'has selected' : '' }
-									/>
-								),
-								onClick: () => {
-									setAttributes( {
-										template: 'purple',
-									} );
-								},
-							},
-							{
-								title: __( 'Red Theme', 'highlight-and-share' ),
-								isActive: template === 'red',
-								icon: (
-									<CircleRed
-										width="16"
-										height="16"
-										className={ template === 'red' ? 'has selected' : '' }
-									/>
-								),
-								onClick: () => {
-									setAttributes( {
-										template: 'red',
-									} );
-								},
-							},
+							toolbarThemes,
 						] }
 					/>
 				</>
 			</BlockControls>
-			<div className={ classnames( 'has-click-to-tweet' ) }>
+			<div className={ classnames( 'has-click-to-tweet', {
+				[ `has-ctt-block-theme-${ template }` ]: true,
+			}) }>
 				<div className="has-click-to-tweet-tabs">
 					<TabPanel
 						activeClass="active-tab"
@@ -308,6 +335,20 @@ const HasClickToTweet = ( props ) => {
 											] }
 											onChange={ ( value ) => {
 												setAttributes( { share_text: value } );
+											} }
+										/>
+										<RichText
+											tagName="div"
+											placeholder={ __(
+												'Click to share button text',
+												'highlight-and-share'
+											) }
+											value={ share_button_text }
+											preserveWhiteSpace={ false }
+											className="has-click-to-tweet-button"
+											allowedFormats={ [] }
+											onChange={ ( value ) => {
+												setAttributes( { share_button_text: value } );
 											} }
 										/>
 									</div>

@@ -3,9 +3,6 @@
  * Credit: Forked from @GenerateBlocks
  */
 
-// Import CSS
-import './editor.scss';
-
 const { __, sprintf, _x } = wp.i18n;
 const { ButtonGroup, Button, Tooltip } = wp.components;
 
@@ -13,13 +10,13 @@ const UnitChooser = ( props ) => {
 	const { label, value, onClick, units } = props;
 
 	return (
-		<div className="components-ptam-units-control-header__units">
-			<div className="components-ptam-units-control-label__units">{ label }</div>
+		<div className="components-has-units-control-header__units">
+			<div className="components-has-units-control-label__units">{ label }</div>
 
-			<div className="components-ptam-control__units">
+			<div className="components-has-control__units">
 				<ButtonGroup
-					className="components-ptam-control-buttons__units"
-					aria-label={ __( 'Select Units', 'post-type-archive-mapping' ) }
+					className="components-has-control-buttons__units"
+					aria-label={ __( 'Select Units', 'highlight-and-share' ) }
 				>
 					{ units.map( ( unit ) => {
 						let unitName = unit;
@@ -28,7 +25,7 @@ const UnitChooser = ( props ) => {
 							unitName = _x(
 								'Pixel',
 								'A size unit for CSS markup',
-								'post-type-archive-mapping'
+								'highlight-and-share'
 							);
 						}
 
@@ -36,7 +33,7 @@ const UnitChooser = ( props ) => {
 							unitName = _x(
 								'Em',
 								'A size unit for CSS markup',
-								'post-type-archive-mapping'
+								'highlight-and-share'
 							);
 						}
 
@@ -44,7 +41,7 @@ const UnitChooser = ( props ) => {
 							unitName = _x(
 								'Percentage',
 								'A size unit for CSS markup',
-								'post-type-archive-mapping'
+								'highlight-and-share'
 							);
 						}
 
@@ -52,7 +49,7 @@ const UnitChooser = ( props ) => {
 							unitName = _x(
 								'Rem',
 								'A size unit for CSS markup',
-								'post-type-archive-mapping'
+								'highlight-and-share'
 							);
 						}
 
@@ -60,7 +57,7 @@ const UnitChooser = ( props ) => {
 							unitName = _x(
 								'Degree',
 								'A size unit for CSS markup',
-								'post-type-archive-mapping'
+								'highlight-and-share'
 							);
 						}
 
@@ -68,20 +65,20 @@ const UnitChooser = ( props ) => {
 							<Tooltip
 								text={ sprintf(
 									/* translators: Unit type (px, em, %) */
-									__( '%s Units', 'post-type-archive-mapping' ),
+									__( '%s Units', 'highlight-and-share' ),
 									unitName
 								) }
 								key={ unit }
 							>
 								<Button
 									key={ unit }
-									className={ 'components-ptam-control-button__units--' + unit }
+									className={ 'components-has-control-button__units--' + unit }
 									isSmall
 									isPrimary={ value === unit }
 									aria-pressed={ value === unit }
 									aria-label={ sprintf(
 										/* translators: %s: values associated with CSS syntax, 'Pixel', 'Em', 'Percentage' */
-										__( '%s Units', 'post-type-archive-mapping' ),
+										__( '%s Units', 'highlight-and-share' ),
 										unitName
 									) }
 									onClick={ () => onClick( unit ) }
