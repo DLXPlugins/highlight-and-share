@@ -61,6 +61,7 @@ const HasClickToTweet = ( props ) => {
 		share_button_text,
 		maximum_width,
 		maximum_width_unit,
+		rtl,
 	} = attributes;
 
 	useEffect( () => {
@@ -159,6 +160,16 @@ const HasClickToTweet = ( props ) => {
 								maximum_width: parseFloat( value ),
 							} );
 						} }
+					/>
+					<ToggleControl
+						label={ __( 'Enable RTL', 'highlight-and-share' ) }
+						checked={ rtl }
+						onChange={ ( value ) => {
+							setAttributes( {
+								rtl: value,
+							} );
+						} }
+						help={ __( 'For right-to-left languages, select this option.', 'highlight-and-share' ) }
 					/>
 				</>
 			</PanelBody>
