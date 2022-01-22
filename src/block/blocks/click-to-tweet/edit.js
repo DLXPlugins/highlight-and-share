@@ -9,6 +9,7 @@ import IconCircle from '../components/icons/Circle';
 import UnitChooser from '../components/unit-picker';
 import TwitterIcon from '../components/icons/twitter';
 import PaintbrushIcon from '../components/icons/paintbrush';
+import PreviewIcon from '../components/icons/preview';
 
 const { useEffect, useState } = wp.element;
 
@@ -20,6 +21,8 @@ const {
 	PanelBody,
 	PanelRow,
 	ToolbarGroup,
+	ToolbarButton,
+	Toolbar,
 	Popover,
 	ToggleControl,
 	TextControl,
@@ -39,6 +42,7 @@ const { InspectorControls, RichText, BlockControls } = wp.blockEditor;
 const HasClickToTweet = ( props ) => {
 	// State.
 	const [ editTweetPopoverVisible, setEditTweetPopoverVisible ] = useState( false );
+	const [ isPreview, setIsPreview ] = useState( false );
 
 	// Shortcuts.
 	const { attributes, setAttributes } = props;
@@ -266,6 +270,23 @@ const HasClickToTweet = ( props ) => {
 		},
 	];
 
+	let toolbarPreview = [
+		{
+			title: __( 'Preview On', 'highlight-and-share' ),
+			isActive: isPreview,
+			onClick: () => {
+				setIsPreview( true );
+			},
+		},
+		{
+			title: __( 'Preview Off', 'highlight-and-share' ),
+			isActive: ! isPreview,
+			onClick: () => {
+				setIsPreview( false );
+			},
+		},
+	];
+
 	// Start theme hooks. Find a way through PHP perhaps?
 	const toolbarThemeHook = createHooks();
 	toolbarThemes = toolbarThemeHook.applyFilters( 'has_ctt_react_themes', toolbarThemes ); // Allow others to add themes via React.
@@ -287,6 +308,21 @@ const HasClickToTweet = ( props ) => {
 						popoverProps={ { className: `has-click-to-tweet-popover ${ template }` } }
 						controls={ [
 							toolbarThemes,
+						] }
+					/>
+					<ToolbarGroup
+						icon={
+							<PreviewIcon
+								width="24"
+								height="24"
+								opacity={ isPreview ? 0.8 : 0.4 }
+							/>
+						}
+						label={ __( 'Preview Mode', 'highlight-and-share' ) }
+						isCollapsed={ true }
+						popoverProps={ { className: `has-click-to-tweet-preview-popover ${ template }` } }
+						controls={ [
+							toolbarPreview,
 						] }
 					/>
 				</>
