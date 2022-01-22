@@ -1516,7 +1516,12 @@ class Highlight_And_Share {
 	 */
 	public function options_page() {
 		?>
-		<div class="wrap">
+		<div id="highlight-and-share" class="wrap">
+			<div class="has-header">
+				<div class="has-logo-wrapper">
+					<h2 id="has-logo" style="display: flex; align-items: center;"><img style="width: 700px; height: 97px; margin-right: 20px;" src="<?php echo esc_url( $this->get_plugin_url( '/img/highlight-share-logo-horizontal.png' ) ); ?>" alt="Higlight and Share" /></h2>
+				</div>
+			</div>
 			<div class="has-form-wrapper">
 				<div class="has-logo-wrapper">
 					<h2 id="has-logo" style="display: flex; align-items: center;"><img style="width: 700px; height: 91px; margin-right: 20px;" src="<?php echo esc_url( $this->get_plugin_url( '/img/plugin-logo-horizontal.png' ) ); ?>" alt="Higlight and Share" /></h2>

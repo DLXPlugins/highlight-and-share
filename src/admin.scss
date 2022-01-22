@@ -1,5 +1,20 @@
 $link_color: #2c3a95;
 $link_color_hover: darken( #2c3a95, 15% );
+
+#wpcontent {
+	padding-left: 0 !important;
+    position: relative;
+
+	#highlight-and-share {
+		margin: 0;
+		background: #1d2671;
+		background-image: linear-gradient(to right, #ad5389, #3c1053 );
+	}
+
+	#has-logo {
+		margin: 0;
+	}
+}
 .has-form-wrapper {
 	position: relative;
 	background-color: #fff;
