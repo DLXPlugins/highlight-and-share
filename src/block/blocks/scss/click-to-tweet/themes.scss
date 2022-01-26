@@ -28,7 +28,7 @@
 				font-family: serif;
 				position: absolute;
 				left: 0;
-				bottom: 0.7375em; /* ( ( ( 1.875 / 2) + 1.075/2 ) / 2 */
+				top: 0.4125em; /* 1 - ( ( ( ( 1.075 / 2 ) + ( ( 1.6 - 1.5 ) / 2 ) ) ) */
 				content: "\201C";
 				display: inline-block;
 				line-height: 0;
