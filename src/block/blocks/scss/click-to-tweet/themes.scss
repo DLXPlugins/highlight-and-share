@@ -19,7 +19,7 @@
 			position: relative;
 			font-size: 1.5em;
 			padding-left: 3.43em; /* 5em:before / 2 + ( 1.875em / 2 ) */
-			padding-bottom: 1.875em;
+			padding-bottom: 1.075em; /* 1.875 - (1.6/2) line-height = 1.075em */
 			padding-top: 0;
 			padding-right: 0;
 			line-height: 1.6;
@@ -28,7 +28,7 @@
 				font-family: serif;
 				position: absolute;
 				left: 0;
-				bottom: 0.8687em; /* ( (1.6 line-height / 2) + ( 1.875em padding / 2 ) ) / 2 */
+				bottom: 0.7375em; /* ( ( ( 1.875 / 2) + 1.075/2 ) / 2 */
 				content: "\201C";
 				display: inline-block;
 				line-height: 0;
