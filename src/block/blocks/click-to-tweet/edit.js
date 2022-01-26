@@ -300,6 +300,7 @@ const HasClickToTweet = ( props ) => {
 	toolbarThemes = toolbarThemeHook.applyFilters( 'has_ctt_react_themes', toolbarThemes ); // Allow others to add themes via React.
 	return (
 		<>
+			<link href="https://fonts.googleapis.com/css2?family=Lato&family=Open+Sans:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet" />
 			<InspectorControls>{ inspectorControls }</InspectorControls>
 			<BlockControls>
 				<>
