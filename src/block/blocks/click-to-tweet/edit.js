@@ -281,7 +281,7 @@ const HasClickToTweet = ( props ) => {
 		},
 	];
 
-	let toolbarPreview = [
+	const toolbarPreview = [
 		{
 			title: __( 'Preview On', 'highlight-and-share' ),
 			isActive: isPreview,
@@ -362,42 +362,48 @@ const HasClickToTweet = ( props ) => {
 							if ( 'appearance' === tab.name ) {
 								tabContent = (
 									<div className="has-click-to-tweet-wrapper">
-										<RichText
-											tagName="div"
-											placeholder={ __(
-												'Add text to share',
-												'highlight-and-share'
-											) }
-											value={ share_text }
-											preserveWhiteSpace={ true }
-											className="has-click-to-tweet-text"
-											allowedFormats={ [
-												'core/bold',
-												'core/italic',
-												'core/text-color',
-												'core/subscript',
-												'core/superscript',
-												'core/strikethrough',
-												'core/link',
-											] }
-											onChange={ ( value ) => {
-												setAttributes( { share_text: value } );
-											} }
-										/>
-										<RichText
-											tagName="div"
-											placeholder={ __(
-												'Click to share button text',
-												'highlight-and-share'
-											) }
-											value={ share_button_text }
-											preserveWhiteSpace={ false }
-											className="has-click-to-tweet-button"
-											allowedFormats={ [] }
-											onChange={ ( value ) => {
-												setAttributes( { share_button_text: value } );
-											} }
-										/>
+										<>
+											<div className="has-click-to-tweet-text-wrapper">
+												<RichText
+													tagName="div"
+													placeholder={ __(
+														'Add text to share',
+														'highlight-and-share'
+													) }
+													value={ share_text }
+													preserveWhiteSpace={ true }
+													className="has-click-to-tweet-text"
+													allowedFormats={ [
+														'core/bold',
+														'core/italic',
+														'core/text-color',
+														'core/subscript',
+														'core/superscript',
+														'core/strikethrough',
+														'core/link',
+													] }
+													onChange={ ( value ) => {
+														setAttributes( { share_text: value } );
+													} }
+												/>
+										</div>
+										<div className="has-click-to-tweet-button-wrapper">
+											<RichText
+												tagName="div"
+												placeholder={ __(
+													'Click to share button text',
+													'highlight-and-share'
+												) }
+												value={ share_button_text }
+												preserveWhiteSpace={ false }
+												className="has-click-to-tweet-button"
+												allowedFormats={ [] }
+												onChange={ ( value ) => {
+													setAttributes( { share_button_text: value } );
+												} }
+											/>
+										</div>
+										</>
 									</div>
 								);
 							} else if ( 'settings' === tab.name ) {
