@@ -9,7 +9,8 @@ import IconCircle from '../components/icons/Circle';
 import UnitChooser from '../components/unit-picker';
 import TwitterIcon from '../components/icons/twitter';
 import PaintbrushIcon from '../components/icons/paintbrush';
-import PreviewIcon from '../components/icons/preview';
+import PreviewIcon from '../components/icons/Preview';
+import EllipsisIcon from '../components/icons/Ellipsis';
 
 const { useEffect, useState } = wp.element;
 
@@ -34,10 +35,6 @@ const {
 } = wp.components;
 
 const { InspectorControls, RichText, BlockControls } = wp.blockEditor;
-
-
-
-
 
 const HasClickToTweet = ( props ) => {
 	// State.
@@ -340,7 +337,7 @@ const HasClickToTweet = ( props ) => {
 			</BlockControls>
 			<div className={ classnames( 'has-click-to-tweet', {
 				[ `has-ctt-block-theme-${ template }` ]: true,
-			}) }>
+			} ) }>
 				<div className="has-click-to-tweet-tabs">
 					<TabPanel
 						activeClass="active-tab"
@@ -386,23 +383,29 @@ const HasClickToTweet = ( props ) => {
 														setAttributes( { share_text: value } );
 													} }
 												/>
-										</div>
-										<div className="has-click-to-tweet-button-wrapper">
-											<RichText
-												tagName="div"
-												placeholder={ __(
-													'Click to share button text',
-													'highlight-and-share'
-												) }
-												value={ share_button_text }
-												preserveWhiteSpace={ false }
-												className="has-click-to-tweet-button"
-												allowedFormats={ [] }
-												onChange={ ( value ) => {
-													setAttributes( { share_button_text: value } );
-												} }
-											/>
-										</div>
+											</div>
+											<div className="has-click-to-tweet-button-wrapper">
+												<RichText
+													tagName="div"
+													placeholder={ __(
+														'Click to share button text',
+														'highlight-and-share'
+													) }
+													value={ share_button_text }
+													preserveWhiteSpace={ false }
+													className="has-click-to-tweet-button"
+													allowedFormats={ [] }
+													onChange={ ( value ) => {
+														setAttributes( { share_button_text: value } );
+													} }
+												/>
+												<span className="has-click-to-tweet-button-icon">
+													<TwitterIcon />
+												</span>
+											</div>
+											<span className="has-click-to-tweet-ellipsis">
+												<EllipsisIcon />
+											</span>
 										</>
 									</div>
 								);

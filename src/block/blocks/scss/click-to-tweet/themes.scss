@@ -15,6 +15,14 @@
 		box-shadow: 1px 1px 3px 0px rgba(0, 24, 168, 0.8);
 		padding-bottom: 1.875em;
 
+		.has-click-to-tweet-ellipsis {
+			position: absolute;
+			display: inline-block;
+			top: .4em;
+			right: 0.9375em;
+			color: rgba( 255, 255, 255, 0.6 );
+		}
+
 		.has-click-to-tweet-text-wrapper {
 			position: relative;
 			font-size: 1.5em;
@@ -38,7 +46,21 @@
 		}
 
 		.has-click-to-tweet-button-wrapper {
+			position: relative;
 			text-align: right;
+
+			.has-click-to-tweet-button-icon {
+				position: absolute;
+				width: 1.1em;
+				height: 1.1em;
+				top: calc( 50% + 5px - 1.1em);
+				bottom: 0;
+				right: 25px;
+
+				svg path {
+					fill: $blue;
+				}
+			}
 		}
 		.has-click-to-tweet-button {
 			background: $white;
@@ -50,6 +72,8 @@
 			text-align: right;
 			font-size: 1.1em;
 			transition: background-color 0.3s ease-in-out;
+			padding-right: 50px;
+			line-height: 1.1em;
 
 			&:hover {
 				transition: background-color 0.3s ease-in-out;
