@@ -11,27 +11,27 @@ const { Button, ButtonGroup } = wp.components;
 const AlignmentGroup = ( props ) => {
 	const {
 		alignment = 'left',
-		label = __( 'Change Alignment', 'post-type-archive-mapping' ),
+		label = __( 'Change Alignment', 'highlight-and-share' ),
 		alignLeftLabel = _x(
 			'Align Left',
 			'Align items left',
-			'post-type-archive-mapping'
+			'highlight-and-share'
 		),
 		alignCenterLabel = _x(
 			'Align Center',
 			'Align items center/middle',
-			'post-type-archive-mapping'
+			'highlight-and-share'
 		),
 		alignRightLabel = _x(
 			'Align Right',
 			'Align items right',
-			'post-type-archive-mapping'
+			'highlight-and-share'
 		),
 	} = props;
 
 	return (
-		<div className="ptam-alignment-component-base">
-			<span className="ptam-alignment-component-label">{ label }</span>
+		<div className="has-alignment-component-base">
+			<span className="has-alignment-component-label">{ label }</span>
 			<ButtonGroup>
 				<Button
 					isPressed={ 'left' === alignment ? true : false }

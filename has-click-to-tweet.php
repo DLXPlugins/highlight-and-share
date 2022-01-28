@@ -70,6 +70,14 @@ function has_register_click_to_tweet_block_attributes() {
 					'type' => 'boolean',
 					'default' => false,
 				),
+				'tweet_button_alignment' => array(
+					'type' => 'string',
+					'default' => 'right',
+				),
+				'tweet_button_display' => array(
+					'type' => 'string',
+					'default' => 'full',
+				),
 			),
 			'render_callback' => 'has_click_to_tweet',
 			'editor_script'   => 'has-click-to-share',

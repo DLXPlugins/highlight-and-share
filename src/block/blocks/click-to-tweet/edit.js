@@ -11,6 +11,7 @@ import TwitterIcon from '../components/icons/twitter';
 import PaintbrushIcon from '../components/icons/paintbrush';
 import PreviewIcon from '../components/icons/Preview';
 import EllipsisIcon from '../components/icons/Ellipsis';
+import AlignmentGroup from '../components/alignment';
 
 const { useEffect, useState } = wp.element;
 
@@ -32,6 +33,7 @@ const {
 	TabPanel,
 	FormTokenField,
 	RangeControl,
+	RadioControl,
 } = wp.components;
 
 const { InspectorControls, RichText, BlockControls } = wp.blockEditor;
@@ -58,7 +60,9 @@ const HasClickToTweet = ( props ) => {
 		share_button_text,
 		maximum_width,
 		maximum_width_unit,
+		tweet_button_alignment,
 		rtl,
+		tweet_button_display,
 	} = attributes;
 
 	useEffect( () => {
@@ -99,6 +103,45 @@ const HasClickToTweet = ( props ) => {
 				</Popover>
 			);
 		}
+	};
+
+	const getClickToShareButton = () => {
+		return (
+			<div
+				className={ `has-click-to-tweet-button-wrapper  ${ tweet_button_alignment } ` }
+			>
+				<div className={ `has-click-to-tweet-button-container button-${ tweet_button_display }` } >
+					{ ( tweet_button_display === 'full' || tweet_button_display === 'text' ) &&
+						(
+							<>
+								<RichText
+									tagName="div"
+									placeholder={ __(
+										'Click to share button text',
+										'highlight-and-share'
+									) }
+									value={ share_button_text }
+									preserveWhiteSpace={ false }
+									className="has-click-to-tweet-button"
+									allowedFormats={ [] }
+									onChange={ ( value ) => {
+										setAttributes( { share_button_text: value } );
+									} }
+								/>
+							</>
+						) }
+					{ ( tweet_button_display === 'icon' ||tweet_button_display === 'full' ) &&
+						(
+							<>
+								<span className="has-click-to-tweet-button-icon">
+									<TwitterIcon />
+								</span>
+							</>
+						)
+					}
+				</div>
+			</div>
+		);
 	};
 
 	const editTweetButton = () => {
@@ -166,9 +209,38 @@ const HasClickToTweet = ( props ) => {
 								rtl: value,
 							} );
 						} }
-						help={ __( 'For right-to-left languages, select this option.', 'highlight-and-share' ) }
+						help={ __(
+							'For right-to-left languages, select this option.',
+							'highlight-and-share'
+						) }
 					/>
 				</>
+			</PanelBody>
+			<PanelBody
+				initialOpen={ true }
+				title={ __( 'Click to Tweet Button', 'highlight-and-share' ) }
+			>
+				<AlignmentGroup
+					label={ __( 'Button Alignment', 'highlight-and-share' ) }
+					alignment={ tweet_button_alignment }
+					onClick={ ( value ) => {
+						setAttributes( { tweet_button_alignment: value } );
+					} }
+				/>
+				<RadioControl
+					label={ __( 'Button Options', 'highlight-and-share' ) }
+					selected={ tweet_button_display }
+					options={ [
+						{ label: __( 'Text Only', 'highlight-and-share' ), value: 'text' },
+						{ label: __( 'Icon Only', 'highlight-and-share' ), value: 'icon' },
+						{ label: __( 'Text and Icon', 'highlight-and-share' ), value: 'full' },
+					] }
+					onChange={ ( value ) => {
+						setAttributes( {
+							tweet_button_display: value,
+						} );
+					} }
+				/>
 			</PanelBody>
 		</>
 	);
@@ -297,10 +369,16 @@ const HasClickToTweet = ( props ) => {
 
 	// Start theme hooks. Find a way through PHP perhaps?
 	const toolbarThemeHook = createHooks();
-	toolbarThemes = toolbarThemeHook.applyFilters( 'has_ctt_react_themes', toolbarThemes ); // Allow others to add themes via React.
+	toolbarThemes = toolbarThemeHook.applyFilters(
+		'has_ctt_react_themes',
+		toolbarThemes
+	); // Allow others to add themes via React.
 	return (
 		<>
-			<link href="https://fonts.googleapis.com/css2?family=Lato&family=Open+Sans:ital,wght@0,300;0,400;0,700;1,400&display=swap" rel="stylesheet" />
+			<link
+				href="https://fonts.googleapis.com/css2?family=Lato&family=Open+Sans:ital,wght@0,300;0,400;0,700;1,400&display=swap"
+				rel="stylesheet"
+			/>
 			<InspectorControls>{ inspectorControls }</InspectorControls>
 			<BlockControls>
 				<>
@@ -315,9 +393,7 @@ const HasClickToTweet = ( props ) => {
 						label={ __( 'Select a Theme', 'highlight-and-share' ) }
 						isCollapsed={ true }
 						popoverProps={ { className: `has-click-to-tweet-popover ${ template }` } }
-						controls={ [
-							toolbarThemes,
-						] }
+						controls={ [ toolbarThemes ] }
 					/>
 					<ToolbarGroup
 						icon={
@@ -329,16 +405,18 @@ const HasClickToTweet = ( props ) => {
 						}
 						label={ __( 'Preview Mode', 'highlight-and-share' ) }
 						isCollapsed={ true }
-						popoverProps={ { className: `has-click-to-tweet-preview-popover ${ template }` } }
-						controls={ [
-							toolbarPreview,
-						] }
+						popoverProps={ {
+							className: `has-click-to-tweet-preview-popover ${ template }`,
+						} }
+						controls={ [ toolbarPreview ] }
 					/>
 				</>
 			</BlockControls>
-			<div className={ classnames( 'has-click-to-tweet', {
-				[ `has-ctt-block-theme-${ template }` ]: true,
-			} ) }>
+			<div
+				className={ classnames( 'has-click-to-tweet', {
+					[ `has-ctt-block-theme-${ template }` ]: true,
+				} ) }
+			>
 				<div className="has-click-to-tweet-tabs">
 					<TabPanel
 						activeClass="active-tab"
@@ -385,25 +463,7 @@ const HasClickToTweet = ( props ) => {
 													} }
 												/>
 											</div>
-											<div className="has-click-to-tweet-button-wrapper">
-												<RichText
-													tagName="div"
-													placeholder={ __(
-														'Click to share button text',
-														'highlight-and-share'
-													) }
-													value={ share_button_text }
-													preserveWhiteSpace={ false }
-													className="has-click-to-tweet-button"
-													allowedFormats={ [] }
-													onChange={ ( value ) => {
-														setAttributes( { share_button_text: value } );
-													} }
-												/>
-												<span className="has-click-to-tweet-button-icon">
-													<TwitterIcon />
-												</span>
-											</div>
+											{ getClickToShareButton() }
 											<span className="has-click-to-tweet-ellipsis">
 												<EllipsisIcon />
 											</span>
@@ -414,7 +474,10 @@ const HasClickToTweet = ( props ) => {
 								tabContent = (
 									<>
 										<ToggleControl
-											label={ __( 'Customize Twitter Content', 'highlight-and-share' ) }
+											label={ __(
+												'Customize Twitter Content',
+												'highlight-and-share'
+											) }
 											checked={ share_text_override_enabled }
 											onChange={ ( value ) => {
 												setAttributes( {
@@ -426,10 +489,15 @@ const HasClickToTweet = ( props ) => {
 												'highlight-and-share'
 											) }
 										/>
-										{ share_text_override_enabled &&
+										{ share_text_override_enabled && (
 											<TextareaControl
-												label={ __( 'Custom Tweet Content', 'highlight-and-share' ) }
-												help={ __( 'Enter your custom tweet content here if your quote is too long for Twitter' ) }
+												label={ __(
+													'Custom Tweet Content',
+													'highlight-and-share'
+												) }
+												help={ __(
+													'Enter your custom tweet content here if your quote is too long for Twitter'
+												) }
 												value={ share_text_override }
 												onChange={ ( value ) => {
 													setAttributes( {
@@ -437,17 +505,22 @@ const HasClickToTweet = ( props ) => {
 													} );
 												} }
 											/>
-										}
+										) }
 										<FormTokenField
 											value={ hashtags }
-											placeholder={ __( 'Enter hashtags separated by commas.', 'highlight-and-share' ) }
+											placeholder={ __(
+												'Enter hashtags separated by commas.',
+												'highlight-and-share'
+											) }
 											tokenizeOnSpace={ true }
 											label={ __( 'Hashtags', 'highlight-and-share' ) }
 											onChange={ ( tokens ) => {
 												const filteredTokens = [];
 												tokens.forEach( function( item, index ) {
-													const replacement = item.replace( '\#', '' ); // Strip hashtag symbol.
-													const hashtag = twttr.txt.extractHashtags( '#' + replacement ); // Add it back in for extraction.
+													const replacement = item.replace( '#', '' ); // Strip hashtag symbol.
+													const hashtag = twttr.txt.extractHashtags(
+														'#' + replacement
+													); // Add it back in for extraction.
 													// Check if array contains anything.
 													if ( typeof hashtag[ 0 ] !== 'undefined' ) {
 														filteredTokens.push( hashtag[ 0 ] );
@@ -458,12 +531,16 @@ const HasClickToTweet = ( props ) => {
 										/>
 										<TextControl
 											label={ __( 'Tweet Credit (via)', 'highlight-and-share' ) }
-											help={ __( 'Enter the Twitter username you would like to credit. Leave empty for no credit.' ) }
+											help={ __(
+												'Enter the Twitter username you would like to credit. Leave empty for no credit.'
+											) }
 											value={ twitter_username }
 											onChange={ ( value ) => {
-												const replacement = value.replace( '\@', '' ); // Strip @ symbol.
+												const replacement = value.replace( '@', '' ); // Strip @ symbol.
 												if ( value.length > 0 ) {
-													const usernames = twttr.txt.extractMentions( '@' + replacement );
+													const usernames = twttr.txt.extractMentions(
+														'@' + replacement
+													);
 													if ( typeof usernames[ 0 ] !== 'undefined' ) {
 														setAttributes( {
 															twitter_username: '@' + usernames[ 0 ],

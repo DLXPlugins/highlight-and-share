@@ -18,10 +18,11 @@
 		.has-click-to-tweet-ellipsis {
 			position: absolute;
 			display: inline-block;
-			top: .4em;
+			top: 0.4em;
 			right: 0.9375em;
-			color: rgba( 255, 255, 255, 0.6 );
+			color: rgba(255, 255, 255, 0.6);
 		}
+		/* 1.875 initial padding. See has-ctt-block-theme-blue above */
 
 		.has-click-to-tweet-text-wrapper {
 			position: relative;
@@ -31,18 +32,17 @@
 			padding-top: 0;
 			padding-right: 0;
 			line-height: 1.6;
-			
-			
+
 			&:before {
 				font-family: serif;
 				position: absolute;
 				left: 0;
 				top: 0.4125em; /* 1 - ( ( ( ( 1.075 / 2 ) + ( ( 1.6 - 1.5 ) / 2 ) ) ) */
-				content: "\201C";
+				content: '\201C';
 				display: inline-block;
 				line-height: 0;
-  				font-size: 5em;
-				color: rgba(255,255,255,0.15);
+				font-size: 5em;
+				color: rgba(255, 255, 255, 0.15);
 			}
 
 			.has-click-to-tweet-text {
@@ -52,14 +52,14 @@
 		}
 
 		.has-click-to-tweet-button-wrapper {
+			display: flex;
 			position: relative;
-			text-align: right;
 
 			.has-click-to-tweet-button-icon {
 				position: absolute;
 				width: 1.1em;
 				height: 1.1em;
-				top: calc( 50% + 5px - 1.1em);
+				top: calc(50% + 5px - 1.1em);
 				bottom: 0;
 				right: 25px;
 
@@ -68,13 +68,28 @@
 				}
 			}
 
+			.has-click-to-tweet-button-container {
+				position: relative;
+				display: inline-block;
+			}
+
 			&:hover svg path {
 				fill: $white;
+			}
+
+			&.left {
+				justify-content: flex-start;
+			}
+			&.right {
+				justify-content: flex-end;
+			}
+			&.center {
+				justify-content: center;
 			}
 		}
 		.has-click-to-tweet-button {
 			background: $white;
-			color: $dark;
+			color: $blue;
 			padding: 10px 20px;
 			border-radius: 4px;
 			border: 1px solid lighten($blue, 50%);

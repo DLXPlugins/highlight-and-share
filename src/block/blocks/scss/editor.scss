@@ -30,3 +30,13 @@
 	width: 36px;
 	height: auto;
 }
+
+/* Alignment Group Component Styles */
+.has-alignment-component-base {
+	margin: 10px 0;
+	transition: all ease-in-out 0.5s;
+	.has-alignment-component-label {
+		display: block;
+		margin-bottom: 5px;
+	}
+}
