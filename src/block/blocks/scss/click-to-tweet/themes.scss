@@ -110,9 +110,13 @@
 				}
 			}
 
-			.has-click-to-tweet-button-text {
+			&.full .has-click-to-tweet-button-text {
 				display: inline-block;
 				padding-right: 28px;
+			}
+			&.text .has-click-to-tweet-button-text {
+				display: inline-block;
+				padding-right: 0;
 			}
 		}
 	}

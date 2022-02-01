@@ -61,6 +61,7 @@ const HasClickToTweet = ( props ) => {
 		maximum_width,
 		maximum_width_unit,
 		tweet_button_alignment,
+		tweet_icon_alignment,
 		rtl,
 		tweet_button_display,
 	} = attributes;
@@ -107,57 +108,28 @@ const HasClickToTweet = ( props ) => {
 
 	const getClickToShareButton = () => {
 		return (
-			<div className="has-click-to-tweet-button-wrapper">
-				<button
-					className="has-click-to-tweet-button"
-					onClick={ ( value ) => {
-					
-					} }
-				>
-					<>
-						<span className="has-click-to-tweet-button-text">
-							{ share_button_text }
-						</span>
-						<span className="has-click-to-tweet-button-icon">
-							<TwitterIcon />
-						</span>
-					</>
-				</button>
-			</div>
-		);
-			return (
 			<div
 				className={ `has-click-to-tweet-button-wrapper  ${ tweet_button_alignment } ` }
 			>
-				<div className={ `has-click-to-tweet-button-container button-${ tweet_button_display }` } >
-					{ ( tweet_button_display === 'full' || tweet_button_display === 'text' ) &&
-						(
-							<>
-								<button
-									className="has-click-to-tweet-button"
-									onClick={ ( value ) => {
-									
-									} }
-								>
-									<>
-										{ share_button_text }
-										<span className="has-click-to-tweet-button-icon">
-											<TwitterIcon />
-										</span>
-									</>
-								</button>
-							</>
+				<button
+					className={ `has-click-to-tweet-button ${ tweet_button_display } ` }
+					onClick={ ( value ) => {} }
+				>
+					<>
+						{ ( tweet_button_display === 'full' ||
+							tweet_button_display === 'text' ) && (
+							<span className="has-click-to-tweet-button-text">
+								{ share_button_text }
+							</span>
 						) }
-					{ ( tweet_button_display === 'icon' ||tweet_button_display === 'full' ) &&
-						(
-							<>
-								<span className="has-click-to-tweet-button-icon">
-									<TwitterIcon />
-								</span>
-							</>
-						)
-					}
-				</div>
+						{ ( tweet_button_display === 'icon' ||
+							tweet_button_display === 'full' ) && (
+							<span className="has-click-to-tweet-button-icon">
+								<TwitterIcon />
+							</span>
+						) }
+					</>
+				</button>
 			</div>
 		);
 	};
@@ -244,6 +216,14 @@ const HasClickToTweet = ( props ) => {
 					onClick={ ( value ) => {
 						setAttributes( { tweet_button_alignment: value } );
 					} }
+				/>
+				<AlignmentGroup
+					label={ __( 'Icon Alignment', 'highlight-and-share' ) }
+					alignment={ tweet_icon_alignment }
+					onClick={ ( value ) => {
+						setAttributes( { tweet_icon_alignment: value } );
+					} }
+					centerOn={ false }
 				/>
 				<RadioControl
 					label={ __( 'Button Options', 'highlight-and-share' ) }

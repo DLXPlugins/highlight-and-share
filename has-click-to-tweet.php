@@ -74,6 +74,10 @@ function has_register_click_to_tweet_block_attributes() {
 					'type' => 'string',
 					'default' => 'right',
 				),
+				'tweet_icon_alignment' => array(
+					'type' => 'string',
+					'default' => 'right',
+				),
 				'tweet_button_display' => array(
 					'type' => 'string',
 					'default' => 'full',
