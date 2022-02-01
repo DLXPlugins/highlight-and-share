@@ -12,6 +12,7 @@ import PaintbrushIcon from '../components/icons/paintbrush';
 import PreviewIcon from '../components/icons/Preview';
 import EllipsisIcon from '../components/icons/Ellipsis';
 import AlignmentGroup from '../components/alignment';
+import CircularCount from '../components/CircularCount';
 
 const { useEffect, useState } = wp.element;
 
@@ -443,38 +444,45 @@ const HasClickToTweet = ( props ) => {
 							let tabContent;
 							if ( 'appearance' === tab.name ) {
 								tabContent = (
-									<div className="has-click-to-tweet-wrapper">
-										<>
-											<div className="has-click-to-tweet-text-wrapper">
-												<RichText
-													tagName="div"
-													placeholder={ __(
-														'Add text to share',
-														'highlight-and-share'
-													) }
-													value={ share_text }
-													preserveWhiteSpace={ true }
-													className="has-click-to-tweet-text"
-													allowedFormats={ [
-														'core/bold',
-														'core/italic',
-														'core/text-color',
-														'core/subscript',
-														'core/superscript',
-														'core/strikethrough',
-														'core/link',
-													] }
-													onChange={ ( value ) => {
-														setAttributes( { share_text: value } );
-													} }
-												/>
+									<>
+										<div className="has-click-to-tweet-wrapper">
+											<>
+												<div className="has-click-to-tweet-text-wrapper">
+													<RichText
+														tagName="div"
+														placeholder={ __(
+															'Add text to share',
+															'highlight-and-share'
+														) }
+														value={ share_text }
+														preserveWhiteSpace={ true }
+														className="has-click-to-tweet-text"
+														allowedFormats={ [
+															'core/bold',
+															'core/italic',
+															'core/text-color',
+															'core/subscript',
+															'core/superscript',
+															'core/strikethrough',
+															'core/link',
+														] }
+														onChange={ ( value ) => {
+															setAttributes( { share_text: value } );
+														} }
+													/>
+												</div>
+												{ getClickToShareButton() }
+												<span className="has-click-to-tweet-ellipsis">
+													<EllipsisIcon />
+												</span>
+											</>
+										</div>
+										<div className="has-character-counter">
+											<div className="has-characters">
+												<CircularCount />
 											</div>
-											{ getClickToShareButton() }
-											<span className="has-click-to-tweet-ellipsis">
-												<EllipsisIcon />
-											</span>
-										</>
-									</div>
+										</div>
+									</>
 								);
 							} else if ( 'settings' === tab.name ) {
 								tabContent = (

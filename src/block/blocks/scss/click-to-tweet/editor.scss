@@ -63,3 +63,23 @@
 		max-width: 100%;
 	}
 }
+
+.has-character-counter {
+	display: flex;
+	justify-content: flex-end;
+	align-items: center;
+
+	.default {
+		stroke: lightgray;
+	  }
+	  
+	  svg{
+		width: 45px;
+		height: 45px;
+	  }
+
+	circle {
+		fill: none;
+  		stroke-width: 3;
+	}
+}
