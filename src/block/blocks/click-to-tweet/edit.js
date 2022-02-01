@@ -107,6 +107,25 @@ const HasClickToTweet = ( props ) => {
 
 	const getClickToShareButton = () => {
 		return (
+			<div className="has-click-to-tweet-button-wrapper">
+				<button
+					className="has-click-to-tweet-button"
+					onClick={ ( value ) => {
+					
+					} }
+				>
+					<>
+						<span className="has-click-to-tweet-button-text">
+							{ share_button_text }
+						</span>
+						<span className="has-click-to-tweet-button-icon">
+							<TwitterIcon />
+						</span>
+					</>
+				</button>
+			</div>
+		);
+			return (
 			<div
 				className={ `has-click-to-tweet-button-wrapper  ${ tweet_button_alignment } ` }
 			>
@@ -114,20 +133,19 @@ const HasClickToTweet = ( props ) => {
 					{ ( tweet_button_display === 'full' || tweet_button_display === 'text' ) &&
 						(
 							<>
-								<RichText
-									tagName="div"
-									placeholder={ __(
-										'Click to share button text',
-										'highlight-and-share'
-									) }
-									value={ share_button_text }
-									preserveWhiteSpace={ false }
+								<button
 									className="has-click-to-tweet-button"
-									allowedFormats={ [] }
-									onChange={ ( value ) => {
-										setAttributes( { share_button_text: value } );
+									onClick={ ( value ) => {
+									
 									} }
-								/>
+								>
+									<>
+										{ share_button_text }
+										<span className="has-click-to-tweet-button-icon">
+											<TwitterIcon />
+										</span>
+									</>
+								</button>
 							</>
 						) }
 					{ ( tweet_button_display === 'icon' ||tweet_button_display === 'full' ) &&

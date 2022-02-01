@@ -59,22 +59,19 @@
 				position: absolute;
 				width: 1.1em;
 				height: 1.1em;
-				top: calc(50% + 5px - 1.1em);
+				top: calc(50% + 5px - 1em);
 				bottom: 0;
-				right: 25px;
+				right: 20px;
 
 				svg path {
 					fill: $blue;
+					transition: all 0.3s ease-in-out;
 				}
 			}
 
 			.has-click-to-tweet-button-container {
 				position: relative;
 				display: inline-block;
-			}
-
-			&:hover svg path {
-				fill: $white;
 			}
 
 			&.left {
@@ -88,25 +85,34 @@
 			}
 		}
 		.has-click-to-tweet-button {
+			position: relative;
 			background: $white;
 			color: $blue;
 			padding: 10px 20px;
 			border-radius: 4px;
 			border: 1px solid lighten($blue, 50%);
 			display: inline-block;
-			text-align: right;
+			transition: all 0.3s ease-in-out;
 			font-family: 'Lato', sans-serif;
 			font-weight: 400;
 			font-size: 1.1em;
-			transition: background-color 0.3s ease-in-out;
-			padding-right: 50px;
 			line-height: 1.1em;
 
 			&:hover {
-				transition: background-color 0.3s ease-in-out;
+				transition: all 0.3s ease-in-out;
 				color: $white;
 				background: $blue;
 				border: 1px solid $white;
+
+				svg path {
+					fill: $white;
+					transition: all 0.3s ease-in-out;
+				}
+			}
+
+			.has-click-to-tweet-button-text {
+				display: inline-block;
+				padding-right: 28px;
 			}
 		}
 	}
