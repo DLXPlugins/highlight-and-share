@@ -112,7 +112,7 @@ const HasClickToTweet = ( props ) => {
 				className={ `has-click-to-tweet-button-wrapper  ${ tweet_button_alignment } ` }
 			>
 				<button
-					className={ `has-click-to-tweet-button ${ tweet_button_display } ` }
+					className={ `has-click-to-tweet-button ${ tweet_button_display } has-button-icon-${ tweet_icon_alignment }` }
 					onClick={ ( value ) => {} }
 				>
 					<>
@@ -210,35 +210,43 @@ const HasClickToTweet = ( props ) => {
 				initialOpen={ true }
 				title={ __( 'Click to Tweet Button', 'highlight-and-share' ) }
 			>
-				<AlignmentGroup
-					label={ __( 'Button Alignment', 'highlight-and-share' ) }
-					alignment={ tweet_button_alignment }
-					onClick={ ( value ) => {
-						setAttributes( { tweet_button_alignment: value } );
-					} }
-				/>
-				<AlignmentGroup
-					label={ __( 'Icon Alignment', 'highlight-and-share' ) }
-					alignment={ tweet_icon_alignment }
-					onClick={ ( value ) => {
-						setAttributes( { tweet_icon_alignment: value } );
-					} }
-					centerOn={ false }
-				/>
-				<RadioControl
-					label={ __( 'Button Options', 'highlight-and-share' ) }
-					selected={ tweet_button_display }
-					options={ [
-						{ label: __( 'Text Only', 'highlight-and-share' ), value: 'text' },
-						{ label: __( 'Icon Only', 'highlight-and-share' ), value: 'icon' },
-						{ label: __( 'Text and Icon', 'highlight-and-share' ), value: 'full' },
-					] }
-					onChange={ ( value ) => {
-						setAttributes( {
-							tweet_button_display: value,
-						} );
-					} }
-				/>
+				<PanelRow>
+					<AlignmentGroup
+						label={ __( 'Button Alignment', 'highlight-and-share' ) }
+						alignment={ tweet_button_alignment }
+						onClick={ ( value ) => {
+							setAttributes( { tweet_button_alignment: value } );
+						} }
+					/>
+				</PanelRow>
+				{ tweet_button_display === 'full' &&
+					<PanelRow>
+						<AlignmentGroup
+							label={ __( 'Icon Alignment', 'highlight-and-share' ) }
+							alignment={ tweet_icon_alignment }
+							onClick={ ( value ) => {
+								setAttributes( { tweet_icon_alignment: value } );
+							} }
+							centerOn={ false }
+						/>
+					</PanelRow>
+				}
+				<PanelRow className="has-sidebar-button-options">
+					<RadioControl
+						label={ __( 'Button Options', 'highlight-and-share' ) }
+						selected={ tweet_button_display }
+						options={ [
+							{ label: __( 'Text Only', 'highlight-and-share' ), value: 'text' },
+							{ label: __( 'Icon Only', 'highlight-and-share' ), value: 'icon' },
+							{ label: __( 'Text and Icon', 'highlight-and-share' ), value: 'full' },
+						] }
+						onChange={ ( value ) => {
+							setAttributes( {
+								tweet_button_display: value,
+							} );
+						} }
+					/>
+				</PanelRow>
 			</PanelBody>
 		</>
 	);
