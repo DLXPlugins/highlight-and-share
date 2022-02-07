@@ -1,5 +1,8 @@
 import PropTypes from 'prop-types'; // ES6
+import classnames from 'classnames';
+
 const { useEffect, useState } = wp.element;
+const { _n } = wp.i18n;
 
 import './editor.scss';
 
@@ -10,6 +13,7 @@ const preErrorColor = '#ff9966';
 const errorColor = '#cc3300';
 
 const maxChars = 280;
+const minChars = 35;
 
 const LineCount = ( props ) => {
 	const { chars } = props;
@@ -55,12 +59,35 @@ const LineCount = ( props ) => {
 		return percentage + '%';
 	};
 
+	const getChars = () => {
+		if ( chars > maxChars ) {
+			return maxChars - chars;
+		}
+		return chars;
+	};
+
+	const getLineCountProgressClasses = () => {
+		return classnames(
+			'has-line-count-progress',
+			{
+				'has-line-count-min-chars': chars <= minChars,
+			}
+		);
+	};
+
+	const getCharsLabel = () => {
+		return (
+			<>
+				{ getChars() } {  _n( 'Character', 'Characters', getChars(), 'highlight-and-share' ) }
+			</>
+		);
+	};
+
 	return (
 		<div className="has-line-count">
-			<span className="has-line-count-characters" style={ { display: 'none' } }>
-				60
-			</span>
-			<span className="has-line-count-progress" style={ lineStyle }></span>
+			<span className={ getLineCountProgressClasses() } style={ lineStyle }><span className="has-line-count-characters">
+				{ getCharsLabel() }
+			</span></span>
 		</div>
 	);
 };

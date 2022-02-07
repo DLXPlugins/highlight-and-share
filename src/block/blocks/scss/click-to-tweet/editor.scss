@@ -98,24 +98,52 @@
 	align-items: center;
 	position: relative;
 	border: 1px solid #DDD;
-	height: 20px;
-	padding: 10px 5px;
+	padding: 4px 5px;
 	width: 100%;
-	border-radius: 10px;
+	border-radius: 15px;
 	margin-bottom: 15px;
 	vertical-align: middle;
 
 	.has-line-count-progress {
-		display: block;
-		height: 10px;
+		position: relative;
+		display: flex;
+		justify-content: flex-end;
+		align-items: center;
 		width: 0%;
 		transition: width 300ms linear;
+		transition: text-align 300ms linear;
 		transform-origin: left center;
-		border-radius: 5px;
+		border-radius: 10px;
 
 		background-image: linear-gradient( -45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent );
 		background-size: 20px 20px;
 
 		animation: has-line-count-move 5s linear infinite;
+
+		&.has-line-count-min-chars {
+			display: flex;
+			justify-content: center;
+			text-align: center;
+			overflow:visible;
+			padding-left: 5px;
+			padding-right: 5px;
+			min-width: 115px;
+
+			.has-line-count-characters {
+				margin: 0;
+				margin: 4px;
+			}
+		}
+	}
+
+	.has-line-count-characters {
+		display: inline-block;
+		color: $dark;
+		font-size: 8px;
+		margin: 5px 10px 5px 0;
+		padding: 0px 8px;
+		background: rgba( 255, 255, 255, 0.8 );
+		border-radius: 5px;
+		min-width: 45px;
 	}
 }
