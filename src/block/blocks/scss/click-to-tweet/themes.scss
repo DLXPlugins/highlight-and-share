@@ -33,6 +33,19 @@
 			padding-right: 0;
 			line-height: 1.6;
 
+			a {
+				color: #FFF;
+				text-transform: none;
+				padding-bottom: 4px;
+				border-bottom: 2px solid #ff6900;
+				transition: all .35s ease-in-out;
+				&:hover {
+					transition: all 0.35s ease-in-out;
+					color: #ff9a31;
+					border-bottom: 1px solid transparent;
+				}
+			}
+
 			&:before {
 				font-family: serif;
 				position: absolute;

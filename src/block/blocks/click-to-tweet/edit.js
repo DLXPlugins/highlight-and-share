@@ -13,6 +13,7 @@ import PreviewIcon from '../components/icons/Preview';
 import EllipsisIcon from '../components/icons/Ellipsis';
 import AlignmentGroup from '../components/alignment';
 import CircularCount from '../components/CircularCount';
+import LineCount from '../components/LineCount';
 
 const { useEffect, useState } = wp.element;
 
@@ -43,6 +44,7 @@ const HasClickToTweet = ( props ) => {
 	// State.
 	const [ editTweetPopoverVisible, setEditTweetPopoverVisible ] = useState( false );
 	const [ isPreview, setIsPreview ] = useState( false );
+	const [ tweetCharacterTotal, setTweetCharacterTotal ] = useState( 0 );
 
 	// Shortcuts.
 	const { attributes, setAttributes } = props;
@@ -76,6 +78,49 @@ const HasClickToTweet = ( props ) => {
 			} );
 		}
 	}, [] );
+
+	useEffect( () => {
+		countCharacters();
+	}, [ twitter_username, share_text, share_text_override, hashtags, share_text_override_enabled ] );
+
+	/**
+	 * Count  the characters including text, links, hashtags, and mentions.
+	 */
+	const countCharacters = () => {
+
+		// Begin adding text entered.
+		let tweetContent = '';
+
+		// Get main tweet text.
+		if ( share_text_override_enabled ) {
+			tweetContent += share_text_override;
+		} else {
+			tweetContent += share_text;
+		}
+		tweetContent += '\r\n';
+
+		// Add hashtags.
+		hashtags.forEach( ( hashtag ) => {
+			hashtag = '#' + hashtag + ' ';
+			tweetContent += hashtag;
+		} );
+		tweetContent += '\r\n';
+
+		// Add via.
+		if ( twitter_username.length > 0 ) {
+			tweetContent += 'Via ';
+			tweetContent += twitter_username;
+		}
+
+		// Todo - Add URL.
+		setTweetCharacterTotal( twttr.txt.getTweetLength( tweetContent ) );
+	};
+
+	const getCharacterBar = () => {
+		return (
+			<LineCount chars={ tweetCharacterTotal } />
+		);
+	};
 
 	const toggleEditTweetVisibility = () => {
 		setEditTweetPopoverVisible( ! editTweetPopoverVisible );
@@ -477,11 +522,6 @@ const HasClickToTweet = ( props ) => {
 												</span>
 											</>
 										</div>
-										<div className="has-character-counter">
-											<div className="has-characters">
-												<CircularCount />
-											</div>
-										</div>
 									</>
 								);
 							} else if ( 'settings' === tab.name ) {
@@ -570,9 +610,19 @@ const HasClickToTweet = ( props ) => {
 									</>
 								);
 							}
-							return <div>{ tabContent }</div>;
+							return (
+								<>
+									{ getCharacterBar() }
+									{ tabContent }
+								</>
+							);
 						} }
 					</TabPanel>
+					<div className="has-character-counter">
+						<div className="has-characters">
+							<CircularCount chars={ tweetCharacterTotal } />
+						</div>
+					</div>
 				</div>
 			</div>
 		</>

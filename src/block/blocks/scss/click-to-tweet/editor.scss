@@ -83,3 +83,39 @@
   		stroke-width: 3;
 	}
 }
+
+@keyframes has-line-count-move {
+	0% {
+	  background-position: 0 0;
+	}
+	100% {
+	  background-position: 20px 20px;
+	}
+  }
+
+.has-line-count {
+	display: flex;
+	align-items: center;
+	position: relative;
+	border: 1px solid #DDD;
+	height: 20px;
+	padding: 10px 5px;
+	width: 100%;
+	border-radius: 10px;
+	margin-bottom: 15px;
+	vertical-align: middle;
+
+	.has-line-count-progress {
+		display: block;
+		height: 10px;
+		width: 0%;
+		transition: width 300ms linear;
+		transform-origin: left center;
+		border-radius: 5px;
+
+		background-image: linear-gradient( -45deg, rgba(255, 255, 255, 0.2) 25%, transparent 25%, transparent 50%, rgba(255, 255, 255, 0.2) 50%, rgba(255, 255, 255, 0.2) 75%, transparent 75%, transparent );
+		background-size: 20px 20px;
+
+		animation: has-line-count-move 5s linear infinite;
+	}
+}

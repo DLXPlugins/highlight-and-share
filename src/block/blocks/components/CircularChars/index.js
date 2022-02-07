@@ -2,8 +2,8 @@
 
 import PropTypes from 'prop-types'; // ES6
 
-const baseColor = '#99cc33';
-const preWarningColor = '#4F8A10';
+const baseColor = '#4F8A10';
+const preWarningColor = '#99cc33';
 const warningColor = '#ffae42';
 const preErrorColor = '#ff9966';
 const errorColor = '#cc3300';
