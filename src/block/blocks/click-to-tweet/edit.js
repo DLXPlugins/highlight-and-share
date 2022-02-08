@@ -19,6 +19,8 @@ import sendCommand from '../utils/SendCommand';
 
 const { useEffect, useState, createRef } = wp.element;
 
+const { useDispatch, useSelect } = wp.data;
+
 const { createHooks } = wp.hooks;
 
 const { __ } = wp.i18n;
@@ -64,6 +66,18 @@ const HasClickToTweet = ( props ) => {
 
 	// Shortcuts.
 	const { attributes, setAttributes } = props;
+
+	const postObject = useSelect((select) => {
+		// Useful functions: getCurrentPost, getCurrentPostId, getPermalink
+        return select('core/editor').getCurrentPost();
+     });
+
+	// Post data.
+	// const { invalidateResolution } = useDispatch('core/data');
+
+	// const invalidateResolver = () => {
+    //     invalidateResolution('core', 'editor', ['postType', 'post']);
+    // };
 
 	// Nonce var.
 	// eslint-disable-next-line no-undef
@@ -113,6 +127,8 @@ const HasClickToTweet = ( props ) => {
 		}
 	}, [] );
 
+	
+
 	useEffect( () => {
 		if ( selectedTab === 'appearance' && shareTextInput.current !== null ) {
 			shareTextInput.current.focus();
@@ -124,7 +140,14 @@ const HasClickToTweet = ( props ) => {
 			manualUrlInput.current.focus();
 		}
 	}, [ url_shortening_service ] );
-
+	
+	useEffect( () => {
+		if ( 'none' === url_shortening_service ) {
+			setAttributes( {
+				permalink: postObject.link,
+			});
+		}
+	}, [ postObject ] );
 
 	const getGeneratedAnchor = async( object = {} ) => {
 		await sendCommand( 'has_generate_unique_id', { nonce: ctt_nonce } )
@@ -558,6 +581,7 @@ const HasClickToTweet = ( props ) => {
 		'has_ctt_react_themes',
 		toolbarThemes
 	); // Allow others to add themes via React.
+
 	return (
 		<>
 			<link
@@ -815,8 +839,8 @@ const HasClickToTweet = ( props ) => {
 													selected={ url_shortening_service }
 													options={ [
 														{
-															label: __( 'Default', 'highlight-and-share' ),
-															value: 'default',
+															label: __( 'None', 'highlight-and-share' ),
+															value: 'none',
 														},
 														{
 															label: __( 'Bitly', 'highlight-and-share' ),

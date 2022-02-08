@@ -100,10 +100,10 @@ function has_register_click_to_tweet_block_attributes() {
 				),
 				'url_shortening_service' => array(
 					'type' => 'boolean',
-					'default' => 'default',
+					'default' => 'none',
 				),
 				'permalink' => array(
-					'type' => 'text',
+					'type' => 'string',
 					'default' => '',
 				),
 			),
