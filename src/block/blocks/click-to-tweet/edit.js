@@ -69,15 +69,9 @@ const HasClickToTweet = ( props ) => {
 
 	const postObject = useSelect((select) => {
 		// Useful functions: getCurrentPost, getCurrentPostId, getPermalink
+		// Credit: https://ryanwelcher.com/2021/08/requesting-data-in-gutenberg-with-getentityrecords/
         return select('core/editor').getCurrentPost();
      });
-
-	// Post data.
-	// const { invalidateResolution } = useDispatch('core/data');
-
-	// const invalidateResolver = () => {
-    //     invalidateResolution('core', 'editor', ['postType', 'post']);
-    // };
 
 	// Nonce var.
 	// eslint-disable-next-line no-undef
@@ -738,6 +732,7 @@ const HasClickToTweet = ( props ) => {
 												'Enter hashtags separated by commas.',
 												'highlight-and-share'
 											) }
+											className="has-hashtag-fields"
 											tokenizeOnSpace={ true }
 											label={ __( 'Hashtags', 'highlight-and-share' ) }
 											onChange={ ( tokens ) => {
