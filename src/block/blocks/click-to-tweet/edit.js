@@ -38,13 +38,20 @@ const {
 	RadioControl,
 } = wp.components;
 
-const { InspectorControls, RichText, BlockControls, InspectorAdvancedControls } = wp.blockEditor;
+const {
+	InspectorControls,
+	RichText,
+	BlockControls,
+	InspectorAdvancedControls,
+} = wp.blockEditor;
 
 const HasClickToTweet = ( props ) => {
 	// State.
 	const [ editTweetPopoverVisible, setEditTweetPopoverVisible ] = useState( false );
 	const [ isPreview, setIsPreview ] = useState( false );
 	const [ tweetCharacterTotal, setTweetCharacterTotal ] = useState( 0 );
+	const [ tweetHashtagCharLength, setTweetHashtagCharLength] = useState( 0 );
+	const [ tweetContentCharLength, setTweetContentCharLength ] = useState( 0 );
 
 	// Shortcuts.
 	const { attributes, setAttributes } = props;
@@ -82,13 +89,19 @@ const HasClickToTweet = ( props ) => {
 
 	useEffect( () => {
 		countCharacters();
-	}, [ twitter_username, share_text, share_text_override, hashtags, share_text_override_enabled ] );
+		countInfoCharacters();
+	}, [
+		twitter_username,
+		share_text,
+		share_text_override,
+		hashtags,
+		share_text_override_enabled,
+	] );
 
 	/**
 	 * Count  the characters including text, links, hashtags, and mentions.
 	 */
 	const countCharacters = () => {
-
 		// Begin adding text entered.
 		let tweetContent = '';
 
@@ -98,14 +111,19 @@ const HasClickToTweet = ( props ) => {
 		} else {
 			tweetContent += share_text;
 		}
-		tweetContent += '\r\n';
+		if ( tweetContent !== '' ) {
+			tweetContent += '\r\n';
+		}
 
 		// Add hashtags.
-		hashtags.forEach( ( hashtag ) => {
-			hashtag = '#' + hashtag + ' ';
-			tweetContent += hashtag;
-		} );
-		tweetContent += '\r\n';
+		if ( hashtags.length > 0 ) {
+			tweetContent += hashtags.join( '#' );
+		}
+		
+
+		if ( tweetContent !== '' && hashtags.length > 0 ) {
+			tweetContent += '\r\n';
+		}
 
 		// Add via.
 		if ( twitter_username.length > 0 ) {
@@ -117,10 +135,41 @@ const HasClickToTweet = ( props ) => {
 		setTweetCharacterTotal( twttr.txt.getTweetLength( tweetContent ) );
 	};
 
+	const countInfoCharacters = () => {
+		setTweetHashtagCharLength( getHashtagsLength() );
+		setTweetContentCharLength( getTweetTextLength() );
+	};
+
+	const getTweetTextLength = () => {
+		let tweetContent = '';
+		// Get main tweet text.
+		if ( share_text_override_enabled ) {
+			tweetContent += share_text_override;
+		} else {
+			tweetContent += share_text;
+		}
+		if ( tweetContent !== '' ) {
+			tweetContent += '\r\n';
+		}
+
+		const count = twttr.txt.getTweetLength( tweetContent );
+		return count;
+	};
+
+	const getHashtagsLength = () => {
+		let tweetContent = '';
+
+		if ( hashtags.length > 0 ) {
+			tweetContent += hashtags.join( '#' );
+			tweetContent += '\r\n';
+		}
+
+		const count = twttr.txt.getTweetLength( tweetContent );
+		return count;
+	};
+
 	const getCharacterBar = () => {
-		return (
-			<LineCount chars={ tweetCharacterTotal } />
-		);
+		return <LineCount chars={ tweetCharacterTotal } />;
 	};
 
 	const toggleEditTweetVisibility = () => {
@@ -253,7 +302,7 @@ const HasClickToTweet = ( props ) => {
 						} }
 					/>
 				</PanelRow>
-				{ tweet_button_display === 'full' &&
+				{ tweet_button_display === 'full' && (
 					<PanelRow>
 						<AlignmentGroup
 							label={ __( 'Icon Alignment', 'highlight-and-share' ) }
@@ -264,7 +313,7 @@ const HasClickToTweet = ( props ) => {
 							centerOn={ false }
 						/>
 					</PanelRow>
-				}
+				) }
 				<PanelRow className="has-sidebar-button-options">
 					<RadioControl
 						label={ __( 'Button Options', 'highlight-and-share' ) }
@@ -272,7 +321,10 @@ const HasClickToTweet = ( props ) => {
 						options={ [
 							{ label: __( 'Text Only', 'highlight-and-share' ), value: 'text' },
 							{ label: __( 'Icon Only', 'highlight-and-share' ), value: 'icon' },
-							{ label: __( 'Text and Icon', 'highlight-and-share' ), value: 'full' },
+							{
+								label: __( 'Text and Icon', 'highlight-and-share' ),
+								value: 'full',
+							},
 						] }
 						onChange={ ( value ) => {
 							setAttributes( {
@@ -287,37 +339,36 @@ const HasClickToTweet = ( props ) => {
 
 	const advancedInspectorControls = (
 		<>
-				<PanelRow>
-					<ToggleControl
-						label={ __( 'Enable RTL', 'highlight-and-share' ) }
-						checked={ rtl }
-						onChange={ ( value ) => {
-							setAttributes( {
-								rtl: value,
-							} );
-						} }
-						help={ __(
-							'For right-to-left languages, select this option.',
-							'highlight-and-share'
-						) }
-					/>
-				</PanelRow>
-				<PanelRow>
-					<ToggleControl
-						label={ __( 'Disable Styles (Themes)', 'highlight-and-share' ) }
-						checked={ tweet_styles_disabled}
-						onChange={ ( value ) => {
-							setAttributes( {
-								tweet_styles_disabled: value,
-							} );
-						} }
-						help={ __(
-							'If you would like to style your own block, please check this option.',
-							'highlight-and-share'
-						) }
-					/>
-				</PanelRow>
-			
+			<PanelRow>
+				<ToggleControl
+					label={ __( 'Enable RTL', 'highlight-and-share' ) }
+					checked={ rtl }
+					onChange={ ( value ) => {
+						setAttributes( {
+							rtl: value,
+						} );
+					} }
+					help={ __(
+						'For right-to-left languages, select this option.',
+						'highlight-and-share'
+					) }
+				/>
+			</PanelRow>
+			<PanelRow>
+				<ToggleControl
+					label={ __( 'Disable Styles (Themes)', 'highlight-and-share' ) }
+					checked={ tweet_styles_disabled }
+					onChange={ ( value ) => {
+						setAttributes( {
+							tweet_styles_disabled: value,
+						} );
+					} }
+					help={ __(
+						'If you would like to style your own block, please check this option.',
+						'highlight-and-share'
+					) }
+				/>
+			</PanelRow>
 		</>
 	);
 	// Todo - Make this readable via JSON.
@@ -456,7 +507,9 @@ const HasClickToTweet = ( props ) => {
 				rel="stylesheet"
 			/>
 			<InspectorControls>{ inspectorControls }</InspectorControls>
-			<InspectorAdvancedControls>{ advancedInspectorControls } </InspectorAdvancedControls>
+			<InspectorAdvancedControls>
+				{ advancedInspectorControls }{ ' ' }
+			</InspectorAdvancedControls>
 			<BlockControls>
 				<>
 					<ToolbarGroup
@@ -507,6 +560,16 @@ const HasClickToTweet = ( props ) => {
 								title: __( 'Tweet Settings', 'highlight-and-share' ),
 								name: 'settings',
 								className: 'has-tab-settings',
+							},
+							{
+								title: __( 'Link Settings', 'highlight-and-share' ),
+								name: 'link',
+								className: 'has-tab-link',
+							},
+							{
+								title: __( 'Info', 'highlight-and-share' ),
+								name: 'info',
+								className: 'has-tab-info',
 							},
 						] }
 					>
@@ -632,6 +695,13 @@ const HasClickToTweet = ( props ) => {
 												} );
 											} }
 										/>
+									</>
+								);
+							} else if ( 'info' === tab.name ) {
+								tabContent = (
+									<>
+										<p>Text count: { tweetContentCharLength } </p>
+										<p>Hashtag count: { tweetHashtagCharLength } </p>
 									</>
 								);
 							}
