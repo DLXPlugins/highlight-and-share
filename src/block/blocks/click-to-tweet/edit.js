@@ -38,7 +38,7 @@ const {
 	RadioControl,
 } = wp.components;
 
-const { InspectorControls, RichText, BlockControls } = wp.blockEditor;
+const { InspectorControls, RichText, BlockControls, InspectorAdvancedControls } = wp.blockEditor;
 
 const HasClickToTweet = ( props ) => {
 	// State.
@@ -67,6 +67,7 @@ const HasClickToTweet = ( props ) => {
 		tweet_icon_alignment,
 		rtl,
 		tweet_button_display,
+		tweet_styles_disabled,
 	} = attributes;
 
 	useEffect( () => {
@@ -237,19 +238,6 @@ const HasClickToTweet = ( props ) => {
 							} );
 						} }
 					/>
-					<ToggleControl
-						label={ __( 'Enable RTL', 'highlight-and-share' ) }
-						checked={ rtl }
-						onChange={ ( value ) => {
-							setAttributes( {
-								rtl: value,
-							} );
-						} }
-						help={ __(
-							'For right-to-left languages, select this option.',
-							'highlight-and-share'
-						) }
-					/>
 				</>
 			</PanelBody>
 			<PanelBody
@@ -294,6 +282,42 @@ const HasClickToTweet = ( props ) => {
 					/>
 				</PanelRow>
 			</PanelBody>
+		</>
+	);
+
+	const advancedInspectorControls = (
+		<>
+				<PanelRow>
+					<ToggleControl
+						label={ __( 'Enable RTL', 'highlight-and-share' ) }
+						checked={ rtl }
+						onChange={ ( value ) => {
+							setAttributes( {
+								rtl: value,
+							} );
+						} }
+						help={ __(
+							'For right-to-left languages, select this option.',
+							'highlight-and-share'
+						) }
+					/>
+				</PanelRow>
+				<PanelRow>
+					<ToggleControl
+						label={ __( 'Disable Styles (Themes)', 'highlight-and-share' ) }
+						checked={ tweet_styles_disabled}
+						onChange={ ( value ) => {
+							setAttributes( {
+								tweet_styles_disabled: value,
+							} );
+						} }
+						help={ __(
+							'If you would like to style your own block, please check this option.',
+							'highlight-and-share'
+						) }
+					/>
+				</PanelRow>
+			
 		</>
 	);
 	// Todo - Make this readable via JSON.
@@ -432,6 +456,7 @@ const HasClickToTweet = ( props ) => {
 				rel="stylesheet"
 			/>
 			<InspectorControls>{ inspectorControls }</InspectorControls>
+			<InspectorAdvancedControls>{ advancedInspectorControls } </InspectorAdvancedControls>
 			<BlockControls>
 				<>
 					<ToolbarGroup

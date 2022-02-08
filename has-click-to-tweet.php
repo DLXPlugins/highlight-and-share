@@ -82,6 +82,10 @@ function has_register_click_to_tweet_block_attributes() {
 					'type' => 'string',
 					'default' => 'full',
 				),
+				'tweet_styles_disabled' => array(
+					'type' => 'boolean',
+					'default' => false,
+				),
 			),
 			'render_callback' => 'has_click_to_tweet',
 			'editor_script'   => 'has-click-to-share',
