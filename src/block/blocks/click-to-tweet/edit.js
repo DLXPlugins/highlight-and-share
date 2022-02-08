@@ -1,3 +1,4 @@
+/* eslint-disable no-unused-vars */
 /* eslint-disable camelcase */
 /**
  * External dependencies
@@ -14,8 +15,9 @@ import EllipsisIcon from '../components/icons/Ellipsis';
 import AlignmentGroup from '../components/alignment';
 import CircularCount from '../components/CircularCount';
 import LineCount from '../components/LineCount';
+import sendCommand from '../utils/SendCommand';
 
-const { useEffect, useState } = wp.element;
+const { useEffect, useState, createRef } = wp.element;
 
 const { createHooks } = wp.hooks;
 
@@ -45,16 +47,27 @@ const {
 	InspectorAdvancedControls,
 } = wp.blockEditor;
 
+const manualUrlInput = createRef(null);
+const shareTextInput = createRef( null );
+
 const HasClickToTweet = ( props ) => {
+
 	// State.
 	const [ editTweetPopoverVisible, setEditTweetPopoverVisible ] = useState( false );
 	const [ isPreview, setIsPreview ] = useState( false );
 	const [ tweetCharacterTotal, setTweetCharacterTotal ] = useState( 0 );
-	const [ tweetHashtagCharLength, setTweetHashtagCharLength] = useState( 0 );
+	const [ tweetHashtagCharLength, setTweetHashtagCharLength ] = useState( 0 );
 	const [ tweetContentCharLength, setTweetContentCharLength ] = useState( 0 );
+	const [ tweetUsernameCharLength, setTweetUsernameCharLength ] = useState( 0 );
+	const [ selectedTab, setSelectedTab ] = useState( 'appearance' );
+	const [ urlShortener, setUrlShortener ] = useState( 'default' );
 
 	// Shortcuts.
 	const { attributes, setAttributes } = props;
+
+	// Nonce var.
+	// eslint-disable-next-line no-undef
+	const { ctt_nonce } = has_gutenberg; // Ajax object.
 
 	const {
 		uniqueId,
@@ -75,17 +88,13 @@ const HasClickToTweet = ( props ) => {
 		rtl,
 		tweet_button_display,
 		tweet_styles_disabled,
+		id,
+		anchor,
+		has_anchor,
+		url_shortener,
+		url_shortening_service,
+		permalink,
 	} = attributes;
-
-	useEffect( () => {
-		// Get unique ID for the block. Props @generateblocks.
-		const id = props.clientId.substr( 2, 9 ).replace( '-', '' );
-		if ( ! attributes.uniqueId ) {
-			setAttributes( {
-				uniqueId: id,
-			} );
-		}
-	}, [] );
 
 	useEffect( () => {
 		countCharacters();
@@ -97,6 +106,43 @@ const HasClickToTweet = ( props ) => {
 		hashtags,
 		share_text_override_enabled,
 	] );
+
+	useEffect( () => {
+		if ( anchor.length === 0 ) {
+			getGeneratedAnchor();
+		}
+	}, [] );
+
+	useEffect( () => {
+		if ( selectedTab === 'appearance' && shareTextInput.current !== null ) {
+			shareTextInput.current.focus();
+		}
+	}, [shareTextInput.current ] );
+
+	useEffect( () => {
+		if ( manualUrlInput.current !== null && 'manual' === urlShortener ) {
+			manualUrlInput.current.focus();
+		}
+	}, [ url_shortening_service ] );
+
+
+	const getGeneratedAnchor = async( object = {} ) => {
+		await sendCommand( 'has_generate_unique_id', { nonce: ctt_nonce } )
+			.then( ( response ) => {
+				const { success } = response;
+				const { data } = response.data;
+				if ( ! success ) {
+					setAttributes( {
+						anchor: data.unique_id,
+					} );
+				}
+			} )
+			.catch( ( response ) => {} )
+			.then( ( response ) => {
+				// All.
+			} );
+		//console.log( ajaxData );
+	};
 
 	/**
 	 * Count  the characters including text, links, hashtags, and mentions.
@@ -119,7 +165,6 @@ const HasClickToTweet = ( props ) => {
 		if ( hashtags.length > 0 ) {
 			tweetContent += hashtags.join( '#' );
 		}
-		
 
 		if ( tweetContent !== '' && hashtags.length > 0 ) {
 			tweetContent += '\r\n';
@@ -138,6 +183,19 @@ const HasClickToTweet = ( props ) => {
 	const countInfoCharacters = () => {
 		setTweetHashtagCharLength( getHashtagsLength() );
 		setTweetContentCharLength( getTweetTextLength() );
+		setTweetUsernameCharLength( getUsernameLength() );
+	};
+
+	const getUsernameLength = () => {
+		let tweetContent = '';
+		// Add via.
+		if ( twitter_username.length > 0 ) {
+			tweetContent += 'Via ';
+			tweetContent += twitter_username;
+		}
+
+		const count = twttr.txt.getTweetLength( tweetContent );
+		return count;
 	};
 
 	const getTweetTextLength = () => {
@@ -555,6 +613,7 @@ const HasClickToTweet = ( props ) => {
 								title: __( 'Appearance', 'highlight-and-share' ),
 								name: 'appearance',
 								className: 'has-tab-appearance',
+								onClick: ( ( e ) => {alert('test')})
 							},
 							{
 								title: __( 'Tweet Settings', 'highlight-and-share' ),
@@ -602,6 +661,7 @@ const HasClickToTweet = ( props ) => {
 														onChange={ ( value ) => {
 															setAttributes( { share_text: value } );
 														} }
+														ref={shareTextInput}
 													/>
 												</div>
 												{ getClickToShareButton() }
@@ -702,6 +762,98 @@ const HasClickToTweet = ( props ) => {
 									<>
 										<p>Text count: { tweetContentCharLength } </p>
 										<p>Hashtag count: { tweetHashtagCharLength } </p>
+										<p>Tweet credit: { tweetUsernameCharLength } </p>
+									</>
+								);
+							} else if ( 'link' === tab.name ) {
+								tabContent = (
+									<>
+										<ToggleControl
+											label={ __( 'Enable Anchor', 'highlight-and-share' ) }
+											checked={ has_anchor }
+											onChange={ ( value ) => {
+												setAttributes( {
+													has_anchor: value,
+												} );
+											} }
+											help={ __(
+												'Enable anchors so users can link directly to the quote.',
+												'highlight-and-share'
+											) }
+										/>
+										{ has_anchor && (
+											<TextControl
+												label={ __( 'Anchor (ID)', 'highlight-and-share' ) }
+												help={ __(
+													'Enter a unique anchor for the tweet container so that you can directly link to it. Do not use the hashtag (#) symbol.'
+												) }
+												value={ anchor }
+												onChange={ ( value ) => {
+													setAttributes( {
+														anchor: value,
+													} );
+												} }
+											/>
+										) }
+										<ToggleControl
+											label={ __( 'Enable URL Shortening', 'highlight-and-share' ) }
+											checked={ url_shortener }
+											onChange={ ( value ) => {
+												setAttributes( {
+													url_shortener: value,
+												} );
+											} }
+											help={ __(
+												'Enable the URL shortener for your tweets.',
+												'highlight-and-share'
+											) }
+										/>
+										{ url_shortener && (
+											<>
+												<RadioControl
+													label={ __( 'Shortlink Service', 'highlight-and-share' ) }
+													selected={ url_shortening_service }
+													options={ [
+														{
+															label: __( 'Default', 'highlight-and-share' ),
+															value: 'default',
+														},
+														{
+															label: __( 'Bitly', 'highlight-and-share' ),
+															value: 'bitly',
+														},
+														{
+															label: __( 'Jetpack', 'highlight-and-share' ),
+															value: 'icon',
+														},
+														{
+															label: __( 'Manual', 'highlight-and-share' ),
+															value: 'manual',
+														},
+													] }
+													onChange={ ( value ) => {
+														setAttributes( {
+															url_shortening_service: value,
+														} );
+														setUrlShortener( value );
+													} }
+												/>
+												<TextControl
+													label={ __( 'Page URL', 'highlight-and-share' ) }
+													help={ __(
+														'This displays the permanent URL to this block.'
+													) }
+													value={ permalink }
+													onChange={ ( value ) => {
+														setAttributes( {
+															permalink: value,
+														} );
+													} }
+													disabled={ url_shortening_service !== 'manual' ? 'disabled': '' }
+													ref={ manualUrlInput }
+												/>
+											</>
+										) }
 									</>
 								);
 							}

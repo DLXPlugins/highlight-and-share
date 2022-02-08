@@ -162,7 +162,8 @@ function has_blocks_editor_assets() {
 				'dark' => esc_html__( 'Dark', 'highlight-and-share' ),
 				'purple' => esc_html__( 'Purple', 'highlight-and-share' ),
 				'pink' => esc_html__( 'Pink', 'highlight-and-share' ),
-			)
+			),
+			'ctt_nonce' => wp_create_nonce( 'has-click-to-tweet-ajax' )
 		)
 	);
 	wp_set_script_translations( 'has-click-to-share', 'highlight-and-share' );

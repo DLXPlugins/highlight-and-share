@@ -38,8 +38,8 @@ function has_register_click_to_tweet_block_attributes() {
 					'type'    => 'string',
 					'default' => '',
 				),
-				'share_button_text' => array(
-					'type' => 'string',
+				'share_button_text'           => array(
+					'type'    => 'string',
 					'default' => __( 'Click to Tweet', 'highlight-and-share' ),
 				),
 				'share_text_override_enabled' => array(
@@ -50,41 +50,61 @@ function has_register_click_to_tweet_block_attributes() {
 					'type'    => 'string',
 					'default' => 'center',
 				),
-				'hashtags' => array(
-					'type' => 'array',
-					'default' => [],
+				'hashtags'                    => array(
+					'type'    => 'array',
+					'default' => array(),
 				),
-				'twitter_username' => array(
-					'type' => 'string',
+				'twitter_username'            => array(
+					'type'    => 'string',
 					'default' => '',
 				),
-				'maximum_width' => array(
-					'type' => 'number',
+				'maximum_width'               => array(
+					'type'    => 'number',
 					'default' => 850,
 				),
-				'maximum_width_unit' => array(
-					'type' => 'string',
+				'maximum_width_unit'          => array(
+					'type'    => 'string',
 					'default' => 'px',
 				),
-				'rtl' => array(
-					'type' => 'boolean',
+				'rtl'                         => array(
+					'type'    => 'boolean',
 					'default' => false,
 				),
-				'tweet_button_alignment' => array(
-					'type' => 'string',
+				'tweet_button_alignment'      => array(
+					'type'    => 'string',
 					'default' => 'right',
 				),
-				'tweet_icon_alignment' => array(
-					'type' => 'string',
+				'tweet_icon_alignment'        => array(
+					'type'    => 'string',
 					'default' => 'right',
 				),
-				'tweet_button_display' => array(
-					'type' => 'string',
+				'tweet_button_display'        => array(
+					'type'    => 'string',
 					'default' => 'full',
 				),
-				'tweet_styles_disabled' => array(
-					'type' => 'boolean',
+				'tweet_styles_disabled'       => array(
+					'type'    => 'boolean',
 					'default' => false,
+				),
+				'anchor'                      => array(
+					'type'    => 'text',
+					'default' => '',
+				),
+				'has_anchor' => array(
+					'type' => 'boolean',
+					'default' => true,
+				),
+				'url_shortener' => array(
+					'type' => 'boolean',
+					'default' => true,
+				),
+				'url_shortening_service' => array(
+					'type' => 'boolean',
+					'default' => 'default',
+				),
+				'permalink' => array(
+					'type' => 'text',
+					'default' => '',
 				),
 			),
 			'render_callback' => 'has_click_to_tweet',
@@ -123,3 +143,20 @@ function has_click_to_tweet( $attributes ) {
 }
 
 add_action( 'init', 'has_register_click_to_tweet_block_attributes' );
+
+/**
+ * Generate anchor prefixed with "has-" followed by a generated string.
+ */
+function has_click_to_tweet_generate_anchor() {
+	if ( ! wp_verify_nonce( filter_input( INPUT_POST, 'nonce', FILTER_DEFAULT ), 'has-click-to-tweet-ajax' ) || ! current_user_can( 'edit_posts' ) ) {
+		wp_send_json_error( array() );
+	} else {
+		wp_send_json_success(
+			array(
+				'unique_id' => 'has' . wp_generate_password( 8, false, ),
+			)
+		);
+	}
+}
+add_action( 'wp_ajax_has_generate_unique_id', 'has_click_to_tweet_generate_anchor' );
+
