@@ -152,6 +152,10 @@ function has_blocks_editor_assets() {
 		true
 	);
 
+	// Attempt to get post ID.
+	global $post;
+	$post_id = isset( $post->ID ) ? $post->ID : 0;
+
 	wp_localize_script(
 		'has-click-to-share',
 		'has_gutenberg',
@@ -164,7 +168,10 @@ function has_blocks_editor_assets() {
 				'pink' => esc_html__( 'Pink', 'highlight-and-share' ),
 			),
 			'ctt_nonce' => wp_create_nonce( 'has-click-to-tweet-ajax' ),
-			'bitly_plugin_active' => false, //Highlight_And_Share::is_activated( 'wp-bitly/wp-bitly.php', 'plugin' ),
+			'bitly_plugin_active' => Highlight_And_Share::is_activated( 'wp-bitly/wp-bitly.php', 'plugin' ),
+			'bitly_plugin_short_url' => get_post_meta( $post_id, '_wpbitly', true ),
+			'jetpack_plugin_active' => Highlight_And_Share::is_activated( 'jetpack/jetpack.php', 'plugin' ),
+			'jetpack_plugin_short_url' => function_exists( 'wpme_get_shortlink' ) ? wpme_get_shortlink( $post_id ) : false,
 		)
 	);
 	wp_set_script_translations( 'has-click-to-share', 'highlight-and-share' );

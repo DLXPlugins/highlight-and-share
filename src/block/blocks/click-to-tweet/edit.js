@@ -799,133 +799,288 @@ const HasClickToTweet = ( props ) => {
 												'highlight-and-share'
 											) }
 										/>
-										{
-											enable_links_in_tweet && (
-												<>
-													<ToggleControl
-														label={ __( 'Enable Anchor', 'highlight-and-share' ) }
-														checked={ has_anchor }
+										{ enable_links_in_tweet && (
+											<>
+												<ToggleControl
+													label={ __( 'Enable Anchor', 'highlight-and-share' ) }
+													checked={ has_anchor }
+													onChange={ ( value ) => {
+														setAttributes( {
+															has_anchor: value,
+														} );
+													} }
+													help={ __(
+														'Enable anchors so users can link directly to the quote.',
+														'highlight-and-share'
+													) }
+												/>
+												{ has_anchor && (
+													<TextControl
+														label={ __( 'Anchor (ID)', 'highlight-and-share' ) }
+														help={ __(
+															'Enter a unique anchor for the tweet container so that you can directly link to it. Do not use the hashtag (#) symbol.'
+														) }
+														value={ anchor }
 														onChange={ ( value ) => {
 															setAttributes( {
-																has_anchor: value,
+																anchor: value,
 															} );
 														} }
-														help={ __(
-															'Enable anchors so users can link directly to the quote.',
-															'highlight-and-share'
-														) }
 													/>
-													{ has_anchor && (
-														<TextControl
-															label={ __( 'Anchor (ID)', 'highlight-and-share' ) }
-															help={ __(
-																'Enter a unique anchor for the tweet container so that you can directly link to it. Do not use the hashtag (#) symbol.'
+												) }
+												<ToggleControl
+													label={ __(
+														'Enable URL Shortening',
+														'highlight-and-share'
+													) }
+													checked={ url_shortener }
+													onChange={ ( value ) => {
+														setAttributes( {
+															url_shortener: value,
+														} );
+													} }
+													help={ __(
+														'Enable the URL shortener for your tweets.',
+														'highlight-and-share'
+													) }
+												/>
+												{ url_shortener && (
+													<>
+														<RadioControl
+															label={ __(
+																'Shortlink Service',
+																'highlight-and-share'
 															) }
-															value={ anchor }
+															selected={ url_shortening_service }
+															options={ [
+																{
+																	label: __( 'None', 'highlight-and-share' ),
+																	value: 'none',
+																},
+																{
+																	label: __( 'Bitly', 'highlight-and-share' ),
+																	value: 'bitly',
+																},
+																{
+																	label: __( 'Jetpack', 'highlight-and-share' ),
+																	value: 'jetpack',
+																},
+																{
+																	label: __( 'Manual', 'highlight-and-share' ),
+																	value: 'manual',
+																},
+															] }
 															onChange={ ( value ) => {
 																setAttributes( {
-																	anchor: value,
+																	url_shortening_service: value,
 																} );
-															} }
-														/>
-													) }
-													<ToggleControl
-														label={ __( 'Enable URL Shortening', 'highlight-and-share' ) }
-														checked={ url_shortener }
-														onChange={ ( value ) => {
-															setAttributes( {
-																url_shortener: value,
-															} );
-														} }
-														help={ __(
-															'Enable the URL shortener for your tweets.',
-															'highlight-and-share'
-														) }
-													/>
-													{ url_shortener && (
-														<>
-															<RadioControl
-																label={ __( 'Shortlink Service', 'highlight-and-share' ) }
-																selected={ url_shortening_service }
-																options={ [
-																	{
-																		label: __( 'None', 'highlight-and-share' ),
-																		value: 'none',
-																	},
-																	{
-																		label: __( 'Bitly', 'highlight-and-share' ),
-																		value: 'bitly',
-																	},
-																	{
-																		label: __( 'Jetpack', 'highlight-and-share' ),
-																		value: 'jetpack',
-																	},
-																	{
-																		label: __( 'Manual', 'highlight-and-share' ),
-																		value: 'manual',
-																	},
-																] }
-																onChange={ ( value ) => {
+																if ( 'none' === value ) {
 																	setAttributes( {
-																		url_shortening_service: value,
+																		permalink: postObject.link,
 																	} );
-																	if ( 'none' === value ) {
+																}
+																if ( 'bitly' === value ) {
+																	if ( has_gutenberg.bitly_plugin_short_url ) {
 																		setAttributes( {
-																			permalink: postObject.link,
+																			permalink:
+																				has_gutenberg.bitly_plugin_short_url,
 																		} );
 																	}
-																	setUrlShortener( value );
-																} }
-															/>
-															{ ( url_shortening_service === 'bitly' && ! has_gutenberg.bitly_plugin_active ) && (
-																<Notice className="has-notice has-notice-warning" status="warning" politeness="assertive" isDismissible={ false } >
-																	<div className="has-notice-icon">
-																		<CirculeExplanationIcon width="36" height="36" className="has-icon" var="--has--preset--notice-warning-icon-color" />
-																	</div>
-																	<h2>{ __( 'The official Bitly plugin is not installed.', 'highlight-and-share' ) }</h2>
-																	<p>{ __( 'Please install and activate the Bitly WordPress Plugin and revisit this section. Alternatively, you can paste your URL in using the Manual option.', 'highlight-and-share' ) }</p>
-																	<div className="has-notice-button">
-																		<Button variant="link" href="https://wordpress.org/plugins/wp-bitly/" target="_blank" icon={ <NewWindowIcon width="12" height="12" /> } iconPosition="right">
-																			{ __( 'Visit the Bitly plugin on WordPress.org', 'highlight-and-share' ) }
-																		</Button>
-																	</div>
-																</Notice>
-															) }
-
-															{ ( url_shortening_service === 'jetpack' && ! has_gutenberg.bitly_plugin_active ) && (
-																<Notice className="has-notice has-notice-warning" status="warning" politeness="assertive" isDismissible={ false } >
-																	<div className="has-notice-icon">
-																		<CirculeExplanationIcon width="36" height="36" className="has-icon" var="--has--preset--notice-warning-icon-color" />
-																	</div>
-																	<h2>{ __( 'The official Jetpack plugin is not installed.', 'highlight-and-share' ) }</h2>
-																	<p>{ __( 'Please install and activate the Jetpack WordPress Plugin, enable shortlinks, and revisit this section. Alternatively, you can paste your URL in using the Manual option.', 'highlight-and-share' ) }</p>
-																	<div className="has-notice-button">
-																		<Button variant="link" href="https://wordpress.org/plugins/jetpack/" target="_blank" icon={ <NewWindowIcon width="12" height="12" /> } iconPosition="right">
-																			{ __( 'Visit the Jetpack plugin on WordPress.org', 'highlight-and-share' ) }
-																		</Button>
-																	</div>
-																</Notice>
-															) }
-														</>
-													) }
-													<TextControl
-														label={ __( 'Page URL', 'highlight-and-share' ) }
-														help={ __(
-															'This displays the permanent URL to this block.'
+																}
+																setUrlShortener( value );
+															} }
+														/>
+														{ url_shortening_service === 'bitly' &&
+															! has_gutenberg.bitly_plugin_short_url && (
+															<Notice
+																className="has-notice has-notice-warning"
+																status="warning"
+																politeness="assertive"
+																isDismissible={ false }
+															>
+																<div className="has-notice-icon">
+																	<CirculeExplanationIcon
+																		width="36"
+																		height="36"
+																		className="has-icon"
+																		var="--has--preset--notice-warning-icon-color"
+																	/>
+																</div>
+																<h2>
+																	{ __(
+																		'The Bitly short URL cannot be found.',
+																		'highlight-and-share'
+																	) }
+																</h2>
+																<p>
+																	{ __(
+																		'You may need to regenerate a Bitly short URL for this post or reauthorize the Bitly plugin.',
+																		'highlight-and-share'
+																	) }
+																</p>
+															</Notice>
 														) }
-														value={ permalink }
-														onChange={ ( value ) => {
-															setAttributes( {
-																permalink: value,
-															} );
-														} }
-														disabled={ url_shortening_service !== 'manual' ? 'disabled' : '' }
-														ref={ manualUrlInput }
-													/>
-												</>
-											)
-										}
+														{ url_shortening_service === 'bitly' &&
+															! has_gutenberg.bitly_plugin_active && (
+															<Notice
+																className="has-notice has-notice-warning"
+																status="warning"
+																politeness="assertive"
+																isDismissible={ false }
+															>
+																<div className="has-notice-icon">
+																	<CirculeExplanationIcon
+																		width="36"
+																		height="36"
+																		className="has-icon"
+																		var="--has--preset--notice-warning-icon-color"
+																	/>
+																</div>
+																<h2>
+																	{ __(
+																		'The official Bitly plugin is not installed.',
+																		'highlight-and-share'
+																	) }
+																</h2>
+																<p>
+																	{ __(
+																		'Please install and activate the Bitly WordPress Plugin and revisit this section. Alternatively, you can paste your URL in using the Manual option.',
+																		'highlight-and-share'
+																	) }
+																</p>
+																<div className="has-notice-button">
+																	<Button
+																		variant="link"
+																		href="https://wordpress.org/plugins/wp-bitly/"
+																		target="_blank"
+																		icon={
+																			<NewWindowIcon width="12" height="12" />
+																		}
+																		iconPosition="right"
+																	>
+																		{ __(
+																			'Visit the Bitly plugin on WordPress.org',
+																			'highlight-and-share'
+																		) }
+																	</Button>
+																</div>
+															</Notice>
+														) }
+														{ url_shortening_service === 'jetpack' &&
+															! has_gutenberg.jetpack_plugin_short_url && (
+															<Notice
+																className="has-notice has-notice-warning"
+																status="warning"
+																politeness="assertive"
+																isDismissible={ false }
+															>
+																<div className="has-notice-icon">
+																	<CirculeExplanationIcon
+																		width="36"
+																		height="36"
+																		className="has-icon"
+																		var="--has--preset--notice-warning-icon-color"
+																	/>
+																</div>
+																<h2>
+																	{ __(
+																		'A shortlink from Jetpack could not be found',
+																		'highlight-and-share'
+																	) }
+																</h2>
+																<p>
+																	{ __(
+																		'Please ensure that Jetpack is installed and that shortlinks are enabled.',
+																		'highlight-and-share'
+																	) }
+																</p>
+																<div className="has-notice-button">
+																	<Button
+																		variant="link"
+																		href="https://jetpack.com/support/wp-me-shortlinks/"
+																		target="_blank"
+																		icon={
+																			<NewWindowIcon width="12" height="12" />
+																		}
+																		iconPosition="right"
+																	>
+																		{ __(
+																			'Visit the Jetpack Shortlink Documentation',
+																			'highlight-and-share'
+																		) }
+																	</Button>
+																</div>
+															</Notice>
+														) }
 
+														{ url_shortening_service === 'jetpack' &&
+															! has_gutenberg.jetpack_plugin_active && (
+															<Notice
+																className="has-notice has-notice-warning"
+																status="warning"
+																politeness="assertive"
+																isDismissible={ false }
+															>
+																<div className="has-notice-icon">
+																	<CirculeExplanationIcon
+																		width="36"
+																		height="36"
+																		className="has-icon"
+																		var="--has--preset--notice-warning-icon-color"
+																	/>
+																</div>
+																<h2>
+																	{ __(
+																		'The official Jetpack plugin is not installed.',
+																		'highlight-and-share'
+																	) }
+																</h2>
+																<p>
+																	{ __(
+																		'Please install and activate the Jetpack WordPress Plugin, enable shortlinks, and revisit this section. Alternatively, you can paste your URL in using the Manual option.',
+																		'highlight-and-share'
+																	) }
+																</p>
+																<div className="has-notice-button">
+																	<Button
+																		variant="link"
+																		href="https://wordpress.org/plugins/jetpack/"
+																		target="_blank"
+																		icon={
+																			<NewWindowIcon width="12" height="12" />
+																		}
+																		iconPosition="right"
+																	>
+																		{ __(
+																			'Visit the Jetpack plugin on WordPress.org',
+																			'highlight-and-share'
+																		) }
+																	</Button>
+																</div>
+															</Notice>
+														) }
+													</>
+												) }
+												<TextControl
+													label={ __( 'Page URL', 'highlight-and-share' ) }
+													help={ __(
+														'This displays the permanent URL to this block.'
+													) }
+													value={ permalink }
+													onChange={ ( value ) => {
+														setAttributes( {
+															permalink: value,
+														} );
+													} }
+													disabled={
+														url_shortening_service !== 'manual'
+															? 'disabled'
+															: ''
+													}
+													ref={ manualUrlInput }
+												/>
+											</>
+										) }
 									</>
 								);
 							}
