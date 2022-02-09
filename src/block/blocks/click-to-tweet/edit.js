@@ -60,6 +60,7 @@ const HasClickToTweet = ( props ) => {
 	const [ tweetHashtagCharLength, setTweetHashtagCharLength ] = useState( 0 );
 	const [ tweetContentCharLength, setTweetContentCharLength ] = useState( 0 );
 	const [ tweetUsernameCharLength, setTweetUsernameCharLength ] = useState( 0 );
+	const [ tweetPermalinkCharLength, setTweetPermalinkCharLength ] = useState( 0 );
 	const [ selectedTab, setSelectedTab ] = useState( 'appearance' );
 	const [ urlShortener, setUrlShortener ] = useState( 'default' );
 
@@ -104,8 +105,6 @@ const HasClickToTweet = ( props ) => {
 		enable_links_in_tweet,
 	} = attributes;
 
-	console.log( maximum_width );
-
 	useEffect( () => {
 		countCharacters();
 		countInfoCharacters();
@@ -115,6 +114,10 @@ const HasClickToTweet = ( props ) => {
 		share_text_override,
 		hashtags,
 		share_text_override_enabled,
+		enable_links_in_tweet,
+		permalink,
+		anchor,
+		has_anchor,
 	] );
 
 	useEffect( () => {
@@ -145,6 +148,9 @@ const HasClickToTweet = ( props ) => {
 	}, [ postObject ] );
 
 	const getGeneratedAnchor = async( object = {} ) => {
+		if ( anchor.length > 0 ) {
+			return;
+		}
 		await sendCommand( 'has_generate_unique_id', { nonce: ctt_nonce } )
 			.then( ( response ) => {
 				const { success } = response;
@@ -159,7 +165,6 @@ const HasClickToTweet = ( props ) => {
 			.then( ( response ) => {
 				// All.
 			} );
-		//console.log( ajaxData );
 	};
 
 	/**
@@ -194,6 +199,11 @@ const HasClickToTweet = ( props ) => {
 			tweetContent += twitter_username;
 		}
 
+		if ( permalink.length > 0 && enable_links_in_tweet ) {
+			tweetContent += '\r\n';
+			tweetContent += permalink + ( has_anchor ? '#' + anchor : '' );
+		}
+
 		// Todo - Add URL.
 		setTweetCharacterTotal( twttr.txt.getTweetLength( tweetContent ) );
 	};
@@ -202,13 +212,14 @@ const HasClickToTweet = ( props ) => {
 		setTweetHashtagCharLength( getHashtagsLength() );
 		setTweetContentCharLength( getTweetTextLength() );
 		setTweetUsernameCharLength( getUsernameLength() );
+		setTweetPermalinkCharLength( getPermalinkLength() );
 	};
 
 	const getUsernameLength = () => {
 		let tweetContent = '';
 		// Add via.
 		if ( twitter_username.length > 0 ) {
-			tweetContent += 'Via ';
+			tweetContent += __( 'Via', 'highlight-and-share' ) + ' ';
 			tweetContent += twitter_username;
 		}
 
@@ -238,6 +249,18 @@ const HasClickToTweet = ( props ) => {
 		if ( hashtags.length > 0 ) {
 			tweetContent += hashtags.join( '#' );
 			tweetContent += '\r\n';
+		}
+
+		const count = twttr.txt.getTweetLength( tweetContent );
+		return count;
+	};
+
+	const getPermalinkLength = () => {
+		let tweetContent = '';
+
+		if ( permalink.length > 0 && enable_links_in_tweet ) {
+			tweetContent += '\r\n';
+			tweetContent += permalink + ( has_anchor ? '#' + anchor : '' );
 		}
 
 		const count = twttr.txt.getTweetLength( tweetContent );
@@ -612,11 +635,6 @@ const HasClickToTweet = ( props ) => {
 								name: 'link',
 								className: 'has-tab-link',
 							},
-							{
-								title: __( 'Info', 'highlight-and-share' ),
-								name: 'info',
-								className: 'has-tab-info',
-							},
 						] }
 					>
 						{ ( tab ) => {
@@ -743,14 +761,6 @@ const HasClickToTweet = ( props ) => {
 												} );
 											} }
 										/>
-									</>
-								);
-							} else if ( 'info' === tab.name ) {
-								tabContent = (
-									<>
-										<p>Text count: { tweetContentCharLength } </p>
-										<p>Hashtag count: { tweetHashtagCharLength } </p>
-										<p>Tweet credit: { tweetUsernameCharLength } </p>
 									</>
 								);
 							} else if ( 'link' === tab.name ) {
