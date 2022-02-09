@@ -106,6 +106,10 @@ function has_register_click_to_tweet_block_attributes() {
 					'type' => 'string',
 					'default' => '',
 				),
+				'enable_links_in_tweet' => array(
+					'type' => 'boolean',
+					'default' => true,
+				),
 			),
 			'render_callback' => 'has_click_to_tweet',
 			'editor_script'   => 'has-click-to-share',
