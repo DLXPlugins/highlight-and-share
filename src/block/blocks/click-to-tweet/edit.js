@@ -855,6 +855,11 @@ const HasClickToTweet = ( props ) => {
 														setAttributes( {
 															url_shortening_service: value,
 														} );
+														if ( 'none' === value ) {
+															setAttributes( {
+																permalink: postObject.link,
+															});
+														}
 														setUrlShortener( value );
 													} }
 												/>
