@@ -55,7 +55,6 @@ const shareTextInput = createRef( null );
 
 const HasClickToTweet = ( props ) => {
 	// State.
-	const [ editTweetPopoverVisible, setEditTweetPopoverVisible ] = useState( false );
 	const [ isPreview, setIsPreview ] = useState( false );
 	const [ tweetCharacterTotal, setTweetCharacterTotal ] = useState( 0 );
 	const [ tweetHashtagCharLength, setTweetHashtagCharLength ] = useState( 0 );
@@ -104,6 +103,8 @@ const HasClickToTweet = ( props ) => {
 		permalink,
 		enable_links_in_tweet,
 	} = attributes;
+
+	console.log( maximum_width );
 
 	useEffect( () => {
 		countCharacters();
@@ -247,36 +248,6 @@ const HasClickToTweet = ( props ) => {
 		return <LineCount chars={ tweetCharacterTotal } />;
 	};
 
-	const toggleEditTweetVisibility = () => {
-		setEditTweetPopoverVisible( ! editTweetPopoverVisible );
-	};
-
-	const editTweetPopover = () => {
-		if ( editTweetPopoverVisible ) {
-			return (
-				<Popover
-					position="left"
-					noArrow={ false }
-					className="has-tweet-popover"
-					expandOnMobile={ true }
-				>
-					<TextareaControl
-						help={ __(
-							'If your share text is too long, you can enter your Tweet content here.',
-							'highlight-and-share'
-						) }
-						value={ share_text_override }
-						onChange={ ( value ) => {
-							setAttributes( {
-								share_text_override: value,
-							} );
-						} }
-					/>
-				</Popover>
-			);
-		}
-	};
-
 	const getClickToShareButton = () => {
 		return (
 			<div
@@ -305,27 +276,6 @@ const HasClickToTweet = ( props ) => {
 		);
 	};
 
-	const editTweetButton = () => {
-		return (
-			<PanelRow>
-				<Button
-					className="is-secondary"
-					isPressed={ editTweetPopoverVisible }
-					showTooltip={ true }
-					label={ __(
-						'Displays a text box so you can customize the tweet.',
-						'highlight-and-share'
-					) }
-					text={ __( 'Edit Tweet Content', 'highlight-and-share' ) }
-					onClick={ () => {
-						toggleEditTweetVisibility();
-					} }
-				/>
-				{ editTweetPopover() }
-			</PanelRow>
-		);
-	};
-
 	const hexCodes = {
 		light: '#BFBFBF',
 		dark: '#2b2926',
@@ -345,7 +295,7 @@ const HasClickToTweet = ( props ) => {
 					<UnitChooser
 						label={ __( 'Maximum Width', 'highlight-and-share' ) }
 						value={ maximum_width_unit }
-						units={ [ 'px', 'em', '%' ] }
+						units={ [ 'px', '%', 'vw' ] }
 						onClick={ ( value ) => {
 							setAttributes( {
 								maximum_width_unit: value,
@@ -368,6 +318,20 @@ const HasClickToTweet = ( props ) => {
 				initialOpen={ true }
 				title={ __( 'Click to Tweet Button', 'highlight-and-share' ) }
 			>
+				<PanelRow>
+					<TextControl
+						label={ __( 'Button Text', 'highlight-and-share' ) }
+						help={ __(
+							'Enter the Click to Tweet button text.'
+						) }
+						value={ share_button_text }
+						onChange={ ( value ) => {
+							setAttributes( {
+								share_button_text: value,
+							} );
+						} }
+					/>
+				</PanelRow>
 				<PanelRow>
 					<AlignmentGroup
 						label={ __( 'Button Alignment', 'highlight-and-share' ) }
@@ -552,6 +516,11 @@ const HasClickToTweet = ( props ) => {
 		},
 	];
 
+	// Calculate max width.
+	const maxWidthStyle = {
+		maxWidth: maximum_width + maximum_width_unit,
+	};
+
 	const toolbarPreview = [
 		{
 			title: __( 'Preview On', 'highlight-and-share' ),
@@ -622,6 +591,7 @@ const HasClickToTweet = ( props ) => {
 				className={ classnames( 'has-click-to-tweet', {
 					[ `has-ctt-block-theme-${ template }` ]: true,
 				} ) }
+				style={ maxWidthStyle }
 			>
 				<div className="has-click-to-tweet-tabs">
 					<TabPanel

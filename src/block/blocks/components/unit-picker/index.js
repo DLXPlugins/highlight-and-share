@@ -45,6 +45,14 @@ const UnitChooser = ( props ) => {
 							);
 						}
 
+						if ( 'vw' === unit ) {
+							unitName = _x(
+								'View Width',
+								'A size unit for CSS markup',
+								'highlight-and-share'
+							);
+						}
+
 						if ( 'rem' === unit ) {
 							unitName = _x(
 								'Rem',
