@@ -1,3 +1,4 @@
+/* eslint-disable no-undef */
 /* eslint-disable no-unused-vars */
 /* eslint-disable camelcase */
 /**
@@ -12,6 +13,8 @@ import TwitterIcon from '../components/icons/twitter';
 import PaintbrushIcon from '../components/icons/paintbrush';
 import PreviewIcon from '../components/icons/Preview';
 import EllipsisIcon from '../components/icons/Ellipsis';
+import NewWindowIcon from '../components/icons/NewWindow';
+import CirculeExplanationIcon from '../components/icons/CircularExplanation';
 import AlignmentGroup from '../components/alignment';
 import CircularCount from '../components/CircularCount';
 import LineCount from '../components/LineCount';
@@ -29,8 +32,6 @@ const {
 	PanelBody,
 	PanelRow,
 	ToolbarGroup,
-	ToolbarButton,
-	Toolbar,
 	Popover,
 	ToggleControl,
 	TextControl,
@@ -38,8 +39,8 @@ const {
 	Button,
 	TabPanel,
 	FormTokenField,
-	RangeControl,
 	RadioControl,
+	Notice,
 } = wp.components;
 
 const {
@@ -132,6 +133,7 @@ const HasClickToTweet = ( props ) => {
 	useEffect( () => {
 		if ( manualUrlInput.current !== null && 'manual' === urlShortener ) {
 			manualUrlInput.current.focus();
+			manualUrlInput.current.select();
 		}
 	}, [ url_shortening_service ] );
 	
@@ -631,7 +633,6 @@ const HasClickToTweet = ( props ) => {
 								title: __( 'Appearance', 'highlight-and-share' ),
 								name: 'appearance',
 								className: 'has-tab-appearance',
-								onClick: ( ( e ) => {alert('test')})
 							},
 							{
 								title: __( 'Tweet Settings', 'highlight-and-share' ),
@@ -843,7 +844,7 @@ const HasClickToTweet = ( props ) => {
 														},
 														{
 															label: __( 'Jetpack', 'highlight-and-share' ),
-															value: 'icon',
+															value: 'jetpack',
 														},
 														{
 															label: __( 'Manual', 'highlight-and-share' ),
@@ -857,6 +858,36 @@ const HasClickToTweet = ( props ) => {
 														setUrlShortener( value );
 													} }
 												/>
+												{ ( url_shortening_service === 'bitly' && ! has_gutenberg.bitly_plugin_active ) && (
+													<Notice className="has-notice has-notice-warning" status="warning" politeness="assertive" isDismissible={ false } >
+														<div className="has-notice-icon">
+															<CirculeExplanationIcon width="36" height="36" className="has-icon" var="--has--preset--notice-warning-icon-color" />
+														</div>
+														<h2>{ __( 'The official Bitly plugin is not installed.', 'highlight-and-share' ) }</h2>
+														<p>{ __( 'Please install and activate the Bitly WordPress Plugin and revisit this section. Alternatively, you can paste your URL in using the Manual option.', 'highlight-and-share' ) }</p>
+														<div className="has-notice-button">
+															<Button variant="link" href="https://wordpress.org/plugins/wp-bitly/" target="_blank" icon={ <NewWindowIcon width="12" height="12" /> } iconPosition="right">
+																{ __( 'Visit the Bitly plugin on WordPress.org', 'highlight-and-share' ) }
+															</Button>
+														</div>
+													</Notice>
+												) }
+
+												{ ( url_shortening_service === 'jetpack' && ! has_gutenberg.bitly_plugin_active ) && (
+													<Notice className="has-notice has-notice-warning" status="warning" politeness="assertive" isDismissible={ false } >
+														<div className="has-notice-icon">
+															<CirculeExplanationIcon width="36" height="36" className="has-icon" var="--has--preset--notice-warning-icon-color" />
+														</div>
+														<h2>{ __( 'The official Jetpack plugin is not installed.', 'highlight-and-share' ) }</h2>
+														<p>{ __( 'Please install and activate the Jetpack WordPress Plugin, enable shortlinks, and revisit this section. Alternatively, you can paste your URL in using the Manual option.', 'highlight-and-share' ) }</p>
+														<div className="has-notice-button">
+															<Button variant="link" href="https://wordpress.org/plugins/jetpack/" target="_blank" icon={ <NewWindowIcon width="12" height="12" /> } iconPosition="right">
+																{ __( 'Visit the Jetpack plugin on WordPress.org', 'highlight-and-share' ) }
+															</Button>
+														</div>
+													</Notice>
+												) }
+												
 												<TextControl
 													label={ __( 'Page URL', 'highlight-and-share' ) }
 													help={ __(

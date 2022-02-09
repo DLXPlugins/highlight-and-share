@@ -1,6 +1,14 @@
 @import './colors.scss';
 @import './themes.scss';
 
+:root {
+	--has--preset--notice-warning-text-color:  #664d03;
+	--has--preset--notice-warning-icon-color: #664d03;
+
+	--has--preset--notice-informational-text-color:  #0d6efd;
+	--has--preset--notice-informational-icon-color: #084298;
+}
+
 /* For SVGs in theme menu dropdown */
 .has-click-to-tweet-popover {
 	.components-button {
@@ -203,5 +211,32 @@
 
 	button.components-button.has-icon {
 		padding: 0;
+	}
+}
+
+/* Notices in CTT Editor */
+body .editor-styles-wrapper {
+	.has-notice {
+		margin: 15px 0;
+		color: var( --has--preset--notice-warning-text-color );
+		text-align: center;
+		padding: 20px 15px;
+		
+		.has-notice-icon {
+			text-align: center;
+		}
+		h2 {
+			font-size: 20px;
+			font-weight: 500;
+			margin-bottom: 15px;
+			color: var( --has--preset--notice-warning-text-color );
+		}
+		p, div {
+			color: var( --has--preset--notice-warning-text-color );
+			font-size: 15px;
+		}
+		p {
+			margin-bottom: 8px;
+		}
 	}
 }

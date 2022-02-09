@@ -163,7 +163,8 @@ function has_blocks_editor_assets() {
 				'purple' => esc_html__( 'Purple', 'highlight-and-share' ),
 				'pink' => esc_html__( 'Pink', 'highlight-and-share' ),
 			),
-			'ctt_nonce' => wp_create_nonce( 'has-click-to-tweet-ajax' )
+			'ctt_nonce' => wp_create_nonce( 'has-click-to-tweet-ajax' ),
+			'bitly_plugin_active' => false, //Highlight_And_Share::is_activated( 'wp-bitly/wp-bitly.php', 'plugin' ),
 		)
 	);
 	wp_set_script_translations( 'has-click-to-share', 'highlight-and-share' );

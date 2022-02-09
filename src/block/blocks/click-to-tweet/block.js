@@ -33,10 +33,11 @@ import TwitterIcon from '../components/icons/twitter';
  */
 registerBlockType( 'has/click-to-tweet', { // Block name. Block names must be string that contains a namespace prefix. Example: my-plugin/my-custom-block.
 	title: __( 'Click to Tweet', 'highlight-and-share' ), // Block title.
-	icon: <TwitterIcon width="24" height="24" />,
+	icon: <TwitterIcon width="24" height="24" fill="#9932cc" />,
+	description: __( 'Welcome to the most advanced Click to Tweet block.', 'highlight-and-share' ),
 	category: 'has',
 	supports: {
-		anchor: true,
+		anchor: false,
 		align: true,
 	},
 	edit,

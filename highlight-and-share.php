@@ -1375,6 +1375,55 @@ class Highlight_And_Share {
 	}
 
 	/**
+	 * Checks if the plugin is on a multisite install.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param bool $network_admin Check if in network admin.
+	 *
+	 * @return true if multisite, false if not.
+	 */
+	public static function is_multisite( $network_admin = false, $plugin_slug = '' ) {
+		if ( ! function_exists( 'is_plugin_active_for_network' ) ) {
+			require_once ABSPATH . '/wp-admin/includes/plugin.php';
+		}
+		$is_network_admin = false;
+		if ( $network_admin ) {
+			if ( is_network_admin() ) {
+				if ( is_multisite() && is_plugin_active_for_network( $plugin_slug ) ) {
+					return true;
+				}
+			} else {
+				return false;
+			}
+		}
+		if ( is_multisite() && is_plugin_active_for_network( $plugin_slug ) ) {
+			return true;
+		}
+		return false;
+	}
+
+	/**
+	 * Checks to see if an asset is activated or not.
+	 *
+	 * @since 1.0.0
+	 *
+	 * @param string $path Path to the asset.
+	 * @param string $type Type to check if it is activated or not.
+	 *
+	 * @return bool true if activated, false if not.
+	 */
+	public static function is_activated( $path, $type = 'plugin' ) {
+
+		// Gets all active plugins on the current site.
+		$active_plugins = self::is_multisite( false, dirname( $path ) ) ? get_site_option( 'active_sitewide_plugins' ) : get_option( 'active_plugins', array() );
+		if ( in_array( $path, $active_plugins, true ) ) {
+			return true;
+		}
+		return false;
+	}
+
+	/**
 	 * Load stylesheets
 	 *
 	 * Enqueue styles
