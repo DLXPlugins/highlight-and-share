@@ -18,6 +18,7 @@ import CirculeExplanationIcon from '../components/icons/CircularExplanation';
 import AlignmentGroup from '../components/alignment';
 import CircularCount from '../components/CircularCount';
 import LineCount from '../components/LineCount';
+import MeatballMenu from '../components/MeatballMenu';
 import sendCommand from '../utils/SendCommand';
 
 const { useEffect, useState, createRef } = wp.element;
@@ -670,9 +671,7 @@ const HasClickToTweet = ( props ) => {
 													/>
 												</div>
 												{ getClickToShareButton() }
-												<span className="has-click-to-tweet-ellipsis">
-													<EllipsisIcon />
-												</span>
+												<MeatballMenu id={ uniqueId } />
 											</>
 										</div>
 									</>

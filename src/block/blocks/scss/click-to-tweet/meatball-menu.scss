@@ -1,0 +1,64 @@
+
+.has-click-to-tweet-wrapper {
+	position: relative;
+}
+
+.has-ctt-meatball-menu {
+	position: absolute;
+	right: 0;
+	top: 0;
+}
+
+.has-ctt-meatball-content {
+	display: block;
+	position: absolute;
+	min-width: 100%;
+	height: auto;
+	top: 0;
+	right: 0;
+	border: 1px solid red;
+
+	input {
+		position: absolute;
+		display: block;
+		min-width: 48px;
+		width: 48px;
+		height: 48px;
+		right: 0;
+		top: 0;
+		opacity: 0;
+
+		& ~ ul {
+			opacity: 0;
+			visibility: hidden;
+
+			li {
+				display: block;
+				min-width: 150px;
+			}
+		}
+		&:checked ~ ul {
+			border: 1px solid blue;
+			opacity: 1;
+			visibility: visible;
+
+		}
+		& ~ .has-ctt-meatball-icon-wrapper {
+			position: absolute;
+			width: 100%;
+			height: auto;
+			min-width: 100%;
+		}
+
+		
+
+	}
+	input ~ .has-ctt-meatball-icon-wrapper {
+		display: block;
+	}
+	input:checked ~ .has-ctt-meatball-icon-wrapper {
+		display: block;
+		border: 1 px solid red;
+	}
+}
+
