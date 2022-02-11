@@ -10,37 +10,45 @@
 }
 
 .has-ctt-meatball-content {
-	display: block;
-	position: absolute;
+	position: relative;
 	min-width: 100%;
-	height: auto;
+	height: 100%;
 	top: 0;
 	right: 0;
 	border: 1px solid red;
+	display: flex;
 
 	input {
-		position: absolute;
+		position: relative;
 		display: block;
 		min-width: 48px;
-		width: 48px;
 		height: 48px;
 		right: 0;
 		top: 0;
+		z-index: 3;
+		order: 3;
 		opacity: 0;
 
 		& ~ ul {
+			position: relative;
+			width: 100%;
+			left: 0;
+			z-index: 2;
 			opacity: 0;
-			visibility: hidden;
+			transition: opacity 0.4s ease-in-out;
+			margin-right: 20px;
+			padding: 20px;
 
 			li {
 				display: block;
-				min-width: 150px;
 			}
 		}
 		&:checked ~ ul {
-			border: 1px solid blue;
+			border: 1px solid gray;
+			background: white;
 			opacity: 1;
-			visibility: visible;
+			transition: opacity 0.4s ease-in-out;
+			border: 1px solid;
 
 		}
 		& ~ .has-ctt-meatball-icon-wrapper {
@@ -54,11 +62,22 @@
 
 	}
 	input ~ .has-ctt-meatball-icon-wrapper {
+		position: absolute;
 		display: block;
+		width: 48px;
+		height: 48px;
+		z-index: 2;
 	}
-	input:checked ~ .has-ctt-meatball-icon-wrapper {
-		display: block;
-		border: 1 px solid red;
+
+	ul {
+		padding: 0;
+		margin: 0;
+		position: absolute;
+		left: 0;
+	}
+	ul li {
+		padding: 0;
+		margin: 0;
 	}
 }
 

@@ -17,19 +17,20 @@ const MeatballMenu = ( props ) => {
 			<>
 				<div className="has-ctt-meatball-menu">
 					<div className="has-ctt-meatball-content">
-							<input
-								type="checkbox"
-								aria-label={ __( 'Open menu options', 'highlight-and-share' ) }
-							/>
-							<ul>
-								<li>Test</li>
-							</ul>
-							<div className="has-ctt-meatball-icon-wrapper" aria-hidden="true">
-								<span>asdf</span>
-							</div>
-						
-						
-						
+						<input
+							type="checkbox"
+							aria-label={ __( 'Open menu options', 'highlight-and-share' ) }
+						/>
+						<ul>
+							<li>Copy Text</li>
+							<li>Copy Tweet</li>
+							<li>Copy Link</li>
+							<li>Tweet This long text</li>
+						</ul>
+						<div className="has-ctt-meatball-icon-wrapper" aria-hidden="true">
+							<span></span>
+						</div>
+
 					</div>
 				</div>
 			</>
