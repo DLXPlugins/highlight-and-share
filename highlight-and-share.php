@@ -756,9 +756,9 @@ class Highlight_And_Share {
 		if ( $settings['show_linkedin'] ) {
 			if ( ! $settings['icons'] ) {
 				// Note, you must be on a publicly accesible URL to use this button.
-				$html .= '<div class="has_linkedin" style="display: none;" data-type="linkedin"><a href="https://www.linkedin.com/shareArticle?mini=true&url=%url%&title=%title%" target="_blank"><svg class="has-icon"><use xlink:href="#has-linkedin-icon"></use></svg>&nbsp;' . esc_html( apply_filters( 'has_linkedin_text', _x( 'LinkedIn', 'LinkedIn share text', 'highlight-and-share' ) ) ) . '</a></div>';
+				$html .= '<div class="has_linkedin" style="display: none;" data-type="linkedin"><a href="https://www.linkedin.com/sharing/share-offsite/?mini=true&url=%url%&title=%title%" target="_blank"><svg class="has-icon"><use xlink:href="#has-linkedin-icon"></use></svg>&nbsp;' . esc_html( apply_filters( 'has_linkedin_text', _x( 'LinkedIn', 'LinkedIn share text', 'highlight-and-share' ) ) ) . '</a></div>';
 			} else {
-				$html .= '<div class="has_linkedin" style="display: none;" data-type="linkedin"><a href="https://www.linkedin.com/shareArticle?mini=true&url=%url%&title=%title%" target="_blank"><svg class="has-icon"><use xlink:href="#has-linkedin-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_linkedin_text', _x( 'LinkedIn', 'LinkedIn share text', 'highlight-and-share' ) ) ) . '</span></a></div>';
+				$html .= '<div class="has_linkedin" style="display: none;" data-type="linkedin"><a href="https://www.linkedin.com/sharing/share-offsite/?mini=true&url=%url%&title=%title%" target="_blank"><svg class="has-icon"><use xlink:href="#has-linkedin-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_linkedin_text', _x( 'LinkedIn', 'LinkedIn share text', 'highlight-and-share' ) ) ) . '</span></a></div>';
 			}
 		}
 
@@ -1522,7 +1522,7 @@ class Highlight_And_Share {
 					<ul>
 						<li><a href="https://mediaron.com/highlight-and-share/"><i class="dashicons dashicons-media-document"></i> <?php esc_html_e( 'Docs', 'highlight-and-share' ); ?></a></li>
 						<li><a href="https://github.com/sponsors/MediaRon"><i class="dashicons dashicons-groups"></i> <?php esc_html_e( 'Sponsor', 'highlight-and-share' ); ?></a></li>
-						<li><a href="https://wordpress.org/support/plugin/highlight-and-share/reviews/"><i class="dashicons dashicons-star-filled"></i> <?php esc_html_e( 'Rate Us', 'highlight-and-share' ); ?></a></li>
+						<li><a href="https://wordpress.org/support/plugin/highlight-and-share/reviews/"><i class="dashicons dashicons-heart" style="color: #ff78ae"></i> <?php esc_html_e( 'Pretty Please Rate Us', 'highlight-and-share' ); ?></a></li>
 					</ul>
 				</div>
 				<hr />
@@ -1536,7 +1536,7 @@ class Highlight_And_Share {
 					<ul>
 						<li><a href="https://mediaron.com/highlight-and-share/"><i class="dashicons dashicons-media-document"></i> <?php esc_html_e( 'Docs', 'highlight-and-share' ); ?></a></li>
 						<li><a href="https://github.com/sponsors/MediaRon"><i class="dashicons dashicons-groups"></i> <?php esc_html_e( 'Sponsor', 'highlight-and-share' ); ?></a></li>
-						<li><a href="https://wordpress.org/support/plugin/highlight-and-share/reviews/"><i class="dashicons dashicons-star-filled"></i> <?php esc_html_e( 'Rate Us', 'highlight-and-share' ); ?></a></li>
+						<li><a href="https://wordpress.org/support/plugin/highlight-and-share/reviews/"><i class="dashicons dashicons-heart" style="color: #ff78ae"></i> <?php esc_html_e( 'Please Rate Us', 'highlight-and-share' ); ?></a></li>
 					</ul>
 				</div>
 			</div>
@@ -1771,27 +1771,27 @@ class Highlight_And_Share {
 			)
 		);
 
-		add_settings_field(
-			'hightlight-and-share-ok-enable',
-			__( 'Show Odnoklassniki Option', 'highlight-and-share' ),
-			array( $this, 'add_settings_field_ok_enable' ),
-			'highlight-and-share',
-			'has-social',
-			array(
-				'desc' => __( 'Would you like to enable sharing via Odnoklassniki?', 'highlight-and-share' ),
-			)
-		);
+		// add_settings_field(
+		// 	'hightlight-and-share-ok-enable',
+		// 	__( 'Show Odnoklassniki Option', 'highlight-and-share' ),
+		// 	array( $this, 'add_settings_field_ok_enable' ),
+		// 	'highlight-and-share',
+		// 	'has-social',
+		// 	array(
+		// 		'desc' => __( 'Would you like to enable sharing via Odnoklassniki?', 'highlight-and-share' ),
+		// 	)
+		// );
 
-		add_settings_field(
-			'hightlight-and-share-vk-enable',
-			__( 'Show VKontakte Option', 'highlight-and-share' ),
-			array( $this, 'add_settings_field_vk_enable' ),
-			'highlight-and-share',
-			'has-social',
-			array(
-				'desc' => __( 'Would you like to enable sharing via Odnoklassniki?', 'highlight-and-share' ),
-			)
-		);
+		// add_settings_field(
+		// 	'hightlight-and-share-vk-enable',
+		// 	__( 'Show VKontakte Option', 'highlight-and-share' ),
+		// 	array( $this, 'add_settings_field_vk_enable' ),
+		// 	'highlight-and-share',
+		// 	'has-social',
+		// 	array(
+		// 		'desc' => __( 'Would you like to enable sharing via Odnoklassniki?', 'highlight-and-share' ),
+		// 	)
+		// );
 
 		add_settings_field(
 			'hightlight-and-share-copy-enable',
