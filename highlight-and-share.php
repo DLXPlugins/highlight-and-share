@@ -810,12 +810,12 @@ class Highlight_And_Share {
 
 		if ( $settings['show_whatsapp'] ) {
 			if ( ! $settings['icons'] ) {
-				$string          = '<div class="has_whatsapp" style="display: none;" data-type="whatsapp"><a href="https://wa.me/?text=%prefix%%text%%suffix%: ' . '%url%" target="_blank"><svg class="has-icon"><use xlink:href="#has-whatsapp-icon"></use></svg>&nbsp;' . esc_html( apply_filters( 'has_whatsapp_text', _x( 'WhatsApp', 'WhatsApp share text', 'highlight-and-share' ) ) ) . '</a></div>'; // phpcs:ignore
+				$string          = '<div class="has_whatsapp" style="display: none;" data-type="whatsapp"><a href="whatsapp://send?text=%prefix%%text%%suffix%: ' . '%url%" target="_blank"><svg class="has-icon"><use xlink:href="#has-whatsapp-icon"></use></svg>&nbsp;' . esc_html( apply_filters( 'has_whatsapp_text', _x( 'WhatsApp', 'WhatsApp share text', 'highlight-and-share' ) ) ) . '</a></div>'; // phpcs:ignore
 				$html           .= $string;
 				$click_to_share .= $string;
 				$inline_share   .= $string;
 			} else {
-				$string          = '<div class="has_whatsapp" style="display: none;" data-type="whatsapp"><a href="https://wa.me/?text=%prefix%%text%%suffix%: ' . '%url%" target="_blank"><svg class="has-icon"><use xlink:href="#has-whatsapp-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_whatsapp_text', _x( 'WhatsApp', 'WhatsApp share text', 'highlight-and-share' ) ) ) . '</span></a></div>'; // phpcs:ignore
+				$string          = '<div class="has_whatsapp" style="display: none;" data-type="whatsapp"><a href="whatsapp://send?text=%prefix%%text%%suffix%: ' . '%url%" target="_blank"><svg class="has-icon"><use xlink:href="#has-whatsapp-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_whatsapp_text', _x( 'WhatsApp', 'WhatsApp share text', 'highlight-and-share' ) ) ) . '</span></a></div>'; // phpcs:ignore
 				$html           .= $string;
 				$click_to_share .= $string;
 				$inline_share   .= $string;
