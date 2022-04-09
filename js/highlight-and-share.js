@@ -467,6 +467,7 @@ jQuery( document ).ready( function( $ ) {
 			url = url.replace( '%username%', encodeURIComponent( highlight_and_share.twitter_username ) );
 			url = url.replace( '%title%', encodeURIComponent( title ) );
 			url = url.replace( '%text%', encodeURIComponent( text ) );
+			url = url.replace( '%hashtags%', '');
 			var title_attr = div.attr('data-title');
 			if (typeof title_attr !== typeof undefined && title_attr !== false) {
 				title_attr = title_attr.replace( '%title%', encodeURIComponent( title ) );
@@ -512,6 +513,7 @@ jQuery( document ).ready( function( $ ) {
 			url = url.replace( '%username%', encodeURIComponent( highlight_and_share.twitter_username ) );
 			url = url.replace( '%title%', encodeURIComponent( title ) );
 			url = url.replace( '%text%', encodeURIComponent( text ) );
+			url = url.replace( '%hashtags%', '');
 			var title_attr = div.attr('data-title');
 			if (typeof title_attr !== typeof undefined && title_attr !== false) {
 				title_attr = title_attr.replace( '%title%', encodeURIComponent( title ) );
