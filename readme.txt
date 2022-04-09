@@ -3,7 +3,7 @@ Contributors: ronalfy
 Tags: highlight, social sharing, click to tweet, sharing, highlight text
 Requires at least: 5.1
 Tested up to: 5.9
-Stable tag: 3.5.6
+Stable tag: 3.5.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://github.com/sponsors/MediaRon
@@ -89,6 +89,11 @@ So far, the latest versions of Chrome, Firefox, and Safari. Works for IE9+
 6. Circular Glass Theme.
 
 == Changelog ==
+
+= 3.5.8 =
+* Released 2022-04-09
+* Fixed WhatsApp sharing. The text wasn't sharing correctly on desktop/mobile.
+* Fixed inline highlighting and Click to Share from not being able to share on Twitter.
 
 = 3.5.6 =
 * Released 2022-03-26
@@ -341,5 +346,5 @@ So far, the latest versions of Chrome, Firefox, and Safari. Works for IE9+
 
 == Upgrade Notice ==
 
-= 3.5.6 =
-Fixing LinkedIn sharing.
+= 3.5.8 =
+Fixed WhatsApp sharing. The text wasn't sharing correctly on desktop/mobile. Fixed inline highlighting and Click to Share from not being able to share on Twitter.
