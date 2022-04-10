@@ -16,7 +16,7 @@ https://www.youtube.com/watch?v=j2ZiUqGLSwc&rel=0
 
 A social sharing plugin that allows you to highlight text and and share amonst several social networks including Twitter, Facebook, LinkedIn, Xing, Telegram, Reddit, WhatsApp, and email.
 
-> <a href="https://github.com/sponsors/MediaRon">Sponsor This Plugin</a> - Please show your support by sponsoring or rating the plugin ❤️️
+> A new plugin is brewing and will change how you "Click to Tweet." <a href="https://mediaron.com/plugins/quotes-dlx/">More Details Here</a>.
 
 Click to Tweet functionality is allowed via highlighting text or using the Gutenberg block or inline highlighting for social sharing.
 
