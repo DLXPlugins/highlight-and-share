@@ -1515,30 +1515,32 @@ class Highlight_And_Share {
 	 */
 	public function options_page() {
 		?>
-		<div class="wrap">
-			<div class="has-form-wrapper">
-				<div class="has-logo-wrapper">
-					<h2 id="has-logo" style="display: flex; align-items: center;"><img style="width: 700px; height: 91px; margin-right: 20px;" src="<?php echo esc_url( $this->get_plugin_url( '/img/plugin-logo-horizontal.png' ) ); ?>" alt="Higlight and Share" /></h2>
-					<ul>
-						<li><a href="https://mediaron.com/highlight-and-share/"><i class="dashicons dashicons-media-document"></i> <?php esc_html_e( 'Docs', 'highlight-and-share' ); ?></a></li>
-						<li><a href="https://github.com/sponsors/MediaRon"><i class="dashicons dashicons-groups"></i> <?php esc_html_e( 'Sponsor', 'highlight-and-share' ); ?></a></li>
-						<li><a href="https://wordpress.org/support/plugin/highlight-and-share/reviews/"><i class="dashicons dashicons-heart" style="color: #ff78ae"></i> <?php esc_html_e( 'Pretty Please Rate Us', 'highlight-and-share' ); ?></a></li>
-					</ul>
+		<div class="has-form-wrapper">
+			<header>
+				<div class="has-admin-container-wrap">
+						<div class="has-logo-wrapper">
+							<h2 id="has-logo" style="display: flex; align-items: center;"><img 
+							width="450" height="113" src="<?php echo esc_url( $this->get_plugin_url( '/img/plugin-logo-horizontal.png' ) ); ?>" alt="Higlight and Share" /></h2>
+						</div>
+						<div class="header__btn-wrap">
+							<a class=" has__btn-primary" href="https://has.dlxplugins.com"><i class="dashicons dashicons-media-document"></i> <?php esc_html_e( 'Documentation', 'highlight-and-share' ); ?></a>
+							<a class=" has__btn-primary" href="https://dlxplugins.com/support/"><i class="dashicons dashicons-groups"></i> <?php esc_html_e( 'Support', 'highlight-and-share' ); ?></a>
+						</div>
+					</div>
 				</div>
-				<hr />
-				<form action="<?php echo esc_url( admin_url( 'options.php' ) ); ?>" method="POST">
-					<?php settings_fields( 'highlight-and-share' ); ?>
-					<?php do_settings_sections( 'highlight-and-share' ); ?>
-					<?php submit_button(); ?>
-				</form>
-				<hr />
-				<div class="has-logo-wrapper">
-					<ul>
-						<li><a href="https://mediaron.com/highlight-and-share/"><i class="dashicons dashicons-media-document"></i> <?php esc_html_e( 'Docs', 'highlight-and-share' ); ?></a></li>
-						<li><a href="https://github.com/sponsors/MediaRon"><i class="dashicons dashicons-groups"></i> <?php esc_html_e( 'Sponsor', 'highlight-and-share' ); ?></a></li>
-						<li><a href="https://wordpress.org/support/plugin/highlight-and-share/reviews/"><i class="dashicons dashicons-heart" style="color: #ff78ae"></i> <?php esc_html_e( 'Please Rate Us', 'highlight-and-share' ); ?></a></li>
-					</ul>
-				</div>
+			</header>
+			<form action="<?php echo esc_url( admin_url( 'options.php' ) ); ?>" method="POST">
+				<?php settings_fields( 'highlight-and-share' ); ?>
+				<?php do_settings_sections( 'highlight-and-share' ); ?>
+				<?php submit_button(); ?>
+			</form>
+			<hr />
+			<div class="has-logo-wrapper">
+				<ul>
+					<li><a href="https://mediaron.com/highlight-and-share/"><i class="dashicons dashicons-media-document"></i> <?php esc_html_e( 'Docs', 'highlight-and-share' ); ?></a></li>
+					<li><a href="https://github.com/sponsors/MediaRon"><i class="dashicons dashicons-groups"></i> <?php esc_html_e( 'Sponsor', 'highlight-and-share' ); ?></a></li>
+					<li><a href="https://wordpress.org/support/plugin/highlight-and-share/reviews/"><i class="dashicons dashicons-heart" style="color: #ff78ae"></i> <?php esc_html_e( 'Please Rate Us', 'highlight-and-share' ); ?></a></li>
+				</ul>
 			</div>
 		</div>
 		<?php

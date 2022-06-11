@@ -1,71 +1,78 @@
+@import "breakpoints-mixin.scss";
+
+/* Make interface full-width/full-height */
+#wpcontent {
+	padding-left: 0 !important;
+	padding-right: 0 !important;
+	position: relative;
+
+	.quotes-dlx-plugin {
+		margin: 0;
+	}
+}
+
+#wpfooter {
+	display: none;
+}
+
+
 $link_color: #2c3a95;
 $link_color_hover: darken( #2c3a95, 15% );
 .has-form-wrapper {
 	position: relative;
 	background-color: #fff;
-	border: 1px solid #ddd;
-	padding: 20px;
-	margin-top: 25px;
+	padding: 0;
+	margin: 0;
+
+	header {
+		background: #4F4F4F;
+	}
+
+	.has-admin-container-wrap {
+		display: grid;
+		grid-template-columns: 1fr;
+		grid-column-gap: 1.975rem;
+		align-items: center;
+		padding: 1.5rem;
+		max-width: 69.5rem;
+		margin: 0 auto;
+		text-align: right;
+
+		@include respond-to('small') {
+			grid-template-columns: 1fr 175px;
+		}
+
+		@include respond-to('medium') {
+			grid-template-columns: 1fr 250px;
+		}
+
+		@include respond-to('large') {
+			grid-template-columns: 1fr 250px;
+		}
+
+		h2 {
+			padding: 0;
+			margin: 0;
+		}
+	}
 
 	.has-logo-wrapper {
-		margin-bottom: 3.5em;
-
-		ul {
-			list-style-type: none;
-			margin: 0;
-			padding: 0;
-
-			li {
-				display: inline-flex;
-				margin: 0;
-				padding: 0;
-				align-items: center;
-
-				&:after {
-					content: ' | ';
-					margin-left: 5px;
-				}
-				&:last-child:after {
-					content: '';
-				}
-			}
-
-			a {
-				display: inline-flex;
-				position: relative;
-				color: $link_color;
-				transition: all .3s ease-in-out;
-				text-decoration: none;
-				align-items: center;
-
-				i.dashicons {
-					margin-right: 7px;
-				}
-
-				&:after {
-					transition: all .3s ease-in-out;
-					display: inline-block;
-					opacity: 0;
-					position: absolute;
-					bottom: -5px;
-					left: 0;
-					content: '';
-					width: 100%;
-					height: 2px;
-					background: $link_color_hover;
-				}
-
-				&:hover {
-					color: $link_color_hover;
-					&:after {
-						opacity: 1;
-						
-					}
-				}
-			}
+		text-align: left;
+		
+		img {
+			max-width: 100%;
+			height: auto;
 		}
 
 	}
+	
+	.header__btn-wrap {
+		@include respond-to('small') {
+			margin-top: 0;
+		}
+
+	}
+
 	.has-admin-preview {
 		list-style-type: none;
 		margin: 0;
@@ -115,5 +122,80 @@ $link_color_hover: darken( #2c3a95, 15% );
 			}
 		}
 		
+	}
+}
+
+/* Button styles stolen from QuotesDLX */
+.header__btn-wrap {
+	display: flex;
+	justify-content: flex-end;
+	flex-wrap: wrap;
+	max-width: 100%;
+	margin-top: 15px;
+
+	@include respond-to('small') {
+		max-width: 250px;
+		margin-top: 0;
+	}
+
+	@include respond-to('medium') {
+		max-width: 250px;
+		margin-top: 0;
+	}
+
+	@include respond-to('large') {
+		max-width: 250px;
+		margin-top: 0;
+	}
+
+	
+	&.left,
+	&.right,
+	&.center {
+		display: flex;
+	}
+	&.left {
+		justify-content: flex-start;
+	}
+	&.center {
+		justify-content: center;
+	}
+	&.right {
+		justify-content: flex-end;
+	}
+	button,
+	.has__btn-primary {
+		width: 100%;
+		text-align: center;
+		margin-bottom: 0px;
+		border-radius: 2px;
+		font-size: 1.3em;
+		display: inline-block;
+		background: #FFF;
+		color: #4F4F4F;
+		border: 2px solid #4F4F4F;
+		padding: 10px 20px;
+		cursor: pointer;
+		transition: all 0.4s ease-in-out;
+		text-decoration: none;;
+
+		&:not([disabled]):hover {
+			border-radius: 2px;
+			background: #4F4F4F;
+			color: #FFF;
+			border-color: #FFF;
+			text-decoration: none;
+			transition: all 0.4s ease-in-out;
+		}
+	}
+	.has__btn-primary {
+		display: block;
+		width: 100%;
+
+		margin-bottom: 15px;
+
+		&:last-child {
+			margin-bottom: 0;
+		}
 	}
 }
