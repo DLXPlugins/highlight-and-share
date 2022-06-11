@@ -27,7 +27,10 @@ $link_color_hover: darken( #2c3a95, 15% );
 	header {
 		background: #4F4F4F;
 	}
-
+	.has-admin-container-body {
+		max-width: 69.5rem;
+		margin: 0 auto;
+	}
 	.has-admin-container-wrap {
 		display: grid;
 		grid-template-columns: 1fr;
@@ -196,6 +199,56 @@ $link_color_hover: darken( #2c3a95, 15% );
 
 		&:last-child {
 			margin-bottom: 0;
+		}
+	}
+}
+
+.has-admin-container-footer {
+
+	footer {
+		background: #4f4f4f;
+	}
+
+	.has-admin-container-wrap {
+		display: flex;
+		flex-wrap: wrap;
+		justify-content: center;
+		margin: 0 auto;
+		max-width: 275px;
+		margin: 0 auto;
+	}
+
+	.footer-rate-icon,
+	.has-plea {
+		display: block;
+		font-style: italic;
+		color: #FFF;
+	}
+	.has__btn-primary {
+		display: block;
+		width: 100%;
+		text-align: center;
+		margin-bottom: 0px;
+		border-radius: 2px;
+		font-size: 1.3em;
+		line-height: 1.35em;
+		background: #F08EA5;
+		color: #FFF;
+		border: 2px solid #F5A4B7;
+		padding: 10px 20px;
+		cursor: pointer;
+		transition: all 0.4s ease-in-out;
+		text-decoration: none;
+		margin-top: 18px;
+		margin-bottom: 18px;
+
+		&:not([disabled]):hover {
+			border-radius: 2px;
+			background: #4F4F4F;
+			color: #FFF;
+			border-color: #F08EA5;
+			text-decoration: none;
+			transition: all 0.4s ease-in-out;
 		}
 	}
 }
