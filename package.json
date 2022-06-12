@@ -19,6 +19,8 @@
 	},
 	"homepage": "https://mediaron.com/highlight-and-share/",
 	"dependencies": {
+		"photoswipe": "^5.2.7",
+		"photoswipe-dynamic-caption-plugin": "^1.1.1",
 		"uglify-js": "^3.11.4"
 	},
 	"devDependencies": {

@@ -139,6 +139,102 @@ class Highlight_And_Share {
 	}
 
 	/**
+	 * Allow display and visiblity to style attributes.
+	 *
+	 * @param array $css CSS rules.
+	 */
+	public function safe_css( $css = array() ) {
+		$css[] = 'display';
+		$css[] = 'visibility';
+		return $css;
+	}
+
+	/**
+	 * Retrieve Theme Preview Html. HTML compatible with Photoswipe script.
+	 *
+	 * $see https://photoswipe.com/
+	 */
+	private function output_main_themes_admin_html() {
+		$themes = $this->get_main_themes();
+
+		// Need image dimensions for Photoswipe:  https://photoswipe.com/.
+		$preview_dimensions = array(
+			'brand'         => array(
+				'width'  => 864,
+				'height' => 384,
+			),
+			'black'         => array(
+				'width'  => 838,
+				'height' => 342,
+			),
+			'blue'          => array(
+				'width'  => 838,
+				'height' => 342,
+			),
+			'circle-glass'  => array(
+				'width'  => 944,
+				'height' => 382,
+			),
+			'color-circles' => array(
+				'width'  => 1054,
+				'height' => 368,
+			),
+			'color-circles' => array(
+				'width'  => 1054,
+				'height' => 368,
+			),
+			'default'       => array(
+				'width'  => 2378,
+				'height' => 654,
+			),
+			'green'         => array(
+				'width'  => 822,
+				'height' => 294,
+			),
+			'cyan'          => array(
+				'width'  => 848,
+				'height' => 320,
+			),
+			'magenta'       => array(
+				'width'  => 830,
+				'height' => 318,
+			),
+			'purple'        => array(
+				'width'  => 868,
+				'height' => 346,
+			),
+			'white'         => array(
+				'width'  => 868,
+				'height' => 350,
+			),
+		);
+
+		foreach ( $themes as $slug => $label ) {
+			$dimensions = $preview_dimensions[ $slug ] ?? array();
+
+			if ( empty( $dimensions ) ) {
+				continue;
+			}
+
+			add_filter( 'safe_style_css', array( $this, 'safe_css' ) );
+
+			$allowed_html = wp_kses_allowed_html( 'post' );
+
+			echo wp_kses(
+				sprintf(
+					'<li><a class="has-gallery-image" href="%1$s" data-pswp-width="%2$s" data-pswp-height="%3$s"><img src="%1$s" style="display: none" />%4$s</a><div style="display: none" class="pswp-caption-content" aria-hidden="true">%4$s</div></li>',
+					esc_url( $this->get_plugin_url( '/img/screenshot-' . $slug . '.png' ) ),
+					esc_attr( $preview_dimensions[ $slug ]['width'] ),
+					esc_attr( $preview_dimensions[ $slug ]['height'] ),
+					esc_html( $label ),
+				),
+				$allowed_html
+			);
+			remove_filter( 'safe_style_css', array( $this, 'safe_css' ) );
+		}
+	}
+
+	/**
 	 * Adds HAS to the customizer
 	 *
 	 * Adds HAS to the customizer
@@ -943,13 +1039,26 @@ class Highlight_And_Share {
 		if ( 'settings_page_highlight-and-share' === $hook ) {
 			wp_enqueue_style(
 				'has-admin',
+				$this->get_plugin_url( '/dist/has-admin.css' ),
+				array(),
+				HIGHLIGHT_AND_SHARE_VERSION,
+				'all'
+			);
+			wp_enqueue_style(
+				'has-admin-css',
 				$this->get_plugin_url( '/dist/has-admin-style.css' ),
 				array(),
 				HIGHLIGHT_AND_SHARE_VERSION,
 				'all'
 			);
-			wp_enqueue_script( 'fancybox', $this->get_plugin_url( '/fancybox/jquery.fancybox.min.js' ), array( 'jquery' ), HIGHLIGHT_AND_SHARE_VERSION, true );
-			wp_enqueue_style( 'fancybox', $this->get_plugin_url( '/fancybox/jquery.fancybox.min.css' ), array(), HIGHLIGHT_AND_SHARE_VERSION, 'all' );
+
+			wp_enqueue_script(
+				'has-admin-js',
+				$this->get_plugin_url( '/dist/has-admin.js' ),
+				array(),
+				HIGHLIGHT_AND_SHARE_VERSION,
+				true
+			);
 		}
 	}
 
@@ -1778,25 +1887,25 @@ class Highlight_And_Share {
 		);
 
 		// add_settings_field(
-		// 	'hightlight-and-share-ok-enable',
-		// 	__( 'Show Odnoklassniki Option', 'highlight-and-share' ),
-		// 	array( $this, 'add_settings_field_ok_enable' ),
-		// 	'highlight-and-share',
-		// 	'has-social',
-		// 	array(
-		// 		'desc' => __( 'Would you like to enable sharing via Odnoklassniki?', 'highlight-and-share' ),
-		// 	)
+		// 'hightlight-and-share-ok-enable',
+		// __( 'Show Odnoklassniki Option', 'highlight-and-share' ),
+		// array( $this, 'add_settings_field_ok_enable' ),
+		// 'highlight-and-share',
+		// 'has-social',
+		// array(
+		// 'desc' => __( 'Would you like to enable sharing via Odnoklassniki?', 'highlight-and-share' ),
+		// )
 		// );
 
 		// add_settings_field(
-		// 	'hightlight-and-share-vk-enable',
-		// 	__( 'Show VKontakte Option', 'highlight-and-share' ),
-		// 	array( $this, 'add_settings_field_vk_enable' ),
-		// 	'highlight-and-share',
-		// 	'has-social',
-		// 	array(
-		// 		'desc' => __( 'Would you like to enable sharing via Odnoklassniki?', 'highlight-and-share' ),
-		// 	)
+		// 'hightlight-and-share-vk-enable',
+		// __( 'Show VKontakte Option', 'highlight-and-share' ),
+		// array( $this, 'add_settings_field_vk_enable' ),
+		// 'highlight-and-share',
+		// 'has-social',
+		// array(
+		// 'desc' => __( 'Would you like to enable sharing via Odnoklassniki?', 'highlight-and-share' ),
+		// )
 		// );
 
 		add_settings_field(
@@ -2135,17 +2244,8 @@ class Highlight_And_Share {
 		?>
 		<h4><?php esc_html_e( 'Preview', 'highlight-and-share' ); ?></h4>
 		<ul class="has-admin-preview">
-			<li><a data-fancybox="has-gallery" data-animation-effect="zoom" data-animation-duration="1000" data-fancybox data-caption="<?php esc_html_e( 'Black theme', 'highlight-and-share' ); ?>" href="<?php echo esc_url( $this->get_plugin_url( '/img/screenshot-black.png' ) ); ?>"><?php esc_html_e( 'Black Theme', 'highlight-and-share' ); ?></a></li>
-			<li><a data-fancybox="has-gallery" data-animation-effect="zoom" data-animation-duration="1000" data-fancybox data-caption="<?php esc_html_e( 'Blue theme', 'highlight-and-share' ); ?>" href="<?php echo esc_url( $this->get_plugin_url( '/img/screenshot-blue.png' ) ); ?>"><?php esc_html_e( 'Blue Theme', 'highlight-and-share' ); ?></a></li>
-			<li><a data-fancybox="has-gallery" data-animation-effect="zoom" data-animation-duration="1000" data-fancybox data-caption="<?php esc_html_e( 'Branded theme', 'highlight-and-share' ); ?>" href="<?php echo esc_url( $this->get_plugin_url( '/img/screenshot-brand.png' ) ); ?>"><?php esc_html_e( 'Branded Theme', 'highlight-and-share' ); ?></a></li>
-			<li><a data-fancybox="has-gallery" data-animation-effect="zoom" data-animation-duration="1000" data-fancybox data-caption="<?php esc_html_e( 'Circular Glass theme', 'highlight-and-share' ); ?>" href="<?php echo esc_url( $this->get_plugin_url( '/img/screenshot-circles-glass.png' ) ); ?>"><?php esc_html_e( 'Circular Glass Theme', 'highlight-and-share' ); ?></a></li>
-			<li><a data-fancybox="has-gallery" data-animation-effect="zoom" data-animation-duration="1000" data-fancybox data-caption="<?php esc_html_e( 'Circular Colors theme', 'highlight-and-share' ); ?>" href="<?php echo esc_url( $this->get_plugin_url( '/img/screenshot-color-circles.png' ) ); ?>"><?php esc_html_e( 'Circular Colors Theme', 'highlight-and-share' ); ?></a></li>
-			<li><a data-fancybox="has-gallery" data-animation-effect="zoom" data-animation-duration="1000" data-fancybox data-caption="<?php esc_html_e( 'Cyan theme', 'highlight-and-share' ); ?>" href="<?php echo esc_url( $this->get_plugin_url( '/img/screenshot-cyan.png' ) ); ?>"><?php esc_html_e( 'Cyan Theme', 'highlight-and-share' ); ?></a></li>
-			<li><a data-fancybox="has-gallery" data-animation-effect="zoom" data-animation-duration="1000" data-fancybox data-caption="<?php esc_html_e( 'Default theme', 'highlight-and-share' ); ?>" href="<?php echo esc_url( $this->get_plugin_url( '/img/screenshot-default.png' ) ); ?>"><?php esc_html_e( 'Default Theme', 'highlight-and-share' ); ?></a></li>
-			<li><a data-fancybox="has-gallery" data-animation-effect="zoom" data-animation-duration="1000" data-fancybox data-caption="<?php esc_html_e( 'Green theme', 'highlight-and-share' ); ?>" href="<?php echo esc_url( $this->get_plugin_url( '/img/screenshot-green.png' ) ); ?>"><?php esc_html_e( 'Green Theme', 'highlight-and-share' ); ?></a></li>
-			<li><a data-fancybox="has-gallery" data-animation-effect="zoom" data-animation-duration="1000" data-fancybox data-caption="<?php esc_html_e( 'Magenta theme', 'highlight-and-share' ); ?>" href="<?php echo esc_url( $this->get_plugin_url( '/img/screenshot-magenta.png' ) ); ?>"><?php esc_html_e( 'Magenta Theme', 'highlight-and-share' ); ?></a></li>
-			<li><a data-fancybox="has-gallery" data-animation-effect="zoom" data-animation-duration="1000" data-fancybox data-caption="<?php esc_html_e( 'Purple theme', 'highlight-and-share' ); ?>" href="<?php echo esc_url( $this->get_plugin_url( '/img/screenshot-purple.png' ) ); ?>"><?php esc_html_e( 'Purple Theme', 'highlight-and-share' ); ?></a></li>
-			<li><a data-fancybox="has-gallery" data-animation-effect="zoom" data-animation-duration="1000" data-fancybox data-caption="<?php esc_html_e( 'White theme', 'highlight-and-share' ); ?>" href="<?php echo esc_url( $this->get_plugin_url( '/img/screenshot-white.png' ) ); ?>"><?php esc_html_e( 'White Theme', 'highlight-and-share' ); ?></a></li>
+			<?php $this->output_main_themes_admin_html(); ?>
+		</ul>
 		<?php
 	}
 

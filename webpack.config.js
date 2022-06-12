@@ -2,6 +2,7 @@ const TerserPlugin = require("terser-webpack-plugin");
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const autoprefixer = require( 'autoprefixer' );
 const FixStyleOnlyEntriesPlugin = require("webpack-fix-style-only-entries");
+const path = require( 'path' );
 
 
 // Configuration for the ExtractTextPlugin — DRY rule.
@@ -44,6 +45,7 @@ module.exports = [
 			"has-cts-editor": "./src/block/editor.scss",
 			"has-cts-style": "./src/block/style.scss",
 			"has-admin-style": "./src/admin.scss",
+			"has-admin": ["./src/admin.js"],
 		},
 		output: {
 			filename: "[name].js",
@@ -78,7 +80,32 @@ module.exports = [
 						},
 						"sass-loader",
 					],
-				}
+				},
+				{
+					test: /\.css$/,
+					include: [
+						path.resolve(
+							__dirname,
+							'node_modules/photoswipe/dist/photoswipe.css'
+						),
+						path.resolve(
+							__dirname,
+							'./src/photoswipe-caption.css'
+						),
+					],
+					use: [
+						{
+							loader: MiniCssExtractPlugin.loader,
+						},
+						{
+							loader: 'css-loader',
+							options: {
+								sourceMap: true,
+							},
+						},
+						'sass-loader',
+					],
+				},
 			],
 		},
 		optimization: {

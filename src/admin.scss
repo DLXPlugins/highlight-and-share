@@ -77,23 +77,12 @@ $link_color_hover: darken( #2c3a95, 15% );
 	}
 
 	.has-admin-preview {
-		list-style-type: none;
-		margin: 0;
-		padding: 0;
 
 		li {
-			display: inline-block;
+			display: list-item;
 			margin: 0;
 			padding: 0;
-			margin-bottom: 1em;
-
-
-			&:after {
-				content: ' | ';
-			}
-			&:last-child:after {
-				content: '';
-			}
+			margin-bottom:5px;
 		}
 
 		a {
