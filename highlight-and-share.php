@@ -2,12 +2,12 @@
 
 /*
 Plugin Name: Highlight and Share
-Plugin URI: https://mediaron.com/highlight-and-share
+Plugin URI: https://dlxplugins.com/plugins/highlight-and-share/
 Description: Allows you to highlight text and enable social sharing to share with services including Twitter, Facebook, LinkedIn, Xing, Telegram, Reddit, WhatsApp, email, and others.
-Author: MediaRon LLC
+Author: DLX Plugins
 Version: 3.5.8
 Requires at least: 5.1
-Author URI: https://mediaron.com
+Author URI: https://dlxplugins.com
 Contributors: ronalfy
 Text Domain: highlight-and-share
 Domain Path: /languages
@@ -1196,10 +1196,10 @@ class Highlight_And_Share {
 	 */
 	public function add_settings_link( $links ) {
 		$settings_link = sprintf( '<a href="%s">%s</a>', esc_url( admin_url( 'options-general.php?page=highlight-and-share' ) ), _x( 'Settings', 'Plugin settings link on the plugins page', 'highlight-and-share' ) );
-		$docs_link     = sprintf( '<a href="%s">%s</a>', esc_url( 'https://mediaron.com/highlight-and-share/' ), _x( 'Documentation', 'Plugin settings link on the plugins page', 'highlight-and-share' ) );
-		$sponsor_link  = sprintf( '<a href="%s">%s</a>', esc_url( 'https://github.com/sponsors/MediaRon' ), _x( 'Sponsor', 'Plugin settings link on the plugins page', 'highlight-and-share' ) );
+		$docs_link     = sprintf( '<a href="%s">%s</a>', esc_url( 'https://has.dlxplugins.com' ), _x( 'Documentation', 'Plugin settings link on the plugins page', 'highlight-and-share' ) );
+		$has_landing   = sprintf( '<a href="%s">%s</a>', esc_url( 'https://dlxplugins.com/plugins/highlight-and-share/' ), _x( 'Visit Highlight and Share', 'Plugin settings link on the plugins page', 'highlight-and-share' ) );
 
-		array_unshift( $links, $sponsor_link );
+		array_unshift( $links, $has_landing );
 		array_unshift( $links, $docs_link );
 		array_unshift( $links, $settings_link );
 		return $links;
