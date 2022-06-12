@@ -5,22 +5,30 @@
 	padding-left: 0 !important;
 	padding-right: 0 !important;
 	position: relative;
+	background-color: #4F4F4F;
 
 	.quotes-dlx-plugin {
 		margin: 0;
 	}
 }
 
+#wpbody-content {
+	padding: 0;
+	margin: 0;
+}
+
 #wpfooter {
 	display: none;
 }
 
+.has-admin-container-body-wrapper {
+	background: #FFF;
+}
 
 $link_color: #2c3a95;
 $link_color_hover: darken( #2c3a95, 15% );
 .has-form-wrapper {
 	position: relative;
-	background-color: #fff;
 	padding: 0;
 	margin: 0;
 
@@ -30,6 +38,7 @@ $link_color_hover: darken( #2c3a95, 15% );
 	.has-admin-container-body {
 		max-width: 69.5rem;
 		margin: 0 auto;
+		padding: 2.4em 0;
 	}
 	.has-admin-container-wrap {
 		display: grid;
@@ -205,6 +214,7 @@ $link_color_hover: darken( #2c3a95, 15% );
 		margin: 0 auto;
 		max-width: 275px;
 		margin: 0 auto;
+		padding: 4.0em 0;
 	}
 
 	.footer-rate-icon,

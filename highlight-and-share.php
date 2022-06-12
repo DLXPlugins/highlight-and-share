@@ -1637,14 +1637,15 @@ class Highlight_And_Share {
 					</div>
 				</div>
 			</header>
-			<div class="has-admin-container-body">
-				<form action="<?php echo esc_url( admin_url( 'options.php' ) ); ?>" method="POST">
-					<?php settings_fields( 'highlight-and-share' ); ?>
-					<?php do_settings_sections( 'highlight-and-share' ); ?>
-					<?php submit_button(); ?>
-				</form>
+			<div class="has-admin-container-body-wrapper">
+				<div class="has-admin-container-body">
+					<form action="<?php echo esc_url( admin_url( 'options.php' ) ); ?>" method="POST">
+						<?php settings_fields( 'highlight-and-share' ); ?>
+						<?php do_settings_sections( 'highlight-and-share' ); ?>
+						<?php submit_button(); ?>
+					</form>
+				</div>
 			</div>
-			<hr />
 			<div class="has-admin-container-footer">
 				<footer>
 					<div class="has-admin-container-wrap">
