@@ -2,11 +2,11 @@
 Contributors: ronalfy
 Tags: highlight, social sharing, click to tweet, sharing, highlight text
 Requires at least: 5.1
-Tested up to: 5.9
-Stable tag: 3.5.8
+Tested up to: 6.0
+Stable tag: 3.6.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Donate link: https://github.com/sponsors/MediaRon
+Donate link: https://github.com/sponsors/DLXPlugins
 
 Allows you to highlight text and enable social sharing to share with services including Twitter, Facebook, LinkedIn, Xing, Telegram, Reddit, WhatsApp, and email.
 
@@ -16,11 +16,11 @@ https://www.youtube.com/watch?v=j2ZiUqGLSwc&rel=0
 
 A social sharing plugin that allows you to highlight text and and share amonst several social networks including Twitter, Facebook, LinkedIn, Xing, Telegram, Reddit, WhatsApp, and email.
 
-> <a href="https://github.com/sponsors/MediaRon">Sponsor This Plugin</a> - Please show your support by sponsoring or rating the plugin ❤️️
+> <a href="https://has.dlxplugins.com/">Indepth Documentation</a> - Please check out our thorough documentation ❤️️
 
 Click to Tweet functionality is allowed via highlighting text or using the Gutenberg block or inline highlighting for social sharing.
 
-If you have a feature request, <a href="https://github.com/mediaron/highlight-and-share/issues">please add a GitHub issue</a>.
+If you have a feature request, <a href="https://dlxplugins.com/support/">please leave a support request.</a>.
 
 <h3>Features</h3>
 
@@ -36,9 +36,9 @@ If you have a feature request, <a href="https://github.com/mediaron/highlight-an
 <li>Advanced: Gutenberg block for Click to Share and Click to Tweet functionality</li>
 </ul>
 
-Advanced customization is allowed via hooks.  See the plugin's <a href="https://mediaron.com/highlight-and-share/">documentation</a>.
+Advanced customization is allowed via hooks.  See the plugin's <a href="https://has.dlxplugins.com/">documentation</a>.
 
-> <a href="https://github.com/sponsors/MediaRon">Sponsor This Plugin</a> - Please show your support by sponsoring or rating the plugin ❤️️
+> <a href="https://dlxplugins.com/plugins/highlight-and-share/">Visit Highlight and Share Overview</a>
 
 == Installation ==
 
@@ -89,6 +89,12 @@ So far, the latest versions of Chrome, Firefox, and Safari. Works for IE9+
 6. Circular Glass Theme.
 
 == Changelog ==
+
+= 3.6.0 =
+* Released 2022-06-13
+* Released new documentation
+* Refreshed the admin panel.
+* Replaced Fancybox with Photoswipe.
 
 = 3.5.8 =
 * Released 2022-04-09
@@ -346,5 +352,5 @@ So far, the latest versions of Chrome, Firefox, and Safari. Works for IE9+
 
 == Upgrade Notice ==
 
-= 3.5.8 =
-Fixed WhatsApp sharing. The text wasn't sharing correctly on desktop/mobile. Fixed inline highlighting and Click to Share from not being able to share on Twitter.
+= 3.6.0 =
+Created much better documentation. Refreshed the admin panel appearance.  Replaced Fancybox with Photoswipe.

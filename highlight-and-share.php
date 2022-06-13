@@ -5,7 +5,7 @@ Plugin Name: Highlight and Share
 Plugin URI: https://dlxplugins.com/plugins/highlight-and-share/
 Description: Allows you to highlight text and enable social sharing to share with services including Twitter, Facebook, LinkedIn, Xing, Telegram, Reddit, WhatsApp, email, and others.
 Author: DLX Plugins
-Version: 3.5.8
+Version: 3.6.0
 Requires at least: 5.1
 Author URI: https://dlxplugins.com
 Contributors: ronalfy
@@ -68,7 +68,7 @@ class Highlight_And_Share {
 
 		add_action( 'wp', array( $this, 'wp_loaded' ), 15 );
 
-		define( 'HIGHLIGHT_AND_SHARE_VERSION', '3.5.8' );
+		define( 'HIGHLIGHT_AND_SHARE_VERSION', '3.6.0' );
 
 		// Get errors for email.
 		$this->errors['could_not_send'] = esc_html__( 'Could not send the e-mail', 'highlight-and-share' );
