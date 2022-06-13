@@ -135,6 +135,14 @@ class Highlight_And_Share {
 			'blue'                   => esc_html__( 'Blue (Icons Only)', 'highlight-and-share' ),
 			'green'                  => esc_html__( 'Green (Icons Only)', 'highlight-and-share' ),
 		);
+
+		/**
+		 * Filter: has_main_themes
+		 *
+		 * Modify the available default themes.
+		 *
+		 * @param array slug -> label associative array.
+		 */
 		return apply_filters( 'has_main_themes', $default_themes );
 	}
 
@@ -723,7 +731,11 @@ class Highlight_And_Share {
 		$args = apply_filters( 'has_hashtags_taxonomy_args', $args );
 
 		/**
+		 * Filter: has_hashtags_post_types
+		 *
 		 * Allow others to programmatically add or substract post types that hashtags are enabled for.
+		 *
+		 * @param array Index array of post type slugs.
 		 */
 		$supported_post_types = apply_filters(
 			'has_hashtags_post_types',
@@ -734,7 +746,11 @@ class Highlight_And_Share {
 		);
 
 		/**
+		 * Filter: has_show_hashtags_taxonomy
+		 *
 		 * Allow others to turn off hashtags.
+		 *
+		 * @param bool true to disable hashtags, false to not.
 		 */
 		if ( apply_filters( 'has_show_hashtags_taxonomy', true ) ) {
 			register_taxonomy( 'hashtags', $supported_post_types, $args );
@@ -753,21 +769,86 @@ class Highlight_And_Share {
 
 		$settings = $this->get_plugin_options();
 
-		// Skip loading if both twitter/facebook are turned off.
+		/**
+		 * Filter: has_show_facebook
+		 *
+		 * Hide or show the Facebook sharing option.
+		 *
+		 * @param bool true to show Facebook, false to not.
+		 */
 		$show_facebook = (bool) apply_filters( 'has_show_facebook', $settings['show_facebook'] );
-		$show_twitter  = (bool) apply_filters( 'has_show_twitter', $settings['show_twitter'] );
+
+		/**
+		 * Filter: has_show_twitter
+		 *
+		 * Hide or show the Twitter sharing option.
+		 *
+		 * @param bool true to show Twitter, false to not.
+		 */
+		$show_twitter = (bool) apply_filters( 'has_show_twitter', $settings['show_twitter'] );
+
+		/**
+		 * Filter: has_show_linkedin
+		 *
+		 * Hide or show the LinkedIn sharing option.
+		 *
+		 * @param bool true to show LinkedIn, false to not.
+		 */
 		$show_linkedin = (bool) apply_filters( 'has_show_linkedin', $settings['show_linkedin'] );
 		$show_ok       = (bool) apply_filters( 'has_show_ok', $settings['show_ok'] );
 		$show_vk       = (bool) apply_filters( 'has_show_vk', $settings['show_vk'] );
-		$show_email    = (bool) apply_filters( 'has_show_email', $settings['show_email'] );
-		$show_copy     = (bool) apply_filters( 'has_show_copy', $settings['show_email'] );
-		$show_reddit   = (bool) apply_filters( 'has_show_reddit', isset( $settings['show_reddit'] ) ? $settings['show_reddit'] : false );
+
+		/**
+		 * Filter: has_show_email
+		 *
+		 * Hide or show the email sharing option.
+		 *
+		 * @param bool true to show email, false to not.
+		 */
+		$show_email = (bool) apply_filters( 'has_show_email', $settings['show_email'] );
+
+		/**
+		 * Filter: has_show_copy
+		 *
+		 * Hide or show the copy option.
+		 *
+		 * @param bool true to show copy feature, false to not.
+		 */
+		$show_copy = (bool) apply_filters( 'has_show_copy', $settings['show_email'] );
+
+		/**
+		 * Filter: has_show_reddit
+		 *
+		 * Hide or show the reddit option.
+		 *
+		 * @param bool true to show reddit social network, false to not.
+		 */
+		$show_reddit = (bool) apply_filters( 'has_show_reddit', isset( $settings['show_reddit'] ) ? $settings['show_reddit'] : false );
+
+		/**
+		 * Filter: has_show_telegram
+		 *
+		 * Hide or show the Telegram option.
+		 *
+		 * @param bool true to show Telegram feature, false to not.
+		 */
 		$show_telegram = (bool) apply_filters( 'has_show_telegram', isset( $settings['show_telegram'] ) ? $settings['show_telegram'] : false );
-		$show_signal   = false;
+
+		// Placeholder for signal.
+		$show_signal = false;
+
+		// If no social network is active, exit.
 		if ( ! $show_facebook && ! $show_twitter && ! $show_linkedin && ! $show_ok && ! $show_email && ! $show_copy && ! $show_reddit && ! $show_telegram && ! $show_signal ) {
 			return;
 		}
 
+		/**
+		 * Filter: has_enable_mobile
+		 *
+		 * Whether Highlight and Share scripts are run on mobile.
+		 *
+		 * @param bool true to enable mobile, false to not.
+		 */
 		$show_on_mobile = (bool) apply_filters( 'has_enable_mobile', isset( $settings['enable_mobile'] ) ? $settings['enable_mobile'] : true );
 
 		// Disable if mobile.
@@ -785,10 +866,24 @@ class Highlight_And_Share {
 		// Load html.
 		add_action( 'wp_footer', array( $this, 'add_footer_html' ) );
 
-		// Load content area.
+		/**
+		 * Filter: has_enable_content
+		 *
+		 * Whether Highlight and Share will work on regular post or page content.
+		 *
+		 * @param bool true to enable HAS on post content, false to not.
+		 */
 		if ( apply_filters( 'has_enable_content', (bool) $settings['enable_content'] ) ) {
 			add_filter( 'the_content', array( $this, 'content_area' ) );
 		}
+
+		/**
+		 * Filter: has_enable_excerpt
+		 *
+		 * Whether Highlight and Share will work on post excerpts.
+		 *
+		 * @param bool true to enable HAS on excerpts, false to not.
+		 */
 		if ( apply_filters( 'has_enable_excerpt', (bool) $settings['enable_excerpt'] ) ) {
 			add_filter( 'the_excerpt', array( $this, 'excerpt_area' ) );
 		}
@@ -1177,6 +1272,15 @@ class Highlight_And_Share {
 		if ( $enable_shortlinks ) {
 			$url = wp_get_shortlink( $post_id );
 		}
+
+		/**
+		 * Filter: has_content_url
+		 *
+		 * Modify the post or page URL that Highlight and Share uses for sharing.
+		 *
+		 * @param string Post or Page URL (may be shortened).
+		 * @param int    The post or page ID.
+		 */
 		return apply_filters( 'has_content_url', $url, $post_id );
 	}
 
@@ -1368,7 +1472,13 @@ class Highlight_And_Share {
 			$json_arr['mobile'] = false;
 		}
 
-		// Content areas.
+		/**
+		 * Filter: has_js_classes
+		 *
+		 * Comman-separated CSS classes (without the .) that Highlight and Share should be enabled on.
+		 *
+		 * @param string Comma-separated CSS classes
+		 */
 		$classes = apply_filters( 'has_js_classes', $settings['js_content'] ); // Pass comma separated values (e.g., entry-content,type-post,type-page).
 		$classes = explode( ',', $classes );
 		if ( apply_filters( 'has_enable_content', (bool) $settings['enable_content'] ) ) {
@@ -1385,6 +1495,14 @@ class Highlight_And_Share {
 			}
 			$string = trim( esc_js( '.' . $string ) ); // Get in class format (.%s) and trim just in case.
 		}
+
+		/**
+		 * Filter: has_js_ids
+		 *
+		 * Comman-separated CSS IDs (without the #) that Highlight and Share should be enabled on.
+		 *
+		 * @param string Comma-separated CSS IDs
+		 */
 		$ids = (array) apply_filters( 'has_js_ids', array() ); // Pass array of jQuery ID elements (without the #).
 		foreach ( $ids as $index => &$string ) {
 			$string = trim( $string );
@@ -1393,6 +1511,14 @@ class Highlight_And_Share {
 			}
 			$string = trim( esc_js( '#' . $string ) ); // Get in ID format (#%s) and trim just in case.
 		}
+
+		/**
+		 * Filter: has_js_elements
+		 *
+		 * Comman-separated HTML elements that Highlight and Share should be enabled on.
+		 *
+		 * @param string Comma-separated CSS IDs
+		 */
 		$elements = (array) apply_filters( 'has_js_elements', array() ); // Pass array of jQuery HTML elements (e.g., blockquote, article).
 		foreach ( $elements as $index => &$string ) {
 			$string = trim( $string );
@@ -1401,23 +1527,113 @@ class Highlight_And_Share {
 			}
 			$string = trim( esc_js( $string ) );
 		}
-		$content             = array_merge( $classes, $ids, $elements );
+		$content = array_merge( $classes, $ids, $elements );
+
+		/**
+		 * Filter: has_js_selectors
+		 *
+		 * Modify all the selectors (classes, ids, elements) that are used for Highlight and Share.
+		 *
+		 * @param string          Comma-separated CSS IDs, classes and HTML elements.
+		 * @param array $content  Array with all of the CSS classes (uses .), IDs (uses #), and HTML elements.
+		 * @param array $classes  Array with CSS classes (with the .).
+		 * @param array $ids      Array with CSS IDs (with the #).
+		 * @param array $elements Array with HTML elements.
+		 */
 		$json_arr['content'] = apply_filters( 'has_js_selectors', implode( ',', $content ), $content, $classes, $ids, $elements );
 
-		// Text to display.
-		$json_arr['tweet_text']    = apply_filters( 'has_twitter_text', _x( 'Tweet', 'Twitter share text', 'highlight-and-share' ) );
+		/**
+		 * Filter: has_twitter_text
+		 *
+		 * Modify the social network name on the frontend.
+		 *
+		 * @param string Default: Tweet
+		 */
+		$json_arr['tweet_text'] = apply_filters( 'has_twitter_text', _x( 'Tweet', 'Twitter share text', 'highlight-and-share' ) );
+
+		/**
+		 * Filter: has_facebook_text
+		 *
+		 * Modify the social network name on the frontend.
+		 *
+		 * @param string Default: Share
+		 */
 		$json_arr['facebook_text'] = apply_filters( 'has_facebook_text', _x( 'Share', 'Facebook share text', 'highlight-and-share' ) );
+
+		/**
+		 * Filter: has_linkedin_text
+		 *
+		 * Modify the social network name on the frontend.
+		 *
+		 * @param string Default: LinkedIn
+		 */
 		$json_arr['linkedin_text'] = apply_filters( 'has_linkedin_text', _x( 'LinkedIn', 'LinkedIn share text', 'highlight-and-share' ) );
-		$json_arr['ok_text']       = apply_filters( 'has_ok_text', _x( 'Odnoklassniki', 'Odnoklassniki share text', 'highlight-and-share' ) );
-		$json_arr['vk_text']       = apply_filters( 'has_vk_text', _x( 'VKontakte', 'VKontakte share text', 'highlight-and-share' ) );
+
+		/**
+		 * Filter: has_ok_text
+		 *
+		 * Modify the social network name on the frontend.
+		 *
+		 * @param string Default: Odnoklassniki
+		 */
+		$json_arr['ok_text'] = apply_filters( 'has_ok_text', _x( 'Odnoklassniki', 'Odnoklassniki share text', 'highlight-and-share' ) );
+
+		/**
+		 * Filter: has_vk_text
+		 *
+		 * Modify the social network name on the frontend.
+		 *
+		 * @param string Default: VKontakte
+		 */
+		$json_arr['vk_text'] = apply_filters( 'has_vk_text', _x( 'VKontakte', 'VKontakte share text', 'highlight-and-share' ) );
+
+		/**
+		 * Filter: has_whatsapp_text
+		 *
+		 * Modify the social network name on the frontend.
+		 *
+		 * @param string Default: WhatsApp
+		 */
 		$json_arr['whatsapp_text'] = apply_filters( 'has_whatsapp_text', _x( 'WhatsApp', 'WhatsApp share text', 'highlight-and-share' ) );
-		$json_arr['xing_text']     = apply_filters( 'has_xing_text', _x( 'Xing', 'Xing share text', 'highlight-and-share' ) );
-		$json_arr['copy_text']     = apply_filters( 'has_copy_text', _x( 'Copy', 'Copy share text', 'highlight-and-share' ) );
-		$json_arr['email_text']    = apply_filters( 'has_email_text', _x( 'E-mail', 'E-mail share text', 'highlight-and-share' ) );
+
+		/**
+		 * Filter: has_xing_text
+		 *
+		 * Modify the social network name on the frontend.
+		 *
+		 * @param string Default: Xing
+		 */
+		$json_arr['xing_text'] = apply_filters( 'has_xing_text', _x( 'Xing', 'Xing share text', 'highlight-and-share' ) );
+
+		/**
+		 * Filter: has_copy_text
+		 *
+		 * Modify the Copy label on the frontend.
+		 *
+		 * @param string Default: Copy
+		 */
+		$json_arr['copy_text'] = apply_filters( 'has_copy_text', _x( 'Copy', 'Copy share text', 'highlight-and-share' ) );
+
+		/**
+		 * Filter: has_email_text
+		 *
+		 * Modify the Email label on the frontend.
+		 *
+		 * @param string Default: E-mail
+		 */
+		$json_arr['email_text'] = apply_filters( 'has_email_text', _x( 'E-mail', 'E-mail share text', 'highlight-and-share' ) );
 
 		// Icons.
 		if ( is_customize_preview() ) {
 			$maybe_icons = get_option( 'highlight-and-share' );
+
+			/**
+			 * Filter: has_icons
+			 *
+			 * Whether icon-only view is supported.
+			 *
+			 * @param bool true for icons-only enabled, false if not.
+			 */
 			if ( isset( $maybe_icons['icons'] ) ) {
 				$json_arr['icons'] = apply_filters( 'has_icons', $maybe_icons['icons'] );
 			} else {
@@ -1466,7 +1682,13 @@ class Highlight_And_Share {
 		// Localize.
 		wp_localize_script( 'highlight-and-share', 'highlight_and_share', $json_arr );
 
-		// Add CSS.
+		/**
+		 * Filter: has_load_css
+		 *
+		 * Whether to load Highlight and Share CSS.
+		 *
+		 * @param bool true for allowing CSS, false if not.
+		 */
 		if ( apply_filters( 'has_load_css', true ) ) {
 			wp_enqueue_style( 'highlight-and-share-email', $this->get_plugin_url( 'css/highlight-and-share-emails.css' ), array(), HIGHLIGHT_AND_SHARE_VERSION, 'all' );
 			if ( is_customize_preview() ) {
@@ -1559,6 +1781,14 @@ class Highlight_And_Share {
 			'has-inline-theme-purple'          => __( 'Purple', 'highlight-and-share' ),
 			'has-inline-theme-rust'            => __( 'Rust', 'highlight-and-share' ),
 		);
+
+		/**
+		 * Filter: has_inline_themes
+		 *
+		 * Whether to load Highlight and Share inline theme CSS (this is not used on the frontend).
+		 *
+		 * @param bool true for allowing inline themes, false if not.
+		 */
 		$has_inline_themes = apply_filters( 'has_inline_themes', $has_inline_themes );
 		return $has_inline_themes;
 	}
