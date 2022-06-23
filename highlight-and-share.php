@@ -928,7 +928,7 @@ class Highlight_And_Share {
 				if ( 0 === $settings['facebook_app_id'] ) {
 					$html .= '<div class="has_facebook" style="display: none;" data-type="facebook"><a href="https://www.facebook.com/sharer/sharer.php?u=%url%&t=%title%" target="_blank"><svg class="has-icon"><use xlink:href="#has-facebook-icon"></use></svg>&nbsp;' . esc_html( apply_filters( 'has_facebook_text', _x( 'Share', 'Facebook share text', 'highlight-and-share' ) ) ) . '</a></div>';
 				} else {
-					$tring           = '<div class="has_facebook" style="display: none;" data-type="facebook"><a href="https://www.facebook.com/dialog/share?app_id=' . esc_attr( $settings['facebook_app_id'] ) . '&display=popup&amp;quote=%prefix%%text%%suffix%&href=%url%" target="_blank"><svg class="has-icon"><use xlink:href="#has-facebook-icon"></use></svg>&nbsp;' . esc_html( apply_filters( 'has_facebook_text', _x( 'Share', 'Facebook share text', 'highlight-and-share' ) ) ) . '</a></div>';
+					$string           = '<div class="has_facebook" style="display: none;" data-type="facebook"><a href="https://www.facebook.com/dialog/share?app_id=' . esc_attr( $settings['facebook_app_id'] ) . '&display=popup&amp;quote=%prefix%%text%%suffix%&href=%url%" target="_blank"><svg class="has-icon"><use xlink:href="#has-facebook-icon"></use></svg>&nbsp;' . esc_html( apply_filters( 'has_facebook_text', _x( 'Share', 'Facebook share text', 'highlight-and-share' ) ) ) . '</a></div>';
 					$html           .= $string;
 					$click_to_share .= $string;
 					$inline_share   .= $string;
