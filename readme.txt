@@ -2,8 +2,8 @@
 Contributors: ronalfy
 Tags: highlight, social sharing, click to tweet, sharing, highlight text
 Requires at least: 5.1
-Tested up to: 6.0
-Stable tag: 3.6.1
+Tested up to: 6.1
+Stable tag: 3.6.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://github.com/sponsors/DLXPlugins
@@ -93,6 +93,10 @@ So far, the latest versions of Chrome, Firefox, and Safari. Works for IE9+
 6. Circular Glass Theme.
 
 == Changelog ==
+
+= 3.6.5 =
+* Released 2022--10-11
+* Updated WhatsApp to have configurable endpoints.
 
 = 3.6.1 =
 * Released 2022-06-23
@@ -360,5 +364,5 @@ So far, the latest versions of Chrome, Firefox, and Safari. Works for IE9+
 
 == Upgrade Notice ==
 
-= 3.6.1 =
-Fixing typo that caused two Twitter buttons to show up when icons are off, the default theme is used, and a user has added their Facebook App ID.
+= 3.6.5 =
+Added in option to set WhatsApp endpoints.
