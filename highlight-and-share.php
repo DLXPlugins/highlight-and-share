@@ -5,7 +5,7 @@ Plugin Name: Highlight and Share
 Plugin URI: https://dlxplugins.com/plugins/highlight-and-share/
 Description: Allows you to highlight text and enable social sharing to share with services including Twitter, Facebook, LinkedIn, Xing, Telegram, Reddit, WhatsApp, email, and others.
 Author: DLX Plugins
-Version: 3.6.1
+Version: 3.6.5
 Requires at least: 5.1
 Author URI: https://dlxplugins.com
 Contributors: ronalfy
@@ -1000,13 +1000,31 @@ class Highlight_And_Share {
 		}
 
 		if ( $settings['show_whatsapp'] ) {
+			$whatsapp_endpoint_url = 'whatsapp://send';
+			$whatsapp_endpoint_settings = $settings['whatsapp_api_endpoint'];
+			if ( 'web' === $whatsapp_endpoint_settings ) {
+				$whatsapp_endpoint_url = 'https://api.whatsapp.com/send';
+			}
+			/**
+			 * Filter: has_whatsapp_endpoint_url
+			 *
+			 * Filter the endpoint URL used for WhatsApp.
+			 *
+			 * @param string The endpoint URL.
+			 *
+			 * @since 3.6.5.
+			 */
+			$whatsapp_endpoint_url = apply_filters(
+				'has_whatsapp_endpoint_url',
+				$whatsapp_endpoint_url
+			);
 			if ( ! $settings['icons'] ) {
-				$string          = '<div class="has_whatsapp" style="display: none;" data-type="whatsapp"><a href="whatsapp://send?text=%prefix%%text%%suffix%: ' . '%url%" target="_blank"><svg class="has-icon"><use xlink:href="#has-whatsapp-icon"></use></svg>&nbsp;' . esc_html( apply_filters( 'has_whatsapp_text', _x( 'WhatsApp', 'WhatsApp share text', 'highlight-and-share' ) ) ) . '</a></div>'; // phpcs:ignore
+				$string          = '<div class="has_whatsapp" style="display: none;" data-type="whatsapp"><a href="' . esc_url_raw( $whatsapp_endpoint_url, array( 'whatsapp', 'http', 'https' ) ) . '?text=%prefix%%text%%suffix%: %url%" target="_blank"><svg class="has-icon"><use xlink:href="#has-whatsapp-icon"></use></svg>&nbsp;' . esc_html( apply_filters( 'has_whatsapp_text', _x( 'WhatsApp', 'WhatsApp share text', 'highlight-and-share' ) ) ) . '</a></div>'; // phpcs:ignore
 				$html           .= $string;
 				$click_to_share .= $string;
 				$inline_share   .= $string;
 			} else {
-				$string          = '<div class="has_whatsapp" style="display: none;" data-type="whatsapp"><a href="whatsapp://send?text=%prefix%%text%%suffix%: ' . '%url%" target="_blank"><svg class="has-icon"><use xlink:href="#has-whatsapp-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_whatsapp_text', _x( 'WhatsApp', 'WhatsApp share text', 'highlight-and-share' ) ) ) . '</span></a></div>'; // phpcs:ignore
+				$string          = '<div class="has_whatsapp" style="display: none;" data-type="whatsapp"><a href="' . esc_url_raw( $whatsapp_endpoint_url, array( 'whatsapp', 'http', 'https' ) ) . '?text=%prefix%%text%%suffix%: %url%" target="_blank"><svg class="has-icon"><use xlink:href="#has-whatsapp-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_whatsapp_text', _x( 'WhatsApp', 'WhatsApp share text', 'highlight-and-share' ) ) ) . '</span></a></div>'; // phpcs:ignore
 				$html           .= $string;
 				$click_to_share .= $string;
 				$inline_share   .= $string;
@@ -1941,6 +1959,13 @@ class Highlight_And_Share {
 		);
 
 		add_settings_section(
+			'has-whatsapp',
+			_x( 'WhatsApp Settings', 'plugin settings heading', 'highlight-and-share' ),
+			array( $this, 'settings_section' ),
+			'highlight-and-share'
+		);
+
+		add_settings_section(
 			'has-social',
 			_x( 'Social Sharing Services', 'plugin settings heading', 'highlight-and-share' ),
 			array( $this, 'settings_section' ),
@@ -2100,9 +2125,20 @@ class Highlight_And_Share {
 			__( 'Show WhatsApp Option', 'highlight-and-share' ),
 			array( $this, 'add_settings_field_whatsapp_enable' ),
 			'highlight-and-share',
-			'has-social',
+			'has-whatsapp',
 			array(
 				'desc' => __( 'Would you like to enable sharing via WhatsApp?', 'highlight-and-share' ),
+			)
+		);
+
+		add_settings_field(
+			'hightlight-and-share-whatsapp-url-endpoint',
+			__( 'WhatsApp Endpoint', 'highlight-and-share' ),
+			array( $this, 'add_settings_field_whatsapp_endpoint' ),
+			'highlight-and-share',
+			'has-whatsapp',
+			array(
+				'desc' => __( 'Choose a WhatsApp endpoint', 'highlight-and-share' ),
 			)
 		);
 
@@ -2314,6 +2350,7 @@ class Highlight_And_Share {
 				case 'whatsapp_fa_class':
 				case 'email_fa_class':
 				case 'copy_fa_class':
+				case 'whatsapp_api_endpoint':
 					$output[ $key ] = sanitize_text_field( $value );
 					break;
 				case 'show_twitter':
@@ -2652,6 +2689,26 @@ class Highlight_And_Share {
 	}
 
 	/**
+	 * Add WhatsApp Option for Sharing
+	 *
+	 * Output checkbox for displaying WhatsApp sharing.
+	 *
+	 * @since 3.6.5
+	 * @access public
+	 *
+	 * @see init_admin_settings
+	 *
+	 * @param array $args Array of arguments.
+	 */
+	public function add_settings_field_whatsapp_endpoint( $args = array() ) {
+		$settings = $this->get_plugin_options();
+		$whatsapp = isset( $settings['whatsapp_api_endpoint'] ) ? $settings['whatsapp_api_endpoint'] : 'app'; // Can also we 'web'.
+		printf( '<input id="has-show-whatsapp-web" type="radio" name="highlight-and-share[whatsapp_api_endpoint]" value="web" %s />&nbsp;<label for="has-show-whatsapp-web">%s</label>', checked( 'web', $whatsapp, false ), esc_html__( 'Use the WhatsApp Web Endpoint', 'highlight-and-share' ) );
+		echo '<br />';
+		printf( '<input id="has-show-whatsapp-app" type="radio" name="highlight-and-share[whatsapp_api_endpoint]" value="app" %s />&nbsp;<label for="has-show-whatsapp-app">%s</label>', checked( 'app', $whatsapp, false ), esc_html__( 'Use the WhatsApp App Endpoint', 'highlight-and-share' ) );
+	}
+
+	/**
 	 * Add E-mail Option for Sharing
 	 *
 	 * Output checkbox for displaying E-mail sharing.
@@ -2873,6 +2930,7 @@ class Highlight_And_Share {
 			'theme'           => 'default',
 			'sharing_prefix'  => '',
 			'sharing_suffix'  => '',
+			'whatsapp_api_endpoint' => 'app', // Can also we 'web'.
 		);
 
 		if ( false === $settings || ! is_array( $settings ) ) {
