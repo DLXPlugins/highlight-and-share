@@ -838,7 +838,7 @@ class Highlight_And_Share {
 		$show_signal = false;
 
 		// If no social network is active, exit.
-		if ( ! $show_facebook && ! $show_twitter && ! $show_linkedin && ! $show_ok && ! $show_email && ! $show_copy && ! $show_reddit && ! $show_telegram && ! $show_signal ) {
+		if ( ! $show_facebook && ! $show_twitter && ! $show_linkedin && ! $show_ok && ! $show_email && ! $show_copy && ! $show_reddit && ! $show_telegram ) {
 			return;
 		}
 
@@ -2099,17 +2099,6 @@ class Highlight_And_Share {
 		);
 
 		add_settings_field(
-			'hightlight-and-share-signal-enable',
-			__( 'Show Signal Option', 'highlight-and-share' ),
-			array( $this, 'add_settings_field_signal_enable' ),
-			'highlight-and-share',
-			'has-social',
-			array(
-				'desc' => __( 'Would you like to enable sharing via Signal?', 'highlight-and-share' ),
-			)
-		);
-
-		add_settings_field(
 			'hightlight-and-share-linkedin-enable',
 			__( 'Show LinkedIn Option', 'highlight-and-share' ),
 			array( $this, 'add_settings_field_linkedin_enable' ),
@@ -2229,18 +2218,6 @@ class Highlight_And_Share {
 			'has-facebook',
 			array(
 				'desc' => __( 'Would you like to enable sharing via Facebook?', 'highlight-and-share' ),
-			)
-		);
-
-		add_settings_field(
-			'hightlight-and-share-facebook-api',
-			__( 'Facebook App ID', 'highlight-and-share' ),
-			array( $this, 'add_settings_field_facebook_api' ),
-			'highlight-and-share',
-			'has-facebook',
-			array(
-				'label_for' => 'hightlight-and-share-facebook-api',
-				'desc'      => __( 'A Facebook App ID allows you to highlight text and share it.', 'highlight-and-share' ),
 			)
 		);
 
@@ -2534,6 +2511,9 @@ class Highlight_And_Share {
 		$enable_twitter = isset( $settings['show_twitter'] ) ? (bool) $settings['show_twitter'] : true;
 		echo '<input name="highlight-and-share[show_twitter]" value="off" type="hidden" />';
 		printf( '<input id="has-show-twitter" type="checkbox" name="highlight-and-share[show_twitter]" value="on" %s />&nbsp;<label for="has-show-twitter">%s</label>', checked( true, $enable_twitter, false ), esc_html__( 'Enable Twitter Sharing?', 'highlight-and-share' ) );
+		?>
+		<p class="description"><?php esc_html_e( 'Twitter allows text sharing.', 'highlight-and-share' ); ?></p>
+		<?php
 	}
 
 	/**
@@ -2553,6 +2533,9 @@ class Highlight_And_Share {
 		$linkedin = isset( $settings['show_linkedin'] ) ? (bool) $settings['show_linkedin'] : true;
 		echo '<input name="highlight-and-share[show_linkedin]" value="off" type="hidden" />';
 		printf( '<input id="has-show-linkedin" type="checkbox" name="highlight-and-share[show_linkedin]" value="on" %s />&nbsp;<label for="has-show-linkedin">%s</label>', checked( true, $linkedin, false ), esc_html__( 'Enable LinkedIn Sharing?', 'highlight-and-share' ) );
+		?>
+		<p class="description"><?php esc_html_e( 'LinkedIn only allows URL sharing.', 'highlight-and-share' ); ?></p>
+		<?php
 	}
 
 	/**
@@ -2610,6 +2593,9 @@ class Highlight_And_Share {
 		$reddit   = isset( $settings['show_reddit'] ) ? (bool) $settings['show_reddit'] : false;
 		echo '<input name="highlight-and-share[show_reddit]" value="off" type="hidden" />';
 		printf( '<input id="has-show-reddit" type="checkbox" name="highlight-and-share[show_reddit]" value="on" %s />&nbsp;<label for="has-show-reddit">%s</label>', checked( true, $reddit, false ), esc_html__( 'Enable Reddit Sharing?', 'highlight-and-share' ) );
+		?>
+		<p class="description"><?php esc_html_e( 'Reddit only allows URL sharing.', 'highlight-and-share' ); ?></p>
+		<?php
 	}
 
 	/**
@@ -2629,25 +2615,9 @@ class Highlight_And_Share {
 		$telegram = isset( $settings['show_telegram'] ) ? (bool) $settings['show_telegram'] : false;
 		echo '<input name="highlight-and-share[show_telegram]" value="off" type="hidden" />';
 		printf( '<input id="has-show-telegram" type="checkbox" name="highlight-and-share[show_telegram]" value="on" %s />&nbsp;<label for="has-show-telegram">%s</label>', checked( true, $telegram, false ), esc_html__( 'Enable Telegram Sharing?', 'highlight-and-share' ) );
-	}
-
-	/**
-	 * Add Signal Option for Sharing
-	 *
-	 * Output checkbox for displaying Signal sharing.
-	 *
-	 * @since 4.0.0
-	 * @access public
-	 *
-	 * @see init_admin_settings
-	 *
-	 * @param array $args Array of arguments.
-	 */
-	public function add_settings_field_signal_enable( $args = array() ) {
-		$settings = $this->get_plugin_options();
-		$signal   = isset( $settings['show_signal'] ) ? (bool) $settings['show_signal'] : false;
-		echo '<input name="highlight-and-share[show_signal]" value="off" type="hidden" />';
-		printf( '<input id="has-show-signal" type="checkbox" name="highlight-and-share[show_signal]" value="on" %s />&nbsp;<label for="has-show-signal">%s</label>', checked( true, $signal, false ), esc_html__( 'Enable Signal Sharing?', 'highlight-and-share' ) );
+		?>
+		<p class="description"><?php esc_html_e( 'Telegram allows text sharing.', 'highlight-and-share' ); ?></p>
+		<?php
 	}
 
 	/**
@@ -2667,6 +2637,9 @@ class Highlight_And_Share {
 		$xing     = isset( $settings['show_xing'] ) ? (bool) $settings['show_xing'] : true;
 		echo '<input name="highlight-and-share[show_xing]" value="off" type="hidden" />';
 		printf( '<input id="has-show-xing" type="checkbox" name="highlight-and-share[show_xing]" value="on" %s />&nbsp;<label for="has-show-xing">%s</label>', checked( true, $xing, false ), esc_html__( 'Enable Xing Sharing?', 'highlight-and-share' ) );
+		?>
+		<p class="description"><?php esc_html_e( 'Xing only allows URL sharing.', 'highlight-and-share' ); ?></p>
+		<?php
 	}
 
 	/**
@@ -2686,6 +2659,9 @@ class Highlight_And_Share {
 		$whatsapp = isset( $settings['show_whatsapp'] ) ? (bool) $settings['show_whatsapp'] : true;
 		echo '<input name="highlight-and-share[show_whatsapp]" value="off" type="hidden" />';
 		printf( '<input id="has-show-whatsapp" type="checkbox" name="highlight-and-share[show_whatsapp]" value="on" %s />&nbsp;<label for="has-show-whatsapp">%s</label>', checked( true, $whatsapp, false ), esc_html__( 'Enable WhatsApp Sharing?', 'highlight-and-share' ) );
+		?>
+		<p class="description"><?php esc_html_e( 'WhatsApp allows text sharing.', 'highlight-and-share' ); ?></p>
+		<?php
 	}
 
 	/**
@@ -2763,6 +2739,9 @@ class Highlight_And_Share {
 		$enable_facebook = isset( $settings['show_facebook'] ) ? (bool) $settings['show_facebook'] : true;
 		echo '<input name="highlight-and-share[show_facebook]" value="off" type="hidden" />';
 		printf( '<input id="has-show-facebook" type="checkbox" name="highlight-and-share[show_facebook]" value="on" %s />&nbsp;<label for="has-show-facebook">%s</label>', checked( true, $enable_facebook, false ), esc_html__( 'Enable Facebook Sharing?', 'highlight-and-share' ) );
+		?>
+		<p class="description"><?php esc_html_e( 'Facebook only allows URL sharing.', 'highlight-and-share' ); ?></p>
+		<?php
 	}
 
 	/**
@@ -2785,29 +2764,6 @@ class Highlight_And_Share {
 	}
 
 	/**
-	 * Add Facebook option for an Application ID.
-	 *
-	 * Add Facebook option for an Application ID.
-	 *
-	 * @since 2.1.0
-	 * @access public
-	 *
-	 * @see init_admin_settings
-	 *
-	 * @param array $args Array of arguments.
-	 */
-	public function add_settings_field_facebook_api( $args = array() ) {
-		$settings = $this->get_plugin_options();
-		$app_id   = isset( $settings['facebook_app_id'] ) ? sanitize_text_field( $settings['facebook_app_id'] ) : '';
-		if ( 0 === $app_id ) {
-			$app_id = '';
-		}
-		printf( '<p>%s</p>', esc_html( $args['desc'] ) );
-		printf( '<p><a href="%s">%s</a></p>', 'https://developers.facebook.com/apps', esc_html__( 'Requires a Facebook developer application.', 'highlight-and-share' ) );
-		printf( '<input id="%s" type="text" name="highlight-and-share[facebook_app_id]" value="%s" />', esc_attr( $args['label_for'] ), esc_attr( $app_id ) );
-	}
-
-	/**
 	 * Add mobile option for sharing.
 	 *
 	 * Output checkbox for sharing on main post content
@@ -2823,7 +2779,7 @@ class Highlight_And_Share {
 		$settings       = $this->get_plugin_options();
 		$enable_content = isset( $settings['enable_mobile'] ) ? (bool) $settings['enable_mobile'] : true;
 		echo '<input name="highlight-and-share[enable_mobile]" value="off" type="hidden" />';
-		printf( '<input id="has-enable-content" type="checkbox" name="highlight-and-share[enable_mobile]" value="on" %s />&nbsp;<label for="has-enable-content">%s</label>', checked( true, $enable_content, false ), esc_html__( 'Enable on Mobile?', 'highlight-and-share' ) );
+		printf( '<input id="has-enable-mobile" type="checkbox" name="highlight-and-share[enable_mobile]" value="on" %s />&nbsp;<label for="has-enable-mobile">%s</label>', checked( true, $enable_content, false ), esc_html__( 'Enable on Mobile?', 'highlight-and-share' ) );
 	}
 
 	/**
