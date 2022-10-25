@@ -3,7 +3,7 @@ Contributors: ronalfy
 Tags: highlight, social sharing, click to tweet, sharing, highlight text
 Requires at least: 5.1
 Tested up to: 6.1
-Stable tag: 3.6.5
+Stable tag: 3.6.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://github.com/sponsors/DLXPlugins
@@ -57,11 +57,7 @@ Signal doesn't have a sharing API currently.
 
 = Can I share text using Facebook? =
 
-You can if you have a Facebook App ID. They <a href="https://developers.facebook.com/">are easy to create</a>.
-
-Here's a video showing you how:
-
-https://www.youtube.com/watch?v=ZtcPacmr87E
+Unfortunately not. Facebook recently removed its text sharing feature.
 
 = Will you be adding more sharing services? =
 
@@ -93,6 +89,12 @@ So far, the latest versions of Chrome, Firefox, and Safari. Works for IE9+
 6. Circular Glass Theme.
 
 == Changelog ==
+
+= 3.6.9 =
+* Released 2022-10-25
+* Removed Facebook App ID requirement (Facebook does not allow text sharing anymore).
+* Fixed the Facebook dialogue for no App ID requirements.
+* Added descriptions to the admin settings on which social networks have text sharing available.
 
 = 3.6.5 =
 * Released 2022--10-11
@@ -363,6 +365,9 @@ So far, the latest versions of Chrome, Firefox, and Safari. Works for IE9+
 * Initial release on WordPress.org
 
 == Upgrade Notice ==
+
+= 3.6.9 =
+Removed Facebook App ID requirement. Facebook only allows URL sharing now. Fixed the Facebook sharing dialogue.
 
 = 3.6.5 =
 Added in option to set WhatsApp endpoints.
