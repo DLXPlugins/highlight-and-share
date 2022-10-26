@@ -2,11 +2,11 @@
 Contributors: ronalfy
 Tags: highlight, social sharing, click to tweet, sharing, highlight text
 Requires at least: 5.1
-Tested up to: 5.9
-Stable tag: 3.5.8
+Tested up to: 6.1
+Stable tag: 3.6.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
-Donate link: https://github.com/sponsors/MediaRon
+Donate link: https://github.com/sponsors/DLXPlugins
 
 Allows you to highlight text and enable social sharing to share with services including Twitter, Facebook, LinkedIn, Xing, Telegram, Reddit, WhatsApp, and email.
 
@@ -16,11 +16,13 @@ https://www.youtube.com/watch?v=j2ZiUqGLSwc&rel=0
 
 A social sharing plugin that allows you to highlight text and and share amonst several social networks including Twitter, Facebook, LinkedIn, Xing, Telegram, Reddit, WhatsApp, and email.
 
-> A new plugin is brewing and will change how you "Click to Tweet." <a href="https://mediaron.com/plugins/quotes-dlx/">More Details Here</a>.
+> <a href="https://has.dlxplugins.com/">In-depth Documentation</a> - Please check out our thorough documentation ❤️️
+
+> <a href="https://dlxplugins.com/plugins/highlight-and-share/">View a Brief Overview of Highlight and Share</a>.
 
 Click to Tweet functionality is allowed via highlighting text or using the Gutenberg block or inline highlighting for social sharing.
 
-If you have a feature request, <a href="https://github.com/mediaron/highlight-and-share/issues">please add a GitHub issue</a>.
+If you have a feature request, <a href="https://dlxplugins.com/support/">please leave a support request.</a>.
 
 <h3>Features</h3>
 
@@ -36,14 +38,16 @@ If you have a feature request, <a href="https://github.com/mediaron/highlight-an
 <li>Advanced: Gutenberg block for Click to Share and Click to Tweet functionality</li>
 </ul>
 
-Advanced customization is allowed via hooks.  See the plugin's <a href="https://mediaron.com/highlight-and-share/">documentation</a>.
+Advanced customization is allowed via hooks.  See the plugin's <a href="https://has.dlxplugins.com/">documentation</a>.
 
-> <a href="https://github.com/sponsors/MediaRon">Sponsor This Plugin</a> - Please show your support by sponsoring or rating the plugin ❤️️
+> <a href="https://dlxplugins.com/plugins/highlight-and-share/">Visit Highlight and Share Overview</a>
 
 == Installation ==
 
 1. Search Highlight and Share in the plugin's screen.
 2. Install and activate.
+
+> <a href="https://has.dlxplugins.com/">In-depth Documentation</a> - Please check out our thorough documentation ❤️️
 
 == Frequently Asked Questions ==
 
@@ -53,15 +57,11 @@ Signal doesn't have a sharing API currently.
 
 = Can I share text using Facebook? =
 
-You can if you have a Facebook App ID. They <a href="https://developers.facebook.com/">are easy to create</a>.
-
-Here's a video showing you how:
-
-https://www.youtube.com/watch?v=ZtcPacmr87E
+Unfortunately not. Facebook recently removed its text sharing feature.
 
 = Will you be adding more sharing services? =
 
-Possibly.  <a href="https://github.com/ronalfy/highlight-and-share/issues">Please open up an issue</a>.
+Possibly.  <a href="https://dlxplugins.com/support/">Please send me a message</a>.
 
 = Where did my icons go? =
 
@@ -89,6 +89,26 @@ So far, the latest versions of Chrome, Firefox, and Safari. Works for IE9+
 6. Circular Glass Theme.
 
 == Changelog ==
+
+= 3.6.9 =
+* Released 2022-10-25
+* Removed Facebook App ID requirement (Facebook does not allow text sharing anymore).
+* Fixed the Facebook dialogue for no App ID requirements.
+* Added descriptions to the admin settings on which social networks have text sharing available.
+
+= 3.6.5 =
+* Released 2022--10-11
+* Updated WhatsApp to have configurable endpoints.
+
+= 3.6.1 =
+* Released 2022-06-23
+* Fixing typo that caused two Twitter buttons to show up when icons are off, the default theme is used, and a user has added their Facebook App ID.
+
+= 3.6.0 =
+* Released 2022-06-13
+* Released new documentation
+* Refreshed the admin panel.
+* Replaced Fancybox with Photoswipe.
 
 = 3.5.8 =
 * Released 2022-04-09
@@ -346,5 +366,8 @@ So far, the latest versions of Chrome, Firefox, and Safari. Works for IE9+
 
 == Upgrade Notice ==
 
-= 3.5.8 =
-Fixed WhatsApp sharing. The text wasn't sharing correctly on desktop/mobile. Fixed inline highlighting and Click to Share from not being able to share on Twitter.
+= 3.6.9 =
+Removed Facebook App ID requirement. Facebook only allows URL sharing now. Fixed the Facebook sharing dialogue.
+
+= 3.6.5 =
+Added in option to set WhatsApp endpoints.

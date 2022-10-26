@@ -2,12 +2,12 @@
 
 /*
 Plugin Name: Highlight and Share
-Plugin URI: https://mediaron.com/highlight-and-share
+Plugin URI: https://dlxplugins.com/plugins/highlight-and-share/
 Description: Allows you to highlight text and enable social sharing to share with services including Twitter, Facebook, LinkedIn, Xing, Telegram, Reddit, WhatsApp, email, and others.
-Author: MediaRon LLC
-Version: 3.5.8
+Author: DLX Plugins
+Version: 3.6.9
 Requires at least: 5.1
-Author URI: https://mediaron.com
+Author URI: https://dlxplugins.com
 Contributors: ronalfy
 Text Domain: highlight-and-share
 Domain Path: /languages
@@ -68,7 +68,7 @@ class Highlight_And_Share {
 
 		add_action( 'wp', array( $this, 'wp_loaded' ), 15 );
 
-		define( 'HIGHLIGHT_AND_SHARE_VERSION', '3.5.8' );
+		define( 'HIGHLIGHT_AND_SHARE_VERSION', '3.6.9' );
 
 		// Get errors for email.
 		$this->errors['could_not_send'] = esc_html__( 'Could not send the e-mail', 'highlight-and-share' );
@@ -135,7 +135,111 @@ class Highlight_And_Share {
 			'blue'                   => esc_html__( 'Blue (Icons Only)', 'highlight-and-share' ),
 			'green'                  => esc_html__( 'Green (Icons Only)', 'highlight-and-share' ),
 		);
+
+		/**
+		 * Filter: has_main_themes
+		 *
+		 * Modify the available default themes.
+		 *
+		 * @param array slug -> label associative array.
+		 */
 		return apply_filters( 'has_main_themes', $default_themes );
+	}
+
+	/**
+	 * Allow display and visiblity to style attributes.
+	 *
+	 * @param array $css CSS rules.
+	 */
+	public function safe_css( $css = array() ) {
+		$css[] = 'display';
+		$css[] = 'visibility';
+		return $css;
+	}
+
+	/**
+	 * Retrieve Theme Preview Html. HTML compatible with Photoswipe script.
+	 *
+	 * $see https://photoswipe.com/
+	 */
+	private function output_main_themes_admin_html() {
+		$themes = $this->get_main_themes();
+
+		// Need image dimensions for Photoswipe:  https://photoswipe.com/.
+		$preview_dimensions = array(
+			'brand'         => array(
+				'width'  => 864,
+				'height' => 384,
+			),
+			'black'         => array(
+				'width'  => 838,
+				'height' => 342,
+			),
+			'blue'          => array(
+				'width'  => 838,
+				'height' => 342,
+			),
+			'circle-glass'  => array(
+				'width'  => 944,
+				'height' => 382,
+			),
+			'color-circles' => array(
+				'width'  => 1054,
+				'height' => 368,
+			),
+			'color-circles' => array(
+				'width'  => 1054,
+				'height' => 368,
+			),
+			'default'       => array(
+				'width'  => 2378,
+				'height' => 654,
+			),
+			'green'         => array(
+				'width'  => 822,
+				'height' => 294,
+			),
+			'cyan'          => array(
+				'width'  => 848,
+				'height' => 320,
+			),
+			'magenta'       => array(
+				'width'  => 830,
+				'height' => 318,
+			),
+			'purple'        => array(
+				'width'  => 868,
+				'height' => 346,
+			),
+			'white'         => array(
+				'width'  => 868,
+				'height' => 350,
+			),
+		);
+
+		foreach ( $themes as $slug => $label ) {
+			$dimensions = $preview_dimensions[ $slug ] ?? array();
+
+			if ( empty( $dimensions ) ) {
+				continue;
+			}
+
+			add_filter( 'safe_style_css', array( $this, 'safe_css' ) );
+
+			$allowed_html = wp_kses_allowed_html( 'post' );
+
+			echo wp_kses(
+				sprintf(
+					'<li><a class="has-gallery-image" href="%1$s" data-pswp-width="%2$s" data-pswp-height="%3$s"><img src="%1$s" style="display: none" />%4$s</a><div style="display: none" class="pswp-caption-content" aria-hidden="true">%4$s</div></li>',
+					esc_url( $this->get_plugin_url( '/img/screenshot-' . $slug . '.png' ) ),
+					esc_attr( $preview_dimensions[ $slug ]['width'] ),
+					esc_attr( $preview_dimensions[ $slug ]['height'] ),
+					esc_html( $label ),
+				),
+				$allowed_html
+			);
+			remove_filter( 'safe_style_css', array( $this, 'safe_css' ) );
+		}
 	}
 
 	/**
@@ -627,7 +731,11 @@ class Highlight_And_Share {
 		$args = apply_filters( 'has_hashtags_taxonomy_args', $args );
 
 		/**
+		 * Filter: has_hashtags_post_types
+		 *
 		 * Allow others to programmatically add or substract post types that hashtags are enabled for.
+		 *
+		 * @param array Index array of post type slugs.
 		 */
 		$supported_post_types = apply_filters(
 			'has_hashtags_post_types',
@@ -638,7 +746,11 @@ class Highlight_And_Share {
 		);
 
 		/**
+		 * Filter: has_show_hashtags_taxonomy
+		 *
 		 * Allow others to turn off hashtags.
+		 *
+		 * @param bool true to disable hashtags, false to not.
 		 */
 		if ( apply_filters( 'has_show_hashtags_taxonomy', true ) ) {
 			register_taxonomy( 'hashtags', $supported_post_types, $args );
@@ -657,21 +769,86 @@ class Highlight_And_Share {
 
 		$settings = $this->get_plugin_options();
 
-		// Skip loading if both twitter/facebook are turned off.
+		/**
+		 * Filter: has_show_facebook
+		 *
+		 * Hide or show the Facebook sharing option.
+		 *
+		 * @param bool true to show Facebook, false to not.
+		 */
 		$show_facebook = (bool) apply_filters( 'has_show_facebook', $settings['show_facebook'] );
-		$show_twitter  = (bool) apply_filters( 'has_show_twitter', $settings['show_twitter'] );
+
+		/**
+		 * Filter: has_show_twitter
+		 *
+		 * Hide or show the Twitter sharing option.
+		 *
+		 * @param bool true to show Twitter, false to not.
+		 */
+		$show_twitter = (bool) apply_filters( 'has_show_twitter', $settings['show_twitter'] );
+
+		/**
+		 * Filter: has_show_linkedin
+		 *
+		 * Hide or show the LinkedIn sharing option.
+		 *
+		 * @param bool true to show LinkedIn, false to not.
+		 */
 		$show_linkedin = (bool) apply_filters( 'has_show_linkedin', $settings['show_linkedin'] );
 		$show_ok       = (bool) apply_filters( 'has_show_ok', $settings['show_ok'] );
 		$show_vk       = (bool) apply_filters( 'has_show_vk', $settings['show_vk'] );
-		$show_email    = (bool) apply_filters( 'has_show_email', $settings['show_email'] );
-		$show_copy     = (bool) apply_filters( 'has_show_copy', $settings['show_email'] );
-		$show_reddit   = (bool) apply_filters( 'has_show_reddit', isset( $settings['show_reddit'] ) ? $settings['show_reddit'] : false );
+
+		/**
+		 * Filter: has_show_email
+		 *
+		 * Hide or show the email sharing option.
+		 *
+		 * @param bool true to show email, false to not.
+		 */
+		$show_email = (bool) apply_filters( 'has_show_email', $settings['show_email'] );
+
+		/**
+		 * Filter: has_show_copy
+		 *
+		 * Hide or show the copy option.
+		 *
+		 * @param bool true to show copy feature, false to not.
+		 */
+		$show_copy = (bool) apply_filters( 'has_show_copy', $settings['show_email'] );
+
+		/**
+		 * Filter: has_show_reddit
+		 *
+		 * Hide or show the reddit option.
+		 *
+		 * @param bool true to show reddit social network, false to not.
+		 */
+		$show_reddit = (bool) apply_filters( 'has_show_reddit', isset( $settings['show_reddit'] ) ? $settings['show_reddit'] : false );
+
+		/**
+		 * Filter: has_show_telegram
+		 *
+		 * Hide or show the Telegram option.
+		 *
+		 * @param bool true to show Telegram feature, false to not.
+		 */
 		$show_telegram = (bool) apply_filters( 'has_show_telegram', isset( $settings['show_telegram'] ) ? $settings['show_telegram'] : false );
-		$show_signal   = false;
-		if ( ! $show_facebook && ! $show_twitter && ! $show_linkedin && ! $show_ok && ! $show_email && ! $show_copy && ! $show_reddit && ! $show_telegram && ! $show_signal ) {
+
+		// Placeholder for signal.
+		$show_signal = false;
+
+		// If no social network is active, exit.
+		if ( ! $show_facebook && ! $show_twitter && ! $show_linkedin && ! $show_ok && ! $show_email && ! $show_copy && ! $show_reddit && ! $show_telegram ) {
 			return;
 		}
 
+		/**
+		 * Filter: has_enable_mobile
+		 *
+		 * Whether Highlight and Share scripts are run on mobile.
+		 *
+		 * @param bool true to enable mobile, false to not.
+		 */
 		$show_on_mobile = (bool) apply_filters( 'has_enable_mobile', isset( $settings['enable_mobile'] ) ? $settings['enable_mobile'] : true );
 
 		// Disable if mobile.
@@ -689,10 +866,24 @@ class Highlight_And_Share {
 		// Load html.
 		add_action( 'wp_footer', array( $this, 'add_footer_html' ) );
 
-		// Load content area.
+		/**
+		 * Filter: has_enable_content
+		 *
+		 * Whether Highlight and Share will work on regular post or page content.
+		 *
+		 * @param bool true to enable HAS on post content, false to not.
+		 */
 		if ( apply_filters( 'has_enable_content', (bool) $settings['enable_content'] ) ) {
 			add_filter( 'the_content', array( $this, 'content_area' ) );
 		}
+
+		/**
+		 * Filter: has_enable_excerpt
+		 *
+		 * Whether Highlight and Share will work on post excerpts.
+		 *
+		 * @param bool true to enable HAS on excerpts, false to not.
+		 */
 		if ( apply_filters( 'has_enable_excerpt', (bool) $settings['enable_excerpt'] ) ) {
 			add_filter( 'the_excerpt', array( $this, 'excerpt_area' ) );
 		}
@@ -734,23 +925,9 @@ class Highlight_And_Share {
 		if ( $settings['show_facebook'] ) {
 			if ( ! $settings['icons'] ) {
 				// Note, you must be on a publicly accesible URL to use this button.
-				if ( 0 === $settings['facebook_app_id'] ) {
-					$html .= '<div class="has_facebook" style="display: none;" data-type="facebook"><a href="https://www.facebook.com/sharer/sharer.php?u=%url%&t=%title%" target="_blank"><svg class="has-icon"><use xlink:href="#has-facebook-icon"></use></svg>&nbsp;' . esc_html( apply_filters( 'has_facebook_text', _x( 'Share', 'Facebook share text', 'highlight-and-share' ) ) ) . '</a></div>';
-				} else {
-					$tring           = '<div class="has_facebook" style="display: none;" data-type="facebook"><a href="https://www.facebook.com/dialog/share?app_id=' . esc_attr( $settings['facebook_app_id'] ) . '&display=popup&amp;quote=%prefix%%text%%suffix%&href=%url%" target="_blank"><svg class="has-icon"><use xlink:href="#has-facebook-icon"></use></svg>&nbsp;' . esc_html( apply_filters( 'has_facebook_text', _x( 'Share', 'Facebook share text', 'highlight-and-share' ) ) ) . '</a></div>';
-					$html           .= $string;
-					$click_to_share .= $string;
-					$inline_share   .= $string;
-				}
+				$html .= '<div class="has_facebook" style="display: none;" data-type="facebook"><a href="https://www.facebook.com/sharer/sharer.php?u=%url%&t=%title%" target="_blank"><svg class="has-icon"><use xlink:href="#has-facebook-icon"></use></svg>&nbsp;' . esc_html( apply_filters( 'has_facebook_text', _x( 'Share', 'Facebook share text', 'highlight-and-share' ) ) ) . '</a></div>';
 			} else {
-				if ( 0 === $settings['facebook_app_id'] ) {
-					$html .= '<div class="has_facebook" style="display: none;" data-type="facebook"><a href="https://www.facebook.com/sharer/sharer.php?u=%url%&t=%title%" target="_blank"><svg class="has-icon"><use xlink:href="#has-facebook-icon"></use></svg><span class="has-text">' . esc_html( apply_filters( 'has_facebook_text', _x( 'Share', 'Facebook share text', 'highlight-and-share' ) ) ) . '</span></a></div>';
-				} else {
-					$string          = '<div class="has_facebook" style="display: none;" data-type="facebook"><a href="https://www.facebook.com/dialog/share?app_id=' . esc_attr( $settings['facebook_app_id'] ) . '&display=popup&amp;quote=%prefix%%text%%suffix%&href=%url%" target="_blank"><svg class="has-icon"><use xlink:href="#has-facebook-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_facebook_text', _x( 'Share', 'Facebook share text', 'highlight-and-share' ) ) ) . '</span></a></div>';
-					$html           .= $string;
-					$click_to_share .= $string;
-					$inline_share   .= $string;
-				}
+				$html .= '<div class="has_facebook" style="display: none;" data-type="facebook"><a href="https://www.facebook.com/sharer/sharer.php?u=%url%&t=%title%" target="_blank"><svg class="has-icon"><use xlink:href="#has-facebook-icon"></use></svg><span class="has-text">' . esc_html( apply_filters( 'has_facebook_text', _x( 'Share', 'Facebook share text', 'highlight-and-share' ) ) ) . '</span></a></div>';
 			}
 		}
 		if ( $settings['show_linkedin'] ) {
@@ -809,13 +986,31 @@ class Highlight_And_Share {
 		}
 
 		if ( $settings['show_whatsapp'] ) {
+			$whatsapp_endpoint_url = 'whatsapp://send';
+			$whatsapp_endpoint_settings = $settings['whatsapp_api_endpoint'];
+			if ( 'web' === $whatsapp_endpoint_settings ) {
+				$whatsapp_endpoint_url = 'https://api.whatsapp.com/send';
+			}
+			/**
+			 * Filter: has_whatsapp_endpoint_url
+			 *
+			 * Filter the endpoint URL used for WhatsApp.
+			 *
+			 * @param string The endpoint URL.
+			 *
+			 * @since 3.6.5.
+			 */
+			$whatsapp_endpoint_url = apply_filters(
+				'has_whatsapp_endpoint_url',
+				$whatsapp_endpoint_url
+			);
 			if ( ! $settings['icons'] ) {
-				$string          = '<div class="has_whatsapp" style="display: none;" data-type="whatsapp"><a href="whatsapp://send?text=%prefix%%text%%suffix%: ' . '%url%" target="_blank"><svg class="has-icon"><use xlink:href="#has-whatsapp-icon"></use></svg>&nbsp;' . esc_html( apply_filters( 'has_whatsapp_text', _x( 'WhatsApp', 'WhatsApp share text', 'highlight-and-share' ) ) ) . '</a></div>'; // phpcs:ignore
+				$string          = '<div class="has_whatsapp" style="display: none;" data-type="whatsapp"><a href="' . esc_url_raw( $whatsapp_endpoint_url, array( 'whatsapp', 'http', 'https' ) ) . '?text=%prefix%%text%%suffix%: %url%" target="_blank"><svg class="has-icon"><use xlink:href="#has-whatsapp-icon"></use></svg>&nbsp;' . esc_html( apply_filters( 'has_whatsapp_text', _x( 'WhatsApp', 'WhatsApp share text', 'highlight-and-share' ) ) ) . '</a></div>'; // phpcs:ignore
 				$html           .= $string;
 				$click_to_share .= $string;
 				$inline_share   .= $string;
 			} else {
-				$string          = '<div class="has_whatsapp" style="display: none;" data-type="whatsapp"><a href="whatsapp://send?text=%prefix%%text%%suffix%: ' . '%url%" target="_blank"><svg class="has-icon"><use xlink:href="#has-whatsapp-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_whatsapp_text', _x( 'WhatsApp', 'WhatsApp share text', 'highlight-and-share' ) ) ) . '</span></a></div>'; // phpcs:ignore
+				$string          = '<div class="has_whatsapp" style="display: none;" data-type="whatsapp"><a href="' . esc_url_raw( $whatsapp_endpoint_url, array( 'whatsapp', 'http', 'https' ) ) . '?text=%prefix%%text%%suffix%: %url%" target="_blank"><svg class="has-icon"><use xlink:href="#has-whatsapp-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_whatsapp_text', _x( 'WhatsApp', 'WhatsApp share text', 'highlight-and-share' ) ) ) . '</span></a></div>'; // phpcs:ignore
 				$html           .= $string;
 				$click_to_share .= $string;
 				$inline_share   .= $string;
@@ -943,13 +1138,26 @@ class Highlight_And_Share {
 		if ( 'settings_page_highlight-and-share' === $hook ) {
 			wp_enqueue_style(
 				'has-admin',
+				$this->get_plugin_url( '/dist/has-admin.css' ),
+				array(),
+				HIGHLIGHT_AND_SHARE_VERSION,
+				'all'
+			);
+			wp_enqueue_style(
+				'has-admin-css',
 				$this->get_plugin_url( '/dist/has-admin-style.css' ),
 				array(),
 				HIGHLIGHT_AND_SHARE_VERSION,
 				'all'
 			);
-			wp_enqueue_script( 'fancybox', $this->get_plugin_url( '/fancybox/jquery.fancybox.min.js' ), array( 'jquery' ), HIGHLIGHT_AND_SHARE_VERSION, true );
-			wp_enqueue_style( 'fancybox', $this->get_plugin_url( '/fancybox/jquery.fancybox.min.css' ), array(), HIGHLIGHT_AND_SHARE_VERSION, 'all' );
+
+			wp_enqueue_script(
+				'has-admin-js',
+				$this->get_plugin_url( '/dist/has-admin.js' ),
+				array(),
+				HIGHLIGHT_AND_SHARE_VERSION,
+				true
+			);
 		}
 	}
 
@@ -1068,6 +1276,15 @@ class Highlight_And_Share {
 		if ( $enable_shortlinks ) {
 			$url = wp_get_shortlink( $post_id );
 		}
+
+		/**
+		 * Filter: has_content_url
+		 *
+		 * Modify the post or page URL that Highlight and Share uses for sharing.
+		 *
+		 * @param string Post or Page URL (may be shortened).
+		 * @param int    The post or page ID.
+		 */
 		return apply_filters( 'has_content_url', $url, $post_id );
 	}
 
@@ -1087,10 +1304,10 @@ class Highlight_And_Share {
 	 */
 	public function add_settings_link( $links ) {
 		$settings_link = sprintf( '<a href="%s">%s</a>', esc_url( admin_url( 'options-general.php?page=highlight-and-share' ) ), _x( 'Settings', 'Plugin settings link on the plugins page', 'highlight-and-share' ) );
-		$docs_link     = sprintf( '<a href="%s">%s</a>', esc_url( 'https://mediaron.com/highlight-and-share/' ), _x( 'Documentation', 'Plugin settings link on the plugins page', 'highlight-and-share' ) );
-		$sponsor_link  = sprintf( '<a href="%s">%s</a>', esc_url( 'https://github.com/sponsors/MediaRon' ), _x( 'Sponsor', 'Plugin settings link on the plugins page', 'highlight-and-share' ) );
+		$docs_link     = sprintf( '<a href="%s">%s</a>', esc_url( 'https://has.dlxplugins.com' ), _x( 'Documentation', 'Plugin settings link on the plugins page', 'highlight-and-share' ) );
+		$has_landing   = sprintf( '<a href="%s">%s</a>', esc_url( 'https://dlxplugins.com/plugins/highlight-and-share/' ), _x( 'Visit Highlight and Share', 'Plugin settings link on the plugins page', 'highlight-and-share' ) );
 
-		array_unshift( $links, $sponsor_link );
+		array_unshift( $links, $has_landing );
 		array_unshift( $links, $docs_link );
 		array_unshift( $links, $settings_link );
 		return $links;
@@ -1259,7 +1476,13 @@ class Highlight_And_Share {
 			$json_arr['mobile'] = false;
 		}
 
-		// Content areas.
+		/**
+		 * Filter: has_js_classes
+		 *
+		 * Comman-separated CSS classes (without the .) that Highlight and Share should be enabled on.
+		 *
+		 * @param string Comma-separated CSS classes
+		 */
 		$classes = apply_filters( 'has_js_classes', $settings['js_content'] ); // Pass comma separated values (e.g., entry-content,type-post,type-page).
 		$classes = explode( ',', $classes );
 		if ( apply_filters( 'has_enable_content', (bool) $settings['enable_content'] ) ) {
@@ -1276,6 +1499,14 @@ class Highlight_And_Share {
 			}
 			$string = trim( esc_js( '.' . $string ) ); // Get in class format (.%s) and trim just in case.
 		}
+
+		/**
+		 * Filter: has_js_ids
+		 *
+		 * Comman-separated CSS IDs (without the #) that Highlight and Share should be enabled on.
+		 *
+		 * @param string Comma-separated CSS IDs
+		 */
 		$ids = (array) apply_filters( 'has_js_ids', array() ); // Pass array of jQuery ID elements (without the #).
 		foreach ( $ids as $index => &$string ) {
 			$string = trim( $string );
@@ -1284,6 +1515,14 @@ class Highlight_And_Share {
 			}
 			$string = trim( esc_js( '#' . $string ) ); // Get in ID format (#%s) and trim just in case.
 		}
+
+		/**
+		 * Filter: has_js_elements
+		 *
+		 * Comman-separated HTML elements that Highlight and Share should be enabled on.
+		 *
+		 * @param string Comma-separated CSS IDs
+		 */
 		$elements = (array) apply_filters( 'has_js_elements', array() ); // Pass array of jQuery HTML elements (e.g., blockquote, article).
 		foreach ( $elements as $index => &$string ) {
 			$string = trim( $string );
@@ -1292,23 +1531,113 @@ class Highlight_And_Share {
 			}
 			$string = trim( esc_js( $string ) );
 		}
-		$content             = array_merge( $classes, $ids, $elements );
+		$content = array_merge( $classes, $ids, $elements );
+
+		/**
+		 * Filter: has_js_selectors
+		 *
+		 * Modify all the selectors (classes, ids, elements) that are used for Highlight and Share.
+		 *
+		 * @param string          Comma-separated CSS IDs, classes and HTML elements.
+		 * @param array $content  Array with all of the CSS classes (uses .), IDs (uses #), and HTML elements.
+		 * @param array $classes  Array with CSS classes (with the .).
+		 * @param array $ids      Array with CSS IDs (with the #).
+		 * @param array $elements Array with HTML elements.
+		 */
 		$json_arr['content'] = apply_filters( 'has_js_selectors', implode( ',', $content ), $content, $classes, $ids, $elements );
 
-		// Text to display.
-		$json_arr['tweet_text']    = apply_filters( 'has_twitter_text', _x( 'Tweet', 'Twitter share text', 'highlight-and-share' ) );
+		/**
+		 * Filter: has_twitter_text
+		 *
+		 * Modify the social network name on the frontend.
+		 *
+		 * @param string Default: Tweet
+		 */
+		$json_arr['tweet_text'] = apply_filters( 'has_twitter_text', _x( 'Tweet', 'Twitter share text', 'highlight-and-share' ) );
+
+		/**
+		 * Filter: has_facebook_text
+		 *
+		 * Modify the social network name on the frontend.
+		 *
+		 * @param string Default: Share
+		 */
 		$json_arr['facebook_text'] = apply_filters( 'has_facebook_text', _x( 'Share', 'Facebook share text', 'highlight-and-share' ) );
+
+		/**
+		 * Filter: has_linkedin_text
+		 *
+		 * Modify the social network name on the frontend.
+		 *
+		 * @param string Default: LinkedIn
+		 */
 		$json_arr['linkedin_text'] = apply_filters( 'has_linkedin_text', _x( 'LinkedIn', 'LinkedIn share text', 'highlight-and-share' ) );
-		$json_arr['ok_text']       = apply_filters( 'has_ok_text', _x( 'Odnoklassniki', 'Odnoklassniki share text', 'highlight-and-share' ) );
-		$json_arr['vk_text']       = apply_filters( 'has_vk_text', _x( 'VKontakte', 'VKontakte share text', 'highlight-and-share' ) );
+
+		/**
+		 * Filter: has_ok_text
+		 *
+		 * Modify the social network name on the frontend.
+		 *
+		 * @param string Default: Odnoklassniki
+		 */
+		$json_arr['ok_text'] = apply_filters( 'has_ok_text', _x( 'Odnoklassniki', 'Odnoklassniki share text', 'highlight-and-share' ) );
+
+		/**
+		 * Filter: has_vk_text
+		 *
+		 * Modify the social network name on the frontend.
+		 *
+		 * @param string Default: VKontakte
+		 */
+		$json_arr['vk_text'] = apply_filters( 'has_vk_text', _x( 'VKontakte', 'VKontakte share text', 'highlight-and-share' ) );
+
+		/**
+		 * Filter: has_whatsapp_text
+		 *
+		 * Modify the social network name on the frontend.
+		 *
+		 * @param string Default: WhatsApp
+		 */
 		$json_arr['whatsapp_text'] = apply_filters( 'has_whatsapp_text', _x( 'WhatsApp', 'WhatsApp share text', 'highlight-and-share' ) );
-		$json_arr['xing_text']     = apply_filters( 'has_xing_text', _x( 'Xing', 'Xing share text', 'highlight-and-share' ) );
-		$json_arr['copy_text']     = apply_filters( 'has_copy_text', _x( 'Copy', 'Copy share text', 'highlight-and-share' ) );
-		$json_arr['email_text']    = apply_filters( 'has_email_text', _x( 'E-mail', 'E-mail share text', 'highlight-and-share' ) );
+
+		/**
+		 * Filter: has_xing_text
+		 *
+		 * Modify the social network name on the frontend.
+		 *
+		 * @param string Default: Xing
+		 */
+		$json_arr['xing_text'] = apply_filters( 'has_xing_text', _x( 'Xing', 'Xing share text', 'highlight-and-share' ) );
+
+		/**
+		 * Filter: has_copy_text
+		 *
+		 * Modify the Copy label on the frontend.
+		 *
+		 * @param string Default: Copy
+		 */
+		$json_arr['copy_text'] = apply_filters( 'has_copy_text', _x( 'Copy', 'Copy share text', 'highlight-and-share' ) );
+
+		/**
+		 * Filter: has_email_text
+		 *
+		 * Modify the Email label on the frontend.
+		 *
+		 * @param string Default: E-mail
+		 */
+		$json_arr['email_text'] = apply_filters( 'has_email_text', _x( 'E-mail', 'E-mail share text', 'highlight-and-share' ) );
 
 		// Icons.
 		if ( is_customize_preview() ) {
 			$maybe_icons = get_option( 'highlight-and-share' );
+
+			/**
+			 * Filter: has_icons
+			 *
+			 * Whether icon-only view is supported.
+			 *
+			 * @param bool true for icons-only enabled, false if not.
+			 */
 			if ( isset( $maybe_icons['icons'] ) ) {
 				$json_arr['icons'] = apply_filters( 'has_icons', $maybe_icons['icons'] );
 			} else {
@@ -1357,7 +1686,13 @@ class Highlight_And_Share {
 		// Localize.
 		wp_localize_script( 'highlight-and-share', 'highlight_and_share', $json_arr );
 
-		// Add CSS.
+		/**
+		 * Filter: has_load_css
+		 *
+		 * Whether to load Highlight and Share CSS.
+		 *
+		 * @param bool true for allowing CSS, false if not.
+		 */
 		if ( apply_filters( 'has_load_css', true ) ) {
 			wp_enqueue_style( 'highlight-and-share-email', $this->get_plugin_url( 'css/highlight-and-share-emails.css' ), array(), HIGHLIGHT_AND_SHARE_VERSION, 'all' );
 			if ( is_customize_preview() ) {
@@ -1450,6 +1785,14 @@ class Highlight_And_Share {
 			'has-inline-theme-purple'          => __( 'Purple', 'highlight-and-share' ),
 			'has-inline-theme-rust'            => __( 'Rust', 'highlight-and-share' ),
 		);
+
+		/**
+		 * Filter: has_inline_themes
+		 *
+		 * Whether to load Highlight and Share inline theme CSS (this is not used on the frontend).
+		 *
+		 * @param bool true for allowing inline themes, false if not.
+		 */
 		$has_inline_themes = apply_filters( 'has_inline_themes', $has_inline_themes );
 		return $has_inline_themes;
 	}
@@ -1515,30 +1858,37 @@ class Highlight_And_Share {
 	 */
 	public function options_page() {
 		?>
-		<div class="wrap">
-			<div class="has-form-wrapper">
-				<div class="has-logo-wrapper">
-					<h2 id="has-logo" style="display: flex; align-items: center;"><img style="width: 700px; height: 91px; margin-right: 20px;" src="<?php echo esc_url( $this->get_plugin_url( '/img/plugin-logo-horizontal.png' ) ); ?>" alt="Higlight and Share" /></h2>
-					<ul>
-						<li><a href="https://mediaron.com/highlight-and-share/"><i class="dashicons dashicons-media-document"></i> <?php esc_html_e( 'Docs', 'highlight-and-share' ); ?></a></li>
-						<li><a href="https://github.com/sponsors/MediaRon"><i class="dashicons dashicons-groups"></i> <?php esc_html_e( 'Sponsor', 'highlight-and-share' ); ?></a></li>
-						<li><a href="https://wordpress.org/support/plugin/highlight-and-share/reviews/"><i class="dashicons dashicons-heart" style="color: #ff78ae"></i> <?php esc_html_e( 'Pretty Please Rate Us', 'highlight-and-share' ); ?></a></li>
-					</ul>
+		<div class="has-form-wrapper">
+			<header>
+				<div class="has-admin-container-wrap">
+					<div class="has-logo-wrapper">
+						<h2 id="has-logo" style="display: flex; align-items: center;"><img 
+						width="450" height="113" src="<?php echo esc_url( $this->get_plugin_url( '/img/plugin-logo-horizontal.png' ) ); ?>" alt="Higlight and Share" /></h2>
+					</div>
+					<div class="header__btn-wrap">
+						<a class=" has__btn-primary" href="https://has.dlxplugins.com"><i class="dashicons dashicons-media-document"></i> <?php esc_html_e( 'Documentation', 'highlight-and-share' ); ?></a>
+						<a class=" has__btn-primary" href="https://dlxplugins.com/support/"><i class="dashicons dashicons-groups"></i> <?php esc_html_e( 'Support', 'highlight-and-share' ); ?></a>
+					</div>
 				</div>
-				<hr />
-				<form action="<?php echo esc_url( admin_url( 'options.php' ) ); ?>" method="POST">
-					<?php settings_fields( 'highlight-and-share' ); ?>
-					<?php do_settings_sections( 'highlight-and-share' ); ?>
-					<?php submit_button(); ?>
-				</form>
-				<hr />
-				<div class="has-logo-wrapper">
-					<ul>
-						<li><a href="https://mediaron.com/highlight-and-share/"><i class="dashicons dashicons-media-document"></i> <?php esc_html_e( 'Docs', 'highlight-and-share' ); ?></a></li>
-						<li><a href="https://github.com/sponsors/MediaRon"><i class="dashicons dashicons-groups"></i> <?php esc_html_e( 'Sponsor', 'highlight-and-share' ); ?></a></li>
-						<li><a href="https://wordpress.org/support/plugin/highlight-and-share/reviews/"><i class="dashicons dashicons-heart" style="color: #ff78ae"></i> <?php esc_html_e( 'Please Rate Us', 'highlight-and-share' ); ?></a></li>
-					</ul>
+			</header>
+			<div class="has-admin-container-body-wrapper">
+				<div class="has-admin-container-body">
+					<form action="<?php echo esc_url( admin_url( 'options.php' ) ); ?>" method="POST">
+						<?php settings_fields( 'highlight-and-share' ); ?>
+						<?php do_settings_sections( 'highlight-and-share' ); ?>
+						<?php submit_button(); ?>
+					</form>
 				</div>
+			</div>
+			<div class="has-admin-container-footer">
+				<footer>
+					<div class="has-admin-container-wrap">
+						<div class="footer-rate-icon" aria-hidden="true"><img 
+							width="100" height="90" src="<?php echo esc_url( $this->get_plugin_url( '/img/heart.png' ) ); ?>" /></div>
+						<a class="has__btn-primary" href="https://wordpress.org/support/plugin/highlight-and-share/reviews/" target="_blank"><i ></i> <?php esc_html_e( 'Please Rate Highlight and Share', 'highlight-and-share' ); ?></a>
+						<div class="has-plea"><?php esc_html_e( 'It really helps.', 'highlight-and-share' ); ?></div>
+					</div>
+				</footer>
 			</div>
 		</div>
 		<?php
@@ -1590,6 +1940,13 @@ class Highlight_And_Share {
 		add_settings_section(
 			'has-facebook',
 			_x( 'Facebook Settings', 'plugin settings heading', 'highlight-and-share' ),
+			array( $this, 'settings_section' ),
+			'highlight-and-share'
+		);
+
+		add_settings_section(
+			'has-whatsapp',
+			_x( 'WhatsApp Settings', 'plugin settings heading', 'highlight-and-share' ),
 			array( $this, 'settings_section' ),
 			'highlight-and-share'
 		);
@@ -1728,17 +2085,6 @@ class Highlight_And_Share {
 		);
 
 		add_settings_field(
-			'hightlight-and-share-signal-enable',
-			__( 'Show Signal Option', 'highlight-and-share' ),
-			array( $this, 'add_settings_field_signal_enable' ),
-			'highlight-and-share',
-			'has-social',
-			array(
-				'desc' => __( 'Would you like to enable sharing via Signal?', 'highlight-and-share' ),
-			)
-		);
-
-		add_settings_field(
 			'hightlight-and-share-linkedin-enable',
 			__( 'Show LinkedIn Option', 'highlight-and-share' ),
 			array( $this, 'add_settings_field_linkedin_enable' ),
@@ -1754,9 +2100,20 @@ class Highlight_And_Share {
 			__( 'Show WhatsApp Option', 'highlight-and-share' ),
 			array( $this, 'add_settings_field_whatsapp_enable' ),
 			'highlight-and-share',
-			'has-social',
+			'has-whatsapp',
 			array(
 				'desc' => __( 'Would you like to enable sharing via WhatsApp?', 'highlight-and-share' ),
+			)
+		);
+
+		add_settings_field(
+			'hightlight-and-share-whatsapp-url-endpoint',
+			__( 'WhatsApp Endpoint', 'highlight-and-share' ),
+			array( $this, 'add_settings_field_whatsapp_endpoint' ),
+			'highlight-and-share',
+			'has-whatsapp',
+			array(
+				'desc' => __( 'Choose a WhatsApp endpoint', 'highlight-and-share' ),
 			)
 		);
 
@@ -1772,25 +2129,25 @@ class Highlight_And_Share {
 		);
 
 		// add_settings_field(
-		// 	'hightlight-and-share-ok-enable',
-		// 	__( 'Show Odnoklassniki Option', 'highlight-and-share' ),
-		// 	array( $this, 'add_settings_field_ok_enable' ),
-		// 	'highlight-and-share',
-		// 	'has-social',
-		// 	array(
-		// 		'desc' => __( 'Would you like to enable sharing via Odnoklassniki?', 'highlight-and-share' ),
-		// 	)
+		// 'hightlight-and-share-ok-enable',
+		// __( 'Show Odnoklassniki Option', 'highlight-and-share' ),
+		// array( $this, 'add_settings_field_ok_enable' ),
+		// 'highlight-and-share',
+		// 'has-social',
+		// array(
+		// 'desc' => __( 'Would you like to enable sharing via Odnoklassniki?', 'highlight-and-share' ),
+		// )
 		// );
 
 		// add_settings_field(
-		// 	'hightlight-and-share-vk-enable',
-		// 	__( 'Show VKontakte Option', 'highlight-and-share' ),
-		// 	array( $this, 'add_settings_field_vk_enable' ),
-		// 	'highlight-and-share',
-		// 	'has-social',
-		// 	array(
-		// 		'desc' => __( 'Would you like to enable sharing via Odnoklassniki?', 'highlight-and-share' ),
-		// 	)
+		// 'hightlight-and-share-vk-enable',
+		// __( 'Show VKontakte Option', 'highlight-and-share' ),
+		// array( $this, 'add_settings_field_vk_enable' ),
+		// 'highlight-and-share',
+		// 'has-social',
+		// array(
+		// 'desc' => __( 'Would you like to enable sharing via Odnoklassniki?', 'highlight-and-share' ),
+		// )
 		// );
 
 		add_settings_field(
@@ -1847,18 +2204,6 @@ class Highlight_And_Share {
 			'has-facebook',
 			array(
 				'desc' => __( 'Would you like to enable sharing via Facebook?', 'highlight-and-share' ),
-			)
-		);
-
-		add_settings_field(
-			'hightlight-and-share-facebook-api',
-			__( 'Facebook App ID', 'highlight-and-share' ),
-			array( $this, 'add_settings_field_facebook_api' ),
-			'highlight-and-share',
-			'has-facebook',
-			array(
-				'label_for' => 'hightlight-and-share-facebook-api',
-				'desc'      => __( 'A Facebook App ID allows you to highlight text and share it.', 'highlight-and-share' ),
 			)
 		);
 
@@ -1968,6 +2313,7 @@ class Highlight_And_Share {
 				case 'whatsapp_fa_class':
 				case 'email_fa_class':
 				case 'copy_fa_class':
+				case 'whatsapp_api_endpoint':
 					$output[ $key ] = sanitize_text_field( $value );
 					break;
 				case 'show_twitter':
@@ -2129,17 +2475,8 @@ class Highlight_And_Share {
 		?>
 		<h4><?php esc_html_e( 'Preview', 'highlight-and-share' ); ?></h4>
 		<ul class="has-admin-preview">
-			<li><a data-fancybox="has-gallery" data-animation-effect="zoom" data-animation-duration="1000" data-fancybox data-caption="<?php esc_html_e( 'Black theme', 'highlight-and-share' ); ?>" href="<?php echo esc_url( $this->get_plugin_url( '/img/screenshot-black.png' ) ); ?>"><?php esc_html_e( 'Black Theme', 'highlight-and-share' ); ?></a></li>
-			<li><a data-fancybox="has-gallery" data-animation-effect="zoom" data-animation-duration="1000" data-fancybox data-caption="<?php esc_html_e( 'Blue theme', 'highlight-and-share' ); ?>" href="<?php echo esc_url( $this->get_plugin_url( '/img/screenshot-blue.png' ) ); ?>"><?php esc_html_e( 'Blue Theme', 'highlight-and-share' ); ?></a></li>
-			<li><a data-fancybox="has-gallery" data-animation-effect="zoom" data-animation-duration="1000" data-fancybox data-caption="<?php esc_html_e( 'Branded theme', 'highlight-and-share' ); ?>" href="<?php echo esc_url( $this->get_plugin_url( '/img/screenshot-brand.png' ) ); ?>"><?php esc_html_e( 'Branded Theme', 'highlight-and-share' ); ?></a></li>
-			<li><a data-fancybox="has-gallery" data-animation-effect="zoom" data-animation-duration="1000" data-fancybox data-caption="<?php esc_html_e( 'Circular Glass theme', 'highlight-and-share' ); ?>" href="<?php echo esc_url( $this->get_plugin_url( '/img/screenshot-circles-glass.png' ) ); ?>"><?php esc_html_e( 'Circular Glass Theme', 'highlight-and-share' ); ?></a></li>
-			<li><a data-fancybox="has-gallery" data-animation-effect="zoom" data-animation-duration="1000" data-fancybox data-caption="<?php esc_html_e( 'Circular Colors theme', 'highlight-and-share' ); ?>" href="<?php echo esc_url( $this->get_plugin_url( '/img/screenshot-color-circles.png' ) ); ?>"><?php esc_html_e( 'Circular Colors Theme', 'highlight-and-share' ); ?></a></li>
-			<li><a data-fancybox="has-gallery" data-animation-effect="zoom" data-animation-duration="1000" data-fancybox data-caption="<?php esc_html_e( 'Cyan theme', 'highlight-and-share' ); ?>" href="<?php echo esc_url( $this->get_plugin_url( '/img/screenshot-cyan.png' ) ); ?>"><?php esc_html_e( 'Cyan Theme', 'highlight-and-share' ); ?></a></li>
-			<li><a data-fancybox="has-gallery" data-animation-effect="zoom" data-animation-duration="1000" data-fancybox data-caption="<?php esc_html_e( 'Default theme', 'highlight-and-share' ); ?>" href="<?php echo esc_url( $this->get_plugin_url( '/img/screenshot-default.png' ) ); ?>"><?php esc_html_e( 'Default Theme', 'highlight-and-share' ); ?></a></li>
-			<li><a data-fancybox="has-gallery" data-animation-effect="zoom" data-animation-duration="1000" data-fancybox data-caption="<?php esc_html_e( 'Green theme', 'highlight-and-share' ); ?>" href="<?php echo esc_url( $this->get_plugin_url( '/img/screenshot-green.png' ) ); ?>"><?php esc_html_e( 'Green Theme', 'highlight-and-share' ); ?></a></li>
-			<li><a data-fancybox="has-gallery" data-animation-effect="zoom" data-animation-duration="1000" data-fancybox data-caption="<?php esc_html_e( 'Magenta theme', 'highlight-and-share' ); ?>" href="<?php echo esc_url( $this->get_plugin_url( '/img/screenshot-magenta.png' ) ); ?>"><?php esc_html_e( 'Magenta Theme', 'highlight-and-share' ); ?></a></li>
-			<li><a data-fancybox="has-gallery" data-animation-effect="zoom" data-animation-duration="1000" data-fancybox data-caption="<?php esc_html_e( 'Purple theme', 'highlight-and-share' ); ?>" href="<?php echo esc_url( $this->get_plugin_url( '/img/screenshot-purple.png' ) ); ?>"><?php esc_html_e( 'Purple Theme', 'highlight-and-share' ); ?></a></li>
-			<li><a data-fancybox="has-gallery" data-animation-effect="zoom" data-animation-duration="1000" data-fancybox data-caption="<?php esc_html_e( 'White theme', 'highlight-and-share' ); ?>" href="<?php echo esc_url( $this->get_plugin_url( '/img/screenshot-white.png' ) ); ?>"><?php esc_html_e( 'White Theme', 'highlight-and-share' ); ?></a></li>
+			<?php $this->output_main_themes_admin_html(); ?>
+		</ul>
 		<?php
 	}
 
@@ -2160,6 +2497,9 @@ class Highlight_And_Share {
 		$enable_twitter = isset( $settings['show_twitter'] ) ? (bool) $settings['show_twitter'] : true;
 		echo '<input name="highlight-and-share[show_twitter]" value="off" type="hidden" />';
 		printf( '<input id="has-show-twitter" type="checkbox" name="highlight-and-share[show_twitter]" value="on" %s />&nbsp;<label for="has-show-twitter">%s</label>', checked( true, $enable_twitter, false ), esc_html__( 'Enable Twitter Sharing?', 'highlight-and-share' ) );
+		?>
+		<p class="description"><?php esc_html_e( 'Twitter allows text sharing.', 'highlight-and-share' ); ?></p>
+		<?php
 	}
 
 	/**
@@ -2179,6 +2519,9 @@ class Highlight_And_Share {
 		$linkedin = isset( $settings['show_linkedin'] ) ? (bool) $settings['show_linkedin'] : true;
 		echo '<input name="highlight-and-share[show_linkedin]" value="off" type="hidden" />';
 		printf( '<input id="has-show-linkedin" type="checkbox" name="highlight-and-share[show_linkedin]" value="on" %s />&nbsp;<label for="has-show-linkedin">%s</label>', checked( true, $linkedin, false ), esc_html__( 'Enable LinkedIn Sharing?', 'highlight-and-share' ) );
+		?>
+		<p class="description"><?php esc_html_e( 'LinkedIn only allows URL sharing.', 'highlight-and-share' ); ?></p>
+		<?php
 	}
 
 	/**
@@ -2236,6 +2579,9 @@ class Highlight_And_Share {
 		$reddit   = isset( $settings['show_reddit'] ) ? (bool) $settings['show_reddit'] : false;
 		echo '<input name="highlight-and-share[show_reddit]" value="off" type="hidden" />';
 		printf( '<input id="has-show-reddit" type="checkbox" name="highlight-and-share[show_reddit]" value="on" %s />&nbsp;<label for="has-show-reddit">%s</label>', checked( true, $reddit, false ), esc_html__( 'Enable Reddit Sharing?', 'highlight-and-share' ) );
+		?>
+		<p class="description"><?php esc_html_e( 'Reddit only allows URL sharing.', 'highlight-and-share' ); ?></p>
+		<?php
 	}
 
 	/**
@@ -2255,25 +2601,9 @@ class Highlight_And_Share {
 		$telegram = isset( $settings['show_telegram'] ) ? (bool) $settings['show_telegram'] : false;
 		echo '<input name="highlight-and-share[show_telegram]" value="off" type="hidden" />';
 		printf( '<input id="has-show-telegram" type="checkbox" name="highlight-and-share[show_telegram]" value="on" %s />&nbsp;<label for="has-show-telegram">%s</label>', checked( true, $telegram, false ), esc_html__( 'Enable Telegram Sharing?', 'highlight-and-share' ) );
-	}
-
-	/**
-	 * Add Signal Option for Sharing
-	 *
-	 * Output checkbox for displaying Signal sharing.
-	 *
-	 * @since 4.0.0
-	 * @access public
-	 *
-	 * @see init_admin_settings
-	 *
-	 * @param array $args Array of arguments.
-	 */
-	public function add_settings_field_signal_enable( $args = array() ) {
-		$settings = $this->get_plugin_options();
-		$signal   = isset( $settings['show_signal'] ) ? (bool) $settings['show_signal'] : false;
-		echo '<input name="highlight-and-share[show_signal]" value="off" type="hidden" />';
-		printf( '<input id="has-show-signal" type="checkbox" name="highlight-and-share[show_signal]" value="on" %s />&nbsp;<label for="has-show-signal">%s</label>', checked( true, $signal, false ), esc_html__( 'Enable Signal Sharing?', 'highlight-and-share' ) );
+		?>
+		<p class="description"><?php esc_html_e( 'Telegram allows text sharing.', 'highlight-and-share' ); ?></p>
+		<?php
 	}
 
 	/**
@@ -2293,6 +2623,9 @@ class Highlight_And_Share {
 		$xing     = isset( $settings['show_xing'] ) ? (bool) $settings['show_xing'] : true;
 		echo '<input name="highlight-and-share[show_xing]" value="off" type="hidden" />';
 		printf( '<input id="has-show-xing" type="checkbox" name="highlight-and-share[show_xing]" value="on" %s />&nbsp;<label for="has-show-xing">%s</label>', checked( true, $xing, false ), esc_html__( 'Enable Xing Sharing?', 'highlight-and-share' ) );
+		?>
+		<p class="description"><?php esc_html_e( 'Xing only allows URL sharing.', 'highlight-and-share' ); ?></p>
+		<?php
 	}
 
 	/**
@@ -2312,6 +2645,29 @@ class Highlight_And_Share {
 		$whatsapp = isset( $settings['show_whatsapp'] ) ? (bool) $settings['show_whatsapp'] : true;
 		echo '<input name="highlight-and-share[show_whatsapp]" value="off" type="hidden" />';
 		printf( '<input id="has-show-whatsapp" type="checkbox" name="highlight-and-share[show_whatsapp]" value="on" %s />&nbsp;<label for="has-show-whatsapp">%s</label>', checked( true, $whatsapp, false ), esc_html__( 'Enable WhatsApp Sharing?', 'highlight-and-share' ) );
+		?>
+		<p class="description"><?php esc_html_e( 'WhatsApp allows text sharing.', 'highlight-and-share' ); ?></p>
+		<?php
+	}
+
+	/**
+	 * Add WhatsApp Option for Sharing
+	 *
+	 * Output checkbox for displaying WhatsApp sharing.
+	 *
+	 * @since 3.6.5
+	 * @access public
+	 *
+	 * @see init_admin_settings
+	 *
+	 * @param array $args Array of arguments.
+	 */
+	public function add_settings_field_whatsapp_endpoint( $args = array() ) {
+		$settings = $this->get_plugin_options();
+		$whatsapp = isset( $settings['whatsapp_api_endpoint'] ) ? $settings['whatsapp_api_endpoint'] : 'app'; // Can also we 'web'.
+		printf( '<input id="has-show-whatsapp-web" type="radio" name="highlight-and-share[whatsapp_api_endpoint]" value="web" %s />&nbsp;<label for="has-show-whatsapp-web">%s</label>', checked( 'web', $whatsapp, false ), esc_html__( 'Use the WhatsApp Web Endpoint', 'highlight-and-share' ) );
+		echo '<br />';
+		printf( '<input id="has-show-whatsapp-app" type="radio" name="highlight-and-share[whatsapp_api_endpoint]" value="app" %s />&nbsp;<label for="has-show-whatsapp-app">%s</label>', checked( 'app', $whatsapp, false ), esc_html__( 'Use the WhatsApp App Endpoint', 'highlight-and-share' ) );
 	}
 
 	/**
@@ -2369,6 +2725,9 @@ class Highlight_And_Share {
 		$enable_facebook = isset( $settings['show_facebook'] ) ? (bool) $settings['show_facebook'] : true;
 		echo '<input name="highlight-and-share[show_facebook]" value="off" type="hidden" />';
 		printf( '<input id="has-show-facebook" type="checkbox" name="highlight-and-share[show_facebook]" value="on" %s />&nbsp;<label for="has-show-facebook">%s</label>', checked( true, $enable_facebook, false ), esc_html__( 'Enable Facebook Sharing?', 'highlight-and-share' ) );
+		?>
+		<p class="description"><?php esc_html_e( 'Facebook only allows URL sharing.', 'highlight-and-share' ); ?></p>
+		<?php
 	}
 
 	/**
@@ -2391,29 +2750,6 @@ class Highlight_And_Share {
 	}
 
 	/**
-	 * Add Facebook option for an Application ID.
-	 *
-	 * Add Facebook option for an Application ID.
-	 *
-	 * @since 2.1.0
-	 * @access public
-	 *
-	 * @see init_admin_settings
-	 *
-	 * @param array $args Array of arguments.
-	 */
-	public function add_settings_field_facebook_api( $args = array() ) {
-		$settings = $this->get_plugin_options();
-		$app_id   = isset( $settings['facebook_app_id'] ) ? sanitize_text_field( $settings['facebook_app_id'] ) : '';
-		if ( 0 === $app_id ) {
-			$app_id = '';
-		}
-		printf( '<p>%s</p>', esc_html( $args['desc'] ) );
-		printf( '<p><a href="%s">%s</a></p>', 'https://developers.facebook.com/apps', esc_html__( 'Requires a Facebook developer application.', 'highlight-and-share' ) );
-		printf( '<input id="%s" type="text" name="highlight-and-share[facebook_app_id]" value="%s" />', esc_attr( $args['label_for'] ), esc_attr( $app_id ) );
-	}
-
-	/**
 	 * Add mobile option for sharing.
 	 *
 	 * Output checkbox for sharing on main post content
@@ -2429,7 +2765,7 @@ class Highlight_And_Share {
 		$settings       = $this->get_plugin_options();
 		$enable_content = isset( $settings['enable_mobile'] ) ? (bool) $settings['enable_mobile'] : true;
 		echo '<input name="highlight-and-share[enable_mobile]" value="off" type="hidden" />';
-		printf( '<input id="has-enable-content" type="checkbox" name="highlight-and-share[enable_mobile]" value="on" %s />&nbsp;<label for="has-enable-content">%s</label>', checked( true, $enable_content, false ), esc_html__( 'Enable on Mobile?', 'highlight-and-share' ) );
+		printf( '<input id="has-enable-mobile" type="checkbox" name="highlight-and-share[enable_mobile]" value="on" %s />&nbsp;<label for="has-enable-mobile">%s</label>', checked( true, $enable_content, false ), esc_html__( 'Enable on Mobile?', 'highlight-and-share' ) );
 	}
 
 	/**
@@ -2536,6 +2872,7 @@ class Highlight_And_Share {
 			'theme'           => 'default',
 			'sharing_prefix'  => '',
 			'sharing_suffix'  => '',
+			'whatsapp_api_endpoint' => 'app', // Can also we 'web'.
 		);
 
 		if ( false === $settings || ! is_array( $settings ) ) {

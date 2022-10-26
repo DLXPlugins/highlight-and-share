@@ -10,7 +10,6 @@ module.exports = function (grunt) {
 				{src: ['has-click-to-share.php'], dest: '/', filter: 'isFile'}, // includes files in path
 				{src: ['readme.txt'], dest: '/', filter: 'isFile'}, // includes files in path
 				{src: ['uninstall.txt'], dest: '/', filter: 'isFile'}, // includes files in path
-				{src: ['fancybox/**'], dest: '/'}, // includes files in path and its subdirs
 				{src: ['css/**'], dest: '/'}, // includes files in path and its subdirs
 				{src: ['dist/**'], dest: '/'}, // includes files in path and its subdirs
 				{src: ['img/**'], dest: '/'}, // includes files in path and its subdirs
