@@ -62,13 +62,41 @@ class Admin {
 					</div>
 				</div>
 			</header>
+			<?php
+			$current_tab = Functions::get_admin_tab();
+			$settings_tab_class = array( 'nav-tab' );
+			if ( null === $current_tab || 'settings' === $current_tab ) {
+				$settings_tab_class[] = 'nav-tab-active';
+			}
+			$theme_tab_class = array( 'nav-tab' );
+			if ( 'theme' === $current_tab ) {
+				$theme_tab_class[] = 'nav-tab-active';
+			}
+?>
+
+
 			<div class="has-admin-container-body-wrapper">
 				<div class="has-admin-container-body">
-					<form action="<?php echo esc_url( admin_url( 'options.php' ) ); ?>" method="POST">
-						<?php settings_fields( 'highlight-and-share' ); ?>
-						<?php do_settings_sections( 'highlight-and-share' ); ?>
-						<?php submit_button(); ?>
-					</form>
+					<nav class="nav-tab-wrapper">
+						<a class="<?php echo esc_attr( implode( ' ', $settings_tab_class ) ); ?>" href="<?php echo esc_url( Functions::get_settings_url( 'settings' ) ); ?>"><?php esc_html_e( 'Settings', 'highlight-and-share' ); ?></a>
+						<a class="<?php echo esc_attr( implode( ' ', $theme_tab_class ) ); ?>" href="<?php echo esc_url( Functions::get_settings_url( 'theme' ) ); ?>"><?php esc_html_e( 'Theme', 'highlight-and-share' ); ?></a>
+					</nav>
+					<div class="has-admin-container-body__content">
+						<?php
+						if ( null === $current_tab || 'settings' === $current_tab ) {
+							?>
+							<form action="<?php echo esc_url( admin_url( 'options.php' ) ); ?>" method="POST">
+							<?php settings_fields( 'highlight-and-share' ); ?>
+							<?php do_settings_sections( 'highlight-and-share' ); ?>
+							<?php submit_button(); ?>
+							</form>
+							<?php
+						} elseif ( 'theme' === $current_tab ) {
+							?>
+							<div id="has-theme-admin-settings"></div>
+							<?php
+						}
+						?>
 				</div>
 			</div>
 			<div class="has-admin-container-footer">

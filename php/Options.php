@@ -27,7 +27,7 @@ class Options {
 	/**
 	 * Main class runner.
 	 *
-	 * @return Blocks.
+	 * @return Options.
 	 */
 	public static function run() {
 		$self = new self();
