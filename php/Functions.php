@@ -93,6 +93,35 @@ class Functions {
 	}
 
 	/**
+	 * Retrieve a post's URL
+	 *
+	 * Retrieve a post's URL (may be shortened)
+	 *
+	 * @since 1.1
+	 *
+	 * @param int $post_id Post ID to retrieve the URL for.
+	 * @return string $url URL to the post
+	 */
+	public static function get_content_url( $post_id ) {
+		$settings          = Options::get_plugin_options();
+		$enable_shortlinks = isset( $settings['shortlinks'] ) ? (bool) $settings['shortlinks'] : false;
+		$url               = get_permalink( $post_id );
+		if ( $enable_shortlinks ) {
+			$url = wp_get_shortlink( $post_id );
+		}
+
+		/**
+		 * Filter: has_content_url
+		 *
+		 * Modify the post or page URL that Highlight and Share uses for sharing.
+		 *
+		 * @param string Post or Page URL (may be shortened).
+		 * @param int    The post or page ID.
+		 */
+		return apply_filters( 'has_content_url', $url, $post_id );
+	}
+
+	/**
 	 * Checks to see if an asset is activated or not.
 	 *
 	 * @since 1.0.0

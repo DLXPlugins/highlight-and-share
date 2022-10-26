@@ -104,4 +104,36 @@ class Hashtags {
 		}
 
 	}
+
+	/**
+	 * Retrieve hashtags for a post/page.
+	 *
+	 * @param int $post_id The post ID to retrieve hashtags for.
+	 */
+	public static function get_hashtags( $post_id ) {
+		$options = Options::get_plugin_options();
+		if ( ! $options['enable_hashtags'] ) {
+			return '';
+		}
+		$hashtags_raw = wp_get_object_terms( $post_id, 'hashtags' );
+
+		if ( empty( $hashtags_raw ) ) {
+			return '';
+		}
+
+		$hashtags = array();
+		foreach ( $hashtags_raw as $hashtag_term ) {
+			// Strip out pound sign in case it was entered accidentally.
+			$hashtag = str_replace( '#', '', $hashtag_term->name );
+
+			// Check for white-space.
+			$hashtag = preg_replace( '/\s+/', '', $hashtag );
+			$hashtag = sanitize_text_field( $hashtag );
+
+			// Populate hashtags.
+			$hashtags[] = $hashtag;
+		}
+
+		return implode( ',', $hashtags );
+	}
 }
