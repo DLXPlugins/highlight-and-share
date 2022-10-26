@@ -14,7 +14,8 @@
   --pswp-icon-color-secondary: #4f4f4f;
   --pswp-icon-stroke-color: #4f4f4f;
   --pswp-icon-stroke-width: 2px;
-  --pswp-error-text-color: var(--pswp-icon-color); }
+  --pswp-error-text-color: var(--pswp-icon-color);
+}
 
 /*
 	Styles for basic PhotoSwipe (pswp) functionality (sliding area, open/close transitions)
@@ -31,34 +32,42 @@
   outline: 0;
   opacity: 0.003;
   contain: layout style size;
-  -webkit-tap-highlight-color: rgba(0, 0, 0, 0); }
+  -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+}
 
 /* Prevents focus outline on the root element,
   (it may be focused initially) */
 .pswp:focus {
-  outline: 0; }
+  outline: 0;
+}
 
 .pswp * {
-  box-sizing: border-box; }
+  box-sizing: border-box;
+}
 
 .pswp img {
-  max-width: none; }
+  max-width: none;
+}
 
 .pswp--open {
-  display: block; }
+  display: block;
+}
 
 .pswp,
 .pswp__bg {
   transform: translateZ(0);
-  will-change: opacity; }
+  will-change: opacity;
+}
 
 .pswp__bg {
   opacity: 0.005;
-  background: var(--pswp-bg); }
+  background: var(--pswp-bg);
+}
 
 .pswp,
 .pswp__scroll-wrap {
-  overflow: hidden; }
+  overflow: hidden;
+}
 
 .pswp__scroll-wrap,
 .pswp__bg,
@@ -71,28 +80,33 @@
   top: 0;
   left: 0;
   width: 100%;
-  height: 100%; }
+  height: 100%;
+}
 
 .pswp__img,
 .pswp__zoom-wrap {
   width: auto;
-  height: auto; }
+  height: auto;
+}
 
 .pswp--click-to-zoom.pswp--zoom-allowed .pswp__img {
   cursor: -webkit-zoom-in;
   cursor: -moz-zoom-in;
-  cursor: zoom-in; }
+  cursor: zoom-in;
+}
 
 .pswp--click-to-zoom.pswp--zoomed-in .pswp__img {
   cursor: move;
   cursor: -webkit-grab;
   cursor: -moz-grab;
-  cursor: grab; }
+  cursor: grab;
+}
 
 .pswp--click-to-zoom.pswp--zoomed-in .pswp__img:active {
   cursor: -webkit-grabbing;
   cursor: -moz-grabbing;
-  cursor: grabbing; }
+  cursor: grabbing;
+}
 
 /* :active to override grabbing cursor */
 .pswp--no-mouse-drag.pswp--zoomed-in .pswp__img,
@@ -100,7 +114,8 @@
 .pswp__img {
   cursor: -webkit-zoom-out;
   cursor: -moz-zoom-out;
-  cursor: zoom-out; }
+  cursor: zoom-out;
+}
 
 /* Prevent selection and tap highlights */
 .pswp__container,
@@ -110,22 +125,27 @@
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
-  user-select: none; }
+  user-select: none;
+}
 
 .pswp__item {
   /* z-index for fade transition */
   z-index: 1;
-  overflow: hidden; }
+  overflow: hidden;
+}
 
 .pswp__hidden {
-  display: none !important; }
+  display: none !important;
+}
 
 /* Allow to click through pswp__content element, but not its children */
 .pswp__content {
-  pointer-events: none; }
+  pointer-events: none;
+}
 
 .pswp__content > * {
-  pointer-events: auto; }
+  pointer-events: auto;
+}
 
 /*
 
@@ -137,13 +157,15 @@
 	(JS option errorMsg controls markup)
 */
 .pswp__error-msg-container {
-  display: grid; }
+  display: grid;
+}
 
 .pswp__error-msg {
   margin: auto;
   font-size: 1em;
   line-height: 1;
-  color: var(--pswp-error-text-color); }
+  color: var(--pswp-error-text-color);
+}
 
 /*
 class pswp__hide-on-close is applied to elements that
@@ -154,15 +176,15 @@ and show (for example fade in) when PhotoSwipe is opened
   opacity: 0.005;
   will-change: opacity;
   transition: opacity var(--pswp-transition-duration) cubic-bezier(0.4, 0, 0.22, 1);
-  z-index: 10;
-  /* always overlap slide content */
-  pointer-events: none;
-  /* hidden elements should not be clickable */ }
+  z-index: 10; /* always overlap slide content */
+  pointer-events: none; /* hidden elements should not be clickable */
+}
 
 /* class pswp--ui-visible is added when opening or closing transition starts */
 .pswp--ui-visible .pswp__hide-on-close {
   opacity: 1;
-  pointer-events: auto; }
+  pointer-events: auto;
+}
 
 /* <button> styles, including css reset */
 .pswp__button {
@@ -179,7 +201,8 @@ and show (for example fade in) when PhotoSwipe is opened
   box-shadow: none;
   opacity: 0.85;
   -webkit-appearance: none;
-  -webkit-touch-callout: none; }
+  -webkit-touch-callout: none;
+}
 
 .pswp__button:hover,
 .pswp__button:active,
@@ -189,15 +212,18 @@ and show (for example fade in) when PhotoSwipe is opened
   background: none;
   border: 0;
   box-shadow: none;
-  opacity: 1; }
+  opacity: 1;
+}
 
 .pswp__button:disabled {
   opacity: 0.3;
-  cursor: auto; }
+  cursor: auto;
+}
 
 .pswp__icn {
   fill: var(--pswp-icon-color);
-  color: var(--pswp-icon-color-secondary); }
+  color: var(--pswp-icon-color-secondary);
+}
 
 .pswp__icn {
   position: absolute;
@@ -206,15 +232,18 @@ and show (for example fade in) when PhotoSwipe is opened
   width: 32px;
   height: 32px;
   overflow: hidden;
-  pointer-events: none; }
+  pointer-events: none;
+}
 
 .pswp__icn-shadow {
   stroke: var(--pswp-icon-stroke-color);
   stroke-width: var(--pswp-icon-stroke-width);
-  fill: none; }
+  fill: none;
+}
 
 .pswp__icn:focus {
-  outline: 0; }
+  outline: 0;
+}
 
 /*
 	div element that matches size of large image,
@@ -223,7 +252,8 @@ and show (for example fade in) when PhotoSwipe is opened
 */
 div.pswp__img--placeholder,
 .pswp__img--with-bg {
-  background: var(--pswp-placeholder-bg); }
+  background: var(--pswp-placeholder-bg);
+}
 
 .pswp__top-bar {
   position: absolute;
@@ -236,13 +266,15 @@ div.pswp__img--placeholder,
   justify-content: flex-end;
   z-index: 10;
   /* allow events to pass through top bar itself */
-  pointer-events: none !important; }
+  pointer-events: none !important;
+}
 
 .pswp__top-bar > * {
   pointer-events: auto;
   /* this makes transition significantly more smooth,
      even though inner elements are not animated */
-  will-change: opacity; }
+  will-change: opacity;
+}
 
 /*
 
@@ -250,7 +282,8 @@ div.pswp__img--placeholder,
 
 */
 .pswp__button--close {
-  margin-right: 6px; }
+  margin-right: 6px;
+}
 
 /*
 
@@ -263,11 +296,13 @@ div.pswp__img--placeholder,
   width: 75px;
   height: 100px;
   top: 50%;
-  margin-top: -50px; }
+  margin-top: -50px;
+}
 
 .pswp__button--arrow:disabled {
   display: none;
-  cursor: default; }
+  cursor: default;
+}
 
 .pswp__button--arrow .pswp__icn {
   top: 50%;
@@ -275,31 +310,38 @@ div.pswp__img--placeholder,
   width: 60px;
   height: 60px;
   background: none;
-  border-radius: 0; }
+  border-radius: 0;
+}
 
 .pswp--one-slide .pswp__button--arrow {
-  display: none; }
+  display: none;
+}
 
 /* hide arrows on touch screens */
 .pswp--touch .pswp__button--arrow {
-  visibility: hidden; }
+  visibility: hidden;
+}
 
 /* show arrows only after mouse was used */
 .pswp--has_mouse .pswp__button--arrow {
-  visibility: visible; }
+  visibility: visible;
+}
 
 .pswp__button--arrow--prev {
   right: auto;
-  left: 0px; }
+  left: 0px;
+}
 
 .pswp__button--arrow--next {
-  right: 0px; }
+  right: 0px;
+}
 
 .pswp__button--arrow--next .pswp__icn {
   left: auto;
   right: 14px;
   /* flip horizontally */
-  transform: scale(-1, 1); }
+  transform: scale(-1, 1);
+}
 
 /*
 
@@ -307,14 +349,17 @@ div.pswp__img--placeholder,
 
 */
 .pswp__button--zoom {
-  display: none; }
+  display: none;
+}
 
 .pswp--zoom-allowed .pswp__button--zoom {
-  display: block; }
+  display: block;
+}
 
 /* "+" => "-" */
 .pswp--zoomed-in .pswp__zoom-icn-bar-v {
-  display: none; }
+  display: none;
+}
 
 /*
 
@@ -326,22 +371,27 @@ div.pswp__img--placeholder,
   overflow: hidden;
   width: 50px;
   height: 60px;
-  margin-right: auto; }
+  margin-right: auto;
+}
 
 .pswp__preloader .pswp__icn {
   opacity: 0;
   transition: opacity 0.2s linear;
-  animation: pswp-clockwise 600ms linear infinite; }
+  animation: pswp-clockwise 600ms linear infinite;
+}
 
 .pswp__preloader--active .pswp__icn {
-  opacity: 0.85; }
+  opacity: 0.85;
+}
 
 @keyframes pswp-clockwise {
   0% {
-    transform: rotate(0deg); }
+    transform: rotate(0deg);
+  }
   100% {
-    transform: rotate(360deg); } }
-
+    transform: rotate(360deg);
+  }
+}
 /*
 
   "1 of 10" counter
@@ -354,11 +404,12 @@ div.pswp__img--placeholder,
   line-height: 30px;
   color: var(--pswp-icon-color);
   text-shadow: 1px 1px 3px var(--pswp-icon-color-secondary);
-  opacity: 0.85; }
+  opacity: 0.85;
+}
 
 .pswp--one-slide .pswp__counter {
-  display: none; }
-
+  display: none;
+}
 /*!*************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[2].use[1]!./node_modules/sass-loader/dist/cjs.js!./src/photoswipe-caption.css ***!
   \*************************************************************************************************************************************************/
@@ -368,34 +419,40 @@ div.pswp__img--placeholder,
   width: 100%;
   left: 0;
   top: 0;
-  transition: opacity 120ms linear !important;
-  /* override default */
-  font-size: 2.5em; }
+  transition: opacity 120ms linear !important; /* override default */
+  font-size: 2.5em;
+}
 
 .pswp-caption-content {
-  display: none; }
+  display: none;
+}
 
 .pswp__dynamic-caption a {
-  color: #fff; }
+  color: #fff;
+}
 
 .pswp__dynamic-caption--faded {
-  opacity: 0 !important; }
+  opacity: 0 !important;
+}
 
 .pswp__dynamic-caption--aside {
   width: auto;
   max-width: 300px;
   padding: 20px 15px 20px 20px;
-  margin-top: 70px; }
+  margin-top: 70px;
+}
 
 .pswp__dynamic-caption--below {
   width: auto;
   padding: 15px 0 0;
   margin: 0 auto;
-  text-align: center; }
+  text-align: center;
+}
 
 .pswp__dynamic-caption--on-hor-edge {
   padding-left: 15px;
-  padding-right: 15px; }
+  padding-right: 15px;
+}
 
 .pswp__dynamic-caption--mobile {
   width: 100%;
@@ -403,7 +460,7 @@ div.pswp__img--placeholder,
   right: 0;
   bottom: 0;
   background: rgba(0, 0, 0, 0.5);
-  padding: 10px 15px; }
-
+  padding: 10px 15px;
+}
 
 /*# sourceMappingURL=has-admin.css.map*/

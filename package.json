@@ -25,7 +25,7 @@
 		"@babel/preset-env": "^7.18.2",
 		"@babel/preset-react": "^7.17.12",
 		"@types/photoswipe": "^4.1.2",
-		"@types/react": "^18.0.14",
+		"@types/react": "^18.0.23",
 		"@wordpress/element": "^4.9.0",
 		"@wordpress/escape-html": "^2.15.0",
 		"@wordpress/eslint-plugin": "^10.0.1",

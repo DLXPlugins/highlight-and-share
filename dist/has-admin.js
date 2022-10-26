@@ -431,10 +431,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */   "default": () => (/* binding */ PhotoSwipeLightbox)
 /* harmony export */ });
 /*!
-  * PhotoSwipe Lightbox 5.2.7 - https://photoswipe.com
+  * PhotoSwipe Lightbox 5.3.3 - https://photoswipe.com
   * (c) 2022 Dmytro Semenov
   */
-/** @typedef {import("../photoswipe").Point} Point */
+/** @typedef {import('../photoswipe.js').Point} Point */
 
 /** @typedef {undefined | null | false | '' | 0} Falsy */
 /** @typedef {keyof HTMLElementTagNameMap} HTMLElementTagName */
@@ -517,7 +517,7 @@ function specialKeyUsed(e) {
 /**
  * Parse `gallery` or `children` options.
  *
- * @param {HTMLElement | NodeListOf<HTMLElement> | string} option
+ * @param {import('../photoswipe.js').ElementProvider} option
  * @param {string=} legacySelector
  * @param {HTMLElement | Document} [parent]
  * @returns HTMLElement[]
@@ -551,16 +551,25 @@ function isPswpClass(fn) {
     && fn.prototype.goTo;
 }
 
-/** @typedef {import("../lightbox/lightbox").default} PhotoSwipeLightbox */
-/** @typedef {import("../photoswipe").default} PhotoSwipe */
-/** @typedef {import("../photoswipe").PhotoSwipeOptions} PhotoSwipeOptions */
-/** @typedef {import("../photoswipe").DataSource} DataSource */
-/** @typedef {import("../ui/ui-element").UIElementData} UIElementData */
-/** @typedef {import("../slide/content").default} ContentDefault */
-/** @typedef {import("../slide/slide").default} Slide */
-/** @typedef {import("../slide/slide").SlideData} SlideData */
-/** @typedef {import("../slide/zoom-level").default} ZoomLevel */
-/** @typedef {import("../slide/get-thumb-bounds").Bounds} Bounds */
+/**
+ * Check if browser is Safari
+ *
+ * @returns {boolean}
+ */
+function isSafari() {
+  return !!(navigator.vendor && navigator.vendor.match(/apple/i));
+}
+
+/** @typedef {import('../lightbox/lightbox.js').default} PhotoSwipeLightbox */
+/** @typedef {import('../photoswipe.js').default} PhotoSwipe */
+/** @typedef {import('../photoswipe.js').PhotoSwipeOptions} PhotoSwipeOptions */
+/** @typedef {import('../photoswipe.js').DataSource} DataSource */
+/** @typedef {import('../ui/ui-element.js').UIElementData} UIElementData */
+/** @typedef {import('../slide/content.js').default} ContentDefault */
+/** @typedef {import('../slide/slide.js').default} Slide */
+/** @typedef {import('../slide/slide.js').SlideData} SlideData */
+/** @typedef {import('../slide/zoom-level.js').default} ZoomLevel */
+/** @typedef {import('../slide/get-thumb-bounds.js').Bounds} Bounds */
 
 /**
  * Allow adding an arbitrary props to the Content
@@ -732,6 +741,9 @@ function isPswpClass(fn) {
  * @prop {(thumbBounds: Bounds, itemData: SlideData, index: number) => Bounds} thumbBounds
  * Modify the thubmnail bounds from which opening zoom animation starts or ends.
  * https://photoswipe.com/filters/#thumbbounds
+ *
+ * @prop {(srcsetSizesWidth: number, content: Content) => number} srcsetSizesWidth
+ *
  */
 
 /**
@@ -931,7 +943,7 @@ class Placeholder {
       this.element.setAttribute('role', 'presentation');
     }
 
-    this.element.setAttribute('aria-hiden', 'true');
+    this.element.setAttribute('aria-hidden', 'true');
   }
 
   /**
@@ -963,10 +975,10 @@ class Placeholder {
   }
 }
 
-/** @typedef {import("./slide").default} Slide */
-/** @typedef {import("./slide").SlideData} SlideData */
-/** @typedef {import("../photoswipe").default} PhotoSwipe */
-/** @typedef {import("../util/util").LoadState} LoadState */
+/** @typedef {import('./slide.js').default} Slide */
+/** @typedef {import('./slide.js').SlideData} SlideData */
+/** @typedef {import('../photoswipe.js').default} PhotoSwipe */
+/** @typedef {import('../util/util.js').LoadState} LoadState */
 
 class Content {
   /**
@@ -981,6 +993,9 @@ class Content {
 
     /** @type {HTMLImageElement | HTMLDivElement} */
     this.element = undefined;
+
+    this.displayedImageWidth = 0;
+    this.displayedImageHeight = 0;
 
     this.width = Number(this.data.w) || Number(this.data.width) || 0;
     this.height = Number(this.data.h) || Number(this.data.height) || 0;
@@ -1009,7 +1024,7 @@ class Content {
           this.placeholder.destroy();
           this.placeholder = null;
         }
-      }, 500);
+      }, 1000);
     }
   }
 
@@ -1020,18 +1035,26 @@ class Content {
    * @param {boolean=} reload
    */
   load(isLazy, reload) {
-    if (!this.placeholder && this.slide && this.usePlaceholder()) {
-      // use   -based placeholder only for the first slide,
-      // as rendering (even small stretched thumbnail) is an expensive operation
-      const placeholderSrc = this.instance.applyFilters(
-        'placeholderSrc',
-        (this.data.msrc && this.slide.isFirstSlide) ? this.data.msrc : false,
-        this
-      );
-      this.placeholder = new Placeholder(
-        placeholderSrc,
-        this.slide.container
-      );
+    if (this.slide && this.usePlaceholder()) {
+      if (!this.placeholder) {
+        const placeholderSrc = this.instance.applyFilters(
+          'placeholderSrc',
+          // use  image-based placeholder only for the first slide,
+          // as rendering (even small stretched thumbnail) is an expensive operation
+          (this.data.msrc && this.slide.isFirstSlide) ? this.data.msrc : false,
+          this
+        );
+        this.placeholder = new Placeholder(
+          placeholderSrc,
+          this.slide.container
+        );
+      } else {
+        const placeholderEl = this.placeholder.element;
+        // Add placeholder to DOM if it was already created
+        if (placeholderEl && !placeholderEl.parentElement) {
+          this.slide.container.prepend(placeholderEl);
+        }
+      }
     }
 
     if (this.element && !reload) {
@@ -1043,7 +1066,12 @@ class Content {
     }
 
     if (this.isImageContent()) {
-      this.loadImage(isLazy);
+      this.element = createElement('pswp__img', 'img');
+      // Start loading only after width is defined, as sizes might depend on it.
+      // Due to Safari feature, we must define sizes before srcset.
+      if (this.displayedImageWidth) {
+        this.loadImage(isLazy);
+      }
     } else {
       this.element = createElement('pswp__content');
       this.element.innerHTML = this.data.html || '';
@@ -1060,12 +1088,13 @@ class Content {
    * @param {boolean} isLazy
    */
   loadImage(isLazy) {
-    const imageElement = createElement('pswp__img', 'img');
-    this.element = imageElement;
+    const imageElement = /** @type HTMLImageElement */ (this.element);
 
     if (this.instance.dispatch('contentLoadImage', { content: this, isLazy }).defaultPrevented) {
       return;
     }
+
+    this.updateSrcsetSizes();
 
     if (this.data.srcset) {
       imageElement.srcset = this.data.srcset;
@@ -1116,9 +1145,12 @@ class Content {
       if (this.slide.isActive
           && this.slide.heavyAppended
           && !this.element.parentNode) {
-        this.slide.container.innerHTML = '';
         this.append();
         this.slide.updateContentSize(true);
+      }
+
+      if (this.state === LOAD_STATE.LOADED || this.state === LOAD_STATE.ERROR) {
+        this.removePlaceholder();
       }
     }
   }
@@ -1181,18 +1213,15 @@ class Content {
     setWidthHeight(this.element, width, height);
 
     if (this.isImageContent() && !this.isError()) {
-      const image = /** @type HTMLImageElement */ (this.element);
+      const isInitialSizeUpdate = (!this.displayedImageWidth && width);
 
-      // Handle srcset sizes attribute.
-      //
-      // Never lower quality, if it was increased previously.
-      // Chrome does this automatically, Firefox and Safari do not,
-      // so we store largest used size in dataset.
-      if (image.srcset
-          // eslint-disable-next-line max-len
-          && (!image.dataset.largestUsedSize || width > parseInt(image.dataset.largestUsedSize, 10))) {
-        image.sizes = width + 'px';
-        image.dataset.largestUsedSize = String(width);
+      this.displayedImageWidth = width;
+      this.displayedImageHeight = height;
+
+      if (isInitialSizeUpdate) {
+        this.loadImage(false);
+      } else {
+        this.updateSrcsetSizes();
       }
 
       if (this.slide) {
@@ -1211,6 +1240,36 @@ class Content {
       this.isImageContent() && (this.state !== LOAD_STATE.ERROR),
       this
     );
+  }
+
+  /**
+   * Update image srcset sizes attribute based on width and height
+   */
+  updateSrcsetSizes() {
+    // Handle srcset sizes attribute.
+    //
+    // Never lower quality, if it was increased previously.
+    // Chrome does this automatically, Firefox and Safari do not,
+    // so we store largest used size in dataset.
+    // Handle srcset sizes attribute.
+    //
+    // Never lower quality, if it was increased previously.
+    // Chrome does this automatically, Firefox and Safari do not,
+    // so we store largest used size in dataset.
+    if (this.data.srcset) {
+      const image = /** @type HTMLImageElement */ (this.element);
+      const sizesWidth = this.instance.applyFilters(
+        'srcsetSizesWidth',
+        this.displayedImageWidth,
+        this
+      );
+
+      if (!image.dataset.largestUsedSize
+          || sizesWidth > parseInt(image.dataset.largestUsedSize, 10)) {
+        image.sizes = sizesWidth + 'px';
+        image.dataset.largestUsedSize = String(sizesWidth);
+      }
+    }
   }
 
   /**
@@ -1259,6 +1318,11 @@ class Content {
 
     this.remove();
 
+    if (this.placeholder) {
+      this.placeholder.destroy();
+      this.placeholder = null;
+    }
+
     if (this.isImageContent() && this.element) {
       this.element.onload = null;
       this.element.onerror = null;
@@ -1281,7 +1345,7 @@ class Content {
       );
       this.element = createElement('pswp__content pswp__error-msg-container');
       this.element.appendChild(errorMsgEl);
-      this.slide.container.innerHTML = '';
+      this.slide.container.innerText = '';
       this.slide.container.appendChild(this.element);
       this.slide.updateContentSize(true);
       this.removePlaceholder();
@@ -1292,6 +1356,10 @@ class Content {
    * Append the content
    */
   append() {
+    if (this.isAttached) {
+      return;
+    }
+
     this.isAttached = true;
 
     if (this.state === LOAD_STATE.ERROR) {
@@ -1302,6 +1370,8 @@ class Content {
     if (this.instance.dispatch('contentAppend', { content: this }).defaultPrevented) {
       return;
     }
+
+    const supportsDecode = ('decode' in this.element);
 
     if (this.isImageContent()) {
       // Use decode() on nearby slides
@@ -1315,32 +1385,17 @@ class Content {
       // You might ask "why dont you just decode() and then append all images",
       // that's because I want to show image before it's fully loaded,
       // as browser can render parts of image while it is loading.
-      if (this.slide
-          && !this.slide.isActive
-          && ('decode' in this.element)) {
+      // We do not do this in Safari due to partial loading bug.
+      if (supportsDecode && this.slide && (!this.slide.isActive || isSafari())) {
         this.isDecoding = true;
-        // Make sure that we start decoding on the next frame
-        requestAnimationFrame(() => {
-          // element might change
-          if (this.element && this.element.tagName === 'IMG') {
-            /** @type {HTMLImageElement} */
-            (this.element).decode().then(() => {
-              this.isDecoding = false;
-              requestAnimationFrame(() => {
-                this.appendImage();
-              });
-            }).catch(() => {
-              this.isDecoding = false;
-            });
-          }
+        // purposefully using finally instead of then,
+        // as if srcset sizes changes dynamically - it may cause decode error
+        /** @type {HTMLImageElement} */
+        (this.element).decode().catch(() => {}).finally(() => {
+          this.isDecoding = false;
+          this.appendImage();
         });
       } else {
-        if (this.placeholder
-          // eslint-disable-next-line max-len
-          && (this.state === LOAD_STATE.LOADED || /** @type {LoadState} */ (this.state) === LOAD_STATE.ERROR)
-        ) {
-          this.removePlaceholder();
-        }
         this.appendImage();
       }
     } else if (this.element && !this.element.parentNode) {
@@ -1359,7 +1414,7 @@ class Content {
     }
 
     if (this.slide) {
-      if (this.isImageContent() && this.isDecoding) {
+      if (this.isImageContent() && this.isDecoding && !isSafari()) {
         // add image to slide when it becomes active,
         // even if it's not finished decoding
         this.appendImage();
@@ -1390,6 +1445,10 @@ class Content {
     if (this.element && this.element.parentNode) {
       this.element.remove();
     }
+
+    if (this.placeholder && this.placeholder.element) {
+      this.placeholder.element.remove();
+    }
   }
 
   /**
@@ -1407,183 +1466,17 @@ class Content {
     // ensure that element exists and is not already appended
     if (this.slide && this.element && !this.element.parentNode) {
       this.slide.container.appendChild(this.element);
+    }
 
-      if (this.placeholder
-        && (this.state === LOAD_STATE.LOADED || this.state === LOAD_STATE.ERROR)) {
-        this.removePlaceholder();
-      }
+    if (this.state === LOAD_STATE.LOADED || this.state === LOAD_STATE.ERROR) {
+      this.removePlaceholder();
     }
   }
 }
 
-/** @typedef {import("../photoswipe").default} PhotoSwipe */
-/** @typedef {import("../photoswipe").PhotoSwipeOptions} PhotoSwipeOptions */
-/** @typedef {import("../slide/slide").SlideData} SlideData */
-
-/**
- * PhotoSwipe base class that can retrieve data about every slide.
- * Shared by PhotoSwipe Core and PhotoSwipe Lightbox
- */
-class PhotoSwipeBase extends Eventable {
-  /**
-   * Get total number of slides
-   *
-   * @returns {number}
-   */
-  getNumItems() {
-    let numItems;
-    const { dataSource } = this.options;
-    if (!dataSource) {
-      numItems = 0;
-    } else if ('length' in dataSource) {
-      // may be an array or just object with length property
-      numItems = dataSource.length;
-    } else if ('gallery' in dataSource) {
-      // query DOM elements
-      if (!dataSource.items) {
-        dataSource.items = this._getGalleryDOMElements(dataSource.gallery);
-      }
-
-      if (dataSource.items) {
-        numItems = dataSource.items.length;
-      }
-    }
-
-    // legacy event, before filters were introduced
-    const event = this.dispatch('numItems', {
-      dataSource,
-      numItems
-    });
-    return this.applyFilters('numItems', event.numItems, dataSource);
-  }
-
-  /**
-   * @param {SlideData} slideData
-   * @param {number} index
-   */
-  createContentFromData(slideData, index) {
-    // @ts-expect-error
-    return new Content(slideData, this, index);
-  }
-
-  /**
-   * Get item data by index.
-   *
-   * "item data" should contain normalized information that PhotoSwipe needs to generate a slide.
-   * For example, it may contain properties like
-   * `src`, `srcset`, `w`, `h`, which will be used to generate a slide with image.
-   *
-   * @param {number} index
-   */
-  getItemData(index) {
-    const { dataSource } = this.options;
-    let dataSourceItem;
-    if (Array.isArray(dataSource)) {
-      // Datasource is an array of elements
-      dataSourceItem = dataSource[index];
-    } else if (dataSource && dataSource.gallery) {
-      // dataSource has gallery property,
-      // thus it was created by Lightbox, based on
-      // gallery and children options
-
-      // query DOM elements
-      if (!dataSource.items) {
-        dataSource.items = this._getGalleryDOMElements(dataSource.gallery);
-      }
-
-      dataSourceItem = dataSource.items[index];
-    }
-
-    let itemData = dataSourceItem;
-
-    if (itemData instanceof Element) {
-      itemData = this._domElementToItemData(itemData);
-    }
-
-    // Dispatching the itemData event,
-    // it's a legacy verion before filters were introduced
-    const event = this.dispatch('itemData', {
-      itemData: itemData || {},
-      index
-    });
-
-    return this.applyFilters('itemData', event.itemData, index);
-  }
-
-  /**
-   * Get array of gallery DOM elements,
-   * based on childSelector and gallery element.
-   *
-   * @param {HTMLElement} galleryElement
-   */
-  _getGalleryDOMElements(galleryElement) {
-    if (this.options.children || this.options.childSelector) {
-      return getElementsFromOption(
-        this.options.children,
-        this.options.childSelector,
-        galleryElement
-      ) || [];
-    }
-
-    return [galleryElement];
-  }
-
-  /**
-   * Converts DOM element to item data object.
-   *
-   * @param {HTMLElement} element DOM element
-   */
-  // eslint-disable-next-line class-methods-use-this
-  _domElementToItemData(element) {
-    /** @type {SlideData} */
-    const itemData = {
-      element
-    };
-
-    // eslint-disable-next-line max-len
-    const linkEl = /** @type {HTMLAnchorElement} */ (element.tagName === 'A' ? element : element.querySelector('a'));
-
-    if (linkEl) {
-      // src comes from data-pswp-src attribute,
-      // if it's empty link href is used
-      itemData.src = linkEl.dataset.pswpSrc || linkEl.href;
-
-      if (linkEl.dataset.pswpSrcset) {
-        itemData.srcset = linkEl.dataset.pswpSrcset;
-      }
-
-      itemData.width = parseInt(linkEl.dataset.pswpWidth, 10);
-      itemData.height = parseInt(linkEl.dataset.pswpHeight, 10);
-
-      // support legacy w & h properties
-      itemData.w = itemData.width;
-      itemData.h = itemData.height;
-
-      if (linkEl.dataset.pswpType) {
-        itemData.type = linkEl.dataset.pswpType;
-      }
-
-      const thumbnailEl = element.querySelector('img');
-
-      if (thumbnailEl) {
-        // msrc is URL to placeholder image that's displayed before large image is loaded
-        // by default it's displayed only for the first slide
-        itemData.msrc = thumbnailEl.currentSrc || thumbnailEl.src;
-        itemData.alt = thumbnailEl.getAttribute('alt');
-      }
-
-      if (linkEl.dataset.pswpCropped || linkEl.dataset.cropped) {
-        itemData.thumbCropped = true;
-      }
-    }
-
-    return this.applyFilters('domItemData', itemData, element, linkEl);
-  }
-}
-
-/** @typedef {import("../photoswipe").PhotoSwipeOptions} PhotoSwipeOptions */
-/** @typedef {import("../photoswipe").default} PhotoSwipe */
-/** @typedef {import("../slide/slide").SlideData} SlideData */
+/** @typedef {import('../photoswipe.js').PhotoSwipeOptions} PhotoSwipeOptions */
+/** @typedef {import('../photoswipe.js').default} PhotoSwipe */
+/** @typedef {import('../slide/slide.js').SlideData} SlideData */
 
 /**
  * @param {PhotoSwipeOptions} options
@@ -1682,9 +1575,9 @@ function getPanAreaSize(options, viewportSize, itemData, index) {
 
 const MAX_IMAGE_WIDTH = 4000;
 
-/** @typedef {import("../photoswipe").default} PhotoSwipe */
-/** @typedef {import("../photoswipe").PhotoSwipeOptions} PhotoSwipeOptions */
-/** @typedef {import("../slide/slide").SlideData} SlideData */
+/** @typedef {import('../photoswipe.js').default} PhotoSwipe */
+/** @typedef {import('../photoswipe.js').PhotoSwipeOptions} PhotoSwipeOptions */
+/** @typedef {import('../slide/slide.js').SlideData} SlideData */
 
 /** @typedef {'fit' | 'fill' | number | ((zoomLevelObject: ZoomLevel) => number)} ZoomLevelOption */
 
@@ -1845,7 +1738,7 @@ class ZoomLevel {
  * thus it can be called before dialog is opened.
  *
  * @param {SlideData} itemData Data about the slide
- * @param {PhotoSwipe | PhotoSwipeLightbox} instance PhotoSwipe or PhotoSwipeLightbox
+ * @param {PhotoSwipe | PhotoSwipeLightbox | PhotoSwipeBase} instance PhotoSwipe instance
  * @param {number} index
  * @returns Image that is being decoded or false.
  */
@@ -1898,21 +1791,197 @@ function lazyLoadSlide(index, instance) {
   return lazyLoadData(itemData, instance, index);
 }
 
+/** @typedef {import("../photoswipe.js").default} PhotoSwipe */
+/** @typedef {import("../photoswipe.js").PhotoSwipeOptions} PhotoSwipeOptions */
+/** @typedef {import("../slide/slide.js").SlideData} SlideData */
+
+/**
+ * PhotoSwipe base class that can retrieve data about every slide.
+ * Shared by PhotoSwipe Core and PhotoSwipe Lightbox
+ */
+class PhotoSwipeBase extends Eventable {
+  /**
+   * Get total number of slides
+   *
+   * @returns {number}
+   */
+  getNumItems() {
+    let numItems;
+    const { dataSource } = this.options;
+    if (!dataSource) {
+      numItems = 0;
+    } else if ('length' in dataSource) {
+      // may be an array or just object with length property
+      numItems = dataSource.length;
+    } else if ('gallery' in dataSource) {
+      // query DOM elements
+      if (!dataSource.items) {
+        dataSource.items = this._getGalleryDOMElements(dataSource.gallery);
+      }
+
+      if (dataSource.items) {
+        numItems = dataSource.items.length;
+      }
+    }
+
+    // legacy event, before filters were introduced
+    const event = this.dispatch('numItems', {
+      dataSource,
+      numItems
+    });
+    return this.applyFilters('numItems', event.numItems, dataSource);
+  }
+
+  /**
+   * @param {SlideData} slideData
+   * @param {number} index
+   */
+  createContentFromData(slideData, index) {
+    // @ts-expect-error
+    return new Content(slideData, this, index);
+  }
+
+  /**
+   * Get item data by index.
+   *
+   * "item data" should contain normalized information that PhotoSwipe needs to generate a slide.
+   * For example, it may contain properties like
+   * `src`, `srcset`, `w`, `h`, which will be used to generate a slide with image.
+   *
+   * @param {number} index
+   */
+  getItemData(index) {
+    const { dataSource } = this.options;
+    let dataSourceItem;
+    if (Array.isArray(dataSource)) {
+      // Datasource is an array of elements
+      dataSourceItem = dataSource[index];
+    } else if (dataSource && dataSource.gallery) {
+      // dataSource has gallery property,
+      // thus it was created by Lightbox, based on
+      // gallery and children options
+
+      // query DOM elements
+      if (!dataSource.items) {
+        dataSource.items = this._getGalleryDOMElements(dataSource.gallery);
+      }
+
+      dataSourceItem = dataSource.items[index];
+    }
+
+    let itemData = dataSourceItem;
+
+    if (itemData instanceof Element) {
+      itemData = this._domElementToItemData(itemData);
+    }
+
+    // Dispatching the itemData event,
+    // it's a legacy verion before filters were introduced
+    const event = this.dispatch('itemData', {
+      itemData: itemData || {},
+      index
+    });
+
+    return this.applyFilters('itemData', event.itemData, index);
+  }
+
+  /**
+   * Get array of gallery DOM elements,
+   * based on childSelector and gallery element.
+   *
+   * @param {HTMLElement} galleryElement
+   */
+  _getGalleryDOMElements(galleryElement) {
+    if (this.options.children || this.options.childSelector) {
+      return getElementsFromOption(
+        this.options.children,
+        this.options.childSelector,
+        galleryElement
+      ) || [];
+    }
+
+    return [galleryElement];
+  }
+
+  /**
+   * Converts DOM element to item data object.
+   *
+   * @param {HTMLElement} element DOM element
+   */
+  // eslint-disable-next-line class-methods-use-this
+  _domElementToItemData(element) {
+    /** @type {SlideData} */
+    const itemData = {
+      element
+    };
+
+    // eslint-disable-next-line max-len
+    const linkEl = /** @type {HTMLAnchorElement} */ (element.tagName === 'A' ? element : element.querySelector('a'));
+
+    if (linkEl) {
+      // src comes from data-pswp-src attribute,
+      // if it's empty link href is used
+      itemData.src = linkEl.dataset.pswpSrc || linkEl.href;
+
+      if (linkEl.dataset.pswpSrcset) {
+        itemData.srcset = linkEl.dataset.pswpSrcset;
+      }
+
+      itemData.width = parseInt(linkEl.dataset.pswpWidth, 10);
+      itemData.height = parseInt(linkEl.dataset.pswpHeight, 10);
+
+      // support legacy w & h properties
+      itemData.w = itemData.width;
+      itemData.h = itemData.height;
+
+      if (linkEl.dataset.pswpType) {
+        itemData.type = linkEl.dataset.pswpType;
+      }
+
+      const thumbnailEl = element.querySelector('img');
+
+      if (thumbnailEl) {
+        // msrc is URL to placeholder image that's displayed before large image is loaded
+        // by default it's displayed only for the first slide
+        itemData.msrc = thumbnailEl.currentSrc || thumbnailEl.src;
+        itemData.alt = thumbnailEl.getAttribute('alt');
+      }
+
+      if (linkEl.dataset.pswpCropped || linkEl.dataset.cropped) {
+        itemData.thumbCropped = true;
+      }
+    }
+
+    return this.applyFilters('domItemData', itemData, element, linkEl);
+  }
+
+  /**
+   * Lazy-load by slide data
+   *
+   * @param {SlideData} itemData Data about the slide
+   * @param {number} index
+   * @returns Image that is being decoded or false.
+   */
+  lazyLoadData(itemData, index) {
+    return lazyLoadData(itemData, this, index);
+  }
+}
+
 /**
  * @template T
- * @typedef {import("../types").Type<T>} Type<T>
+ * @typedef {import('../types.js').Type<T>} Type<T>
  */
 
-/** @typedef {import("../photoswipe").default} PhotoSwipe */
-/** @typedef {import("../photoswipe").PhotoSwipeOptions} PhotoSwipeOptions */
-/** @typedef {import("../photoswipe").DataSource} DataSource */
-/** @typedef {import("../slide/content").default} Content */
-/** @typedef {import("../core/eventable").PhotoSwipeEventsMap} PhotoSwipeEventsMap */
-/** @typedef {import("../core/eventable").PhotoSwipeFiltersMap} PhotoSwipeFiltersMap */
+/** @typedef {import('../photoswipe.js').default} PhotoSwipe */
+/** @typedef {import('../photoswipe.js').PhotoSwipeOptions} PhotoSwipeOptions */
+/** @typedef {import('../photoswipe.js').DataSource} DataSource */
+/** @typedef {import('../slide/content.js').default} Content */
+/** @typedef {import('../core/eventable.js').PhotoSwipeEventsMap} PhotoSwipeEventsMap */
+/** @typedef {import('../core/eventable.js').PhotoSwipeFiltersMap} PhotoSwipeFiltersMap */
 
 /**
  * @template T
- * @typedef {import("../core/eventable").EventCallback<T>} EventCallback<T>
+ * @typedef {import('../core/eventable.js').EventCallback<T>} EventCallback<T>
  */
 
 /**

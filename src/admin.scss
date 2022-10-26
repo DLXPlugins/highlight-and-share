@@ -1,11 +1,12 @@
 @import "breakpoints-mixin.scss";
+@import "../node_modules/@wordpress/components/build-style/style.css";
 
 /* Make interface full-width/full-height */
 #wpcontent {
 	padding-left: 0 !important;
 	padding-right: 0 !important;
 	position: relative;
-	background-color: #4F4F4F;
+	background-color: #EBEBEB;
 
 	.quotes-dlx-plugin {
 		margin: 0;
@@ -21,8 +22,12 @@
 	display: none;
 }
 
-.has-admin-container-body-wrapper {
-	background: #FFF;
+.has-admin-container-body__content {
+	padding: 10px 35px;
+	background: #f0f0f1;
+	border: 1px solid #c3c4c7;
+	border-top: 0;
+	box-shadow: 0 1px 6px rgb(0 0 0 / 8%);
 }
 
 $link_color: #2c3a95;

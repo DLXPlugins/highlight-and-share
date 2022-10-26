@@ -19,6 +19,7 @@ module.exports = ( env ) => {
 				'has-cts-style': './src/blocks/style.scss',
 				'has-admin-style': './src/admin.scss',
 				'has-admin': ['./src/admin.js'],
+				'has-admin-settings': [ './src/react/Settings/index.js' ],
 			},
 			mode: env.mode,
 			devtool: 'source-map',
@@ -27,6 +28,11 @@ module.exports = ( env ) => {
 				sourceMapFilename: '[file].map[query]',
 				assetModuleFilename: 'fonts/[name][ext]',
 				clean: true,
+			},
+			resolve: {
+				alias: {
+					react: path.resolve( 'node_modules/react' ),
+				},
 			},
 			module: {
 				rules: [
@@ -74,6 +80,10 @@ module.exports = ( env ) => {
 								'node_modules/photoswipe/dist/photoswipe.css'
 							),
 							path.resolve(__dirname, './src/photoswipe-caption.css'),
+							path.resolve(
+								__dirname,
+								'node_modules/@wordpress/components/build-style/style.css'
+							),
 						],
 						use: [
 							{

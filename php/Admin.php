@@ -85,6 +85,7 @@ class Admin {
 						<?php
 						if ( null === $current_tab || 'settings' === $current_tab ) {
 							?>
+							<div id="has-settings-admin"></div>
 							<form action="<?php echo esc_url( admin_url( 'options.php' ) ); ?>" method="POST">
 							<?php settings_fields( 'highlight-and-share' ); ?>
 							<?php do_settings_sections( 'highlight-and-share' ); ?>
@@ -142,6 +143,22 @@ class Admin {
 				HIGHLIGHT_AND_SHARE_VERSION,
 				true
 			);
+
+			// Determine if we want to enqueue the settings React script.
+			$enqueue_settings = false;
+			$current_tab      = Functions::get_admin_tab();
+			if ( null === $current_tab || 'settings' === $current_tab ) {
+				$enqueue_settings = true;
+			}
+			if ( $enqueue_settings ) {
+				wp_enqueue_script(
+					'has-settings-admin-js',
+					Functions::get_plugin_url( '/dist/has-admin-settings.js' ),
+					array(),
+					HIGHLIGHT_AND_SHARE_VERSION,
+					true
+				);
+			}
 		}
 	}
 
