@@ -63,7 +63,7 @@ class Admin {
 				</div>
 			</header>
 			<?php
-			$current_tab = Functions::get_admin_tab();
+			$current_tab        = Functions::get_admin_tab();
 			$settings_tab_class = array( 'nav-tab' );
 			if ( null === $current_tab || 'settings' === $current_tab ) {
 				$settings_tab_class[] = 'nav-tab-active';
@@ -72,7 +72,7 @@ class Admin {
 			if ( 'theme' === $current_tab ) {
 				$theme_tab_class[] = 'nav-tab-active';
 			}
-?>
+			?>
 
 
 			<div class="has-admin-container-body-wrapper">
@@ -813,7 +813,7 @@ class Admin {
 		?>
 		<h4><?php esc_html_e( 'Preview', 'highlight-and-share' ); ?></h4>
 		<ul class="has-admin-preview">
-			<?php Admin::output_main_themes_admin_html(); ?>
+			<?php self::output_main_themes_admin_html(); ?>
 		</ul>
 		<?php
 	}
