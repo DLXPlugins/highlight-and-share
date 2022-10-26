@@ -37,13 +37,6 @@ class Highlight_And_Share {
 	private static $instance = null;
 
 	/**
-	 * Highlight and Share Options
-	 *
-	 * @var array $options Highlight and Share options.
-	 */
-	private $options = false;
-
-	/**
 	 * Highlight and Share Errors
 	 *
 	 * @var array $errors Highlight and Share errors.
@@ -127,35 +120,6 @@ class Highlight_And_Share {
 	}
 
 	/**
-	 * Get the main themes.
-	 */
-	public function get_main_themes() {
-		$default_themes = array(
-			'off'                    => esc_html__( 'Off', 'highligh-and-share' ),
-			'default'                => esc_html__( 'Default', 'highlight-and-share' ),
-			'brand-colors'           => esc_html__( 'Brand Colors (Icons Only)', 'highlight-and-share' ),
-			'colorful-circles'       => esc_html__( 'Colorful Circles (Icons Only)', 'highlight-and-share' ),
-			'colorful-glass-circles' => esc_html__( 'Colorful Glass Circles (Icons Only)', 'highlight-and-share' ),
-			'black'                  => esc_html__( 'Black (Icons Only)', 'highlight-and-share' ),
-			'purple'                 => esc_html__( 'Purple (Icons Only)', 'highlight-and-share' ),
-			'white'                  => esc_html__( 'White (Icons Only)', 'highlight-and-share' ),
-			'cyan'                   => esc_html__( 'Cyan (Icons Only)', 'highlight-and-share' ),
-			'magenta'                => esc_html__( 'Magenta (Icons Only)', 'highlight-and-share' ),
-			'blue'                   => esc_html__( 'Blue (Icons Only)', 'highlight-and-share' ),
-			'green'                  => esc_html__( 'Green (Icons Only)', 'highlight-and-share' ),
-		);
-
-		/**
-		 * Filter: has_main_themes
-		 *
-		 * Modify the available default themes.
-		 *
-		 * @param array slug -> label associative array.
-		 */
-		return apply_filters( 'has_main_themes', $default_themes );
-	}
-
-	/**
 	 * Allow display and visiblity to style attributes.
 	 *
 	 * @param array $css CSS rules.
@@ -166,90 +130,7 @@ class Highlight_And_Share {
 		return $css;
 	}
 
-	/**
-	 * Retrieve Theme Preview Html. HTML compatible with Photoswipe script.
-	 *
-	 * $see https://photoswipe.com/
-	 */
-	private function output_main_themes_admin_html() {
-		$themes = $this->get_main_themes();
-
-		// Need image dimensions for Photoswipe:  https://photoswipe.com/.
-		$preview_dimensions = array(
-			'brand'         => array(
-				'width'  => 864,
-				'height' => 384,
-			),
-			'black'         => array(
-				'width'  => 838,
-				'height' => 342,
-			),
-			'blue'          => array(
-				'width'  => 838,
-				'height' => 342,
-			),
-			'circle-glass'  => array(
-				'width'  => 944,
-				'height' => 382,
-			),
-			'color-circles' => array(
-				'width'  => 1054,
-				'height' => 368,
-			),
-			'color-circles' => array(
-				'width'  => 1054,
-				'height' => 368,
-			),
-			'default'       => array(
-				'width'  => 2378,
-				'height' => 654,
-			),
-			'green'         => array(
-				'width'  => 822,
-				'height' => 294,
-			),
-			'cyan'          => array(
-				'width'  => 848,
-				'height' => 320,
-			),
-			'magenta'       => array(
-				'width'  => 830,
-				'height' => 318,
-			),
-			'purple'        => array(
-				'width'  => 868,
-				'height' => 346,
-			),
-			'white'         => array(
-				'width'  => 868,
-				'height' => 350,
-			),
-		);
-
-		foreach ( $themes as $slug => $label ) {
-			$dimensions = $preview_dimensions[ $slug ] ?? array();
-
-			if ( empty( $dimensions ) ) {
-				continue;
-			}
-
-			add_filter( 'safe_style_css', array( $this, 'safe_css' ) );
-
-			$allowed_html = wp_kses_allowed_html( 'post' );
-
-			echo wp_kses(
-				sprintf(
-					'<li><a class="has-gallery-image" href="%1$s" data-pswp-width="%2$s" data-pswp-height="%3$s"><img src="%1$s" style="display: none" />%4$s</a><div style="display: none" class="pswp-caption-content" aria-hidden="true">%4$s</div></li>',
-					esc_url( $this->get_plugin_url( '/img/screenshot-' . $slug . '.png' ) ),
-					esc_attr( $preview_dimensions[ $slug ]['width'] ),
-					esc_attr( $preview_dimensions[ $slug ]['height'] ),
-					esc_html( $label ),
-				),
-				$allowed_html
-			);
-			remove_filter( 'safe_style_css', array( $this, 'safe_css' ) );
-		}
-	}
+	
 
 	/**
 	 * Adds HAS to the customizer
@@ -262,7 +143,7 @@ class Highlight_And_Share {
 	 * @param  WP_Customize_Manager $customizer Customizer object.
 	 */
 	public function customizer( $customizer ) {
-		$options = $this->get_plugin_options();
+		$options = Options::get_plugin_options();
 		$customizer->add_section(
 			'highlight-and-share',
 			array(
@@ -307,7 +188,7 @@ class Highlight_And_Share {
 				'label'   => esc_html__( 'Choose a Theme', 'highlight-and-share' ),
 				'section' => 'highlight-and-share',
 				'type'    => 'select',
-				'choices' => $this->get_main_themes(),
+				'choices' => Themes::get_main_themes(),
 			)
 		);
 
@@ -322,7 +203,7 @@ class Highlight_And_Share {
 			)
 		);
 		$customizer->add_control(
-			new WP_Customize_Control(
+			new \WP_Customize_Control(
 				$customizer,
 				'highlight-and-share[show_twitter]',
 				array(
@@ -346,7 +227,7 @@ class Highlight_And_Share {
 			)
 		);
 		$customizer->add_control(
-			new WP_Customize_Control(
+			new \WP_Customize_Control(
 				$customizer,
 				'highlight-and-share[show_facebook]',
 				array(
@@ -370,7 +251,7 @@ class Highlight_And_Share {
 			)
 		);
 		$customizer->add_control(
-			new WP_Customize_Control(
+			new \WP_Customize_Control(
 				$customizer,
 				'highlight-and-share[show_linkedin]',
 				array(
@@ -394,7 +275,7 @@ class Highlight_And_Share {
 			)
 		);
 		$customizer->add_control(
-			new WP_Customize_Control(
+			new \WP_Customize_Control(
 				$customizer,
 				'highlight-and-share[show_ok]',
 				array(
@@ -418,7 +299,7 @@ class Highlight_And_Share {
 			)
 		);
 		$customizer->add_control(
-			new WP_Customize_Control(
+			new \WP_Customize_Control(
 				$customizer,
 				'highlight-and-share[show_vk]',
 				array(
@@ -442,7 +323,7 @@ class Highlight_And_Share {
 			)
 		);
 		$customizer->add_control(
-			new WP_Customize_Control(
+			new \WP_Customize_Control(
 				$customizer,
 				'highlight-and-share[show_xing]',
 				array(
@@ -466,7 +347,7 @@ class Highlight_And_Share {
 			)
 		);
 		$customizer->add_control(
-			new WP_Customize_Control(
+			new \WP_Customize_Control(
 				$customizer,
 				'highlight-and-share[show_whatsapp]',
 				array(
@@ -490,7 +371,7 @@ class Highlight_And_Share {
 			)
 		);
 		$customizer->add_control(
-			new WP_Customize_Control(
+			new \WP_Customize_Control(
 				$customizer,
 				'highlight-and-share[show_email]',
 				array(
@@ -514,7 +395,7 @@ class Highlight_And_Share {
 			)
 		);
 		$customizer->add_control(
-			new WP_Customize_Control(
+			new \WP_Customize_Control(
 				$customizer,
 				'highlight-and-share[show_copy]',
 				array(
@@ -684,7 +565,7 @@ class Highlight_And_Share {
 	 * @see __construct
 	 */
 	public function init() {
-		$settings = $this->get_plugin_options();
+		$settings = Options::get_plugin_options();
 
 		// Admin Settings.
 		add_action( 'admin_menu', array( $this, 'add_admin_menu' ) );
@@ -776,7 +657,7 @@ class Highlight_And_Share {
 			return;
 		}
 
-		$settings = $this->get_plugin_options();
+		$settings = Options::get_plugin_options();
 
 		/**
 		 * Filter: has_show_facebook
@@ -902,7 +783,7 @@ class Highlight_And_Share {
 	 * Add general interface and SVG sprites.
 	 */
 	public function add_footer_html() {
-		$settings       = $this->get_plugin_options();
+		$settings       = Options::get_plugin_options();
 		$html           = '<div class="highlight-and-share-wrapper">';
 		$click_to_share = '<div class="highlight-and-share-wrapper-cts highlight-and-share-wrapper">';
 		$inline_share   = '<div class="highlight-and-share-wrapper-inline highlight-and-share-wrapper">';
@@ -1208,7 +1089,7 @@ class Highlight_And_Share {
 	 * @param int $post_id The post ID to retrieve hashtags for.
 	 */
 	public function get_hashtags( $post_id ) {
-		$options = $this->get_plugin_options();
+		$options = Options::get_plugin_options();
 		if ( ! $options['enable_hashtags'] ) {
 			return '';
 		}
@@ -1279,7 +1160,7 @@ class Highlight_And_Share {
 	 * @return string $url URL to the post
 	 */
 	private function get_content_url( $post_id ) {
-		$settings          = $this->get_plugin_options();
+		$settings          = Options::get_plugin_options();
 		$enable_shortlinks = isset( $settings['shortlinks'] ) ? (bool) $settings['shortlinks'] : false;
 		$url               = get_permalink( $post_id );
 		if ( $enable_shortlinks ) {
@@ -1359,7 +1240,7 @@ class Highlight_And_Share {
 		}
 
 		// Build JSON Objects.
-		$settings = $this->get_plugin_options();
+		$settings = Options::get_plugin_options();
 		$json_arr = array();
 
 		// Facebook.
@@ -2371,7 +2252,7 @@ class Highlight_And_Share {
 	 * @param array $args JS Arguments.
 	 */
 	public function add_settings_field_js_content( $args = array() ) {
-		$settings   = $this->get_plugin_options();
+		$settings   = Options::get_plugin_options();
 		$js_content = isset( $settings['js_content'] ) ? $settings['js_content'] : '';
 		printf( '<p>%s</p>', esc_html( $args['desc'] ) );
 		printf( '<input id="%s" type="text" name="highlight-and-share[js_content]" value="%s" />', esc_attr( $args['label_for'] ), esc_attr( $js_content ) );
@@ -2390,7 +2271,7 @@ class Highlight_And_Share {
 	 * @param array $args Array of arguments.
 	 */
 	public function add_settings_field_twitter( $args = array() ) {
-		$settings   = $this->get_plugin_options();
+		$settings   = Options::get_plugin_options();
 		$js_content = isset( $settings['twitter'] ) ? $settings['twitter'] : '';
 		printf( '<p>%s</p>', esc_html( $args['desc'] ) );
 		printf( '<input id="%s" type="text" name="highlight-and-share[twitter]" value="%s" />', esc_attr( $args['label_for'] ), esc_attr( $js_content ) );
@@ -2409,7 +2290,7 @@ class Highlight_And_Share {
 	 * @param array $args Array of arguments.
 	 */
 	public function add_settings_field_prefix( $args = array() ) {
-		$settings = $this->get_plugin_options();
+		$settings = Options::get_plugin_options();
 		$prefix   = isset( $settings['sharing_prefix'] ) ? $settings['sharing_prefix'] : '';
 		printf( '<p>%s</p>', esc_html( $args['desc'] ) );
 		printf( '<input id="%s" type="text" name="highlight-and-share[sharing_prefix]" value="%s" />', esc_attr( $args['label_for'] ), esc_attr( $prefix ) );
@@ -2428,7 +2309,7 @@ class Highlight_And_Share {
 	 * @param array $args Array of arguments.
 	 */
 	public function add_settings_field_suffix( $args = array() ) {
-		$settings = $this->get_plugin_options();
+		$settings = Options::get_plugin_options();
 		$suffix   = isset( $settings['sharing_suffix'] ) ? $settings['sharing_suffix'] : '';
 		printf( '<p>%s</p>', esc_html( $args['desc'] ) );
 		printf( '<input id="%s" type="text" name="highlight-and-share[sharing_suffix]" value="%s" />', esc_attr( $args['label_for'] ), esc_attr( $suffix ) );
@@ -2447,7 +2328,7 @@ class Highlight_And_Share {
 	 * @param array $args Array of arguments.
 	 */
 	public function add_settings_field_display_enable( $args = array() ) {
-		$settings     = $this->get_plugin_options();
+		$settings     = Options::get_plugin_options();
 		$enable_icons = isset( $settings['icons'] ) ? (bool) $settings['icons'] : false;
 		echo '<input name="highlight-and-share[icons]" value="off" type="hidden" />';
 		printf( '<input id="has-show-icons" type="checkbox" name="highlight-and-share[icons]" value="on" %s />&nbsp;<label for="has-show-icons">%s</label>', checked( true, $enable_icons, false ), esc_html__( 'Enable Icons Only?', 'highlight-and-share' ) );
@@ -2466,9 +2347,9 @@ class Highlight_And_Share {
 	 * @param array $args Array of arguments.
 	 */
 	public function add_settings_field_display_theme( $args = array() ) {
-		$settings = $this->get_plugin_options();
+		$settings = Options::get_plugin_options();
 		$theme    = isset( $settings['theme'] ) ? $settings['theme'] : 'default';
-		$themes   = $this->get_main_themes();
+		$themes   = Themes::get_main_themes();
 		?>
 		<select name="highlight-and-share[theme]">
 			<?php
@@ -2502,7 +2383,7 @@ class Highlight_And_Share {
 	 * @param array $args Array of arguments.
 	 */
 	public function add_settings_field_twitter_enable( $args = array() ) {
-		$settings       = $this->get_plugin_options();
+		$settings       = Options::get_plugin_options();
 		$enable_twitter = isset( $settings['show_twitter'] ) ? (bool) $settings['show_twitter'] : true;
 		echo '<input name="highlight-and-share[show_twitter]" value="off" type="hidden" />';
 		printf( '<input id="has-show-twitter" type="checkbox" name="highlight-and-share[show_twitter]" value="on" %s />&nbsp;<label for="has-show-twitter">%s</label>', checked( true, $enable_twitter, false ), esc_html__( 'Enable Twitter Sharing?', 'highlight-and-share' ) );
@@ -2524,7 +2405,7 @@ class Highlight_And_Share {
 	 * @param array $args Array of arguments.
 	 */
 	public function add_settings_field_linkedin_enable( $args = array() ) {
-		$settings = $this->get_plugin_options();
+		$settings = Options::get_plugin_options();
 		$linkedin = isset( $settings['show_linkedin'] ) ? (bool) $settings['show_linkedin'] : true;
 		echo '<input name="highlight-and-share[show_linkedin]" value="off" type="hidden" />';
 		printf( '<input id="has-show-linkedin" type="checkbox" name="highlight-and-share[show_linkedin]" value="on" %s />&nbsp;<label for="has-show-linkedin">%s</label>', checked( true, $linkedin, false ), esc_html__( 'Enable LinkedIn Sharing?', 'highlight-and-share' ) );
@@ -2546,7 +2427,7 @@ class Highlight_And_Share {
 	 * @param array $args Array of arguments.
 	 */
 	public function add_settings_field_vk_enable( $args = array() ) {
-		$settings = $this->get_plugin_options();
+		$settings = Options::get_plugin_options();
 		$vk       = isset( $settings['show_vk'] ) ? (bool) $settings['show_vk'] : true;
 		echo '<input name="highlight-and-share[show_vk]" value="off" type="hidden" />';
 		printf( '<input id="has-show-vk" type="checkbox" name="highlight-and-share[show_vk]" value="on" %s />&nbsp;<label for="has-show-vk">%s</label>', checked( true, $vk, false ), esc_html__( 'Enable VKontakte Sharing?', 'highlight-and-share' ) );
@@ -2565,7 +2446,7 @@ class Highlight_And_Share {
 	 * @param array $args Array of arguments.
 	 */
 	public function add_settings_field_ok_enable( $args = array() ) {
-		$settings = $this->get_plugin_options();
+		$settings = Options::get_plugin_options();
 		$linkedin = isset( $settings['show_ok'] ) ? (bool) $settings['show_ok'] : true;
 		echo '<input name="highlight-and-share[show_ok]" value="off" type="hidden" />';
 		printf( '<input id="has-show-ok" type="checkbox" name="highlight-and-share[show_ok]" value="on" %s />&nbsp;<label for="has-show-ok">%s</label>', checked( true, $linkedin, false ), esc_html__( 'Enable Odnoklassniki (Однокла́ссники) Sharing?', 'highlight-and-share' ) );
@@ -2584,7 +2465,7 @@ class Highlight_And_Share {
 	 * @param array $args Array of arguments.
 	 */
 	public function add_settings_field_reddit_enable( $args = array() ) {
-		$settings = $this->get_plugin_options();
+		$settings = Options::get_plugin_options();
 		$reddit   = isset( $settings['show_reddit'] ) ? (bool) $settings['show_reddit'] : false;
 		echo '<input name="highlight-and-share[show_reddit]" value="off" type="hidden" />';
 		printf( '<input id="has-show-reddit" type="checkbox" name="highlight-and-share[show_reddit]" value="on" %s />&nbsp;<label for="has-show-reddit">%s</label>', checked( true, $reddit, false ), esc_html__( 'Enable Reddit Sharing?', 'highlight-and-share' ) );
@@ -2606,7 +2487,7 @@ class Highlight_And_Share {
 	 * @param array $args Array of arguments.
 	 */
 	public function add_settings_field_telegram_enable( $args = array() ) {
-		$settings = $this->get_plugin_options();
+		$settings = Options::get_plugin_options();
 		$telegram = isset( $settings['show_telegram'] ) ? (bool) $settings['show_telegram'] : false;
 		echo '<input name="highlight-and-share[show_telegram]" value="off" type="hidden" />';
 		printf( '<input id="has-show-telegram" type="checkbox" name="highlight-and-share[show_telegram]" value="on" %s />&nbsp;<label for="has-show-telegram">%s</label>', checked( true, $telegram, false ), esc_html__( 'Enable Telegram Sharing?', 'highlight-and-share' ) );
@@ -2628,7 +2509,7 @@ class Highlight_And_Share {
 	 * @param array $args Array of arguments.
 	 */
 	public function add_settings_field_xing_enable( $args = array() ) {
-		$settings = $this->get_plugin_options();
+		$settings = Options::get_plugin_options();
 		$xing     = isset( $settings['show_xing'] ) ? (bool) $settings['show_xing'] : true;
 		echo '<input name="highlight-and-share[show_xing]" value="off" type="hidden" />';
 		printf( '<input id="has-show-xing" type="checkbox" name="highlight-and-share[show_xing]" value="on" %s />&nbsp;<label for="has-show-xing">%s</label>', checked( true, $xing, false ), esc_html__( 'Enable Xing Sharing?', 'highlight-and-share' ) );
@@ -2650,7 +2531,7 @@ class Highlight_And_Share {
 	 * @param array $args Array of arguments.
 	 */
 	public function add_settings_field_whatsapp_enable( $args = array() ) {
-		$settings = $this->get_plugin_options();
+		$settings = Options::get_plugin_options();
 		$whatsapp = isset( $settings['show_whatsapp'] ) ? (bool) $settings['show_whatsapp'] : true;
 		echo '<input name="highlight-and-share[show_whatsapp]" value="off" type="hidden" />';
 		printf( '<input id="has-show-whatsapp" type="checkbox" name="highlight-and-share[show_whatsapp]" value="on" %s />&nbsp;<label for="has-show-whatsapp">%s</label>', checked( true, $whatsapp, false ), esc_html__( 'Enable WhatsApp Sharing?', 'highlight-and-share' ) );
@@ -2672,7 +2553,7 @@ class Highlight_And_Share {
 	 * @param array $args Array of arguments.
 	 */
 	public function add_settings_field_whatsapp_endpoint( $args = array() ) {
-		$settings = $this->get_plugin_options();
+		$settings = Options::get_plugin_options();
 		$whatsapp = isset( $settings['whatsapp_api_endpoint'] ) ? $settings['whatsapp_api_endpoint'] : 'app'; // Can also we 'web'.
 		printf( '<input id="has-show-whatsapp-web" type="radio" name="highlight-and-share[whatsapp_api_endpoint]" value="web" %s />&nbsp;<label for="has-show-whatsapp-web">%s</label>', checked( 'web', $whatsapp, false ), esc_html__( 'Use the WhatsApp Web Endpoint', 'highlight-and-share' ) );
 		echo '<br />';
@@ -2692,7 +2573,7 @@ class Highlight_And_Share {
 	 * @param array $args Array of arguments.
 	 */
 	public function add_settings_field_email_enable( $args = array() ) {
-		$settings = $this->get_plugin_options();
+		$settings = Options::get_plugin_options();
 		$email    = isset( $settings['show_email'] ) ? (bool) $settings['show_email'] : true;
 		echo '<input name="highlight-and-share[show_email]" value="off" type="hidden" />';
 		printf( '<input id="has-show-email" type="checkbox" name="highlight-and-share[show_email]" value="on" %s />&nbsp;<label for="has-show-email">%s</label>', checked( true, $email, false ), esc_html__( 'Enable E-mail Sharing?', 'highlight-and-share' ) );
@@ -2711,7 +2592,7 @@ class Highlight_And_Share {
 	 * @param array $args Array of arguments.
 	 */
 	public function add_settings_field_copy_enable( $args = array() ) {
-		$settings = $this->get_plugin_options();
+		$settings = Options::get_plugin_options();
 		$copy     = isset( $settings['show_copy'] ) ? (bool) $settings['show_copy'] : true;
 		echo '<input name="highlight-and-share[show_copy]" value="off" type="hidden" />';
 		printf( '<input id="has-show-copy" type="checkbox" name="highlight-and-share[show_copy]" value="on" %s />&nbsp;<label for="has-show-copy">%s</label>', checked( true, $copy, false ), esc_html__( 'Enable Copying', 'highlight-and-share' ) );
@@ -2730,7 +2611,7 @@ class Highlight_And_Share {
 	 * @param array $args Array of arguments.
 	 */
 	public function add_settings_field_facebook_enable( $args = array() ) {
-		$settings        = $this->get_plugin_options();
+		$settings        = Options::get_plugin_options();
 		$enable_facebook = isset( $settings['show_facebook'] ) ? (bool) $settings['show_facebook'] : true;
 		echo '<input name="highlight-and-share[show_facebook]" value="off" type="hidden" />';
 		printf( '<input id="has-show-facebook" type="checkbox" name="highlight-and-share[show_facebook]" value="on" %s />&nbsp;<label for="has-show-facebook">%s</label>', checked( true, $enable_facebook, false ), esc_html__( 'Enable Facebook Sharing?', 'highlight-and-share' ) );
@@ -2752,7 +2633,7 @@ class Highlight_And_Share {
 	 * @param array $args Array of arguments.
 	 */
 	public function add_settings_field_twitter_hashtags( $args = array() ) {
-		$settings        = $this->get_plugin_options();
+		$settings        = Options::get_plugin_options();
 		$enable_hashtags = isset( $settings['enable_hashtags'] ) ? (bool) $settings['enable_hashtags'] : true;
 		echo '<input name="highlight-and-share[enable_hashtags]" value="off" type="hidden" />';
 		printf( '<input id="has-enable-twitter-hashtags" type="checkbox" name="highlight-and-share[enable_hashtags]" value="on" %s />&nbsp;<label for="has-enable-twitter-hashtags">%s</label>', checked( true, $enable_hashtags, false ), esc_html__( 'Enable Twitter Hashtags', 'highlight-and-share' ) );
@@ -2771,7 +2652,7 @@ class Highlight_And_Share {
 	 * @param array $args Array of arguments.
 	 */
 	public function add_settings_field_mobile_enable( $args = array() ) {
-		$settings       = $this->get_plugin_options();
+		$settings       = Options::get_plugin_options();
 		$enable_content = isset( $settings['enable_mobile'] ) ? (bool) $settings['enable_mobile'] : true;
 		echo '<input name="highlight-and-share[enable_mobile]" value="off" type="hidden" />';
 		printf( '<input id="has-enable-mobile" type="checkbox" name="highlight-and-share[enable_mobile]" value="on" %s />&nbsp;<label for="has-enable-mobile">%s</label>', checked( true, $enable_content, false ), esc_html__( 'Enable on Mobile?', 'highlight-and-share' ) );
@@ -2790,7 +2671,7 @@ class Highlight_And_Share {
 	 * @param array $args Array of arguments.
 	 */
 	public function add_settings_field_content_enable( $args = array() ) {
-		$settings       = $this->get_plugin_options();
+		$settings       = Options::get_plugin_options();
 		$enable_content = isset( $settings['enable_content'] ) ? (bool) $settings['enable_content'] : true;
 		echo '<input name="highlight-and-share[enable_content]" value="off" type="hidden" />';
 		printf( '<input id="has-enable-content" type="checkbox" name="highlight-and-share[enable_content]" value="on" %s />&nbsp;<label for="has-enable-content">%s</label>', checked( true, $enable_content, false ), esc_html__( 'Enable Content?', 'highlight-and-share' ) );
@@ -2809,7 +2690,7 @@ class Highlight_And_Share {
 	 * @param array $args Array of arguments.
 	 */
 	public function add_settings_field_excerpt_enable( $args = array() ) {
-		$settings       = $this->get_plugin_options();
+		$settings       = Options::get_plugin_options();
 		$enable_excerpt = isset( $settings['enable_excerpt'] ) ? (bool) $settings['enable_excerpt'] : true;
 		echo '<input name="highlight-and-share[enable_excerpt]" value="off" type="hidden" />';
 		printf( '<input id="has-enable-excerpt" type="checkbox" name="highlight-and-share[enable_excerpt]" value="on" %s />&nbsp;<label for="has-enable-excerpt">%s</label>', checked( true, $enable_excerpt, false ), esc_html__( 'Enable Excerpt?', 'highlight-and-share' ) );
@@ -2828,7 +2709,7 @@ class Highlight_And_Share {
 	 * @param array $args Array of arguments.
 	 */
 	public function add_settings_field_shortlink_enable( $args = array() ) {
-		$settings          = $this->get_plugin_options();
+		$settings          = Options::get_plugin_options();
 		$enable_shortlinks = isset( $settings['shortlinks'] ) ? (bool) $settings['shortlinks'] : false;
 		echo '<input name="highlight-and-share[shortlinks]" value="off" type="hidden" />';
 		printf( '<input id="has-shortlinks" type="checkbox" name="highlight-and-share[shortlinks]" value="on" %s />&nbsp;<label for="has-shortlinks">%s</label>', checked( true, $enable_shortlinks, false ), esc_html__( 'Enable Shortlinks?', 'highlight-and-share' ) );
