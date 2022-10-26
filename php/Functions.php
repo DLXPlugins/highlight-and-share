@@ -82,6 +82,17 @@ class Functions {
 	}
 
 	/**
+	 * Allow display and visiblity to style attributes.
+	 *
+	 * @param array $css CSS rules.
+	 */
+	public static function safe_css( $css = array() ) {
+		$css[] = 'display';
+		$css[] = 'visibility';
+		return $css;
+	}
+
+	/**
 	 * Checks to see if an asset is activated or not.
 	 *
 	 * @since 1.0.0

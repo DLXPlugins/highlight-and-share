@@ -120,19 +120,6 @@ class Highlight_And_Share {
 	}
 
 	/**
-	 * Allow display and visiblity to style attributes.
-	 *
-	 * @param array $css CSS rules.
-	 */
-	public function safe_css( $css = array() ) {
-		$css[] = 'display';
-		$css[] = 'visibility';
-		return $css;
-	}
-
-	
-
-	/**
 	 * Adds HAS to the customizer
 	 *
 	 * Adds HAS to the customizer
@@ -2365,7 +2352,7 @@ class Highlight_And_Share {
 		?>
 		<h4><?php esc_html_e( 'Preview', 'highlight-and-share' ); ?></h4>
 		<ul class="has-admin-preview">
-			<?php $this->output_main_themes_admin_html(); ?>
+			<?php Admin::output_main_themes_admin_html(); ?>
 		</ul>
 		<?php
 	}
