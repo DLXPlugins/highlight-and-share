@@ -1,45 +1,20 @@
-const TerserPlugin = require("terser-webpack-plugin");
+const defaultConfig = require( '@wordpress/scripts/config/webpack.config' );
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
-const autoprefixer = require( 'autoprefixer' );
-const FixStyleOnlyEntriesPlugin = require("webpack-fix-style-only-entries");
+const RemoveEmptyScriptsPlugin = require( 'webpack-remove-empty-scripts' );
 const path = require( 'path' );
-
-
-// Configuration for the ExtractTextPlugin — DRY rule.
-const extractConfig = {
-	use: [
-		// "postcss" loader applies autoprefixer to our CSS.
-		{ loader: 'raw-loader' },
-		{
-			loader: 'postcss-loader',
-			options: {
-				ident: 'postcss',
-				plugins: [
-					autoprefixer( {
-						browsers: [
-							'>1%',
-							'last 4 versions',
-							'Firefox ESR',
-							'not ie < 9', // React doesn't support IE8 anyway
-						],
-						flexbox: 'no-2009',
-					} ),
-				],
-			},
-		},
-		// "sass" loader converts SCSS to CSS.
-		{
-			loader: 'sass-loader',
-			options: {
-				outputStyle: 'compressed',
-			},
-		},
-	],
-};
 
 module.exports = [
 	{
-		mode: process.env.NODE_ENV,
+		...defaultConfig,
+		module: {
+			...defaultConfig.module,
+			rules: [ ...defaultConfig.module.rules ],
+		},
+		mode: env.mode,
+		devtool: 'source-map',
+	},
+	{
+		mode: env.mode,
 		entry: {
 			"has-cts": ["./src/blocks.js"],
 			"has-cts-editor": "./src/block/editor.scss",
@@ -108,29 +83,8 @@ module.exports = [
 				},
 			],
 		},
-		optimization: {
-			minimize: true,
-			minimizer: [
-				new TerserPlugin({
-					terserOptions: {
-						ecma: undefined,
-						parse: {},
-						compress: true,
-						mangle: false,
-						module: false,
-						output: null,
-						toplevel: false,
-						nameCache: null,
-						ie8: false,
-						keep_classnames: undefined,
-						keep_fnames: false,
-						safari10: false,
-					},
-				}),
-			],
-		},
 		plugins: [
-			new FixStyleOnlyEntriesPlugin(),
+			new RemoveEmptyScriptsPlugin(),
 			new MiniCssExtractPlugin(),
 		],
 	},

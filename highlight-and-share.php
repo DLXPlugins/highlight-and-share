@@ -1,17 +1,22 @@
 <?php // phpcs:ignore
 
 /*
-Plugin Name: Highlight and Share
-Plugin URI: https://dlxplugins.com/plugins/highlight-and-share/
-Description: Allows you to highlight text and enable social sharing to share with services including Twitter, Facebook, LinkedIn, Xing, Telegram, Reddit, WhatsApp, email, and others.
-Author: DLX Plugins
-Version: 3.6.9
-Requires at least: 5.1
-Author URI: https://dlxplugins.com
-Contributors: ronalfy
-Text Domain: highlight-and-share
-Domain Path: /languages
-*/
+ * Plugin Name: Highlight and Share
+ * Plugin URI: https://dlxplugins.com/plugins/highlight-and-share/
+ * Description: Allows you to highlight text and enable social sharing to share with services including Twitter,  * Facebook, LinkedIn, Xing, Telegram, Reddit, WhatsApp, email, and others.
+ * Author: DLX Plugins
+ * Version: 3.6.9
+ * Requires at least: 5.1
+ * Requires PHP: 7.2
+ * Author URI: https://dlxplugins.com
+ * License: GPL v2 or later
+ * License URI: https://www.gnu.org/licenses/gpl-2.0.html
+ * Text Domain: highlight-and-share
+ * Contributors: ronalfy
+ */
+
+define( 'HIGHLIGHT_AND_SHARE_VERSION', '3.6.9' );
+define( 'HIGHLIGHT_AND_SHARE_FILE', __FILE__ );
 
 /**
  * Highlight and Share Main Class
@@ -67,8 +72,6 @@ class Highlight_And_Share {
 		add_action( 'init', array( $this, 'init' ), 9 );
 
 		add_action( 'wp', array( $this, 'wp_loaded' ), 15 );
-
-		define( 'HIGHLIGHT_AND_SHARE_VERSION', '3.6.9' );
 
 		// Get errors for email.
 		$this->errors['could_not_send'] = esc_html__( 'Could not send the e-mail', 'highlight-and-share' );
