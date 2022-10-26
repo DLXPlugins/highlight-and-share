@@ -13,79 +13,7 @@ function has_register_block_attributes() {
 	register_block_type(
 		'has/click-to-share',
 		array(
-			'attributes'      => array(
-				'shareText'          => array(
-					'type'    => 'string',
-					'default' => '',
-				),
-				'backgroundColor'    => array(
-					'type'    => 'string',
-					'default' => '#FFFFFF',
-				),
-				'textColor'          => array(
-					'type'    => 'string',
-					'default' => '#000000',
-				),
-				'fontSize'           => array(
-					'type'    => 'integer',
-					'default' => 24,
-				),
-				'clickShareFontSize' => array(
-					'type'    => 'integer',
-					'default' => 24,
-				),
-				'clickText'          => array(
-					'type'    => 'string',
-					'default' => __( 'Click to Share', 'highlight-and-share' ),
-				),
-				'padding'            => array(
-					'type'    => 'integer',
-					'default' => 0,
-				),
-				'border'             => array(
-					'type'    => 'integer',
-					'default' => 0,
-				),
-				'borderRadius'       => array(
-					'type'    => 'integer',
-					'default' => 0,
-				),
-				'borderColor'        => array(
-					'type'    => 'string',
-					'default' => '#FFFFFF',
-				),
-				'fontWeight'         => array(
-					'type'    => 'integer',
-					'default' => 100,
-				),
-				'maxWidth'           => array(
-					'type'    => 'integer',
-					'default' => 100,
-				),
-				'alignment'          => array(
-					'type'    => 'string',
-					'default' => 'center',
-				),
-				'marginLeft'         => array(
-					'type'    => 'integer',
-					'default' => 0,
-				),
-				'marginRight'        => array(
-					'type'    => 'integer',
-					'default' => 0,
-				),
-				'marginBottom'       => array(
-					'type'    => 'integer',
-					'default' => 0,
-				),
-				'marginTop'          => array(
-					'type'    => 'integer',
-					'default' => 0,
-				),
-			),
 			'render_callback' => 'has_click_to_share',
-			'editor_script'   => 'has-click-to-share',
-			'editor_style'    => 'has-style-admin-css',
 		)
 	);
 }

@@ -19,208 +19,83 @@ class Blocks {
 	 */
 	public static function run() {
 		$self = new self();
-		add_action( 'init', array( $self, 'init' ) );
+		add_action( 'init', array( $self, 'register_block' ) );
+		add_action( 'enqueue_block_editor_assets', array( $self, 'register_block_assets' ) );
 		return $self;
 	}
 
 	/**
-	 * Init action callback.
+	 * Registers the block on server.
 	 */
-	public function init() {
+	public function register_block() {
 
 		register_block_type(
-			Functions::get_plugin_dir( 'build/js/blocks/material/block.json' ),
+			Functions::get_plugin_dir( 'build/blocks/click-to-share/block.json' ),
 			array(
 				'render_callback' => array( $this, 'frontend' ),
 			)
-		);
-
-		register_block_type(
-			Functions::get_plugin_dir( 'build/js/blocks/chakraui/block.json' ),
-			array(
-				'render_callback' => array( $this, 'frontend' ),
-			)
-		);
-
-		register_block_type(
-			Functions::get_plugin_dir( 'build/js/blocks/bootstrap/block.json' ),
-			array(
-				'render_callback' => array( $this, 'frontend' ),
-			)
-		);
-
-		// Enqueue general front-end style.
-		add_action( 'wp_enqueue_scripts', array( $this, 'register_frontend_scripts' ) );
-
-		// Enqueue block assets.
-		add_action( 'enqueue_block_editor_assets', array( $this, 'register_block_editor_scripts' ) );
-
-		// Add alertsdlx block category.
-		add_filter(
-			'block_categories_all',
-			function( $categories ) {
-				return array_merge(
-					$categories,
-					array(
-						array(
-							'slug'  => 'alertsdlx',
-							'title' => __( 'AlertsDLX', 'alerts-dlx' ),
-						),
-					)
-				);
-			}
 		);
 	}
 
 	/**
-	 * Output the front-end structure.
-	 *
-	 * @param array  $attributes Block editor attributes.
-	 * @param string $content   Current content.
+	 * Register all block assets.
 	 */
-	public function frontend( array $attributes, string $content ) {
+	public function register_block_assets() {
+		if ( ! is_admin() && has_block( 'has/click-to-share' ) ) {
+			wp_register_style(
+				'has-style-frontend-css',
+				Functions::get_plugin_url( 'dist/has-cts-style.css' ),
+				array(),
+				HIGHLIGHT_AND_SHARE_VERSION,
+				'all'
+			);
+		}
+		wp_register_style(
+			'has-style-admin-css',
+			Functions::get_plugin_url( 'dist/has-cts-editor.css' ),
+			array(),
+			HIGHLIGHT_AND_SHARE_VERSION,
+			'all'
+		);
+		wp_register_script(
+			'has-click-to-share',
+			Functions::get_plugin_url( 'build/has-click-to-share.js' ),
+			array( 'wp-blocks', 'wp-element', 'wp-i18n' ),
+			HIGHLIGHT_AND_SHARE_VERSION,
+			true
+		);
+		wp_localize_script(
+			'has-click-to-share',
+			'has_gutenberg',
+			array(
+				'svg' => Functions::get_plugin_url( 'img/share.svg' ),
+			)
+		);
+		wp_set_script_translations( 'has-click-to-share', 'highlight-and-share' );
+		do_action( 'has_enqueue_block_styles_scripts' );
+	}
 
-		$unique_id               = Functions::sanitize_attribute( $attributes, 'uniqueId', 'text' );
-		$alert_group             = Functions::sanitize_attribute( $attributes, 'alertGroup', 'text' );
-		$alert_type              = Functions::sanitize_attribute( $attributes, 'alertType', 'text' );
-		$align                   = Functions::sanitize_attribute( $attributes, 'align', 'text' );
-		$alert_title             = Functions::sanitize_attribute( $attributes, 'alertTitle', 'text' );
-		$alert_description       = Functions::sanitize_attribute( $attributes, 'alertDescription', 'raw' );
-		$button_enabled          = Functions::sanitize_attribute( $attributes, 'buttonEnabled', 'boolean' );
-		$maximum_width_unit      = Functions::sanitize_attribute( $attributes, 'maximumWidthUnit', 'text' );
-		$maximum_width           = Functions::sanitize_attribute( $attributes, 'maximumWidth', 'integer' );
-		$icon                    = Functions::sanitize_attribute( $attributes, 'icon', 'raw' );
-		$description_enabled     = Functions::sanitize_attribute( $attributes, 'descriptionEnabled', 'boolean' );
-		$title_enabled           = Functions::sanitize_attribute( $attributes, 'titleEnabled', 'boolean' );
-		$icon_enabled            = Functions::sanitize_attribute( $attributes, 'iconEnabled', 'boolean' );
-		$base_font_size          = Functions::sanitize_attribute( $attributes, 'baseFontSize', 'integer' );
-		$icon_vertical_alignment = Functions::sanitize_attribute( $attributes, 'iconVerticalAlignment', 'text' );
-		$variant                 = Functions::sanitize_attribute( $attributes, 'variant', 'text' );
-		$mode                    = Functions::sanitize_attribute( $attributes, 'mode', 'text' );
-		$button_text             = Functions::sanitize_attribute( $attributes, 'buttonText', 'text' );
-		$button_url              = Functions::sanitize_attribute( $attributes, 'buttonUrl', 'text' );
-		$button_target           = Functions::sanitize_attribute( $attributes, 'buttonTarget', 'boolean' );
-		$button_rel_no_follow    = Functions::sanitize_attribute( $attributes, 'buttonRelNoFollow', 'boolean' );
-		$button_rel_sponsored    = Functions::sanitize_attribute( $attributes, 'buttonRelSponsored', 'boolean' );
-
+	/**
+	 * Output Click to Share Gutenberg block on the front-end.
+	 *
+	 * @param array $attributes Array of attributes for the Gutenberg block.
+	 */
+	public function frontend( $attributes ) {
 		ob_start();
-
-		// Add base classes to figure element.
-		$figure_classes = array(
-			'alerts-dlx-alert',
-			'alerts-dlx-' . $alert_group,
-		);
-		if ( $icon_enabled ) {
-			$figure_classes[] = 'alerts-dlx-has-icon';
-		}
-		if ( $description_enabled ) {
-			$figure_classes[] = 'alerts-dlx-has-description';
-		}
-		if ( $button_enabled ) {
-			$figure_classes[] = 'alerts-dlx-has-button';
-		}
-
-		// Add base classes to container element.
-		$container_classes = array(
-			'alerts-dlx',
-			'template-' . $alert_group,
-			'is-style-' . $alert_type,
-			'is-appearance-' . $variant,
-			'icon-vertical-align-' . $icon_vertical_alignment,
-			'align' . $align,
-		);
-		if ( 'dark' === $mode ) {
-			$container_classes[] = 'is-dark-mode';
-		}
+		global $post;
 		?>
-		<!-- begin AlertsDLX output -->
-		<style>
-			#<?php echo esc_html( $unique_id ); ?> {
-				max-width: <?php echo esc_html( $maximum_width ); ?><?php echo esc_html( $maximum_width_unit ); ?>;
-				font-size: <?php echo esc_html( $base_font_size ); ?>px;
-				font-size: clamp(0.75rem, 2vw + 1rem, <?php echo esc_html( $base_font_size ); ?>px);
-			}
-		</style>
-		<div
-			class="<?php echo esc_html( implode( ' ', $container_classes ) ); ?>"
-		>
-			<figure
-				role="alert"
-				class="<?php echo esc_attr( implode( ' ', $figure_classes ) ); ?>"
-				id="<?php echo esc_attr( $unique_id ); ?>"
-			>
-				<?php
-				if ( $icon_enabled ) {
-					?>
-					<div class="alerts-dlx-icon" aria-hidden="true">
-						<div class="alerts-dlx-icon-preview">
-							<?php echo wp_kses( $icon, Functions::get_kses_allowed_html() ); ?>
-						</div>
-					</div>
-					<?php
-				}
-				?>
-				<figcaption>
-					<?php
-					if ( $title_enabled ) {
-						?>
-						<h2 class="alerts-dlx-title">
-							<?php echo esc_html( $alert_title ); ?>
-						</h2>
-						<?php
-					}
-					?>
-					<div class="alerts-dlx-content-wrapper">
-						<?php
-						if ( $description_enabled ) {
-							?>
-							<div class="alerts-dlx-content">
-								<?php echo wp_kses_post( apply_filters( 'alerts_dlx_the_content', $alert_description ) ); ?>
-							</div>
-							<?php
-						}
-						?>
-						<?php
-						if ( $button_enabled && ! empty( $button_text ) && ! empty( $button_url ) ) {
-							?>
-							<div
-								class="alerts-dlx-button-wrapper"
-								style="display: inline-flex;"
-							>
-								<a
-									class="alerts-dlx-button button-reset"
-									href="<?php echo esc_url( $button_url ); ?>"
-									<?php
-									if ( $button_target ) {
-										?>
-										target="_blank"
-										<?php
-									}
-									?>
-									<?php
-									$rel = array();
-									if ( $button_rel_no_follow ) {
-										$rel[] = 'nofollow';
-									}
-									if ( $button_rel_sponsored ) {
-										$rel[] = 'sponsored';
-									}
-									if ( ! empty( $rel ) ) {
-										?>
-										rel="<?php echo esc_attr( implode( ' ', $rel ) ); ?>"
-										<?php
-									}
-									?>
-								><?php echo esc_html( $button_text ); ?></a>
-							</div>
-							<?php
-						}
-						?>
-					</div>
-				</figcaption>
-			</figure>
+		<div class='has-click-to-share' style="padding: <?php echo esc_attr( $attributes['padding'] ); ?>px; border: <?php echo esc_attr( $attributes['border'] . 'px solid ' . $attributes['borderColor'] ); ?>; border-radius: <?php echo esc_attr( $attributes['borderRadius'] ); ?>px; background-color: <?php echo esc_attr( $attributes['backgroundColor'] ); ?>; color: <?php echo esc_attr( $attributes['textColor'] ); ?>; max-width: <?php echo esc_attr( $attributes['maxWidth'] ); ?>%; margin-left: <?php echo esc_attr( $attributes['marginLeft'] ); ?>px; margin-right: <?php echo esc_attr( $attributes['marginRight'] ); ?>px; margin-bottom: <?php echo esc_attr( $attributes['marginBottom'] ); ?>px; margin-Top: <?php echo esc_attr( $attributes['marginTop'] ); ?>px; <?php echo 'center' === $attributes['alignment'] ? 'margin: ' . esc_attr( $attributes['marginTop'] ) . 'px auto ' . esc_attr( $attributes['marginBottom'] ) . 'px auto;' : ''; ?><?php echo 'left' === $attributes['alignment'] ? 'float: left;' : ''; ?><?php echo 'right' === $attributes['alignment'] ? 'float: right;' : ''; ?>">
+			<div class="has-click-to-share-wrapper">
+				<div class="has-click-to-share-text" style="color: <?php echo esc_attr( $attributes['textColor'] ); ?>; font-size: <?php echo esc_attr( $attributes['fontSize'] ); ?>px; font-weight: <?php echo esc_attr( $attributes['fontWeight'] ); ?>">
+					<?php echo wp_kses_post( $attributes['shareText'] ); ?>
+				</div>
+				<div class='has-click-to-share-cta' style="font-size: <?php echo esc_attr( $attributes['clickShareFontSize'] ); ?>; color: <?php echo esc_attr( $attributes['textColor'] ); ?>">
+				<?php echo wp_kses_post( $attributes['clickText'] ); ?> <svg width="<?php echo esc_attr( $attributes['clickShareFontSize'] ); ?>px" height="<?php echo esc_attr( $attributes['clickShareFontSize'] ); ?>px" class="has-cts-block-icon"><use xlink:href="#has-share-icon"></use></svg>
+				</div>
+				<a class="has-click-prompt" href="#" data-title="<?php echo esc_attr( $post->post_title ); ?>" data-url="<?php echo esc_url( get_permalink( $post->ID ) ); ?>">
+				</a>
+			</div>
 		</div>
-		<!-- end AlertsDLX output -->
 		<?php
 		return ob_get_clean();
 	}
@@ -280,7 +155,6 @@ class Blocks {
 			Functions::get_plugin_version(),
 			'all'
 		);
-
 		wp_register_style(
 			'alerts-dlx-common',
 			Functions::get_plugin_url( 'dist/alerts-dlx-common.css' ),

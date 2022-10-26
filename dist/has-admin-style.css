@@ -1,1 +1,193 @@
-#wpcontent{padding-left:0 !important;padding-right:0 !important;position:relative;background-color:#4f4f4f}#wpcontent .quotes-dlx-plugin{margin:0}#wpbody-content{padding:0;margin:0}#wpfooter{display:none}.has-admin-container-body-wrapper{background:#fff}.has-form-wrapper{position:relative;padding:0;margin:0}.has-form-wrapper header{background:#4f4f4f}.has-form-wrapper .has-admin-container-body{max-width:69.5rem;margin:0 auto;padding:2.4em 20px}.has-form-wrapper .has-admin-container-wrap{display:grid;grid-template-columns:1fr;grid-column-gap:1.975rem;align-items:center;padding:1.5rem;max-width:69.5rem;margin:0 auto;text-align:right}@media(min-width: 30em){.has-form-wrapper .has-admin-container-wrap{grid-template-columns:1fr 175px}}@media(min-width: 48em){.has-form-wrapper .has-admin-container-wrap{grid-template-columns:1fr 250px}}@media(min-width: 64em){.has-form-wrapper .has-admin-container-wrap{grid-template-columns:1fr 250px}}.has-form-wrapper .has-admin-container-wrap h2{padding:0;margin:0}.has-form-wrapper .has-logo-wrapper{text-align:left}.has-form-wrapper .has-logo-wrapper img{max-width:100%;height:auto}@media(min-width: 30em){.has-form-wrapper .header__btn-wrap{margin-top:0}}.has-form-wrapper .has-admin-preview li{display:list-item;margin:0;padding:0;margin-bottom:5px}.has-form-wrapper .has-admin-preview a{display:inline-block;position:relative;color:#2c3a95;transition:all .3s ease-in-out;text-decoration:none}.has-form-wrapper .has-admin-preview a:after{transition:all .3s ease-in-out;display:inline-block;opacity:0;position:absolute;bottom:-5px;left:0;content:"";width:100%;height:2px;background:#1b235a}.has-form-wrapper .has-admin-preview a:hover{color:#1b235a}.has-form-wrapper .has-admin-preview a:hover:after{opacity:1}.header__btn-wrap{display:flex;justify-content:flex-end;flex-wrap:wrap;max-width:100%;margin-top:15px}@media(min-width: 30em){.header__btn-wrap{max-width:250px;margin-top:0}}@media(min-width: 48em){.header__btn-wrap{max-width:250px;margin-top:0}}@media(min-width: 64em){.header__btn-wrap{max-width:250px;margin-top:0}}.header__btn-wrap.left,.header__btn-wrap.right,.header__btn-wrap.center{display:flex}.header__btn-wrap.left{justify-content:flex-start}.header__btn-wrap.center{justify-content:center}.header__btn-wrap.right{justify-content:flex-end}.header__btn-wrap button,.header__btn-wrap .has__btn-primary{width:100%;text-align:center;margin-bottom:0px;border-radius:2px;font-size:1.3em;display:inline-block;background:#fff;color:#4f4f4f;border:2px solid #4f4f4f;padding:10px 20px;cursor:pointer;transition:all .4s ease-in-out;text-decoration:none}.header__btn-wrap button:not([disabled]):hover,.header__btn-wrap .has__btn-primary:not([disabled]):hover{border-radius:2px;background:#4f4f4f;color:#fff;border-color:#fff;text-decoration:none;transition:all .4s ease-in-out}.header__btn-wrap .has__btn-primary{display:block;width:100%;margin-bottom:15px}.header__btn-wrap .has__btn-primary:last-child{margin-bottom:0}.has-admin-container-footer footer{background:#4f4f4f}.has-admin-container-footer .has-admin-container-wrap{display:flex;flex-wrap:wrap;justify-content:center;margin:0 auto;max-width:275px;margin:0 auto;padding:4em 0}.has-admin-container-footer .footer-rate-icon,.has-admin-container-footer .has-plea{display:block;font-style:italic;color:#fff}.has-admin-container-footer .has__btn-primary{display:block;width:100%;text-align:center;margin-bottom:0px;border-radius:2px;font-size:1.3em;line-height:1.35em;background:#f08ea5;color:#fff;border:2px solid #f5a4b7;padding:10px 20px;cursor:pointer;transition:all .4s ease-in-out;text-decoration:none;margin-top:18px;margin-bottom:18px}.has-admin-container-footer .has__btn-primary:not([disabled]):hover{border-radius:2px;background:#4f4f4f;color:#fff;border-color:#f08ea5;text-decoration:none;transition:all .4s ease-in-out}
+/*!************************************************************************************************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/resolve-url-loader/index.js!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[3]!./src/admin.scss ***!
+  \************************************************************************************************************************************************************************************************************/
+/* Responsive styles - In hindsight, should've used mobile-first */
+/* Mixin from: https://css-tricks.com/snippets/sass/mixin-manage-breakpoints/ */
+/* It's only used here, so no external file for mixin? */
+/* Make interface full-width/full-height */
+#wpcontent {
+  padding-left: 0 !important;
+  padding-right: 0 !important;
+  position: relative;
+  background-color: #4F4F4F; }
+  #wpcontent .quotes-dlx-plugin {
+    margin: 0; }
+
+#wpbody-content {
+  padding: 0;
+  margin: 0; }
+
+#wpfooter {
+  display: none; }
+
+.has-admin-container-body-wrapper {
+  background: #FFF; }
+
+.has-form-wrapper {
+  position: relative;
+  padding: 0;
+  margin: 0; }
+  .has-form-wrapper header {
+    background: #4F4F4F; }
+  .has-form-wrapper .has-admin-container-body {
+    max-width: 69.5rem;
+    margin: 0 auto;
+    padding: 2.4em 20px; }
+  .has-form-wrapper .has-admin-container-wrap {
+    display: grid;
+    grid-template-columns: 1fr;
+    grid-column-gap: 1.975rem;
+    align-items: center;
+    padding: 1.5rem;
+    max-width: 69.5rem;
+    margin: 0 auto;
+    text-align: right; }
+    @media (min-width: 30em) {
+      .has-form-wrapper .has-admin-container-wrap {
+        grid-template-columns: 1fr 175px; } }
+    @media (min-width: 48em) {
+      .has-form-wrapper .has-admin-container-wrap {
+        grid-template-columns: 1fr 250px; } }
+    @media (min-width: 64em) {
+      .has-form-wrapper .has-admin-container-wrap {
+        grid-template-columns: 1fr 250px; } }
+    .has-form-wrapper .has-admin-container-wrap h2 {
+      padding: 0;
+      margin: 0; }
+  .has-form-wrapper .has-logo-wrapper {
+    text-align: left; }
+    .has-form-wrapper .has-logo-wrapper img {
+      max-width: 100%;
+      height: auto; }
+  @media (min-width: 30em) {
+    .has-form-wrapper .header__btn-wrap {
+      margin-top: 0; } }
+  .has-form-wrapper .has-admin-preview li {
+    display: list-item;
+    margin: 0;
+    padding: 0;
+    margin-bottom: 5px; }
+  .has-form-wrapper .has-admin-preview a {
+    display: inline-block;
+    position: relative;
+    color: #2c3a95;
+    transition: all .3s ease-in-out;
+    text-decoration: none; }
+    .has-form-wrapper .has-admin-preview a:after {
+      transition: all .3s ease-in-out;
+      display: inline-block;
+      opacity: 0;
+      position: absolute;
+      bottom: -5px;
+      left: 0;
+      content: '';
+      width: 100%;
+      height: 2px;
+      background: #1b235a; }
+    .has-form-wrapper .has-admin-preview a:hover {
+      color: #1b235a; }
+      .has-form-wrapper .has-admin-preview a:hover:after {
+        opacity: 1; }
+
+/* Button styles stolen from QuotesDLX */
+.header__btn-wrap {
+  display: flex;
+  justify-content: flex-end;
+  flex-wrap: wrap;
+  max-width: 100%;
+  margin-top: 15px; }
+  @media (min-width: 30em) {
+    .header__btn-wrap {
+      max-width: 250px;
+      margin-top: 0; } }
+  @media (min-width: 48em) {
+    .header__btn-wrap {
+      max-width: 250px;
+      margin-top: 0; } }
+  @media (min-width: 64em) {
+    .header__btn-wrap {
+      max-width: 250px;
+      margin-top: 0; } }
+  .header__btn-wrap.left, .header__btn-wrap.right, .header__btn-wrap.center {
+    display: flex; }
+  .header__btn-wrap.left {
+    justify-content: flex-start; }
+  .header__btn-wrap.center {
+    justify-content: center; }
+  .header__btn-wrap.right {
+    justify-content: flex-end; }
+  .header__btn-wrap button,
+  .header__btn-wrap .has__btn-primary {
+    width: 100%;
+    text-align: center;
+    margin-bottom: 0px;
+    border-radius: 2px;
+    font-size: 1.3em;
+    display: inline-block;
+    background: #FFF;
+    color: #4F4F4F;
+    border: 2px solid #4F4F4F;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: all 0.4s ease-in-out;
+    text-decoration: none; }
+    .header__btn-wrap button:not([disabled]):hover,
+    .header__btn-wrap .has__btn-primary:not([disabled]):hover {
+      border-radius: 2px;
+      background: #4F4F4F;
+      color: #FFF;
+      border-color: #FFF;
+      text-decoration: none;
+      transition: all 0.4s ease-in-out; }
+  .header__btn-wrap .has__btn-primary {
+    display: block;
+    width: 100%;
+    margin-bottom: 15px; }
+    .header__btn-wrap .has__btn-primary:last-child {
+      margin-bottom: 0; }
+
+.has-admin-container-footer footer {
+  background: #4f4f4f; }
+
+.has-admin-container-footer .has-admin-container-wrap {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin: 0 auto;
+  max-width: 275px;
+  margin: 0 auto;
+  padding: 4.0em 0; }
+
+.has-admin-container-footer .footer-rate-icon,
+.has-admin-container-footer .has-plea {
+  display: block;
+  font-style: italic;
+  color: #FFF; }
+
+.has-admin-container-footer .has__btn-primary {
+  display: block;
+  width: 100%;
+  text-align: center;
+  margin-bottom: 0px;
+  border-radius: 2px;
+  font-size: 1.3em;
+  line-height: 1.35em;
+  background: #F08EA5;
+  color: #FFF;
+  border: 2px solid #F5A4B7;
+  padding: 10px 20px;
+  cursor: pointer;
+  transition: all 0.4s ease-in-out;
+  text-decoration: none;
+  margin-top: 18px;
+  margin-bottom: 18px; }
+  .has-admin-container-footer .has__btn-primary:not([disabled]):hover {
+    border-radius: 2px;
+    background: #4F4F4F;
+    color: #FFF;
+    border-color: #F08EA5;
+    text-decoration: none;
+    transition: all 0.4s ease-in-out; }
+
+
+/*# sourceMappingURL=has-admin-style.css.map*/

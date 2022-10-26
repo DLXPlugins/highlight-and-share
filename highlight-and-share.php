@@ -15,8 +15,15 @@
  * Contributors: ronalfy
  */
 
+namespace DLXPlugins\HAS;
+
 define( 'HIGHLIGHT_AND_SHARE_VERSION', '3.6.9' );
 define( 'HIGHLIGHT_AND_SHARE_FILE', __FILE__ );
+
+// Support for site-level autoloading.
+if ( file_exists( __DIR__ . '/lib/autoload.php' ) ) {
+	require_once __DIR__ . '/lib/autoload.php';
+}
 
 /**
  * Highlight and Share Main Class
@@ -94,9 +101,8 @@ class Highlight_And_Share {
 		add_action( 'customize_register', array( $this, 'customizer' ) );
 
 		// Gutenberg block.
-		if ( function_exists( 'register_block_type' ) ) {
-			include 'has-click-to-share.php';
-		}
+		$blocks = new Blocks();
+		$blocks->run();
 	}
 
 	/**
@@ -2929,7 +2935,7 @@ class Highlight_And_Share {
 
 }
 
-add_action( 'plugins_loaded', 'highlightshare_instantiate' );
+add_action( 'plugins_loaded', 'DLXPlugins\HAS\highlightshare_instantiate' );
 /**
  * Instantiate the HAS class.
  */
