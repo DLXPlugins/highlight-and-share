@@ -21,6 +21,7 @@ class Blocks {
 		$self = new self();
 		add_action( 'init', array( $self, 'register_block' ) );
 		add_action( 'enqueue_block_editor_assets', array( $self, 'register_block_assets' ) );
+		add_action( 'enqueue_block_assets', array( $self, 'enqueue_frontend_assets' ) );
 		return $self;
 	}
 
@@ -38,9 +39,9 @@ class Blocks {
 	}
 
 	/**
-	 * Register all block assets.
+	 * Register frontend scripts/styles.
 	 */
-	public function register_block_assets() {
+	public function enqueue_frontend_assets() {
 		if ( ! is_admin() && has_block( 'has/click-to-share' ) ) {
 			wp_register_style(
 				'has-style-frontend-css',
@@ -50,6 +51,12 @@ class Blocks {
 				'all'
 			);
 		}
+	}
+
+	/**
+	 * Register all block assets.
+	 */
+	public function register_block_assets() {
 		wp_register_style(
 			'has-style-admin-css',
 			Functions::get_plugin_url( 'dist/has-cts-editor.css' ),
