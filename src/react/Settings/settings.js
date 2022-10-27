@@ -67,6 +67,8 @@ const Interface = ( props ) => {
 	const response = defaults();
 	const { data, success } = response.data;
 
+	console.log( data );
+
 	const [ saving, setSaving ] = useState( false );
 	const [ isSaved, setIsSaved ] = useState( false );
 	const [ resetting, setResetting ] = useState( false );
@@ -74,27 +76,27 @@ const Interface = ( props ) => {
 
 	const getDefaultValues = () => {
 		return {
-			enableMobile: true,
-			enablePostContent: true,
-			enablePostExcerpt: true,
-			quotePrefix: '',
-			quoteSuffix: '',
-			enableTwitter: true,
-			twitterUsername: '',
-			enableTwitterHashtags: true,
-			enableFacebook: true,
-			enableWhatsApp: false,
-			whatsAppEndpoint: 'app',
-			enableReddit: false,
-			enableTelegram: false,
-			enableLinkedin: false,
-			enableXing: false,
-			enableCopy: false,
-			enableEmails: false,
-			enableShortlinks: false,
-			classSelectors: '',
-			elementSelectors: '',
-			idSelectors: '',
+			enableMobile: data.enableMobile,
+			enablePostContent: data.enablePostContent,
+			enablePostExcerpt: data.enablePostExcerpt,
+			quotePrefix: data.quotePrefix,
+			quoteSuffix: data.quoteSuffix,
+			enableTwitter: data.enableTwitter,
+			twitterUsername: data.twitterUsername,
+			enableTwitterHashtags: data.enableTwitterHashtags,
+			enableFacebook: data.enableFacebook,
+			enableWhatsApp: data.enableWhatsApp,
+			whatsAppEndpoint: data.whatsAppEndpoint,
+			enableReddit: data.enableReddit,
+			enableTelegram: data.enableTelegram,
+			enableLinkedin: data.enableLinkedin,
+			enableXing: data.enableXing,
+			enableCopy: data.enableCopy,
+			enableEmails: data.enableEmails,
+			enableShortlinks: data.enableShortlinks,
+			classSelectors: data.classSelectors,
+			elementSelectors: data.elementSelectors,
+			idSelectors: data.idSelectors,
 		};
 	};
 	const {

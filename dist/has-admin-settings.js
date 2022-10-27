@@ -43942,6 +43942,7 @@ var Interface = function Interface(props) {
   var _response$data = response.data,
     data = _response$data.data,
     success = _response$data.success;
+  console.log(data);
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState2 = _slicedToArray(_useState, 2),
     saving = _useState2[0],
@@ -43960,27 +43961,27 @@ var Interface = function Interface(props) {
     setIsReset = _useState8[1];
   var getDefaultValues = function getDefaultValues() {
     return {
-      enableMobile: true,
-      enablePostContent: true,
-      enablePostExcerpt: true,
-      quotePrefix: '',
-      quoteSuffix: '',
-      enableTwitter: true,
-      twitterUsername: '',
-      enableTwitterHashtags: true,
-      enableFacebook: true,
-      enableWhatsApp: false,
-      whatsAppEndpoint: 'app',
-      enableReddit: false,
-      enableTelegram: false,
-      enableLinkedin: false,
-      enableXing: false,
-      enableCopy: false,
-      enableEmails: false,
-      enableShortlinks: false,
-      classSelectors: '',
-      elementSelectors: '',
-      idSelectors: ''
+      enableMobile: data.enableMobile,
+      enablePostContent: data.enablePostContent,
+      enablePostExcerpt: data.enablePostExcerpt,
+      quotePrefix: data.quotePrefix,
+      quoteSuffix: data.quoteSuffix,
+      enableTwitter: data.enableTwitter,
+      twitterUsername: data.twitterUsername,
+      enableTwitterHashtags: data.enableTwitterHashtags,
+      enableFacebook: data.enableFacebook,
+      enableWhatsApp: data.enableWhatsApp,
+      whatsAppEndpoint: data.whatsAppEndpoint,
+      enableReddit: data.enableReddit,
+      enableTelegram: data.enableTelegram,
+      enableLinkedin: data.enableLinkedin,
+      enableXing: data.enableXing,
+      enableCopy: data.enableCopy,
+      enableEmails: data.enableEmails,
+      enableShortlinks: data.enableShortlinks,
+      classSelectors: data.classSelectors,
+      elementSelectors: data.elementSelectors,
+      idSelectors: data.idSelectors
     };
   };
   var _useForm = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_11__.useForm)({

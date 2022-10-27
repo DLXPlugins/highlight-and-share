@@ -37,7 +37,104 @@ class Admin {
 		}
 
 		$options = Options::get_plugin_options();
-		wp_send_json_success( $options );
+		wp_send_json_success( $this->map_defaults_to_js( $options ) );
+	}
+
+	/**
+	 * Maps PHP name values to JS name values.
+	 *
+	 * @param array $options Array of options and values.
+	 *
+	 * @return array Key/Value of mapped options.
+	 */
+	private function map_defaults_to_js( $options ) {
+		$js_option_names = array();
+		/**
+		 * Can't change the default names of the options because they are used elsewhere.
+		 */
+		foreach ( $options as $option_name => $option_value ) {
+			switch ( $option_name ) {
+				case 'js_content':
+					$js_option_names['classSelectors'] = $option_value;
+					break;
+				case 'element_content':
+					$js_option_names['elementSelectors'] = $option_value;
+					break;
+				case 'id_content':
+					$js_option_names['idSelectors'] = $option_value;
+					break;
+				case 'twitter':
+					$js_option_names['twitterUsername'] = $option_value;
+					break;
+				case 'show_twitter':
+					$js_option_names['enableTwitter'] = $option_value;
+					break;
+				case 'show_facebook':
+					$js_option_names['enableFacebook'] = $option_value;
+					break;
+				case 'show_linkedin':
+					$js_option_names['enableLinkedIn'] = $option_value;
+					break;
+				case 'show_ok':
+					$js_option_names['enableOK'] = $option_value;
+					break;
+				case 'show_vk':
+					$js_option_names['enableVK'] = $option_value;
+					break;
+				case 'show_email':
+					$js_option_names['enableEmail'] =$option_value;
+					break;
+				case 'show_copy':
+					$js_option_names['enableCopy'] = $option_value;
+					break;
+				case 'show_whatsapp':
+					$js_option_names['enableWhatsApp'] = $option_value;
+					break;
+				case 'show_xing':
+					$js_option_names['enableXing'] = $option_value;
+					break;
+				case 'enable_mobile':
+					$js_option_names['enableMobile'] = $option_value;
+					break;
+				case 'show_reddit':
+					$js_option_names['enableReddit'] = $option_value;
+					break;
+				case 'show_telegram':
+					$js_option_names['enableTelegram'] = $option_value;
+					break;
+				case 'show_signal':
+					$js_option_names['enableSignal'] = $option_value;
+					break;
+				case 'enable_content':
+					$js_option_names['enablePostContent'] = $option_value;
+					break;
+				case 'enable_excerpt':
+					$js_option_names['enablePostExcerpt'] = $option_value;
+					break;
+				case 'enable_hashtags':
+					$js_option_names['enableTwitterHashtags'] = $option_value;
+					break;
+				case 'shortlinks':
+					$js_option_names['enableShortlinks'] = $option_value;
+					break;
+				case 'icons':
+					$js_option_names['enableIcons'] = $option_value;
+					break;
+				case 'theme':
+					$js_option_names['theme'] = $option_value;
+					break;
+				case 'sharing_prefix':
+					$js_option_names['quotePrefix'] = $option_value;
+					break;
+				case 'sharing_suffix':
+					$js_option_names['quoteSuffix'] = $option_value;
+					break;
+				case 'whatsapp_api_endpoint':
+					$js_option_names['whatsAppEndpoint'] = $option_value;
+					break;
+			}
+		}
+		return $js_option_names;
 	}
 
 	/**

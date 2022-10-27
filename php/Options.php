@@ -59,6 +59,8 @@ class Options {
 
 		$defaults = array(
 			'js_content'            => '',
+			'element_content'       => '',
+			'id_content'            => '',
 			'twitter'               => '',
 			'show_twitter'          => true,
 			'show_facebook'         => true,
