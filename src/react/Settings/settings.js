@@ -15,6 +15,8 @@ import {
 	RangeControl,
 } from '@wordpress/components';
 import ErrorBoundary from '../Components/ErrorBoundary';
+import Notice from '../Components/Notice';
+import CircularInfoIcon from '../Components/Icons/CircularInfo';
 
 const Settings = () => {
 	const getDefaultValues = () => {
@@ -36,6 +38,10 @@ const Settings = () => {
 			enableXing: false,
 			enableCopy: false,
 			enableEmails: false,
+			enableShortlinks: false,
+			classSelectors: '',
+			elementSelectors: '',
+			idSelectors: '',
 		};
 	};
 	const {
@@ -483,6 +489,39 @@ const Settings = () => {
 							/>
 						) }
 					/>
+				</div>
+				<h3>{ __( 'Shortlinks', 'highlight-and-share' ) }</h3>
+				<div className="has-admin-component-row">
+					<>
+						<Notice
+							message={ __( 'A third-party URL shortening service must be installed for URL shortening to work.', 'highlight-and-share' ) }
+							status="info"
+							politeness="polite"
+							inline={ false }
+							icon={ CircularInfoIcon }
+						/>
+						<Controller
+							name="enableShortlinks"
+							control={ control }
+							render={ ( { field: { onChange, value } } ) => (
+								<ToggleControl
+									label={ __(
+										'Enable Shortlinks',
+										'highlight-and-share'
+									) }
+									className="has-admin__toggle-control"
+									checked={ value }
+									onChange={ ( boolValue ) => {
+										onChange( boolValue );
+									} }
+									help={ __(
+										'Shortlinks allow you to condence a post URL. You must have a URL shortener enabled to see shortlinks.',
+										'highlight-and-share'
+									) }
+								/>
+							) }
+						/>
+					</>
 				</div>
 			</div>
 		</form>

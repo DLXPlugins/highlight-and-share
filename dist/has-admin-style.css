@@ -4585,6 +4585,58 @@ div.components-toolbar > div + div.has-left-divider::before {
 /* Responsive styles - In hindsight, should've used mobile-first */
 /* Mixin from: https://css-tricks.com/snippets/sass/mixin-manage-breakpoints/ */
 /* It's only used here, so no external file for mixin? */
+:root {
+  --quotes-dlx-admin--color-dark: #393838;
+  --quotes-dlx-admin--color-notice--info: #e3f3f7;
+  --quotes-dlx-admin--color-notice--info-alt: #3a8dc4;
+  --quotes-dlx-admin--color-notice--success: #eaf5ea;
+  --quotes-dlx-admin--color-notice--success-alt: #49a939;
+  --quotes-dlx-admin--color-notice--warning: #fef6e1;
+  --quotes-dlx-admin--color-notice--warning-alt: #e8a931;
+  --quotes-dlx-admin--color-notice--error: #f5e5e4;
+  --quotes-dlx-admin--color-notice--error-alt: #bc2b2c;
+  --quotes-dlx-admin--color-notice--secondary: #e2e3e5;
+  --quotes-dlx-admin--color-notice--secondary-alt: #41464b;
+}
+
+@keyframes has-fade-in {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+@keyframes has-fade-in-out {
+  0% {
+    opacity: 0;
+    height: 0;
+  }
+  50% {
+    opacity: 1;
+    height: auto;
+  }
+  100% {
+    opacity: 0;
+    height: 0;
+    visibility: hidden;
+  }
+}
+@keyframes has-fade-out {
+  from {
+    opacity: 1;
+    height: auto;
+  }
+  to {
+    opacity: 0;
+    height: 0;
+  }
+}
+@keyframes has-rotate {
+  100% {
+    transform: rotate(360deg);
+  }
+}
 /* Make interface full-width/full-height */
 #wpcontent {
   padding-left: 0 !important;
@@ -4871,6 +4923,114 @@ h2.has-admin-content-subheading:after {
 }
 .components-radio-control .components-radio-control__option {
   margin-bottom: 8px;
+}
+
+/* Admin Notices */
+/* Error Notices */
+.has-admin__notice {
+  margin: 10px 0;
+}
+.has-admin__notice.has-admin__notice--has-icon .components-notice__content {
+  display: grid;
+  grid-template-columns: 32px 1fr 1px;
+  align-items: center;
+}
+.has-admin__notice.has-admin__notice--has-icon.has-admin__notice-appearance--inline .components-notice__content {
+  display: flex;
+}
+.has-admin__notice.has-admin__notice--has-icon.has-admin__notice-appearance--inline .components-notice__content .has-admin__notice-icon {
+  margin-right: 8px;
+}
+.has-admin__notice .qldx-admin__notice-message {
+  color: var(--quotes-dlx-admin--color-dark);
+  font-size: 1.1em;
+  line-height: 1.2;
+  font-weight: 500;
+}
+.has-admin__notice.has-admin__notice-appearance--block .components-notice {
+  border-left: 4px solid transparent;
+  padding: 15px 0px;
+  padding-left: 15px;
+  margin: 0 0 15px 0;
+}
+.has-admin__notice.has-admin__notice-appearance--inline .components-notice {
+  padding-left: 0;
+}
+.has-admin__notice svg {
+  display: flex;
+  align-items: center;
+  width: 20px;
+  height: 20px;
+}
+.has-admin__notice.has-admin__notice-type--error:not(.has-admin__notice-appearance--inline) {
+  background-color: var(--quotes-dlx-admin--color-notice--error);
+}
+.has-admin__notice.has-admin__notice-type--error:not(.has-admin__notice-appearance--inline) .components-notice {
+  border-left-color: var(--quotes-dlx-admin--color-notice--error-alt);
+  padding: 0;
+  margin: 0;
+}
+.has-admin__notice.has-admin__notice-type--error:not(.has-admin__notice-appearance--inline) svg path {
+  fill: var(--quotes-dlx-admin--color-notice--error-alt);
+}
+.has-admin__notice.has-admin__notice-type--error.has-admin__notice-appearance--inline .qldx-admin__notice-message {
+  color: var(--quotes-dlx-admin--color-notice--error-alt);
+}
+.has-admin__notice.has-admin__notice-type--error.has-admin__notice-appearance--inline .qldx-admin__notice-message {
+  font-size: 0.9em;
+}
+.has-admin__notice.has-admin__notice-type--error.has-admin__notice-appearance--inline svg {
+  width: 16px;
+  height: 16px;
+}
+.has-admin__notice.has-admin__notice-type--error.has-admin__notice-appearance--inline svg path {
+  fill: var(--quotes-dlx-admin--color-notice--error-alt);
+}
+.has-admin__notice.has-admin__notice-type--success {
+  background-color: var(--quotes-dlx-admin--color-notice--success);
+}
+.has-admin__notice.has-admin__notice-type--success .components-notice {
+  border-left-color: var(--quotes-dlx-admin--color-notice--success-alt);
+}
+.has-admin__notice.has-admin__notice-type--success svg path {
+  fill: var(--quotes-dlx-admin--color-notice--success-alt);
+}
+.has-admin__notice.has-admin__notice-type--info {
+  background-color: var(--quotes-dlx-admin--color-notice--info);
+}
+.has-admin__notice.has-admin__notice-type--info .components-notice {
+  border-left-color: var(--quotes-dlx-admin--color-notice--info-alt);
+}
+.has-admin__notice.has-admin__notice-type--info svg path {
+  fill: var(--quotes-dlx-admin--color-notice--info-alt);
+}
+.has-admin__notice.has-admin__notice-type--warning {
+  background-color: var(--quotes-dlx-admin--color-notice--warning);
+}
+.has-admin__notice.has-admin__notice-type--warning .components-notice {
+  border-left-color: var(--quotes-dlx-admin--color-notice--warning-alt);
+}
+.has-admin__notice.has-admin__notice-type--warning svg path {
+  fill: var(--quotes-dlx-admin--color-notice--warning-alt);
+}
+.has-admin__notice.has-admin__notice-animate--fadein {
+  height: 0;
+  opacity: 0;
+  animation: has-fade-in 0.6s ease-in-out;
+  opacity: 1;
+  height: auto;
+}
+.has-admin__notice.has-admin__notice-animate--fadeout {
+  height: auto;
+  opacity: 1;
+  animation: has-fade-out 0.6s ease-in-out;
+  opacity: 0;
+  height: 0;
+}
+.has-admin__notice.has-admin__notice-animate--fadeinout {
+  animation-name: has-fade-in, has-fade-out;
+  animation-duration: 0.6s;
+  animation-delay: 0s, 2s;
 }
 
 /*# sourceMappingURL=has-admin-style.css.map*/
