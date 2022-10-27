@@ -256,3 +256,58 @@ $link_color_hover: darken( #2c3a95, 15% );
 		}
 	}
 }
+
+/* Admin panel content container styles */
+h2.has-admin-content-subheading {
+	position: relative;
+	font-size: 1.65em;
+	margin-bottom: 1.6em;
+
+	&:after {
+		content: '';
+		display: block;
+		width: 100%;
+		height: 2px;
+		background: #dcdcde;
+		position: absolute;
+		bottom: -15px;
+		left: 0;
+	}
+}
+
+.has-admin-content-wrapper {
+	.components-base-control__help {
+		font-size: 0.95em;
+	}
+	p.description {
+		font-size: 1.1em;
+	}
+	.has-admin-component-row {
+		label {
+			display: block;
+			font-weight: 600;
+			text-transform: unset;
+			font-size: 13px;
+		}
+	}
+}
+
+/* Admin text controls */
+.has-admin__text-control {
+	input[type='text'],
+	input[type='password'] {
+		max-width: 300px;
+		width: 100%;
+		background-color: #fff;
+		border-radius: 3px;
+		font-family: inherit;
+		font-size: 0.875rem;
+		line-height: 1.25rem;
+		padding: 5px 10px;
+		line-height: 2;
+		min-height: 24px;
+		margin: 0;
+		outline-style: none;
+		box-sizing: border-box;
+	}
+}
