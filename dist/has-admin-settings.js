@@ -3160,6 +3160,117 @@ props) {
 
 /***/ }),
 
+/***/ "./node_modules/@wordpress/components/build-module/radio-control/index.js":
+/*!********************************************************************************!*\
+  !*** ./node_modules/@wordpress/components/build-module/radio-control/index.js ***!
+  \********************************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "RadioControl": () => (/* binding */ RadioControl),
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var _babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! @babel/runtime/helpers/esm/extends */ "./node_modules/@babel/runtime/helpers/esm/extends.js");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/element */ "./node_modules/react/index.js");
+/* harmony import */ var _wordpress_element__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_element__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_compose__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/compose */ "./node_modules/@wordpress/compose/build-module/hooks/use-instance-id/index.js");
+/* harmony import */ var _base_control__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../base-control */ "./node_modules/@wordpress/components/build-module/base-control/index.js");
+
+
+
+/**
+ * External dependencies
+ */
+
+
+/**
+ * WordPress dependencies
+ */
+
+/**
+ * Internal dependencies
+ */
+
+
+
+/**
+ * Render a user interface to select the user type using radio inputs.
+ *
+ * ```jsx
+ * import { RadioControl } from '@wordpress/components';
+ * import { useState } from '@wordpress/element';
+ *
+ * const MyRadioControl = () => {
+ *   const [ option, setOption ] = useState( 'a' );
+ *
+ *   return (
+ *     <RadioControl
+ *       label="User type"
+ *       help="The type of the current user"
+ *       selected={ option }
+ *       options={ [
+ *         { label: 'Author', value: 'a' },
+ *         { label: 'Editor', value: 'e' },
+ *       ] }
+ *       onChange={ ( value ) => setOption( value ) }
+ *     />
+ *   );
+ * };
+ * ```
+ */
+function RadioControl( // ref is omitted until we have `WordPressComponentPropsWithoutRef` or add
+// ref forwarding to RadioControl.
+props) {
+  const {
+    label,
+    className,
+    selected,
+    help,
+    onChange,
+    hideLabelFromVision,
+    options = [],
+    ...additionalProps
+  } = props;
+  const instanceId = (0,_wordpress_compose__WEBPACK_IMPORTED_MODULE_2__["default"])(RadioControl);
+  const id = `inspector-radio-control-${instanceId}`;
+
+  const onChangeValue = event => onChange(event.target.value);
+
+  if (!(options !== null && options !== void 0 && options.length)) {
+    return null;
+  }
+
+  return (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.createElement)(_base_control__WEBPACK_IMPORTED_MODULE_4__["default"], {
+    label: label,
+    id: id,
+    hideLabelFromVision: hideLabelFromVision,
+    help: help,
+    className: classnames__WEBPACK_IMPORTED_MODULE_1___default()(className, 'components-radio-control')
+  }, options.map((option, index) => (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.createElement)("div", {
+    key: `${id}-${index}`,
+    className: "components-radio-control__option"
+  }, (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.createElement)("input", (0,_babel_runtime_helpers_esm_extends__WEBPACK_IMPORTED_MODULE_0__["default"])({
+    id: `${id}-${index}`,
+    className: "components-radio-control__input",
+    type: "radio",
+    name: id,
+    value: option.value,
+    onChange: onChangeValue,
+    checked: option.value === selected,
+    "aria-describedby": !!help ? `${id}__help` : undefined
+  }, additionalProps)), (0,_wordpress_element__WEBPACK_IMPORTED_MODULE_3__.createElement)("label", {
+    htmlFor: `${id}-${index}`
+  }, option.label))));
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (RadioControl);
+//# sourceMappingURL=index.js.map
+
+/***/ }),
+
 /***/ "./node_modules/@wordpress/components/build-module/text-control/index.js":
 /*!*******************************************************************************!*\
   !*** ./node_modules/@wordpress/components/build-module/text-control/index.js ***!
@@ -6226,6 +6337,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var use_async_resource__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(use_async_resource__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @wordpress/components */ "./node_modules/@wordpress/components/build-module/toggle-control/index.js");
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @wordpress/components */ "./node_modules/@wordpress/components/build-module/text-control/index.js");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @wordpress/components */ "./node_modules/@wordpress/components/build-module/radio-control/index.js");
 /* harmony import */ var _Components_ErrorBoundary__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../Components/ErrorBoundary */ "./src/react/Components/ErrorBoundary/index.js");
 function _extends() { _extends = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 
@@ -6243,7 +6355,19 @@ var Settings = function Settings() {
       enablePostContent: true,
       enablePostExcerpt: true,
       quotePrefix: '',
-      quoteSuffix: ''
+      quoteSuffix: '',
+      enableTwitter: true,
+      twitterUsername: '',
+      enableTwitterHashtags: true,
+      enableFacebook: true,
+      enableWhatsApp: false,
+      whatsAppEndpoint: 'app',
+      enableReddit: false,
+      enableTelegram: false,
+      enableLinkedin: false,
+      enableXing: false,
+      enableCopy: false,
+      enableEmails: false
     };
   };
   var _useForm = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_5__.useForm)({
@@ -6256,7 +6380,21 @@ var Settings = function Settings() {
     getValues = _useForm.getValues,
     reset = _useForm.reset,
     trigger = _useForm.trigger;
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+  var formValues = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_5__.useWatch)({
+    control: control
+  });
+  var _useFormState = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_5__.useFormState)({
+      control: control
+    }),
+    errors = _useFormState.errors,
+    isDirty = _useFormState.isDirty,
+    dirtyFields = _useFormState.dirtyFields,
+    touchedFields = _useFormState.touchedFields;
+  var onSubmit = function onSubmit(formData) {};
+  console.log(getValues());
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("form", {
+    onSubmit: handleSubmit(onSubmit)
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "has-admin-content-wrapper"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "has-admin-content-panel"
@@ -6361,7 +6499,241 @@ var Settings = function Settings() {
         help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Choose a suffix to go after the sharing text such as a quote.', 'highlight-and-share')
       }));
     }
-  })))));
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "has-admin-content-body"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", {
+    className: "has-admin-content-subheading"
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Social Networks', 'highlight-and-share')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Twitter Options', 'highlight-and-share')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "has-admin-component-row"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_5__.Controller, {
+    name: "enableTwitter",
+    control: control,
+    render: function render(_ref6) {
+      var _ref6$field = _ref6.field,
+        _onChange4 = _ref6$field.onChange,
+        value = _ref6$field.value;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Enable the Twitter Social Network', 'highlight-and-share'),
+        className: "has-admin__toggle-control",
+        checked: value,
+        onChange: function onChange(boolValue) {
+          _onChange4(boolValue);
+        },
+        help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Twitter allows text sharing.', 'highlight-and-share')
+      });
+    }
+  })), getValues('enableTwitter') && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "has-admin-component-row"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_5__.Controller, {
+    name: "enableTwitterHashtags",
+    control: control,
+    render: function render(_ref7) {
+      var _ref7$field = _ref7.field,
+        _onChange5 = _ref7$field.onChange,
+        value = _ref7$field.value;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Enable Twitter Hashtags', 'highlight-and-share'),
+        className: "has-admin__toggle-control",
+        checked: value,
+        onChange: function onChange(boolValue) {
+          _onChange5(boolValue);
+        },
+        help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Hashtags can be set on a post or page in the sidebar options.', 'highlight-and-share')
+      });
+    }
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "has-admin-component-row"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_5__.Controller, {
+    name: "twitterUsername",
+    control: control,
+    render: function render(_ref8) {
+      var field = _ref8.field;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_7__["default"], _extends({}, field, {
+        type: "text",
+        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Twitter Username', 'highlight-and-share'),
+        id: "search-qdlx-no-autofill",
+        className: classnames__WEBPACK_IMPORTED_MODULE_2___default()('has-admin__text-control'),
+        help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Enter Your Twitter Username without the @ symbol.', 'highlight-and-share')
+      }));
+    }
+  })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Facebook Options', 'highlight-and-share')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "has-admin-component-row"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_5__.Controller, {
+    name: "enableFacebook",
+    control: control,
+    render: function render(_ref9) {
+      var _ref9$field = _ref9.field,
+        _onChange6 = _ref9$field.onChange,
+        value = _ref9$field.value;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Enable the Facebook Social Network', 'highlight-and-share'),
+        className: "has-admin__toggle-control",
+        checked: value,
+        onChange: function onChange(boolValue) {
+          _onChange6(boolValue);
+        },
+        help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Facebook only allows URL sharing.', 'highlight-and-share')
+      });
+    }
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('WhatsApp Options', 'highlight-and-share')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "has-admin-component-row"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_5__.Controller, {
+    name: "enableWhatsApp",
+    control: control,
+    render: function render(_ref10) {
+      var _ref10$field = _ref10.field,
+        _onChange7 = _ref10$field.onChange,
+        value = _ref10$field.value;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Enable WhatsApp', 'highlight-and-share'),
+        className: "has-admin__toggle-control",
+        checked: value,
+        onChange: function onChange(boolValue) {
+          _onChange7(boolValue);
+        },
+        help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('WhatsApp allows text sharing.', 'highlight-and-share')
+      });
+    }
+  })), getValues('enableWhatsApp') && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "has-admin-component-row"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_5__.Controller, {
+    name: "whatsAppEndpoint",
+    control: control,
+    render: function render(_ref11) {
+      var _ref11$field = _ref11.field,
+        _onChange8 = _ref11$field.onChange,
+        value = _ref11$field.value;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__["default"], {
+        label: "WhatsApp Endpoint",
+        help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Select the endpoint to use.', 'highlight-and-share'),
+        selected: value,
+        options: [{
+          label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Use the WhatsApp Web Endpoint'),
+          value: 'web'
+        }, {
+          label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Use the WhatsApp App Endpoint'),
+          value: 'app'
+        }],
+        onChange: function onChange(radioValue) {
+          return _onChange8(radioValue);
+        }
+      });
+    }
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Other Social Options', 'highlight-and-share')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "has-admin-component-row"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_5__.Controller, {
+    name: "enableReddit",
+    control: control,
+    render: function render(_ref12) {
+      var _ref12$field = _ref12.field,
+        _onChange9 = _ref12$field.onChange,
+        value = _ref12$field.value;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Enable Reddit', 'highlight-and-share'),
+        className: "has-admin__toggle-control",
+        checked: value,
+        onChange: function onChange(boolValue) {
+          _onChange9(boolValue);
+        },
+        help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Reddit allows URL sharing.', 'highlight-and-share')
+      });
+    }
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "has-admin-component-row"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_5__.Controller, {
+    name: "enableTelegram",
+    control: control,
+    render: function render(_ref13) {
+      var _ref13$field = _ref13.field,
+        _onChange10 = _ref13$field.onChange,
+        value = _ref13$field.value;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Enable Telegram', 'highlight-and-share'),
+        className: "has-admin__toggle-control",
+        checked: value,
+        onChange: function onChange(boolValue) {
+          _onChange10(boolValue);
+        },
+        help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Telegram allows text sharing.', 'highlight-and-share')
+      });
+    }
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "has-admin-component-row"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_5__.Controller, {
+    name: "enableLinkedin",
+    control: control,
+    render: function render(_ref14) {
+      var _ref14$field = _ref14.field,
+        _onChange11 = _ref14$field.onChange,
+        value = _ref14$field.value;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Enable LinkedIn', 'highlight-and-share'),
+        className: "has-admin__toggle-control",
+        checked: value,
+        onChange: function onChange(boolValue) {
+          _onChange11(boolValue);
+        },
+        help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('LinkedIn allows URL sharing.', 'highlight-and-share')
+      });
+    }
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "has-admin-component-row"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_5__.Controller, {
+    name: "enableXing",
+    control: control,
+    render: function render(_ref15) {
+      var _ref15$field = _ref15.field,
+        _onChange12 = _ref15$field.onChange,
+        value = _ref15$field.value;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Enable Xing', 'highlight-and-share'),
+        className: "has-admin__toggle-control",
+        checked: value,
+        onChange: function onChange(boolValue) {
+          _onChange12(boolValue);
+        },
+        help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Xing allows URL sharing.', 'highlight-and-share')
+      });
+    }
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "has-admin-component-row"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_5__.Controller, {
+    name: "enableEmails",
+    control: control,
+    render: function render(_ref16) {
+      var _ref16$field = _ref16.field,
+        _onChange13 = _ref16$field.onChange,
+        value = _ref16$field.value;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Enable Emails', 'highlight-and-share'),
+        className: "has-admin__toggle-control",
+        checked: value,
+        onChange: function onChange(boolValue) {
+          _onChange13(boolValue);
+        },
+        help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Users will be able to send an email when highlighting text.', 'highlight-and-share')
+      });
+    }
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "has-admin-component-row"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_5__.Controller, {
+    name: "enableCopy",
+    control: control,
+    render: function render(_ref17) {
+      var _ref17$field = _ref17.field,
+        _onChange14 = _ref17$field.onChange,
+        value = _ref17$field.value;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["default"], {
+        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Enable Copy', 'highlight-and-share'),
+        className: "has-admin__toggle-control",
+        checked: value,
+        onChange: function onChange(boolValue) {
+          _onChange14(boolValue);
+        },
+        help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Users will be able to copy the selected text when highlighting content.', 'highlight-and-share')
+      });
+    }
+  }))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Settings);
 

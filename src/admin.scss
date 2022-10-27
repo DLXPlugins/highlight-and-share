@@ -296,7 +296,7 @@ h2.has-admin-content-subheading {
 .has-admin__text-control {
 	input[type='text'],
 	input[type='password'] {
-		max-width: 300px;
+		max-width: 350px;
 		width: 100%;
 		background-color: #fff;
 		border-radius: 3px;
@@ -309,5 +309,18 @@ h2.has-admin-content-subheading {
 		margin: 0;
 		outline-style: none;
 		box-sizing: border-box;
+	}
+}
+
+/* Admin Radio component */
+.components-radio-control {
+	input[type='radio'] {
+		&~label {
+			display: inline-block;
+			margin-left: 5px;
+		}
+	}
+	.components-radio-control__option {
+		margin-bottom: 8px;
 	}
 }
