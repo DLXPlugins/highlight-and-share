@@ -5,7 +5,7 @@
 		"wpApiSettings": true,
 		"window": true,
 		"document": true,
-		"alertsDlxBlock": "readonly"
+		"hasSettingsAdmin": "readonly"
 	},
 	"env": {
 		"browser": true,

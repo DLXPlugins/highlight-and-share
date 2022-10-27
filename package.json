@@ -54,6 +54,7 @@
 		"react-hook-form": "^7.32.2",
 		"react-router": "^6.3.0",
 		"react-router-dom": "^6.3.0",
+		"react-spinners": "^0.13.6",
 		"resolve-url-loader": "^5.0.0",
 		"sass-loader": "^12.6.0",
 		"styled-components": "^5.3.5",

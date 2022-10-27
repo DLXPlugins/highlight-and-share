@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, Suspense } from 'react';
 import { __ } from '@wordpress/i18n';
 import { escapeAttribute } from '@wordpress/escape-html';
 import { useForm, Controller, useWatch, useFormState } from 'react-hook-form';
@@ -18,8 +18,54 @@ import Notice from '../Components/Notice';
 import CircularInfoIcon from '../Components/Icons/CircularInfo';
 import CircularExclamationIcon from '../Components/Icons/CircularExplanation';
 import Spinner from '../Components/Icons/Spinner';
+import sendCommand from '../Utils/SendCommand';
+import Loader from '../Components/Loader';
 
-const Settings = () => {
+const retrieveDefaults = () => {
+	return sendCommand( 'has_retrieve_settings_tab', {
+		nonce: hasSettingsAdmin.retrieveNonce,
+	} );
+};
+
+const Settings = ( props ) => {
+	const [ defaults, getDefaults ] = useAsyncResource( retrieveDefaults, [] );
+
+	return (
+		<ErrorBoundary
+			fallback={
+				<p>
+					{ __( 'Could not load advanced options.', 'quotes-dlx' ) }
+					<br />
+					<a
+						href="https://dlxplugins.com/support/"
+						target="_blank"
+						rel="noopener noreferrer"
+					>
+						DLX Plugins Support
+					</a>
+				</p>
+			}
+		>
+			<Suspense
+				fallback={
+					<Loader
+						title={ __( 'Welcome to Highlight and Share', 'highlight-and-share' ) }
+						label={ __( 'Loading…', 'highlight-and-share' ) }
+						color="var(--wp-admin-theme-color)"
+					/>
+				}
+			>
+				<Interface defaults={ defaults } { ...props } />
+			</Suspense>
+		</ErrorBoundary>
+	);
+};
+
+const Interface = ( props ) => {
+	// Get retrieved data.
+	const { defaults } = props;
+	const response = defaults();
+	const { data, success } = response.data;
 
 	const [ saving, setSaving ] = useState( false );
 	const [ isSaved, setIsSaved ] = useState( false );
@@ -506,7 +552,10 @@ const Settings = () => {
 				</div>
 				<h3>{ __( 'Advanced', 'highlight-and-share' ) }</h3>
 				<p className="description">
-					{ __( 'These advanced settings allow Highlight and Share to work with your theme, particularly if you are using a page builder.', 'highlight-and-share' ) }
+					{ __(
+						'These advanced settings allow Highlight and Share to work with your theme, particularly if you are using a page builder.',
+						'highlight-and-share'
+					) }
 				</p>
 				<div className="has-admin-component-row">
 					<>
@@ -536,9 +585,7 @@ const Settings = () => {
 									/>
 									{ 'pattern' === errors.classSelectors?.type && (
 										<Notice
-											message={ __(
-												'There are invalid characters.'
-											) }
+											message={ __( 'There are invalid characters.' ) }
 											status="error"
 											politeness="assertive"
 											inline={ true }
@@ -578,9 +625,7 @@ const Settings = () => {
 									/>
 									{ 'pattern' === errors.idSelectors?.type && (
 										<Notice
-											message={ __(
-												'There are invalid characters.'
-											) }
+											message={ __( 'There are invalid characters.' ) }
 											status="error"
 											politeness="assertive"
 											inline={ true }
@@ -609,7 +654,10 @@ const Settings = () => {
 											<TextControl
 												{ ...field }
 												type="text"
-												label={ __( 'HTML Element Selectors', 'highlight-and-share' ) }
+												label={ __(
+													'HTML Element Selectors',
+													'highlight-and-share'
+												) }
 												className={ classNames( 'has-admin__text-control' ) }
 												help={ __(
 													'Separate each element with commas.',
@@ -620,9 +668,7 @@ const Settings = () => {
 									/>
 									{ 'pattern' === errors.elementSelectors?.type && (
 										<Notice
-											message={ __(
-												'There are invalid characters.'
-											) }
+											message={ __( 'There are invalid characters.' ) }
 											status="error"
 											politeness="assertive"
 											inline={ true }

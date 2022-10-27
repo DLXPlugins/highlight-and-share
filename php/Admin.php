@@ -21,6 +21,23 @@ class Admin {
 		add_action( 'admin_enqueue_scripts', array( $this, 'enqueue_admin_scripts' ) );
 		// Plugin settings.
 		add_filter( 'plugin_action_links_' . plugin_basename( Functions::get_plugin_file() ), array( $this, 'add_settings_link' ) );
+
+		// Save and retrieve settings tab content.
+		add_action( 'wp_ajax_has_save_settings_tab', array( $this, 'ajax_save_settings_tab' ) );
+		add_action( 'wp_ajax_has_retrieve_settings_tab', array( $this, 'ajax_retrieve_settings_tab' ) );
+		add_action( 'wp_ajax_has_reset_settings_tab', array( $this, 'ajax_reset_settings_tab' ) );
+	}
+
+	/**
+	 * Retrieve Highlight and Share settings options.
+	 */
+	public function ajax_retrieve_settings_tab() {
+		if ( ! wp_verify_nonce( filter_input( INPUT_POST, 'nonce', FILTER_DEFAULT ), 'has_retrieve_settings' ) || ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( array() );
+		}
+
+		$options = Options::get_plugin_options();
+		wp_send_json_success( $options );
 	}
 
 	/**
@@ -152,6 +169,15 @@ class Admin {
 					array(),
 					HIGHLIGHT_AND_SHARE_VERSION,
 					true
+				);
+				wp_localize_script(
+					'has-settings-admin-js',
+					'hasSettingsAdmin',
+					array(
+						'saveNonce'     => wp_create_nonce( 'has_save_settings' ),
+						'retrieveNonce' => wp_create_nonce( 'has_retrieve_settings' ),
+						'resetNonce'    => wp_create_nonce( 'has_reset_settings' ),
+					)
 				);
 			}
 		}
