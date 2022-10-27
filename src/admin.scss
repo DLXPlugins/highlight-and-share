@@ -51,7 +51,7 @@
 	}
 }
 
-@keyframes has-rotate {
+@keyframes has-spin {
 	100% {
 		transform: rotate(360deg);
 	}
@@ -84,6 +84,7 @@
 	border: 1px solid #c3c4c7;
 	border-top: 0;
 	box-shadow: 0 1px 6px rgb(0 0 0 / 8%);
+	padding-bottom: 35px;
 }
 
 $link_color: #2c3a95;
@@ -495,5 +496,119 @@ h2.has-admin-content-subheading {
 		animation-name: has-fade-in, has-fade-out;
 		animation-duration: 0.6s;
 		animation-delay: 0s, 2s;
+	}
+}
+
+/* Buttons */
+.has-admin__tabs--content-actions {
+	display: flex;
+	justify-content: space-between;
+	align-items: center;
+	padding-top: 25px;
+
+	.has-admin__tabs--content-actions--left {
+		display: flex;
+		justify-content: flex-start;
+
+		button {
+			margin-right: 10px;
+			&:last-child {
+				margin-right: 0;
+			}
+		}
+	}
+	.has-admin__tabs--content-actions--right {
+		display: flex;
+		justify-content: flex-end;
+	}
+
+	&.no-flex {
+		display: block;
+	}
+
+	.has-admin-reset-confirmation {
+		padding-bottom: 20px;
+	}
+
+	button {
+		background: #FFFFFF;
+		color: #017e01;
+		border: 1px solid #017e01;
+		padding: 10px 20px;
+		cursor: pointer;
+
+		&:hover {
+			background: #e9ece6;
+			color: #005200;
+			border-color: #006400;
+		}
+
+		&.has-error {
+			border: 1px solid #bc2b2c;
+			&:hover {
+				cursor: not-allowed;
+			}
+		}
+
+		&.has__btn-danger {
+			background: #FFFFFF;
+			color: #822700;
+			border-color: #822700;
+
+			&:hover {
+				background: #ece6e6;
+				color: #822700;
+				border-color: #822700;
+			}
+		}
+
+		&.has__btn-secondary {
+			background: #FFFFFF;
+			color: #333;
+			border-color: #333;
+
+			&:hover {
+				background: rgb(235, 235, 235);
+				color: #333;
+				border-color: #333;
+			}
+		}
+
+		&.has__btn--icon-right {
+			svg {
+				width: 16px;
+				height: 16px;
+				path {
+					fill: #000;
+				}
+				margin-left: 8px;
+			}
+			&.is-saving {
+				display: flex;
+				justify-content: center;
+				align-items: center;
+				svg {
+					width: 24px;
+					height: 24px;
+					animation: has-spin 1s linear infinite;
+					path {
+						fill: #017e01;
+					}
+				}
+			}
+			&.is-resetting {
+				display: flex;
+				justify-content: space-between;
+				align-items: center;
+				svg {
+					width: 24px;
+					height: 24px;
+					animation: has-spin 1s linear infinite;
+					path {
+						fill: #822700;
+					}
+				}
+			}
+		}
 	}
 }

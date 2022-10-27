@@ -86,11 +86,6 @@ class Admin {
 						if ( null === $current_tab || 'settings' === $current_tab ) {
 							?>
 							<div id="has-settings-admin"></div>
-							<form action="<?php echo esc_url( admin_url( 'options.php' ) ); ?>" method="POST">
-							<?php settings_fields( 'highlight-and-share' ); ?>
-							<?php do_settings_sections( 'highlight-and-share' ); ?>
-							<?php submit_button(); ?>
-							</form>
 							<?php
 						} elseif ( 'theme' === $current_tab ) {
 							?>
