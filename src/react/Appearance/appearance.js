@@ -1,0 +1,203 @@
+import React, { useState, Suspense } from 'react';
+import { __ } from '@wordpress/i18n';
+import { escapeAttribute } from '@wordpress/escape-html';
+import { useForm, Controller, useWatch, useFormState } from 'react-hook-form';
+import classNames from 'classnames';
+import { useAsyncResource } from 'use-async-resource';
+import {
+	TextControl,
+	Button,
+	ButtonGroup,
+	RadioControl,
+	SelectControl,
+	ToggleControl,
+	RangeControl,
+} from '@wordpress/components';
+import ErrorBoundary from '../Components/ErrorBoundary';
+import Notice from '../Components/Notice';
+import CircularInfoIcon from '../Components/Icons/CircularInfo';
+import CircularExclamationIcon from '../Components/Icons/CircularExplanation';
+import Spinner from '../Components/Icons/Spinner';
+import sendCommand from '../Utils/SendCommand';
+import Loader from '../Components/Loader';
+
+const retrieveDefaults = () => {
+	return sendCommand( 'has_retrieve_settings_tab', {
+		nonce: hasSettingsAdmin.retrieveNonce,
+	} );
+};
+
+const ThemesTemp = ( props ) => {
+	const [ defaults, getDefaults ] = useAsyncResource( retrieveDefaults, [] );
+
+	return (
+		<ErrorBoundary
+			fallback={
+				<p>
+					{ __( 'Could not load advanced options.', 'quotes-dlx' ) }
+					<br />
+					<a
+						href="https://dlxplugins.com/support/"
+						target="_blank"
+						rel="noopener noreferrer"
+					>
+						DLX Plugins Support
+					</a>
+				</p>
+			}
+		>
+			<Suspense
+				fallback={
+					<Loader
+						title={ __( 'Welcome to Highlight and Share', 'highlight-and-share' ) }
+						label={ __( 'Loading…', 'highlight-and-share' ) }
+						color="var(--wp-admin-theme-color)"
+					/>
+				}
+			>
+				<Interface defaults={ defaults } { ...props } />
+			</Suspense>
+		</ErrorBoundary>
+	);
+};
+
+const Appearance = ( props ) => {
+	// Get retrieved data.
+	// const { defaults } = props;
+	// const response = defaults();
+	// const { data, success } = response.data;
+
+	const [ saving, setSaving ] = useState( false );
+	const [ isSaved, setIsSaved ] = useState( false );
+	const [ resetting, setResetting ] = useState( false );
+	const [ isReset, setIsReset ] = useState( false );
+
+	const getDefaultValues = () => {
+		return {
+			enableMobile: '',
+			enableContent: '',
+			enableExcerpt: '',
+			sharingPrefix: '',
+			sharingSuffix: '',
+			showTwitter: '',
+			twitter: '',
+			enableHashtags: '',
+			showFacebook: '',
+			showWhatsApp: '',
+			whatsAppApiEndpoint: '',
+			showReddit: '',
+			showTelegram: '',
+			showLinkedin: '',
+			showXing: '',
+			showCopy: '',
+			enableEmails: '',
+			shortlinks: '',
+			jsContent: '',
+			elementContent: '',
+			idContent: '',
+		};
+	};
+	const {
+		register,
+		control,
+		handleSubmit,
+		setValue,
+		getValues,
+		reset,
+		trigger,
+	} = useForm( {
+		defaultValues: getDefaultValues(),
+	} );
+
+	const formValues = useWatch( { control } );
+
+	const { errors, isDirty, dirtyFields, touchedFields } = useFormState( {
+		control,
+	} );
+
+	const onSubmit = ( formData ) => {
+		setSaving( true );
+
+		sendCommand( 'has_save_settings_tab', {
+			nonce: hasSettingsAdmin.saveNonce,
+			form_data: formData,
+		} )
+			.then( ( ajaxResponse ) => {
+				const ajaxData = ajaxResponse.data.data;
+				const ajaxSuccess = ajaxResponse.data.success;
+				if ( ajaxSuccess ) {
+					// Reset count.
+					reset( ajaxData );
+					setIsSaved( true );
+					setTimeout( () => {
+						setIsSaved( false );
+					}, 3000 );
+				} else {
+					// Error stuff.
+				}
+			} )
+			.catch( ( ajaxResponse ) => {} )
+			.then( ( ajaxResponse ) => {
+				setSaving( false );
+			} );
+	};
+	const handleReset = ( e ) => {
+		setResetting( true );
+		sendCommand( 'has_reset_settings_tab', {
+			nonce: hasSettingsAdmin.resetNonce,
+		} )
+			.then( ( ajaxResponse ) => {
+				const ajaxData = ajaxResponse.data.data;
+				const ajaxSuccess = ajaxResponse.data.success;
+				if ( ajaxSuccess ) {
+					// Clear form dirty.
+					reset( ajaxData );
+
+					setIsReset( true );
+					setTimeout( () => {
+						setIsReset( false );
+					}, 3000 );
+				} else {
+					// Error stuff.
+				}
+			} )
+			.catch( ( ajaxResponse ) => {} )
+			.then( ( ajaxResponse ) => {
+				setResetting( false );
+			} );
+	};
+	const hasErrors = () => {
+		return Object.keys( errors ).length > 0;
+	};
+	return (
+		<form onSubmit={ handleSubmit( onSubmit ) }>
+			<div className="has-admin-content-wrapper">
+				<div className="has-admin-content-panel">
+					<div className="has-admin-content-heading">
+						<h1>
+							<span className="has-admin-content-heading-text">
+								{ __( 'Appearance and Theme Settings', 'quotes-dlx' ) }
+							</span>
+						</h1>
+						<p className="description">
+							{ __(
+								'On this screen, you can customize the look of Highlight and Share, and reorder the sharing buttons.',
+								'quotes-dlx'
+							) }
+						</p>
+					</div>
+					<div className="has-admin-content-body">
+						<h2 className="has-admin-content-subheading">
+							{ __( 'Reorder Sharing Networks', 'highlight-and-share' ) }
+						</h2>
+						<div className="has-admin-component-row">
+							test
+						</div>
+					</div>
+				</div>
+			</div>
+		</form>
+	);
+};
+
+export default Appearance;

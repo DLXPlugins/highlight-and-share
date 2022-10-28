@@ -39,24 +39,9 @@ class Options {
 	}
 
 	/**
-	 * Initialize and return plugin options.
-	 *
-	 * Return an array of plugin options.
-	 *
-	 * @since 1.0.0
-	 * @access public
-	 *
-	 * @see init
-	 *
-	 * @return array Plugin options
+	 * Get default options.
 	 */
-	public static function get_plugin_options() {
-		if ( false === Options::$options ) {
-			$settings = get_option( 'highlight-and-share' );
-		} else {
-			$settings = Options::$options;
-		}
-
+	public static function get_defaults() {
 		$defaults = array(
 			'js_content'            => '',
 			'element_content'       => '',
@@ -85,14 +70,39 @@ class Options {
 			'sharing_suffix'        => '',
 			'whatsapp_api_endpoint' => 'app', // Can also we 'web'.
 		);
+		return $defaults;
+	}
+
+	/**
+	 * Initialize and return plugin options.
+	 *
+	 * Return an array of plugin options.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 *
+	 * @see init
+	 *
+	 * @param bool $force Force a refresh of the options.
+	 *
+	 * @return array Plugin options
+	 */
+	public static function get_plugin_options( $force = false ) {
+		if ( false === self::$options ) {
+			$settings = get_option( 'highlight-and-share' );
+		} else {
+			$settings = self::$options;
+		}
+
+		$defaults = self::get_defaults();
 
 		if ( false === $settings || ! is_array( $settings ) ) {
 			update_option( 'highlight-and-share', $defaults );
 			return $defaults;
-		} else {
-			$settings = wp_parse_args( $settings, $defaults );
 		}
-		Options::$options = $settings;
+
+		$settings      = wp_parse_args( $settings, $defaults );
+		self::$options = $settings;
 		return $settings;
 	}
 }

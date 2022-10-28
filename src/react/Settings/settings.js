@@ -67,8 +67,6 @@ const Interface = ( props ) => {
 	const response = defaults();
 	const { data, success } = response.data;
 
-	console.log( data );
-
 	const [ saving, setSaving ] = useState( false );
 	const [ isSaved, setIsSaved ] = useState( false );
 	const [ resetting, setResetting ] = useState( false );
@@ -77,26 +75,26 @@ const Interface = ( props ) => {
 	const getDefaultValues = () => {
 		return {
 			enableMobile: data.enableMobile,
-			enablePostContent: data.enablePostContent,
-			enablePostExcerpt: data.enablePostExcerpt,
-			quotePrefix: data.quotePrefix,
-			quoteSuffix: data.quoteSuffix,
-			enableTwitter: data.enableTwitter,
-			twitterUsername: data.twitterUsername,
-			enableTwitterHashtags: data.enableTwitterHashtags,
-			enableFacebook: data.enableFacebook,
-			enableWhatsApp: data.enableWhatsApp,
-			whatsAppEndpoint: data.whatsAppEndpoint,
-			enableReddit: data.enableReddit,
-			enableTelegram: data.enableTelegram,
-			enableLinkedin: data.enableLinkedin,
-			enableXing: data.enableXing,
-			enableCopy: data.enableCopy,
+			enableContent: data.enableContent,
+			enableExcerpt: data.enableExcerpt,
+			sharingPrefix: data.sharingPrefix,
+			sharingSuffix: data.sharingSuffix,
+			showTwitter: data.showTwitter,
+			twitter: data.twitter,
+			enableHashtags: data.enableHashtags,
+			showFacebook: data.showFacebook,
+			showWhatsApp: data.showWhatsApp,
+			whatsAppApiEndpoint: data.whatsappApiEndpoint,
+			showReddit: data.showReddit,
+			showTelegram: data.showTelegram,
+			showLinkedin: data.showLinkedin,
+			showXing: data.showXing,
+			showCopy: data.showCopy,
 			enableEmails: data.enableEmails,
-			enableShortlinks: data.enableShortlinks,
-			classSelectors: data.classSelectors,
-			elementSelectors: data.elementSelectors,
-			idSelectors: data.idSelectors,
+			shortlinks: data.shortlinks,
+			jsContent: data.jsContent,
+			elementContent: data.elementContent,
+			idContent: data.idContent,
 		};
 	};
 	const {
@@ -119,9 +117,54 @@ const Interface = ( props ) => {
 
 	const onSubmit = ( formData ) => {
 		setSaving( true );
+
+		sendCommand( 'has_save_settings_tab', {
+			nonce: hasSettingsAdmin.saveNonce,
+			form_data: formData,
+		} )
+			.then( ( ajaxResponse ) => {
+				const ajaxData = ajaxResponse.data.data;
+				const ajaxSuccess = ajaxResponse.data.success;
+				if ( ajaxSuccess ) {
+					// Reset count.
+					reset( ajaxData );
+					setIsSaved( true );
+					setTimeout( () => {
+						setIsSaved( false );
+					}, 3000 );
+				} else {
+					// Error stuff.
+				}
+			} )
+			.catch( ( ajaxResponse ) => {} )
+			.then( ( ajaxResponse ) => {
+				setSaving( false );
+			} );
 	};
-	const handleReset = () => {
+	const handleReset = ( e ) => {
 		setResetting( true );
+		sendCommand( 'has_reset_settings_tab', {
+			nonce: hasSettingsAdmin.resetNonce,
+		} )
+			.then( ( ajaxResponse ) => {
+				const ajaxData = ajaxResponse.data.data;
+				const ajaxSuccess = ajaxResponse.data.success;
+				if ( ajaxSuccess ) {
+					// Clear form dirty.
+					reset( ajaxData );
+
+					setIsReset( true );
+					setTimeout( () => {
+						setIsReset( false );
+					}, 3000 );
+				} else {
+					// Error stuff.
+				}
+			} )
+			.catch( ( ajaxResponse ) => {} )
+			.then( ( ajaxResponse ) => {
+				setResetting( false );
+			} );
 	};
 	const hasErrors = () => {
 		return Object.keys( errors ).length > 0;
@@ -172,7 +215,7 @@ const Interface = ( props ) => {
 						</div>
 						<div className="has-admin-component-row">
 							<Controller
-								name="enablePostContent"
+								name="enableContent"
 								control={ control }
 								render={ ( { field: { onChange, value } } ) => (
 									<ToggleControl
@@ -195,7 +238,7 @@ const Interface = ( props ) => {
 						</div>
 						<div className="has-admin-component-row">
 							<Controller
-								name="enablePostExcerpt"
+								name="enableExcerpt"
 								control={ control }
 								render={ ( { field: { onChange, value } } ) => (
 									<ToggleControl
@@ -224,7 +267,7 @@ const Interface = ( props ) => {
 					</h2>
 					<div className="has-admin-component-row">
 						<Controller
-							name="quotePrefix"
+							name="sharingPrefix"
 							control={ control }
 							render={ ( { field } ) => (
 								<TextControl
@@ -242,7 +285,7 @@ const Interface = ( props ) => {
 					</div>
 					<div className="has-admin-component-row">
 						<Controller
-							name="quoteSuffix"
+							name="sharingSuffix"
 							control={ control }
 							render={ ( { field } ) => (
 								<TextControl
@@ -266,7 +309,7 @@ const Interface = ( props ) => {
 					<h3>{ __( 'Twitter Options', 'highlight-and-share' ) }</h3>
 					<div className="has-admin-component-row">
 						<Controller
-							name="enableTwitter"
+							name="showTwitter"
 							control={ control }
 							render={ ( { field: { onChange, value } } ) => (
 								<ToggleControl
@@ -287,11 +330,11 @@ const Interface = ( props ) => {
 							) }
 						/>
 					</div>
-					{ getValues( 'enableTwitter' ) && (
+					{ getValues( 'showTwitter' ) && (
 						<>
 							<div className="has-admin-component-row">
 								<Controller
-									name="enableTwitterHashtags"
+									name="enableHashtags"
 									control={ control }
 									render={ ( { field: { onChange, value } } ) => (
 										<ToggleControl
@@ -314,7 +357,7 @@ const Interface = ( props ) => {
 							</div>
 							<div className="has-admin-component-row">
 								<Controller
-									name="twitterUsername"
+									name="twitter"
 									control={ control }
 									render={ ( { field } ) => (
 										<TextControl
@@ -336,7 +379,7 @@ const Interface = ( props ) => {
 				<h3>{ __( 'Facebook Options', 'highlight-and-share' ) }</h3>
 				<div className="has-admin-component-row">
 					<Controller
-						name="enableFacebook"
+						name="showFacebook"
 						control={ control }
 						render={ ( { field: { onChange, value } } ) => (
 							<ToggleControl
@@ -360,7 +403,7 @@ const Interface = ( props ) => {
 				<h3>{ __( 'WhatsApp Options', 'highlight-and-share' ) }</h3>
 				<div className="has-admin-component-row">
 					<Controller
-						name="enableWhatsApp"
+						name="showWhatsApp"
 						control={ control }
 						render={ ( { field: { onChange, value } } ) => (
 							<ToggleControl
@@ -378,10 +421,10 @@ const Interface = ( props ) => {
 						) }
 					/>
 				</div>
-				{ getValues( 'enableWhatsApp' ) && (
+				{ getValues( 'showWhatsApp' ) && (
 					<div className="has-admin-component-row">
 						<Controller
-							name="whatsAppEndpoint"
+							name="whatsAppApiEndpoint"
 							control={ control }
 							render={ ( { field: { onChange, value } } ) => (
 								<RadioControl
@@ -410,7 +453,7 @@ const Interface = ( props ) => {
 				<h3>{ __( 'Other Social Options', 'highlight-and-share' ) }</h3>
 				<div className="has-admin-component-row">
 					<Controller
-						name="enableReddit"
+						name="showReddit"
 						control={ control }
 						render={ ( { field: { onChange, value } } ) => (
 							<ToggleControl
@@ -427,7 +470,7 @@ const Interface = ( props ) => {
 				</div>
 				<div className="has-admin-component-row">
 					<Controller
-						name="enableTelegram"
+						name="showTelegram"
 						control={ control }
 						render={ ( { field: { onChange, value } } ) => (
 							<ToggleControl
@@ -447,7 +490,7 @@ const Interface = ( props ) => {
 				</div>
 				<div className="has-admin-component-row">
 					<Controller
-						name="enableLinkedin"
+						name="showLinkedin"
 						control={ control }
 						render={ ( { field: { onChange, value } } ) => (
 							<ToggleControl
@@ -464,7 +507,7 @@ const Interface = ( props ) => {
 				</div>
 				<div className="has-admin-component-row">
 					<Controller
-						name="enableXing"
+						name="showXing"
 						control={ control }
 						render={ ( { field: { onChange, value } } ) => (
 							<ToggleControl
@@ -501,7 +544,7 @@ const Interface = ( props ) => {
 				</div>
 				<div className="has-admin-component-row">
 					<Controller
-						name="enableCopy"
+						name="showCopy"
 						control={ control }
 						render={ ( { field: { onChange, value } } ) => (
 							<ToggleControl
@@ -533,7 +576,7 @@ const Interface = ( props ) => {
 							icon={ CircularInfoIcon }
 						/>
 						<Controller
-							name="enableShortlinks"
+							name="shortlinks"
 							control={ control }
 							render={ ( { field: { onChange, value } } ) => (
 								<ToggleControl
@@ -552,7 +595,9 @@ const Interface = ( props ) => {
 						/>
 					</>
 				</div>
-				<h3>{ __( 'Advanced', 'highlight-and-share' ) }</h3>
+				<h2 className="has-admin-content-subheading">
+					{ __( 'Advanced', 'highlight-and-share' ) }
+				</h2>
 				<p className="description">
 					{ __(
 						'These advanced settings allow Highlight and Share to work with your theme, particularly if you are using a page builder.',
@@ -562,7 +607,7 @@ const Interface = ( props ) => {
 				<div className="has-admin-component-row">
 					<>
 						<Controller
-							name="classSelectors"
+							name="jsContent"
 							control={ control }
 							rules={ {
 								pattern: /^\.?[-_,A-Za-z0-9]+$/i,
@@ -570,7 +615,7 @@ const Interface = ( props ) => {
 							render={ ( { field: { onChange, value } } ) => (
 								<>
 									<Controller
-										name="classSelectors"
+										name="jsContent"
 										control={ control }
 										render={ ( { field } ) => (
 											<TextControl
@@ -585,7 +630,7 @@ const Interface = ( props ) => {
 											/>
 										) }
 									/>
-									{ 'pattern' === errors.classSelectors?.type && (
+									{ 'pattern' === errors.jsContent?.type && (
 										<Notice
 											message={ __( 'There are invalid characters.' ) }
 											status="error"
@@ -602,7 +647,7 @@ const Interface = ( props ) => {
 				<div className="has-admin-component-row">
 					<>
 						<Controller
-							name="idSelectors"
+							name="idContent"
 							control={ control }
 							rules={ {
 								pattern: /^\#?[-_,A-Za-z0-9]+$/i,
@@ -610,7 +655,7 @@ const Interface = ( props ) => {
 							render={ ( { field: { onChange, value } } ) => (
 								<>
 									<Controller
-										name="idSelectors"
+										name="idContent"
 										control={ control }
 										render={ ( { field } ) => (
 											<TextControl
@@ -625,7 +670,7 @@ const Interface = ( props ) => {
 											/>
 										) }
 									/>
-									{ 'pattern' === errors.idSelectors?.type && (
+									{ 'pattern' === errors.idContent?.type && (
 										<Notice
 											message={ __( 'There are invalid characters.' ) }
 											status="error"
@@ -642,7 +687,7 @@ const Interface = ( props ) => {
 				<div className="has-admin-component-row">
 					<>
 						<Controller
-							name="elementSelectors"
+							name="elementContent"
 							control={ control }
 							rules={ {
 								pattern: /^[,A-Za-z0-9]+$/i,
@@ -650,7 +695,7 @@ const Interface = ( props ) => {
 							render={ ( { field: { onChange, value } } ) => (
 								<>
 									<Controller
-										name="elementSelectors"
+										name="elementContent"
 										control={ control }
 										render={ ( { field } ) => (
 											<TextControl
@@ -668,7 +713,7 @@ const Interface = ( props ) => {
 											/>
 										) }
 									/>
-									{ 'pattern' === errors.elementSelectors?.type && (
+									{ 'pattern' === errors.elementContent?.type && (
 										<Notice
 											message={ __( 'There are invalid characters.' ) }
 											status="error"
