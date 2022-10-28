@@ -52,7 +52,7 @@ class Admin {
 		// Loop through form data, convert to underscore case, sanitize, and save options.
 		$converted_options = array();
 		foreach ( $form_data as $key => $value ) {
-			$key   = sanitize_key( Functions::to_underlines( $key ) );
+			$key = sanitize_key( Functions::to_underlines( $key ) );
 
 			if ( is_bool( $value ) || 'true' === $value || 'false' === $value ) {
 				// Convert string to boolean.
@@ -253,7 +253,7 @@ class Admin {
 
 			// Determine if we're loading the appearance tab.
 			$enqueue_appearance = false;
-			$current_tab      = Functions::get_admin_tab();
+			$current_tab        = Functions::get_admin_tab();
 			if ( null !== $current_tab && 'appearance' === $current_tab ) {
 				$enqueue_appearance = true;
 			}
@@ -269,9 +269,10 @@ class Admin {
 					'has-appearance-admin-js',
 					'hasAppearanceAdmin',
 					array(
-						'saveNonce'     => wp_create_nonce( 'has_save_settings' ),
-						'retrieveNonce' => wp_create_nonce( 'has_retrieve_settings' ),
-						'resetNonce'    => wp_create_nonce( 'has_reset_settings' ),
+						'saveNonce'      => wp_create_nonce( 'has_save_settings' ),
+						'retrieveNonce'  => wp_create_nonce( 'has_retrieve_settings' ),
+						'resetNonce'     => wp_create_nonce( 'has_reset_settings' ),
+						'socialNetworks' => Options::get_plugin_options_social_networks(),
 					)
 				);
 			}

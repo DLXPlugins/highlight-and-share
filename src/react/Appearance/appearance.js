@@ -4,6 +4,7 @@ import { escapeAttribute } from '@wordpress/escape-html';
 import { useForm, Controller, useWatch, useFormState } from 'react-hook-form';
 import classNames from 'classnames';
 import { useAsyncResource } from 'use-async-resource';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
 	TextControl,
 	Button,
@@ -21,9 +22,22 @@ import Spinner from '../Components/Icons/Spinner';
 import sendCommand from '../Utils/SendCommand';
 import Loader from '../Components/Loader';
 
+// Import all the social media icons.
+import {
+	TwitterIcon,
+	FacebookIcon,
+	WhatsappIcon,
+	LinkedinIcon,
+	RedditIcon,
+	XingIcon,
+	CopyIcon,
+	EmailIcon,
+	TelegramIcon,
+} from '../Components/SocialIcons';
+
 const retrieveDefaults = () => {
 	return sendCommand( 'has_retrieve_settings_tab', {
-		nonce: hasSettingsAdmin.retrieveNonce,
+		nonce: hasAppearanceAdmin.retrieveNonce,
 	} );
 };
 
@@ -115,11 +129,13 @@ const Appearance = ( props ) => {
 		control,
 	} );
 
+	const socialNetworks = hasAppearanceAdmin.socialNetworks;
+
 	const onSubmit = ( formData ) => {
 		setSaving( true );
 
 		sendCommand( 'has_save_settings_tab', {
-			nonce: hasSettingsAdmin.saveNonce,
+			nonce: hasAppearanceAdmin.saveNonce,
 			form_data: formData,
 		} )
 			.then( ( ajaxResponse ) => {
@@ -144,7 +160,7 @@ const Appearance = ( props ) => {
 	const handleReset = ( e ) => {
 		setResetting( true );
 		sendCommand( 'has_reset_settings_tab', {
-			nonce: hasSettingsAdmin.resetNonce,
+			nonce: hasAppearanceAdmin.resetNonce,
 		} )
 			.then( ( ajaxResponse ) => {
 				const ajaxData = ajaxResponse.data.data;
@@ -169,6 +185,81 @@ const Appearance = ( props ) => {
 	const hasErrors = () => {
 		return Object.keys( errors ).length > 0;
 	};
+
+	const getIcons = () => {
+		// Get the social media icons and return them in list format..
+		const networks = hasAppearanceAdmin.socialNetworks;
+		const icons = [];
+		for ( const [ key, value ] of Object.entries( networks ) ) {
+			switch ( key ) {
+				case 'twitter':
+					icons.push(
+						<li key={ key }>
+							<FontAwesomeIcon size={ '1x' } icon={ TwitterIcon } />
+						</li>
+					);
+					break;
+				case 'facebook':
+					icons.push(
+						<li key={ key }>
+							<FontAwesomeIcon size={ '1x' } icon={ FacebookIcon } />
+						</li>
+					);
+					break;
+				case 'whatsapp':
+					icons.push(
+						<li key={ key }>
+							<FontAwesomeIcon size={ '1x' } icon={ WhatsappIcon } />
+						</li>
+					);
+					break;
+				case 'reddit':
+					icons.push(
+						<li key={ key }>
+							<FontAwesomeIcon size={ '1x' } icon={ RedditIcon } />
+						</li>
+					);
+					break;
+				case 'telegram':
+					icons.push(
+						<li key={ key }>
+							<FontAwesomeIcon size={ '1x' } icon={ TelegramIcon } />
+						</li>
+					);
+					break;
+				case 'linkedin':
+					icons.push(
+						<li key={ key }>
+							<FontAwesomeIcon size={ '1x' } icon={ LinkedinIcon } />
+						</li>
+					);
+					break;
+				case 'xing':
+					icons.push(
+						<li key={ key }>
+							<FontAwesomeIcon size={ '1x' } icon={ XingIcon } />
+						</li>
+					);
+					break;
+				case 'copy':
+					icons.push(
+						<li key={ key }>
+							<FontAwesomeIcon size={ '1x' } icon={ CopyIcon } />
+						</li>
+					);
+					break;
+				case 'email':
+					icons.push(
+						<li key={ key }>
+							<FontAwesomeIcon size={ '1x' } icon={ EmailIcon } />
+						</li>
+					);
+					break;
+			}
+		}
+		// Now return component with icons.
+		return <ul className="has-icons">{ icons }</ul>;
+	};
 	return (
 		<form onSubmit={ handleSubmit( onSubmit ) }>
 			<div className="has-admin-content-wrapper">
@@ -191,7 +282,7 @@ const Appearance = ( props ) => {
 							{ __( 'Reorder Sharing Networks', 'highlight-and-share' ) }
 						</h2>
 						<div className="has-admin-component-row">
-							test
+							{ getIcons() }
 						</div>
 					</div>
 				</div>

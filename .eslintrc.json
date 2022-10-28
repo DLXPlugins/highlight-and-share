@@ -5,7 +5,8 @@
 		"wpApiSettings": true,
 		"window": true,
 		"document": true,
-		"hasSettingsAdmin": "readonly"
+		"hasSettingsAdmin": "readonly",
+		"hasAppearanceAdmin": "readonly"
 	},
 	"env": {
 		"browser": true,
