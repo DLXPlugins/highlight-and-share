@@ -22,25 +22,6 @@ const SocialIconListItem = ( { listItemKey, className, styles, index, icon, move
 				}
 			}
 		},
-		hover: ( item, monitor ) => {
-			const dragIndex = item.index;
-			const hoverIndex = index;
-			const hoverBoundingRect = ref.current?.getBoundingClientRect();
-			const hoverMiddleX = ( hoverBoundingRect.right - hoverBoundingRect.left ) / 2;
-			const hoverActualX = monitor.getClientOffset().x - hoverBoundingRect.left;
-
-			// if dragging down, continue only when hover is smaller than middle Y
-			if ( dragIndex < hoverIndex && hoverActualX < hoverMiddleX ) {
-				return;
-			}
-			// if dragging up, continue only when hover is bigger than middle Y
-			if ( dragIndex > hoverIndex && hoverActualX > hoverMiddleX ) {
-				return;
-			}
-
-			//moveSocialNetwork( dragIndex, hoverIndex );
-			//item.index = hoverIndex;
-		},
 		collect: ( monitor ) => ( {
 			canDrop: monitor.canDrop(),
 			isOver: monitor.isOver(),

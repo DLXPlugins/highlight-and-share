@@ -43700,27 +43700,6 @@ var SocialIconListItem = function SocialIconListItem(_ref) {
           }
         }
       },
-      hover: function hover(item, monitor) {
-        var _ref$current;
-        var dragIndex = item.index;
-        var hoverIndex = index;
-        var hoverBoundingRect = (_ref$current = ref.current) === null || _ref$current === void 0 ? void 0 : _ref$current.getBoundingClientRect();
-        var hoverMiddleX = (hoverBoundingRect.right - hoverBoundingRect.left) / 2;
-        var hoverActualX = monitor.getClientOffset().x - hoverBoundingRect.left;
-
-        // if dragging down, continue only when hover is smaller than middle Y
-        if (dragIndex < hoverIndex && hoverActualX < hoverMiddleX) {
-          return;
-        }
-        // if dragging up, continue only when hover is bigger than middle Y
-        if (dragIndex > hoverIndex && hoverActualX > hoverMiddleX) {
-          return;
-        }
-
-        //moveSocialNetwork( dragIndex, hoverIndex );
-        //item.index = hoverIndex;
-      },
-
       collect: function collect(monitor) {
         return {
           canDrop: monitor.canDrop(),
