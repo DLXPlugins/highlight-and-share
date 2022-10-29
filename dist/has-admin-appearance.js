@@ -43494,10 +43494,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @fortawesome/react-fontawesome */ "./node_modules/@fortawesome/react-fontawesome/index.es.js");
 /* harmony import */ var _SocialIconListItem__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../SocialIconListItem */ "./src/react/Components/SocialIconListItem/index.js");
 /* harmony import */ var _SocialIcons__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../SocialIcons */ "./src/react/Components/SocialIcons/index.js");
-function _toConsumableArray(arr) { return _arrayWithoutHoles(arr) || _iterableToArray(arr) || _unsupportedIterableToArray(arr) || _nonIterableSpread(); }
-function _nonIterableSpread() { throw new TypeError("Invalid attempt to spread non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
-function _iterableToArray(iter) { if (typeof Symbol !== "undefined" && iter[Symbol.iterator] != null || iter["@@iterator"] != null) return Array.from(iter); }
-function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) return _arrayLikeToArray(arr); }
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
@@ -43606,18 +43602,33 @@ var SocialIconList = function SocialIconList() {
     var hoverItem = networks[hoverIndex];
     // Swap places of dragItem and hoverItem in the pets array
     setNetworks(function () {
-      var updatedNetwork = _toConsumableArray(networks);
-      updatedNetwork[dragIndex] = hoverItem;
-      updatedNetwork[hoverIndex] = dragItem;
+      // For loop to get new indexes.
+      var newNetworks = [];
+      networks.forEach(function (network, index) {
+        if (index !== dragIndex && index !== hoverIndex) {
+          newNetworks.push(network);
+        } else {
+          if (index === hoverIndex && dragIndex < hoverIndex) {
+            newNetworks.push(hoverItem);
+            newNetworks.push(dragItem);
+          }
+          if (index === hoverIndex && dragIndex > hoverIndex) {
+            newNetworks.push(dragItem);
+            newNetworks.push(hoverItem);
+          }
+        }
+      });
 
       // Todo - Ajax call here to save the order.
-      return updatedNetwork;
+      return newNetworks;
     });
   }, [networks]);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("ul", null, networks.map(function (network, index) {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("ul", {
+    className: "has-admin-theme-reorder-list"
+  }, networks.map(function (network, index) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_SocialIconListItem__WEBPACK_IMPORTED_MODULE_3__["default"], {
-      key: index,
-      listItemKey: index,
+      key: network.key,
+      listItemKey: network.listItemKey,
       className: network.className,
       styles: network.styles,
       icon: network.icon,
@@ -43643,17 +43654,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var react_dnd__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react-dnd */ "./node_modules/react-dnd/dist/hooks/useDrag/useDrag.js");
-/* harmony import */ var react_dnd__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-dnd */ "./node_modules/react-dnd/dist/hooks/useDrop/useDrop.js");
-function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
-function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
-function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+/* harmony import */ var react_dnd__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! react-dnd */ "./node_modules/react-dnd/dist/hooks/useDrag/useDrag.js");
+/* harmony import */ var react_dnd__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-dnd */ "./node_modules/react-dnd/dist/hooks/useDrop/useDrop.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_1__);
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 var SocialIconListItem = function SocialIconListItem(_ref) {
@@ -43664,7 +43675,7 @@ var SocialIconListItem = function SocialIconListItem(_ref) {
     icon = _ref.icon,
     moveSocialNetwork = _ref.moveSocialNetwork;
   // useDrag - the list item is draggable
-  var _useDrag = (0,react_dnd__WEBPACK_IMPORTED_MODULE_1__.useDrag)({
+  var _useDrag = (0,react_dnd__WEBPACK_IMPORTED_MODULE_2__.useDrag)({
       type: 'socialItem',
       item: {
         index: index
@@ -43680,26 +43691,41 @@ var SocialIconListItem = function SocialIconListItem(_ref) {
     dragRef = _useDrag2[1];
 
   // useDrop - the list item is also a drop area
-  var _useDrop = (0,react_dnd__WEBPACK_IMPORTED_MODULE_2__.useDrop)({
+  var _useDrop = (0,react_dnd__WEBPACK_IMPORTED_MODULE_3__.useDrop)({
       accept: 'socialItem',
+      drop: function drop(item, monitor) {
+        if (!monitor.didDrop()) {
+          if (item.index !== index) {
+            moveSocialNetwork(item.index, index);
+          }
+        }
+      },
       hover: function hover(item, monitor) {
         var _ref$current;
         var dragIndex = item.index;
         var hoverIndex = index;
         var hoverBoundingRect = (_ref$current = ref.current) === null || _ref$current === void 0 ? void 0 : _ref$current.getBoundingClientRect();
-        var hoverMiddleY = (hoverBoundingRect.bottom - hoverBoundingRect.top) / 2;
-        var hoverActualY = monitor.getClientOffset().y - hoverBoundingRect.top;
+        var hoverMiddleX = (hoverBoundingRect.right - hoverBoundingRect.left) / 2;
+        var hoverActualX = monitor.getClientOffset().x - hoverBoundingRect.left;
 
         // if dragging down, continue only when hover is smaller than middle Y
-        if (dragIndex < hoverIndex && hoverActualY < hoverMiddleY) {
+        if (dragIndex < hoverIndex && hoverActualX < hoverMiddleX) {
           return;
         }
         // if dragging up, continue only when hover is bigger than middle Y
-        if (dragIndex > hoverIndex && hoverActualY > hoverMiddleY) {
+        if (dragIndex > hoverIndex && hoverActualX > hoverMiddleX) {
           return;
         }
-        moveSocialNetwork(dragIndex, hoverIndex);
-        item.index = hoverIndex;
+
+        //moveSocialNetwork( dragIndex, hoverIndex );
+        //item.index = hoverIndex;
+      },
+
+      collect: function collect(monitor) {
+        return {
+          canDrop: monitor.canDrop(),
+          isOver: monitor.isOver()
+        };
       }
     }),
     _useDrop2 = _slicedToArray(_useDrop, 2),
@@ -43708,14 +43734,16 @@ var SocialIconListItem = function SocialIconListItem(_ref) {
   // Join the 2 refs together into one (both draggable and can be dropped on)
   var ref = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   var dragDropRef = dragRef(dropRef(ref));
-  var opacity = isDragging ? 0.3 : 1;
+  var classes = classnames__WEBPACK_IMPORTED_MODULE_1___default()(className, {
+    'is-dragging': isDragging,
+    'can-drop': spec.canDrop,
+    'is-over': spec.isOver
+  });
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", {
     ref: dragDropRef,
     key: listItemKey,
-    className: className,
-    style: _objectSpread(_objectSpread({}, styles), {}, {
-      opacity: opacity
-    })
+    className: classes,
+    style: styles
   }, icon);
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (SocialIconListItem);

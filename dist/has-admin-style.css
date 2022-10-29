@@ -5134,4 +5134,36 @@ h2.has-admin-content-subheading:after {
   fill: #822700;
 }
 
+/* Social Icons for Reorder */
+.has-admin-theme-reorder-list {
+  display: flex;
+  justify-content: flex-start;
+  align-items: center;
+}
+.has-admin-theme-reorder-list li {
+  display: flex;
+  height: 52px;
+  width: 52px;
+  background: #FFF !important;
+  border: 1px solid #e5e5e5;
+  align-items: center;
+  justify-content: center;
+  margin-right: 8px;
+}
+.has-admin-theme-reorder-list li:hover {
+  cursor: move;
+  background: #f4f4f4 !important;
+}
+.has-admin-theme-reorder-list li.is-dragging {
+  opacity: 0.2;
+}
+.has-admin-theme-reorder-list li.is-over {
+  transform: scale(1.2);
+  border: 1px dashed #000;
+}
+.has-admin-theme-reorder-list svg {
+  width: 26px;
+  height: 26px;
+}
+
 /*# sourceMappingURL=has-admin-style.css.map*/

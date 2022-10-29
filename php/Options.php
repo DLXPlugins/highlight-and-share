@@ -52,6 +52,7 @@ class Options {
 		$social_networks = array(
 			'twitter'  => array(
 				'label'      => __( 'Twitter', 'highlight-and-share' ),
+				'slug'       => 'twitter',
 				'color'      => '#1da1f2',
 				'background' => '#fff',
 				'order'      => 0,
@@ -59,6 +60,7 @@ class Options {
 			),
 			'facebook' => array(
 				'label'      => __( 'Facebook', 'highlight-and-share' ),
+				'slug'       => 'facebook',
 				'color'      => '#3b5998',
 				'background' => '#fff',
 				'order'      => 1,
@@ -66,6 +68,7 @@ class Options {
 			),
 			'whatsapp' => array(
 				'label'      => __( 'WhatsApp', 'highlight-and-share' ),
+				'slug'       => 'whatsapp',
 				'color'      => '#25d366',
 				'background' => '#fff',
 				'order'      => 2,
@@ -73,6 +76,7 @@ class Options {
 			),
 			'reddit'   => array(
 				'label'      => __( 'reddit', 'highlight-and-share' ),
+				'slug'       => 'reddit',
 				'color'      => '#ff4500',
 				'background' => '#fff',
 				'order'      => 3,
@@ -80,6 +84,7 @@ class Options {
 			),
 			'telegram' => array(
 				'label'      => __( 'Telegram', 'highlight-and-share' ),
+				'slug'       => 'telegram',
 				'color'      => '#0088cc',
 				'background' => '#fff',
 				'order'      => 4,
@@ -87,6 +92,7 @@ class Options {
 			),
 			'linkedin' => array(
 				'label'      => __( 'LinkedIn', 'highlight-and-share' ),
+				'slug'       => 'linkedin',
 				'color'      => '#0077b5',
 				'background' => '#fff',
 				'order'      => 5,
@@ -94,6 +100,7 @@ class Options {
 			),
 			'xing'     => array(
 				'label'      => __( 'Xing', 'highlight-and-share' ),
+				'slug'       => 'xing',
 				'color'      => '#006567',
 				'background' => '#fff',
 				'order'      => 6,
@@ -101,6 +108,7 @@ class Options {
 			),
 			'copy'     => array(
 				'label'      => __( 'Copy', 'highlight-and-share' ),
+				'slug'       => 'copy',
 				'color'      => '#000',
 				'background' => '#fff',
 				'order'      => 7,
@@ -108,6 +116,7 @@ class Options {
 			),
 			'email'    => array(
 				'label'      => __( 'Email', 'highlight-and-share' ),
+				'slug'       => 'email',
 				'color'      => '#000',
 				'background' => '#fff',
 				'order'      => 8,

@@ -82,22 +82,35 @@ const SocialIconList = () => {
 			const hoverItem = networks[ hoverIndex ];
 			// Swap places of dragItem and hoverItem in the pets array
 			setNetworks( () => {
-				const updatedNetwork = [ ...networks ];
-				updatedNetwork[ dragIndex ] = hoverItem;
-				updatedNetwork[ hoverIndex ] = dragItem;
+				// For loop to get new indexes.
+				const newNetworks = [];
+				networks.forEach( ( network, index ) => {
+					if ( index !== dragIndex && index !== hoverIndex ) {
+						newNetworks.push( network );
+					} else {
+						if ( index === hoverIndex && dragIndex < hoverIndex ) {
+							newNetworks.push( hoverItem );
+							newNetworks.push( dragItem );
+						}
+						if ( index === hoverIndex && dragIndex > hoverIndex ) {
+							newNetworks.push( dragItem );
+							newNetworks.push( hoverItem );
+						}
+					}
+				} );
 
 				// Todo - Ajax call here to save the order.
-				return updatedNetwork;
+				return newNetworks;
 			} );
 		},
 		[ networks ],
 	);
 
 	return (
-		<ul>{ networks.map( ( network, index ) => (
+		<ul className="has-admin-theme-reorder-list">{ networks.map( ( network, index ) => (
 			<SocialIconListItem
-				key={ index }
-				listItemKey={ index }
+				key={ network.key }
+				listItemKey={ network.listItemKey }
 				className={ network.className }
 				styles={ network.styles }
 				icon={ network.icon }
