@@ -1,10 +1,9 @@
-import React, { useState, Suspense } from 'react';
+import React, { useState, Suspense, useCallback } from 'react';
 import { __ } from '@wordpress/i18n';
 import { escapeAttribute } from '@wordpress/escape-html';
 import { useForm, Controller, useWatch, useFormState } from 'react-hook-form';
 import classNames from 'classnames';
 import { useAsyncResource } from 'use-async-resource';
-import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import {
 	TextControl,
 	Button,
@@ -14,6 +13,8 @@ import {
 	ToggleControl,
 	RangeControl,
 } from '@wordpress/components';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 import ErrorBoundary from '../Components/ErrorBoundary';
 import Notice from '../Components/Notice';
 import CircularInfoIcon from '../Components/Icons/CircularInfo';
@@ -21,19 +22,7 @@ import CircularExclamationIcon from '../Components/Icons/CircularExplanation';
 import Spinner from '../Components/Icons/Spinner';
 import sendCommand from '../Utils/SendCommand';
 import Loader from '../Components/Loader';
-
-// Import all the social media icons.
-import {
-	TwitterIcon,
-	FacebookIcon,
-	WhatsappIcon,
-	LinkedinIcon,
-	RedditIcon,
-	XingIcon,
-	CopyIcon,
-	EmailIcon,
-	TelegramIcon,
-} from '../Components/SocialIcons';
+import SocialIconList from '../Components/SocialIconList';
 
 const retrieveDefaults = () => {
 	return sendCommand( 'has_retrieve_settings_tab', {
@@ -129,8 +118,6 @@ const Appearance = ( props ) => {
 		control,
 	} );
 
-	const socialNetworks = hasAppearanceAdmin.socialNetworks;
-
 	const onSubmit = ( formData ) => {
 		setSaving( true );
 
@@ -187,79 +174,14 @@ const Appearance = ( props ) => {
 	};
 
 	const getIcons = () => {
-		// Get the social media icons and return them in list format..
-		const networks = hasAppearanceAdmin.socialNetworks;
-		const icons = [];
-		for ( const [ key, value ] of Object.entries( networks ) ) {
-			switch ( key ) {
-				case 'twitter':
-					icons.push(
-						<li key={ key }>
-							<FontAwesomeIcon size={ '1x' } icon={ TwitterIcon } />
-						</li>
-					);
-					break;
-				case 'facebook':
-					icons.push(
-						<li key={ key }>
-							<FontAwesomeIcon size={ '1x' } icon={ FacebookIcon } />
-						</li>
-					);
-					break;
-				case 'whatsapp':
-					icons.push(
-						<li key={ key }>
-							<FontAwesomeIcon size={ '1x' } icon={ WhatsappIcon } />
-						</li>
-					);
-					break;
-				case 'reddit':
-					icons.push(
-						<li key={ key }>
-							<FontAwesomeIcon size={ '1x' } icon={ RedditIcon } />
-						</li>
-					);
-					break;
-				case 'telegram':
-					icons.push(
-						<li key={ key }>
-							<FontAwesomeIcon size={ '1x' } icon={ TelegramIcon } />
-						</li>
-					);
-					break;
-				case 'linkedin':
-					icons.push(
-						<li key={ key }>
-							<FontAwesomeIcon size={ '1x' } icon={ LinkedinIcon } />
-						</li>
-					);
-					break;
-				case 'xing':
-					icons.push(
-						<li key={ key }>
-							<FontAwesomeIcon size={ '1x' } icon={ XingIcon } />
-						</li>
-					);
-					break;
-				case 'copy':
-					icons.push(
-						<li key={ key }>
-							<FontAwesomeIcon size={ '1x' } icon={ CopyIcon } />
-						</li>
-					);
-					break;
-				case 'email':
-					icons.push(
-						<li key={ key }>
-							<FontAwesomeIcon size={ '1x' } icon={ EmailIcon } />
-						</li>
-					);
-					break;
-			}
-		}
 		// Now return component with icons.
-		return <ul className="has-icons">{ icons }</ul>;
+		return (
+			<DndProvider backend={ HTML5Backend }>
+				<SocialIconList />
+			</DndProvider>
+		);
 	};
+
 	return (
 		<form onSubmit={ handleSubmit( onSubmit ) }>
 			<div className="has-admin-content-wrapper">
@@ -281,9 +203,7 @@ const Appearance = ( props ) => {
 						<h2 className="has-admin-content-subheading">
 							{ __( 'Reorder Sharing Networks', 'highlight-and-share' ) }
 						</h2>
-						<div className="has-admin-component-row">
-							{ getIcons() }
-						</div>
+						<div className="has-admin-component-row">{ getIcons() }</div>
 					</div>
 				</div>
 			</div>
