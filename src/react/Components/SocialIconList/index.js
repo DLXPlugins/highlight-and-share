@@ -85,6 +85,8 @@ const SocialIconList = () => {
 				const updatedNetwork = [ ...networks ];
 				updatedNetwork[ dragIndex ] = hoverItem;
 				updatedNetwork[ hoverIndex ] = dragItem;
+
+				// Todo - Ajax call here to save the order.
 				return updatedNetwork;
 			} );
 		},

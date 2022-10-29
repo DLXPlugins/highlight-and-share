@@ -43609,6 +43609,8 @@ var SocialIconList = function SocialIconList() {
       var updatedNetwork = _toConsumableArray(networks);
       updatedNetwork[dragIndex] = hoverItem;
       updatedNetwork[hoverIndex] = dragItem;
+
+      // Todo - Ajax call here to save the order.
       return updatedNetwork;
     });
   }, [networks]);
@@ -43682,7 +43684,6 @@ var SocialIconListItem = function SocialIconListItem(_ref) {
       accept: 'socialItem',
       hover: function hover(item, monitor) {
         var _ref$current;
-        console.log(item);
         var dragIndex = item.index;
         var hoverIndex = index;
         var hoverBoundingRect = (_ref$current = ref.current) === null || _ref$current === void 0 ? void 0 : _ref$current.getBoundingClientRect();
@@ -43707,7 +43708,7 @@ var SocialIconListItem = function SocialIconListItem(_ref) {
   // Join the 2 refs together into one (both draggable and can be dropped on)
   var ref = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   var dragDropRef = dragRef(dropRef(ref));
-  var opacity = isDragging ? 0.8 : 1;
+  var opacity = isDragging ? 0.3 : 1;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", {
     ref: dragDropRef,
     key: listItemKey,

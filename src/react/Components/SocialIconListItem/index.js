@@ -15,7 +15,6 @@ const SocialIconListItem = ( { listItemKey, className, styles, index, icon, move
 	const [ spec, dropRef ] = useDrop( {
 		accept: 'socialItem',
 		hover: ( item, monitor ) => {
-			console.log( item );
 			const dragIndex = item.index;
 			const hoverIndex = index;
 			const hoverBoundingRect = ref.current?.getBoundingClientRect();
@@ -38,7 +37,7 @@ const SocialIconListItem = ( { listItemKey, className, styles, index, icon, move
 	// Join the 2 refs together into one (both draggable and can be dropped on)
 	const ref = useRef( null );
 	const dragDropRef = dragRef( dropRef( ref ) );
-	const opacity = isDragging ? 0.8 : 1;
+	const opacity = isDragging ? 0.3 : 1;
 	return (
 		<li ref={ dragDropRef } key={ listItemKey } className={ className } style={ { ...styles, opacity } }>
 			{ icon }
