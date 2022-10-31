@@ -42882,13 +42882,13 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "./node_modules/@wordpress/i18n/build-module/index.js");
-/* harmony import */ var react_hook_form__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! react-hook-form */ "./node_modules/react-hook-form/dist/index.esm.mjs");
+/* harmony import */ var react_hook_form__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react-hook-form */ "./node_modules/react-hook-form/dist/index.esm.mjs");
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var use_async_resource__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! use-async-resource */ "./node_modules/use-async-resource/lib/index.js");
 /* harmony import */ var use_async_resource__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(use_async_resource__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var react_dnd__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! react-dnd */ "./node_modules/react-dnd/dist/core/DndProvider.js");
-/* harmony import */ var react_dnd_html5_backend__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! react-dnd-html5-backend */ "./node_modules/react-dnd-html5-backend/dist/index.js");
+/* harmony import */ var react_dnd__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! react-dnd */ "./node_modules/react-dnd/dist/core/DndProvider.js");
+/* harmony import */ var react_dnd_html5_backend__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! react-dnd-html5-backend */ "./node_modules/react-dnd-html5-backend/dist/index.js");
 /* harmony import */ var _Components_ErrorBoundary__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../Components/ErrorBoundary */ "./src/react/Components/ErrorBoundary/index.js");
 /* harmony import */ var _Components_Notice__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../Components/Notice */ "./src/react/Components/Notice/index.js");
 /* harmony import */ var _Components_Icons_CircularInfo__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../Components/Icons/CircularInfo */ "./src/react/Components/Icons/CircularInfo.js");
@@ -42897,6 +42897,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _Utils_SendCommand__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../Utils/SendCommand */ "./src/react/Utils/SendCommand.js");
 /* harmony import */ var _Components_Loader__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../Components/Loader */ "./src/react/Components/Loader/index.js");
 /* harmony import */ var _Components_SocialIconList__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../Components/SocialIconList */ "./src/react/Components/SocialIconList/index.js");
+/* harmony import */ var _Components_PreviewSocialIconList__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../Components/PreviewSocialIconList */ "./src/react/Components/PreviewSocialIconList/index.js");
 function _extends() { _extends = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -42904,6 +42905,7 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -42969,6 +42971,10 @@ var Appearance = function Appearance(props) {
     _useState8 = _slicedToArray(_useState7, 2),
     isReset = _useState8[0],
     setIsReset = _useState8[1];
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(hasAppearanceAdmin.socialNetworks),
+    _useState10 = _slicedToArray(_useState9, 2),
+    socialNetworks = _useState10[0],
+    setSocialNetworks = _useState10[1];
   var getDefaultValues = function getDefaultValues() {
     return {
       enableMobile: '',
@@ -42994,7 +43000,7 @@ var Appearance = function Appearance(props) {
       idContent: ''
     };
   };
-  var _useForm = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_12__.useForm)({
+  var _useForm = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_13__.useForm)({
       defaultValues: getDefaultValues()
     }),
     register = _useForm.register,
@@ -43004,10 +43010,10 @@ var Appearance = function Appearance(props) {
     getValues = _useForm.getValues,
     reset = _useForm.reset,
     trigger = _useForm.trigger;
-  var formValues = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_12__.useWatch)({
+  var formValues = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_13__.useWatch)({
     control: control
   });
-  var _useFormState = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_12__.useFormState)({
+  var _useFormState = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_13__.useFormState)({
       control: control
     }),
     errors = _useFormState.errors,
@@ -43062,9 +43068,13 @@ var Appearance = function Appearance(props) {
   };
   var getIcons = function getIcons() {
     // Now return component with icons.
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_dnd__WEBPACK_IMPORTED_MODULE_13__.DndProvider, {
-      backend: react_dnd_html5_backend__WEBPACK_IMPORTED_MODULE_14__.HTML5Backend
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_dnd__WEBPACK_IMPORTED_MODULE_14__.DndProvider, {
+      backend: react_dnd_html5_backend__WEBPACK_IMPORTED_MODULE_15__.HTML5Backend
     }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_SocialIconList__WEBPACK_IMPORTED_MODULE_11__["default"], null));
+  };
+  var getPreview = function getPreview() {
+    // Now return component with icons.
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_PreviewSocialIconList__WEBPACK_IMPORTED_MODULE_12__["default"], null));
   };
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("form", {
     onSubmit: handleSubmit(onSubmit)
@@ -43100,9 +43110,9 @@ var Appearance = function Appearance(props) {
     className: "has-admin-content-subheading"
   }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Theme Preview', 'highlight-and-share')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", {
     className: "description"
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Please use this section to see a preview of how Highlight and Share will look on the frontend..', 'highlight-and-share')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Please use this section to see a preview of how Highlight and Share will look on the frontend.', 'highlight-and-share')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "has-admin-component-row"
-  }, "test")))));
+  }, getPreview())))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Appearance);
 
@@ -43494,6 +43504,92 @@ Notice.propTypes = {
 
 /***/ }),
 
+/***/ "./src/react/Components/PreviewSocialIconList/index.js":
+/*!*************************************************************!*\
+  !*** ./src/react/Components/PreviewSocialIconList/index.js ***!
+  \*************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _PreviewSocialIconListItem__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../PreviewSocialIconListItem */ "./src/react/Components/PreviewSocialIconListItem/index.js");
+/* harmony import */ var _SocialIcons__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../SocialIcons */ "./src/react/Components/SocialIcons/index.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+// Import all the social media icons.
+
+var PreviewSocialIconList = function PreviewSocialIconList() {
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(_SocialIcons__WEBPACK_IMPORTED_MODULE_3__["default"]),
+    _useState2 = _slicedToArray(_useState, 2),
+    networks = _useState2[0],
+    setNetworks = _useState2[1];
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("ul", {
+    className: "has-admin-theme-preview-list"
+  }, networks.map(function (network, index) {
+    if (network.enabled) {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_PreviewSocialIconListItem__WEBPACK_IMPORTED_MODULE_2__["default"], {
+        key: network.key,
+        listItemKey: network.key,
+        className: network.className,
+        styles: network.styles,
+        icon: network.icon,
+        index: index
+      });
+    }
+    return null;
+  }));
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PreviewSocialIconList);
+
+/***/ }),
+
+/***/ "./src/react/Components/PreviewSocialIconListItem/index.js":
+/*!*****************************************************************!*\
+  !*** ./src/react/Components/PreviewSocialIconListItem/index.js ***!
+  \*****************************************************************/
+/***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_1__);
+
+
+var PreviewSocialIconListItem = function PreviewSocialIconListItem(_ref) {
+  var listItemKey = _ref.listItemKey,
+    className = _ref.className,
+    styles = _ref.styles,
+    icon = _ref.icon;
+  var classes = classnames__WEBPACK_IMPORTED_MODULE_1___default()(className, {});
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", {
+    key: listItemKey,
+    className: classes,
+    style: styles
+  }, icon);
+};
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PreviewSocialIconListItem);
+
+/***/ }),
+
 /***/ "./src/react/Components/SocialIconList/index.js":
 /*!******************************************************!*\
   !*** ./src/react/Components/SocialIconList/index.js ***!
@@ -43522,96 +43618,9 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-// Import all the social media icons.
 
-var socialIcons = [];
-var socialIconCount = 0;
-for (var _i = 0, _Object$entries = Object.entries(hasAppearanceAdmin.socialNetworks); _i < _Object$entries.length; _i++) {
-  var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
-    key = _Object$entries$_i[0],
-    value = _Object$entries$_i[1];
-  var classes = classnames__WEBPACK_IMPORTED_MODULE_1___default()(key, {
-    'is-disabled': !value.enabled,
-    'is-custom': value.custom
-  });
-
-  // Set styles for the icon.
-  var styles = {};
-  if (!value.custom) {
-    styles = {
-      color: value.color,
-      background: value.background
-    };
-  }
-  var icon = null;
-  switch (key) {
-    case 'twitter':
-      icon = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__.FontAwesomeIcon, {
-        size: '1x',
-        icon: _SocialIcons__WEBPACK_IMPORTED_MODULE_4__.TwitterIcon
-      });
-      break;
-    case 'facebook':
-      icon = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__.FontAwesomeIcon, {
-        size: '1x',
-        icon: _SocialIcons__WEBPACK_IMPORTED_MODULE_4__.FacebookIcon
-      });
-      break;
-    case 'whatsapp':
-      icon = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__.FontAwesomeIcon, {
-        size: '1x',
-        icon: _SocialIcons__WEBPACK_IMPORTED_MODULE_4__.WhatsappIcon
-      });
-      break;
-    case 'reddit':
-      icon = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__.FontAwesomeIcon, {
-        size: '1x',
-        icon: _SocialIcons__WEBPACK_IMPORTED_MODULE_4__.RedditIcon
-      });
-      break;
-    case 'telegram':
-      icon = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__.FontAwesomeIcon, {
-        size: '1x',
-        icon: _SocialIcons__WEBPACK_IMPORTED_MODULE_4__.TelegramIcon
-      });
-      break;
-    case 'linkedin':
-      icon = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__.FontAwesomeIcon, {
-        size: '1x',
-        icon: _SocialIcons__WEBPACK_IMPORTED_MODULE_4__.LinkedinIcon
-      });
-      break;
-    case 'xing':
-      icon = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__.FontAwesomeIcon, {
-        size: '1x',
-        icon: _SocialIcons__WEBPACK_IMPORTED_MODULE_4__.XingIcon
-      });
-      break;
-    case 'copy':
-      icon = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__.FontAwesomeIcon, {
-        size: '1x',
-        icon: _SocialIcons__WEBPACK_IMPORTED_MODULE_4__.CopyIcon
-      });
-      break;
-    case 'email':
-      icon = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__.FontAwesomeIcon, {
-        size: '1x',
-        icon: _SocialIcons__WEBPACK_IMPORTED_MODULE_4__.EmailIcon
-      });
-      break;
-  }
-  socialIcons.push({
-    key: key,
-    listItemKey: key,
-    className: classes,
-    styles: styles,
-    icon: icon,
-    index: socialIconCount
-  });
-  socialIconCount++;
-}
 var SocialIconList = function SocialIconList() {
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(socialIcons),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(_SocialIcons__WEBPACK_IMPORTED_MODULE_4__["default"]),
     _useState2 = _slicedToArray(_useState, 2),
     networks = _useState2[0],
     setNetworks = _useState2[1];
@@ -43756,27 +43765,30 @@ var SocialIconListItem = function SocialIconListItem(_ref) {
 "use strict";
 __webpack_require__.r(__webpack_exports__);
 /* harmony export */ __webpack_require__.d(__webpack_exports__, {
-/* harmony export */   "CopyIcon": () => (/* reexport safe */ _fortawesome_free_solid_svg_icons_faCopy__WEBPACK_IMPORTED_MODULE_7__.faCopy),
-/* harmony export */   "EmailIcon": () => (/* reexport safe */ _fortawesome_free_solid_svg_icons_faAt__WEBPACK_IMPORTED_MODULE_8__.faAt),
-/* harmony export */   "FacebookIcon": () => (/* reexport safe */ _fortawesome_free_brands_svg_icons_faFacebook__WEBPACK_IMPORTED_MODULE_2__.faFacebook),
-/* harmony export */   "LinkedinIcon": () => (/* reexport safe */ _fortawesome_free_brands_svg_icons_faLinkedin__WEBPACK_IMPORTED_MODULE_4__.faLinkedin),
-/* harmony export */   "RedditIcon": () => (/* reexport safe */ _fortawesome_free_brands_svg_icons_faReddit__WEBPACK_IMPORTED_MODULE_5__.faReddit),
-/* harmony export */   "TelegramIcon": () => (/* reexport safe */ _fortawesome_free_brands_svg_icons_faTelegram__WEBPACK_IMPORTED_MODULE_9__.faTelegram),
-/* harmony export */   "TwitterIcon": () => (/* reexport safe */ _fortawesome_free_brands_svg_icons_faTwitter__WEBPACK_IMPORTED_MODULE_1__.faTwitter),
-/* harmony export */   "WhatsappIcon": () => (/* reexport safe */ _fortawesome_free_brands_svg_icons_faWhatsapp__WEBPACK_IMPORTED_MODULE_3__.faWhatsapp),
-/* harmony export */   "XingIcon": () => (/* reexport safe */ _fortawesome_free_brands_svg_icons_faXing__WEBPACK_IMPORTED_MODULE_6__.faXing)
+/* harmony export */   "default": () => (__WEBPACK_DEFAULT_EXPORT__)
 /* harmony export */ });
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
-/* harmony import */ var _fortawesome_free_brands_svg_icons_faTwitter__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @fortawesome/free-brands-svg-icons/faTwitter */ "./node_modules/@fortawesome/free-brands-svg-icons/faTwitter.js");
-/* harmony import */ var _fortawesome_free_brands_svg_icons_faFacebook__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @fortawesome/free-brands-svg-icons/faFacebook */ "./node_modules/@fortawesome/free-brands-svg-icons/faFacebook.js");
-/* harmony import */ var _fortawesome_free_brands_svg_icons_faWhatsapp__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @fortawesome/free-brands-svg-icons/faWhatsapp */ "./node_modules/@fortawesome/free-brands-svg-icons/faWhatsapp.js");
-/* harmony import */ var _fortawesome_free_brands_svg_icons_faLinkedin__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @fortawesome/free-brands-svg-icons/faLinkedin */ "./node_modules/@fortawesome/free-brands-svg-icons/faLinkedin.js");
-/* harmony import */ var _fortawesome_free_brands_svg_icons_faReddit__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @fortawesome/free-brands-svg-icons/faReddit */ "./node_modules/@fortawesome/free-brands-svg-icons/faReddit.js");
-/* harmony import */ var _fortawesome_free_brands_svg_icons_faXing__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @fortawesome/free-brands-svg-icons/faXing */ "./node_modules/@fortawesome/free-brands-svg-icons/faXing.js");
-/* harmony import */ var _fortawesome_free_solid_svg_icons_faCopy__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @fortawesome/free-solid-svg-icons/faCopy */ "./node_modules/@fortawesome/free-solid-svg-icons/faCopy.js");
-/* harmony import */ var _fortawesome_free_solid_svg_icons_faAt__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @fortawesome/free-solid-svg-icons/faAt */ "./node_modules/@fortawesome/free-solid-svg-icons/faAt.js");
-/* harmony import */ var _fortawesome_free_brands_svg_icons_faTelegram__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @fortawesome/free-brands-svg-icons/faTelegram */ "./node_modules/@fortawesome/free-brands-svg-icons/faTelegram.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @fortawesome/react-fontawesome */ "./node_modules/@fortawesome/react-fontawesome/index.es.js");
+/* harmony import */ var _fortawesome_free_brands_svg_icons_faTwitter__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @fortawesome/free-brands-svg-icons/faTwitter */ "./node_modules/@fortawesome/free-brands-svg-icons/faTwitter.js");
+/* harmony import */ var _fortawesome_free_brands_svg_icons_faFacebook__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @fortawesome/free-brands-svg-icons/faFacebook */ "./node_modules/@fortawesome/free-brands-svg-icons/faFacebook.js");
+/* harmony import */ var _fortawesome_free_brands_svg_icons_faWhatsapp__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @fortawesome/free-brands-svg-icons/faWhatsapp */ "./node_modules/@fortawesome/free-brands-svg-icons/faWhatsapp.js");
+/* harmony import */ var _fortawesome_free_brands_svg_icons_faLinkedin__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @fortawesome/free-brands-svg-icons/faLinkedin */ "./node_modules/@fortawesome/free-brands-svg-icons/faLinkedin.js");
+/* harmony import */ var _fortawesome_free_brands_svg_icons_faReddit__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @fortawesome/free-brands-svg-icons/faReddit */ "./node_modules/@fortawesome/free-brands-svg-icons/faReddit.js");
+/* harmony import */ var _fortawesome_free_brands_svg_icons_faXing__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @fortawesome/free-brands-svg-icons/faXing */ "./node_modules/@fortawesome/free-brands-svg-icons/faXing.js");
+/* harmony import */ var _fortawesome_free_solid_svg_icons_faCopy__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @fortawesome/free-solid-svg-icons/faCopy */ "./node_modules/@fortawesome/free-solid-svg-icons/faCopy.js");
+/* harmony import */ var _fortawesome_free_solid_svg_icons_faAt__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @fortawesome/free-solid-svg-icons/faAt */ "./node_modules/@fortawesome/free-solid-svg-icons/faAt.js");
+/* harmony import */ var _fortawesome_free_brands_svg_icons_faTelegram__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! @fortawesome/free-brands-svg-icons/faTelegram */ "./node_modules/@fortawesome/free-brands-svg-icons/faTelegram.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
 
 
 // Return fontawesome icons for the social networks.
@@ -43789,6 +43801,94 @@ __webpack_require__.r(__webpack_exports__);
 
 
 
+var socialIcons = [];
+var socialIconCount = 0;
+for (var _i = 0, _Object$entries = Object.entries(hasAppearanceAdmin.socialNetworks); _i < _Object$entries.length; _i++) {
+  var _Object$entries$_i = _slicedToArray(_Object$entries[_i], 2),
+    key = _Object$entries$_i[0],
+    value = _Object$entries$_i[1];
+  var classes = classnames__WEBPACK_IMPORTED_MODULE_1___default()(key, {
+    'is-disabled': !value.enabled,
+    'is-custom': value.custom
+  });
+
+  // Set styles for the icon.
+  var styles = {};
+  if (!value.custom) {
+    styles = {
+      color: value.color,
+      background: value.background
+    };
+  }
+  var icon = null;
+  switch (key) {
+    case 'twitter':
+      icon = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__.FontAwesomeIcon, {
+        size: '1x',
+        icon: _fortawesome_free_brands_svg_icons_faTwitter__WEBPACK_IMPORTED_MODULE_3__.faTwitter
+      });
+      break;
+    case 'facebook':
+      icon = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__.FontAwesomeIcon, {
+        size: '1x',
+        icon: _fortawesome_free_brands_svg_icons_faFacebook__WEBPACK_IMPORTED_MODULE_4__.faFacebook
+      });
+      break;
+    case 'whatsapp':
+      icon = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__.FontAwesomeIcon, {
+        size: '1x',
+        icon: _fortawesome_free_brands_svg_icons_faWhatsapp__WEBPACK_IMPORTED_MODULE_5__.faWhatsapp
+      });
+      break;
+    case 'reddit':
+      icon = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__.FontAwesomeIcon, {
+        size: '1x',
+        icon: _fortawesome_free_brands_svg_icons_faReddit__WEBPACK_IMPORTED_MODULE_6__.faReddit
+      });
+      break;
+    case 'telegram':
+      icon = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__.FontAwesomeIcon, {
+        size: '1x',
+        icon: _fortawesome_free_brands_svg_icons_faTelegram__WEBPACK_IMPORTED_MODULE_7__.faTelegram
+      });
+      break;
+    case 'linkedin':
+      icon = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__.FontAwesomeIcon, {
+        size: '1x',
+        icon: _fortawesome_free_brands_svg_icons_faLinkedin__WEBPACK_IMPORTED_MODULE_8__.faLinkedin
+      });
+      break;
+    case 'xing':
+      icon = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__.FontAwesomeIcon, {
+        size: '1x',
+        icon: _fortawesome_free_brands_svg_icons_faXing__WEBPACK_IMPORTED_MODULE_9__.faXing
+      });
+      break;
+    case 'copy':
+      icon = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__.FontAwesomeIcon, {
+        size: '1x',
+        icon: _fortawesome_free_solid_svg_icons_faCopy__WEBPACK_IMPORTED_MODULE_10__.faCopy
+      });
+      break;
+    case 'email':
+      icon = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__.FontAwesomeIcon, {
+        size: '1x',
+        icon: _fortawesome_free_solid_svg_icons_faAt__WEBPACK_IMPORTED_MODULE_11__.faAt
+      });
+      break;
+  }
+  socialIcons.push({
+    key: key,
+    listItemKey: key,
+    className: classes,
+    styles: styles,
+    icon: icon,
+    index: socialIconCount,
+    enabled: value.enabled
+  });
+  socialIconCount++;
+}
+/* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (socialIcons);
 
 /***/ }),
 

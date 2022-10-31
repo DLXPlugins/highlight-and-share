@@ -21,6 +21,7 @@ module.exports = ( env ) => {
 				'has-admin': ['./src/admin.js'],
 				'has-admin-settings': [ './src/react/Settings/index.js' ],
 				'has-admin-appearance': [ './src/react/Appearance/index.js' ],
+				'has-themes': [ './src/themes.scss' ],
 			},
 			mode: env.mode,
 			devtool: 'source-map',

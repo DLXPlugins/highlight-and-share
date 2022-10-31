@@ -23,6 +23,7 @@ import Spinner from '../Components/Icons/Spinner';
 import sendCommand from '../Utils/SendCommand';
 import Loader from '../Components/Loader';
 import SocialIconList from '../Components/SocialIconList';
+import PreviewSocialIconList from '../Components/PreviewSocialIconList';
 
 const retrieveDefaults = () => {
 	return sendCommand( 'has_retrieve_settings_tab', {
@@ -74,6 +75,8 @@ const Appearance = ( props ) => {
 	const [ isSaved, setIsSaved ] = useState( false );
 	const [ resetting, setResetting ] = useState( false );
 	const [ isReset, setIsReset ] = useState( false );
+
+	const [ socialNetworks, setSocialNetworks ] = useState( hasAppearanceAdmin.socialNetworks );
 
 	const getDefaultValues = () => {
 		return {
@@ -182,6 +185,15 @@ const Appearance = ( props ) => {
 		);
 	};
 
+	const getPreview = () => {
+		// Now return component with icons.
+		return (
+			<>
+				<PreviewSocialIconList />
+			</>
+		);
+	};
+
 	return (
 		<form onSubmit={ handleSubmit( onSubmit ) }>
 			<div className="has-admin-content-wrapper">
@@ -219,9 +231,9 @@ const Appearance = ( props ) => {
 						<h2 className="has-admin-content-subheading">
 							{ __( 'Theme Preview', 'highlight-and-share' ) }
 						</h2>
-						<p className="description">{ __( 'Please use this section to see a preview of how Highlight and Share will look on the frontend..', 'highlight-and-share' ) }</p>
+						<p className="description">{ __( 'Please use this section to see a preview of how Highlight and Share will look on the frontend.', 'highlight-and-share' ) }</p>
 						<div className="has-admin-component-row">
-							test
+							{ getPreview() }
 						</div>
 					</div>
 				</div>

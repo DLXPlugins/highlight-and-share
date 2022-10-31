@@ -218,6 +218,14 @@ class Admin {
 				'all'
 			);
 
+			wp_enqueue_style(
+				'has-admin-themes',
+				Functions::get_plugin_url( '/dist/has-themes.css' ),
+				array(),
+				HIGHLIGHT_AND_SHARE_VERSION,
+				'all'
+			);
+
 			wp_enqueue_script(
 				'has-admin-js',
 				Functions::get_plugin_url( '/dist/has-admin.js' ),
