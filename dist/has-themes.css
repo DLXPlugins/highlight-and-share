@@ -147,9 +147,9 @@ body.has-body .highlight-and-share-wrapper.has-admin-theme-preview-list > div > 
   display: inline-block;
 }
 
-body.has-body .highlight-and-share-wrapper a,
-body.has-body .highlight-and-share-wrapper a:hover,
-body.has-body .highlight-and-share-wrapper a:visited {
+body.has-body .highlight-and-share-wrapper:not(.theme-off) a,
+body.has-body .highlight-and-share-wrapper:not(.theme-off) a:hover,
+body.has-body .highlight-and-share-wrapper:not(.theme-off) a:visited {
   font-family: "FranklinGothic", Helvetica, sans-serif;
   font-weight: bold;
   text-transform: uppercase;
@@ -375,7 +375,6 @@ body.has-body .highlight-and-share-wrapper.theme-white a:visited {
   content: "";
   display: block;
   position: absolute;
-  bottom: 0;
   left: calc(50% - 10px);
   border-top: 10px solid #FFF;
   border-top-color: #FFF;
@@ -427,7 +426,6 @@ div.highlight-and-share-wrapper.theme-purple div.has_signal:hover {
   content: " ";
   display: block;
   position: absolute;
-  bottom: 0;
   left: calc(50% - 10px);
   border-top: 10px solid #8364E8;
   border-top-color: #8364E8;
@@ -479,7 +477,6 @@ div.highlight-and-share-wrapper.theme-magenta div.has_signal:hover {
   content: " ";
   display: block;
   position: absolute;
-  bottom: 0;
   left: calc(50% - 10px);
   border-top: 10px solid #FF00FF;
   border-top-color: #FF00FF;
@@ -531,7 +528,6 @@ div.highlight-and-share-wrapper.theme-green div.has_signal:hover {
   content: " ";
   display: block;
   position: absolute;
-  bottom: 0;
   left: calc(50% - 10px);
   border-top: 10px solid #03ac27;
   border-top-color: #03ac27;
@@ -583,7 +579,6 @@ div.highlight-and-share-wrapper.theme-cyan div.has_signal:hover {
   content: " ";
   display: block;
   position: absolute;
-  bottom: 0;
   left: calc(50% - 10px);
   border-top: 10px solid #0091b0;
   border-top-color: #0091b0;
@@ -1140,7 +1135,6 @@ div.highlight-and-share-wrapper.theme-blue div.has_signal:hover {
   content: "";
   display: block;
   position: absolute;
-  bottom: 0;
   left: calc(50% - 10px);
   border-top: 10px solid #0009c1;
   border-top-color: #0009c1;
@@ -1165,7 +1159,6 @@ div.highlight-and-share-wrapper.theme-blue div.has_signal:hover {
   content: " ";
   display: block;
   position: absolute;
-  bottom: 0;
   left: calc(50% - 10px);
   border-top: 10px solid #333;
   border-top-color: #333;
@@ -1248,6 +1241,13 @@ div.highlight-and-share-wrapper.theme-black div.has_signal:hover {
   border-top-color: #333;
   border-left: 10px solid transparent;
   border-right: 10px solid transparent;
+}
+
+/* Theme Custom */
+body.has-body .highlight-and-share-wrapper.theme-custom a,
+body.has-body .highlight-and-share-wrapper.theme-custom a:hover,
+body.has-body .highlight-and-share-wrapper.theme-custom a:visited {
+  color: #000;
 }
 
 /*# sourceMappingURL=has-themes.css.map*/

@@ -339,13 +339,20 @@ h2.has-admin-content-subheading {
 	p.description {
 		font-size: 1.1em;
 	}
-	.has-admin-component-row {
+	.has-admin-component-row,
+	.has-admin-component-row .components-select-control {
 		label {
 			display: block;
 			font-weight: 600;
 			text-transform: unset;
 			font-size: 13px;
 		}
+	}
+	.has-admin-component-row .components-select-control {
+		margin-bottom: 15px;
+	}
+	.has-admin-component-row.has-descriptio {
+		margin-bottom: 15px;
 	}
 }
 

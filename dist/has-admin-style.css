@@ -4892,11 +4892,18 @@ h2.has-admin-content-subheading:after {
 .has-admin-content-wrapper p.description {
   font-size: 1.1em;
 }
-.has-admin-content-wrapper .has-admin-component-row label {
+.has-admin-content-wrapper .has-admin-component-row label,
+.has-admin-content-wrapper .has-admin-component-row .components-select-control label {
   display: block;
   font-weight: 600;
   text-transform: unset;
   font-size: 13px;
+}
+.has-admin-content-wrapper .has-admin-component-row .components-select-control {
+  margin-bottom: 15px;
+}
+.has-admin-content-wrapper .has-admin-component-row.has-descriptio {
+  margin-bottom: 15px;
 }
 
 /* Admin text controls */

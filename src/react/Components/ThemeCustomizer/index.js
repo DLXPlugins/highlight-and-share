@@ -1,9 +1,11 @@
 import React, { useContext, useState } from 'react';
 import SocialNetworksContext from '../../Contexts/SocialNetworksContext';
-import { SelectControl } from '@wordpress/components';
+import { SelectControl, ToggleControl, RadioControl } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { useForm, Controller, useWatch, useFormState } from 'react-hook-form';
 import classNames from 'classnames';
+import Notice from '../Notice';
+import CircularInfoIcon from '../Icons/CircularInfo';
 
 const ThemeCustomizer = () => {
 	const { theme, setTheme } = useContext( SocialNetworksContext );
@@ -11,6 +13,8 @@ const ThemeCustomizer = () => {
 	const getDefaultValues = () => {
 		return {
 			selectedTheme: theme,
+			iconsOnly: true,
+			orientation: 'horizontal',
 		};
 	};
 
@@ -81,11 +85,75 @@ const ThemeCustomizer = () => {
 						) }
 					/>
 				</div>
+				{ 'custom' === theme && (
+					<>
+						<div className="has-admin-component-row has-description">
+							<Notice
+								message={ __(
+									'You have chosen a custom theme. You can configure the settings below.',
+									'highlight-and-share'
+								) }
+								status="info"
+								politeness="polite"
+								inline={ false }
+								icon={ CircularInfoIcon }
+							/>
+						</div>
+						<div className="has-admin-component-row">
+							<Controller
+								name="iconsOnly"
+								control={ control }
+								render={ ( { field: { onChange, value } } ) => (
+									<ToggleControl
+										label={ __(
+											'Icons Only',
+											'highlight-and-share'
+										) }
+										className="has-admin__toggle-control"
+										checked={ value }
+										onChange={ ( boolValue ) => {
+											onChange( boolValue );
+										} }
+										help={ __(
+											'Display only the icons without text.',
+											'highlight-and-share'
+										) }
+									/>
+								) }
+							/>
+						</div>
+						<div className="has-admin-component-row">
+							<Controller
+								name="orientation"
+								control={ control }
+								render={ ( { field: { onChange, value } } ) => (
+									<RadioControl
+										label="Orientation"
+										help={ __(
+											'Select the orientation of the icons (can be horizontal or vertical).',
+											'highlight-and-share'
+										) }
+										selected={ value }
+										options={ [
+											{
+												label: __( 'Horizontal', 'highlight-and-share' ),
+												value: 'horizontal',
+											},
+											{
+												label: __( 'Vertical', 'highlight-and-share' ),
+												value: 'vertical',
+											},
+										] }
+										onChange={ ( radioValue ) => onChange( radioValue ) }
+									/>
+								) }
+							/>
+						</div>
+					</>
+				) }
 			</form>
 		</div>
 	);
-
-	
-}
+};
 
 export default ThemeCustomizer;
