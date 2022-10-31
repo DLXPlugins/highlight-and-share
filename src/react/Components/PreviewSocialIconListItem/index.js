@@ -1,10 +1,10 @@
 import React from 'react';
 import classNames from 'classnames';
 
-const PreviewSocialIconListItem = ( { listItemKey, className, styles, icon } ) => {
+const PreviewSocialIconListItem = ( { listItemKey, className, icon } ) => {
 	const classes = classNames( className, {} );
 	return (
-		<li key={ listItemKey } className={ classes } style={ styles }>
+		<li key={ listItemKey } className={ classes }>
 			{ icon }
 		</li>
 	);

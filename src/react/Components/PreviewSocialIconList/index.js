@@ -15,7 +15,6 @@ const PreviewSocialIconList = () => {
 						key={ network.key }
 						listItemKey={ network.key }
 						className={ network.className }
-						styles={ network.styles }
 						icon={ network.icon }
 						index={ index }
 					/>

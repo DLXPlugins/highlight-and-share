@@ -43535,7 +43535,6 @@ var PreviewSocialIconList = function PreviewSocialIconList() {
         key: network.key,
         listItemKey: network.key,
         className: network.className,
-        styles: network.styles,
         icon: network.icon,
         index: index
       });
@@ -43567,13 +43566,11 @@ __webpack_require__.r(__webpack_exports__);
 var PreviewSocialIconListItem = function PreviewSocialIconListItem(_ref) {
   var listItemKey = _ref.listItemKey,
     className = _ref.className,
-    styles = _ref.styles,
     icon = _ref.icon;
   var classes = classnames__WEBPACK_IMPORTED_MODULE_1___default()(className, {});
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", {
     key: listItemKey,
-    className: classes,
-    style: styles
+    className: classes
   }, icon);
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PreviewSocialIconListItem);
