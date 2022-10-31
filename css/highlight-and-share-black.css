@@ -153,7 +153,7 @@ div.highlight-and-share-wrapper div.has_signal:hover {
 
 /* Speech Bubble */
 .highlight-and-share-wrapper:after {
-	content: "";
+	content: " ";
 	display: block;
 	position: absolute;
 	bottom: 0;

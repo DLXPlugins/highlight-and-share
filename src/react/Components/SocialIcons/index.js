@@ -70,7 +70,7 @@ const SocialIcons = () => {
 				default:
 					icon = <></>;
 			}
-			fontAwesomeIcon = <FontAwesomeIcon size={ '1x' } icon={ icon } className={ `has-${ keyValue }` } />;
+			fontAwesomeIcon = <FontAwesomeIcon size={ '1x' } icon={ icon } className={ `has-icon` } />;
 			socialIcons.push( {
 				key: ( value.slug ?? value.key ),
 				listItemKey: ( value.slug ?? value.key ),

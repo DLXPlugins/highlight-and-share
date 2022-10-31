@@ -8,7 +8,7 @@ const PreviewSocialIconList = () => {
 	const networks = getSocialIcons();
 
 	return (
-		<ul className="has-admin-theme-preview-list">{ networks.map( ( network, index ) => {
+		<div className="has-admin-theme-preview-list highlight-and-share-wrapper theme-blue">{ networks.map( ( network, index ) => {
 			if ( network.enabled ) {
 				return (
 					<PreviewSocialIconListItem
@@ -22,7 +22,7 @@ const PreviewSocialIconList = () => {
 			}
 			return null;
 		} ) }
-		</ul>
+		</div>
 	);
 };
 

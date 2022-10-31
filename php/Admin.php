@@ -25,6 +25,9 @@ class Admin {
 		add_action( 'wp_ajax_has_save_settings_tab', array( $this, 'ajax_save_settings_tab' ) );
 		add_action( 'wp_ajax_has_retrieve_settings_tab', array( $this, 'ajax_retrieve_settings_tab' ) );
 		add_action( 'wp_ajax_has_reset_settings_tab', array( $this, 'ajax_reset_settings_tab' ) );
+
+		// For HAS styling in the admin.
+		add_action( 'admin_body_class', array( $this, 'add_admin_body_class' ) );
 	}
 
 	/**
@@ -370,5 +373,20 @@ class Admin {
 			);
 			remove_filter( 'safe_style_css', array( '\DLXPlugins\HAS\Functions', 'safe_css' ) );
 		}
+	}
+
+	/**
+	 * Add class to body class in the admin if on the appearances sub tab.
+	 *
+	 * @param string $classes Space seperated string of body classes.
+	 *
+	 * @return string $classes.
+	 */
+	public function add_admin_body_class( $classes ) {
+		$current_tab = Functions::get_admin_tab();
+		if ( null !== $current_tab && 'appearance' === $current_tab ) {
+			$classes .= ' has-body';
+		}
+		return $classes;
 	}
 }

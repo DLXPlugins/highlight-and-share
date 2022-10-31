@@ -43527,8 +43527,8 @@ var PreviewSocialIconList = function PreviewSocialIconList() {
   var _SocialIcons = (0,_SocialIcons__WEBPACK_IMPORTED_MODULE_2__["default"])(),
     getSocialIcons = _SocialIcons.getSocialIcons;
   var networks = getSocialIcons();
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("ul", {
-    className: "has-admin-theme-preview-list"
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "has-admin-theme-preview-list highlight-and-share-wrapper theme-blue"
   }, networks.map(function (network, index) {
     if (network.enabled) {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_PreviewSocialIconListItem__WEBPACK_IMPORTED_MODULE_1__["default"], {
@@ -43561,17 +43561,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_1__);
+/* eslint-disable jsx-a11y/anchor-is-valid */
 
 
 var PreviewSocialIconListItem = function PreviewSocialIconListItem(_ref) {
   var listItemKey = _ref.listItemKey,
     className = _ref.className,
     icon = _ref.icon;
-  var classes = classnames__WEBPACK_IMPORTED_MODULE_1___default()(className, {});
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("li", {
+  var classes = classnames__WEBPACK_IMPORTED_MODULE_1___default()(className, "has_".concat(listItemKey));
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     key: listItemKey,
     className: classes
-  }, icon);
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("a", {
+    href: "#",
+    onClick: function onClick(e) {
+      e.preventDefault();
+    }
+  }, icon));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PreviewSocialIconListItem);
 
@@ -43854,7 +43860,7 @@ var SocialIcons = function SocialIcons() {
       fontAwesomeIcon = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__.FontAwesomeIcon, {
         size: '1x',
         icon: icon,
-        className: "has-".concat(keyValue)
+        className: "has-icon"
       });
       socialIcons.push({
         key: (_value$slug3 = value.slug) !== null && _value$slug3 !== void 0 ? _value$slug3 : value.key,
