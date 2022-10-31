@@ -37,42 +37,46 @@ const SocialIcons = () => {
 				}
 			}
 			let icon = null;
+			let fontAwesomeIcon = null;
 			const keyValue = value.slug ?? value.key;
 			switch ( keyValue ) {
 				case 'twitter':
-					icon = <FontAwesomeIcon size={ '1x' } icon={ TwitterIcon } />;
+					icon = TwitterIcon;
 					break;
 				case 'facebook':
-					icon = <FontAwesomeIcon size={ '1x' } icon={ FacebookIcon } />;
+					icon = FacebookIcon;
 					break;
 				case 'whatsapp':
-					icon = <FontAwesomeIcon size={ '1x' } icon={ WhatsappIcon } />;
+					icon = WhatsappIcon;
 					break;
 				case 'reddit':
-					icon = <FontAwesomeIcon size={ '1x' } icon={ RedditIcon } />;
+					icon = RedditIcon;
 					break;
 				case 'telegram':
-					icon = <FontAwesomeIcon size={ '1x' } icon={ TelegramIcon } />;
+					icon = TelegramIcon;
 					break;
 				case 'linkedin':
-					icon = <FontAwesomeIcon size={ '1x' } icon={ LinkedinIcon } />;
+					icon = LinkedinIcon;
 					break;
 				case 'xing':
-					icon = <FontAwesomeIcon size={ '1x' } icon={ XingIcon } />;
+					icon = XingIcon;
 					break;
 				case 'copy':
-					icon = <FontAwesomeIcon size={ '1x' } icon={ CopyIcon } />;
+					icon = CopyIcon;
 					break;
 				case 'email':
-					icon = <FontAwesomeIcon size={ '1x' } icon={ EmailIcon } />;
+					icon = EmailIcon;
 					break;
+				default:
+					icon = <></>;
 			}
+			fontAwesomeIcon = <FontAwesomeIcon size={ '1x' } icon={ icon } className={ `has-${ keyValue }` } />;
 			socialIcons.push( {
 				key: ( value.slug ?? value.key ),
 				listItemKey: ( value.slug ?? value.key ),
 				className: classes,
 				styles,
-				icon,
+				icon: fontAwesomeIcon,
 				index: socialIconCount,
 				enabled: value.enabled,
 				custom: value.custom,

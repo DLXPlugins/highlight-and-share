@@ -43821,69 +43821,50 @@ var SocialIcons = function SocialIcons() {
         }
       }
       var icon = null;
+      var fontAwesomeIcon = null;
       var keyValue = (_value$slug2 = value.slug) !== null && _value$slug2 !== void 0 ? _value$slug2 : value.key;
       switch (keyValue) {
         case 'twitter':
-          icon = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__.FontAwesomeIcon, {
-            size: '1x',
-            icon: _fortawesome_free_brands_svg_icons_faTwitter__WEBPACK_IMPORTED_MODULE_4__.faTwitter
-          });
+          icon = _fortawesome_free_brands_svg_icons_faTwitter__WEBPACK_IMPORTED_MODULE_4__.faTwitter;
           break;
         case 'facebook':
-          icon = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__.FontAwesomeIcon, {
-            size: '1x',
-            icon: _fortawesome_free_brands_svg_icons_faFacebook__WEBPACK_IMPORTED_MODULE_5__.faFacebook
-          });
+          icon = _fortawesome_free_brands_svg_icons_faFacebook__WEBPACK_IMPORTED_MODULE_5__.faFacebook;
           break;
         case 'whatsapp':
-          icon = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__.FontAwesomeIcon, {
-            size: '1x',
-            icon: _fortawesome_free_brands_svg_icons_faWhatsapp__WEBPACK_IMPORTED_MODULE_6__.faWhatsapp
-          });
+          icon = _fortawesome_free_brands_svg_icons_faWhatsapp__WEBPACK_IMPORTED_MODULE_6__.faWhatsapp;
           break;
         case 'reddit':
-          icon = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__.FontAwesomeIcon, {
-            size: '1x',
-            icon: _fortawesome_free_brands_svg_icons_faReddit__WEBPACK_IMPORTED_MODULE_7__.faReddit
-          });
+          icon = _fortawesome_free_brands_svg_icons_faReddit__WEBPACK_IMPORTED_MODULE_7__.faReddit;
           break;
         case 'telegram':
-          icon = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__.FontAwesomeIcon, {
-            size: '1x',
-            icon: _fortawesome_free_brands_svg_icons_faTelegram__WEBPACK_IMPORTED_MODULE_8__.faTelegram
-          });
+          icon = _fortawesome_free_brands_svg_icons_faTelegram__WEBPACK_IMPORTED_MODULE_8__.faTelegram;
           break;
         case 'linkedin':
-          icon = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__.FontAwesomeIcon, {
-            size: '1x',
-            icon: _fortawesome_free_brands_svg_icons_faLinkedin__WEBPACK_IMPORTED_MODULE_9__.faLinkedin
-          });
+          icon = _fortawesome_free_brands_svg_icons_faLinkedin__WEBPACK_IMPORTED_MODULE_9__.faLinkedin;
           break;
         case 'xing':
-          icon = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__.FontAwesomeIcon, {
-            size: '1x',
-            icon: _fortawesome_free_brands_svg_icons_faXing__WEBPACK_IMPORTED_MODULE_10__.faXing
-          });
+          icon = _fortawesome_free_brands_svg_icons_faXing__WEBPACK_IMPORTED_MODULE_10__.faXing;
           break;
         case 'copy':
-          icon = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__.FontAwesomeIcon, {
-            size: '1x',
-            icon: _fortawesome_free_solid_svg_icons_faCopy__WEBPACK_IMPORTED_MODULE_11__.faCopy
-          });
+          icon = _fortawesome_free_solid_svg_icons_faCopy__WEBPACK_IMPORTED_MODULE_11__.faCopy;
           break;
         case 'email':
-          icon = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__.FontAwesomeIcon, {
-            size: '1x',
-            icon: _fortawesome_free_solid_svg_icons_faAt__WEBPACK_IMPORTED_MODULE_12__.faAt
-          });
+          icon = _fortawesome_free_solid_svg_icons_faAt__WEBPACK_IMPORTED_MODULE_12__.faAt;
           break;
+        default:
+          icon = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null);
       }
+      fontAwesomeIcon = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__.FontAwesomeIcon, {
+        size: '1x',
+        icon: icon,
+        className: "has-".concat(keyValue)
+      });
       socialIcons.push({
         key: (_value$slug3 = value.slug) !== null && _value$slug3 !== void 0 ? _value$slug3 : value.key,
         listItemKey: (_value$slug4 = value.slug) !== null && _value$slug4 !== void 0 ? _value$slug4 : value.key,
         className: classes,
         styles: styles,
-        icon: icon,
+        icon: fontAwesomeIcon,
         index: socialIconCount,
         enabled: value.enabled,
         custom: value.custom
