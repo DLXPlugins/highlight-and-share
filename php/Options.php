@@ -26,6 +26,13 @@ class Options {
 	private static $options_social_networks = false;
 
 	/**
+	 * Highlight and Share Theme Options.
+	 *
+	 * @var array $options Highlight and Share theme options.
+	 */
+	private static $options_theme = false;
+
+	/**
 	 * Highlight and Share Options
 	 *
 	 * @var array $instance Highlight and Share options.
@@ -131,6 +138,80 @@ class Options {
 		 */
 		$social_networks = apply_filters( 'has_social_network_defaults', $social_networks );
 		return $social_networks;
+	}
+
+	/**
+	 * Get default options for custom themes.
+	 */
+	public static function get_theme_defaults() {
+		$defaults = array(
+			'theme'                   => 'default',
+			'icons_only'              => true, /* custom theme option */
+			'orientation'             => 'horizontal', /* custom theme option */
+			'group_icons'             => true,
+			'background_color'        => '#FFFFFF', /* only applicable if icons are grouped */
+			'icon_colors_group'       => '#000000', /* only applicable if icons are grouped */
+			'icon_colors_group_hover' => '#000000', /* only applicable if icons are grouped */
+			'border_radius_group'     => 0, /* only applicable if icons are grouped */
+			'icon_border_radius'      => 0, /* only applicable if icons are NOT grouped */
+			'icon_colors'             => array( /* Social Icon Colors */
+				'twitter'  => array(
+					'background'       => '#1da1f2',
+					'background_hover' => '#1a91da',
+					'icon_color'       => '#fff',
+					'icon_color_hover' => '#fff',
+				),
+				'facebook' => array(
+					'background'       => '#3b5998',
+					'background_hover' => '#2d4373',
+					'icon_color'       => '#fff',
+					'icon_color_hover' => '#fff',
+				),
+				'whatsapp' => array(
+					'background'       => '#25d366',
+					'background_hover' => '#1fbf4f',
+					'icon_color'       => '#fff',
+					'icon_color_hover' => '#fff',
+				),
+				'reddit'   => array(
+					'background'       => '#ff4500',
+					'background_hover' => '#e63f00',
+					'icon_color'       => '#fff',
+					'icon_color_hover' => '#fff',
+				),
+				'telegram' => array(
+					'background'       => '#0088cc',
+					'background_hover' => '#006b9f',
+					'icon_color'       => '#fff',
+					'icon_color_hover' => '#fff',
+				),
+				'linkedin' => array(
+					'background'       => '#0077b5',
+					'background_hover' => '#005983',
+					'icon_color'       => '#fff',
+					'icon_color_hover' => '#fff',
+				),
+				'xing'     => array(
+					'background'       => '#006567',
+					'background_hover' => '#004c4c',
+					'icon_color'       => '#fff',
+					'icon_color_hover' => '#fff',
+				),
+				'copy'     => array(
+					'background'       => '#000',
+					'background_hover' => '#000',
+					'icon_color'       => '#fff',
+					'icon_color_hover' => '#fff',
+				),
+				'email'    => array(
+					'background'       => '#000',
+					'background_hover' => '#000',
+					'icon_color'       => '#fff',
+					'icon_color_hover' => '#fff',
+				),
+			),
+		);
+		return $defaults;
 	}
 
 	/**
@@ -246,6 +327,42 @@ class Options {
 		array_multisort( array_column( $settings, 'order' ), SORT_ASC, $settings );
 
 		self::$options_social_networks = $settings;
+		return $settings;
+	}
+
+	/**
+	 * Return the social network options.
+	 *
+	 * @since 3.0.0
+	 * @access public
+	 *
+	 * @see init
+	 *
+	 * @param bool $force Force a refresh of the options.
+	 *
+	 * @return array Plugin options
+	 */
+	public static function get_theme_options( $force = false ) {
+		if ( false === self::$options_theme ) {
+			$settings = get_option( 'highlight-and-share-theme-options' );
+		} else {
+			$settings = self::$options_theme;
+		}
+
+		$defaults = self::get_theme_defaults();
+
+		if ( false === $settings || ! is_array( $settings ) ) {
+			// Add theme option from old options into new one.
+			$options           = self::get_plugin_options();
+			$defaults['theme'] = sanitize_text_field( $options['theme'] );
+			update_option( 'highlight-and-share-theme-options', $defaults );
+			return $defaults;
+		}
+
+		// Merge two multi-dimensional arrays (defaults, and from settings).
+		$settings = array_replace_recursive( $defaults, $settings );
+
+		self::$options_theme = $settings;
 		return $settings;
 	}
 }
