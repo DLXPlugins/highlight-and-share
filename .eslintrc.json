@@ -6,7 +6,8 @@
 		"window": true,
 		"document": true,
 		"hasSettingsAdmin": "readonly",
-		"hasAppearanceAdmin": "readonly"
+		"hasAppearanceAdmin": "readonly",
+		"React": "readonly"
 	},
 	"env": {
 		"browser": true,

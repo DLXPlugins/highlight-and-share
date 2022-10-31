@@ -1,19 +1,23 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, useContext } from 'react';
 import classNames from 'classnames';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import SocialIconListItem from '../SocialIconListItem';
-import socialIcons from '../SocialIcons';
+import SocialIcons from '../SocialIcons';
+import SocialNetworksContext from '../../Contexts/SocialNetworksContext';
+import { faGameConsoleHandheld } from '@fortawesome/pro-solid-svg-icons';
 
 
 const SocialIconList = () => {
-	const [ networks, setNetworks ] = useState( socialIcons );
+	const { getSocialIcons } = SocialIcons();
 
+	const { setSocialNetworks } = useContext( SocialNetworksContext );
+	const networks = getSocialIcons();
 	const moveSocialNetwork = useCallback(
 		( dragIndex, hoverIndex ) => {
 			const dragItem = networks[ dragIndex ];
 			const hoverItem = networks[ hoverIndex ];
 			// Swap places of dragItem and hoverItem in the pets array
-			setNetworks( () => {
+			setSocialNetworks( () => {
 				// For loop to get new indexes.
 				const newNetworks = [];
 				networks.forEach( ( network, index ) => {
@@ -30,7 +34,7 @@ const SocialIconList = () => {
 						}
 					}
 				} );
-
+				console.log( newNetworks );
 				// Todo - Ajax call here to save the order.
 				return newNetworks;
 			} );
@@ -38,15 +42,17 @@ const SocialIconList = () => {
 		[ networks ],
 	);
 
+	console.log( networks );
+
 	return (
-		<ul className="has-admin-theme-reorder-list">{ networks.map( ( network, index ) => (
+		<ul className="has-admin-theme-reorder-list">{ networks.map( ( network, key ) => (
 			<SocialIconListItem
 				key={ network.key }
-				listItemKey={ network.listItemKey }
+				listItemKey={ network.key }
 				className={ network.className }
 				styles={ network.styles }
 				icon={ network.icon }
-				index={ index }
+				index={ network.index }
 				moveSocialNetwork={ moveSocialNetwork }
 			/>
 		) ) }

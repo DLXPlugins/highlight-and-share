@@ -1,11 +1,11 @@
-import React, { useState } from 'react';
-import classNames from 'classnames';
+import React from 'react';
 import PreviewSocialIconListItem from '../PreviewSocialIconListItem';
 // Import all the social media icons.
-import socialIcons from '../SocialIcons';
+import SocialIcons from '../SocialIcons';
 
 const PreviewSocialIconList = () => {
-	const [ networks, setNetworks ] = useState( socialIcons );
+	const { getSocialIcons } = SocialIcons();
+	const networks = getSocialIcons();
 
 	return (
 		<ul className="has-admin-theme-preview-list">{ networks.map( ( network, index ) => {
