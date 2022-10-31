@@ -2,7 +2,7 @@
 import React from 'react';
 import classNames from 'classnames';
 
-const PreviewSocialIconListItem = ( { listItemKey, className, icon } ) => {
+const PreviewSocialIconListItem = ( { listItemKey, className, icon, theme, label } ) => {
 	const classes = classNames( className, `has_${ listItemKey }` );
 	return (
 		<div key={ listItemKey } className={ classes }>
@@ -13,6 +13,11 @@ const PreviewSocialIconListItem = ( { listItemKey, className, icon } ) => {
 				} }
 			>
 				{ icon }
+				{ 'default' === theme && (
+					<>
+						{ ` ${ label } ` }
+					</>
+				)}
 			</a>
 		</div>
 	);

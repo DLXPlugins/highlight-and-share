@@ -284,6 +284,7 @@ class Admin {
 						'retrieveNonce'  => wp_create_nonce( 'has_retrieve_settings' ),
 						'resetNonce'     => wp_create_nonce( 'has_reset_settings' ),
 						'socialNetworks' => Options::get_plugin_options_social_networks(),
+						'theme'          => 'default',
 					)
 				);
 			}

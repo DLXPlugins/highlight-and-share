@@ -43528,7 +43528,7 @@ var PreviewSocialIconList = function PreviewSocialIconList() {
     getSocialIcons = _SocialIcons.getSocialIcons;
   var networks = getSocialIcons();
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: "has-admin-theme-preview-list highlight-and-share-wrapper theme-blue"
+    className: "has-admin-theme-preview-list highlight-and-share-wrapper theme-default"
   }, networks.map(function (network, index) {
     if (network.enabled) {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_PreviewSocialIconListItem__WEBPACK_IMPORTED_MODULE_1__["default"], {
@@ -43536,7 +43536,9 @@ var PreviewSocialIconList = function PreviewSocialIconList() {
         listItemKey: network.key,
         className: network.className,
         icon: network.icon,
-        index: index
+        index: index,
+        label: network.label,
+        theme: hasAppearanceAdmin.theme
       });
     }
     return null;
@@ -43567,7 +43569,9 @@ __webpack_require__.r(__webpack_exports__);
 var PreviewSocialIconListItem = function PreviewSocialIconListItem(_ref) {
   var listItemKey = _ref.listItemKey,
     className = _ref.className,
-    icon = _ref.icon;
+    icon = _ref.icon,
+    theme = _ref.theme,
+    label = _ref.label;
   var classes = classnames__WEBPACK_IMPORTED_MODULE_1___default()(className, "has_".concat(listItemKey));
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     key: listItemKey,
@@ -43577,7 +43581,7 @@ var PreviewSocialIconListItem = function PreviewSocialIconListItem(_ref) {
     onClick: function onClick(e) {
       e.preventDefault();
     }
-  }, icon));
+  }, icon, 'default' === theme && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, " ".concat(label, " "))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PreviewSocialIconListItem);
 
@@ -43869,6 +43873,7 @@ var SocialIcons = function SocialIcons() {
         styles: styles,
         icon: fontAwesomeIcon,
         index: socialIconCount,
+        label: value.label,
         enabled: value.enabled,
         custom: value.custom
       });

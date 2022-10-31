@@ -78,6 +78,7 @@ const SocialIcons = () => {
 				styles,
 				icon: fontAwesomeIcon,
 				index: socialIconCount,
+				label: value.label,
 				enabled: value.enabled,
 				custom: value.custom,
 			} );
