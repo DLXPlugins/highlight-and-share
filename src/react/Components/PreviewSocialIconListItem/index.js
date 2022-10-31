@@ -13,7 +13,7 @@ const PreviewSocialIconListItem = ( { listItemKey, className, icon, theme, label
 				} }
 			>
 				{ icon }
-				{ 'default' === theme && (
+				{ 'theme-default' === theme && (
 					<>
 						{ ` ${ label } ` }
 					</>

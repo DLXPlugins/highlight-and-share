@@ -25,7 +25,8 @@
   font-size: 14px;
 }
 
-.highlight-and-share-wrapper div {
+/* Default Theme */
+.highlight-and-share-wrapper.theme-default div {
   padding: 10px;
   background: #32CCFE;
   -moz-transition: background-color 200ms;
@@ -37,107 +38,107 @@
   margin-bottom: 10px;
 }
 
-.highlight-and-share-wrapper div:last-child {
+.highlight-and-share-wrapper.theme-default div:last-child {
   margin-right: 0;
 }
 
-.highlight-and-share-wrapper div.has_facebook {
+.highlight-and-share-wrapper.theme-default div.has_facebook {
   background: #3c5a9e;
 }
 
-.highlight-and-share-wrapper div.has_linkedin {
+.highlight-and-share-wrapper.theme-default div.has_linkedin {
   background: #0085AE;
 }
 
-.highlight-and-share-wrapper div.has_ok {
+.highlight-and-share-wrapper.theme-default div.has_ok {
   background: #ee8208;
 }
 
-.highlight-and-share-wrapper div.has_vk {
+.highlight-and-share-wrapper.theme-default div.has_vk {
   background: #2372f5;
 }
 
-.highlight-and-share-wrapper div.has_pinterest {
+.highlight-and-share-wrapper.theme-default div.has_pinterest {
   background: #CC2127;
 }
 
-.highlight-and-share-wrapper div.has_xing {
+.highlight-and-share-wrapper.theme-default div.has_xing {
   background: #be4bdb;
 }
 
-.highlight-and-share-wrapper div.has_whatsapp {
+.highlight-and-share-wrapper.theme-default div.has_whatsapp {
   background: #04e26a;
 }
 
-.highlight-and-share-wrapper div.has_copy {
+.highlight-and-share-wrapper.theme-default div.has_copy {
   background: #222222;
 }
 
-.highlight-and-share-wrapper div.has_email {
+.highlight-and-share-wrapper.theme-default div.has_email {
   background: #0074a2;
 }
 
-.highlight-and-share-wrapper div.has_reddit {
+.highlight-and-share-wrapper.theme-default div.has_reddit {
   background: #FF4500;
 }
 
-.highlight-and-share-wrapper div.has_telegram {
+.highlight-and-share-wrapper.theme-default div.has_telegram {
   background: #278fd6;
 }
 
-.highlight-and-share-wrapper div.has_signal {
+.highlight-and-share-wrapper.theme-default div.has_signal {
   background: #3a76f0;
 }
 
-.highlight-and-share-wrapper div.has_twitter:hover {
+.highlight-and-share-wrapper.theme-default div.has_twitter:hover {
   background: #00aced;
 }
 
-.highlight-and-share-wrapper div.has_facebook:hover {
+.highlight-and-share-wrapper.theme-default div.has_facebook:hover {
   background: #1F3C83;
 }
 
-.highlight-and-share-wrapper div.has_linkedin:hover {
+.highlight-and-share-wrapper.theme-default div.has_linkedin:hover {
   background: #23a0c7;
 }
 
-.highlight-and-share-wrapper div.has_ok:hover {
+.highlight-and-share-wrapper.theme-default div.has_ok:hover {
   background: #dc7909;
 }
 
-.highlight-and-share-wrapper div.has_vk:hover {
+.highlight-and-share-wrapper.theme-default div.has_vk:hover {
   background: #256be0;
 }
 
-.highlight-and-share-wrapper div.has_pinterest:hover {
+.highlight-and-share-wrapper.theme-default div.has_pinterest:hover {
   background: #d93238;
 }
 
-.highlight-and-share-wrapper div.has_copy:hover {
+.highlight-and-share-wrapper.theme-default div.has_copy:hover {
   background: #E8e8e8;
 }
 
-.highlight-and-share-wrapper div.has_email:hover {
+.highlight-and-share-wrapper.theme-default div.has_email:hover {
   background: #1388b7;
 }
 
-.highlight-and-share-wrapper div.has_xing:hover {
+.highlight-and-share-wrapper.theme-default div.has_xing:hover {
   background: #a53bc0;
 }
 
-.highlight-and-share-wrapper div.has_whatsapp:hover {
+.highlight-and-share-wrapper.theme-default div.has_whatsapp:hover {
   background: #02b857;
 }
 
-.highlight-and-share-wrapper div.has_reddit:hover {
+.highlight-and-share-wrapper.theme-default div.has_reddit:hover {
   background: #eb4407;
 }
 
-.highlight-and-share-wrapper div.has_telegram:hover {
+.highlight-and-share-wrapper.theme-default div.has_telegram:hover {
   background: #2587ca;
 }
 
-.highlight-and-share-wrapper div.has_signal:hover {
+.highlight-and-share-wrapper.theme-default div.has_signal:hover {
   background: #366ee1;
 }
 
@@ -172,7 +173,155 @@ body.has-body .highlight-and-share-wrapper a:visited {
   background-color: rgb(252, 214, 60);
 }
 
+/* Theme Branded (icons only) */
+.highlight-and-share-wrapper.theme-brand-colors div {
+  padding: 10px;
+  background: #32CCFE;
+  -moz-transition: background-color 200ms;
+  -o-transition: background-color 200ms;
+  -webkit-transition: background-color 200ms;
+  transition: background-color 200ms;
+  z-index: 1000;
+  margin-right: 5px;
+  margin-bottom: 10px;
+}
+
+.highlight-and-share-wrapper.theme-brand-colors div:last-child {
+  margin-right: 0;
+}
+
+.highlight-and-share-wrapper.theme-brand-colors div.has_facebook {
+  background: #3c5a9e;
+}
+
+.highlight-and-share-wrapper.theme-brand-colors div.has_linkedin {
+  background: #0085AE;
+}
+
+.highlight-and-share-wrapper.theme-brand-colors div.has_ok {
+  background: #ee8208;
+}
+
+.highlight-and-share-wrapper.theme-brand-colors div.has_vk {
+  background: #2372f5;
+}
+
+.highlight-and-share-wrapper.theme-brand-colors div.has_pinterest {
+  background: #CC2127;
+}
+
+.highlight-and-share-wrapper.theme-brand-colors div.has_copy {
+  background: #222222;
+}
+
+.highlight-and-share-wrapper.theme-brand-colors div.has_email {
+  background: #0074a2;
+}
+
+.highlight-and-share-wrapper.theme-brand-colors div.hax_xing {
+  background: #0074a2;
+}
+
+.highlight-and-share-wrapper.theme-brand-colors div.has_whatsapp {
+  background: #04e26a;
+}
+
+.highlight-and-share-wrapper.theme-brand-colors div.has_reddit {
+  background: #FF4500;
+}
+
+.highlight-and-share-wrapper.theme-brand-colors div.has_telegram {
+  background: #278fd6;
+}
+
+.highlight-and-share-wrapper.theme-brand-colors div.has_signal {
+  background: #3a76f0;
+}
+
+.highlight-and-share-wrapper.theme-brand-colors span.has-text {
+  display: none;
+}
+
+.highlight-and-share-wrapper.theme-brand-colors div.has_twitter:hover {
+  background: #00aced;
+}
+
+.highlight-and-share-wrapper.theme-brand-colors div.has_facebook:hover {
+  background: #1F3C83;
+}
+
+.highlight-and-share-wrapper.theme-brand-colors div.has_linkedin:hover {
+  background: #23a0c7;
+}
+
+.highlight-and-share-wrapper.theme-brand-colors div.has_ok:hover {
+  background: #dc7909;
+}
+
+.highlight-and-share-wrapper.theme-brand-colors div.has_vk:hover {
+  background: #256be0;
+}
+
+.highlight-and-share-wrapper.theme-brand-colors div.has_pinterest:hover {
+  background: #d93238;
+}
+
+.highlight-and-share-wrapper.theme-brand-colors div.has_copy:hover {
+  background: #333333;
+}
+
+.highlight-and-share-wrapper.theme-brand-colors div.has_email:hover {
+  background: #1388b7;
+}
+
+.highlight-and-share-wrapper.theme-brand-colors div.has_xing:hover {
+  background: #1388b7;
+}
+
+.highlight-and-share-wrapper.theme-brand-colors div.has_whatsapp:hover {
+  background: #02b857;
+}
+
+.highlight-and-share-wrapper.theme-brand-colors div.has_reddit:hover {
+  background: #eb4407;
+}
+
+.highlight-and-share-wrapper.theme-brand-colors div.has_telegram:hover {
+  background: #2587ca;
+}
+
+.highlight-and-share-wrapper.theme-brand-colors div.has_telegram:hover {
+  background: #366ee1;
+}
+
+body.has-body .highlight-and-share-wrapper.theme-brand-colors a,
+body.has-body .highlight-and-share-wrapper.theme-brand-colors a:hover,
+body.has-body .highlight-and-share-wrapper.theme-brand-colors a:visited {
+  font-family: "FranklinGothic", Helvetica, sans-serif;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 14px;
+  letter-spacing: 0.2em;
+  color: #FFF;
+  display: block;
+  height: 100%;
+  padding: 12px 20px;
+  text-decoration: none;
+}
+
+/* Size of the box and margin */
+div.highlight-and-share-wrapper.theme-brand-colors div {
+  margin-right: 0;
+  padding: 0;
+}
+
 /* Theme White */
+div.highlight-and-share-wrapper.theme-white div {
+  margin-right: 0;
+  padding: 0;
+}
+
 div.highlight-and-share-wrapper.theme-white div.has_twitter,
 div.highlight-and-share-wrapper.theme-white div.has_facebook,
 div.highlight-and-share-wrapper.theme-white div.has_linkedin,
@@ -203,6 +352,22 @@ div.highlight-and-share-wrapper.theme-white div.has_reddit:hover,
 div.highlight-and-share-wrapper.theme-white div.has_telegram:hover,
 div.highlight-and-share-wrapper.theme-white div.has_signal:hover {
   background: #EEE;
+}
+
+body.has-body .highlight-and-share-wrapper.theme-white a,
+body.has-body .highlight-and-share-wrapper.theme-white a:hover,
+body.has-body .highlight-and-share-wrapper.theme-white a:visited {
+  font-family: "FranklinGothic", Helvetica, sans-serif;
+  font-weight: bold;
+  text-transform: uppercase;
+  letter-spacing: 0.15em;
+  font-size: 14px;
+  letter-spacing: 0.2em;
+  color: #000;
+  display: block;
+  height: 100%;
+  padding: 12px 20px;
+  text-decoration: none;
 }
 
 /* Speech Bubble */
@@ -426,7 +591,7 @@ div.highlight-and-share-wrapper.theme-cyan div.has_signal:hover {
   border-right: 10px solid transparent;
 }
 
-.highlight-and-share-wrapper.theme-circles div {
+.highlight-and-share-wrapper.theme-colorful-circles div {
   padding: 10px;
   background: #32CCFE;
   -moz-transition: background-color 200ms;
@@ -439,117 +604,117 @@ div.highlight-and-share-wrapper.theme-cyan div.has_signal:hover {
   border-radius: 50%;
 }
 
-.highlight-and-share-wrapper.theme-circles div:last-child {
+.highlight-and-share-wrapper.theme-colorful-circles div:last-child {
   margin-right: 0;
 }
 
-.highlight-and-share-wrapper.theme-circles div.has_facebook {
+.highlight-and-share-wrapper.theme-colorful-circles div.has_facebook {
   background: #3c5a9e;
 }
 
-.highlight-and-share-wrapper.theme-circles div.has_linkedin {
+.highlight-and-share-wrapper.theme-colorful-circles div.has_linkedin {
   background: #0085AE;
 }
 
-.highlight-and-share-wrapper.theme-circles div.has_ok {
+.highlight-and-share-wrapper.theme-colorful-circles div.has_ok {
   background: #ee8208;
 }
 
-.highlight-and-share-wrapper.theme-circles div.has_vk {
+.highlight-and-share-wrapper.theme-colorful-circles div.has_vk {
   background: #2372f5;
 }
 
-.highlight-and-share-wrapper.theme-circles div.has_pinterest {
+.highlight-and-share-wrapper.theme-colorful-circles div.has_pinterest {
   background: #CC2127;
 }
 
-.highlight-and-share-wrapper.theme-circles div.has_copy {
+.highlight-and-share-wrapper.theme-colorful-circles div.has_copy {
   background: #222222;
 }
 
-.highlight-and-share-wrapper.theme-circles div.has_email {
+.highlight-and-share-wrapper.theme-colorful-circles div.has_email {
   background: #0074a2;
 }
 
-.highlight-and-share-wrapper.theme-circles div.hax_xing {
+.highlight-and-share-wrapper.theme-colorful-circles div.hax_xing {
   background: #0074a2;
 }
 
-.highlight-and-share-wrapper.theme-circles div.has_whatsapp {
+.highlight-and-share-wrapper.theme-colorful-circles div.has_whatsapp {
   background: #04e26a;
 }
 
-.highlight-and-share-wrapper.theme-circles div.has_reddit {
+.highlight-and-share-wrapper.theme-colorful-circles div.has_reddit {
   background: #FF4500;
 }
 
-.highlight-and-share-wrapper.theme-circles div.has_telegram {
+.highlight-and-share-wrapper.theme-colorful-circles div.has_telegram {
   background: #278fd6;
 }
 
-.highlight-and-share-wrapper.theme-circles div.has_signal {
+.highlight-and-share-wrapper.theme-colorful-circles div.has_signal {
   background: #3a76f0;
 }
 
-.highlight-and-share-wrapper.theme-circles span.has-text {
+.highlight-and-share-wrapper.theme-colorful-circles span.has-text {
   display: none;
 }
 
-.highlight-and-share-wrapper.theme-circles div.has_twitter:hover {
+.highlight-and-share-wrapper.theme-colorful-circles div.has_twitter:hover {
   background: #00aced;
 }
 
-.highlight-and-share-wrapper.theme-circles div.has_facebook:hover {
+.highlight-and-share-wrapper.theme-colorful-circles div.has_facebook:hover {
   background: #1F3C83;
 }
 
-.highlight-and-share-wrapper.theme-circles div.has_linkedin:hover {
+.highlight-and-share-wrapper.theme-colorful-circles div.has_linkedin:hover {
   background: #23a0c7;
 }
 
-.highlight-and-share-wrapper.theme-circles div.has_ok:hover {
+.highlight-and-share-wrapper.theme-colorful-circles div.has_ok:hover {
   background: #dc7909;
 }
 
-.highlight-and-share-wrapper.theme-circles div.has_vk:hover {
+.highlight-and-share-wrapper.theme-colorful-circles div.has_vk:hover {
   background: #256be0;
 }
 
-.highlight-and-share-wrapper.theme-circles div.has_pinterest:hover {
+.highlight-and-share-wrapper.theme-colorful-circles div.has_pinterest:hover {
   background: #d93238;
 }
 
-.highlight-and-share-wrapper.theme-circles div.has_copy:hover {
+.highlight-and-share-wrapper.theme-colorful-circles div.has_copy:hover {
   background: #333333;
 }
 
-.highlight-and-share-wrapper.theme-circles div.has_email:hover {
+.highlight-and-share-wrapper.theme-colorful-circles div.has_email:hover {
   background: #1388b7;
 }
 
-.highlight-and-share-wrapper.theme-circles div.has_xing:hover {
+.highlight-and-share-wrapper.theme-colorful-circles div.has_xing:hover {
   background: #1388b7;
 }
 
-.highlight-and-share-wrapper.theme-circles div.has_whatsapp:hover {
+.highlight-and-share-wrapper.theme-colorful-circles div.has_whatsapp:hover {
   background: #02b857;
 }
 
-.highlight-and-share-wrapper.theme-circles div.has_reddit:hover {
+.highlight-and-share-wrapper.theme-colorful-circles div.has_reddit:hover {
   background: #eb4407;
 }
 
-.highlight-and-share-wrapper.theme-circles div.has_telegram:hover {
+.highlight-and-share-wrapper.theme-colorful-circles div.has_telegram:hover {
   background: #2587ca;
 }
 
-.highlight-and-share-wrapper.theme-circles div.has_telegram:hover {
+.highlight-and-share-wrapper.theme-colorful-circles div.has_telegram:hover {
   background: #366ee1;
 }
 
-body.has-body .highlight-and-share-wrapper.theme-circles a,
-body.has-body .highlight-and-share-wrapper.theme-circles a:hover,
-body.has-body .highlight-and-share-wrapper.theme-circles a:visited {
+body.has-body .highlight-and-share-wrapper.theme-colorful-circles a,
+body.has-body .highlight-and-share-wrapper.theme-colorful-circles a:hover,
+body.has-body .highlight-and-share-wrapper.theme-colorful-circles a:visited {
   font-family: "FranklinGothic", Helvetica, sans-serif;
   font-weight: bold;
   text-transform: uppercase;
@@ -564,30 +729,24 @@ body.has-body .highlight-and-share-wrapper.theme-circles a:visited {
 }
 
 /* Size of the box and margin */
-div.highlight-and-share-wrapper.theme-circles div {
+div.highlight-and-share-wrapper.theme-colorful-circles div {
   position: relative;
   margin-right: 5px;
   padding: 0;
   box-shadow: 0 0 2px rgba(0, 0, 0, 0.6);
 }
 
-.theme-circles-glass .has-icon {
+.theme-colorful-glass-circles .has-icon {
   width: 15px;
   vertical-align: middle;
   height: 15px;
 }
 
-.highlight-and-share-wrapper.theme-circles-glass {
-  display: none;
-  width: 0;
-  height: 0;
-}
-
-.highlight-and-share-wrapper.theme-circles-glass .fa {
+.highlight-and-share-wrapper.theme-colorful-glass-circles .fa {
   font-size: 14px;
 }
 
-.highlight-and-share-wrapper.theme-circles-glass div {
+.highlight-and-share-wrapper.theme-colorful-glass-circles div {
   padding: 10px;
   background: #32CCFE;
   background: rgba(50, 204, 254, 0.4);
@@ -601,16 +760,16 @@ div.highlight-and-share-wrapper.theme-circles div {
   border-radius: 50%;
 }
 
-.highlight-and-share-wrapper.theme-circles-glass div:last-child {
+.highlight-and-share-wrapper.theme-colorful-glass-circles div:last-child {
   margin-right: 0;
 }
 
-.highlight-and-share-wrapper.theme-circles-glass div.has_facebook {
+.highlight-and-share-wrapper.theme-colorful-glass-circles div.has_facebook {
   background-color: #3c5a9e;
   background: rgba(60, 90, 158, 0.4);
 }
 
-.highlight-and-share-wrapper.theme-circles-glass div:after {
+.highlight-and-share-wrapper.theme-colorful-glass-circles div:after {
   content: "";
   position: absolute;
   top: 0;
@@ -626,135 +785,135 @@ div.highlight-and-share-wrapper.theme-circles div {
   border-radius: 100%;
 }
 
-.highlight-and-share-wrapper.theme-circles-glass div svg {
+.highlight-and-share-wrapper.theme-colorful-glass-circles div svg {
   opacity: 1;
 }
 
-.highlight-and-share-wrapper.theme-circles-glass div.has_linkedin {
+.highlight-and-share-wrapper.theme-colorful-glass-circles div.has_linkedin {
   background: #0985ab;
   background: rgba(9, 133, 171, 0.4);
 }
 
-.highlight-and-share-wrapper.theme-circles-glass div.has_ok {
+.highlight-and-share-wrapper.theme-colorful-glass-circles div.has_ok {
   background: #ee8208;
   background: rgba(238, 130, 8, 0.4);
 }
 
-.highlight-and-share-wrapper.theme-circles-glass div.has_vk {
+.highlight-and-share-wrapper.theme-colorful-glass-circles div.has_vk {
   background: #2372f5;
   background: rgba(35, 114, 245, 0.4);
 }
 
-.highlight-and-share-wrapper.theme-circles-glass div.has_pinterest {
+.highlight-and-share-wrapper.theme-colorful-glass-circles div.has_pinterest {
   background: #CC2127;
 }
 
-.highlight-and-share-wrapper.theme-circles-glass div.has_copy {
+.highlight-and-share-wrapper.theme-colorful-glass-circles div.has_copy {
   background: #222222;
   background: rgba(34, 34, 34, 0.4);
 }
 
-.highlight-and-share-wrapper.theme-circles-glass div.has_email {
+.highlight-and-share-wrapper.theme-colorful-glass-circles div.has_email {
   background: #0074a2;
   background: rgba(0, 116, 162, 0.4);
 }
 
-.highlight-and-share-wrapper.theme-circles-glass div.hax_xing {
+.highlight-and-share-wrapper.theme-colorful-glass-circles div.hax_xing {
   background: #0074a2;
   background: rgba(0, 116, 162, 0.4);
 }
 
-.highlight-and-share-wrapper.theme-circles-glass div.has_whatsapp {
+.highlight-and-share-wrapper.theme-colorful-glass-circles div.has_whatsapp {
   background: #04e26a;
   background: rgba(4, 226, 106, 0.4);
 }
 
-.highlight-and-share-wrapper.theme-circles-glass div.has_reddit {
+.highlight-and-share-wrapper.theme-colorful-glass-circles div.has_reddit {
   background: #FF4500;
   background: rgba(255, 69, 0, 0.4);
 }
 
-.highlight-and-share-wrapper.theme-circles-glass div.has_telegram {
+.highlight-and-share-wrapper.theme-colorful-glass-circles div.has_telegram {
   background: #278fd6;
   background: rgba(39, 143, 214, 0.4);
 }
 
-.highlight-and-share-wrapper.theme-circles-glass div.has_signal {
+.highlight-and-share-wrapper.theme-colorful-glass-circles div.has_signal {
   background: #3a76f0;
   background: rgba(58, 118, 240, 0.4);
 }
 
-.highlight-and-share-wrapper.theme-circles-glass span.has-text {
+.highlight-and-share-wrapper.theme-colorful-glass-circles span.has-text {
   display: none;
 }
 
-.highlight-and-share-wrapper.theme-circles-glass div.has_twitter:hover {
+.highlight-and-share-wrapper.theme-colorful-glass-circles div.has_twitter:hover {
   background: #00aced;
   background: rgba(0, 172, 237, 0.4);
 }
 
-.highlight-and-share-wrapper.theme-circles-glass div.has_facebook:hover {
+.highlight-and-share-wrapper.theme-colorful-glass-circles div.has_facebook:hover {
   background: #1F3C83;
   background: rgba(31, 60, 131, 0.4);
 }
 
-.highlight-and-share-wrapper.theme-circles-glass div.has_linkedin:hover {
+.highlight-and-share-wrapper.theme-colorful-glass-circles div.has_linkedin:hover {
   background: #23a0c7;
   background: rgba(35, 160, 199, 0.4);
 }
 
-.highlight-and-share-wrapper.theme-circles-glass div.has_ok:hover {
+.highlight-and-share-wrapper.theme-colorful-glass-circles div.has_ok:hover {
   background: #dc7909;
   background: rgba(220, 121, 9, 0.4);
 }
 
-.highlight-and-share-wrapper.theme-circles-glass div.has_vk:hover {
+.highlight-and-share-wrapper.theme-colorful-glass-circles div.has_vk:hover {
   background: #256be0;
   background: rgba(37, 107, 224, 0.4);
 }
 
-.highlight-and-share-wrapper.theme-circles-glass div.has_pinterest:hover {
+.highlight-and-share-wrapper.theme-colorful-glass-circles div.has_pinterest:hover {
   background: #d93238;
 }
 
-.highlight-and-share-wrapper.theme-circles-glass div.has_copy:hover {
+.highlight-and-share-wrapper.theme-colorful-glass-circles div.has_copy:hover {
   background: #333333;
   background: rgba(51, 51, 51, 0.4);
 }
 
-.highlight-and-share-wrapper.theme-circles-glass div.has_email:hover {
+.highlight-and-share-wrapper.theme-colorful-glass-circles div.has_email:hover {
   background: #1388b7;
   background: rgba(19, 136, 183, 0.4);
 }
 
-.highlight-and-share-wrapper.theme-circles-glass div.has_xing:hover {
+.highlight-and-share-wrapper.theme-colorful-glass-circles div.has_xing:hover {
   background: #1388b7;
   background: rgba(19, 136, 183, 0.4);
 }
 
-.highlight-and-share-wrapper.theme-circles-glass div.has_whatsapp:hover {
+.highlight-and-share-wrapper.theme-colorful-glass-circles div.has_whatsapp:hover {
   background: #02b857;
   background: rgba(2, 184, 87, 0.4);
 }
 
-.highlight-and-share-wrapper.theme-circles-glass div.has_reddit:hover {
+.highlight-and-share-wrapper.theme-colorful-glass-circles div.has_reddit:hover {
   background: #eb4407;
   background: rgba(235, 68, 7, 0.4);
 }
 
-.highlight-and-share-wrapper.theme-circles-glass div.has_telegram:hover {
+.highlight-and-share-wrapper.theme-colorful-glass-circles div.has_telegram:hover {
   background: #2587ca;
   background-image: radial-gradient(rgba(255, 255, 255, 0.4), #2587ca, #154c72);
 }
 
-.highlight-and-share-wrapper.theme-circles-glass div.has_telegram:hover {
+.highlight-and-share-wrapper.theme-colorful-glass-circles div.has_telegram:hover {
   background: #366ee1;
   background: rgba(54, 110, 225, 0.4);
 }
 
-body.has-body .highlight-and-share-wrapper.theme-circles-glass a,
-body.has-body .highlight-and-share-wrapper.theme-circles-glass a:hover,
-body.has-body .highlight-and-share-wrapper.theme-circles-glass a:visited {
+body.has-body .highlight-and-share-wrapper.theme-colorful-glass-circles a,
+body.has-body .highlight-and-share-wrapper.theme-colorful-glass-circles a:hover,
+body.has-body .highlight-and-share-wrapper.theme-colorful-glass-circles a:visited {
   font-family: "FranklinGothic", Helvetica, sans-serif;
   font-weight: bold;
   text-transform: uppercase;
@@ -769,13 +928,13 @@ body.has-body .highlight-and-share-wrapper.theme-circles-glass a:visited {
 }
 
 /* Size of the box and margin */
-div.highlight-and-share-wrapper.theme-circles-glass div {
+div.highlight-and-share-wrapper.theme-colorful-glass-circles div {
   position: relative;
   margin-right: 5px;
   padding: 0;
 }
 
-div.highlight-and-share-wrapper.theme-circles-glass div a {
+div.highlight-and-share-wrapper.theme-colorful-glass-circles div a {
   position: relative;
   display: inline-block;
   z-index: 10;
