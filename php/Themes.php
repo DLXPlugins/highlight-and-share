@@ -11,6 +11,66 @@ namespace DLXPlugins\HAS;
  * Class Themes
  */
 class Themes {
+
+	/**
+	 * Get the default theme colors.
+	 */
+	public static function get_default_theme_colors() {
+		// Return colors for each social network. Each has a slug, value, and label.
+		return array(
+			array(
+				'slug'  => 'twitter',
+				'color' => '#1da1f2',
+				'label' => __( 'Twitter', 'highlight-and-share' ),
+			),
+			array(
+				'slug'  => 'facebook',
+				'color' => '#3b5998',
+				'label' => __( 'Facebook', 'highlight-and-share' ),
+			),
+			array(
+				'slug'  => 'linkedin',
+				'color' => '#0077b5',
+				'label' => __( 'LinkedIn', 'highlight-and-share' ),
+			),
+			array(
+				'slug'  => 'reddit',
+				'color' => '#ff4500',
+				'label' => __( 'Reddit', 'highlight-and-share' ),
+			),
+			/* Telegram */
+			array(
+				'slug'  => 'telegram',
+				'color' => '#0088cc',
+				'label' => __( 'Telegram', 'highlight-and-share' ),
+			),
+			/* LinkedIn */
+			array(
+				'slug'  => 'linkedin',
+				'color' => '#0077b5',
+				'label' => __( 'LinkedIn', 'highlight-and-share' ),
+			),
+			/* WhatsApp */
+			array(
+				'slug'  => 'whatsapp',
+				'color' => '#25d366',
+				'label' => __( 'WhatsApp', 'highlight-and-share' ),
+			),
+			/* Black */
+			array(
+				'slug'  => 'black',
+				'color' => '#000000',
+				'label' => __( 'Black', 'highlight-and-share' ),
+			),
+			/* White */
+			array(
+				'slug'  => 'white',
+				'color' => '#ffffff',
+				'label' => __( 'White', 'highlight-and-share' ),
+			),
+		);
+	}
+
 	/**
 	 * Get the main themes.
 	 */

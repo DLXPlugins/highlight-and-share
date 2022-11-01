@@ -1,11 +1,18 @@
 import React, { useContext, useState } from 'react';
 import SocialNetworksContext from '../../Contexts/SocialNetworksContext';
-import { SelectControl, ToggleControl, RadioControl } from '@wordpress/components';
+import {
+	SelectControl,
+	ToggleControl,
+	RadioControl,
+} from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { useForm, Controller, useWatch, useFormState } from 'react-hook-form';
 import classNames from 'classnames';
 import Notice from '../Notice';
 import CircularInfoIcon from '../Icons/CircularInfo';
+import HASColorPicker from '../ColorPicker';
+
+const defaultColors = hasAppearanceAdmin.colors;
 
 const ThemeCustomizer = () => {
 	const { theme, setTheme } = useContext( SocialNetworksContext );
@@ -15,6 +22,8 @@ const ThemeCustomizer = () => {
 			selectedTheme: theme,
 			iconsOnly: true,
 			orientation: 'horizontal',
+			groupIcons: true,
+			backgroundColor: '#FFFFFF',
 		};
 	};
 
@@ -36,11 +45,9 @@ const ThemeCustomizer = () => {
 		control,
 	} );
 
-	const onSubmit = ( formData ) => {
-	};
+	const onSubmit = ( formData ) => {};
 
-	const handleReset = ( e ) => {
-	};
+	const handleReset = ( e ) => {};
 
 	const getThemes = () => {
 		const themes = hasAppearanceAdmin.themes;
@@ -71,10 +78,7 @@ const ThemeCustomizer = () => {
 						render={ ( { field: { onChange, value } } ) => (
 							<SelectControl
 								className="has-admin__theme-select"
-								label={ __(
-									'Select a Theme',
-									'highlight-and-share'
-								) }
+								label={ __( 'Select a Theme', 'highlight-and-share' ) }
 								value={ value }
 								onChange={ ( newTheme ) => {
 									setTheme( newTheme );
@@ -105,10 +109,7 @@ const ThemeCustomizer = () => {
 								control={ control }
 								render={ ( { field: { onChange, value } } ) => (
 									<ToggleControl
-										label={ __(
-											'Icons Only',
-											'highlight-and-share'
-										) }
+										label={ __( 'Icons Only', 'highlight-and-share' ) }
 										className="has-admin__toggle-control"
 										checked={ value }
 										onChange={ ( boolValue ) => {
@@ -122,6 +123,49 @@ const ThemeCustomizer = () => {
 								) }
 							/>
 						</div>
+						{ getValues( 'iconsOnly' ) && (
+							<>
+								<div className="has-admin-component-row">
+									<Controller
+										name="groupIcons"
+										control={ control }
+										render={ ( { field: { onChange, value } } ) => (
+											<ToggleControl
+												label={ __(
+													'Group Icons Together',
+													'highlight-and-share'
+												) }
+												className="has-admin__toggle-control"
+												checked={ value }
+												onChange={ ( boolValue ) => {
+													onChange( boolValue );
+												} }
+												help={ __(
+													'Group the icons together or have theme separated.',
+													'highlight-and-share'
+												) }
+											/>
+										) }
+									/>
+								</div>
+								{ getValues( 'groupIcons' ) && (
+									<>
+										<div className="has-admin-component-row">
+											<HASColorPicker
+												value={ getValues( 'backgroundColor' ) }
+												onChange={ ( slug, newValue ) => {
+													console.log( newValue );
+												} }
+												label={ __( 'Background Color', 'highlight-and-share' ) }
+												defaultColors={ defaultColors }
+												defaultColor={ getValues( 'backgroundColor' ) }
+												slug={ 'backgroundColor' }
+											/>
+										</div>
+									</>
+								) }
+							</>
+						) }
 						<div className="has-admin-component-row">
 							<Controller
 								name="orientation"

@@ -149,9 +149,9 @@ class Options {
 			'icons_only'              => true, /* custom theme option */
 			'orientation'             => 'horizontal', /* custom theme option */
 			'group_icons'             => true,
-			'background_color'        => '#FFFFFF', /* only applicable if icons are grouped */
-			'icon_colors_group'       => '#000000', /* only applicable if icons are grouped */
-			'icon_colors_group_hover' => '#000000', /* only applicable if icons are grouped */
+			'background_color'        => '#000000', /* only applicable if icons are grouped */
+			'icon_colors_group'       => '#FFFFFF', /* only applicable if icons are grouped */
+			'icon_colors_group_hover' => '#FFFFFF', /* only applicable if icons are grouped */
 			'border_radius_group'     => 0, /* only applicable if icons are grouped */
 			'icon_border_radius'      => 0, /* only applicable if icons are NOT grouped */
 			'icon_colors'             => array( /* Social Icon Colors */
