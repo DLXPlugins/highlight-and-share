@@ -11,6 +11,7 @@ import classNames from 'classnames';
 import Notice from '../Notice';
 import CircularInfoIcon from '../Icons/CircularInfo';
 import HASColorPicker from '../ColorPicker';
+import DimensionsControl from '../Dimensions';
 
 const defaultColors = hasAppearanceAdmin.colors;
 
@@ -26,6 +27,14 @@ const ThemeCustomizer = () => {
 			backgroundColor: '#000000',
 			iconColorsGroup: '#FFFFFF',
 			iconColorsGroupHover: '#FFFFFF',
+			borderRadiusGroup: {
+				top: 0,
+				right: 0,
+				bottom: 0,
+				left: 0,
+				unit: 'px',
+				syncUnits: true,
+			},
 		};
 	};
 
@@ -170,7 +179,68 @@ const ThemeCustomizer = () => {
 												) }
 											/>
 										</div>
-
+										<div className="has-admin-component-row">
+											<Controller
+												name="iconColorsGroup"
+												control={ control }
+												render={ ( { field: { onChange, value } } ) => (
+													<HASColorPicker
+														value={ value }
+														onChange={ ( slug, newValue ) => {
+															onChange( newValue );
+														} }
+														label={ __( 'Icon Color', 'highlight-and-share' ) }
+														defaultColors={ defaultColors }
+														defaultColor={ getValues( 'iconColorsGroup' ) }
+														slug={ 'iconColorsGroup' }
+													/>
+												) }
+											/>
+										</div>
+										<div className="has-admin-component-row">
+											<Controller
+												name="iconColorsGroupHover"
+												control={ control }
+												render={ ( { field: { onChange, value } } ) => (
+													<HASColorPicker
+														value={ value }
+														onChange={ ( slug, newValue ) => {
+															onChange( newValue );
+														} }
+														label={ __( 'Icon Color Hover', 'highlight-and-share' ) }
+														defaultColors={ defaultColors }
+														defaultColor={ getValues( 'iconColorsGroupHover' ) }
+														slug={ 'iconColorsGroupHover' }
+													/>
+												) }
+											/>
+										</div>
+										<div className="has-admin-component-row">
+											<Controller
+												name="borderRadiusGroup"
+												control={ control }
+												render={ ( { field: { onChange, value } } ) => (
+													<DimensionsControl
+														label={ __( 'Border Radius', 'highlight-and-share' ) }
+														allowNegatives={ false }
+														attrTop={ value.top }
+														attrRight={ value.right }
+														attrBottom={ value.bottom }
+														attrLeft={ value.left }
+														attrUnit={ value.unit }
+														attrSyncUnits={ value.syncUnits }
+														labelTop={ __( 'T-Left', 'highlight-and-share' ) }
+														labelRight={ __( 'T-Right', 'highlight-and-share' ) }
+														labelBottom={ __( 'B-Right', 'highlight-and-share' ) }
+														labelLeft={ __( 'B-Left', 'highlight-and-share' ) }
+														units={ [ 'px', 'em', 'rem' ] }
+														onValuesChange={ ( newValues ) => {
+															onChange( newValues );
+														} }
+													/>
+												) }
+											/>
+										</div>
 									</>
 								) }
 							</>

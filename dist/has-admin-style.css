@@ -4892,7 +4892,9 @@ h2.has-admin-content-subheading:after {
 .has-admin-content-wrapper p.description {
   font-size: 1.1em;
 }
+.has-admin-content-wrapper .has-admin-component-row .components-has-units-control-label__units,
 .has-admin-content-wrapper .has-admin-component-row label,
+.has-admin-content-wrapper .has-admin-component-row .components-select-control .components-has-units-control-label__units,
 .has-admin-content-wrapper .has-admin-component-row .components-select-control label {
   display: block;
   font-weight: 600;
@@ -5279,6 +5281,67 @@ h2.has-admin-content-subheading:after {
 }
 .components-circular-option-picker__option-wrapper:hover {
   transform: scale(1.3);
+}
+
+/* Dimensions Component */
+.has-admin-content-wrapper .has-admin-component-row .components-has-dimensions-control {
+  display: inline-block;
+  margin-bottom: 16px;
+}
+.has-admin-content-wrapper .has-admin-component-row .components-has-dimensions-control label {
+  display: none;
+}
+.has-admin-content-wrapper .has-admin-component-row .components-has-dimensions-control .components-has-dimensions-control__inputs {
+  display: inline-grid;
+  grid-template-columns: 55px 55px 55px 55px 1fr;
+  text-align: center;
+}
+.has-admin-content-wrapper .has-admin-component-row .components-has-dimensions-control .components-has-dimensions-control__number {
+  display: inline;
+}
+.has-admin-content-wrapper .has-admin-component-row .components-has-dimensions-control .components-has-dimensions-control__number .components-base-control__field {
+  display: inline;
+}
+
+/* Sync button */
+.has-admin-content-wrapper .components-has-dimensions-control_sync.components-button {
+  height: 100%;
+}
+
+/* Dimensions labels */
+.has-admin-content-wrapper .components-has-dimensions-control__input-labels {
+  display: none;
+}
+
+/* Unit Picker Component - Forked from @GenerateBlocks */
+.components-has-units-control-header__units {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 5px;
+  align-items: center;
+}
+
+.components-has-control__units .components-has-control-buttons__units button.components-button {
+  background: transparent;
+  box-shadow: none !important;
+  color: #929da7;
+  font-size: 10px;
+  padding: 0 5px;
+  position: relative;
+  text-align: center;
+  text-shadow: none;
+  border: 0;
+  border-radius: 0 !important;
+  line-height: 20px;
+  padding: 0 5px;
+  height: auto;
+}
+.components-has-control__units .components-has-control-buttons__units button.components-button.is-primary {
+  background: transparent !important;
+  color: #000 !important;
+  cursor: default;
+  z-index: 1;
+  font-weight: bold;
 }
 
 /*# sourceMappingURL=has-admin-style.css.map*/
