@@ -23,7 +23,9 @@ const ThemeCustomizer = () => {
 			iconsOnly: true,
 			orientation: 'horizontal',
 			groupIcons: true,
-			backgroundColor: '#FFFFFF',
+			backgroundColor: '#000000',
+			iconColorsGroup: '#FFFFFF',
+			iconColorsGroupHover: '#FFFFFF',
 		};
 	};
 
@@ -151,17 +153,24 @@ const ThemeCustomizer = () => {
 								{ getValues( 'groupIcons' ) && (
 									<>
 										<div className="has-admin-component-row">
-											<HASColorPicker
-												value={ getValues( 'backgroundColor' ) }
-												onChange={ ( slug, newValue ) => {
-													console.log( newValue );
-												} }
-												label={ __( 'Background Color', 'highlight-and-share' ) }
-												defaultColors={ defaultColors }
-												defaultColor={ getValues( 'backgroundColor' ) }
-												slug={ 'backgroundColor' }
+											<Controller
+												name="backgroundColor"
+												control={ control }
+												render={ ( { field: { onChange, value } } ) => (
+													<HASColorPicker
+														value={ value }
+														onChange={ ( slug, newValue ) => {
+															onChange( newValue );
+														} }
+														label={ __( 'Background Color', 'highlight-and-share' ) }
+														defaultColors={ defaultColors }
+														defaultColor={ getValues( 'backgroundColor' ) }
+														slug={ 'backgroundColor' }
+													/>
+												) }
 											/>
 										</div>
+
 									</>
 								) }
 							</>
