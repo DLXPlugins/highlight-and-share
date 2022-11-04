@@ -6,35 +6,71 @@ import SocialIcons from '../SocialIcons';
 import SocialNetworksContext from '../../Contexts/SocialNetworksContext';
 
 const PreviewSocialIconList = () => {
-	const { theme } = useContext( SocialNetworksContext );
-
+	const { theme, appearanceThemeData } = useContext( SocialNetworksContext );
 	const { getSocialIcons } = SocialIcons();
 	const networks = getSocialIcons();
 
-	return (
-		<div
-			className={ classNames(
-				'has-admin-theme-preview-list highlight-and-share-wrapper',
-				`theme-${ theme }`
-			) }
-		>
-			{ networks.map( ( network, index ) => {
-				if ( network.enabled ) {
-					return (
-						<PreviewSocialIconListItem
-							key={ network.key }
-							listItemKey={ network.key }
-							className={ network.className }
-							icon={ network.icon }
-							index={ index }
-							label={ network.label }
-							theme={ `theme-${ theme }` }
-						/>
-					);
+	let themeStyles = '';
+	if ( 'custom' === theme && appearanceThemeData.groupIcons ) {
+		themeStyles += `
+			.has-admin-theme-preview-list.highlight-and-share-wrapper {
+				background-color: ${ appearanceThemeData.backgroundColor };
+			}
+			.has-admin-theme-preview-list.highlight-and-share-wrapper div a {
+				color: ${ appearanceThemeData.iconColorsGroup } !important;
+			}
+			.has-admin-theme-preview-list.highlight-and-share-wrapper div a:hover {
+				color: ${ appearanceThemeData.iconColorsGroupHover } !important;
+			}
+		`;
+		// Get border radius values.
+		if ( appearanceThemeData.borderRadiusGroup.attrSyncUnits ) {
+			themeStyles += `
+				.has-admin-theme-preview-list.highlight-and-share-wrapper {
+					border-radius: ${ appearanceThemeData.borderRadiusGroup.attrTop }${ appearanceThemeData.borderRadiusGroup.attrUnit } !important;
 				}
-				return null;
-			} ) }
-		</div>
+			`;
+		} else {
+			themeStyles += `
+				.has-admin-theme-preview-list.highlight-and-share-wrapper {
+					border-top-left-radius: ${ appearanceThemeData.borderRadiusGroup.attrTop }${ appearanceThemeData.borderRadiusGroup.attrUnit } !important;
+					border-top-right-radius: ${ appearanceThemeData.borderRadiusGroup.attrRight }${ appearanceThemeData.borderRadiusGroup.attrUnit } !important;
+					border-bottom-right-radius: ${ appearanceThemeData.borderRadiusGroup.attrBottom }${ appearanceThemeData.borderRadiusGroup.attrUnit } !important;
+					border-bottom-left-radius: ${ appearanceThemeData.borderRadiusGroup.attrLeft }${ appearanceThemeData.borderRadiusGroup.attrUnit } !important;
+				}
+			`;
+		}
+	}
+
+	return (
+		<>
+			<style>
+				{ themeStyles }
+			</style>
+			<div
+				className={ classNames(
+					'has-admin-theme-preview-list highlight-and-share-wrapper',
+					`theme-${ theme }`
+				) }
+			>
+				{ networks.map( ( network, index ) => {
+					if ( network.enabled ) {
+						return (
+							<PreviewSocialIconListItem
+								key={ network.key }
+								listItemKey={ network.key }
+								className={ network.className }
+								icon={ network.icon }
+								index={ index }
+								label={ network.label }
+								theme={ `theme-${ theme }` }
+							/>
+						);
+					}
+					return null;
+				} ) }
+			</div>
+		</>
 	);
 };
 

@@ -34,15 +34,12 @@ const SocialIconList = () => {
 						}
 					}
 				} );
-				console.log( newNetworks );
 				// Todo - Ajax call here to save the order.
 				return newNetworks;
 			} );
 		},
 		[ networks ],
 	);
-
-	console.log( networks );
 
 	return (
 		<ul className="has-admin-theme-reorder-list">{ networks.map( ( network, key ) => (

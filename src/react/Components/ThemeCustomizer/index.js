@@ -1,4 +1,4 @@
-import React, { useContext, useState } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import SocialNetworksContext from '../../Contexts/SocialNetworksContext';
 import {
 	SelectControl,
@@ -16,7 +16,7 @@ import DimensionsControl from '../Dimensions';
 const defaultColors = hasAppearanceAdmin.colors;
 
 const ThemeCustomizer = () => {
-	const { theme, setTheme } = useContext( SocialNetworksContext );
+	const { theme, setTheme, appearanceThemeData, setAppearanceThemeData } = useContext( SocialNetworksContext );
 
 	const getDefaultValues = () => {
 		return {
@@ -52,7 +52,7 @@ const ThemeCustomizer = () => {
 
 	const formValues = useWatch( { control } );
 
-	const { errors, isDirty, dirtyFields, touchedFields } = useFormState( {
+	const { errors, isDirty, dirtyFields, touchedFields, formData } = useFormState( {
 		control,
 	} );
 
@@ -78,6 +78,10 @@ const ThemeCustomizer = () => {
 		} );
 		return themeOptions;
 	};
+
+	useEffect( () => {
+		setAppearanceThemeData( formValues );
+	}, [ formValues ] );
 
 	return (
 		<div className="has-admin-theme-customizer">

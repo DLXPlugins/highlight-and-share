@@ -9,9 +9,10 @@ const root = createRoot( container );
 const Wrapper = () => {
 	const [ socialNetworks, setSocialNetworks ] = useState( hasAppearanceAdmin.socialNetworks );
 	const [ theme, setTheme ] = useState( hasAppearanceAdmin.theme );
+	const [ appearanceThemeData, setAppearanceThemeData ] = useState( { } );
 
 	return (
-		<SocialNetworksContext.Provider value={ { socialNetworks, setSocialNetworks, theme, setTheme } }>
+		<SocialNetworksContext.Provider value={ { socialNetworks, setSocialNetworks, theme, setTheme, appearanceThemeData, setAppearanceThemeData } }>
 			<Appearance />
 		</SocialNetworksContext.Provider>
 	);

@@ -2,13 +2,13 @@
  * Dimensions Component.
  * Credit: Forked from @GenerateBlocks
  */
- import React from 'react';
+ import React, { useEffect } from 'react';
 
 /**
  * External dependencies
  */
 import './editor.scss';
-import UnitPicker from '../UnitPicker';
+import UnitPicker from '../unit-picker';
 
 import { __, sprintf, _x } from '@wordpress/i18n';
 import { Button, Tooltip, TextControl } from '@wordpress/components';
@@ -55,6 +55,10 @@ const DimensionsControl = ( props ) => {
 		units,
 		onValuesChange,
 	} = props;
+
+	useEffect( () => {
+		onValuesChange( formValues );
+	}, [ formValues ] );
 
 	/**
 	 * Change the all values in parent.
