@@ -94,7 +94,7 @@ const ThemeCustomizer = () => {
 						<div className="has-admin-component-row has-description">
 							<Notice
 								message={ __(
-									'You have chosen a custom theme. You can configure the settings below.',
+									'You have chosen a custom theme. You can configure the settings and see a preview below.',
 									'highlight-and-share'
 								) }
 								status="info"
@@ -132,7 +132,7 @@ const ThemeCustomizer = () => {
 										render={ ( { field: { onChange, value } } ) => (
 											<ToggleControl
 												label={ __(
-													'Group Icons Together',
+													'Modify All Icons Together (Group them)',
 													'highlight-and-share'
 												) }
 												className="has-admin__toggle-control"
@@ -141,7 +141,7 @@ const ThemeCustomizer = () => {
 													onChange( boolValue );
 												} }
 												help={ __(
-													'Group the icons together or have theme separated.',
+													'Modify all icons at once or have them separated with individual colors and backgrounds.',
 													'highlight-and-share'
 												) }
 											/>
