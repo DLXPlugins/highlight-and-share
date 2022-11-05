@@ -21,6 +21,7 @@ const PreviewSocialIconList = () => {
 			}
 			.has-admin-theme-preview-list.highlight-and-share-wrapper div a:hover {
 				color: ${ appearanceThemeData.iconColorsGroupHover } !important;
+				background-color: ${ appearanceThemeData.backgroundColorHover } !important;
 			}
 		`;
 		// Get border radius values.

@@ -25,6 +25,7 @@ const ThemeCustomizer = () => {
 			orientation: 'horizontal',
 			groupIcons: true,
 			backgroundColor: '#000000',
+			backgroundColorHover: '#333333',
 			iconColorsGroup: '#FFFFFF',
 			iconColorsGroupHover: '#FFFFFF',
 			borderRadiusGroup: {
@@ -177,8 +178,26 @@ const ThemeCustomizer = () => {
 														} }
 														label={ __( 'Background Color', 'highlight-and-share' ) }
 														defaultColors={ defaultColors }
-														defaultColor={ getValues( 'backgroundColor' ) }
+														defaultColor={'#000000' }
 														slug={ 'backgroundColor' }
+													/>
+												) }
+											/>
+										</div>
+										<div className="has-admin-component-row">
+											<Controller
+												name="backgroundColorHover"
+												control={ control }
+												render={ ( { field: { onChange, value } } ) => (
+													<HASColorPicker
+														value={ value }
+														onChange={ ( slug, newValue ) => {
+															onChange( newValue );
+														} }
+														label={ __( 'Background Color Hover', 'highlight-and-share' ) }
+														defaultColors={ defaultColors }
+														defaultColor={ '#333333' }
+														slug={ 'backgroundColorHover' }
 													/>
 												) }
 											/>
@@ -195,7 +214,7 @@ const ThemeCustomizer = () => {
 														} }
 														label={ __( 'Icon Color', 'highlight-and-share' ) }
 														defaultColors={ defaultColors }
-														defaultColor={ getValues( 'iconColorsGroup' ) }
+														defaultColor={ '#FFFFFF' }
 														slug={ 'iconColorsGroup' }
 													/>
 												) }
@@ -213,7 +232,7 @@ const ThemeCustomizer = () => {
 														} }
 														label={ __( 'Icon Color Hover', 'highlight-and-share' ) }
 														defaultColors={ defaultColors }
-														defaultColor={ getValues( 'iconColorsGroupHover' ) }
+														defaultColor={ '#FFFFFF' }
 														slug={ 'iconColorsGroupHover' }
 													/>
 												) }

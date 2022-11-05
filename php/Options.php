@@ -150,6 +150,7 @@ class Options {
 			'orientation'             => 'horizontal', /* custom theme option */
 			'group_icons'             => true,
 			'background_color'        => '#000000', /* only applicable if icons are grouped */
+			'background_color_hover'  => '#333333', /* only applicable if icons are grouped */
 			'icon_colors_group'       => '#FFFFFF', /* only applicable if icons are grouped */
 			'icon_colors_group_hover' => '#FFFFFF', /* only applicable if icons are grouped */
 			'border_radius_group'     => 0, /* only applicable if icons are grouped */
