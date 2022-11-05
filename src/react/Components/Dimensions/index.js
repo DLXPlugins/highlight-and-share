@@ -84,7 +84,7 @@ const DimensionsControl = ( props ) => {
 		];
 		const syncValue = Math.max.apply( null, numbers );
 		setValue( 'attrSyncUnits', ! getValues( 'attrSyncUnits' ) );
-		changeAllValues( syncValue.toString() );
+		changeAllValues( syncValue );
 	};
 
 	/**

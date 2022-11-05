@@ -28,12 +28,12 @@ const ThemeCustomizer = () => {
 			iconColorsGroup: '#FFFFFF',
 			iconColorsGroupHover: '#FFFFFF',
 			borderRadiusGroup: {
-				top: 0,
-				right: 0,
-				bottom: 0,
-				left: 0,
-				unit: 'px',
-				syncUnits: true,
+				attrTop: 0,
+				attrRight: 0,
+				attrBottom: 0,
+				attrLeft: 0,
+				attrUnit: 'px',
+				attrSyncUnits: true,
 			},
 		};
 	};
@@ -227,12 +227,12 @@ const ThemeCustomizer = () => {
 													<DimensionsControl
 														label={ __( 'Border Radius', 'highlight-and-share' ) }
 														allowNegatives={ false }
-														attrTop={ value.top }
-														attrRight={ value.right }
-														attrBottom={ value.bottom }
-														attrLeft={ value.left }
-														attrUnit={ value.unit }
-														attrSyncUnits={ value.syncUnits }
+														attrTop={ value.attrTop }
+														attrRight={ value.attrRight }
+														attrBottom={ value.attrBottom }
+														attrLeft={ value.attrLeft }
+														attrUnit={ value.attrUnit }
+														attrSyncUnits={ value.attrSyncUnits }
 														labelTop={ __( 'T-Left', 'highlight-and-share' ) }
 														labelRight={ __( 'T-Right', 'highlight-and-share' ) }
 														labelBottom={ __( 'B-Right', 'highlight-and-share' ) }
