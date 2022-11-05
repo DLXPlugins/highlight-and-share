@@ -3,24 +3,42 @@ import React, { useContext } from 'react';
 import classNames from 'classnames';
 import SocialNetworksContext from '../../Contexts/SocialNetworksContext';
 
-const PreviewSocialIconListItem = ( { listItemKey, className, icon, theme, label } ) => {
-	const { hasIconsOnly } = useContext( SocialNetworksContext );
+const PreviewSocialIconListItem = ( { listItemKey, className, icon, label } ) => {
+	const { theme, hasIconsOnly, socialNetworkColors, appearanceThemeData } = useContext( SocialNetworksContext );
 	const classes = classNames( className, `has_${ listItemKey }` );
+
+	let iconStyles = '';
+	if ( ! appearanceThemeData.groupIcons && 'custom' === theme ) {
+		iconStyles = `
+			.has_${ listItemKey } a {
+				color: ${ socialNetworkColors[ listItemKey ].icon_color } !important;
+				background: ${ socialNetworkColors[ listItemKey ].background } !important;
+			}
+			.has_${ listItemKey } a:hover {
+				color: ${ socialNetworkColors[ listItemKey ].icon_color_hover } !important;
+				background: ${ socialNetworkColors[ listItemKey ].background_hover } !important;
+			}
+		`;
+	}
+
 	return (
 		<div key={ listItemKey } className={ classes }>
-			<a
-				href="#"
-				onClick={ ( e ) => {
-					e.preventDefault();
-				} }
-			>
-				{ icon }
-				{ ( 'theme-default' === theme || ! hasIconsOnly ) && (
-					<>
-						{ ` ${ label } ` }
-					</>
-				)}
-			</a>
+			<>
+				{ iconStyles && <style>{ iconStyles }</style> }
+				<a
+					href="#"
+					onClick={ ( e ) => {
+						e.preventDefault();
+					} }
+				>
+					{ icon }
+					{ ( 'theme-default' === theme || ! hasIconsOnly ) && (
+						<>
+							{ ` ${ label } ` }
+						</>
+					)}
+				</a>
+			</>
 		</div>
 	);
 };

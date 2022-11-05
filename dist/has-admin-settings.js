@@ -43958,6 +43958,7 @@ var Interface = function Interface(props) {
     _useState8 = _slicedToArray(_useState7, 2),
     isReset = _useState8[0],
     setIsReset = _useState8[1];
+  console.log(data);
   var getDefaultValues = function getDefaultValues() {
     return {
       enableMobile: data.enableMobile,

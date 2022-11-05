@@ -12,6 +12,7 @@ import Notice from '../Notice';
 import CircularInfoIcon from '../Icons/CircularInfo';
 import HASColorPicker from '../ColorPicker';
 import DimensionsControl from '../Dimensions';
+import SocialNetworkColorsTabs from '../SocialNetworkColorsTabs';
 
 const defaultColors = hasAppearanceAdmin.colors;
 
@@ -266,6 +267,11 @@ const ThemeCustomizer = () => {
 									/>
 								</div>
 							</>
+						) }
+						{ ! getValues( 'groupIcons' ) && (
+							<div className="has-admin-component-row">
+								<SocialNetworkColorsTabs />
+							</div>
 						) }
 
 						<div className="has-admin-component-row">

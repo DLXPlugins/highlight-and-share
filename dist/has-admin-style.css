@@ -5344,4 +5344,27 @@ h2.has-admin-content-subheading:after {
   font-weight: bold;
 }
 
+/* Appearance Social Network Tabs */
+.has-admin-colors-tabs-panel {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  column-gap: 40px;
+  row-gap: 20px;
+}
+.has-admin-colors-tabs-panel .components-tab-panel__tabs-item {
+  background: #FFF;
+  border: 1px solid #ccc;
+  border-bottom: 0;
+}
+.has-admin-colors-tabs-panel .components-tab-panel__tabs-item:last-child {
+  border-bottom: 1px solid #ccc;
+}
+.has-admin-colors-tabs-panel .components-tab-panel__tabs-item.active-tab {
+  background: var(--wp-admin-theme-color);
+  color: #FFF;
+}
+.has-admin-colors-tabs-panel .components-tab-panel__tabs-item:focus {
+  box-shadow: none;
+}
+
 /*# sourceMappingURL=has-admin-style.css.map*/

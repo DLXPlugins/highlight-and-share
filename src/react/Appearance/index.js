@@ -7,13 +7,33 @@ const container = document.getElementById( 'has-appearance-admin-settings' );
 const root = createRoot( container );
 
 const Wrapper = () => {
-	const [ socialNetworks, setSocialNetworks ] = useState( hasAppearanceAdmin.socialNetworks );
+	const [ socialNetworks, setSocialNetworks ] = useState(
+		hasAppearanceAdmin.socialNetworks
+	);
 	const [ theme, setTheme ] = useState( hasAppearanceAdmin.theme );
-	const [ appearanceThemeData, setAppearanceThemeData ] = useState( { } );
-	const [ hasIconsOnly, setHasIconsOnly ] = useState( hasAppearanceAdmin.themeOptionsCustom.icons_only );
+	const [ appearanceThemeData, setAppearanceThemeData ] = useState( {} );
+	const [ hasIconsOnly, setHasIconsOnly ] = useState(
+		hasAppearanceAdmin.themeOptionsCustom.icons_only
+	);
+	const [ socialNetworkColors, setSocialNetworkColors ] = useState(
+		hasAppearanceAdmin.themeOptionsCustom.icon_colors
+	);
 
 	return (
-		<SocialNetworksContext.Provider value={ { socialNetworks, setSocialNetworks, theme, setTheme, appearanceThemeData, setAppearanceThemeData, hasIconsOnly, setHasIconsOnly } }>
+		<SocialNetworksContext.Provider
+			value={ {
+				socialNetworks,
+				setSocialNetworks,
+				theme,
+				setTheme,
+				appearanceThemeData,
+				setAppearanceThemeData,
+				hasIconsOnly,
+				setHasIconsOnly,
+				socialNetworkColors,
+				setSocialNetworkColors,
+			} }
+		>
 			<Appearance />
 		</SocialNetworksContext.Provider>
 	);

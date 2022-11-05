@@ -158,6 +158,7 @@ class Options {
 			'icon_colors'             => array( /* Social Icon Colors */
 				'twitter'  => array(
 					'label'            => __( 'Twitter', 'highlight-and-share' ),
+					'slug'             => 'twitter',
 					'background'       => '#1da1f2',
 					'background_hover' => '#1a91da',
 					'icon_color'       => '#fff',
@@ -165,6 +166,7 @@ class Options {
 				),
 				'facebook' => array(
 					'label'            => __( 'Facebook', 'highlight-and-share' ),
+					'slug'             => 'facebook',
 					'background'       => '#3b5998',
 					'background_hover' => '#2d4373',
 					'icon_color'       => '#fff',
@@ -172,6 +174,7 @@ class Options {
 				),
 				'whatsapp' => array(
 					'label'            => __( 'WhatsApp', 'highlight-and-share' ),
+					'slug'             => 'whatsapp',
 					'background'       => '#25d366',
 					'background_hover' => '#1fbf4f',
 					'icon_color'       => '#fff',
@@ -179,6 +182,7 @@ class Options {
 				),
 				'reddit'   => array(
 					'label'            => __( 'Reddit', 'highlight-and-share' ),
+					'slug'             => 'reddit',
 					'background'       => '#ff4500',
 					'background_hover' => '#e63f00',
 					'icon_color'       => '#fff',
@@ -186,6 +190,7 @@ class Options {
 				),
 				'telegram' => array(
 					'label'            => __( 'Telegram', 'highlight-and-share' ),
+					'slug'             => 'telegram',
 					'background'       => '#0088cc',
 					'background_hover' => '#006b9f',
 					'icon_color'       => '#fff',
@@ -193,6 +198,7 @@ class Options {
 				),
 				'linkedin' => array(
 					'label'            => __( 'LinkedIn', 'highlight-and-share' ),
+					'slug'             => 'linkedin',
 					'background'       => '#0077b5',
 					'background_hover' => '#005983',
 					'icon_color'       => '#fff',
@@ -200,6 +206,7 @@ class Options {
 				),
 				'xing'     => array(
 					'label'            => __( 'Xing', 'highlight-and-share' ),
+					'slug'             => 'xing',
 					'background'       => '#006567',
 					'background_hover' => '#004c4c',
 					'icon_color'       => '#fff',
@@ -207,6 +214,7 @@ class Options {
 				),
 				'copy'     => array(
 					'label'            => __( 'Copy', 'highlight-and-share' ),
+					'slug'             => 'copy',
 					'background'       => '#000',
 					'background_hover' => '#000',
 					'icon_color'       => '#fff',
@@ -214,6 +222,7 @@ class Options {
 				),
 				'email'    => array(
 					'label'            => __( 'Email', 'highlight-and-share' ),
+					'slug'             => 'email',
 					'background'       => '#000',
 					'background_hover' => '#000',
 					'icon_color'       => '#fff',
@@ -238,9 +247,9 @@ class Options {
 			'show_linkedin'         => false,
 			'show_ok'               => false,
 			'show_vk'               => false,
-			'show_email'            => false,
+			'enable_emails'         => false,
 			'show_copy'             => false,
-			'show_whatsapp'         => false,
+			'show_whats_app'        => false,
 			'show_xing'             => false,
 			'enable_mobile'         => true,
 			'show_reddit'           => false,
@@ -326,9 +335,9 @@ class Options {
 		$settings['twitter']['enabled']  = $plugin_options['show_twitter'] ?? false;
 		$settings['facebook']['enabled'] = $plugin_options['show_facebook'] ?? false;
 		$settings['linkedin']['enabled'] = $plugin_options['show_linkedin'] ?? false;
-		$settings['email']['enabled']    = $plugin_options['show_email'] ?? false;
+		$settings['email']['enabled']    = $plugin_options['enable_emails'] ?? false;
 		$settings['copy']['enabled']     = $plugin_options['show_copy'] ?? false;
-		$settings['whatsapp']['enabled'] = $plugin_options['show_whatsapp'] ?? false;
+		$settings['whatsapp']['enabled'] = $plugin_options['show_whats_app'] ?? false;
 		$settings['xing']['enabled']     = $plugin_options['show_xing'] ?? false;
 		$settings['reddit']['enabled']   = $plugin_options['show_reddit'] ?? false;
 		$settings['telegram']['enabled'] = $plugin_options['show_telegram'] ?? false;

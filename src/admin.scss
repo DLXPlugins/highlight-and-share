@@ -843,3 +843,29 @@ h2.has-admin-content-subheading {
 		}
 	}
 }
+
+/* Appearance Social Network Tabs */
+.has-admin-colors-tabs-panel {
+	display: grid;
+	grid-template-columns: 150px 1fr;
+	column-gap: 40px;
+	row-gap: 20px;
+
+	.components-tab-panel__tabs-item {
+		background: #FFF;
+		border: 1px solid #ccc;
+		border-bottom: 0;
+		&:last-child {
+			border-bottom: 1px solid #ccc;
+		}
+
+		&.active-tab {
+			background: var(--wp-admin-theme-color);
+			color: #FFF;
+		}
+
+		&:focus {
+			box-shadow: none;
+		}
+	}
+}
