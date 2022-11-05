@@ -10,9 +10,10 @@ const Wrapper = () => {
 	const [ socialNetworks, setSocialNetworks ] = useState( hasAppearanceAdmin.socialNetworks );
 	const [ theme, setTheme ] = useState( hasAppearanceAdmin.theme );
 	const [ appearanceThemeData, setAppearanceThemeData ] = useState( { } );
+	const [ hasIconsOnly, setHasIconsOnly ] = useState( hasAppearanceAdmin.themeOptionsCustom.icons_only );
 
 	return (
-		<SocialNetworksContext.Provider value={ { socialNetworks, setSocialNetworks, theme, setTheme, appearanceThemeData, setAppearanceThemeData } }>
+		<SocialNetworksContext.Provider value={ { socialNetworks, setSocialNetworks, theme, setTheme, appearanceThemeData, setAppearanceThemeData, hasIconsOnly, setHasIconsOnly } }>
 			<Appearance />
 		</SocialNetworksContext.Provider>
 	);

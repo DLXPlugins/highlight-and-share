@@ -157,54 +157,63 @@ class Options {
 			'icon_border_radius'      => 0, /* only applicable if icons are NOT grouped */
 			'icon_colors'             => array( /* Social Icon Colors */
 				'twitter'  => array(
+					'label'            => __( 'Twitter', 'highlight-and-share' ),
 					'background'       => '#1da1f2',
 					'background_hover' => '#1a91da',
 					'icon_color'       => '#fff',
 					'icon_color_hover' => '#fff',
 				),
 				'facebook' => array(
+					'label'            => __( 'Facebook', 'highlight-and-share' ),
 					'background'       => '#3b5998',
 					'background_hover' => '#2d4373',
 					'icon_color'       => '#fff',
 					'icon_color_hover' => '#fff',
 				),
 				'whatsapp' => array(
+					'label'            => __( 'WhatsApp', 'highlight-and-share' ),
 					'background'       => '#25d366',
 					'background_hover' => '#1fbf4f',
 					'icon_color'       => '#fff',
 					'icon_color_hover' => '#fff',
 				),
 				'reddit'   => array(
+					'label'            => __( 'Reddit', 'highlight-and-share' ),
 					'background'       => '#ff4500',
 					'background_hover' => '#e63f00',
 					'icon_color'       => '#fff',
 					'icon_color_hover' => '#fff',
 				),
 				'telegram' => array(
+					'label'            => __( 'Telegram', 'highlight-and-share' ),
 					'background'       => '#0088cc',
 					'background_hover' => '#006b9f',
 					'icon_color'       => '#fff',
 					'icon_color_hover' => '#fff',
 				),
 				'linkedin' => array(
+					'label'            => __( 'LinkedIn', 'highlight-and-share' ),
 					'background'       => '#0077b5',
 					'background_hover' => '#005983',
 					'icon_color'       => '#fff',
 					'icon_color_hover' => '#fff',
 				),
 				'xing'     => array(
+					'label'            => __( 'Xing', 'highlight-and-share' ),
 					'background'       => '#006567',
 					'background_hover' => '#004c4c',
 					'icon_color'       => '#fff',
 					'icon_color_hover' => '#fff',
 				),
 				'copy'     => array(
+					'label'            => __( 'Copy', 'highlight-and-share' ),
 					'background'       => '#000',
 					'background_hover' => '#000',
 					'icon_color'       => '#fff',
 					'icon_color_hover' => '#fff',
 				),
 				'email'    => array(
+					'label'            => __( 'Email', 'highlight-and-share' ),
 					'background'       => '#000',
 					'background_hover' => '#000',
 					'icon_color'       => '#fff',
