@@ -48,7 +48,7 @@ const TabColorPickers = ( props ) => {
 	}, [ formValues ] );
 
 	return (
-		<>
+		<div className="has-tab-color-picker-wrapper">
 			<div className="has-admin-component-row">
 				<Controller
 					name="backgroundColor"
@@ -121,7 +121,7 @@ const TabColorPickers = ( props ) => {
 					) }
 				/>
 			</div>
-		</>
+		</div>
 	);
 };
 

@@ -671,7 +671,7 @@ h2.has-admin-content-subheading {
 	> .components-base-control__field {
 		position: relative;
 		display: inline-grid;
-		grid-template-columns: 150px 30px;
+		grid-template-columns: 175px 30px;
 		row-gap: 2;
 		margin: 0 auto;
 		justify-content: space-between;
@@ -852,19 +852,27 @@ h2.has-admin-content-subheading {
 
 /* Appearance Social Network Tabs */
 .has-admin-colors-tabs-panel {
-	display: grid;
-	grid-template-columns: 150px 1fr;
-	column-gap: 40px;
-	row-gap: 20px;
 	margin-bottom: 20px;
 
+	.components-tab-panel__tabs,
+	.components-button.components-tab-panel__tabs-item {
+		border-style: solid;
+  		border-color: #ccc;
+	}
+
+	.components-tab-panel__tabs {
+		margin-bottom: 20px;
+		flex-wrap: wrap;
+		border-width: 2px 0 0 2px;
+	}
+
 	.components-tab-panel__tabs-item {
-		background: #FFF;
-		border: 1px solid #ccc;
-		border-bottom: 0;
-		&:last-child {
-			border-bottom: 1px solid #ccc;
-		}
+		background: #EEE;
+		border-right: 0;
+		flex: 1 0 auto;
+		border-width: 0 2px 2px 0;
+		text-align: center;
+		justify-content: center;
 
 		&.active-tab {
 			background: var(--wp-admin-theme-color);
@@ -873,6 +881,89 @@ h2.has-admin-content-subheading {
 
 		&:focus {
 			box-shadow: none;
+		}
+	}
+}
+.has-tab-color-picker-wrapper {
+	display: grid;
+	grid-template-columns: 250px 250px;
+
+	@media (max-width: 500px) {
+		grid-template-columns: 1fr;
+	}
+}
+
+/* Theme Dropdown */
+/* Theme Options Select Dropdown and Go Button */
+/* Lots of importants here to override core styles */
+.has-admin__theme-select {
+	position: relative;
+	padding-bottom: 0px;
+
+	select {
+		appearance: none;
+		outline: 0;
+		border: 0;
+		box-shadow: none;
+		display: flex;
+		flex: 1 !important;
+		min-height: 45px !important;
+		max-height: 45px !important;
+		font-size: 1.2em !important;
+		line-height: 1.5em !important;
+		align-items: center;
+		color: #333 !important;
+		background-color: #FFF !important;
+		background-image: none;
+		cursor: pointer;
+		max-width: 100% !important;
+		padding-left: 20px !important;
+	}
+	.components-input-control__container {
+		position: relative;
+		display: flex !important;
+		width: 100% !important;
+		border-radius: .25em;
+		overflow: hidden;
+		align-items: center;
+
+		&:after {
+			content: '\25BC';
+			position: absolute;
+			top: 0;
+			right: 0;
+			min-height: 45px !important;
+			max-height: 45px !important;
+			width: 4em !important;
+			background-color: #4F4F4F;
+			transition: .25s all ease;
+			pointer-events: none;
+			color: #FFF;
+			display: flex;
+			align-items: center;
+			justify-content: center;
+		  }
+		  &:hover:after {
+			color: #FFF;
+		  }
+	}
+
+	.components-base-control__field {
+		margin-bottom: 0 !important;
+	}
+
+	button.qdlx__btn {
+		padding: 12px 10px;
+		border: 2px solid var( --quotes-dlx-admin--color-accent);
+		color: var( --quotes-dlx-admin--color-accent);
+		max-height: 45px;
+
+		&:hover,
+		&:focus {
+			padding: 12px 10px;
+			background: #f8f7fe;
+			border: 2px solid var( --quotes-dlx-admin--color-accent);
+			color: var( --quotes-dlx-admin--color-accent);
 		}
 	}
 }

@@ -54,7 +54,7 @@ const SocialNetworkColorsTabs = () => {
 					onSelect={ ( tabName ) => {
 						setSelectedTab( tabName );
 					} }
-					orientation="vertical"
+					orientation="horizontal"
 					tabs={ getTabs() }
 					initialTabName={ selectedTab }
 				>
