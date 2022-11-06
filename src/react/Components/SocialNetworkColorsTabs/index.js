@@ -5,6 +5,7 @@ import {
 } from '@wordpress/components';
 import SocialNetworksContext from '../../Contexts/SocialNetworksContext';
 import TabColorPickers from '../TabColorPickers';
+import { __ } from '@wordpress/i18n';
 
 const SocialNetworkColorsTabs = () => {
 	const { socialNetworkColors, setSocialNetworkColors } = useContext( SocialNetworksContext );
@@ -46,6 +47,7 @@ const SocialNetworkColorsTabs = () => {
 					'has-admin-colors-tabs',
 				) }
 			>
+				<h3>{ __( 'Set the Icon Colors', 'highlight-and-share' ) }</h3>
 				<TabPanel
 					className="has-admin-colors-tabs-panel"
 					activeClass="active-tab"
