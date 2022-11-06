@@ -146,6 +146,7 @@ body.has-body .highlight-and-share-wrapper.has-admin-theme-preview-list > div,
 body.has-body .highlight-and-share-wrapper.has-admin-theme-preview-list > div > a {
   display: inline-flex;
   align-items: center;
+  justify-content: center;
 }
 body.has-body .highlight-and-share-wrapper.has-admin-theme-preview-list > div > .has-icon-label,
 body.has-body .highlight-and-share-wrapper.has-admin-theme-preview-list > div > a > .has-icon-label {
@@ -156,6 +157,10 @@ body.has-body .highlight-and-share-wrapper.orientation-vertical {
   display: inline-flex;
   flex-wrap: wrap;
   flex-direction: column;
+}
+body.has-body .highlight-and-share-wrapper.orientation-vertical.has-label > div a {
+  display: block;
+  width: 100%;
 }
 
 body.has-body .highlight-and-share-wrapper:not(.theme-off) a,
@@ -1164,7 +1169,6 @@ div.highlight-and-share-wrapper.theme-blue div.has_signal:hover {
   transition: background-color 200ms;
   z-index: 1000;
   margin-right: 5px;
-  margin-bottom: 10px;
 }
 
 .highlight-and-share-wrapper.theme-black:after {

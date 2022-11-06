@@ -442,35 +442,35 @@ const ThemeCustomizer = () => {
 								</div>
 							</>
 						) }
-						<div className="has-admin-component-row">
-							<Controller
-								name="orientation"
-								control={ control }
-								render={ ( { field: { onChange, value } } ) => (
-									<RadioControl
-										label="Orientation"
-										help={ __(
-											'Select the orientation of the icons (can be horizontal or vertical).',
-											'highlight-and-share'
-										) }
-										selected={ value }
-										options={ [
-											{
-												label: __( 'Horizontal', 'highlight-and-share' ),
-												value: 'horizontal',
-											},
-											{
-												label: __( 'Vertical', 'highlight-and-share' ),
-												value: 'vertical',
-											},
-										] }
-										onChange={ ( radioValue ) => onChange( radioValue ) }
-									/>
-								) }
-							/>
-						</div>
 					</>
 				) }
+				<div className="has-admin-component-row">
+					<Controller
+						name="orientation"
+						control={ control }
+						render={ ( { field: { onChange, value } } ) => (
+							<RadioControl
+								label="Orientation"
+								help={ __(
+									'Select the orientation of the icons (can be horizontal or vertical).',
+									'highlight-and-share'
+								) }
+								selected={ value }
+								options={ [
+									{
+										label: __( 'Horizontal', 'highlight-and-share' ),
+										value: 'horizontal',
+									},
+									{
+										label: __( 'Vertical', 'highlight-and-share' ),
+										value: 'vertical',
+									},
+								] }
+								onChange={ ( radioValue ) => onChange( radioValue ) }
+							/>
+						) }
+					/>
+				</div>
 			</form>
 		</div>
 	);

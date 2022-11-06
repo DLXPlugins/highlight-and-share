@@ -114,7 +114,7 @@ const PreviewSocialIconList = () => {
 	// Set the icon gap.
 	if ( ! appearanceEmpty ) {
 		if ( ! appearanceThemeData.groupIcons ) {
-			if ( appearanceThemeData.orientation === 'horizontal' ) {
+			if ( appearanceThemeData.orientation === 'horizontal' && 'custom' === theme ) {
 				themeStyles += `
 					.has-admin-theme-preview-list.highlight-and-share-wrapper div {
 						margin-right: ${ appearanceThemeData.iconGap }px !important;
@@ -123,7 +123,7 @@ const PreviewSocialIconList = () => {
 						margin-right: 0 !important;
 					}
 				`;
-			} else {
+			} else if ( appearanceThemeData.orientation === 'vertical' && 'custom' === theme ) {
 				themeStyles += `
 					.has-admin-theme-preview-list.highlight-and-share-wrapper div {
 						margin-bottom: ${ appearanceThemeData.iconGap }px !important;
@@ -150,6 +150,7 @@ const PreviewSocialIconList = () => {
 					{ 'icons-ungrouped': ! appearanceThemeData.groupIcons },
 					{ 'orientation-horizontal': appearanceThemeData.orientation === 'horizontal' },
 					{ 'orientation-vertical': appearanceThemeData.orientation === 'vertical' },
+					{ 'has-label': ! appearanceThemeData.iconsOnly },
 				) }
 			>
 				{ networks.map( ( network, index ) => {
