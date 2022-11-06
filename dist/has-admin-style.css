@@ -5461,4 +5461,12 @@ h2.has-admin-content-subheading:after {
   color: var(--quotes-dlx-admin--color-accent);
 }
 
+/* Range Control Component */
+.has-admin__range-control {
+  max-width: 450px;
+}
+.has-admin__range-control span > span {
+  background-color: #4F4F4F !important;
+}
+
 /*# sourceMappingURL=has-admin-style.css.map*/

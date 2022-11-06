@@ -32,9 +32,9 @@ const PreviewSocialIconListItem = ( { listItemKey, className, icon, label } ) =>
 					} }
 				>
 					{ icon }
-					{ ( 'theme-default' === theme || ! hasIconsOnly ) && (
+					{ ( 'default' === theme || ( 'custom' === theme && ! hasIconsOnly ) ) && (
 						<>
-							{ ` ${ label } ` }
+							<span className="has-icon-label">{ `${ label }` }</span>
 						</>
 					)}
 				</a>

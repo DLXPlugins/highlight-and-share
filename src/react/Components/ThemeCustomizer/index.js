@@ -4,6 +4,7 @@ import {
 	SelectControl,
 	ToggleControl,
 	RadioControl,
+	RangeControl,
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { useForm, Controller, useWatch, useFormState } from 'react-hook-form';
@@ -45,6 +46,17 @@ const ThemeCustomizer = () => {
 				attrUnit: 'px',
 				attrSyncUnits: true,
 			},
+			iconPadding: {
+				attrTop: 12,
+				attrRight: 20,
+				attrBottom: 12,
+				attrLeft: 20,
+				attrUnit: 'px',
+				attrSyncUnits: true,
+			},
+			iconSize: 25,
+			fontSize: 14,
+			iconGap: 15,
 			iconColors: hasAppearanceAdmin.themeOptionsCustom.icon_colors,
 		};
 	};
@@ -309,7 +321,127 @@ const ThemeCustomizer = () => {
 								</div>
 							</>
 						) }
-
+						<div className="has-admin-component-row">
+							<Controller
+								name="iconPadding"
+								control={ control }
+								render={ ( { field: { onChange, value } } ) => (
+									<DimensionsControl
+										label={ __( 'Icons Padding', 'highlight-and-share' ) }
+										allowNegatives={ false }
+										attrTop={ value.attrTop }
+										attrRight={ value.attrRight }
+										attrBottom={ value.attrBottom }
+										attrLeft={ value.attrLeft }
+										attrUnit={ value.attrUnit }
+										attrSyncUnits={ value.attrSyncUnits }
+										labelTop={ __( 'Padding Left', 'highlight-and-share' ) }
+										labelRight={ __( 'Padding Right', 'highlight-and-share' ) }
+										labelBottom={ __( 'Padding Bottom', 'highlight-and-share' ) }
+										labelLeft={ __( 'Padding Left', 'highlight-and-share' ) }
+										units={ [ 'px', 'em', 'rem' ] }
+										onValuesChange={ ( newValues ) => {
+											onChange( newValues );
+										} }
+									/>
+								) }
+							/>
+						</div>
+						<div className="has-admin-component-row">
+							<Controller
+								name="iconSize"
+								control={ control }
+								render={ ( { field: { onChange, value } } ) => (
+									<>
+										<RangeControl
+											label={ __(
+												'Set the Icon Size',
+												'highlight-and-share'
+											) }
+											step={ 1 }
+											value={ value }
+											max={ 64 }
+											min={ 14 }
+											currentInput={ 16 }
+											initialPosition={ 16 }
+											allowReset={ true }
+											className="has-admin__range-control"
+											onChange={ ( iconSizeValue ) => {
+												onChange( iconSizeValue );
+											} }
+											trackColor="#4F4F4F"
+											railColor="#CECECE"
+										/>
+									</>
+								) }
+							/>
+						</div>
+						{ ! getValues( 'iconsOnly' ) && (
+							<>
+								<div className="has-admin-component-row">
+									<Controller
+										name="fontSize"
+										control={ control }
+										render={ ( { field: { onChange, value } } ) => (
+											<>
+												<RangeControl
+													label={ __(
+														'Set the Font Size',
+														'highlight-and-share'
+													) }
+													step={ 1 }
+													value={ value }
+													max={ 64 }
+													min={ 14 }
+													currentInput={ 16 }
+													initialPosition={ 16 }
+													allowReset={ true }
+													className="has-admin__range-control"
+													onChange={ ( fontSizeValue ) => {
+														onChange( fontSizeValue );
+													} }
+													trackColor="#4F4F4F"
+													railColor="#CECECE"
+												/>
+											</>
+										) }
+									/>
+								</div>
+							</>
+						) }
+						{ ! getValues( 'groupIcons' ) && (
+							<>
+								<div className="has-admin-component-row">
+									<Controller
+										name="iconGap"
+										control={ control }
+										render={ ( { field: { onChange, value } } ) => (
+											<>
+												<RangeControl
+													label={ __(
+														'Gap Between Items',
+														'highlight-and-share'
+													) }
+													step={ 1 }
+													value={ value }
+													max={ 48 }
+													min={ 0 }
+													currentInput={ 15 }
+													initialPosition={ 15 }
+													allowReset={ true }
+													className="has-admin__range-control"
+													onChange={ ( iconGapValue ) => {
+														onChange( iconGapValue );
+													} }
+													trackColor="#4F4F4F"
+													railColor="#CECECE"
+												/>
+											</>
+										) }
+									/>
+								</div>
+							</>
+						) }
 						<div className="has-admin-component-row">
 							<Controller
 								name="orientation"

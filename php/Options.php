@@ -155,6 +155,10 @@ class Options {
 			'icon_colors_group_hover' => '#FFFFFF', /* only applicable if icons are grouped */
 			'border_radius_group'     => 0, /* only applicable if icons are grouped */
 			'icon_border_radius'      => 0, /* only applicable if icons are NOT grouped */
+			'font_size'               => 14,
+			'icon_padding'            => 0, /* Applicable to grouped and ungrouped icons */
+			'icon_size'               => 25, /* Applicable to grouped and ungrouped icons */
+			'icon_gap'                => 0, /* Applicable to ungrouped icons */
 			'icon_colors'             => array( /* Social Icon Colors */
 				'twitter'  => array(
 					'label'            => __( 'Twitter', 'highlight-and-share' ),

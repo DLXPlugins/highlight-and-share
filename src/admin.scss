@@ -966,3 +966,12 @@ h2.has-admin-content-subheading {
 		}
 	}
 }
+
+/* Range Control Component */
+.has-admin__range-control {
+	max-width: 450px;
+	
+	span > span {
+		background-color: #4F4F4F !important;
+	}
+}
