@@ -346,14 +346,15 @@ h2.has-admin-content-subheading {
 			display: block;
 			font-weight: 600;
 			text-transform: unset;
-			font-size: 13px;
+			font-size: 14px;
 		}
 	}
-	.has-admin-colors-tabs h3 {
+	.has-admin-colors-tabs h3,
+	.has-color-component-label {
 		display: block;
 		font-weight: 600;
 		text-transform: unset;
-		font-size: 13px;
+		font-size: 14px;
 	}
 	.has-admin-component-row .components-select-control {
 		margin-bottom: 15px;
@@ -816,13 +817,11 @@ h2.has-admin-content-subheading {
 
 /* Unit Picker Component - Forked from @GenerateBlocks */
 .components-has-units-control-header__units {
-	display: flex;
-	justify-content: space-between;
 	margin-bottom: 5px;
-	align-items: center;
 }
 
 .components-has-control__units {
+	text-align: right;
 	.components-has-control-buttons__units {
 		button.components-button {
 			background: transparent;

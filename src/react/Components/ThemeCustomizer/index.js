@@ -37,6 +37,14 @@ const ThemeCustomizer = () => {
 				attrUnit: 'px',
 				attrSyncUnits: true,
 			},
+			borderRadiusIcons: {
+				attrTop: 0,
+				attrRight: 0,
+				attrBottom: 0,
+				attrLeft: 0,
+				attrUnit: 'px',
+				attrSyncUnits: true,
+			},
 			iconColors: hasAppearanceAdmin.themeOptionsCustom.icon_colors,
 		};
 	};
@@ -258,7 +266,7 @@ const ThemeCustomizer = () => {
 												labelRight={ __( 'T-Right', 'highlight-and-share' ) }
 												labelBottom={ __( 'B-Right', 'highlight-and-share' ) }
 												labelLeft={ __( 'B-Left', 'highlight-and-share' ) }
-												units={ [ 'px', 'em', 'rem' ] }
+												units={ [ 'px', 'em', 'rem', '%' ] }
 												onValuesChange={ ( newValues ) => {
 													onChange( newValues );
 												} }
@@ -269,9 +277,37 @@ const ThemeCustomizer = () => {
 							</>
 						) }
 						{ ! getValues( 'groupIcons' ) && (
-							<div className="has-admin-component-row">
-								<SocialNetworkColorsTabs />
-							</div>
+							<>
+								<div className="has-admin-component-row">
+									<SocialNetworkColorsTabs />
+								</div>
+								<div className="has-admin-component-row">
+									<Controller
+										name="borderRadiusIcons"
+										control={ control }
+										render={ ( { field: { onChange, value } } ) => (
+											<DimensionsControl
+												label={ __( 'Icons Border Radius', 'highlight-and-share' ) }
+												allowNegatives={ false }
+												attrTop={ value.attrTop }
+												attrRight={ value.attrRight }
+												attrBottom={ value.attrBottom }
+												attrLeft={ value.attrLeft }
+												attrUnit={ value.attrUnit }
+												attrSyncUnits={ value.attrSyncUnits }
+												labelTop={ __( 'T-Left', 'highlight-and-share' ) }
+												labelRight={ __( 'T-Right', 'highlight-and-share' ) }
+												labelBottom={ __( 'B-Right', 'highlight-and-share' ) }
+												labelLeft={ __( 'B-Left', 'highlight-and-share' ) }
+												units={ [ 'px', 'em', 'rem', '%' ] }
+												onValuesChange={ ( newValues ) => {
+													onChange( newValues );
+												} }
+											/>
+										) }
+									/>
+								</div>
+							</>
 						) }
 
 						<div className="has-admin-component-row">
