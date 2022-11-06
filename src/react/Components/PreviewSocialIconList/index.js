@@ -35,13 +35,15 @@ const PreviewSocialIconList = () => {
 			// Get border radius values.
 			if ( appearanceThemeData.borderRadiusGroup.attrSyncUnits ) {
 				themeStyles += `
-					.has-admin-theme-preview-list.highlight-and-share-wrapper {
+					.has-admin-theme-preview-list.highlight-and-share-wrapper,
+					.has-admin-theme-preview-list.highlight-and-share-wrapper a {
 						border-radius: ${ appearanceThemeData.borderRadiusGroup.attrTop }${ appearanceThemeData.borderRadiusGroup.attrUnit } !important;
 					}
 				`;
 			} else {
 				themeStyles += `
-					.has-admin-theme-preview-list.highlight-and-share-wrapper {
+					.has-admin-theme-preview-list.highlight-and-share-wrapper,
+					.has-admin-theme-preview-list.highlight-and-share-wrapper a {
 						border-top-left-radius: ${ appearanceThemeData.borderRadiusGroup.attrTop }${ appearanceThemeData.borderRadiusGroup.attrUnit } !important;
 						border-top-right-radius: ${ appearanceThemeData.borderRadiusGroup.attrRight }${ appearanceThemeData.borderRadiusGroup.attrUnit } !important;
 						border-bottom-right-radius: ${ appearanceThemeData.borderRadiusGroup.attrBottom }${ appearanceThemeData.borderRadiusGroup.attrUnit } !important;
@@ -111,25 +113,28 @@ const PreviewSocialIconList = () => {
 
 	// Set the icon gap.
 	if ( ! appearanceEmpty ) {
-		if ( appearanceThemeData.orientation === 'horizontal' ) {
-			themeStyles += `
-				.has-admin-theme-preview-list.highlight-and-share-wrapper div {
-					margin-right: ${ appearanceThemeData.iconGap }px !important;
-				}
-				.has-admin-theme-preview-list.highlight-and-share-wrapper div:last-child {
-					margin-right: 0 !important;
-				}
-			`;
-		} else {
-			themeStyles += `
-				.has-admin-theme-preview-list.highlight-and-share-wrapper div {
-					margin-bottom: ${ appearanceThemeData.iconGap }px !important;
-				}
-				.has-admin-theme-preview-list.highlight-and-share-wrapper div:last-child {
-					margin-bottom: 0 !important;
-				}
-			`;
+		if ( ! appearanceThemeData.groupIcons ) {
+			if ( appearanceThemeData.orientation === 'horizontal' ) {
+				themeStyles += `
+					.has-admin-theme-preview-list.highlight-and-share-wrapper div {
+						margin-right: ${ appearanceThemeData.iconGap }px !important;
+					}
+					.has-admin-theme-preview-list.highlight-and-share-wrapper div:last-child {
+						margin-right: 0 !important;
+					}
+				`;
+			} else {
+				themeStyles += `
+					.has-admin-theme-preview-list.highlight-and-share-wrapper div {
+						margin-bottom: ${ appearanceThemeData.iconGap }px !important;
+					}
+					.has-admin-theme-preview-list.highlight-and-share-wrapper div:last-child {
+						margin-bottom: 0 !important;
+					}
+				`;
+			}
 		}
+		
 	}
 
 	return (
