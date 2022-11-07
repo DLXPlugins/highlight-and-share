@@ -44531,7 +44531,7 @@ var Interface = function Interface(props) {
       }
     }),
     type: "submit",
-    text: saving ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Saving…', 'ultimate-auto-updates') : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Save Settings', 'ultimate-auto-updates'),
+    text: saving ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Saving…', 'highlight-and-share') : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Save Settings', 'highlight-and-share'),
     icon: saving ? _Components_Icons_Spinner__WEBPACK_IMPORTED_MODULE_8__["default"] : false,
     iconSize: "18",
     iconPosition: "right",
@@ -44547,7 +44547,7 @@ var Interface = function Interface(props) {
       }
     }),
     type: "button",
-    text: resetting ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Resetting…', 'ultimate-auto-updates') : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Reset Settings', 'ultimate-auto-updates'),
+    text: resetting ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Resetting…', 'highlight-and-share') : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Reset Settings', 'highlight-and-share'),
     icon: resetting ? _Components_Icons_Spinner__WEBPACK_IMPORTED_MODULE_8__["default"] : false,
     iconSize: "18",
     iconPosition: "right",

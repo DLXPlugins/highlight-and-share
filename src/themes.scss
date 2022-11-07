@@ -88,7 +88,7 @@
     background: #d93238;
 }
 .highlight-and-share-wrapper.theme-default div.has_copy:hover {
-    background: #E8e8e8;
+    background: #000000;
 }
 .highlight-and-share-wrapper.theme-default div.has_email:hover {
     background: #1388b7;
@@ -261,7 +261,6 @@ body.has-body .highlight-and-share-wrapper.theme-brand-colors a:visited {
 	font-size: 14px;
 	letter-spacing: .2em;
 	color: #FFF;
-	display: block;
 	height: 100%;
 	padding: 12px 20px;
 	text-decoration: none;
@@ -322,7 +321,6 @@ body.has-body .highlight-and-share-wrapper.theme-white a:visited {
 	font-size: 14px;
 	letter-spacing: .2em;
 	color: #000;
-	display: block;
 	height: 100%;
 	padding: 12px 20px;
 	text-decoration: none;
@@ -651,7 +649,6 @@ body.has-body .highlight-and-share-wrapper.theme-colorful-circles a:visited {
 	font-size: 14px;
 	letter-spacing: .2em;
 	color: #FFF;
-	display: block;
 	height: 100%;
 	padding: 12px 20px;
 	text-decoration: none;
@@ -818,7 +815,6 @@ body.has-body .highlight-and-share-wrapper.theme-colorful-glass-circles a:visite
 	font-size: 14px;
 	letter-spacing: .2em;
 	color: #FFF;
-	display: block;
 	height: 100%;
 	padding: 12px 20px;
 	text-decoration: none;
@@ -928,7 +924,6 @@ body.has-body .highlight-and-share-wrapper.theme-brand a:visited {
 	font-size: 14px;
 	letter-spacing: .2em;
 	color: #FFF;
-	display: block;
 	height: 100%;
 	padding: 12px 20px;
 	text-decoration: none;
@@ -951,7 +946,6 @@ body.has-body .highlight-and-share-wrapper.theme-blue a:visited {
 	font-size: 14px;
 	letter-spacing: .2em;
 	color: #FFF;
-	display: block;
 	height: 100%;
 	padding: 12px 20px;
 	text-decoration: none;
@@ -1032,6 +1026,7 @@ div.highlight-and-share-wrapper.theme-blue div.has_signal:hover {
 	transition: background-color 200ms;
 	z-index: 1000;
 	margin-right: 5px;
+	margin-bottom: 10px;
 }
 
 .highlight-and-share-wrapper.theme-black:after {
@@ -1055,7 +1050,6 @@ body.has-body .highlight-and-share-wrapper.theme-black a:visited {
 	font-size: 14px;
 	letter-spacing: .2em;
 	color: #f8f8f8;
-	display: block;
 	height: 100%;
 	padding: 12px 20px;
 	text-decoration: none;

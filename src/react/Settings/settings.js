@@ -741,8 +741,8 @@ const Interface = ( props ) => {
 							type="submit"
 							text={
 								saving
-									? __( 'Saving…', 'ultimate-auto-updates' )
-									: __( 'Save Settings', 'ultimate-auto-updates' )
+									? __( 'Saving…', 'highlight-and-share' )
+									: __( 'Save Settings', 'highlight-and-share' )
 							}
 							icon={ saving ? Spinner : false }
 							iconSize="18"
@@ -760,8 +760,8 @@ const Interface = ( props ) => {
 							type="button"
 							text={
 								resetting
-									? __( 'Resetting…', 'ultimate-auto-updates' )
-									: __( 'Reset Settings', 'ultimate-auto-updates' )
+									? __( 'Resetting…', 'highlight-and-share' )
+									: __( 'Reset Settings', 'highlight-and-share' )
 							}
 							icon={ resetting ? Spinner : false }
 							iconSize="18"

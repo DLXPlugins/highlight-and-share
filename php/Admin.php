@@ -171,18 +171,21 @@ class Admin {
 						<a class="<?php echo esc_attr( implode( ' ', $settings_tab_class ) ); ?>" href="<?php echo esc_url( Functions::get_settings_url( 'settings' ) ); ?>"><?php esc_html_e( 'Settings', 'highlight-and-share' ); ?></a>
 						<a class="<?php echo esc_attr( implode( ' ', $appearance_tab_class ) ); ?>" href="<?php echo esc_url( Functions::get_settings_url( 'appearance' ) ); ?>"><?php esc_html_e( 'Appearance', 'highlight-and-share' ); ?></a>
 					</nav>
-					<div class="has-admin-container-body__content">
-						<?php
-						if ( null === $current_tab || 'settings' === $current_tab ) {
-							?>
-							<div id="has-settings-admin"></div>
-							<?php
-						} elseif ( 'appearance' === $current_tab ) {
-							?>
-							<div id="has-appearance-admin-settings"></div>
-							<?php
-						}
+					<?php
+					if ( null === $current_tab || 'settings' === $current_tab ) {
 						?>
+						<div class="has-admin-container-body__content">
+							<div id="has-settings-admin"></div>
+						</div>
+						<?php
+					}
+					if ( 'appearance' === $current_tab ) {
+						// No wrapper as there are separate wrappers for each section.
+						?>
+						<div id="has-appearance-admin-settings"></div>
+						<?php
+					}
+					?>
 				</div>
 			</div>
 			<div class="has-admin-container-footer">
