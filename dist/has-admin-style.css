@@ -4643,7 +4643,7 @@ div.components-toolbar > div + div.has-left-divider::before {
   padding-left: 0 !important;
   padding-right: 0 !important;
   position: relative;
-  background-color: #EBEBEB;
+  background-color: #ebebeb;
 }
 #wpcontent .quotes-dlx-plugin {
   margin: 0;
@@ -4673,7 +4673,7 @@ div.components-toolbar > div + div.has-left-divider::before {
   margin: 0;
 }
 .has-form-wrapper header {
-  background: #4F4F4F;
+  background: #4f4f4f;
 }
 .has-form-wrapper .has-admin-container-body {
   max-width: 69.5rem;
@@ -4799,9 +4799,9 @@ div.components-toolbar > div + div.has-left-divider::before {
   border-radius: 2px;
   font-size: 1.3em;
   display: inline-block;
-  background: #FFF;
-  color: #4F4F4F;
-  border: 2px solid #4F4F4F;
+  background: #fff;
+  color: #4f4f4f;
+  border: 2px solid #4f4f4f;
   padding: 10px 20px;
   cursor: pointer;
   transition: all 0.4s ease-in-out;
@@ -4810,9 +4810,9 @@ div.components-toolbar > div + div.has-left-divider::before {
 .header__btn-wrap button:not([disabled]):hover,
 .header__btn-wrap .has__btn-primary:not([disabled]):hover {
   border-radius: 2px;
-  background: #4F4F4F;
-  color: #FFF;
-  border-color: #FFF;
+  background: #4f4f4f;
+  color: #fff;
+  border-color: #fff;
   text-decoration: none;
   transition: all 0.4s ease-in-out;
 }
@@ -4841,7 +4841,7 @@ div.components-toolbar > div + div.has-left-divider::before {
 .has-admin-container-footer .has-plea {
   display: block;
   font-style: italic;
-  color: #FFF;
+  color: #fff;
 }
 .has-admin-container-footer .has__btn-primary {
   display: block;
@@ -4851,9 +4851,9 @@ div.components-toolbar > div + div.has-left-divider::before {
   border-radius: 2px;
   font-size: 1.3em;
   line-height: 1.35em;
-  background: #F08EA5;
-  color: #FFF;
-  border: 2px solid #F5A4B7;
+  background: #f08ea5;
+  color: #fff;
+  border: 2px solid #f5a4b7;
   padding: 10px 20px;
   cursor: pointer;
   transition: all 0.4s ease-in-out;
@@ -4863,9 +4863,9 @@ div.components-toolbar > div + div.has-left-divider::before {
 }
 .has-admin-container-footer .has__btn-primary:not([disabled]):hover {
   border-radius: 2px;
-  background: #4F4F4F;
-  color: #FFF;
-  border-color: #F08EA5;
+  background: #4f4f4f;
+  color: #fff;
+  border-color: #f08ea5;
   text-decoration: none;
   transition: all 0.4s ease-in-out;
 }
@@ -5079,7 +5079,7 @@ h2.has-admin-content-subheading:after {
   padding-bottom: 20px;
 }
 .has-admin__tabs--content-actions button {
-  background: #FFFFFF;
+  background: #ffffff;
   color: #017e01;
   border: 1px solid #017e01;
   padding: 10px 20px;
@@ -5097,7 +5097,7 @@ h2.has-admin-content-subheading:after {
   cursor: not-allowed;
 }
 .has-admin__tabs--content-actions button.has__btn-danger {
-  background: #FFFFFF;
+  background: #ffffff;
   color: #822700;
   border-color: #822700;
 }
@@ -5107,7 +5107,7 @@ h2.has-admin-content-subheading:after {
   border-color: #822700;
 }
 .has-admin__tabs--content-actions button.has__btn-secondary {
-  background: #FFFFFF;
+  background: #ffffff;
   color: #333;
   border-color: #333;
 }
@@ -5161,7 +5161,7 @@ h2.has-admin-content-subheading:after {
   display: flex;
   height: 52px;
   width: 52px;
-  background: #FFF !important;
+  background: #fff !important;
   border: 1px solid #e5e5e5;
   align-items: center;
   justify-content: center;
@@ -5277,7 +5277,7 @@ h2.has-admin-content-subheading:after {
 }
 
 .components-popover__content {
-  background: #FFF;
+  background: #fff;
   border: 1px solid #ccc;
   box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
   border-radius: 2px;
@@ -5310,6 +5310,9 @@ h2.has-admin-content-subheading:after {
 .has-admin-content-wrapper .has-admin-component-row .components-has-dimensions-control .components-has-dimensions-control__number .components-base-control__field {
   display: inline;
 }
+.has-admin-content-wrapper .has-admin-component-row .components-has-dimensions-control input[type=number] {
+  width: 100%;
+}
 
 /* Sync button */
 .has-admin-content-wrapper .components-has-dimensions-control_sync.components-button {
@@ -5326,10 +5329,10 @@ h2.has-admin-content-subheading:after {
   margin-bottom: 5px;
 }
 
-.components-has-control__units {
+.components-has-dimensions-control .components-has-control__units {
   text-align: right;
 }
-.components-has-control__units .components-has-control-buttons__units button.components-button {
+.components-has-dimensions-control .components-has-control__units .components-has-control-buttons__units button.components-button {
   background: transparent;
   box-shadow: none !important;
   color: #929da7;
@@ -5344,7 +5347,7 @@ h2.has-admin-content-subheading:after {
   padding: 0 5px;
   height: auto;
 }
-.components-has-control__units .components-has-control-buttons__units button.components-button.is-primary {
+.components-has-dimensions-control .components-has-control__units .components-has-control-buttons__units button.components-button.is-primary {
   background: transparent !important;
   color: #000 !important;
   cursor: default;
@@ -5367,7 +5370,7 @@ h2.has-admin-content-subheading:after {
   border-width: 2px 0 0 2px;
 }
 .has-admin-colors-tabs-panel .components-tab-panel__tabs-item {
-  background: #EEE;
+  background: #eee;
   border-right: 0;
   flex: 1 0 auto;
   border-width: 0 2px 2px 0;
@@ -5376,7 +5379,7 @@ h2.has-admin-content-subheading:after {
 }
 .has-admin-colors-tabs-panel .components-tab-panel__tabs-item.active-tab {
   background: var(--wp-admin-theme-color);
-  color: #FFF;
+  color: #fff;
 }
 .has-admin-colors-tabs-panel .components-tab-panel__tabs-item:focus {
   box-shadow: none;
@@ -5412,7 +5415,7 @@ h2.has-admin-content-subheading:after {
   line-height: 1.5em !important;
   align-items: center;
   color: #333 !important;
-  background-color: #FFF !important;
+  background-color: #fff !important;
   background-image: none;
   cursor: pointer;
   max-width: 100% !important;
@@ -5434,16 +5437,16 @@ h2.has-admin-content-subheading:after {
   min-height: 45px !important;
   max-height: 45px !important;
   width: 4em !important;
-  background-color: #4F4F4F;
+  background-color: #4f4f4f;
   transition: 0.25s all ease;
   pointer-events: none;
-  color: #FFF;
+  color: #fff;
   display: flex;
   align-items: center;
   justify-content: center;
 }
 .has-admin__theme-select .components-input-control__container:hover:after {
-  color: #FFF;
+  color: #fff;
 }
 .has-admin__theme-select .components-base-control__field {
   margin-bottom: 0 !important;
@@ -5466,7 +5469,7 @@ h2.has-admin-content-subheading:after {
   max-width: 450px;
 }
 .has-admin__range-control span > span {
-  background-color: #4F4F4F !important;
+  background-color: #4f4f4f !important;
 }
 
 /* Preview List Padding/Margin */

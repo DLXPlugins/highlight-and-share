@@ -1,4 +1,4 @@
-import React, { useState, Suspense, useCallback } from 'react';
+import React, { useState, lazy, Suspense, useCallback } from 'react';
 import { __ } from '@wordpress/i18n';
 import { escapeAttribute } from '@wordpress/escape-html';
 import { useForm, Controller, useWatch, useFormState } from 'react-hook-form';
@@ -24,7 +24,11 @@ import sendCommand from '../Utils/SendCommand';
 import Loader from '../Components/Loader';
 import SocialIconList from '../Components/SocialIconList';
 import PreviewSocialIconList from '../Components/PreviewSocialIconList';
-import ThemeCustomizer from '../Components/ThemeCustomizer';
+
+// Lazy load theme customizer.
+const ThemeCustomizer = lazy( () =>
+	import( /* webpackChunkName: "ThemeCustomizer.0.0.1" */ '../Components/ThemeCustomizer' )
+);
 
 const retrieveDefaults = () => {
 	return sendCommand( 'has_retrieve_settings_tab', {

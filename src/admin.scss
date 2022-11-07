@@ -1,5 +1,5 @@
-@import "breakpoints-mixin.scss";
-@import "../node_modules/@wordpress/components/build-style/style.css";
+@import 'breakpoints-mixin.scss';
+@import '../node_modules/@wordpress/components/build-style/style.css';
 
 :root {
 	--quotes-dlx-admin--color-dark: #393838;
@@ -62,7 +62,7 @@
 	padding-left: 0 !important;
 	padding-right: 0 !important;
 	position: relative;
-	background-color: #EBEBEB;
+	background-color: #ebebeb;
 
 	.quotes-dlx-plugin {
 		margin: 0;
@@ -88,14 +88,14 @@
 }
 
 $link_color: #2c3a95;
-$link_color_hover: darken( #2c3a95, 15% );
+$link_color_hover: darken(#2c3a95, 15%);
 .has-form-wrapper {
 	position: relative;
 	padding: 0;
 	margin: 0;
 
 	header {
-		background: #4F4F4F;
+		background: #4f4f4f;
 	}
 	.has-admin-container-body {
 		max-width: 69.5rem;
@@ -132,39 +132,36 @@ $link_color_hover: darken( #2c3a95, 15% );
 
 	.has-logo-wrapper {
 		text-align: left;
-		
+
 		img {
 			max-width: 100%;
 			height: auto;
 		}
-
 	}
-	
+
 	.header__btn-wrap {
 		@include respond-to('small') {
 			margin-top: 0;
 		}
-
 	}
 
 	.has-admin-preview {
-
 		li {
 			display: list-item;
 			margin: 0;
 			padding: 0;
-			margin-bottom:5px;
+			margin-bottom: 5px;
 		}
 
 		a {
 			display: inline-block;
 			position: relative;
 			color: $link_color;
-			transition: all .3s ease-in-out;
+			transition: all 0.3s ease-in-out;
 			text-decoration: none;
 
 			&:after {
-				transition: all .3s ease-in-out;
+				transition: all 0.3s ease-in-out;
 				display: inline-block;
 				opacity: 0;
 				position: absolute;
@@ -180,11 +177,9 @@ $link_color_hover: darken( #2c3a95, 15% );
 				color: $link_color_hover;
 				&:after {
 					opacity: 1;
-					
 				}
 			}
 		}
-		
 	}
 }
 
@@ -211,7 +206,6 @@ $link_color_hover: darken( #2c3a95, 15% );
 		margin-top: 0;
 	}
 
-	
 	&.left,
 	&.right,
 	&.center {
@@ -234,19 +228,19 @@ $link_color_hover: darken( #2c3a95, 15% );
 		border-radius: 2px;
 		font-size: 1.3em;
 		display: inline-block;
-		background: #FFF;
-		color: #4F4F4F;
-		border: 2px solid #4F4F4F;
+		background: #fff;
+		color: #4f4f4f;
+		border: 2px solid #4f4f4f;
 		padding: 10px 20px;
 		cursor: pointer;
 		transition: all 0.4s ease-in-out;
-		text-decoration: none;;
+		text-decoration: none;
 
 		&:not([disabled]):hover {
 			border-radius: 2px;
-			background: #4F4F4F;
-			color: #FFF;
-			border-color: #FFF;
+			background: #4f4f4f;
+			color: #fff;
+			border-color: #fff;
 			text-decoration: none;
 			transition: all 0.4s ease-in-out;
 		}
@@ -264,7 +258,6 @@ $link_color_hover: darken( #2c3a95, 15% );
 }
 
 .has-admin-container-footer {
-
 	footer {
 		background: #4f4f4f;
 	}
@@ -276,14 +269,14 @@ $link_color_hover: darken( #2c3a95, 15% );
 		margin: 0 auto;
 		max-width: 275px;
 		margin: 0 auto;
-		padding: 4.0em 0;
+		padding: 4em 0;
 	}
 
 	.footer-rate-icon,
 	.has-plea {
 		display: block;
 		font-style: italic;
-		color: #FFF;
+		color: #fff;
 	}
 	.has__btn-primary {
 		display: block;
@@ -293,9 +286,9 @@ $link_color_hover: darken( #2c3a95, 15% );
 		border-radius: 2px;
 		font-size: 1.3em;
 		line-height: 1.35em;
-		background: #F08EA5;
-		color: #FFF;
-		border: 2px solid #F5A4B7;
+		background: #f08ea5;
+		color: #fff;
+		border: 2px solid #f5a4b7;
 		padding: 10px 20px;
 		cursor: pointer;
 		transition: all 0.4s ease-in-out;
@@ -305,9 +298,9 @@ $link_color_hover: darken( #2c3a95, 15% );
 
 		&:not([disabled]):hover {
 			border-radius: 2px;
-			background: #4F4F4F;
-			color: #FFF;
-			border-color: #F08EA5;
+			background: #4f4f4f;
+			color: #fff;
+			border-color: #f08ea5;
 			text-decoration: none;
 			transition: all 0.4s ease-in-out;
 		}
@@ -341,7 +334,7 @@ h2.has-admin-content-subheading {
 	}
 	.has-admin-component-row,
 	.has-admin-component-row .components-select-control {
-	.components-has-units-control-label__units,
+		.components-has-units-control-label__units,
 		label {
 			display: block;
 			font-weight: 600;
@@ -387,7 +380,7 @@ h2.has-admin-content-subheading {
 /* Admin Radio component */
 .components-radio-control {
 	input[type='radio'] {
-		&~label {
+		& ~ label {
 			display: inline-block;
 			margin-left: 5px;
 		}
@@ -546,7 +539,7 @@ h2.has-admin-content-subheading {
 	}
 
 	button {
-		background: #FFFFFF;
+		background: #ffffff;
 		color: #017e01;
 		border: 1px solid #017e01;
 		padding: 10px 20px;
@@ -566,7 +559,7 @@ h2.has-admin-content-subheading {
 		}
 
 		&.has__btn-danger {
-			background: #FFFFFF;
+			background: #ffffff;
 			color: #822700;
 			border-color: #822700;
 
@@ -578,7 +571,7 @@ h2.has-admin-content-subheading {
 		}
 
 		&.has__btn-secondary {
-			background: #FFFFFF;
+			background: #ffffff;
 			color: #333;
 			border-color: #333;
 
@@ -637,7 +630,7 @@ h2.has-admin-content-subheading {
 		display: flex;
 		height: 52px;
 		width: 52px;
-		background: #FFF !important;
+		background: #fff !important;
 		border: 1px solid #e5e5e5;
 		align-items: center;
 		justify-content: center;
@@ -651,7 +644,7 @@ h2.has-admin-content-subheading {
 			opacity: 0.2;
 		}
 		&.is-over {
-			transform: scale( 1.2 );
+			transform: scale(1.2);
 			border: 1px dashed #000;
 		}
 	}
@@ -690,7 +683,6 @@ h2.has-admin-content-subheading {
 	}
 }
 .components-popover.has-component-color-picker {
-
 	.has-component-color-picker-palette {
 		padding: 0 16px;
 
@@ -747,9 +739,8 @@ h2.has-admin-content-subheading {
 }
 
 .components-circular-option-picker__option.is-pressed {
-	box-shadow: inset 0 0 0 4px !important
+	box-shadow: inset 0 0 0 4px !important;
 }
-
 
 .has-component-color-opacity {
 	display: flex;
@@ -768,7 +759,7 @@ h2.has-admin-content-subheading {
 }
 
 .components-popover__content {
-	background: #FFF;
+	background: #fff;
 	border: 1px solid #ccc;
 	box-shadow: 0 2px 6px rgb(0 0 0 / 5%);
 	border-radius: 2px;
@@ -784,7 +775,9 @@ h2.has-admin-content-subheading {
 }
 
 /* Dimensions Component */
-.has-admin-content-wrapper .has-admin-component-row .components-has-dimensions-control {
+.has-admin-content-wrapper
+	.has-admin-component-row
+	.components-has-dimensions-control {
 	display: inline-block;
 	margin-bottom: 16px;
 	label {
@@ -804,9 +797,13 @@ h2.has-admin-content-subheading {
 			display: inline;
 		}
 	}
+	input[type='number'] {
+		width: 100%;
+	}
 }
 /* Sync button */
-.has-admin-content-wrapper .components-has-dimensions-control_sync.components-button {
+.has-admin-content-wrapper
+	.components-has-dimensions-control_sync.components-button {
 	height: 100%;
 }
 
@@ -820,30 +817,32 @@ h2.has-admin-content-subheading {
 	margin-bottom: 5px;
 }
 
-.components-has-control__units {
-	text-align: right;
-	.components-has-control-buttons__units {
-		button.components-button {
-			background: transparent;
-			box-shadow: none !important;
-			color: #929da7;
-			font-size: 10px;
-			padding: 0 5px;
-			position: relative;
-			text-align: center;
-			text-shadow: none;
-			border: 0;
-			border-radius: 0 !important;
-			line-height: 20px;
-			padding: 0 5px;
-			height: auto;
+.components-has-dimensions-control {
+	.components-has-control__units {
+		text-align: right;
+		.components-has-control-buttons__units {
+			button.components-button {
+				background: transparent;
+				box-shadow: none !important;
+				color: #929da7;
+				font-size: 10px;
+				padding: 0 5px;
+				position: relative;
+				text-align: center;
+				text-shadow: none;
+				border: 0;
+				border-radius: 0 !important;
+				line-height: 20px;
+				padding: 0 5px;
+				height: auto;
 
-			&.is-primary {
-				background: transparent !important;
-				color: #000 !important;
-				cursor: default;
-				z-index: 1;
-				font-weight: bold;
+				&.is-primary {
+					background: transparent !important;
+					color: #000 !important;
+					cursor: default;
+					z-index: 1;
+					font-weight: bold;
+				}
 			}
 		}
 	}
@@ -856,7 +855,7 @@ h2.has-admin-content-subheading {
 	.components-tab-panel__tabs,
 	.components-button.components-tab-panel__tabs-item {
 		border-style: solid;
-  		border-color: #ccc;
+		border-color: #ccc;
 	}
 
 	.components-tab-panel__tabs {
@@ -866,7 +865,7 @@ h2.has-admin-content-subheading {
 	}
 
 	.components-tab-panel__tabs-item {
-		background: #EEE;
+		background: #eee;
 		border-right: 0;
 		flex: 1 0 auto;
 		border-width: 0 2px 2px 0;
@@ -875,7 +874,7 @@ h2.has-admin-content-subheading {
 
 		&.active-tab {
 			background: var(--wp-admin-theme-color);
-			color: #FFF;
+			color: #fff;
 		}
 
 		&:focus {
@@ -912,7 +911,7 @@ h2.has-admin-content-subheading {
 		line-height: 1.5em !important;
 		align-items: center;
 		color: #333 !important;
-		background-color: #FFF !important;
+		background-color: #fff !important;
 		background-image: none;
 		cursor: pointer;
 		max-width: 100% !important;
@@ -922,7 +921,7 @@ h2.has-admin-content-subheading {
 		position: relative;
 		display: flex !important;
 		width: 100% !important;
-		border-radius: .25em;
+		border-radius: 0.25em;
 		overflow: hidden;
 		align-items: center;
 
@@ -934,17 +933,17 @@ h2.has-admin-content-subheading {
 			min-height: 45px !important;
 			max-height: 45px !important;
 			width: 4em !important;
-			background-color: #4F4F4F;
-			transition: .25s all ease;
+			background-color: #4f4f4f;
+			transition: 0.25s all ease;
 			pointer-events: none;
-			color: #FFF;
+			color: #fff;
 			display: flex;
 			align-items: center;
 			justify-content: center;
-		  }
-		  &:hover:after {
-			color: #FFF;
-		  }
+		}
+		&:hover:after {
+			color: #fff;
+		}
 	}
 
 	.components-base-control__field {
@@ -953,16 +952,16 @@ h2.has-admin-content-subheading {
 
 	button.qdlx__btn {
 		padding: 12px 10px;
-		border: 2px solid var( --quotes-dlx-admin--color-accent);
-		color: var( --quotes-dlx-admin--color-accent);
+		border: 2px solid var(--quotes-dlx-admin--color-accent);
+		color: var(--quotes-dlx-admin--color-accent);
 		max-height: 45px;
 
 		&:hover,
 		&:focus {
 			padding: 12px 10px;
 			background: #f8f7fe;
-			border: 2px solid var( --quotes-dlx-admin--color-accent);
-			color: var( --quotes-dlx-admin--color-accent);
+			border: 2px solid var(--quotes-dlx-admin--color-accent);
+			color: var(--quotes-dlx-admin--color-accent);
 		}
 	}
 }
@@ -970,9 +969,9 @@ h2.has-admin-content-subheading {
 /* Range Control Component */
 .has-admin__range-control {
 	max-width: 450px;
-	
+
 	span > span {
-		background-color: #4F4F4F !important;
+		background-color: #4f4f4f !important;
 	}
 }
 
