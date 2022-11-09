@@ -38,6 +38,30 @@ class Admin {
 	}
 
 	/**
+	 * Add a settings link to the plugin's options.
+	 *
+	 * Add a settings link on the WordPress plugin's page.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 *
+	 * @see init
+	 *
+	 * @param array $links Array of plugin options.
+	 * @return array $links Array of plugin options
+	 */
+	public function add_settings_link( $links ) {
+		$settings_link = sprintf( '<a href="%s">%s</a>', esc_url( admin_url( 'options-general.php?page=highlight-and-share' ) ), _x( 'Settings', 'Plugin settings link on the plugins page', 'highlight-and-share' ) );
+		$docs_link     = sprintf( '<a href="%s">%s</a>', esc_url( 'https://has.dlxplugins.com' ), _x( 'Documentation', 'Plugin settings link on the plugins page', 'highlight-and-share' ) );
+		$has_landing   = sprintf( '<a href="%s" style="color: #f60098;">%s</a>', esc_url( 'https://dlxplugins.com/plugins/highlight-and-share/' ), _x( 'Visit Highlight and Share', 'Plugin settings link on the plugins page', 'highlight-and-share' ) );
+
+		array_unshift( $links, $has_landing );
+		array_unshift( $links, $docs_link );
+		array_unshift( $links, $settings_link );
+		return $links;
+	}
+
+	/**
 	 * Save the social icon order under the appearance tab.
 	 */
 	public function ajax_save_social_icon_order() {
