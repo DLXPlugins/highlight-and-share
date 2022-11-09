@@ -318,7 +318,7 @@ class Options {
 	 * @return array Plugin options
 	 */
 	public static function get_plugin_options_social_networks( $force = false ) {
-		if ( false === self::$options_social_networks ) {
+		if ( false === self::$options_social_networks || $force ) {
 			$settings = get_option( 'highlight-and-share-social-networks' );
 		} else {
 			$settings = self::$options_social_networks;

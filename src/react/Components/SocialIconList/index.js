@@ -7,6 +7,7 @@ import SocialIcons from '../SocialIcons';
 import SocialNetworksContext from '../../Contexts/SocialNetworksContext';
 import Spinner from '../Icons/Spinner';
 import Notice from '../Notice';
+import sendCommand from '../../Utils/SendCommand';
 
 const SocialIconList = () => {
 	const [ saving, setSaving ] = useState( false );
@@ -48,6 +49,67 @@ const SocialIconList = () => {
 		[ networks ],
 	);
 
+	/**
+	 * Save the social networks and their orders.
+	 */
+	const saveSocialNetworksOrder = () => {
+		setSaving( true );
+
+		// Get social networks pruned for Ajax.
+		const socialNetworksForAjax = [];
+		let order = 0;
+		networks.forEach( ( network ) => {
+			socialNetworksForAjax.push( {
+				slug: network.key,
+				order,
+			} );
+			order++;
+		} );
+		sendCommand( 'has_save_social_icon_order', {
+			nonce: hasAppearanceAdmin.saveNonce,
+			socialNetworks: socialNetworksForAjax,
+		} )
+			.then( ( response ) => {
+				const { data, success } = response.data;
+				setSocialNetworks( data );
+				if ( success ) {
+					setIsSaved( true );
+					setTimeout( () => {
+						setIsSaved( false );
+					}, 3000 );
+				}
+			} )
+			.catch( ( error ) => {
+			} ).then( ( ) => {
+				setSaving( false );
+			} );
+	};
+
+	/**
+	 * Reset the social networks and their orders.
+	 */
+	 const resetSocialNetworksOrder = () => {
+		setResetting( true );
+
+		sendCommand( 'has_reset_social_icon_order', {
+			nonce: hasAppearanceAdmin.resetNonce,
+		} )
+			.then( ( response ) => {
+				const { data, success } = response.data;
+				setSocialNetworks( data );
+				if ( success ) {
+					setIsReset( true );
+					setTimeout( () => {
+						setIsReset( false );
+					}, 3000 );
+				}
+			} )
+			.catch( ( error ) => {
+			} ).then( ( ) => {
+				setResetting( false );
+			} );
+	};
+
 	return (
 		<>
 			<ul className="has-admin-theme-reorder-list">{ networks.map( ( network, key ) => (
@@ -70,16 +132,17 @@ const SocialIconList = () => {
 							{ 'has-icon': saving },
 							{ 'is-saving': { saving } }
 						) }
-						type="submit"
+						type="button"
 						text={
 							saving
 								? __( 'Saving…', 'highlight-and-share' )
-								: __( 'Save Settings', 'highlight-and-share' )
+								: __( 'Save Order', 'highlight-and-share' )
 						}
 						icon={ saving ? Spinner : false }
 						iconSize="18"
 						iconPosition="right"
 						disabled={ saving || resetting }
+						onClick={ saveSocialNetworksOrder }
 					/>
 				</div>
 				<div className="has-admin__tabs--content-actions--right">
@@ -93,16 +156,13 @@ const SocialIconList = () => {
 						text={
 							resetting
 								? __( 'Resetting…', 'highlight-and-share' )
-								: __( 'Reset Settings', 'highlight-and-share' )
+								: __( 'Reset Order', 'highlight-and-share' )
 						}
 						icon={ resetting ? Spinner : false }
 						iconSize="18"
 						iconPosition="right"
 						disabled={ saving || resetting }
-						onClick={ ( e ) => {
-							setResetting( true );
-							handleReset( e );
-						} }
+						onClick={ resetSocialNetworksOrder }
 					/>
 				</div>
 			</div>

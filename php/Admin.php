@@ -29,8 +29,61 @@ class Admin {
 		// Retrieve appearance settings for context.
 		add_action( 'wp_ajax_has_retrieve_appearance_settings_context', array( $this, 'ajax_retrieve_appearance_settings_context' ) );
 
+		// Save and reset social icon order.
+		add_action( 'wp_ajax_has_save_social_icon_order', array( $this, 'ajax_save_social_icon_order' ) );
+		add_action( 'wp_ajax_has_reset_social_icon_order', array( $this, 'ajax_reset_social_icon_order' ) );
+
 		// For HAS styling in the admin.
 		add_action( 'admin_body_class', array( $this, 'add_admin_body_class' ) );
+	}
+
+	/**
+	 * Save the social icon order under the appearance tab.
+	 */
+	public function ajax_save_social_icon_order() {
+		if ( ! wp_verify_nonce( filter_input( INPUT_POST, 'nonce', FILTER_DEFAULT ), 'has_save_appearance' ) || ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( array() );
+		}
+
+		$social_networks = filter_input( INPUT_POST, 'socialNetworks', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
+
+		// Get raw options merged with defaults.
+		$settings = get_option( 'highlight-and-share-social-networks' );
+		$defaults = Options::get_social_network_defaults();
+		$settings = array_replace_recursive( $defaults, $settings );
+
+		// Loop through social networks and update settings.
+		foreach ( $social_networks as $social_network ) {
+			$settings[ $social_network['slug'] ]['order'] = absint( $social_network['order'] );
+		}
+		array_multisort( array_column( $settings, 'order' ), SORT_ASC, $settings );
+
+		// Update options.
+		update_option( 'highlight-and-share-social-networks', $settings );
+
+		// Get saved/formatted options.
+		$settings = Options::get_plugin_options_social_networks( true );
+		wp_send_json_success( $settings );
+	}
+
+	/**
+	 * Save the social icon order under the appearance tab.
+	 */
+	public function ajax_reset_social_icon_order() {
+		if ( ! wp_verify_nonce( filter_input( INPUT_POST, 'nonce', FILTER_DEFAULT ), 'has_reset_appearance' ) || ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( array() );
+		}
+
+		$defaults = Options::get_social_network_defaults();
+		array_multisort( array_column( $defaults, 'order' ), SORT_ASC, $defaults );
+
+		// Update options.
+		update_option( 'highlight-and-share-social-networks', $defaults );
+
+		// Get options.
+		$settings = Options::get_plugin_options_social_networks( true );
+
+		wp_send_json_success( $settings );
 	}
 
 	/**

@@ -43703,19 +43703,21 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @wordpress/components */ "./node_modules/@wordpress/components/build-module/button/index.js");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @wordpress/components */ "./node_modules/@wordpress/components/build-module/button/index.js");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/i18n */ "./node_modules/@wordpress/i18n/build-module/index.js");
 /* harmony import */ var _SocialIconListItem__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../SocialIconListItem */ "./src/react/Components/SocialIconListItem/index.js");
 /* harmony import */ var _SocialIcons__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../SocialIcons */ "./src/react/Components/SocialIcons/index.js");
 /* harmony import */ var _Contexts_SocialNetworksContext__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../Contexts/SocialNetworksContext */ "./src/react/Contexts/SocialNetworksContext.js");
 /* harmony import */ var _Icons_Spinner__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../Icons/Spinner */ "./src/react/Components/Icons/Spinner.js");
 /* harmony import */ var _Notice__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../Notice */ "./src/react/Components/Notice/index.js");
+/* harmony import */ var _Utils_SendCommand__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../Utils/SendCommand */ "./src/react/Utils/SendCommand.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -43774,6 +43776,64 @@ var SocialIconList = function SocialIconList() {
       return newNetworks;
     });
   }, [networks]);
+
+  /**
+   * Save the social networks and their orders.
+   */
+  var saveSocialNetworksOrder = function saveSocialNetworksOrder() {
+    setSaving(true);
+
+    // Get social networks pruned for Ajax.
+    var socialNetworksForAjax = [];
+    var order = 0;
+    networks.forEach(function (network) {
+      socialNetworksForAjax.push({
+        slug: network.key,
+        order: order
+      });
+      order++;
+    });
+    (0,_Utils_SendCommand__WEBPACK_IMPORTED_MODULE_8__["default"])('has_save_social_icon_order', {
+      nonce: hasAppearanceAdmin.saveNonce,
+      socialNetworks: socialNetworksForAjax
+    }).then(function (response) {
+      var _response$data = response.data,
+        data = _response$data.data,
+        success = _response$data.success;
+      setSocialNetworks(data);
+      if (success) {
+        setIsSaved(true);
+        setTimeout(function () {
+          setIsSaved(false);
+        }, 3000);
+      }
+    })["catch"](function (error) {}).then(function () {
+      setSaving(false);
+    });
+  };
+
+  /**
+   * Reset the social networks and their orders.
+   */
+  var resetSocialNetworksOrder = function resetSocialNetworksOrder() {
+    setResetting(true);
+    (0,_Utils_SendCommand__WEBPACK_IMPORTED_MODULE_8__["default"])('has_reset_social_icon_order', {
+      nonce: hasAppearanceAdmin.resetNonce
+    }).then(function (response) {
+      var _response$data2 = response.data,
+        data = _response$data2.data,
+        success = _response$data2.success;
+      setSocialNetworks(data);
+      if (success) {
+        setIsReset(true);
+        setTimeout(function () {
+          setIsReset(false);
+        }, 3000);
+      }
+    })["catch"](function (error) {}).then(function () {
+      setResetting(false);
+    });
+  };
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("ul", {
     className: "has-admin-theme-reorder-list"
   }, networks.map(function (network, key) {
@@ -43790,7 +43850,7 @@ var SocialIconList = function SocialIconList() {
     className: "has-admin__tabs--content-actions"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "has-admin__tabs--content-actions--left"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["default"], {
     className: classnames__WEBPACK_IMPORTED_MODULE_1___default()('has__btn has__btn-primary has__btn--icon-right', {
       'has-icon': saving
     }, {
@@ -43798,15 +43858,16 @@ var SocialIconList = function SocialIconList() {
         saving: saving
       }
     }),
-    type: "submit",
-    text: saving ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Saving…', 'highlight-and-share') : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Save Settings', 'highlight-and-share'),
+    type: "button",
+    text: saving ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Saving…', 'highlight-and-share') : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Save Order', 'highlight-and-share'),
     icon: saving ? _Icons_Spinner__WEBPACK_IMPORTED_MODULE_6__["default"] : false,
     iconSize: "18",
     iconPosition: "right",
-    disabled: saving || resetting
+    disabled: saving || resetting,
+    onClick: saveSocialNetworksOrder
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "has-admin__tabs--content-actions--right"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_8__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["default"], {
     className: classnames__WEBPACK_IMPORTED_MODULE_1___default()('has__btn has__btn-danger has__btn--icon-right', {
       'has-icon': resetting
     }, {
@@ -43815,15 +43876,12 @@ var SocialIconList = function SocialIconList() {
       }
     }),
     type: "button",
-    text: resetting ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Resetting…', 'highlight-and-share') : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Reset Settings', 'highlight-and-share'),
+    text: resetting ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Resetting…', 'highlight-and-share') : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Reset Order', 'highlight-and-share'),
     icon: resetting ? _Icons_Spinner__WEBPACK_IMPORTED_MODULE_6__["default"] : false,
     iconSize: "18",
     iconPosition: "right",
     disabled: saving || resetting,
-    onClick: function onClick(e) {
-      setResetting(true);
-      handleReset(e);
-    }
+    onClick: resetSocialNetworksOrder
   }))), isSaved && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Notice__WEBPACK_IMPORTED_MODULE_7__["default"], {
     message: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Your settings have been saved.'),
     status: "success",
