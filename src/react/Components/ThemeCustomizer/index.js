@@ -5,6 +5,7 @@ import {
 	ToggleControl,
 	RadioControl,
 	RangeControl,
+	Button,
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import { useForm, Controller, useWatch, useFormState } from 'react-hook-form';
@@ -14,50 +15,36 @@ import CircularInfoIcon from '../Icons/CircularInfo';
 import HASColorPicker from '../ColorPicker';
 import DimensionsControl from '../Dimensions';
 import SocialNetworkColorsTabs from '../SocialNetworkColorsTabs';
+import Spinner from '../Icons/Spinner';
 
 const defaultColors = hasAppearanceAdmin.colors;
 
 const ThemeCustomizer = () => {
-	const { theme, setTheme, appearanceThemeData, setAppearanceThemeData, hasIconsOnly, setHasIconsOnly } = useContext( SocialNetworksContext );
+	const { theme, setTheme, appearanceThemeData, setAppearanceThemeData, hasicons_only, setHasicons_only } = useContext( SocialNetworksContext );
 
+	const [ saving, setSaving ] = useState( false );
+	const [ isSaved, setIsSaved ] = useState( false );
+	const [ resetting, setResetting ] = useState( false );
+	const [ isReset, setIsReset ] = useState( false );
+
+	console.log( appearanceThemeData );
 	const getDefaultValues = () => {
 		return {
-			selectedTheme: theme,
-			iconsOnly: hasAppearanceAdmin.themeOptionsCustom.icons_only,
-			orientation: 'horizontal',
-			groupIcons: false,
-			backgroundColor: '#000000',
-			backgroundColorHover: '#333333',
-			iconColorsGroup: '#FFFFFF',
-			iconColorsGroupHover: '#FFFFFF',
-			borderRadiusGroup: {
-				attrTop: 0,
-				attrRight: 0,
-				attrBottom: 0,
-				attrLeft: 0,
-				attrUnit: 'px',
-				attrSyncUnits: true,
-			},
-			borderRadiusIcons: {
-				attrTop: 0,
-				attrRight: 0,
-				attrBottom: 0,
-				attrLeft: 0,
-				attrUnit: 'px',
-				attrSyncUnits: true,
-			},
-			iconPadding: {
-				attrTop: 12,
-				attrRight: 20,
-				attrBottom: 12,
-				attrLeft: 20,
-				attrUnit: 'px',
-				attrSyncUnits: true,
-			},
-			iconSize: 25,
-			fontSize: 14,
-			iconGap: 15,
-			iconColors: hasAppearanceAdmin.themeOptionsCustom.icon_colors,
+			theme: appearanceThemeData.theme,
+			icons_only: appearanceThemeData.icons_only,
+			orientation: appearanceThemeData.orientation,
+			group_icons: appearanceThemeData.group_icons,
+			background_color: appearanceThemeData.background_color,
+			background_color_hover: appearanceThemeData.background_color_hover,
+			icon_colors_group: appearanceThemeData.icon_colors_group,
+			icon_colors_group_hover: appearanceThemeData.icon_colors_group_hover,
+			border_radius_group: appearanceThemeData.border_radius_group,
+			icon_border_radius: appearanceThemeData.icon_border_radius,
+			icon_padding: appearanceThemeData.icon_padding,
+			icon_size: appearanceThemeData.icon_size,
+			font_size: appearanceThemeData.font_size,
+			icon_gap: appearanceThemeData.icon_gap,
+			icon_colors: appearanceThemeData.icon_colors,
 		};
 	};
 
@@ -111,7 +98,7 @@ const ThemeCustomizer = () => {
 			<form onSubmit={ handleSubmit( onSubmit ) }>
 				<div className="has-admin-component-row">
 					<Controller
-						name="selectedTheme"
+						name="theme"
 						control={ control }
 						render={ ( { field: { onChange, value } } ) => (
 							<SelectControl
@@ -143,7 +130,7 @@ const ThemeCustomizer = () => {
 						</div>
 						<div className="has-admin-component-row">
 							<Controller
-								name="iconsOnly"
+								name="icons_only"
 								control={ control }
 								render={ ( { field: { onChange, value } } ) => (
 									<ToggleControl
@@ -152,7 +139,7 @@ const ThemeCustomizer = () => {
 										checked={ value }
 										onChange={ ( boolValue ) => {
 											onChange( boolValue );
-											setHasIconsOnly( boolValue );
+											setHasicons_only( boolValue );
 										} }
 										help={ __(
 											'Display only the icons without text.',
@@ -165,7 +152,7 @@ const ThemeCustomizer = () => {
 
 						<div className="has-admin-component-row">
 							<Controller
-								name="groupIcons"
+								name="group_icons"
 								control={ control }
 								render={ ( { field: { onChange, value } } ) => (
 									<ToggleControl
@@ -186,11 +173,11 @@ const ThemeCustomizer = () => {
 								) }
 							/>
 						</div>
-						{ getValues( 'groupIcons' ) && (
+						{ getValues( 'group_icons' ) && (
 							<>
 								<div className="has-admin-component-row">
 									<Controller
-										name="backgroundColor"
+										name="background_color"
 										control={ control }
 										render={ ( { field: { onChange, value } } ) => (
 											<HASColorPicker
@@ -201,14 +188,14 @@ const ThemeCustomizer = () => {
 												label={ __( 'Background Color', 'highlight-and-share' ) }
 												defaultColors={ defaultColors }
 												defaultColor={ '#000000' }
-												slug={ 'backgroundColor' }
+												slug={ 'background_color' }
 											/>
 										) }
 									/>
 								</div>
 								<div className="has-admin-component-row">
 									<Controller
-										name="backgroundColorHover"
+										name="background_color_hover"
 										control={ control }
 										render={ ( { field: { onChange, value } } ) => (
 											<HASColorPicker
@@ -219,14 +206,14 @@ const ThemeCustomizer = () => {
 												label={ __( 'Background Color Hover', 'highlight-and-share' ) }
 												defaultColors={ defaultColors }
 												defaultColor={ '#333333' }
-												slug={ 'backgroundColorHover' }
+												slug={ 'background_color_hover' }
 											/>
 										) }
 									/>
 								</div>
 								<div className="has-admin-component-row">
 									<Controller
-										name="iconColorsGroup"
+										name="icon_colors_group"
 										control={ control }
 										render={ ( { field: { onChange, value } } ) => (
 											<HASColorPicker
@@ -237,14 +224,14 @@ const ThemeCustomizer = () => {
 												label={ __( 'Icon Color', 'highlight-and-share' ) }
 												defaultColors={ defaultColors }
 												defaultColor={ '#FFFFFF' }
-												slug={ 'iconColorsGroup' }
+												slug={ 'icon_colors_group' }
 											/>
 										) }
 									/>
 								</div>
 								<div className="has-admin-component-row">
 									<Controller
-										name="iconColorsGroupHover"
+										name="icon_colors_group_hover"
 										control={ control }
 										render={ ( { field: { onChange, value } } ) => (
 											<HASColorPicker
@@ -255,14 +242,14 @@ const ThemeCustomizer = () => {
 												label={ __( 'Icon Color Hover', 'highlight-and-share' ) }
 												defaultColors={ defaultColors }
 												defaultColor={ '#FFFFFF' }
-												slug={ 'iconColorsGroupHover' }
+												slug={ 'icon_colors_group_hover' }
 											/>
 										) }
 									/>
 								</div>
 								<div className="has-admin-component-row">
 									<Controller
-										name="borderRadiusGroup"
+										name="border_radius_group"
 										control={ control }
 										render={ ( { field: { onChange, value } } ) => (
 											<DimensionsControl
@@ -288,14 +275,14 @@ const ThemeCustomizer = () => {
 								</div>
 							</>
 						) }
-						{ ! getValues( 'groupIcons' ) && (
+						{ ! getValues( 'group_icons' ) && (
 							<>
 								<div className="has-admin-component-row">
 									<SocialNetworkColorsTabs />
 								</div>
 								<div className="has-admin-component-row">
 									<Controller
-										name="borderRadiusIcons"
+										name="icon_border_radius"
 										control={ control }
 										render={ ( { field: { onChange, value } } ) => (
 											<DimensionsControl
@@ -323,7 +310,7 @@ const ThemeCustomizer = () => {
 						) }
 						<div className="has-admin-component-row">
 							<Controller
-								name="iconPadding"
+								name="icon_padding"
 								control={ control }
 								render={ ( { field: { onChange, value } } ) => (
 									<DimensionsControl
@@ -349,7 +336,7 @@ const ThemeCustomizer = () => {
 						</div>
 						<div className="has-admin-component-row">
 							<Controller
-								name="iconSize"
+								name="icon_size"
 								control={ control }
 								render={ ( { field: { onChange, value } } ) => (
 									<>
@@ -366,8 +353,8 @@ const ThemeCustomizer = () => {
 											initialPosition={ 16 }
 											allowReset={ true }
 											className="has-admin__range-control"
-											onChange={ ( iconSizeValue ) => {
-												onChange( iconSizeValue );
+											onChange={ ( icon_sizeValue ) => {
+												onChange( icon_sizeValue );
 											} }
 											trackColor="#4F4F4F"
 											railColor="#CECECE"
@@ -376,11 +363,11 @@ const ThemeCustomizer = () => {
 								) }
 							/>
 						</div>
-						{ ! getValues( 'iconsOnly' ) && (
+						{ ! getValues( 'icons_only' ) && (
 							<>
 								<div className="has-admin-component-row">
 									<Controller
-										name="fontSize"
+										name="font_size"
 										control={ control }
 										render={ ( { field: { onChange, value } } ) => (
 											<>
@@ -397,8 +384,8 @@ const ThemeCustomizer = () => {
 													initialPosition={ 16 }
 													allowReset={ true }
 													className="has-admin__range-control"
-													onChange={ ( fontSizeValue ) => {
-														onChange( fontSizeValue );
+													onChange={ ( font_sizeValue ) => {
+														onChange( font_sizeValue );
 													} }
 													trackColor="#4F4F4F"
 													railColor="#CECECE"
@@ -409,11 +396,11 @@ const ThemeCustomizer = () => {
 								</div>
 							</>
 						) }
-						{ ! getValues( 'groupIcons' ) && (
+						{ ! getValues( 'group_icons' ) && (
 							<>
 								<div className="has-admin-component-row">
 									<Controller
-										name="iconGap"
+										name="icon_gap"
 										control={ control }
 										render={ ( { field: { onChange, value } } ) => (
 											<>
@@ -430,8 +417,8 @@ const ThemeCustomizer = () => {
 													initialPosition={ 15 }
 													allowReset={ true }
 													className="has-admin__range-control"
-													onChange={ ( iconGapValue ) => {
-														onChange( iconGapValue );
+													onChange={ ( icon_gapValue ) => {
+														onChange( icon_gapValue );
 													} }
 													trackColor="#4F4F4F"
 													railColor="#CECECE"
@@ -471,6 +458,66 @@ const ThemeCustomizer = () => {
 						) }
 					/>
 				</div>
+				<div className="has-admin__tabs--content-actions">
+					<div className="has-admin__tabs--content-actions--left">
+						<Button
+							className={ classNames(
+								'has__btn has__btn-primary has__btn--icon-right',
+								{ 'has-icon': saving },
+								{ 'is-saving': { saving } }
+							) }
+							type="button"
+							text={
+								saving
+									? __( 'Saving…', 'highlight-and-share' )
+									: __( 'Save Theme Options', 'highlight-and-share' )
+							}
+							icon={ saving ? Spinner : false }
+							icon_size="18"
+							iconPosition="right"
+							disabled={ saving || resetting }
+							onClick={ () => {
+
+							} }
+						/>
+					</div>
+					<div className="has-admin__tabs--content-actions--right">
+						<Button
+							className={ classNames(
+								'has__btn has__btn-danger has__btn--icon-right',
+								{ 'has-icon': resetting },
+								{ 'is-resetting': { resetting } }
+							) }
+							type="button"
+							text={
+								resetting
+									? __( 'Resetting…', 'highlight-and-share' )
+									: __( 'Reset Theme Options', 'highlight-and-share' )
+							}
+							icon={ resetting ? Spinner : false }
+							icon_size="18"
+							iconPosition="right"
+							disabled={ saving || resetting }
+							onClick={ () => {
+
+							} }
+						/>
+					</div>
+				</div>
+				{ isSaved && (
+					<Notice
+						message={ __( 'Your settings have been saved.' ) }
+						status="success"
+						politeness="assertive"
+					/>
+				) }
+				{ isReset && (
+					<Notice
+						message={ __( 'Your settings have been reset to defaults.' ) }
+						status="success"
+						politeness="assertive"
+					/>
+				) }
 			</form>
 		</div>
 	);

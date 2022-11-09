@@ -153,10 +153,31 @@ class Options {
 			'background_color_hover'  => '#333333', /* only applicable if icons are grouped */
 			'icon_colors_group'       => '#FFFFFF', /* only applicable if icons are grouped */
 			'icon_colors_group_hover' => '#FFFFFF', /* only applicable if icons are grouped */
-			'border_radius_group'     => 0, /* only applicable if icons are grouped */
-			'icon_border_radius'      => 0, /* only applicable if icons are NOT grouped */
+			'border_radius_group'     => array( /* only applicable if icons are grouped */
+				'attrTop'       => 0,
+				'attrRight'     => 0,
+				'attrBottom'    => 0,
+				'attrLeft'      => 0,
+				'attrUnit'      => 'px',
+				'attrSyncUnits' => false,
+			),
+			'icon_border_radius'      => array( /* only applicable if icons are NOT grouped */
+				'attrTop'       => 0,
+				'attrRight'     => 0,
+				'attrBottom'    => 0,
+				'attrLeft'      => 0,
+				'attrUnit'      => 'px',
+				'attrSyncUnits' => false,
+			),
 			'font_size'               => 14,
-			'icon_padding'            => 0, /* Applicable to grouped and ungrouped icons */
+			'icon_padding'            => array( /* Applicable to grouped and ungrouped icons */
+				'attrTop'       => 12,
+				'attrRight'     => 20,
+				'attrBottom'    => 12,
+				'attrLeft'      => 20,
+				'attrUnit'      => 'px',
+				'attrSyncUnits' => false,
+			),
 			'icon_size'               => 25, /* Applicable to grouped and ungrouped icons */
 			'icon_gap'                => 0, /* Applicable to ungrouped icons */
 			'icon_colors'             => array( /* Social Icon Colors */

@@ -59,8 +59,8 @@ const Interface = ( props ) => {
 	const [ socialNetworks, setSocialNetworks ] = useState(
 		data.socialNetworks
 	);
-	const [ theme, setTheme ] = useState( data.theme );
-	const [ appearanceThemeData, setAppearanceThemeData ] = useState( {} );
+	const [ theme, setTheme ] = useState( data.themeOptionsCustom.theme );
+	const [ appearanceThemeData, setAppearanceThemeData ] = useState( data.themeOptionsCustom );
 	const [ hasIconsOnly, setHasIconsOnly ] = useState(
 		data.themeOptionsCustom.icons_only
 	);

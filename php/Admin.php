@@ -122,7 +122,6 @@ class Admin {
 		wp_send_json_success(
 			array(
 				'socialNetworks'     => Options::get_plugin_options_social_networks(),
-				'theme'              => 'custom', // todo - read from option.
 				'themes'             => Themes::get_main_themes(),
 				'colors'             => Themes::get_default_theme_colors(),
 				'themeOptionsCustom' => Options::get_theme_options(),
@@ -387,7 +386,6 @@ class Admin {
 						'retrieveNonce'      => wp_create_nonce( 'has_retrieve_appearance' ),
 						'resetNonce'         => wp_create_nonce( 'has_reset_appearance' ),
 						'socialNetworks'     => Options::get_plugin_options_social_networks(),
-						'theme'              => 'custom',
 						'themes'             => Themes::get_main_themes(),
 						'colors'             => Themes::get_default_theme_colors(),
 						'themeOptionsCustom' => Options::get_theme_options(),
