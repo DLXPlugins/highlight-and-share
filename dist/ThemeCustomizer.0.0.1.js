@@ -752,6 +752,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _SocialNetworkColorsTabs__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../SocialNetworkColorsTabs */ "./src/react/Components/SocialNetworkColorsTabs/index.js");
 /* harmony import */ var _Icons_Spinner__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../Icons/Spinner */ "./src/react/Components/Icons/Spinner.js");
 /* harmony import */ var _Utils_SendCommand__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../Utils/SendCommand */ "./src/react/Utils/SendCommand.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
@@ -778,7 +781,7 @@ var ThemeCustomizer = function ThemeCustomizer() {
     setTheme = _useContext.setTheme,
     appearanceThemeData = _useContext.appearanceThemeData,
     setAppearanceThemeData = _useContext.setAppearanceThemeData,
-    setSocialNetworks = _useContext.setSocialNetworks;
+    socialNetworkColors = _useContext.socialNetworkColors;
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState2 = _slicedToArray(_useState, 2),
     saving = _useState2[0],
@@ -817,35 +820,27 @@ var ThemeCustomizer = function ThemeCustomizer() {
   var _useForm = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_11__.useForm)({
       defaultValues: getDefaultValues()
     }),
-    register = _useForm.register,
     control = _useForm.control,
     handleSubmit = _useForm.handleSubmit,
-    setValue = _useForm.setValue,
     getValues = _useForm.getValues,
-    reset = _useForm.reset,
-    trigger = _useForm.trigger;
+    reset = _useForm.reset;
   var formValues = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_11__.useWatch)({
     control: control
   });
-  var _useFormState = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_11__.useFormState)({
-      control: control
-    }),
-    errors = _useFormState.errors,
-    isDirty = _useFormState.isDirty,
-    dirtyFields = _useFormState.dirtyFields,
-    touchedFields = _useFormState.touchedFields,
-    formData = _useFormState.formData;
   var onSubmit = function onSubmit(formData) {
+    var iconColors = {
+      icon_colors: socialNetworkColors
+    };
     setSaving(true);
     (0,_Utils_SendCommand__WEBPACK_IMPORTED_MODULE_10__["default"])('has_save_appearance_settings', {
-      formData: formData,
+      formData: _objectSpread(_objectSpread({}, formData), iconColors),
       nonce: hasAppearanceAdmin.saveNonce
     }).then(function (response) {
       var _response$data = response.data,
         data = _response$data.data,
         success = _response$data.success;
-      setAppearanceThemeData(data);
       if (success) {
+        setAppearanceThemeData(data);
         setIsSaved(true);
         setTimeout(function () {
           setIsSaved(false);
@@ -855,7 +850,31 @@ var ThemeCustomizer = function ThemeCustomizer() {
       setSaving(false);
     });
   };
-  var handleReset = function handleReset(e) {};
+  var handleReset = function handleReset(e) {
+    setResetting(true);
+    (0,_Utils_SendCommand__WEBPACK_IMPORTED_MODULE_10__["default"])('has_reset_appearance_settings', {
+      nonce: hasAppearanceAdmin.resetNonce
+    }).then(function (response) {
+      var _response$data2 = response.data,
+        data = _response$data2.data,
+        success = _response$data2.success;
+      if (success) {
+        reset(data, {
+          keepDirtyValues: false,
+          keepDirty: false,
+          keepDefaultValues: false
+        });
+        setAppearanceThemeData(data);
+        setTheme(data.theme);
+        setIsReset(true);
+        setTimeout(function () {
+          setIsReset(false);
+        }, 3000);
+      }
+    })["catch"](function (error) {}).then(function () {
+      setResetting(false);
+    });
+  };
   var getThemes = function getThemes() {
     var themes = hasAppearanceAdmin.themes;
 
@@ -1251,7 +1270,9 @@ var ThemeCustomizer = function ThemeCustomizer() {
     icon_size: "18",
     iconPosition: "right",
     disabled: saving || resetting,
-    onClick: function onClick() {}
+    onClick: function onClick() {
+      handleReset();
+    }
   }))), isSaved && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Notice__WEBPACK_IMPORTED_MODULE_4__["default"], {
     message: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Your settings have been saved.'),
     status: "success",

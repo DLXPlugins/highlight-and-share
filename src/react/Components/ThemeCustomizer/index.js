@@ -8,7 +8,7 @@ import {
 	Button,
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
-import { useForm, Controller, useWatch, useFormState } from 'react-hook-form';
+import { useForm, Controller, useWatch } from 'react-hook-form';
 import classNames from 'classnames';
 import Notice from '../Notice';
 import CircularInfoIcon from '../Icons/CircularInfo';
@@ -21,7 +21,7 @@ import sendCommand from '../../Utils/SendCommand';
 const defaultColors = hasAppearanceAdmin.colors;
 
 const ThemeCustomizer = () => {
-	const { theme, setTheme, appearanceThemeData, setAppearanceThemeData, setSocialNetworks } = useContext( SocialNetworksContext );
+	const { theme, setTheme, appearanceThemeData, setAppearanceThemeData, socialNetworkColors } = useContext( SocialNetworksContext );
 
 	const [ saving, setSaving ] = useState( false );
 	const [ isSaved, setIsSaved ] = useState( false );
@@ -49,32 +49,26 @@ const ThemeCustomizer = () => {
 	};
 
 	const {
-		register,
 		control,
 		handleSubmit,
-		setValue,
 		getValues,
 		reset,
-		trigger,
 	} = useForm( {
 		defaultValues: getDefaultValues(),
 	} );
 
 	const formValues = useWatch( { control } );
 
-	const { errors, isDirty, dirtyFields, touchedFields, formData } = useFormState( {
-		control,
-	} );
-
 	const onSubmit = ( formData ) => {
+		const iconColors = { icon_colors: socialNetworkColors };
 		setSaving( true );
 		sendCommand( 'has_save_appearance_settings', {
-			formData,
+			formData: { ...formData, ...iconColors },
 			nonce: hasAppearanceAdmin.saveNonce,
 		} ).then( ( response ) => {
 			const { data, success } = response.data;
-			setAppearanceThemeData( data );
 			if ( success ) {
+				setAppearanceThemeData( data );
 				setIsSaved( true );
 				setTimeout( () => {
 					setIsSaved( false );
@@ -87,7 +81,27 @@ const ThemeCustomizer = () => {
 			} );
 	};
 
-	const handleReset = ( e ) => {};
+	const handleReset = ( e ) => {
+		setResetting( true );
+		sendCommand( 'has_reset_appearance_settings', {
+			nonce: hasAppearanceAdmin.resetNonce,
+		} ).then( ( response ) => {
+			const { data, success } = response.data;
+			if ( success ) {
+				reset( data, { keepDirtyValues: false, keepDirty: false, keepDefaultValues: false } );
+				setAppearanceThemeData( data );
+				setTheme( data.theme );
+				setIsReset( true );
+				setTimeout( () => {
+					setIsReset( false );
+				}, 3000 );
+			}
+		} )
+			.catch( ( error ) => {
+			} ).then( ( ) => {
+				setResetting( false );
+			} );
+	};
 
 	const getThemes = () => {
 		const themes = hasAppearanceAdmin.themes;
@@ -517,7 +531,7 @@ const ThemeCustomizer = () => {
 							iconPosition="right"
 							disabled={ saving || resetting }
 							onClick={ () => {
-
+								handleReset();
 							} }
 						/>
 					</div>
