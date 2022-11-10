@@ -24,3 +24,123 @@
 .has-inline-theme-edit {
 	padding: 20px;
 }
+
+/* Color Component (forked from @GenerateBlocks) */
+.has-component-color-picker-wrapper,
+.qdlx-admin__tabs--content-inner
+	.components-base-control.has-component-color-picker-wrapper {
+	text-align: left;
+	margin-bottom: 16px;
+	margin-top: 2px;
+
+	> .components-base-control__field {
+		position: relative;
+		display: inline-grid;
+		grid-template-columns: 175px 30px;
+		row-gap: 2;
+		margin: 0 auto;
+		justify-content: space-between;
+		text-align: left;
+		font-weight: 600;
+		margin-bottom: 8px;
+		align-items: center;
+
+		.components-color-palette__item-wrapper {
+			margin: 0;
+		}
+	}
+	.has-color-component-label {
+		line-height: 1.2;
+	}
+}
+.components-popover.has-component-color-picker {
+	.has-component-color-picker-palette {
+		padding: 0 16px;
+
+		button.components-circular-option-picker__option {
+			border-radius: 50%;
+			width: 100%;
+			height: 100%;
+		}
+		.components-circular-option-picker__swatches {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 12px;
+		}
+		.components-circular-option-picker__option-wrapper {
+			display: inline-block;
+			height: 28px;
+			width: 28px;
+			vertical-align: top;
+			transition: 100ms transform ease;
+		}
+	}
+
+	.components-base-control__field,
+	.components-color-palette {
+		margin: 0;
+	}
+
+	.components-color-picker {
+		padding: 5px;
+	}
+
+	.components-color-picker__inputs-toggle {
+		display: none;
+	}
+
+	.components-color-picker__body {
+		padding-bottom: 0;
+	}
+
+	.components-popover__content {
+		padding: 10px;
+		width: 300px;
+	}
+
+	.components-color-picker__inputs-fields {
+		margin-right: 0;
+	}
+
+	.components-color-clear-color {
+		text-align: right;
+		padding: 0 16px;
+		color: var(--quotes-dlx-admin--color-dark);
+	}
+}
+
+.components-circular-option-picker__option.is-pressed {
+	box-shadow: inset 0 0 0 4px !important;
+}
+
+.has-component-color-opacity {
+	display: flex;
+	padding: 0 16px;
+	margin: 10px 0;
+
+	svg {
+		width: 28px;
+		height: 28px;
+	}
+
+	.components-range-control {
+		flex-grow: 1;
+		padding-left: 5px;
+	}
+}
+
+.components-popover__content {
+	background: #fff;
+	border: 1px solid #ccc;
+	box-shadow: 0 2px 6px rgb(0 0 0 / 5%);
+	border-radius: 2px;
+	width: auto !important;
+}
+
+.components-circular-option-picker__option-wrapper {
+	position: relative;
+
+	&:hover {
+		transform: scale(1.3);
+	}
+}

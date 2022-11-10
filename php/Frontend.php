@@ -66,7 +66,7 @@ class Frontend {
 		 *
 		 * @param bool true to show email, false to not.
 		 */
-		$show_email = (bool) apply_filters( 'has_show_email', $settings['show_email'] );
+		$show_email = (bool) apply_filters( 'has_show_email', $settings['show_email'] ?? $settings['enable_emails'] );
 
 		/**
 		 * Filter: has_show_copy
@@ -75,7 +75,7 @@ class Frontend {
 		 *
 		 * @param bool true to show copy feature, false to not.
 		 */
-		$show_copy = (bool) apply_filters( 'has_show_copy', $settings['show_email'] );
+		$show_copy = (bool) apply_filters( 'has_show_copy', $settings['show_copy'] );
 
 		/**
 		 * Filter: has_show_reddit

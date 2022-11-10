@@ -133,7 +133,7 @@ var HASColorPicker = function HASColorPicker(props) {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("button", {
     type: "button",
     "aria-expanded": isVisible,
-    className: "button-reset components-button components-circular-option-picker__option is-pressed",
+    className: "components-button components-circular-option-picker__option is-pressed",
     onClick: toggleVisible,
     "aria-label": (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Custom color picker', 'quotes-dlx'),
     style: {
@@ -195,12 +195,10 @@ var HASColorPicker = function HASColorPicker(props) {
       setColorKey(newColor);
     },
     disableCustomColors: true,
-    clearable: false,
-    className: "button-reset"
+    clearable: false
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "components-color-clear-color"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_10__["default"], {
-    className: " button-reset",
     onClick: function onClick() {
       _onChange(slug, defaultColor);
       setColorKey(defaultColor);

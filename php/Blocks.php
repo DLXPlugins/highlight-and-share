@@ -71,11 +71,17 @@ class Blocks {
 			HIGHLIGHT_AND_SHARE_VERSION,
 			true
 		);
+		$color_palette = array();
+		$settings = \WP_Theme_JSON_Resolver::get_theme_data()->get_settings();
+		if ( isset( $settings['color']['palette']['theme'] ) ) {
+			$color_palette = $settings['color']['palette']['theme'];
+		}
 		wp_localize_script(
 			'has-click-to-share',
 			'has_gutenberg',
 			array(
 				'svg' => Functions::get_plugin_url( 'img/share.svg' ),
+				'colorPalette' => $color_palette,
 			)
 		);
 		wp_set_script_translations( 'has-click-to-share', 'highlight-and-share' );

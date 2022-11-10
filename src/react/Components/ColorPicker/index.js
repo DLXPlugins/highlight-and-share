@@ -119,7 +119,7 @@ const HASColorPicker = ( props ) => {
 									<button
 										type="button"
 										aria-expanded={ isVisible }
-										className="button-reset components-button components-circular-option-picker__option is-pressed"
+										className="components-button components-circular-option-picker__option is-pressed"
 										onClick={ toggleVisible }
 										aria-label={ __(
 											'Custom color picker',
@@ -214,12 +214,10 @@ const HASColorPicker = ( props ) => {
 									} }
 									disableCustomColors={ true }
 									clearable={ false }
-									className="button-reset"
 								/>
 							</BaseControl>
 							<div className="components-color-clear-color">
 								<Button
-									className=" button-reset"
 									onClick={ () => {
 										onChange( slug, defaultColor );
 										setColorKey( defaultColor );
