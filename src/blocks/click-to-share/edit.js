@@ -5,13 +5,11 @@
 import classnames from 'classnames';
 import ColorPicker from '../../react/Components/ColorPicker';
 
-const { Component, Fragment } = wp.element;
-
 const { __ } = wp.i18n;
 
 const { PanelBody, RangeControl, SelectControl, TextControl } = wp.components;
 
-const { InspectorControls, RichText, PanelColorSettings } = wp.blockEditor;
+const { InspectorControls, RichText, useBlockProps } = wp.blockEditor;
 
 const HAS_Click_To_Share = ( props ) => {
 	const { attributes, setAttributes } = props;
@@ -242,7 +240,7 @@ const HAS_Click_To_Share = ( props ) => {
 		</InspectorControls>
 	);
 
-	return (
+	const block = (
 		<>
 			{ inspectorControls }
 
@@ -291,6 +289,16 @@ const HAS_Click_To_Share = ( props ) => {
 					</div>
 				</div>
 			</div>
+		</>
+	);
+
+	const blockProps = useBlockProps( {
+		className: classnames( `highlight-and-share` ),
+		} );
+
+	return (
+		<>
+			<div { ...blockProps }>{ block }</div>
 		</>
 	);
 };
