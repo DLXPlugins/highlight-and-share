@@ -16,18 +16,18 @@ import HASColorPicker from '../ColorPicker';
 import DimensionsControl from '../Dimensions';
 import SocialNetworkColorsTabs from '../SocialNetworkColorsTabs';
 import Spinner from '../Icons/Spinner';
+import sendCommand from '../../Utils/SendCommand';
 
 const defaultColors = hasAppearanceAdmin.colors;
 
 const ThemeCustomizer = () => {
-	const { theme, setTheme, appearanceThemeData, setAppearanceThemeData, hasicons_only, setHasicons_only } = useContext( SocialNetworksContext );
+	const { theme, setTheme, appearanceThemeData, setAppearanceThemeData, setSocialNetworks } = useContext( SocialNetworksContext );
 
 	const [ saving, setSaving ] = useState( false );
 	const [ isSaved, setIsSaved ] = useState( false );
 	const [ resetting, setResetting ] = useState( false );
 	const [ isReset, setIsReset ] = useState( false );
 
-	console.log( appearanceThemeData );
 	const getDefaultValues = () => {
 		return {
 			theme: appearanceThemeData.theme,
@@ -66,7 +66,26 @@ const ThemeCustomizer = () => {
 		control,
 	} );
 
-	const onSubmit = ( formData ) => {};
+	const onSubmit = ( formData ) => {
+		setSaving( true );
+		sendCommand( 'has_save_appearance_settings', {
+			formData,
+			nonce: hasAppearanceAdmin.saveNonce,
+		} ).then( ( response ) => {
+			const { data, success } = response.data;
+			setAppearanceThemeData( data );
+			if ( success ) {
+				setIsSaved( true );
+				setTimeout( () => {
+					setIsSaved( false );
+				}, 3000 );
+			}
+		} )
+			.catch( ( error ) => {
+			} ).then( ( ) => {
+				setSaving( false );
+			} );
+	};
 
 	const handleReset = ( e ) => {};
 
@@ -139,7 +158,6 @@ const ThemeCustomizer = () => {
 										checked={ value }
 										onChange={ ( boolValue ) => {
 											onChange( boolValue );
-											setHasicons_only( boolValue );
 										} }
 										help={ __(
 											'Display only the icons without text.',
@@ -466,7 +484,7 @@ const ThemeCustomizer = () => {
 								{ 'has-icon': saving },
 								{ 'is-saving': { saving } }
 							) }
-							type="button"
+							type="submit"
 							text={
 								saving
 									? __( 'Saving…', 'highlight-and-share' )

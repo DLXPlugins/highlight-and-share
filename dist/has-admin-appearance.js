@@ -43787,8 +43787,9 @@ var SocialIconList = function SocialIconList() {
     var socialNetworksForAjax = [];
     var order = 0;
     networks.forEach(function (network) {
+      var _network$key;
       socialNetworksForAjax.push({
-        slug: network.key,
+        slug: (_network$key = network.key) !== null && _network$key !== void 0 ? _network$key : network.slug,
         order: order
       });
       order++;
@@ -43837,9 +43838,10 @@ var SocialIconList = function SocialIconList() {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("ul", {
     className: "has-admin-theme-reorder-list"
   }, networks.map(function (network, key) {
+    var _network$key2, _network$key3;
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_SocialIconListItem__WEBPACK_IMPORTED_MODULE_3__["default"], {
-      key: network.key,
-      listItemKey: network.key,
+      key: (_network$key2 = network.key) !== null && _network$key2 !== void 0 ? _network$key2 : network.slug,
+      listItemKey: (_network$key3 = network.key) !== null && _network$key3 !== void 0 ? _network$key3 : network.slug,
       className: network.className,
       styles: network.styles,
       icon: network.icon,

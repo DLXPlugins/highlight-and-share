@@ -346,7 +346,6 @@ class Options {
 		}
 
 		$defaults = self::get_social_network_defaults();
-
 		if ( false === $settings || ! is_array( $settings ) ) {
 			update_option( 'highlight-and-share-social-networks', $defaults );
 			return $defaults;
@@ -387,7 +386,7 @@ class Options {
 	 * @return array Plugin options
 	 */
 	public static function get_theme_options( $force = false ) {
-		if ( false === self::$options_theme ) {
+		if ( false === self::$options_theme || $force ) {
 			$settings = get_option( 'highlight-and-share-theme-options' );
 		} else {
 			$settings = self::$options_theme;

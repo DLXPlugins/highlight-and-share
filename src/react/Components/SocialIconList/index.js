@@ -60,7 +60,7 @@ const SocialIconList = () => {
 		let order = 0;
 		networks.forEach( ( network ) => {
 			socialNetworksForAjax.push( {
-				slug: network.key,
+				slug: network.key ?? network.slug,
 				order,
 			} );
 			order++;
@@ -114,8 +114,8 @@ const SocialIconList = () => {
 		<>
 			<ul className="has-admin-theme-reorder-list">{ networks.map( ( network, key ) => (
 				<SocialIconListItem
-					key={ network.key }
-					listItemKey={ network.key }
+					key={ network.key ?? network.slug }
+					listItemKey={ network.key ?? network.slug }
 					className={ network.className }
 					styles={ network.styles }
 					icon={ network.icon }

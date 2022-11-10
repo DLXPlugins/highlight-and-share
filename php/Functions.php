@@ -174,6 +174,45 @@ class Functions {
 	}
 
 	/**
+	 * Array data that must be sanitized.
+	 *
+	 * @param array $data Data to be sanitized.
+	 *
+	 * @return array Sanitized data.
+	 */
+	public static function sanitize_array_recursive( array $data ) {
+		$sanitized_data = array();
+		foreach ( $data as $key => $value ) {
+			if ( '0' === $value ) {
+				$value = 0;
+			}
+			if ( 'true' === $value ) {
+				$value = true;
+			} elseif( 'false' === $value ) {
+				$value = false;
+			}
+			if ( is_array( $value ) ) {
+				$value                  = self::sanitize_array_recursive( $value );
+				$sanitized_data[ $key ] = $value;
+				continue;
+			}
+			if ( is_bool( $value ) ) {
+				$sanitized_data[ $key ] = (bool) $value;
+				continue;
+			}
+			if ( is_int( $value ) ) {
+				$sanitized_data[ $key ] = (int) $value;
+				continue;
+			}
+			if ( is_string( $value ) ) {
+				$sanitized_data[ $key ] = sanitize_text_field( $value );
+				continue;
+			}
+		}
+		return $sanitized_data;
+	}
+
+	/**
 	 * Take a _ separated field and convert to camelcase.
 	 *
 	 * @param string $field Field to convert to camelcase.

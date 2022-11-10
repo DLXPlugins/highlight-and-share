@@ -28,6 +28,7 @@ class Admin {
 
 		// Retrieve appearance settings for context.
 		add_action( 'wp_ajax_has_retrieve_appearance_settings_context', array( $this, 'ajax_retrieve_appearance_settings_context' ) );
+		add_action( 'wp_ajax_has_save_appearance_settings', array( $this, 'ajax_has_save_appearance_settings' ) );
 
 		// Save and reset social icon order.
 		add_action( 'wp_ajax_has_save_social_icon_order', array( $this, 'ajax_save_social_icon_order' ) );
@@ -60,6 +61,26 @@ class Admin {
 		array_unshift( $links, $docs_link );
 		array_unshift( $links, $settings_link );
 		return $links;
+	}
+
+	/**
+	 * Save theme customizer settings.
+	 */
+	public function ajax_has_save_appearance_settings() {
+		if ( ! wp_verify_nonce( filter_input( INPUT_POST, 'nonce', FILTER_DEFAULT ), 'has_save_appearance' ) || ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( array() );
+		}
+
+		$theme_options = filter_input( INPUT_POST, 'formData', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
+
+		$theme_options = Functions::sanitize_array_recursive( $theme_options );
+
+		// Update options.
+		update_option( 'highlight-and-share-theme-options', $theme_options );
+
+		// Get options.
+		$theme_options = Options::get_theme_options( true );
+		wp_send_json_success( $theme_options );
 	}
 
 	/**
