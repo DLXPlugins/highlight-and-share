@@ -311,8 +311,11 @@ $link_color_hover: darken(#2c3a95, 15%);
 h2.has-admin-content-subheading {
 	position: relative;
 	font-size: 1.65em;
-	margin-bottom: 1.6em;
+	margin-bottom: 1.3em;
 
+	& ~ .description {
+		margin-bottom: 1.3em;
+	}
 	&:after {
 		content: '';
 		display: block;

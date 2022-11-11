@@ -4874,7 +4874,10 @@ div.components-toolbar > div + div.has-left-divider::before {
 h2.has-admin-content-subheading {
   position: relative;
   font-size: 1.65em;
-  margin-bottom: 1.6em;
+  margin-bottom: 1.3em;
+}
+h2.has-admin-content-subheading ~ .description {
+  margin-bottom: 1.3em;
 }
 h2.has-admin-content-subheading:after {
   content: "";
