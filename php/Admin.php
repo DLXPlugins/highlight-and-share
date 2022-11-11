@@ -31,6 +31,9 @@ class Admin {
 		add_action( 'wp_ajax_has_save_appearance_settings', array( $this, 'ajax_has_save_appearance_settings' ) );
 		add_action( 'wp_ajax_has_reset_appearance_settings', array( $this, 'ajax_has_reset_appearance_settings' ) );
 
+		// Retrieve block editor defaults.
+		add_action( 'wp_ajax_has_retrieve_block_editor_tab', array( $this, 'ajax_retrieve_block_editor_tab' ) );
+
 		// Save and reset social icon order.
 		add_action( 'wp_ajax_has_save_social_icon_order', array( $this, 'ajax_save_social_icon_order' ) );
 		add_action( 'wp_ajax_has_reset_social_icon_order', array( $this, 'ajax_reset_social_icon_order' ) );
@@ -53,15 +56,28 @@ class Admin {
 	 * @return array $links Array of plugin options
 	 */
 	public function add_settings_link( $links ) {
-		$settings_link = sprintf( '<a href="%s">%s</a>', esc_url( admin_url( 'options-general.php?page=highlight-and-share' ) ), _x( 'Settings', 'Plugin settings link on the plugins page', 'highlight-and-share' ) );
+		$settings_link   = sprintf( '<a href="%s">%s</a>', esc_url( admin_url( 'options-general.php?page=highlight-and-share' ) ), _x( 'Settings', 'Plugin settings link on the plugins page', 'highlight-and-share' ) );
 		$appearance_link = sprintf( '<a href="%s">%s</a>', esc_url( admin_url( 'options-general.php?page=highlight-and-share&tab=appearance' ) ), _x( 'Configure Theme', 'Plugin settings link on the plugins page', 'highlight-and-share' ) );
-		$docs_link     = sprintf( '<a href="%s">%s</a>', esc_url( 'https://has.dlxplugins.com' ), _x( 'Documentation', 'Plugin settings link on the plugins page', 'highlight-and-share' ) );
-		$has_landing   = sprintf( '<a href="%s" style="color: #f60098;">%s</a>', esc_url( 'https://dlxplugins.com/plugins/highlight-and-share/' ), _x( 'Visit Site', 'Plugin settings link on the plugins page', 'highlight-and-share' ) );
+		$docs_link       = sprintf( '<a href="%s">%s</a>', esc_url( 'https://has.dlxplugins.com' ), _x( 'Documentation', 'Plugin settings link on the plugins page', 'highlight-and-share' ) );
+		$has_landing     = sprintf( '<a href="%s" style="color: #f60098;">%s</a>', esc_url( 'https://dlxplugins.com/plugins/highlight-and-share/' ), _x( 'Visit Site', 'Plugin settings link on the plugins page', 'highlight-and-share' ) );
 
 		array_unshift( $links, $has_landing );
 		array_unshift( $links, $docs_link );
 		array_unshift( $links, $settings_link );
 		return $links;
+	}
+
+	/**
+	 * Retrieve saved settings for the block editor tab.
+	 */
+	public function ajax_retrieve_block_editor_tab() {
+		if ( ! wp_verify_nonce( filter_input( INPUT_POST, 'nonce', FILTER_DEFAULT ), 'has_retrieve_block_editor' ) || ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( array() );
+		}
+
+		// Get saved options.
+		$options = Options::get_block_editor_options( true );
+		wp_send_json_success( $this->map_defaults_to_js( stripslashes_deep( $options ) ) );
 	}
 
 	/**
@@ -298,6 +314,10 @@ class Admin {
 			if ( 'appearance' === $current_tab ) {
 				$appearance_tab_class[] = 'nav-tab-active';
 			}
+			$block_editor_tab_class = array( 'nav-tab' );
+			if ( 'block-editor' === $current_tab ) {
+				$block_editor_tab_class[] = 'nav-tab-active';
+			}
 			?>
 
 
@@ -306,6 +326,7 @@ class Admin {
 					<nav class="nav-tab-wrapper">
 						<a class="<?php echo esc_attr( implode( ' ', $settings_tab_class ) ); ?>" href="<?php echo esc_url( Functions::get_settings_url( 'settings' ) ); ?>"><?php esc_html_e( 'Settings', 'highlight-and-share' ); ?></a>
 						<a class="<?php echo esc_attr( implode( ' ', $appearance_tab_class ) ); ?>" href="<?php echo esc_url( Functions::get_settings_url( 'appearance' ) ); ?>"><?php esc_html_e( 'Appearance', 'highlight-and-share' ); ?></a>
+						<a class="<?php echo esc_attr( implode( ' ', $block_editor_tab_class ) ); ?>" href="<?php echo esc_url( Functions::get_settings_url( 'block-editor' ) ); ?>"><?php esc_html_e( 'Block Editor', 'highlight-and-share' ); ?></a>
 					</nav>
 					<?php
 					if ( null === $current_tab || 'settings' === $current_tab ) {
@@ -319,6 +340,12 @@ class Admin {
 						// No wrapper as there are separate wrappers for each section.
 						?>
 						<div id="has-appearance-admin-settings"></div>
+						<?php
+					}
+					if ( 'block-editor' === $current_tab ) {
+						// No wrapper as there are separate wrappers for each section.
+						?>
+						<div id="has-block-editor-admin-settings"></div>
 						<?php
 					}
 					?>
@@ -426,6 +453,31 @@ class Admin {
 						'themes'             => Themes::get_main_themes(),
 						'colors'             => Themes::get_default_theme_colors(),
 						'themeOptionsCustom' => Options::get_theme_options(),
+					)
+				);
+			}
+
+			// Determine if we're loading the block editor tab.
+			$enqueue_block_editor = false;
+			$current_tab          = Functions::get_admin_tab();
+			if ( null !== $current_tab && 'block-editor' === $current_tab ) {
+				$enqueue_appearance = true;
+			}
+			if ( $enqueue_appearance ) {
+				wp_enqueue_script(
+					'has-block-editor-admin-js',
+					Functions::get_plugin_url( '/dist/has-admin-block-editor.js' ),
+					array(),
+					HIGHLIGHT_AND_SHARE_VERSION,
+					true
+				);
+				wp_localize_script(
+					'has-block-editor-admin-js',
+					'hasBlockEditorAdmin',
+					array(
+						'saveNonce'     => wp_create_nonce( 'has_save_block_editor' ),
+						'retrieveNonce' => wp_create_nonce( 'has_retrieve_block_editor' ),
+						'resetNonce'    => wp_create_nonce( 'has_reset_block_editor' ),
 					)
 				);
 			}

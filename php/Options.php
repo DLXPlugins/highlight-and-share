@@ -33,6 +33,13 @@ class Options {
 	private static $options_theme = false;
 
 	/**
+	 * Highlight and Share Block Editor Options.
+	 *
+	 * @var array $options_block_editor Highlight and Share Block Editor options.
+	 */
+	private static $options_block_editor = false;
+
+	/**
 	 * Highlight and Share Options
 	 *
 	 * @var array $instance Highlight and Share options.
@@ -138,6 +145,24 @@ class Options {
 		 */
 		$social_networks = apply_filters( 'has_social_network_defaults', $social_networks );
 		return $social_networks;
+	}
+
+	/**
+	 * Get Block Editor Defaults.
+	 */
+	public static function get_block_editor_defaults() {
+		$defaults = array(
+			'enable_blocks'                           => true,
+			'enable_adobe_fonts'                      => false,
+			'adobe_fonts'                             => array(),
+			'adobe_project_id'                        => '',
+			'enable_inline_highlighting'              => true,
+			'inline_highlight_background_color'       => '#ffefb1',
+			'inline_highlight_background_color_hover' => '#fcd63c',
+			'inline_highlight_text_color'             => '#000000',
+			'inline_highlight_text_color_hover'       => '#000000',
+		);
+		return $defaults;
 	}
 
 	/**
@@ -406,6 +431,41 @@ class Options {
 		$settings = array_replace_recursive( $defaults, $settings );
 
 		self::$options_theme = $settings;
+		return $settings;
+	}
+
+	/**
+	 * Return the social network options.
+	 *
+	 * @since 3.0.0
+	 * @access public
+	 *
+	 * @see init
+	 *
+	 * @param bool $force Force a refresh of the options.
+	 *
+	 * @return array Plugin options
+	 */
+	public static function get_block_editor_options( $force = false ) {
+		if ( false === self::$options_block_editor || $force ) {
+			$settings = get_option( 'highlight-and-share-block-editor-options' );
+		} else {
+			$settings = self::$options_block_editor;
+		}
+
+		$defaults = self::get_block_editor_defaults();
+
+		if ( false === $settings || ! is_array( $settings ) ) {
+			// Add theme option from old options into new one.
+			$options = self::get_block_editor_defaults();
+			update_option( 'highlight-and-share-block-editor-options', $defaults );
+			return $defaults;
+		}
+
+		// Merge two multi-dimensional arrays (defaults, and from settings).
+		$settings = array_replace_recursive( $defaults, $settings );
+
+		self::$options_block_editor = $settings;
 		return $settings;
 	}
 }
