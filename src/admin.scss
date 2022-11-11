@@ -84,7 +84,6 @@
 	border: 1px solid #c3c4c7;
 	border-top: 0;
 	box-shadow: 0 1px 6px rgb(0 0 0 / 8%);
-	padding-bottom: 35px;
 }
 
 $link_color: #2c3a95;
@@ -1025,10 +1024,7 @@ h2.has-admin-content-subheading {
 }
 
 /* Appearance Content Wrapper styles */
-.has-admin-container-body__content {
+.has-admin-container-body__content:has(.has-admin__tabs--content-actions) {
 	padding-bottom: 35px;
 	margin-bottom: 40px;
-	&:last-child {
-		padding-bottom: 0;
-	}
 }

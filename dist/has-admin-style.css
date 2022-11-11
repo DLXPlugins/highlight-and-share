@@ -4664,7 +4664,6 @@ div.components-toolbar > div + div.has-left-divider::before {
   border: 1px solid #c3c4c7;
   border-top: 0;
   box-shadow: 0 1px 6px rgba(0, 0, 0, 0.08);
-  padding-bottom: 35px;
 }
 
 .has-form-wrapper {
@@ -5539,12 +5538,9 @@ h2.has-admin-content-subheading:after {
 }
 
 /* Appearance Content Wrapper styles */
-.has-admin-container-body__content {
+.has-admin-container-body__content:has(.has-admin__tabs--content-actions) {
   padding-bottom: 35px;
   margin-bottom: 40px;
-}
-.has-admin-container-body__content:last-child {
-  padding-bottom: 0;
 }
 
 /*# sourceMappingURL=has-admin-style.css.map*/

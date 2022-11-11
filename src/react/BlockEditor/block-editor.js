@@ -84,7 +84,7 @@ const Interface = ( props ) => {
 	const getDefaultValues = () => {
 		return {
 			enableBlocks: data.enableBlocks,
-			enableAdobeFonts: true, //data.enableAdobeFonts,
+			enableAdobeFonts: data.enableAdobeFonts,
 			adobeFonts: data.adobeFonts,
 			adobeProjectId: data.adobeProjectId,
 			enableInlineHighlighting: data.enableInlineHighlighting,
@@ -117,9 +117,9 @@ const Interface = ( props ) => {
 	const onSubmit = ( formData ) => {
 		setSaving( true );
 
-		sendCommand( 'has_save_settings_tab', {
-			nonce: hasSettingsAdmin.saveNonce,
-			form_data: formData,
+		sendCommand( 'has_save_block_editor_options', {
+			nonce: hasBlockEditorAdmin.saveNonce,
+			formData,
 		} )
 			.then( ( ajaxResponse ) => {
 				const ajaxData = ajaxResponse.data.data;
@@ -132,7 +132,9 @@ const Interface = ( props ) => {
 						setIsSaved( false );
 					}, 3000 );
 				} else {
-					// Error stuff.
+					const { message } = ajaxData[ 0 ];
+					setValue( 'adobeFonts', [] );
+					setError( 'adobeProjectId', { type: 'manual', message }, { shouldFocus: true } );
 				}
 			} )
 			.catch( ( ajaxResponse ) => {} )
@@ -142,13 +144,14 @@ const Interface = ( props ) => {
 	};
 	const handleReset = ( e ) => {
 		setResetting( true );
-		sendCommand( 'has_reset_settings_tab', {
-			nonce: hasSettingsAdmin.resetNonce,
+		sendCommand( 'has_reset_block_editor_options', {
+			nonce: hasBlockEditorAdmin.resetNonce,
 		} )
 			.then( ( ajaxResponse ) => {
 				const ajaxData = ajaxResponse.data.data;
 				const ajaxSuccess = ajaxResponse.data.success;
 				if ( ajaxSuccess ) {
+					console.log( ajaxData );
 					// Clear form dirty.
 					reset( ajaxData );
 
@@ -213,8 +216,9 @@ const Interface = ( props ) => {
 				if ( ajaxSuccess ) {
 					setValue( 'adobeFonts', ajaxData );
 				} else {
+					const { message } = ajaxData[ 0 ];
 					setValue( 'adobeFonts', [] );
-					setError( 'adobeProjectId', { type: 'manual', message: ajaxData.message }, { shouldFocus: true } );
+					setError( 'adobeProjectId', { type: 'manual', message }, { shouldFocus: true } );
 				}
 			} )
 			.catch( ( ajaxResponse ) => {} )
@@ -394,46 +398,6 @@ const Interface = ( props ) => {
 							</div>
 							<div className="has-admin-content-body">
 								<h2 className="has-admin-content-subheading">
-									{ __( 'Inline Highlighting Settings', 'highlight-and-share' ) }
-								</h2>
-								<p className="description">{ __( 'Set inline highlighting behavior and colors.', 'highlight-and-share' ) }</p>
-								<Notice
-									message={ __(
-										'Inline highlighting is enabled by using the formatting options in the Block Editor or by wrapping the text with the [has-inline-text] CSS class.',
-										'highlight-and-share'
-									) }
-									status="info"
-									politeness="polite"
-									inline={ false }
-									icon={ CircularInfoIcon }
-								/>
-								<div className="has-admin-component-row">
-									<Controller
-										name="enableInlineHighlighting"
-										control={ control }
-										render={ ( { field: { onChange, value } } ) => (
-											<ToggleControl
-												label={ __(
-													'Enable Inline Highlighting',
-													'highlight-and-share'
-												) }
-												className="has-admin__toggle-control"
-												checked={ value }
-												onChange={ ( boolValue ) => {
-													onChange( boolValue );
-												} }
-												help={ __(
-													'Disabling this option will disable inline highlighting throughout the site.',
-													'highlight-and-share'
-												) }
-											/>
-										) }
-									/>
-								</div>
-								{ getInlineHighlightingColorOptions() }
-							</div>
-							<div className="has-admin-content-body">
-								<h2 className="has-admin-content-subheading">
 									{ __( 'Adobe Font Settings', 'highlight-and-share' ) }
 								</h2>
 								<p className="description">{ __( 'Enabling Adobe Fonts will show the fonts in the Block Editor.', 'highlight-and-share' ) }</p>
@@ -566,7 +530,115 @@ const Interface = ( props ) => {
 									</>
 								) }
 							</div>
+							<div className="has-admin-content-body">
+								<h2 className="has-admin-content-subheading">
+									{ __( 'Inline Highlighting Settings', 'highlight-and-share' ) }
+								</h2>
+								<p className="description">{ __( 'Set inline highlighting behavior and colors.', 'highlight-and-share' ) }</p>
+								<Notice
+									message={ __(
+										'Inline highlighting is enabled by using the formatting options in the Block Editor or by wrapping the text with the [has-inline-text] CSS class.',
+										'highlight-and-share'
+									) }
+									status="info"
+									politeness="polite"
+									inline={ false }
+									icon={ CircularInfoIcon }
+								/>
+								<div className="has-admin-component-row">
+									<Controller
+										name="enableInlineHighlighting"
+										control={ control }
+										render={ ( { field: { onChange, value } } ) => (
+											<ToggleControl
+												label={ __(
+													'Enable Inline Highlighting',
+													'highlight-and-share'
+												) }
+												className="has-admin__toggle-control"
+												checked={ value }
+												onChange={ ( boolValue ) => {
+													onChange( boolValue );
+												} }
+												help={ __(
+													'Disabling this option will disable inline highlighting throughout the site.',
+													'highlight-and-share'
+												) }
+											/>
+										) }
+									/>
+								</div>
+								{ getInlineHighlightingColorOptions() }
+							</div>
 						</div>
+						<div className="has-admin__tabs--content-actions">
+							<div className="has-admin__tabs--content-actions--left">
+								<Button
+									className={ classNames(
+										'has__btn has__btn-primary has__btn--icon-right',
+										{ 'has-error': hasErrors() },
+										{ 'has-icon': saving },
+										{ 'is-saving': { saving } }
+									) }
+									type="submit"
+									text={
+										saving
+											? __( 'Saving…', 'highlight-and-share' )
+											: __( 'Save Block Editor Options', 'highlight-and-share' )
+									}
+									icon={ saving ? Spinner : false }
+									iconSize="18"
+									iconPosition="right"
+									disabled={ saving || resetting }
+								/>
+							</div>
+							<div className="has-admin__tabs--content-actions--right">
+								<Button
+									className={ classNames(
+										'has__btn has__btn-danger has__btn--icon-right',
+										{ 'has-icon': resetting },
+										{ 'is-resetting': { resetting } }
+									) }
+									type="button"
+									text={
+										resetting
+											? __( 'Resetting…', 'highlight-and-share' )
+											: __( 'Reset Block Editor Settings', 'highlight-and-share' )
+									}
+									icon={ resetting ? Spinner : false }
+									iconSize="18"
+									iconPosition="right"
+									disabled={ saving || resetting }
+									onClick={ ( e ) => {
+										setResetting( true );
+										handleReset( e );
+									} }
+								/>
+							</div>
+						</div>
+						{ hasErrors() && (
+							<Notice
+								message={ __(
+									'There are form validation errors. Please correct them above.', 'highlight-and-share'
+								) }
+								status="error"
+								politeness="polite"
+							/>
+						) }
+						{ isSaved && (
+							<Notice
+								message={ __( 'Your settings have been saved.', 'highlight-and-share' ) }
+								status="success"
+								politeness="assertive"
+							/>
+						) }
+						{ isReset && (
+							<Notice
+								message={ __( 'Your settings have been reset to defaults.', 'highlight-and-share' ) }
+								status="success"
+								politeness="assertive"
+							/>
+						) }
 					</div>
 				</div>
 			</form>

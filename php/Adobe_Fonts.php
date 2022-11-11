@@ -35,14 +35,15 @@ class Adobe_Fonts {
 
 		// For saving/resetting the default options.
 		add_action( 'wp_ajax_has_retrieve_remote_adobe_fonts', array( static::class, 'ajax_retrieve_remote_adobe_fonts' ) );
+		add_action( 'wp_ajax_has_save_remote_adobe_fonts', array( static::class, 'ajax_retrieve_remote_adobe_fonts' ) );
 
 		// if ( self::can_enqueue( 'frontend' ) ) {
-		// 	add_action( 'wp_head', array( static::class, 'add_dns_prefetch' ), 1 );
-		// 	add_action( 'wp_enqueue_scripts', array( static::class, 'enqueue_adobe_fonts' ) );
+		// add_action( 'wp_head', array( static::class, 'add_dns_prefetch' ), 1 );
+		// add_action( 'wp_enqueue_scripts', array( static::class, 'enqueue_adobe_fonts' ) );
 		// }
 		// if ( self::can_enqueue( 'backend' ) ) {
-		// 	add_action( 'admin_head', array( static::class, 'add_dns_prefetch' ), 1 );
-		// 	add_action( 'admin_enqueue_scripts', array( static::class, 'enqueue_adobe_fonts' ) );
+		// add_action( 'admin_head', array( static::class, 'add_dns_prefetch' ), 1 );
+		// add_action( 'admin_enqueue_scripts', array( static::class, 'enqueue_adobe_fonts' ) );
 		// }
 		return $self;
 	}
@@ -80,7 +81,7 @@ class Adobe_Fonts {
 	 */
 	public static function get_adobe_fonts_url() {
 		// Retrieve project ID if empty.
-		$options = Options::get_block_editor_options( true );
+		$options    = Options::get_block_editor_options( true );
 		$project_id = $options['adobe_project_id'];
 		// If still empty, return.
 		if ( empty( $project_id ) ) {
@@ -97,15 +98,14 @@ class Adobe_Fonts {
 	}
 
 	/**
-	 * Retrieve the theme size options.
+	 * Get registered Adobe Fonts.
+	 *
+	 * @param string $project_id Adobe project ID.
+	 *
+	 * @return array|WP_Error Registered Adobe Fonts or WP_Error on failure.
 	 */
-	public static function ajax_retrieve_remote_adobe_fonts() {
-		if ( ! wp_verify_nonce( filter_input( INPUT_POST, 'nonce', FILTER_DEFAULT ), 'has_save_block_editor' ) || ! current_user_can( 'manage_options' ) ) {
-			wp_send_json_error( array() );
-		}
-
-		// Get the project/kit ID.
-		$project_id = sanitize_text_field( filter_input( INPUT_POST, 'project_id', FILTER_DEFAULT ) );
+	public static function get_adobe_fonts( $project_id ) {
+		$project_id = sanitize_text_field( $project_id );
 
 		$adobe_fonts_url = 'https://typekit.com/api/v1/json/kits/' . $project_id . '/published';
 
@@ -118,11 +118,7 @@ class Adobe_Fonts {
 
 		// Make sure there is no error and we've received a valid status code.
 		if ( is_wp_error( $response ) || wp_remote_retrieve_response_code( $response ) !== 200 ) {
-			wp_send_json_error(
-				array(
-					'message' => __( 'Could not connect to the Adobe Fonts API. The project ID may be incorrect.', 'quotes-dlx' ),
-				)
-			);
+			return new \WP_Error( 'has_adobe_fonts_error', __( 'Could not connect to the Adobe Fonts API. The project ID may be incorrect.', 'highlight-and-share' ) );
 		}
 
 		$font_data     = json_decode( wp_remote_retrieve_body( $response ), true );
@@ -130,11 +126,7 @@ class Adobe_Fonts {
 
 		// Make sure we have font families.
 		if ( ! $font_families ) {
-			wp_send_json_error(
-				array(
-					'message' => __( 'There appears to be no fonts for the project ID.', 'quotes-dlx' ),
-				)
-			);
+			return new \WP_Error( 'has_adobe_fonts_error', __( 'There appears to be no fonts for the project ID.', 'highlight-and-share' ) );
 		}
 
 		// Now interate over the fonts.
@@ -155,9 +147,28 @@ class Adobe_Fonts {
 				'fallback' => sanitize_text_field( $fallback_css ),
 			);
 		}
+		return $fonts;
+	}
+
+	/**
+	 * Retrieve the theme size options.
+	 */
+	public static function ajax_retrieve_remote_adobe_fonts() {
+		if ( ! wp_verify_nonce( filter_input( INPUT_POST, 'nonce', FILTER_DEFAULT ), 'has_save_block_editor' ) || ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( array() );
+		}
+
+		// Get the project/kit ID.
+		$project_id = sanitize_text_field( filter_input( INPUT_POST, 'project_id', FILTER_DEFAULT ) );
+
+		// Get project fonts.
+		$fonts = self::get_adobe_fonts( $project_id );
+		if ( is_wp_error( $fonts ) ) {
+			wp_send_json_error( $fonts );
+		}
 
 		// Retrieve options and add fonts.
-		$options = Options::get_block_editor_options( true );
+		$options                     = Options::get_block_editor_options( true );
 		$options['adobe_fonts']      = $fonts;
 		$options['adobe_project_id'] = $project_id;
 		update_option( 'highlight-and-share-block-editor-options', $options );
