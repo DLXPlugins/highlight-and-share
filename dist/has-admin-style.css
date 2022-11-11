@@ -5079,103 +5079,136 @@ h2.has-admin-content-subheading:after {
   animation-delay: 0s, 2s;
 }
 
+.has-error input.components-text-control__input {
+  border: 1px solid var(--quotes-dlx-admin--color-notice--error-alt);
+  background-color: var(--quotes-dlx-admin--color-notice--error);
+}
+
 /* Buttons */
-.has-admin__tabs--content-actions {
+.has-admin__tabs--content-actions,
+.has-admin__tabs--content-actions-inline {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding-top: 25px;
 }
-.has-admin__tabs--content-actions .has-admin__tabs--content-actions--left {
+.has-admin__tabs--content-actions.has-admin__tabs--content-actions-inline,
+.has-admin__tabs--content-actions-inline.has-admin__tabs--content-actions-inline {
+  padding-top: 0;
+}
+.has-admin__tabs--content-actions .has-admin__tabs--content-actions--left,
+.has-admin__tabs--content-actions-inline .has-admin__tabs--content-actions--left {
   display: flex;
   justify-content: flex-start;
 }
-.has-admin__tabs--content-actions .has-admin__tabs--content-actions--left button {
+.has-admin__tabs--content-actions .has-admin__tabs--content-actions--left button,
+.has-admin__tabs--content-actions-inline .has-admin__tabs--content-actions--left button {
   margin-right: 10px;
 }
-.has-admin__tabs--content-actions .has-admin__tabs--content-actions--left button:last-child {
+.has-admin__tabs--content-actions .has-admin__tabs--content-actions--left button:last-child,
+.has-admin__tabs--content-actions-inline .has-admin__tabs--content-actions--left button:last-child {
   margin-right: 0;
 }
-.has-admin__tabs--content-actions .has-admin__tabs--content-actions--right {
+.has-admin__tabs--content-actions .has-admin__tabs--content-actions--right,
+.has-admin__tabs--content-actions-inline .has-admin__tabs--content-actions--right {
   display: flex;
   justify-content: flex-end;
 }
-.has-admin__tabs--content-actions.no-flex {
+.has-admin__tabs--content-actions.no-flex,
+.has-admin__tabs--content-actions-inline.no-flex {
   display: block;
 }
-.has-admin__tabs--content-actions .has-admin-reset-confirmation {
+.has-admin__tabs--content-actions .has-admin-reset-confirmation,
+.has-admin__tabs--content-actions-inline .has-admin-reset-confirmation {
   padding-bottom: 20px;
 }
-.has-admin__tabs--content-actions button {
+.has-admin__tabs--content-actions button,
+.has-admin__tabs--content-actions-inline button {
   background: #ffffff;
   color: #017e01;
   border: 1px solid #017e01;
   padding: 10px 20px;
   cursor: pointer;
 }
-.has-admin__tabs--content-actions button:hover {
+.has-admin__tabs--content-actions button:hover,
+.has-admin__tabs--content-actions-inline button:hover {
   background: #e9ece6;
   color: #005200;
   border-color: #006400;
 }
-.has-admin__tabs--content-actions button.has-error {
+.has-admin__tabs--content-actions button.has-error,
+.has-admin__tabs--content-actions-inline button.has-error {
   border: 1px solid #bc2b2c;
+  border-color: #bc2b2c !important;
 }
-.has-admin__tabs--content-actions button.has-error:hover {
+.has-admin__tabs--content-actions button.has-error:hover,
+.has-admin__tabs--content-actions-inline button.has-error:hover {
   cursor: not-allowed;
 }
-.has-admin__tabs--content-actions button.has__btn-danger {
+.has-admin__tabs--content-actions button.has__btn-danger,
+.has-admin__tabs--content-actions-inline button.has__btn-danger {
   background: #ffffff;
   color: #822700;
   border-color: #822700;
 }
-.has-admin__tabs--content-actions button.has__btn-danger:hover {
+.has-admin__tabs--content-actions button.has__btn-danger:hover,
+.has-admin__tabs--content-actions-inline button.has__btn-danger:hover {
   background: #ece6e6;
   color: #822700;
   border-color: #822700;
 }
-.has-admin__tabs--content-actions button.has__btn-secondary {
+.has-admin__tabs--content-actions button.has__btn-secondary,
+.has-admin__tabs--content-actions-inline button.has__btn-secondary {
   background: #ffffff;
   color: #333;
   border-color: #333;
 }
-.has-admin__tabs--content-actions button.has__btn-secondary:hover {
+.has-admin__tabs--content-actions button.has__btn-secondary:hover,
+.has-admin__tabs--content-actions-inline button.has__btn-secondary:hover {
   background: rgb(235, 235, 235);
   color: #333;
   border-color: #333;
 }
-.has-admin__tabs--content-actions button.has__btn--icon-right svg {
+.has-admin__tabs--content-actions button.has__btn--icon-right svg,
+.has-admin__tabs--content-actions-inline button.has__btn--icon-right svg {
   width: 16px;
   height: 16px;
   margin-left: 8px;
 }
-.has-admin__tabs--content-actions button.has__btn--icon-right svg path {
+.has-admin__tabs--content-actions button.has__btn--icon-right svg path,
+.has-admin__tabs--content-actions-inline button.has__btn--icon-right svg path {
   fill: #000;
 }
-.has-admin__tabs--content-actions button.has__btn--icon-right.is-saving {
+.has-admin__tabs--content-actions button.has__btn--icon-right.is-saving,
+.has-admin__tabs--content-actions-inline button.has__btn--icon-right.is-saving {
   display: flex;
   justify-content: center;
   align-items: center;
 }
-.has-admin__tabs--content-actions button.has__btn--icon-right.is-saving svg {
+.has-admin__tabs--content-actions button.has__btn--icon-right.is-saving svg,
+.has-admin__tabs--content-actions-inline button.has__btn--icon-right.is-saving svg {
   width: 24px;
   height: 24px;
   animation: has-spin 1s linear infinite;
 }
-.has-admin__tabs--content-actions button.has__btn--icon-right.is-saving svg path {
+.has-admin__tabs--content-actions button.has__btn--icon-right.is-saving svg path,
+.has-admin__tabs--content-actions-inline button.has__btn--icon-right.is-saving svg path {
   fill: #017e01;
 }
-.has-admin__tabs--content-actions button.has__btn--icon-right.is-resetting {
+.has-admin__tabs--content-actions button.has__btn--icon-right.is-resetting,
+.has-admin__tabs--content-actions-inline button.has__btn--icon-right.is-resetting {
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
-.has-admin__tabs--content-actions button.has__btn--icon-right.is-resetting svg {
+.has-admin__tabs--content-actions button.has__btn--icon-right.is-resetting svg,
+.has-admin__tabs--content-actions-inline button.has__btn--icon-right.is-resetting svg {
   width: 24px;
   height: 24px;
   animation: has-spin 1s linear infinite;
 }
-.has-admin__tabs--content-actions button.has__btn--icon-right.is-resetting svg path {
+.has-admin__tabs--content-actions button.has__btn--icon-right.is-resetting svg path,
+.has-admin__tabs--content-actions-inline button.has__btn--icon-right.is-resetting svg path {
   fill: #822700;
 }
 

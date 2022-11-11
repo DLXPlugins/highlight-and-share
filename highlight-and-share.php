@@ -121,4 +121,8 @@ function highlightshare_instantiate() {
 	// Emails.
 	$emails = new Emails();
 	$emails->run();
+
+	// Adobe fonts.
+	$adobe_fonts = new Adobe_Fonts();
+	$adobe_fonts->run();
 }

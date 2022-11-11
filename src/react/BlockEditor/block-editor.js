@@ -84,7 +84,7 @@ const Interface = ( props ) => {
 	const getDefaultValues = () => {
 		return {
 			enableBlocks: data.enableBlocks,
-			enableAdobeFonts: data.enableAdobeFonts,
+			enableAdobeFonts: true, //data.enableAdobeFonts,
 			adobeFonts: data.adobeFonts,
 			adobeProjectId: data.adobeProjectId,
 			enableInlineHighlighting: data.enableInlineHighlighting,
@@ -102,6 +102,8 @@ const Interface = ( props ) => {
 		getValues,
 		reset,
 		trigger,
+		setError,
+		clearErrors,
 	} = useForm( {
 		defaultValues: getDefaultValues(),
 	} );
@@ -168,6 +170,9 @@ const Interface = ( props ) => {
 	};
 
 	const getAdobeFonts = () => {
+		if ( errors.adobeProjectId ) {
+			return null;
+		}
 		const hasAdobeFonts = getValues( 'enableAdobeFonts' );
 		// eslint-disable-next-line @wordpress/no-unused-vars-before-return
 		const adobeFontsList = getValues( 'adobeFonts' );
@@ -199,7 +204,7 @@ const Interface = ( props ) => {
 	const refreshAdobeFonts = () => {
 		setRefreshingFonts( true );
 		sendCommand( 'has_retrieve_remote_adobe_fonts', {
-			nonce: hasBlockEditorAdmin.retrieveNonce,
+			nonce: hasBlockEditorAdmin.saveNonce,
 			project_id: getValues( 'adobeProjectId' ),
 		} )
 			.then( ( ajaxResponse ) => {
@@ -208,7 +213,8 @@ const Interface = ( props ) => {
 				if ( ajaxSuccess ) {
 					setValue( 'adobeFonts', ajaxData );
 				} else {
-					// Error stuff.
+					setValue( 'adobeFonts', [] );
+					setError( 'adobeProjectId', { type: 'manual', message: ajaxData.message }, { shouldFocus: true } );
 				}
 			} )
 			.catch( ( ajaxResponse ) => {} )
@@ -464,10 +470,14 @@ const Interface = ( props ) => {
 													required: true,
 													pattern: /^[a-z0-9]+$/i,
 												} }
-												render={ ( { field } ) => (
+												render={ ( { field: { onChange, value } } ) => (
 													<TextControl
-														{ ...field }
 														type="text"
+														value={ value }
+														onChange={ ( textValue ) => {
+															clearErrors( 'adobeProjectId' );
+															onChange( textValue );
+														} }
 														label={ __(
 															'Adobe Fonts Project ID',
 															'highlight-and-share'
@@ -477,9 +487,11 @@ const Interface = ( props ) => {
 															{
 																'has-error':
 														'pattern' ===
-															errors.anchorPrefix?.type ||
+															errors.adobeProjectId?.type ||
+														'manual' ===
+															errors.adobeProjectId?.type ||
 														'required' ===
-															errors.anchorPrefix?.type,
+															errors.adobeProjectId?.type,
 																'is-required': true,
 															}
 														) }
@@ -512,12 +524,21 @@ const Interface = ( props ) => {
 													icon={ CircularExclamationIcon }
 												/>
 											) }
+											{ 'manual' === errors.adobeProjectId?.type && (
+												<Notice
+													message={ errors.adobeProjectId.message }
+													status="error"
+													politeness="assertive"
+													inline={ false }
+													icon={ CircularExclamationIcon }
+												/>
+											) }
 											{ false !== getValues( 'enableAdobeFonts' ) && <>{ getAdobeFonts() }</> }
 										</div>
-										<div className="has-admin__tabs--content-actions">
+										<div className="has-admin__tabs--content-actions-inline">
 											<Button
 												className={ classNames(
-													'has__btn has__btn-primary has__btn--icon-right has__btn-accent',
+													'has__btn has__btn-secondary has__btn--icon-right has__btn-accent',
 													{ 'has-error': hasErrors() },
 													{ 'has-icon': refreshingFonts },
 													{ 'is-saving': { refreshingFonts } }
@@ -544,19 +565,6 @@ const Interface = ( props ) => {
 										</div>
 									</>
 								) }
-							</div>
-						</div>
-					</div>
-				</div>
-				<div className="has-admin-container-body__content">
-					<div className="has-admin-content-wrapper">
-						<div className="has-admin-content-panel">
-							<div className="has-admin-content-body">
-								<h2 className="has-admin-content-subheading">
-									{ __( 'Adobe Fonts', 'highlight-and-share' ) }
-								</h2>
-								<p className="description">{ __( 'If you have an Adobe Fonts web project, you can enter the details in this section.', 'highlight-and-share' ) }</p>
-								sldjf
 							</div>
 						</div>
 					</div>
