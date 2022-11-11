@@ -107,7 +107,6 @@ const HASColorPicker = ( props ) => {
 				<div className="has-color-picker-area has-component-color-picker-palette">
 					{ ! isVisible && (
 						<>
-							<Popover.Slot />
 							<div
 								className={ classnames(
 									'components-color-palette__item-wrapper components-circular-option-picker__option-wrapper has-color-picker-area has-component-color-picker-palette',

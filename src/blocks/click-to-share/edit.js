@@ -258,7 +258,6 @@ const HAS_Click_To_Share = ( props ) => {
 						} }
 						allowedFormats={ [] }
 						onChange={ ( value ) => {
-							this.onChangeValue( value );
 							setAttributes( { shareText: value } );
 						} }
 					/>
