@@ -455,93 +455,95 @@ const Interface = ( props ) => {
 									/>
 								</div>
 								{ getValues( 'enableAdobeFonts' ) && (
-							<>
-								<Controller
-									name="adobeProjectId"
-									control={ control }
-									rules={ {
-										required: true,
-										pattern: /^[a-z0-9]+$/i,
-									} }
-									render={ ( { field } ) => (
-										<TextControl
-											{ ...field }
-											type="password"
-											label={ __(
-												'Adobe Fonts Project ID',
-												'highlight-and-share'
-											) }
-											id="search-has-no-autofill"
-											className={ classNames(
-												'has-admin__text-control',
-												{
-													'has-error':
+									<>
+										<div className="has-admin-component-row">
+											<Controller
+												name="adobeProjectId"
+												control={ control }
+												rules={ {
+													required: true,
+													pattern: /^[a-z0-9]+$/i,
+												} }
+												render={ ( { field } ) => (
+													<TextControl
+														{ ...field }
+														type="text"
+														label={ __(
+															'Adobe Fonts Project ID',
+															'highlight-and-share'
+														) }
+														className={ classNames(
+															'has-admin__text-control',
+															{
+																'has-error':
 														'pattern' ===
 															errors.anchorPrefix?.type ||
 														'required' ===
 															errors.anchorPrefix?.type,
-													'is-required': true,
+																'is-required': true,
+															}
+														) }
+														aria-required="true"
+														help={ __(
+															'Enter the Adobe Project ID of the web project in order to load Adobe Fonts.',
+															'highlight-and-share'
+														) }
+													/>
+												) }
+											/>
+
+											{ 'required' === errors.adobeProjectId?.type && (
+												<Notice
+													message={ __( 'This field is a required field.', 'highlight-and-share' ) }
+													status="error"
+													politeness="assertive"
+													inline={ false }
+													icon={ CircularExclamationIcon }
+												/>
+											) }
+											{ 'pattern' === errors.adobeProjectId?.type && (
+												<Notice
+													message={ __(
+														'Please use only lowercase letters and numbers.'
+														, 'highlight-and-share' ) }
+													status="error"
+													politeness="assertive"
+													inline={ false }
+													icon={ CircularExclamationIcon }
+												/>
+											) }
+											{ false !== getValues( 'enableAdobeFonts' ) && <>{ getAdobeFonts() }</> }
+										</div>
+										<div className="has-admin__tabs--content-actions">
+											<Button
+												className={ classNames(
+													'has__btn has__btn-primary has__btn--icon-right has__btn-accent',
+													{ 'has-error': hasErrors() },
+													{ 'has-icon': refreshingFonts },
+													{ 'is-saving': { refreshingFonts } }
+												) }
+												type="button"
+												text={
+													saving
+														? __( 'Getting Fonts…', 'highlight-and-share' )
+														: __( 'Refresh Fonts', 'highlight-and-share' )
 												}
-											) }
-											aria-required="true"
-											help={ __(
-												'Enter the Adobe Project ID of the web project in order to load Adobe Fonts.',
-												'highlight-and-share'
-											) }
-										/>
-									) }
-								/>
-								{ 'required' === errors.adobeProjectId?.type && (
-									<Notice
-										message={ __( 'This field is a required field.', 'highlight-and-share' ) }
-										status="error"
-										politeness="assertive"
-										inline={ true }
-										icon={ CircularExclamationIcon }
-									/>
+												icon={ refreshingFonts ? Spinner : false }
+												iconSize="18"
+												iconPosition="right"
+												disabled={ refreshingFonts || resetting }
+												onClick={ async() => {
+													const result = await trigger(
+														'adobeProjectId'
+													);
+													if ( result ) {
+														refreshAdobeFonts();
+													}
+												} }
+											/>
+										</div>
+									</>
 								) }
-								{ 'pattern' === errors.adobeProjectId?.type && (
-									<Notice
-										message={ __(
-											'Please use only lowercase letters and numbers.'
-										, 'highlight-and-share' ) }
-										status="error"
-										politeness="assertive"
-										inline={ true }
-										icon={ CircularExclamationIcon }
-									/>
-								) }
-								{ false !== getValues( 'enableAdobeFonts' ) && <>{ getAdobeFonts() }</> }
-								<div className="has-admin__tabs--content-actions">
-									<Button
-										className={ classNames(
-											'has__btn has__btn-primary has__btn--icon-right has__btn-accent',
-											{ 'has-error': hasErrors() },
-											{ 'has-icon': refreshingFonts },
-											{ 'is-saving': { refreshingFonts } }
-										) }
-										type="button"
-										text={
-											saving
-												? __( 'Getting Fonts…', 'highlight-and-share' )
-												: __( 'Refresh Fonts', 'highlight-and-share' )
-										}
-										icon={ refreshingFonts ? Spinner : false }
-										iconSize="18"
-										iconPosition="right"
-										disabled={ refreshingFonts || resetting }
-										onClick={ async() => {
-											const result = await trigger(
-												'adobeProjectId'
-											);
-											if ( result ) {
-												refreshAdobeFonts();
-											}
-										} }
-									/>
-								</div>
-							</>
-						) }
 							</div>
 						</div>
 					</div>
