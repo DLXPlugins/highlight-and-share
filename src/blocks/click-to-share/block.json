@@ -10,6 +10,10 @@
 	"version": "1.0.0",
 	"textdomain": "highlight-and-share",
 	"attributes": {
+		"uniqueId": {
+			"type": "string",
+			"default": ""
+		},
 		"shareText": {
 			"type": "string",
 			"default": ""
@@ -48,7 +52,7 @@
 		},
 		"borderColor": {
 			"type": "string",
-			"default": "#FFFFFF"
+			"default": "#000000"
 		},
 		"fontWeight": {
 			"type": "string",

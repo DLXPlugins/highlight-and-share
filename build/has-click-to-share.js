@@ -17,6 +17,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _react_Components_DimensionsBlock__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../react/Components/DimensionsBlock */ "./src/react/Components/DimensionsBlock/index.js");
 /* harmony import */ var _react_Hooks_useDeviceType__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../react/Hooks/useDeviceType */ "./src/react/Hooks/useDeviceType.js");
 /* harmony import */ var _react_Utils_DimensionsHelper__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../react/Utils/DimensionsHelper */ "./src/react/Utils/DimensionsHelper.js");
+function _extends() { _extends = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
@@ -46,11 +47,13 @@ var _wp$blockEditor = wp.blockEditor,
   InspectorControls = _wp$blockEditor.InspectorControls,
   RichText = _wp$blockEditor.RichText,
   useBlockProps = _wp$blockEditor.useBlockProps;
+var useInstanceId = wp.compose.useInstanceId;
 var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
   var _useDeviceType = (0,_react_Hooks_useDeviceType__WEBPACK_IMPORTED_MODULE_4__["default"])('Desktop'),
     _useDeviceType2 = _slicedToArray(_useDeviceType, 2),
     deviceType = _useDeviceType2[0],
     setDeviceType = _useDeviceType2[1];
+  var generatedUniqueId = useInstanceId(HAS_Click_To_Share, 'has-cts');
   var attributes = props.attributes,
     setAttributes = props.setAttributes;
   var shareText = attributes.shareText,
@@ -70,8 +73,14 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
     marginRight = attributes.marginRight,
     marginBottom = attributes.marginBottom,
     marginLeft = attributes.marginLeft,
-    paddingSize = attributes.paddingSize;
+    paddingSize = attributes.paddingSize,
+    uniqueId = attributes.uniqueId;
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
+    // Set unique ID for block (for styling).
+    setAttributes({
+      uniqueId: generatedUniqueId
+    });
+
     // Port padding to new dimensions object.
     if (padding !== -1) {
       var portPadding = paddingSize;
@@ -399,7 +408,9 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
   var blockProps = useBlockProps({
     className: classnames__WEBPACK_IMPORTED_MODULE_0___default()("highlight-and-share")
   });
-  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", blockProps, block));
+  return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", _extends({}, blockProps, {
+    id: uniqueId
+  }), block));
 };
 /* harmony default export */ __webpack_exports__["default"] = (HAS_Click_To_Share);
 
@@ -3791,7 +3802,7 @@ function useForm(props = {}) {
 /***/ (function(module) {
 
 "use strict";
-module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","title":"Bootstrap Alert","apiVersion":2,"name":"has/click-to-share","category":"text","icon":"<svg aria-hidden=\'true\' focusable=\'false\' data-prefix=\'fas\' data-icon=\'share-alt\' className=\'svg-inline--fa fa-share-alt fa-w-14\' role=\'img\' xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 448 512\'><path fill=\'currentColor\' d=\'M352 320c-22.608 0-43.387 7.819-59.79 20.895l-102.486-64.054a96.551 96.551 0 0 0 0-41.683l102.486-64.054C308.613 184.181 329.392 192 352 192c53.019 0 96-42.981 96-96S405.019 0 352 0s-96 42.981-96 96c0 7.158.79 14.13 2.276 20.841L155.79 180.895C139.387 167.819 118.608 160 96 160c-53.019 0-96 42.981-96 96s42.981 96 96 96c22.608 0 43.387-7.819 59.79-20.895l102.486 64.054A96.301 96.301 0 0 0 256 416c0 53.019 42.981 96 96 96s96-42.981 96-96-42.981-96-96-96z\'></path></svg>","description":"An easy-to-use content highlighter.","keywords":["click","social","tweet","better","twitter","facebook","share","quote","blockquote"],"version":"1.0.0","textdomain":"highlight-and-share","attributes":{"shareText":{"type":"string","default":""},"backgroundColor":{"type":"string","default":"#FFFFFF"},"textColor":{"type":"string","default":"#000000"},"fontSize":{"type":"integer","default":24},"clickShareFontSize":{"type":"integer","default":24},"clickText":{"type":"string","default":"Click to Share"},"padding":{"type":"integer","default":-1},"border":{"type":"integer","default":true},"borderRadius":{"type":"integer","default":0},"borderColor":{"type":"string","default":"#FFFFFF"},"fontWeight":{"type":"string","default":"#FFFFFF"},"maxWidth":{"type":"integer","default":100},"alignment":{"type":"string","default":"center"},"marginLeft":{"type":"integer","default":0},"marginRight":{"type":"integer","default":0},"marginBottom":{"type":"integer","default":0},"marginTop":{"type":"integer","default":0},"paddingSize":{"type":"object","default":{"mobile":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"tablet":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"desktop":{"top":"","right":"","bottom":"","left":"","unit":"px","unitSync":true}}}},"example":{"attributes":{"alertType":"success","alertTitle":"Sample alert title","alertDescription":"<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>","buttonEnabled":true,"baseFontSize":14,"buttonText":"Learn More","icon":"<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'16\' height=\'16\' fill=\'currentColor\' className=\'bi bi-check\' viewBox=\'0 0 16 16\'><path d=\'M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z\' /></svg>"}},"supports":{"anchor":true,"align":true,"className":true},"editorScript":"has-click-to-share","editorStyle":"has-style-admin-css","style":"has-style-frontend-css"}');
+module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","title":"Bootstrap Alert","apiVersion":2,"name":"has/click-to-share","category":"text","icon":"<svg aria-hidden=\'true\' focusable=\'false\' data-prefix=\'fas\' data-icon=\'share-alt\' className=\'svg-inline--fa fa-share-alt fa-w-14\' role=\'img\' xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 448 512\'><path fill=\'currentColor\' d=\'M352 320c-22.608 0-43.387 7.819-59.79 20.895l-102.486-64.054a96.551 96.551 0 0 0 0-41.683l102.486-64.054C308.613 184.181 329.392 192 352 192c53.019 0 96-42.981 96-96S405.019 0 352 0s-96 42.981-96 96c0 7.158.79 14.13 2.276 20.841L155.79 180.895C139.387 167.819 118.608 160 96 160c-53.019 0-96 42.981-96 96s42.981 96 96 96c22.608 0 43.387-7.819 59.79-20.895l102.486 64.054A96.301 96.301 0 0 0 256 416c0 53.019 42.981 96 96 96s96-42.981 96-96-42.981-96-96-96z\'></path></svg>","description":"An easy-to-use content highlighter.","keywords":["click","social","tweet","better","twitter","facebook","share","quote","blockquote"],"version":"1.0.0","textdomain":"highlight-and-share","attributes":{"uniqueId":{"type":"string","default":""},"shareText":{"type":"string","default":""},"backgroundColor":{"type":"string","default":"#FFFFFF"},"textColor":{"type":"string","default":"#000000"},"fontSize":{"type":"integer","default":24},"clickShareFontSize":{"type":"integer","default":24},"clickText":{"type":"string","default":"Click to Share"},"padding":{"type":"integer","default":-1},"border":{"type":"integer","default":true},"borderRadius":{"type":"integer","default":0},"borderColor":{"type":"string","default":"#000000"},"fontWeight":{"type":"string","default":"#FFFFFF"},"maxWidth":{"type":"integer","default":100},"alignment":{"type":"string","default":"center"},"marginLeft":{"type":"integer","default":0},"marginRight":{"type":"integer","default":0},"marginBottom":{"type":"integer","default":0},"marginTop":{"type":"integer","default":0},"paddingSize":{"type":"object","default":{"mobile":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"tablet":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"desktop":{"top":"","right":"","bottom":"","left":"","unit":"px","unitSync":true}}}},"example":{"attributes":{"alertType":"success","alertTitle":"Sample alert title","alertDescription":"<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>","buttonEnabled":true,"baseFontSize":14,"buttonText":"Learn More","icon":"<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'16\' height=\'16\' fill=\'currentColor\' className=\'bi bi-check\' viewBox=\'0 0 16 16\'><path d=\'M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z\' /></svg>"}},"supports":{"anchor":true,"align":true,"className":true},"editorScript":"has-click-to-share","editorStyle":"has-style-admin-css","style":"has-style-frontend-css"}');
 
 /***/ })
 

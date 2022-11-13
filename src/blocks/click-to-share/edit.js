@@ -15,8 +15,14 @@ const { PanelBody, RangeControl, SelectControl, TextControl, ButtonGroup, Button
 
 const { InspectorControls, RichText, useBlockProps } = wp.blockEditor;
 
+const { useInstanceId } = wp.compose;
+
 const HAS_Click_To_Share = ( props ) => {
 	const [ deviceType, setDeviceType ] = useDeviceType( 'Desktop' );
+	const generatedUniqueId = useInstanceId(
+		HAS_Click_To_Share,
+		'has-cts'
+	);
 
 	const { attributes, setAttributes } = props;
 	const {
@@ -38,9 +44,13 @@ const HAS_Click_To_Share = ( props ) => {
 		marginBottom,
 		marginLeft,
 		paddingSize,
+		uniqueId,
 	} = attributes;
 
 	useEffect( () => {
+		// Set unique ID for block (for styling).
+		setAttributes( { uniqueId: generatedUniqueId } );
+
 		// Port padding to new dimensions object.
 		if ( padding !== -1 ) {
 			const portPadding = paddingSize;
@@ -360,11 +370,11 @@ const HAS_Click_To_Share = ( props ) => {
 
 	const blockProps = useBlockProps( {
 		className: classnames( `highlight-and-share` ),
-		} );
+	} );
 
 	return (
 		<>
-			<div { ...blockProps }>{ block }</div>
+			<div { ...blockProps } id={ uniqueId }>{ block }</div>
 		</>
 	);
 };
