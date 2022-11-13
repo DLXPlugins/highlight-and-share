@@ -3,7 +3,10 @@
  */
 
 import classnames from 'classnames';
+import { useEffect } from 'react';
 import ColorPicker from '../../react/Components/ColorPicker';
+import DimensionsControlBlock from '../../react/Components/DimensionsBlock';
+import useDeviceType from '../../react/Hooks/useDeviceType';
 
 const { __ } = wp.i18n;
 
@@ -12,6 +15,8 @@ const { PanelBody, RangeControl, SelectControl, TextControl } = wp.components;
 const { InspectorControls, RichText, useBlockProps } = wp.blockEditor;
 
 const HAS_Click_To_Share = ( props ) => {
+	const [ deviceType, setDeviceType ] = useDeviceType( 'Desktop' );
+
 	const { attributes, setAttributes } = props;
 	const {
 		shareText,
@@ -31,6 +36,7 @@ const HAS_Click_To_Share = ( props ) => {
 		marginRight,
 		marginBottom,
 		marginLeft,
+		paddingSize,
 	} = attributes;
 
 	const hasStyles = {
@@ -85,6 +91,22 @@ const HAS_Click_To_Share = ( props ) => {
 			<PanelBody
 				title={ __( 'Highlight and Share Settings', 'highlight-and-share' ) }
 			>
+				<DimensionsControlBlock
+					label={ __( 'Border Radius', 'highlight-and-share' ) }
+					allowNegatives={ false }
+					values={ paddingSize }
+					labelTop={ __( 'T-Left', 'highlight-and-share' ) }
+					labelRight={ __( 'T-Right', 'highlight-and-share' ) }
+					labelBottom={ __( 'B-Right', 'highlight-and-share' ) }
+					labelLeft={ __( 'B-Left', 'highlight-and-share' ) }
+					units={ [ 'px', 'em', 'rem' ] }
+					screenSize={ deviceType }
+					onValuesChange={ ( newValues ) => {
+						setAttributes( {
+							paddingSize: newValues,
+						} );
+					} }
+				/>
 				<ColorPicker
 					value={ backgroundColor }
 					key={ 'background-color' }

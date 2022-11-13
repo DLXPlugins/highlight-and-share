@@ -247,64 +247,64 @@
   }
 }
 .components-button[aria-expanded=true], .components-button:hover {
-  color: var(--wp-admin-theme-color);
+  color: var(--wp-components-color-accent, var(--wp-admin-theme-color, #007cba));
 }
 .components-button[aria-disabled=true]:hover {
   color: initial;
 }
 .components-button:focus:not(:disabled) {
-  box-shadow: 0 0 0 var(--wp-admin-border-width-focus) var(--wp-admin-theme-color);
+  box-shadow: 0 0 0 var(--wp-admin-border-width-focus) var(--wp-components-color-accent, var(--wp-admin-theme-color, #007cba));
   outline: 3px solid transparent;
 }
 .components-button.is-primary {
   white-space: nowrap;
-  background: var(--wp-admin-theme-color);
+  background: var(--wp-components-color-accent, var(--wp-admin-theme-color, #007cba));
   color: #fff;
   text-decoration: none;
   text-shadow: none;
   outline: 1px solid transparent;
 }
 .components-button.is-primary:hover:not(:disabled) {
-  background: var(--wp-admin-theme-color-darker-10);
+  background: var(--wp-components-color-accent-darker-10, var(--wp-admin-theme-color-darker-10, #006ba1));
   color: #fff;
 }
 .components-button.is-primary:active:not(:disabled) {
-  background: var(--wp-admin-theme-color-darker-20);
-  border-color: var(--wp-admin-theme-color-darker-20);
+  background: var(--wp-components-color-accent-darker-20, var(--wp-admin-theme-color-darker-20, #005a87));
+  border-color: var(--wp-components-color-accent-darker-20, var(--wp-admin-theme-color-darker-20, #005a87));
   color: #fff;
 }
 .components-button.is-primary:focus:not(:disabled) {
-  box-shadow: inset 0 0 0 1px #fff, 0 0 0 var(--wp-admin-border-width-focus) var(--wp-admin-theme-color);
+  box-shadow: inset 0 0 0 1px #fff, 0 0 0 var(--wp-admin-border-width-focus) var(--wp-components-color-accent, var(--wp-admin-theme-color, #007cba));
 }
 .components-button.is-primary:disabled, .components-button.is-primary:disabled:active:enabled, .components-button.is-primary[aria-disabled=true], .components-button.is-primary[aria-disabled=true]:enabled, .components-button.is-primary[aria-disabled=true]:active:enabled {
   color: rgba(255, 255, 255, 0.4);
-  background: var(--wp-admin-theme-color);
-  border-color: var(--wp-admin-theme-color);
+  background: var(--wp-components-color-accent, var(--wp-admin-theme-color, #007cba));
+  border-color: var(--wp-components-color-accent, var(--wp-admin-theme-color, #007cba));
   opacity: 1;
   outline: none;
 }
 .components-button.is-primary:disabled:focus:enabled, .components-button.is-primary:disabled:active:enabled:focus:enabled, .components-button.is-primary[aria-disabled=true]:focus:enabled, .components-button.is-primary[aria-disabled=true]:enabled:focus:enabled, .components-button.is-primary[aria-disabled=true]:active:enabled:focus:enabled {
-  box-shadow: 0 0 0 1px #fff, 0 0 0 3px var(--wp-admin-theme-color);
+  box-shadow: 0 0 0 1px #fff, 0 0 0 3px var(--wp-components-color-accent, var(--wp-admin-theme-color, #007cba));
 }
 .components-button.is-primary.is-busy, .components-button.is-primary.is-busy:disabled, .components-button.is-primary.is-busy[aria-disabled=true] {
   color: #fff;
   background-size: 100px 100%;
   /* stylelint-disable */
-  background-image: linear-gradient(-45deg, var(--wp-admin-theme-color) 33%, var(--wp-admin-theme-color-darker-20) 33%, var(--wp-admin-theme-color-darker-20) 70%, var(--wp-admin-theme-color) 70%);
+  background-image: linear-gradient(-45deg, var(--wp-components-color-accent, var(--wp-admin-theme-color, #007cba)) 33%, var(--wp-components-color-accent-darker-20, var(--wp-admin-theme-color-darker-20, #005a87)) 33%, var(--wp-components-color-accent-darker-20, var(--wp-admin-theme-color-darker-20, #005a87)) 70%, var(--wp-components-color-accent, var(--wp-admin-theme-color, #007cba)) 70%);
   /* stylelint-enable */
-  border-color: var(--wp-admin-theme-color);
+  border-color: var(--wp-components-color-accent, var(--wp-admin-theme-color, #007cba));
 }
 .components-button.is-secondary, .components-button.is-tertiary {
   outline: 1px solid transparent;
 }
 .components-button.is-secondary:active:not(:disabled), .components-button.is-tertiary:active:not(:disabled) {
   background: #ddd;
-  color: var(--wp-admin-theme-color-darker-10);
+  color: var(--wp-components-color-accent-darker-10, var(--wp-admin-theme-color-darker-10, #006ba1));
   box-shadow: none;
 }
 .components-button.is-secondary:hover:not(:disabled), .components-button.is-tertiary:hover:not(:disabled) {
-  color: var(--wp-admin-theme-color-darker-10);
-  box-shadow: inset 0 0 0 1px var(--wp-admin-theme-color-darker-10);
+  color: var(--wp-components-color-accent-darker-10, var(--wp-admin-theme-color-darker-10, #006ba1));
+  box-shadow: inset 0 0 0 1px var(--wp-components-color-accent-darker-10, var(--wp-admin-theme-color-darker-10, #006ba1));
 }
 .components-button.is-secondary:disabled, .components-button.is-secondary[aria-disabled=true], .components-button.is-secondary[aria-disabled=true]:hover, .components-button.is-tertiary:disabled, .components-button.is-tertiary[aria-disabled=true], .components-button.is-tertiary[aria-disabled=true]:hover {
   color: #828282;
@@ -315,15 +315,15 @@
   outline: none;
 }
 .components-button.is-secondary {
-  box-shadow: inset 0 0 0 1px var(--wp-admin-theme-color);
+  box-shadow: inset 0 0 0 1px var(--wp-components-color-accent, var(--wp-admin-theme-color, #007cba));
   outline: 1px solid transparent;
   white-space: nowrap;
-  color: var(--wp-admin-theme-color);
+  color: var(--wp-components-color-accent, var(--wp-admin-theme-color, #007cba));
   background: transparent;
 }
 .components-button.is-tertiary {
   white-space: nowrap;
-  color: var(--wp-admin-theme-color);
+  color: var(--wp-components-color-accent, var(--wp-admin-theme-color, #007cba));
   background: transparent;
   padding: 6px;
 }
@@ -335,39 +335,22 @@ p + .components-button.is-tertiary {
   margin-left: -6px;
 }
 .components-button.is-destructive {
+  --wp-components-color-accent: #cc1818;
+  --wp-components-color-accent-darker-10: #9e1313;
+  --wp-components-color-accent-darker-20: #710d0d;
+}
+.components-button.is-destructive:not(.is-primary):not(.is-secondary):not(.is-tertiary):not(.is-link) {
   color: #cc1818;
   box-shadow: inset 0 0 0 1px #cc1818;
 }
-.components-button.is-destructive:hover:not(:disabled) {
+.components-button.is-destructive:not(.is-primary):not(.is-secondary):not(.is-tertiary):not(.is-link):hover:not(:disabled) {
   color: #710d0d;
-  box-shadow: inset 0 0 0 1px #710d0d;
 }
-.components-button.is-destructive:focus:not(:disabled) {
-  color: var(--wp-admin-theme-color);
+.components-button.is-destructive:not(.is-primary):not(.is-secondary):not(.is-tertiary):not(.is-link):focus:not(:disabled) {
+  box-shadow: 0 0 0 var(--wp-admin-border-width-focus) #cc1818;
 }
-.components-button.is-destructive:active:not(:disabled) {
+.components-button.is-destructive:not(.is-primary):not(.is-secondary):not(.is-tertiary):not(.is-link):active:not(:disabled) {
   background: #ccc;
-}
-.components-button.is-destructive.is-primary {
-  color: #fff;
-  background: #cc1818;
-  box-shadow: inset 0 0 0 1px #cc1818;
-}
-.components-button.is-destructive.is-primary:hover:not(:disabled) {
-  color: #fff;
-  background: #710d0d;
-  box-shadow: inset 0 0 0 1px #710d0d;
-}
-.components-button.is-destructive.is-tertiary {
-  box-shadow: none;
-}
-.components-button.is-destructive.is-tertiary:hover:not(:disabled) {
-  box-shadow: inset 0 0 0 1px #cc1818;
-  color: #cc1818;
-}
-.components-button.is-destructive.is-tertiary:focus:not(:disabled) {
-  box-shadow: inset 0 0 0 1px #fff, 0 0 0 var(--wp-admin-border-width-focus) #cc1818;
-  color: #cc1818;
 }
 .components-button.is-link {
   margin: 0;
@@ -378,7 +361,7 @@ p + .components-button.is-tertiary {
   background: none;
   outline: none;
   text-align: left;
-  color: var(--wp-admin-theme-color);
+  color: var(--wp-components-color-accent, var(--wp-admin-theme-color, #007cba));
   text-decoration: underline;
   transition-property: border, background, color;
   transition-duration: 0.05s;
@@ -393,16 +376,6 @@ p + .components-button.is-tertiary {
 }
 .components-button.is-link:focus {
   border-radius: 2px;
-}
-.components-button.is-link.is-destructive {
-  color: #cc1818;
-}
-.components-button.is-link.is-destructive:active:not(:disabled), .components-button.is-link.is-destructive:hover:not(:disabled) {
-  color: #710d0d;
-  background: none;
-}
-.components-button.is-link.is-destructive:focus:not(:disabled) {
-  color: var(--wp-admin-theme-color);
 }
 .components-button:not([aria-disabled=true]):active {
   color: inherit;
@@ -426,8 +399,9 @@ p + .components-button.is-tertiary {
   font-size: 11px;
 }
 .components-button.is-small.has-icon:not(.has-text) {
-  padding: 0 8px;
+  padding: 0;
   width: 24px;
+  min-width: 24px;
 }
 .components-button.has-icon {
   padding: 6px;
@@ -441,7 +415,7 @@ p + .components-button.is-tertiary {
   margin-right: 2px;
 }
 .components-button.has-icon.has-text {
-  justify-content: left;
+  justify-content: start;
 }
 .components-button.has-icon.has-text svg {
   margin-right: 8px;
@@ -454,7 +428,7 @@ p + .components-button.is-tertiary {
   background: #1e1e1e;
 }
 .components-button.is-pressed:focus:not(:disabled) {
-  box-shadow: inset 0 0 0 1px #fff, 0 0 0 var(--wp-admin-border-width-focus) var(--wp-admin-theme-color);
+  box-shadow: inset 0 0 0 1px #fff, 0 0 0 var(--wp-admin-border-width-focus) var(--wp-components-color-accent, var(--wp-admin-theme-color, #007cba));
   outline: 2px solid transparent;
 }
 .components-button.is-pressed:hover:not(:disabled) {
@@ -772,13 +746,7 @@ svg.components-checkbox-control__indeterminate {
   line-height: 22px;
 }
 
-.components-palette-edit__popover .components-custom-gradient-picker__gradient-bar {
-  margin-top: 0;
-}
-.components-palette-edit__popover .components-custom-gradient-picker__ui-line {
-  margin-bottom: 0;
-}
-.components-palette-edit__popover .components-custom-gradient-picker {
+.components-palette-edit__popover-gradient-picker {
   width: 280px;
   padding: 8px;
 }
@@ -836,7 +804,6 @@ input.components-combobox-control__input[type=text]:focus {
   flex-wrap: wrap;
   align-items: flex-start;
   width: 100%;
-  margin: 0 0 8px 0;
   padding: 0;
 }
 @media (prefers-reduced-motion: reduce) {
@@ -889,6 +856,14 @@ input.components-combobox-control__input[type=text]:focus {
   margin: 8px 0;
 }
 
+.components-color-list-picker__swatch-button {
+  padding: 6px;
+}
+
+.components-color-list-picker__swatch-color {
+  margin: 2px;
+}
+
 .components-color-palette__custom-color {
   position: relative;
   border: none;
@@ -900,9 +875,9 @@ input.components-combobox-control__input[type=text]:focus {
   width: 100%;
   /*rtl:begin:ignore*/
   background-image: repeating-linear-gradient(45deg, #e0e0e0 25%, transparent 25%, transparent 75%, #e0e0e0 75%, #e0e0e0), repeating-linear-gradient(45deg, #e0e0e0 25%, transparent 25%, transparent 75%, #e0e0e0 75%, #e0e0e0);
-  background-position: 0 0, 25px 25px;
+  background-position: 0 0, 24px 24px;
   /*rtl:end:ignore*/
-  background-size: calc(2 * 25px) calc(2 * 25px);
+  background-size: calc(2 * 24px) calc(2 * 24px);
   box-sizing: border-box;
   color: #fff;
   cursor: pointer;
@@ -914,19 +889,6 @@ input.components-combobox-control__input[type=text]:focus {
   outline-width: 2px;
 }
 
-.components-dropdown__content.components-color-palette__custom-color-dropdown-content .components-popover__content {
-  overflow: visible;
-  box-shadow: 0 4px 4px rgba(0, 0, 0, 0.05);
-  border: none;
-  outline: none;
-  border-radius: 2px;
-  padding: 0;
-}
-.components-dropdown__content.components-color-palette__custom-color-dropdown-content .components-popover__content .react-colorful__saturation {
-  border-top-right-radius: 2px;
-  border-top-left-radius: 2px;
-}
-
 .components-color-palette__custom-color-name {
   text-align: left;
 }
@@ -936,16 +898,19 @@ input.components-combobox-control__input[type=text]:focus {
   text-transform: uppercase;
 }
 
+.components-custom-gradient-picker:not(.is-next-has-no-margin) {
+  margin-top: 12px;
+  margin-bottom: 24px;
+}
+
 .components-custom-gradient-picker__gradient-bar:not(.has-gradient) {
   opacity: 0.4;
 }
 
 .components-custom-gradient-picker__gradient-bar {
   border-radius: 2px;
-  margin-top: 12px;
   width: 100%;
   height: 48px;
-  margin-bottom: 20px;
 }
 .components-custom-gradient-picker__gradient-bar .components-custom-gradient-picker__markers-container {
   position: relative;
@@ -953,28 +918,32 @@ input.components-combobox-control__input[type=text]:focus {
   margin-left: auto;
   margin-right: auto;
 }
-.components-custom-gradient-picker__gradient-bar .components-custom-gradient-picker__insert-point {
+.components-custom-gradient-picker__gradient-bar .components-custom-gradient-picker__control-point-dropdown {
+  position: absolute;
+  height: 16px;
+  width: 16px;
+  top: 16px;
+  display: flex;
+}
+.components-custom-gradient-picker__gradient-bar .components-custom-gradient-picker__insert-point-dropdown {
+  position: relative;
+  height: inherit;
+  width: inherit;
+  min-width: 16px;
   border-radius: 50%;
   background: #fff;
   padding: 2px;
-  top: 16px;
-  min-width: 16px;
-  width: 16px;
-  height: 16px;
-  position: relative;
   color: #1e1e1e;
 }
-.components-custom-gradient-picker__gradient-bar .components-custom-gradient-picker__insert-point svg {
+.components-custom-gradient-picker__gradient-bar .components-custom-gradient-picker__insert-point-dropdown svg {
   height: 100%;
   width: 100%;
 }
 .components-custom-gradient-picker__gradient-bar .components-custom-gradient-picker__control-point-button {
+  height: inherit;
+  width: inherit;
   border-radius: 50%;
-  height: 16px;
-  width: 16px;
   padding: 0;
-  position: absolute;
-  top: 16px;
   box-shadow: inset 0 0 0 var(--wp-admin-border-width-focus) #fff, 0 0 2px 0 rgba(0, 0, 0, 0.25);
   outline: 2px solid transparent;
 }
@@ -983,17 +952,13 @@ input.components-combobox-control__input[type=text]:focus {
   outline: 1.5px solid transparent;
 }
 
-.components-custom-gradient-picker__color-picker-popover .components-custom-gradient-picker__remove-control-point {
-  margin-left: auto;
-  margin-right: auto;
-  display: block;
-  margin-bottom: 8px;
+.components-custom-gradient-picker__remove-control-point-wrapper {
+  padding-bottom: 8px;
 }
 
 .components-custom-gradient-picker__inserter {
   /*rtl:ignore*/
   direction: ltr;
-  width: 100%;
 }
 
 .components-custom-gradient-picker__liner-gradient-indicator {
@@ -1001,14 +966,6 @@ input.components-combobox-control__input[type=text]:focus {
   flex: 0 auto;
   width: 20px;
   height: 20px;
-}
-
-.components-custom-gradient-picker .components-custom-gradient-picker__ui-line {
-  margin-bottom: 16px;
-}
-.components-custom-gradient-picker .components-custom-gradient-picker__ui-line .components-base-control.components-angle-picker,
-.components-custom-gradient-picker .components-custom-gradient-picker__ui-line .components-base-control.components-custom-gradient-picker__type-picker {
-  margin-bottom: 0;
 }
 
 .components-custom-gradient-picker .components-custom-gradient-picker__toolbar {
@@ -1032,16 +989,6 @@ input.components-combobox-control__input[type=text]:focus {
   position: relative;
   text-align: left;
   outline: 0;
-}
-.components-custom-select-control__button:not(.is-next-unconstrained-width) {
-  min-width: 130px;
-}
-.components-custom-select-control__button .components-custom-select-control__button-icon {
-  height: 100%;
-  padding: 0;
-  position: absolute;
-  right: 4px;
-  top: 0;
 }
 
 .components-custom-select-control__menu {
@@ -1089,1066 +1036,6 @@ input.components-combobox-control__input[type=text]:focus {
 }
 .components-custom-select-control__item:last-child {
   margin-bottom: 0;
-}
-
-/**
- * Parts of this source were derived and modified from react-dates,
- * released under the MIT license.
- *
- * https://github.com/airbnb/react-dates
- *
- * The MIT License (MIT)
- *
- * Copyright (c) 2016 Airbnb
- *
- * Permission is hereby granted, free of charge, to any person obtaining a copy
- * of this software and associated documentation files (the "Software"), to deal
- * in the Software without restriction, including without limitation the rights
- * to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
- * copies of the Software, and to permit persons to whom the Software is
- * furnished to do so, subject to the following conditions:
- *
- * The above copyright notice and this permission notice shall be included in all
- * copies or substantial portions of the Software.
- *
- * THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
- * IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
- * FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
- * AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
- * LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
- * OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
- * SOFTWARE.
- */
-/*rtl:begin:ignore*/
-.PresetDateRangePicker_panel {
-  padding: 0 22px 11px;
-}
-
-.PresetDateRangePicker_button {
-  position: relative;
-  height: 100%;
-  text-align: center;
-  background: 0 0;
-  border: 2px solid #00a699;
-  color: #00a699;
-  padding: 4px 12px;
-  margin-right: 8px;
-  font: inherit;
-  font-weight: 700;
-  line-height: normal;
-  overflow: visible;
-  box-sizing: border-box;
-  cursor: pointer;
-}
-
-.PresetDateRangePicker_button:active {
-  outline: 0;
-}
-
-.PresetDateRangePicker_button__selected {
-  color: #fff;
-  background: #00a699;
-}
-
-.SingleDatePickerInput {
-  display: inline-block;
-  background-color: #fff;
-}
-
-.SingleDatePickerInput__withBorder {
-  border-radius: 2px;
-  border: 1px solid #dbdbdb;
-}
-
-.SingleDatePickerInput__rtl {
-  direction: rtl;
-}
-
-.SingleDatePickerInput__disabled {
-  background-color: #f2f2f2;
-}
-
-.SingleDatePickerInput__block {
-  display: block;
-}
-
-.SingleDatePickerInput__showClearDate {
-  padding-right: 30px;
-}
-
-.SingleDatePickerInput_clearDate {
-  background: 0 0;
-  border: 0;
-  color: inherit;
-  font: inherit;
-  line-height: normal;
-  overflow: visible;
-  cursor: pointer;
-  padding: 10px;
-  margin: 0 10px 0 5px;
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.SingleDatePickerInput_clearDate__default:focus,
-.SingleDatePickerInput_clearDate__default:hover {
-  background: #dbdbdb;
-  border-radius: 50%;
-}
-
-.SingleDatePickerInput_clearDate__small {
-  padding: 6px;
-}
-
-.SingleDatePickerInput_clearDate__hide {
-  visibility: hidden;
-}
-
-.SingleDatePickerInput_clearDate_svg {
-  fill: #82888a;
-  height: 12px;
-  width: 15px;
-  vertical-align: middle;
-}
-
-.SingleDatePickerInput_clearDate_svg__small {
-  height: 9px;
-}
-
-.SingleDatePickerInput_calendarIcon {
-  background: 0 0;
-  border: 0;
-  color: inherit;
-  font: inherit;
-  line-height: normal;
-  overflow: visible;
-  cursor: pointer;
-  display: inline-block;
-  vertical-align: middle;
-  padding: 10px;
-  margin: 0 5px 0 10px;
-}
-
-.SingleDatePickerInput_calendarIcon_svg {
-  fill: #82888a;
-  height: 15px;
-  width: 14px;
-  vertical-align: middle;
-}
-
-.SingleDatePicker {
-  position: relative;
-  display: inline-block;
-}
-
-.SingleDatePicker__block {
-  display: block;
-}
-
-.SingleDatePicker_picker {
-  z-index: 1;
-  background-color: #fff;
-  position: absolute;
-}
-
-.SingleDatePicker_picker__rtl {
-  direction: rtl;
-}
-
-.SingleDatePicker_picker__directionLeft {
-  left: 0;
-}
-
-.SingleDatePicker_picker__directionRight {
-  right: 0;
-}
-
-.SingleDatePicker_picker__portal {
-  background-color: rgba(0, 0, 0, 0.3);
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-}
-
-.SingleDatePicker_picker__fullScreenPortal {
-  background-color: #fff;
-}
-
-.SingleDatePicker_closeButton {
-  background: 0 0;
-  border: 0;
-  color: inherit;
-  font: inherit;
-  line-height: normal;
-  overflow: visible;
-  cursor: pointer;
-  position: absolute;
-  top: 0;
-  right: 0;
-  padding: 15px;
-  z-index: 2;
-}
-
-.SingleDatePicker_closeButton:focus,
-.SingleDatePicker_closeButton:hover {
-  color: #b0b3b4;
-  text-decoration: none;
-}
-
-.SingleDatePicker_closeButton_svg {
-  height: 15px;
-  width: 15px;
-  fill: #cacccd;
-}
-
-.DayPickerKeyboardShortcuts_buttonReset {
-  background: 0 0;
-  border: 0;
-  border-radius: 0;
-  color: inherit;
-  font: inherit;
-  line-height: normal;
-  overflow: visible;
-  padding: 0;
-  cursor: pointer;
-  font-size: 14px;
-}
-
-.DayPickerKeyboardShortcuts_buttonReset:active {
-  outline: 0;
-}
-
-.DayPickerKeyboardShortcuts_show {
-  width: 22px;
-  position: absolute;
-  z-index: 2;
-}
-
-.DayPickerKeyboardShortcuts_show__bottomRight {
-  border-top: 26px solid transparent;
-  border-right: 33px solid #00a699;
-  bottom: 0;
-  right: 0;
-}
-
-.DayPickerKeyboardShortcuts_show__bottomRight:hover {
-  border-right: 33px solid #008489;
-}
-
-.DayPickerKeyboardShortcuts_show__topRight {
-  border-bottom: 26px solid transparent;
-  border-right: 33px solid #00a699;
-  top: 0;
-  right: 0;
-}
-
-.DayPickerKeyboardShortcuts_show__topRight:hover {
-  border-right: 33px solid #008489;
-}
-
-.DayPickerKeyboardShortcuts_show__topLeft {
-  border-bottom: 26px solid transparent;
-  border-left: 33px solid #00a699;
-  top: 0;
-  left: 0;
-}
-
-.DayPickerKeyboardShortcuts_show__topLeft:hover {
-  border-left: 33px solid #008489;
-}
-
-.DayPickerKeyboardShortcuts_showSpan {
-  color: #fff;
-  position: absolute;
-}
-
-.DayPickerKeyboardShortcuts_showSpan__bottomRight {
-  bottom: 0;
-  right: -28px;
-}
-
-.DayPickerKeyboardShortcuts_showSpan__topRight {
-  top: 1px;
-  right: -28px;
-}
-
-.DayPickerKeyboardShortcuts_showSpan__topLeft {
-  top: 1px;
-  left: -28px;
-}
-
-.DayPickerKeyboardShortcuts_panel {
-  overflow: auto;
-  background: #fff;
-  border: 1px solid #dbdbdb;
-  border-radius: 2px;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  z-index: 2;
-  padding: 22px;
-  margin: 33px;
-}
-
-.DayPickerKeyboardShortcuts_title {
-  font-size: 16px;
-  font-weight: 700;
-  margin: 0;
-}
-
-.DayPickerKeyboardShortcuts_list {
-  list-style: none;
-  padding: 0;
-  font-size: 14px;
-}
-
-.DayPickerKeyboardShortcuts_close {
-  position: absolute;
-  right: 22px;
-  top: 22px;
-  z-index: 2;
-}
-
-.DayPickerKeyboardShortcuts_close:active {
-  outline: 0;
-}
-
-.DayPickerKeyboardShortcuts_closeSvg {
-  height: 15px;
-  width: 15px;
-  fill: #cacccd;
-}
-
-.DayPickerKeyboardShortcuts_closeSvg:focus,
-.DayPickerKeyboardShortcuts_closeSvg:hover {
-  fill: #82888a;
-}
-
-.CalendarDay {
-  box-sizing: border-box;
-  cursor: pointer;
-  font-size: 14px;
-  text-align: center;
-}
-
-.CalendarDay:active {
-  outline: 0;
-}
-
-.CalendarDay__defaultCursor {
-  cursor: default;
-}
-
-.CalendarDay__default {
-  border: 1px solid #e4e7e7;
-  color: #484848;
-  background: #fff;
-}
-
-.CalendarDay__default:hover {
-  background: #e4e7e7;
-  border: 1px double #e4e7e7;
-  color: inherit;
-}
-
-.CalendarDay__hovered_offset {
-  background: #f4f5f5;
-  border: 1px double #e4e7e7;
-  color: inherit;
-}
-
-.CalendarDay__outside {
-  border: 0;
-  background: #fff;
-  color: #484848;
-}
-
-.CalendarDay__outside:hover {
-  border: 0;
-}
-
-.CalendarDay__blocked_minimum_nights {
-  background: #fff;
-  border: 1px solid #eceeee;
-  color: #cacccd;
-}
-
-.CalendarDay__blocked_minimum_nights:active,
-.CalendarDay__blocked_minimum_nights:hover {
-  background: #fff;
-  color: #cacccd;
-}
-
-.CalendarDay__highlighted_calendar {
-  background: #ffe8bc;
-  color: #484848;
-}
-
-.CalendarDay__highlighted_calendar:active,
-.CalendarDay__highlighted_calendar:hover {
-  background: #ffce71;
-  color: #484848;
-}
-
-.CalendarDay__selected_span {
-  background: #66e2da;
-  border: 1px solid #33dacd;
-  color: #fff;
-}
-
-.CalendarDay__selected_span:active,
-.CalendarDay__selected_span:hover {
-  background: #33dacd;
-  border: 1px solid #33dacd;
-  color: #fff;
-}
-
-.CalendarDay__last_in_range {
-  border-right: #00a699;
-}
-
-.CalendarDay__selected,
-.CalendarDay__selected:active,
-.CalendarDay__selected:hover {
-  background: #00a699;
-  border: 1px solid #00a699;
-  color: #fff;
-}
-
-.CalendarDay__hovered_span,
-.CalendarDay__hovered_span:hover {
-  background: #b2f1ec;
-  border: 1px solid #80e8e0;
-  color: #007a87;
-}
-
-.CalendarDay__hovered_span:active {
-  background: #80e8e0;
-  border: 1px solid #80e8e0;
-  color: #007a87;
-}
-
-.CalendarDay__blocked_calendar,
-.CalendarDay__blocked_calendar:active,
-.CalendarDay__blocked_calendar:hover {
-  background: #cacccd;
-  border: 1px solid #cacccd;
-  color: #82888a;
-}
-
-.CalendarDay__blocked_out_of_range,
-.CalendarDay__blocked_out_of_range:active,
-.CalendarDay__blocked_out_of_range:hover {
-  background: #fff;
-  border: 1px solid #e4e7e7;
-  color: #cacccd;
-}
-
-.CalendarMonth {
-  background: #fff;
-  text-align: center;
-  vertical-align: top;
-  -webkit-user-select: none;
-  user-select: none;
-}
-
-.CalendarMonth_table {
-  border-collapse: collapse;
-  border-spacing: 0;
-}
-
-.CalendarMonth_verticalSpacing {
-  border-collapse: separate;
-}
-
-.CalendarMonth_caption {
-  color: #484848;
-  font-size: 18px;
-  text-align: center;
-  padding-top: 22px;
-  padding-bottom: 37px;
-  caption-side: initial;
-}
-
-.CalendarMonth_caption__verticalScrollable {
-  padding-top: 12px;
-  padding-bottom: 7px;
-}
-
-.CalendarMonthGrid {
-  background: #fff;
-  text-align: left;
-  z-index: 0;
-}
-
-.CalendarMonthGrid__animating {
-  z-index: 1;
-}
-
-.CalendarMonthGrid__horizontal {
-  position: absolute;
-  left: 0;
-}
-
-.CalendarMonthGrid__vertical {
-  margin: 0 auto;
-}
-
-.CalendarMonthGrid__vertical_scrollable {
-  margin: 0 auto;
-  overflow-y: scroll;
-}
-
-.CalendarMonthGrid_month__horizontal {
-  display: inline-block;
-  vertical-align: top;
-  min-height: 100%;
-}
-
-.CalendarMonthGrid_month__hideForAnimation {
-  position: absolute;
-  z-index: -1;
-  opacity: 0;
-  pointer-events: none;
-}
-
-.CalendarMonthGrid_month__hidden {
-  visibility: hidden;
-}
-
-.DayPickerNavigation {
-  position: relative;
-  z-index: 2;
-}
-
-.DayPickerNavigation__horizontal {
-  height: 0;
-}
-
-.DayPickerNavigation__verticalDefault {
-  position: absolute;
-  width: 100%;
-  height: 52px;
-  bottom: 0;
-  left: 0;
-}
-
-.DayPickerNavigation__verticalScrollableDefault {
-  position: relative;
-}
-
-.DayPickerNavigation_button {
-  cursor: pointer;
-  -webkit-user-select: none;
-  user-select: none;
-  border: 0;
-  padding: 0;
-  margin: 0;
-}
-
-.DayPickerNavigation_button__default {
-  border: 1px solid #e4e7e7;
-  background-color: #fff;
-  color: #757575;
-}
-
-.DayPickerNavigation_button__default:focus,
-.DayPickerNavigation_button__default:hover {
-  border: 1px solid #c4c4c4;
-}
-
-.DayPickerNavigation_button__default:active {
-  background: #f2f2f2;
-}
-
-.DayPickerNavigation_button__horizontalDefault {
-  position: absolute;
-  top: 18px;
-  line-height: 0.78;
-  border-radius: 3px;
-  padding: 6px 9px;
-}
-
-.DayPickerNavigation_leftButton__horizontalDefault {
-  left: 22px;
-}
-
-.DayPickerNavigation_rightButton__horizontalDefault {
-  right: 22px;
-}
-
-.DayPickerNavigation_button__verticalDefault {
-  padding: 5px;
-  background: #fff;
-  box-shadow: 0 0 5px 2px rgba(0, 0, 0, 0.1);
-  position: relative;
-  display: inline-block;
-  height: 100%;
-  width: 50%;
-}
-
-.DayPickerNavigation_nextButton__verticalDefault {
-  border-left: 0;
-}
-
-.DayPickerNavigation_nextButton__verticalScrollableDefault {
-  width: 100%;
-}
-
-.DayPickerNavigation_svg__horizontal {
-  height: 19px;
-  width: 19px;
-  fill: #82888a;
-  display: block;
-}
-
-.DayPickerNavigation_svg__vertical {
-  height: 42px;
-  width: 42px;
-  fill: #484848;
-  display: block;
-}
-
-.DayPicker {
-  background: #fff;
-  position: relative;
-  text-align: left;
-}
-
-.DayPicker__horizontal {
-  background: #fff;
-}
-
-.DayPicker__verticalScrollable {
-  height: 100%;
-}
-
-.DayPicker__hidden {
-  visibility: hidden;
-}
-
-.DayPicker__withBorder {
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05), 0 0 0 1px rgba(0, 0, 0, 0.07);
-  border-radius: 3px;
-}
-
-.DayPicker_portal__horizontal {
-  box-shadow: none;
-  position: absolute;
-  left: 50%;
-  top: 50%;
-}
-
-.DayPicker_portal__vertical {
-  position: initial;
-}
-
-.DayPicker_focusRegion {
-  outline: 0;
-}
-
-.DayPicker_calendarInfo__horizontal,
-.DayPicker_wrapper__horizontal {
-  display: inline-block;
-  vertical-align: top;
-}
-
-.DayPicker_weekHeaders {
-  position: relative;
-}
-
-.DayPicker_weekHeaders__horizontal {
-  margin-left: 13px;
-}
-
-.DayPicker_weekHeader {
-  color: #757575;
-  position: absolute;
-  top: 62px;
-  z-index: 2;
-  text-align: left;
-  padding: 0 !important;
-}
-
-.DayPicker_weekHeader__vertical {
-  left: 50%;
-}
-
-.DayPicker_weekHeader__verticalScrollable {
-  top: 0;
-  display: table-row;
-  border-bottom: 1px solid #dbdbdb;
-  background: #fff;
-  margin-left: 0;
-  left: 0;
-  width: 100%;
-  text-align: center;
-}
-
-.DayPicker_weekHeader_ul {
-  list-style: none;
-  margin: 1px 0;
-  padding-left: 0;
-  padding-right: 0;
-  font-size: 14px;
-}
-
-.DayPicker_weekHeader_li {
-  display: inline-block;
-  text-align: center;
-  margin: 0 1px;
-}
-
-.DayPicker_transitionContainer {
-  position: relative;
-  overflow: hidden;
-  border-radius: 3px;
-}
-
-.DayPicker_transitionContainer__horizontal {
-  transition: height 0.2s ease-in-out;
-}
-
-.DayPicker_transitionContainer__vertical {
-  width: 100%;
-}
-
-.DayPicker_transitionContainer__verticalScrollable {
-  padding-top: 20px;
-  height: 100%;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  overflow-y: scroll;
-}
-
-.DateInput {
-  margin: 0;
-  padding: 0;
-  background: #fff;
-  position: relative;
-  display: inline-block;
-  width: 130px;
-  vertical-align: middle;
-}
-
-.DateInput__small {
-  width: 97px;
-}
-
-.DateInput__block {
-  width: 100%;
-}
-
-.DateInput__disabled {
-  background: #f2f2f2;
-  color: #dbdbdb;
-}
-
-.DateInput_input {
-  font-weight: 200;
-  font-size: 19px;
-  line-height: 24px;
-  color: #484848;
-  background-color: #fff;
-  width: 100%;
-  padding: 11px 11px 9px;
-  border: 0;
-  border-top: 0;
-  border-right: 0;
-  border-bottom: 2px solid transparent;
-  border-left: 0;
-  border-radius: 0;
-}
-
-.DateInput_input__small {
-  font-size: 15px;
-  line-height: 18px;
-  letter-spacing: 0.2px;
-  padding: 7px 7px 5px;
-}
-
-.DateInput_input__regular {
-  font-weight: auto;
-}
-
-.DateInput_input__readOnly {
-  -webkit-user-select: none;
-  user-select: none;
-}
-
-.DateInput_input__focused {
-  outline: 0;
-  background: #fff;
-  border: 0;
-  border-top: 0;
-  border-right: 0;
-  border-bottom: 2px solid #008489;
-  border-left: 0;
-}
-
-.DateInput_input__disabled {
-  background: #f2f2f2;
-  font-style: italic;
-}
-
-.DateInput_screenReaderMessage {
-  border: 0;
-  clip: rect(0, 0, 0, 0);
-  height: 1px;
-  margin: -1px;
-  overflow: hidden;
-  padding: 0;
-  position: absolute;
-  width: 1px;
-}
-
-.DateInput_fang {
-  position: absolute;
-  width: 20px;
-  height: 10px;
-  left: 22px;
-  z-index: 2;
-}
-
-.DateInput_fangShape {
-  fill: #fff;
-}
-
-.DateInput_fangStroke {
-  stroke: #dbdbdb;
-  fill: transparent;
-}
-
-.DateRangePickerInput {
-  background-color: #fff;
-  display: inline-block;
-}
-
-.DateRangePickerInput__disabled {
-  background: #f2f2f2;
-}
-
-.DateRangePickerInput__withBorder {
-  border-radius: 2px;
-  border: 1px solid #dbdbdb;
-}
-
-.DateRangePickerInput__rtl {
-  direction: rtl;
-}
-
-.DateRangePickerInput__block {
-  display: block;
-}
-
-.DateRangePickerInput__showClearDates {
-  padding-right: 30px;
-}
-
-.DateRangePickerInput_arrow {
-  display: inline-block;
-  vertical-align: middle;
-  color: #484848;
-}
-
-.DateRangePickerInput_arrow_svg {
-  vertical-align: middle;
-  fill: #484848;
-  height: 24px;
-  width: 24px;
-}
-
-.DateRangePickerInput_clearDates {
-  background: 0 0;
-  border: 0;
-  color: inherit;
-  font: inherit;
-  line-height: normal;
-  overflow: visible;
-  cursor: pointer;
-  padding: 10px;
-  margin: 0 10px 0 5px;
-  position: absolute;
-  right: 0;
-  top: 50%;
-  transform: translateY(-50%);
-}
-
-.DateRangePickerInput_clearDates__small {
-  padding: 6px;
-}
-
-.DateRangePickerInput_clearDates_default:focus,
-.DateRangePickerInput_clearDates_default:hover {
-  background: #dbdbdb;
-  border-radius: 50%;
-}
-
-.DateRangePickerInput_clearDates__hide {
-  visibility: hidden;
-}
-
-.DateRangePickerInput_clearDates_svg {
-  fill: #82888a;
-  height: 12px;
-  width: 15px;
-  vertical-align: middle;
-}
-
-.DateRangePickerInput_clearDates_svg__small {
-  height: 9px;
-}
-
-.DateRangePickerInput_calendarIcon {
-  background: 0 0;
-  border: 0;
-  color: inherit;
-  font: inherit;
-  line-height: normal;
-  overflow: visible;
-  cursor: pointer;
-  display: inline-block;
-  vertical-align: middle;
-  padding: 10px;
-  margin: 0 5px 0 10px;
-}
-
-.DateRangePickerInput_calendarIcon_svg {
-  fill: #82888a;
-  height: 15px;
-  width: 14px;
-  vertical-align: middle;
-}
-
-.DateRangePicker {
-  position: relative;
-  display: inline-block;
-}
-
-.DateRangePicker__block {
-  display: block;
-}
-
-.DateRangePicker_picker {
-  z-index: 1;
-  background-color: #fff;
-  position: absolute;
-}
-
-.DateRangePicker_picker__rtl {
-  direction: rtl;
-}
-
-.DateRangePicker_picker__directionLeft {
-  left: 0;
-}
-
-.DateRangePicker_picker__directionRight {
-  right: 0;
-}
-
-.DateRangePicker_picker__portal {
-  background-color: rgba(0, 0, 0, 0.3);
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 100%;
-}
-
-.DateRangePicker_picker__fullScreenPortal {
-  background-color: #fff;
-}
-
-.DateRangePicker_closeButton {
-  background: 0 0;
-  border: 0;
-  color: inherit;
-  font: inherit;
-  line-height: normal;
-  overflow: visible;
-  cursor: pointer;
-  position: absolute;
-  top: 0;
-  right: 0;
-  padding: 15px;
-  z-index: 2;
-}
-
-.DateRangePicker_closeButton:focus,
-.DateRangePicker_closeButton:hover {
-  color: #b0b3b4;
-  text-decoration: none;
-}
-
-.DateRangePicker_closeButton_svg {
-  height: 15px;
-  width: 15px;
-  fill: #cacccd;
-}
-
-/*rtl:end:ignore*/
-.components-datetime__date .CalendarMonthGrid__horizontal,
-.components-datetime__date .DayPicker_weekHeader_li {
-  transform: none !important;
-  width: 100% !important;
-}
-.components-datetime__date .CalendarMonthGrid_month__horizontal,
-.components-datetime__date .CalendarMonth_table,
-.components-datetime__date .DayPicker_weekHeader {
-  width: 100%;
-}
-.components-datetime__date .DayPicker_weekHeaders__horizontal {
-  margin: 0;
-}
-.components-datetime__date .DayPicker_weekHeader_ul {
-  display: flex;
-}
-.components-datetime__date .DayPicker_weekHeader {
-  top: 50px;
-}
-.components-datetime__date .CalendarMonth_caption {
-  font-size: 13px;
-}
-.components-datetime__date .CalendarMonth_table {
-  border-collapse: separate;
-  border-spacing: 2px;
-}
-.components-datetime__date .CalendarDay {
-  border: none;
-  font-size: 13px;
-  border-radius: 50%;
-  background: #fff;
-}
-.components-datetime__date .CalendarDay:hover {
-  color: var(--wp-admin-theme-color);
-}
-.components-datetime__date .CalendarDay:focus {
-  box-shadow: inset 0 0 0 var(--wp-admin-border-width-focus) var(--wp-admin-theme-color), inset 0 0 0 3px #fff;
-  outline: 2px solid transparent;
-}
-.components-datetime__date .CalendarDay__today {
-  background: #f0f0f0;
-}
-.components-datetime__date .CalendarDay__selected {
-  background: var(--wp-admin-theme-color);
-  border: 2px solid transparent;
-}
-.components-datetime__date .CalendarDay__selected:hover {
-  background: var(--wp-admin-theme-color-darker-20);
-  color: #fff;
-}
-.components-datetime__date .CalendarDay__selected:focus {
-  box-shadow: inset 0 0 0 1px #fff;
 }
 
 .block-editor-dimension-control .components-base-control__field {
@@ -2343,101 +1230,6 @@ body.is-dragging-components-draggable {
 }
 .components-duotone-picker__color-indicator > .components-button:not([aria-disabled=true]):active {
   color: transparent;
-}
-
-.components-font-size-picker__header__hint {
-  margin-left: 4px;
-  color: #757575;
-}
-.components-font-size-picker__header .components-button.is-small.has-icon:not(.has-text) {
-  min-width: 24px;
-  padding: 0;
-}
-
-.components-font-size-picker__controls {
-  max-width: 248px;
-  align-items: center;
-  margin-top: 8px;
-  margin-bottom: 24px;
-}
-.components-font-size-picker__controls .components-unit-control-wrapper .components-input-control__label {
-  font-weight: 300;
-  padding-bottom: 0 !important;
-  margin-bottom: 8px !important;
-}
-.components-font-size-picker__controls .components-custom-select-control__button {
-  width: 100%;
-}
-.components-font-size-picker__controls .components-font-size-picker__number {
-  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Oxygen-Sans, Ubuntu, Cantarell, "Helvetica Neue", sans-serif;
-  padding: 6px 8px;
-  box-shadow: 0 0 0 transparent;
-  transition: box-shadow 0.1s linear;
-  border-radius: 2px;
-  border: 1px solid #757575;
-  /* Fonts smaller than 16px causes mobile safari to zoom. */
-  font-size: 16px;
-  /* Override core line-height. To be reviewed. */
-  line-height: normal;
-  display: inline-block;
-  font-weight: 500;
-  height: 30px;
-  margin-bottom: 0;
-  margin-left: 0;
-  margin-right: 8px;
-  margin-top: 8px;
-  width: 54px;
-}
-@media (prefers-reduced-motion: reduce) {
-  .components-font-size-picker__controls .components-font-size-picker__number {
-    transition-duration: 0s;
-    transition-delay: 0s;
-  }
-}
-@media (min-width: 600px) {
-  .components-font-size-picker__controls .components-font-size-picker__number {
-    font-size: 13px;
-    /* Override core line-height. To be reviewed. */
-    line-height: normal;
-  }
-}
-.components-font-size-picker__controls .components-font-size-picker__number:focus {
-  border-color: var(--wp-admin-theme-color);
-  box-shadow: 0 0 0 1px var(--wp-admin-theme-color);
-  outline: 2px solid transparent;
-}
-.components-font-size-picker__controls .components-font-size-picker__number::-webkit-input-placeholder {
-  color: rgba(30, 30, 30, 0.62);
-}
-.components-font-size-picker__controls .components-font-size-picker__number::-moz-placeholder {
-  opacity: 1;
-  color: rgba(30, 30, 30, 0.62);
-}
-.components-font-size-picker__controls .components-font-size-picker__number:-ms-input-placeholder {
-  color: rgba(30, 30, 30, 0.62);
-}
-.components-font-size-picker__controls .components-font-size-picker__number[value=""] + .components-button {
-  cursor: default;
-  opacity: 0.3;
-  pointer-events: none;
-}
-.components-font-size-picker__controls .components-font-size-picker__number-container {
-  display: flex;
-  flex-direction: column;
-}
-.components-font-size-picker__controls .components-color-palette__clear {
-  height: 30px;
-}
-
-.components-font-size-picker__custom-input .components-range-control__slider + .dashicon {
-  width: 30px;
-  height: 30px;
-}
-
-.components-font-size-picker {
-  border: 0;
-  padding: 0;
-  margin: 0;
 }
 
 .components-form-toggle {
@@ -2895,6 +1687,7 @@ body.is-dragging-components-draggable {
 .components-menu-item__button.components-button[role=menuitemradio] .components-menu-item__item:only-child,
 .components-menu-item__button.components-button[role=menuitemcheckbox] .components-menu-item__item:only-child {
   padding-right: 48px;
+  box-sizing: initial;
 }
 .components-menu-item__button .components-menu-items__item-icon,
 .components-menu-item__button.components-button .components-menu-items__item-icon {
@@ -2984,8 +1777,6 @@ body.is-dragging-components-draggable {
   background-color: rgba(0, 0, 0, 0.35);
   z-index: 100000;
   display: flex;
-  -webkit-backdrop-filter: blur(8px);
-          backdrop-filter: blur(8px);
   animation: edit-post__fade-in-animation 0.2s ease-out 0s;
   animation-fill-mode: forwards;
 }
@@ -3362,12 +2153,6 @@ body.rtl .components-panel__body-toggle.components-button .dashicons-arrow-right
     align-items: flex-start;
   }
 }
-.components-placeholder.components-placeholder.has-illustration {
-  background: none;
-  border: none;
-  box-shadow: none;
-  min-width: 100px;
-}
 
 .components-placeholder__error,
 .components-placeholder__instructions,
@@ -3480,11 +2265,6 @@ body.rtl .components-panel__body-toggle.components-button .dashicons-arrow-right
   width: 100%;
 }
 
-.components-placeholder__preview img {
-  margin: 3%;
-  width: 50%;
-}
-
 .components-placeholder__fieldset .components-button {
   margin-right: 12px;
   margin-bottom: 12px;
@@ -3521,19 +2301,78 @@ body.rtl .components-panel__body-toggle.components-button .dashicons-arrow-right
   padding: 0 8px 2px;
 }
 
-.components-placeholder__illustration {
-  border: 1px dashed currentColor;
-  box-sizing: border-box;
+/**
+ * Dashed style placeholders
+ */
+.components-placeholder.has-illustration {
+  color: inherit;
+  display: flex;
+  box-shadow: none;
+  min-width: 100px;
+  -webkit-backdrop-filter: blur(100px);
+          backdrop-filter: blur(100px);
+  background-color: transparent;
+  -webkit-backface-visibility: hidden;
+          backface-visibility: hidden;
+  border-radius: 2px;
+  overflow: hidden;
+}
+.is-dark-theme .components-placeholder.has-illustration {
+  background-color: rgba(0, 0, 0, 0.1);
+}
+.components-placeholder.has-illustration .components-placeholder__fieldset {
+  width: auto;
+  margin-left: 0;
+  margin-right: 0;
+}
+.components-placeholder.has-illustration .components-placeholder__label,
+.components-placeholder.has-illustration .components-placeholder__instructions,
+.components-placeholder.has-illustration .components-button {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.1s linear;
+}
+@media (prefers-reduced-motion: reduce) {
+  .components-placeholder.has-illustration .components-placeholder__label,
+.components-placeholder.has-illustration .components-placeholder__instructions,
+.components-placeholder.has-illustration .components-button {
+    transition-duration: 0s;
+    transition-delay: 0s;
+  }
+}
+.is-selected > .components-placeholder.has-illustration .components-placeholder__label,
+.is-selected > .components-placeholder.has-illustration .components-placeholder__instructions,
+.is-selected > .components-placeholder.has-illustration .components-button {
+  opacity: 1;
+  pointer-events: auto;
+}
+.components-placeholder.has-illustration::before {
+  content: "";
   position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
   left: 0;
+  pointer-events: none;
+  background: currentColor;
+  opacity: 0.1;
+}
+
+.components-placeholder__preview {
+  display: flex;
+  justify-content: center;
+}
+
+.components-placeholder__illustration {
+  box-sizing: content-box;
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
   width: 100%;
   height: 100%;
   stroke: currentColor;
-  stroke-dasharray: 3;
-  opacity: 0.4;
+  opacity: 0.25;
 }
 
 .components-popover {
@@ -3558,6 +2397,13 @@ body.rtl .components-panel__body-toggle.components-button .dashicons-arrow-right
 }
 .is-alternate .components-popover__content {
   outline: 1px solid #1e1e1e;
+  box-shadow: none;
+}
+.is-unstyled .components-popover__content {
+  background: none;
+  border: none;
+  border-radius: 0;
+  outline: none;
   box-shadow: none;
 }
 .components-popover.is-expanded .components-popover__content {
@@ -3642,21 +2488,6 @@ body.rtl .components-panel__body-toggle.components-button .dashicons-arrow-right
 }
 .is-alternate .components-popover__triangle-border {
   stroke: #1e1e1e;
-}
-
-.components-radio-control {
-  display: flex;
-  flex-direction: column;
-}
-.components-radio-control .components-base-control__help {
-  margin-top: 0;
-}
-.components-radio-control .components-base-control__field {
-  margin-bottom: 0;
-}
-
-.components-radio-control__option:not(:last-child) {
-  margin-bottom: 4px;
 }
 
 .components-radio-control__input[type=radio] {
@@ -4121,26 +2952,6 @@ body.lockscroll {
   padding-top: 8px;
 }
 
-.components-swatch {
-  width: 18px;
-  height: 18px;
-  border-radius: 50%;
-  color: transparent;
-  background: transparent;
-}
-.components-swatch::after {
-  content: "";
-  display: block;
-  width: 100%;
-  height: 100%;
-  border: 1px solid rgba(0, 0, 0, 0.2);
-  border-radius: 50%;
-}
-
-.components-button.has-icon.has-text .components-swatch {
-  margin-right: 8px;
-}
-
 .components-tab-panel__tabs {
   display: flex;
   align-items: stretch;
@@ -4339,19 +3150,6 @@ body.lockscroll {
 }
 .components-tip p {
   margin: 0;
-}
-
-.components-toggle-control .components-base-control__field {
-  display: flex;
-  margin-bottom: 12px;
-  line-height: initial;
-  align-items: center;
-}
-.components-toggle-control .components-base-control__field .components-form-toggle {
-  margin-right: 12px;
-}
-.components-toggle-control .components-base-control__field .components-toggle-control__label {
-  display: block;
 }
 
 .components-accessible-toolbar {

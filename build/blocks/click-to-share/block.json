@@ -87,6 +87,35 @@
     "marginTop": {
       "type": "integer",
       "default": 0
+    },
+    "paddingSize": {
+      "type": "object",
+      "default": {
+        "mobile": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0,
+          "unit": "px",
+          "unitSync": true
+        },
+        "tablet": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0,
+          "unit": "px",
+          "unitSync": true
+        },
+        "desktop": {
+          "top": 0,
+          "right": 0,
+          "bottom": 0,
+          "left": 0,
+          "unit": "px",
+          "unitSync": true
+        }
+      }
     }
   },
   "example": {
