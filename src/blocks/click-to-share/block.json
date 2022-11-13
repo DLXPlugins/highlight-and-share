@@ -82,26 +82,26 @@
 			"type": "object",
 			"default": {
 				"mobile": {
-					"top": 0,
-					"right": 0,
-					"bottom": 0,
-					"left": 0,
-					"unit": "px",
-					"unitSync": true
+					"top": "",
+					"right": "",
+					"bottom": "",
+					"left": "",
+					"unit": null,
+					"unitSync": null
 				},
 				"tablet": {
-					"top": 0,
-					"right": 0,
-					"bottom": 0,
-					"left": 0,
-					"unit": "px",
-					"unitSync": true
+					"top": "",
+					"right": "",
+					"bottom": "",
+					"left": "",
+					"unit": null,
+					"unitSync": null
 				},
 				"desktop": {
-					"top": 0,
-					"right": 0,
-					"bottom": 0,
-					"left": 0,
+					"top": "",
+					"right": "",
+					"bottom": "",
+					"left": "",
 					"unit": "px",
 					"unitSync": true
 				}

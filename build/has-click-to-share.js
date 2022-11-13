@@ -674,7 +674,6 @@ var DimensionsControlBlock = function DimensionsControlBlock(props) {
   }, [formValues]);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     setScreenSize(props.screenSize.toLowerCase());
-    console.log(getValues(props.screenSize.toLowerCase()));
     setValue(props.screenSize.toLowerCase(), getValues(props.screenSize.toLowerCase()));
   }, [props.screenSize]);
   /**
@@ -695,9 +694,17 @@ var DimensionsControlBlock = function DimensionsControlBlock(props) {
    * When the sync value is selected, sync all values to the maximum number.
    */
   var syncUnits = function syncUnits() {
-    var numbers = [getValues(screenSize).top, getValues(screenSize).right, getValues(screenSize).bottom, getValues(screenSize).left];
-    var syncValue = Math.max.apply(null, numbers);
-    changeAllValues(syncValue);
+    // Toggle unit sync value.
+    var values = getValues(screenSize);
+    values.unitSync = !values.unitSync;
+    setValue(screenSize, values);
+
+    // If we're syncing, set all values to the maximum.
+    if (values.unitSync) {
+      var numbers = [getValues(screenSize).top, getValues(screenSize).right, getValues(screenSize).bottom, getValues(screenSize).left];
+      var syncValue = Math.max.apply(null, numbers);
+      changeAllValues(syncValue);
+    }
   };
 
   /**
@@ -711,7 +718,7 @@ var DimensionsControlBlock = function DimensionsControlBlock(props) {
     setValue(screenSize, values);
   };
   var onDimensionChange = function onDimensionChange(value) {
-    if (getValues(screenSize).unitSync) {
+    if (getHierarchicalValueUnitSync(getValues(screenSize).unitSync)) {
       changeAllValues(value);
     }
   };
@@ -736,7 +743,84 @@ var DimensionsControlBlock = function DimensionsControlBlock(props) {
     fill: "currentColor",
     d: "M12.3 209.82C33.93 94.92 134.81 8 256 8a247.4 247.4 0 0 1 188.9 87.34l-4-82.77A12 12 0 0 1 452.92 0h47.41a12 12 0 0 1 12 12v200.33a12 12 0 0 1-12 12H300a12 12 0 0 1-12-12v-47.41a12 12 0 0 1 12.57-12l101.53 4.88a176.07 176.07 0 0 0-317.24 56.94A12 12 0 0 1 73.19 224H24.1a12 12 0 0 1-11.8-14.18z"
   })));
-  console.log(screenSize);
+
+  /**
+   * Get a value placeholder based on hierarchy. If the value is not set, get the value from the parent.
+   *
+   * @param {string} value Current value.
+   * @param {string} type  Type of value (top, right, bottom, left, etc.).
+   *
+   * @return {string} Value placeholder.
+   */
+  var geHierarchicalPlaceholderValue = function geHierarchicalPlaceholderValue(value, type) {
+    // Check mobile screen size.
+    if ('mobile' === screenSize && '' === value) {
+      // Check tablet.
+      if ('' !== props.values.tablet[type]) {
+        return props.values.tablet[type];
+      } else if ('' !== props.values.desktop[type]) {
+        // Check desktop.
+        return props.values.desktop[type];
+      }
+    }
+
+    // Check tablet screen size.
+    if ('tablet' === screenSize && '' === value) {
+      if ('' !== props.values.desktop[type]) {
+        // Check desktop.
+        return props.values.desktop[type];
+      }
+    }
+    return '0';
+  };
+
+  /**
+   * Get a value placeholder based on hierarchy. If the value is not set, get the value from the parent.
+   *
+   * @param {string} value Current value.
+   *
+   * @return {string} Value default or hierarchical value.
+   */
+  var getHierarchicalValueUnit = function getHierarchicalValueUnit(value) {
+    // Check mobile screen size.
+    if ('mobile' === screenSize && null === value) {
+      if (null === props.values.tablet.unit) {
+        return props.values.desktop.unit;
+      }
+      return props.values.tablet.unit;
+    }
+    if ('tablet' === screenSize && null === value) {
+      return props.values.desktop.unit;
+    }
+    if (null === value) {
+      return 'px';
+    }
+    return value;
+  };
+
+  /**
+   * Get a value based on hierarchy. If the value is not set, get the value from the parent.
+   *
+   * @param {string} value Current value.
+   *
+   * @return {boolean} Value default or hierarchical value.
+   */
+  var getHierarchicalValueUnitSync = function getHierarchicalValueUnitSync(value) {
+    // Check mobile screen size.
+    if ('mobile' === screenSize && null === value) {
+      if (null === props.values.tablet.unitSync) {
+        return props.values.desktop.unitSync;
+      }
+      return props.values.tablet.unitSync;
+    }
+    if ('tablet' === screenSize && null === value) {
+      return props.values.desktop.unitSync;
+    }
+    if (null === value) {
+      return true;
+    }
+    return value;
+  };
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "components-base-control components-has-dimensions-control"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_6__.Controller, {
@@ -748,7 +832,7 @@ var DimensionsControlBlock = function DimensionsControlBlock(props) {
         value = _ref$field.value;
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_unit_picker__WEBPACK_IMPORTED_MODULE_2__["default"], {
         label: label,
-        value: getValues(screenSize).unit,
+        value: getHierarchicalValueUnit(getValues(screenSize).unit),
         units: units,
         onClick: function onClick(newValue) {
           onChange(newValue);
@@ -767,14 +851,15 @@ var DimensionsControlBlock = function DimensionsControlBlock(props) {
         value = _ref2$field.value;
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.TextControl, {
         value: getValues(screenSize).top,
-        type: "number",
+        type: "text",
         label: labelTop,
         className: classnames__WEBPACK_IMPORTED_MODULE_5___default()('components-has-dimensions-control__number'),
         onChange: function onChange(newValue) {
           onDimensionChange(newValue);
           _onChange(newValue);
         },
-        min: 0
+        min: 0,
+        placeholder: geHierarchicalPlaceholderValue(getValues(screenSize).top, 'top')
       });
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_6__.Controller, {
@@ -786,14 +871,15 @@ var DimensionsControlBlock = function DimensionsControlBlock(props) {
         value = _ref3$field.value;
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.TextControl, {
         value: getValues(screenSize).right,
-        type: "number",
+        type: "text",
         label: labelRight,
         className: classnames__WEBPACK_IMPORTED_MODULE_5___default()('components-has-dimensions-control__number'),
         onChange: function onChange(newValue) {
           onDimensionChange(newValue);
           _onChange2(newValue);
         },
-        min: 0
+        min: 0,
+        placeholder: geHierarchicalPlaceholderValue(getValues(screenSize).right, 'right')
       });
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_6__.Controller, {
@@ -805,14 +891,15 @@ var DimensionsControlBlock = function DimensionsControlBlock(props) {
         value = _ref4$field.value;
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.TextControl, {
         value: getValues(screenSize).bottom,
-        type: "number",
+        type: "text",
         label: labelBottom,
         className: classnames__WEBPACK_IMPORTED_MODULE_5___default()('components-has-dimensions-control__number'),
         onChange: function onChange(newValue) {
           onDimensionChange(newValue);
           _onChange3(newValue);
         },
-        min: 0
+        min: 0,
+        placeholder: geHierarchicalPlaceholderValue(getValues(screenSize).bottom, 'bottom')
       });
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_6__.Controller, {
@@ -824,23 +911,24 @@ var DimensionsControlBlock = function DimensionsControlBlock(props) {
         value = _ref5$field.value;
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.TextControl, {
         value: getValues(screenSize).left,
-        type: "number",
+        type: "text",
         label: labelLeft,
         className: classnames__WEBPACK_IMPORTED_MODULE_5___default()('components-has-dimensions-control__number'),
         onChange: function onChange(newValue) {
           onDimensionChange(newValue);
           _onChange4(newValue);
         },
-        min: 0
+        min: 0,
+        placeholder: geHierarchicalPlaceholderValue(getValues(screenSize).left, 'left')
       });
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.Tooltip, {
-    text: !!getValues(screenSize).syncUnits ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Unsync', 'highlight-and-share') : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Sync', 'highlight-and-share')
+    text: !!getValues(screenSize).unitSync ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Unsync', 'highlight-and-share') : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Sync', 'highlight-and-share')
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.Button, {
     className: "components-has-dimensions-control_sync",
     "aria-label": (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Sync Units', 'generateblocks'),
-    isPrimary: getValues(screenSize).syncUnits ? true : false,
-    "aria-pressed": getValues(screenSize).syncUnits ? true : false
+    isPrimary: getHierarchicalValueUnitSync(getValues(screenSize).unitSync),
+    "aria-pressed": getHierarchicalValueUnitSync(getValues(screenSize).unitSync)
     // eslint-disable-next-line no-unused-vars
     ,
     onClick: function onClick(value) {
@@ -3560,7 +3648,7 @@ function useForm(props = {}) {
 /***/ (function(module) {
 
 "use strict";
-module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","title":"Bootstrap Alert","apiVersion":2,"name":"has/click-to-share","category":"text","icon":"<svg aria-hidden=\'true\' focusable=\'false\' data-prefix=\'fas\' data-icon=\'share-alt\' className=\'svg-inline--fa fa-share-alt fa-w-14\' role=\'img\' xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 448 512\'><path fill=\'currentColor\' d=\'M352 320c-22.608 0-43.387 7.819-59.79 20.895l-102.486-64.054a96.551 96.551 0 0 0 0-41.683l102.486-64.054C308.613 184.181 329.392 192 352 192c53.019 0 96-42.981 96-96S405.019 0 352 0s-96 42.981-96 96c0 7.158.79 14.13 2.276 20.841L155.79 180.895C139.387 167.819 118.608 160 96 160c-53.019 0-96 42.981-96 96s42.981 96 96 96c22.608 0 43.387-7.819 59.79-20.895l102.486 64.054A96.301 96.301 0 0 0 256 416c0 53.019 42.981 96 96 96s96-42.981 96-96-42.981-96-96-96z\'></path></svg>","description":"An easy-to-use content highlighter.","keywords":["click","social","tweet","better","twitter","facebook","share","quote","blockquote"],"version":"1.0.0","textdomain":"highlight-and-share","attributes":{"shareText":{"type":"string","default":""},"backgroundColor":{"type":"string","default":"#FFFFFF"},"textColor":{"type":"string","default":"#000000"},"fontSize":{"type":"integer","default":24},"clickShareFontSize":{"type":"integer","default":24},"clickText":{"type":"string","default":"Click to Share"},"padding":{"type":"integer","default":0},"border":{"type":"integer","default":true},"borderRadius":{"type":"integer","default":0},"borderColor":{"type":"string","default":"#FFFFFF"},"fontWeight":{"type":"string","default":"#FFFFFF"},"maxWidth":{"type":"integer","default":100},"alignment":{"type":"string","default":"center"},"marginLeft":{"type":"integer","default":0},"marginRight":{"type":"integer","default":0},"marginBottom":{"type":"integer","default":0},"marginTop":{"type":"integer","default":0},"paddingSize":{"type":"object","default":{"mobile":{"top":0,"right":0,"bottom":0,"left":0,"unit":"px","unitSync":true},"tablet":{"top":0,"right":0,"bottom":0,"left":0,"unit":"px","unitSync":true},"desktop":{"top":0,"right":0,"bottom":0,"left":0,"unit":"px","unitSync":true}}}},"example":{"attributes":{"alertType":"success","alertTitle":"Sample alert title","alertDescription":"<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>","buttonEnabled":true,"baseFontSize":14,"buttonText":"Learn More","icon":"<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'16\' height=\'16\' fill=\'currentColor\' className=\'bi bi-check\' viewBox=\'0 0 16 16\'><path d=\'M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z\' /></svg>"}},"supports":{"anchor":true,"align":true,"className":true},"editorScript":"has-click-to-share","editorStyle":"has-style-admin-css","style":"has-style-frontend-css"}');
+module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","title":"Bootstrap Alert","apiVersion":2,"name":"has/click-to-share","category":"text","icon":"<svg aria-hidden=\'true\' focusable=\'false\' data-prefix=\'fas\' data-icon=\'share-alt\' className=\'svg-inline--fa fa-share-alt fa-w-14\' role=\'img\' xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 448 512\'><path fill=\'currentColor\' d=\'M352 320c-22.608 0-43.387 7.819-59.79 20.895l-102.486-64.054a96.551 96.551 0 0 0 0-41.683l102.486-64.054C308.613 184.181 329.392 192 352 192c53.019 0 96-42.981 96-96S405.019 0 352 0s-96 42.981-96 96c0 7.158.79 14.13 2.276 20.841L155.79 180.895C139.387 167.819 118.608 160 96 160c-53.019 0-96 42.981-96 96s42.981 96 96 96c22.608 0 43.387-7.819 59.79-20.895l102.486 64.054A96.301 96.301 0 0 0 256 416c0 53.019 42.981 96 96 96s96-42.981 96-96-42.981-96-96-96z\'></path></svg>","description":"An easy-to-use content highlighter.","keywords":["click","social","tweet","better","twitter","facebook","share","quote","blockquote"],"version":"1.0.0","textdomain":"highlight-and-share","attributes":{"shareText":{"type":"string","default":""},"backgroundColor":{"type":"string","default":"#FFFFFF"},"textColor":{"type":"string","default":"#000000"},"fontSize":{"type":"integer","default":24},"clickShareFontSize":{"type":"integer","default":24},"clickText":{"type":"string","default":"Click to Share"},"padding":{"type":"integer","default":0},"border":{"type":"integer","default":true},"borderRadius":{"type":"integer","default":0},"borderColor":{"type":"string","default":"#FFFFFF"},"fontWeight":{"type":"string","default":"#FFFFFF"},"maxWidth":{"type":"integer","default":100},"alignment":{"type":"string","default":"center"},"marginLeft":{"type":"integer","default":0},"marginRight":{"type":"integer","default":0},"marginBottom":{"type":"integer","default":0},"marginTop":{"type":"integer","default":0},"paddingSize":{"type":"object","default":{"mobile":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"tablet":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"desktop":{"top":"","right":"","bottom":"","left":"","unit":"px","unitSync":true}}}},"example":{"attributes":{"alertType":"success","alertTitle":"Sample alert title","alertDescription":"<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>","buttonEnabled":true,"baseFontSize":14,"buttonText":"Learn More","icon":"<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'16\' height=\'16\' fill=\'currentColor\' className=\'bi bi-check\' viewBox=\'0 0 16 16\'><path d=\'M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z\' /></svg>"}},"supports":{"anchor":true,"align":true,"className":true},"editorScript":"has-click-to-share","editorStyle":"has-style-admin-css","style":"has-style-frontend-css"}');
 
 /***/ })
 
