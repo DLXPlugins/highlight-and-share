@@ -7,10 +7,11 @@ import { useEffect } from 'react';
 import ColorPicker from '../../react/Components/ColorPicker';
 import DimensionsControlBlock from '../../react/Components/DimensionsBlock';
 import useDeviceType from '../../react/Hooks/useDeviceType';
+import { buildDimensionsCSS } from '../../react/Utils/DimensionsHelper';
 
 const { __ } = wp.i18n;
 
-const { PanelBody, RangeControl, SelectControl, TextControl } = wp.components;
+const { PanelBody, RangeControl, SelectControl, TextControl, ButtonGroup, Button, BaseControl } = wp.components;
 
 const { InspectorControls, RichText, useBlockProps } = wp.blockEditor;
 
@@ -39,9 +40,28 @@ const HAS_Click_To_Share = ( props ) => {
 		paddingSize,
 	} = attributes;
 
+	useEffect( () => {
+		// Port padding to new dimensions object.
+		if ( padding !== -1 ) {
+			const portPadding = paddingSize;
+			portPadding.desktop = {
+				top: padding,
+				right: padding,
+				bottom: padding,
+				left: padding,
+				unit: 'px',
+				unitSync: true,
+			};
+			setAttributes( {
+				paddingSize: portPadding,
+				padding: -1,
+			} );
+		}
+	}, [] );
+
 	const hasStyles = {
 		fontSize: fontSize + 'px',
-		padding: padding + 'px',
+		padding: buildDimensionsCSS( paddingSize, deviceType ),
 		border: `${ border }px solid ${ borderColor }`,
 		borderRadius: borderRadius + 'px',
 		backgroundColor,
@@ -86,8 +106,41 @@ const HAS_Click_To_Share = ( props ) => {
 		value: 'right',
 	} );
 
+	/* For sticky responsive: forked from GenerateBlocks */
+	const panelHeader = document.querySelector( '.edit-post-sidebar .edit-post-sidebar__panel-tabs' );
+	const panelHeaderHeight = panelHeader ? panelHeader.offsetHeight : 0;
+
 	const inspectorControls = (
 		<InspectorControls>
+			<div id="has-screensize-group" className="has-screensize-variants" style={ { top: panelHeaderHeight + 'px' } }>
+				<ButtonGroup>
+					<Button
+						variant={ deviceType === 'Desktop' ? 'primary' : 'secondary' }
+						onClick={ ( e ) => {
+							setDeviceType( 'Desktop' );
+						} }
+						icon="laptop"
+						iconSize="14"
+						label={ __( 'Desktop', 'highlight-and-share' ) }
+					/>
+					<Button
+						variant={ deviceType === 'Tablet' ? 'primary' : 'secondary' }
+						onClick={ ( e ) => {
+							setDeviceType( 'Tablet' );
+						} }
+						icon="tablet"
+						label={ __( 'Tablet', 'highlight-and-share' ) }
+					/>
+					<Button
+						variant={ deviceType === 'Mobile' ? 'primary' : 'secondary' }
+						onClick={ ( e ) => {
+							setDeviceType( 'Mobile' );
+						} }
+						icon="smartphone"
+						label={ __( 'Mobile', 'highlight-and-share' ) }
+					/>
+				</ButtonGroup>
+			</div>
 			<PanelBody
 				title={ __( 'Highlight and Share Settings', 'highlight-and-share' ) }
 			>
@@ -165,14 +218,6 @@ const HAS_Click_To_Share = ( props ) => {
 					}
 					min={ 10 }
 					max={ 40 }
-					step={ 1 }
-				/>
-				<RangeControl
-					label={ __( 'Padding', 'highlight-and-share' ) }
-					value={ padding }
-					onChange={ ( value ) => setAttributes( { padding: value } ) }
-					min={ 0 }
-					max={ 60 }
 					step={ 1 }
 				/>
 				<RangeControl

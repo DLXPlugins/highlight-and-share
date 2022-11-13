@@ -131,7 +131,7 @@ const DimensionsControlBlock = ( props ) => {
 	};
 
 	const onDimensionChange = ( value ) => {
-		if ( getHierarchicalValueUnitSync( props, screenSize, getValues( screenSize ).unitSync ) ) {
+		if ( getHierarchicalValueUnitSync( props.values, screenSize, getValues( screenSize ).unitSync ) ) {
 			changeAllValues( value );
 		}
 	};
@@ -172,7 +172,7 @@ const DimensionsControlBlock = ( props ) => {
 					render={ ( { field: { onChange, value } } ) => (
 						<UnitPicker
 							label={ label }
-							value={ getHierarchicalValueUnit( props, screenSize, getValues( screenSize ).unit ) }
+							value={ getHierarchicalValueUnit( props.values, screenSize, getValues( screenSize ).unit ) }
 							units={ units }
 							onClick={ ( newValue ) => {
 								onChange( newValue );
@@ -197,7 +197,7 @@ const DimensionsControlBlock = ( props ) => {
 									onChange( newValue );
 								} }
 								min={ 0 }
-								placeholder={ geHierarchicalPlaceholderValue( props, screenSize, getValues( screenSize ).top, 'top' ) }
+								placeholder={ geHierarchicalPlaceholderValue( props.values, screenSize, getValues( screenSize ).top, 'top' ) }
 							/>
 						) }
 					/>
@@ -215,7 +215,7 @@ const DimensionsControlBlock = ( props ) => {
 									onChange( newValue );
 								} }
 								min={ 0 }
-								placeholder={ geHierarchicalPlaceholderValue( props, screenSize, getValues( screenSize ).right, 'right' ) }
+								placeholder={ geHierarchicalPlaceholderValue( props.values, screenSize, getValues( screenSize ).right, 'right' ) }
 							/>
 						) }
 					/>
@@ -233,7 +233,7 @@ const DimensionsControlBlock = ( props ) => {
 									onChange( newValue );
 								} }
 								min={ 0 }
-								placeholder={ geHierarchicalPlaceholderValue( props, screenSize, getValues( screenSize ).bottom, 'bottom' ) }
+								placeholder={ geHierarchicalPlaceholderValue( props.values, screenSize, getValues( screenSize ).bottom, 'bottom' ) }
 							/>
 						) }
 					/>
@@ -251,7 +251,7 @@ const DimensionsControlBlock = ( props ) => {
 									onChange( newValue );
 								} }
 								min={ 0 }
-								placeholder={ geHierarchicalPlaceholderValue( props, screenSize, getValues( screenSize ).left, 'left' ) }
+								placeholder={ geHierarchicalPlaceholderValue( props.values, screenSize, getValues( screenSize ).left, 'left' ) }
 							/>
 						) }
 					/>
@@ -266,10 +266,10 @@ const DimensionsControlBlock = ( props ) => {
 							className="components-has-dimensions-control_sync"
 							aria-label={ __( 'Sync Units', 'generateblocks' ) }
 							isPrimary={
-								getHierarchicalValueUnitSync( props, screenSize, getValues( screenSize ).unitSync )
+								getHierarchicalValueUnitSync( props.values, screenSize, getValues( screenSize ).unitSync )
 							}
 							aria-pressed={
-								getHierarchicalValueUnitSync( props, screenSize, getValues( screenSize ).unitSync )
+								getHierarchicalValueUnitSync( props.values, screenSize, getValues( screenSize ).unitSync )
 							}
 							// eslint-disable-next-line no-unused-vars
 							onClick={ ( value ) => syncUnits() }

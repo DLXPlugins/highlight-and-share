@@ -145,3 +145,16 @@
 		transform: scale(1.3);
 	}
 }
+
+.has-screensize-variants {
+	padding: 0 8px;
+	position: sticky;
+	top: 0;
+	background: #FFF;
+	z-index: 10;
+	.components-button-group {
+		display: grid;
+		grid-template-columns: 1fr 1fr 1fr;
+		width: 100%;
+	}
+}
