@@ -310,7 +310,7 @@ class Frontend {
 			}
 		}
 
-		if ( $settings['show_whatsapp'] ) {
+		if ( ( $settings['show_whatsapp'] ?? $settings['show_whats_app'] ) ) {
 			$whatsapp_endpoint_url      = 'whatsapp://send';
 			$whatsapp_endpoint_settings = $settings['whatsapp_api_endpoint'];
 			if ( 'web' === $whatsapp_endpoint_settings ) {
@@ -373,7 +373,7 @@ class Frontend {
 			}
 		}
 
-		if ( $settings['show_email'] ) {
+		if ( ( $settings['show_email'] ?? $settings['enable_emails'] ) ) {
 			if ( ! $settings['icons'] ) {
 				// Note, you must be on a publicly accesible URL to use this button.
 				$string          = '<div class="has_email" style="display: none;" data-type="email" data-title="%title%" data-url="%url%"><a href="' . esc_url( admin_url( 'admin-ajax.php' ) ) . '" target="_blank"><svg class="has-icon"><use xlink:href="#has-email-icon"></use></svg>&nbsp;' . esc_html( apply_filters( 'has_email_text', _x( 'E-mail', 'E-mail share text', 'highlight-and-share' ) ) ) . '</a></div>';
@@ -563,7 +563,7 @@ class Frontend {
 				$json_arr['show_email'] = apply_filters( 'has_show_email', $maybe_email['show_email'] );
 			}
 		} else {
-			$json_arr['show_email'] = (bool) apply_filters( 'has_show_email', $settings['show_email'] );
+			$json_arr['show_email'] = (bool) apply_filters( 'has_show_email', ( $settings['show_email'] ?? $settings['enable_emails'] ) );
 		}
 
 		// Xing.
@@ -599,7 +599,7 @@ class Frontend {
 				$json_arr['show_whatsapp'] = apply_filters( 'has_show_whatsapp', $maybe_whatsapp['show_whatsapp'] );
 			}
 		} else {
-			$json_arr['show_whatsapp'] = (bool) apply_filters( 'has_show_whatsapp', $settings['show_whatsapp'] );
+			$json_arr['show_whatsapp'] = (bool) apply_filters( 'has_show_whatsapp', ( $settings['show_whatsapp'] ?? $settings['show_whats_app'] ) );
 		}
 
 		// Twitter Username.
