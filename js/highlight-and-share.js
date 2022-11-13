@@ -20,7 +20,7 @@ jQuery( document ).ready( function( $ ) {
 	};
 
 	//Initialize events
-	var js_content = highlight_and_share.content;
+	var js_content = highlight_and_share.content; // todo - Populate JS content from settings.
 	if ( '' == js_content ) return;
 	$( 'body' ).on( 'mouseup vmouseup', js_content, function( e ) {
 		has_remove();
