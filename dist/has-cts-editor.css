@@ -508,4 +508,68 @@
   width: 100%;
 }
 
+/* Dimensions Component */
+.components-has-dimensions-control {
+  display: inline-block;
+}
+.components-has-dimensions-control label {
+  display: none;
+}
+.components-has-dimensions-control .components-has-dimensions-control__inputs {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr 1fr 30px;
+  text-align: center;
+}
+.components-has-dimensions-control .components-has-dimensions-control__number {
+  display: inline;
+  margin-bottom: 0;
+}
+.components-has-dimensions-control .components-has-dimensions-control__number .components-base-control__field {
+  display: inline;
+}
+.components-has-dimensions-control input[type=number] {
+  width: 100%;
+}
+
+/* Sync button */
+.components-has-dimensions-control_sync.components-button {
+  height: 100%;
+}
+
+/* Dimensions labels */
+.components-has-dimensions-control__input-labels {
+  display: none;
+}
+
+/* Unit Picker Component - Forked from @GenerateBlocks */
+.components-has-units-control-header__units {
+  margin-bottom: 5px;
+}
+
+.components-has-dimensions-control .components-has-control__units {
+  text-align: right;
+}
+.components-has-dimensions-control .components-has-control__units .components-has-control-buttons__units button.components-button {
+  background: transparent;
+  box-shadow: none !important;
+  color: #929da7;
+  font-size: 10px;
+  padding: 0 5px;
+  position: relative;
+  text-align: center;
+  text-shadow: none;
+  border: 0;
+  border-radius: 0 !important;
+  line-height: 20px;
+  padding: 0 5px;
+  height: auto;
+}
+.components-has-dimensions-control .components-has-control__units .components-has-control-buttons__units button.components-button.is-primary {
+  background: transparent !important;
+  color: #000 !important;
+  cursor: default;
+  z-index: 1;
+  font-weight: bold;
+}
+
 /*# sourceMappingURL=has-cts-editor.css.map*/

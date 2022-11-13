@@ -193,8 +193,8 @@ const DimensionsControlBlock = ( props ) => {
 								label={ labelTop }
 								className={ classNames( 'components-has-dimensions-control__number' ) }
 								onChange={ ( newValue ) => {
-									onDimensionChange( newValue );
-									onChange( newValue );
+									onDimensionChange( parseFloat( newValue ) );
+									onChange( parseFloat( newValue ) );
 								} }
 								min={ 0 }
 								placeholder={ geHierarchicalPlaceholderValue( props.values, screenSize, getValues( screenSize ).top, 'top' ) }
@@ -211,8 +211,8 @@ const DimensionsControlBlock = ( props ) => {
 								label={ labelRight }
 								className={ classNames( 'components-has-dimensions-control__number' ) }
 								onChange={ ( newValue ) => {
-									onDimensionChange( newValue );
-									onChange( newValue );
+									onDimensionChange( parseFloat( newValue ) );
+									onChange( parseFloat( newValue ) );
 								} }
 								min={ 0 }
 								placeholder={ geHierarchicalPlaceholderValue( props.values, screenSize, getValues( screenSize ).right, 'right' ) }
@@ -229,8 +229,8 @@ const DimensionsControlBlock = ( props ) => {
 								label={ labelBottom }
 								className={ classNames( 'components-has-dimensions-control__number' ) }
 								onChange={ ( newValue ) => {
-									onDimensionChange( newValue );
-									onChange( newValue );
+									onDimensionChange( parseFloat( newValue ) );
+									onChange( parseFloat( newValue ) );
 								} }
 								min={ 0 }
 								placeholder={ geHierarchicalPlaceholderValue( props.values, screenSize, getValues( screenSize ).bottom, 'bottom' ) }
@@ -247,8 +247,8 @@ const DimensionsControlBlock = ( props ) => {
 								label={ labelLeft }
 								className={ classNames( 'components-has-dimensions-control__number' ) }
 								onChange={ ( newValue ) => {
-									onDimensionChange( newValue );
-									onChange( newValue );
+									onDimensionChange( parseFloat( newValue ) );
+									onChange( parseFloat( newValue ) );
 								} }
 								min={ 0 }
 								placeholder={ geHierarchicalPlaceholderValue( props.values, screenSize, getValues( screenSize ).left, 'left' ) }

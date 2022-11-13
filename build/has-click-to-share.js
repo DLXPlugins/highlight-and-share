@@ -823,8 +823,8 @@ var DimensionsControlBlock = function DimensionsControlBlock(props) {
         label: labelTop,
         className: classnames__WEBPACK_IMPORTED_MODULE_5___default()('components-has-dimensions-control__number'),
         onChange: function onChange(newValue) {
-          onDimensionChange(newValue);
-          _onChange(newValue);
+          onDimensionChange(parseFloat(newValue));
+          _onChange(parseFloat(newValue));
         },
         min: 0,
         placeholder: (0,_Utils_DimensionsHelper__WEBPACK_IMPORTED_MODULE_6__.geHierarchicalPlaceholderValue)(props.values, screenSize, getValues(screenSize).top, 'top')
@@ -843,8 +843,8 @@ var DimensionsControlBlock = function DimensionsControlBlock(props) {
         label: labelRight,
         className: classnames__WEBPACK_IMPORTED_MODULE_5___default()('components-has-dimensions-control__number'),
         onChange: function onChange(newValue) {
-          onDimensionChange(newValue);
-          _onChange2(newValue);
+          onDimensionChange(parseFloat(newValue));
+          _onChange2(parseFloat(newValue));
         },
         min: 0,
         placeholder: (0,_Utils_DimensionsHelper__WEBPACK_IMPORTED_MODULE_6__.geHierarchicalPlaceholderValue)(props.values, screenSize, getValues(screenSize).right, 'right')
@@ -863,8 +863,8 @@ var DimensionsControlBlock = function DimensionsControlBlock(props) {
         label: labelBottom,
         className: classnames__WEBPACK_IMPORTED_MODULE_5___default()('components-has-dimensions-control__number'),
         onChange: function onChange(newValue) {
-          onDimensionChange(newValue);
-          _onChange3(newValue);
+          onDimensionChange(parseFloat(newValue));
+          _onChange3(parseFloat(newValue));
         },
         min: 0,
         placeholder: (0,_Utils_DimensionsHelper__WEBPACK_IMPORTED_MODULE_6__.geHierarchicalPlaceholderValue)(props.values, screenSize, getValues(screenSize).bottom, 'bottom')
@@ -883,8 +883,8 @@ var DimensionsControlBlock = function DimensionsControlBlock(props) {
         label: labelLeft,
         className: classnames__WEBPACK_IMPORTED_MODULE_5___default()('components-has-dimensions-control__number'),
         onChange: function onChange(newValue) {
-          onDimensionChange(newValue);
-          _onChange4(newValue);
+          onDimensionChange(parseFloat(newValue));
+          _onChange4(parseFloat(newValue));
         },
         min: 0,
         placeholder: (0,_Utils_DimensionsHelper__WEBPACK_IMPORTED_MODULE_6__.geHierarchicalPlaceholderValue)(props.values, screenSize, getValues(screenSize).left, 'left')
