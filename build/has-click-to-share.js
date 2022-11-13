@@ -580,9 +580,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_4___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__);
-/* harmony import */ var react_hook_form__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-hook-form */ "./node_modules/react-hook-form/dist/index.esm.mjs");
+/* harmony import */ var react_hook_form__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! react-hook-form */ "./node_modules/react-hook-form/dist/index.esm.mjs");
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_5__);
+/* harmony import */ var _Utils_DimensionsHelper__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../Utils/DimensionsHelper */ "./src/react/Utils/DimensionsHelper.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
@@ -598,6 +599,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 /**
  * External dependencies
  */
+
 
 
 
@@ -637,7 +639,7 @@ var DimensionsControlBlock = function DimensionsControlBlock(props) {
       }
     };
   };
-  var _useForm = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_6__.useForm)({
+  var _useForm = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_7__.useForm)({
       defaultValues: getDefaultValues()
     }),
     register = _useForm.register,
@@ -647,10 +649,10 @@ var DimensionsControlBlock = function DimensionsControlBlock(props) {
     getValues = _useForm.getValues,
     reset = _useForm.reset,
     trigger = _useForm.trigger;
-  var formValues = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_6__.useWatch)({
+  var formValues = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_7__.useWatch)({
     control: control
   });
-  var _useFormState = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_6__.useFormState)({
+  var _useFormState = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_7__.useFormState)({
       control: control
     }),
     errors = _useFormState.errors,
@@ -718,7 +720,7 @@ var DimensionsControlBlock = function DimensionsControlBlock(props) {
     setValue(screenSize, values);
   };
   var onDimensionChange = function onDimensionChange(value) {
-    if (getHierarchicalValueUnitSync(getValues(screenSize).unitSync)) {
+    if ((0,_Utils_DimensionsHelper__WEBPACK_IMPORTED_MODULE_6__.getHierarchicalValueUnitSync)(props, screenSize, getValues(screenSize).unitSync)) {
       changeAllValues(value);
     }
   };
@@ -743,87 +745,9 @@ var DimensionsControlBlock = function DimensionsControlBlock(props) {
     fill: "currentColor",
     d: "M12.3 209.82C33.93 94.92 134.81 8 256 8a247.4 247.4 0 0 1 188.9 87.34l-4-82.77A12 12 0 0 1 452.92 0h47.41a12 12 0 0 1 12 12v200.33a12 12 0 0 1-12 12H300a12 12 0 0 1-12-12v-47.41a12 12 0 0 1 12.57-12l101.53 4.88a176.07 176.07 0 0 0-317.24 56.94A12 12 0 0 1 73.19 224H24.1a12 12 0 0 1-11.8-14.18z"
   })));
-
-  /**
-   * Get a value placeholder based on hierarchy. If the value is not set, get the value from the parent.
-   *
-   * @param {string} value Current value.
-   * @param {string} type  Type of value (top, right, bottom, left, etc.).
-   *
-   * @return {string} Value placeholder.
-   */
-  var geHierarchicalPlaceholderValue = function geHierarchicalPlaceholderValue(value, type) {
-    // Check mobile screen size.
-    if ('mobile' === screenSize && '' === value) {
-      // Check tablet.
-      if ('' !== props.values.tablet[type]) {
-        return props.values.tablet[type];
-      } else if ('' !== props.values.desktop[type]) {
-        // Check desktop.
-        return props.values.desktop[type];
-      }
-    }
-
-    // Check tablet screen size.
-    if ('tablet' === screenSize && '' === value) {
-      if ('' !== props.values.desktop[type]) {
-        // Check desktop.
-        return props.values.desktop[type];
-      }
-    }
-    return '0';
-  };
-
-  /**
-   * Get a value placeholder based on hierarchy. If the value is not set, get the value from the parent.
-   *
-   * @param {string} value Current value.
-   *
-   * @return {string} Value default or hierarchical value.
-   */
-  var getHierarchicalValueUnit = function getHierarchicalValueUnit(value) {
-    // Check mobile screen size.
-    if ('mobile' === screenSize && null === value) {
-      if (null === props.values.tablet.unit) {
-        return props.values.desktop.unit;
-      }
-      return props.values.tablet.unit;
-    }
-    if ('tablet' === screenSize && null === value) {
-      return props.values.desktop.unit;
-    }
-    if (null === value) {
-      return 'px';
-    }
-    return value;
-  };
-
-  /**
-   * Get a value based on hierarchy. If the value is not set, get the value from the parent.
-   *
-   * @param {string} value Current value.
-   *
-   * @return {boolean} Value default or hierarchical value.
-   */
-  var getHierarchicalValueUnitSync = function getHierarchicalValueUnitSync(value) {
-    // Check mobile screen size.
-    if ('mobile' === screenSize && null === value) {
-      if (null === props.values.tablet.unitSync) {
-        return props.values.desktop.unitSync;
-      }
-      return props.values.tablet.unitSync;
-    }
-    if ('tablet' === screenSize && null === value) {
-      return props.values.desktop.unitSync;
-    }
-    if (null === value) {
-      return true;
-    }
-    return value;
-  };
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "components-base-control components-has-dimensions-control"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_6__.Controller, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_7__.Controller, {
     name: "".concat(screenSize, ".unit"),
     control: control,
     render: function render(_ref) {
@@ -832,7 +756,7 @@ var DimensionsControlBlock = function DimensionsControlBlock(props) {
         value = _ref$field.value;
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_unit_picker__WEBPACK_IMPORTED_MODULE_2__["default"], {
         label: label,
-        value: getHierarchicalValueUnit(getValues(screenSize).unit),
+        value: (0,_Utils_DimensionsHelper__WEBPACK_IMPORTED_MODULE_6__.getHierarchicalValueUnit)(props, screenSize, getValues(screenSize).unit),
         units: units,
         onClick: function onClick(newValue) {
           onChange(newValue);
@@ -842,7 +766,7 @@ var DimensionsControlBlock = function DimensionsControlBlock(props) {
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "components-has-dimensions-control__inputs"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_6__.Controller, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_7__.Controller, {
     name: "".concat(screenSize, ".top"),
     control: control,
     render: function render(_ref2) {
@@ -859,10 +783,10 @@ var DimensionsControlBlock = function DimensionsControlBlock(props) {
           _onChange(newValue);
         },
         min: 0,
-        placeholder: geHierarchicalPlaceholderValue(getValues(screenSize).top, 'top')
+        placeholder: (0,_Utils_DimensionsHelper__WEBPACK_IMPORTED_MODULE_6__.geHierarchicalPlaceholderValue)(props, screenSize, getValues(screenSize).top, 'top')
       });
     }
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_6__.Controller, {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_7__.Controller, {
     name: "".concat(screenSize, ".right"),
     control: control,
     render: function render(_ref3) {
@@ -879,10 +803,10 @@ var DimensionsControlBlock = function DimensionsControlBlock(props) {
           _onChange2(newValue);
         },
         min: 0,
-        placeholder: geHierarchicalPlaceholderValue(getValues(screenSize).right, 'right')
+        placeholder: (0,_Utils_DimensionsHelper__WEBPACK_IMPORTED_MODULE_6__.geHierarchicalPlaceholderValue)(props, screenSize, getValues(screenSize).right, 'right')
       });
     }
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_6__.Controller, {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_7__.Controller, {
     name: "".concat(screenSize, ".bottom"),
     control: control,
     render: function render(_ref4) {
@@ -899,10 +823,10 @@ var DimensionsControlBlock = function DimensionsControlBlock(props) {
           _onChange3(newValue);
         },
         min: 0,
-        placeholder: geHierarchicalPlaceholderValue(getValues(screenSize).bottom, 'bottom')
+        placeholder: (0,_Utils_DimensionsHelper__WEBPACK_IMPORTED_MODULE_6__.geHierarchicalPlaceholderValue)(props, screenSize, getValues(screenSize).bottom, 'bottom')
       });
     }
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_6__.Controller, {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_7__.Controller, {
     name: "".concat(screenSize, ".left"),
     control: control,
     render: function render(_ref5) {
@@ -919,7 +843,7 @@ var DimensionsControlBlock = function DimensionsControlBlock(props) {
           _onChange4(newValue);
         },
         min: 0,
-        placeholder: geHierarchicalPlaceholderValue(getValues(screenSize).left, 'left')
+        placeholder: (0,_Utils_DimensionsHelper__WEBPACK_IMPORTED_MODULE_6__.geHierarchicalPlaceholderValue)(props, screenSize, getValues(screenSize).left, 'left')
       });
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.Tooltip, {
@@ -927,8 +851,8 @@ var DimensionsControlBlock = function DimensionsControlBlock(props) {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.Button, {
     className: "components-has-dimensions-control_sync",
     "aria-label": (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Sync Units', 'generateblocks'),
-    isPrimary: getHierarchicalValueUnitSync(getValues(screenSize).unitSync),
-    "aria-pressed": getHierarchicalValueUnitSync(getValues(screenSize).unitSync)
+    isPrimary: (0,_Utils_DimensionsHelper__WEBPACK_IMPORTED_MODULE_6__.getHierarchicalValueUnitSync)(props, screenSize, getValues(screenSize).unitSync),
+    "aria-pressed": (0,_Utils_DimensionsHelper__WEBPACK_IMPORTED_MODULE_6__.getHierarchicalValueUnitSync)(props, screenSize, getValues(screenSize).unitSync)
     // eslint-disable-next-line no-unused-vars
     ,
     onClick: function onClick(value) {
@@ -1067,6 +991,114 @@ __webpack_require__.r(__webpack_exports__);
   };
   return [deviceType, setDeviceType];
 });
+
+/***/ }),
+
+/***/ "./src/react/Utils/DimensionsHelper.js":
+/*!*********************************************!*\
+  !*** ./src/react/Utils/DimensionsHelper.js ***!
+  \*********************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "buildDimensionsCSS": function() { return /* binding */ buildDimensionsCSS; },
+/* harmony export */   "geHierarchicalPlaceholderValue": function() { return /* binding */ geHierarchicalPlaceholderValue; },
+/* harmony export */   "getHierarchicalValueUnit": function() { return /* binding */ getHierarchicalValueUnit; },
+/* harmony export */   "getHierarchicalValueUnitSync": function() { return /* binding */ getHierarchicalValueUnitSync; }
+/* harmony export */ });
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+
+/**
+ * Build CSS rules for dimensions and screen size.
+ * @param {array}  dimensions Dimensions array (see /components/DimensionsBlock).
+ * @param {string} screenSize mobile|tablet|desktop.
+ */
+function buildDimensionsCSS(dimensions, screenSize) {}
+
+/**
+ * Get a value placeholder based on hierarchy. If the value is not set, get the value from the parent.
+ *
+ * @param {string} value Current value.
+ * @param {string} type  Type of value (top, right, bottom, left, etc.).
+ *
+ * @return {string} Value placeholder.
+ */
+function geHierarchicalPlaceholderValue(props, screenSize, value, type) {
+  // Check mobile screen size.
+  if ('mobile' === screenSize && '' === value) {
+    // Check tablet.
+    if ('' !== props.values.tablet[type]) {
+      return props.values.tablet[type];
+    } else if ('' !== props.values.desktop[type]) {
+      // Check desktop.
+      return props.values.desktop[type];
+    }
+  }
+
+  // Check tablet screen size.
+  if ('tablet' === screenSize && '' === value) {
+    if ('' !== props.values.desktop[type]) {
+      // Check desktop.
+      return props.values.desktop[type];
+    }
+  }
+  return '0';
+}
+;
+
+/**
+ * Get a value placeholder based on hierarchy. If the value is not set, get the value from the parent.
+ *
+ * @param {string} value Current value.
+ *
+ * @return {string} Value default or hierarchical value.
+ */
+function getHierarchicalValueUnit(props, screenSize, value) {
+  // Check mobile screen size.
+  if ('mobile' === screenSize && null === value) {
+    if (null === props.values.tablet.unit) {
+      return props.values.desktop.unit;
+    }
+    return props.values.tablet.unit;
+  }
+  if ('tablet' === screenSize && null === value) {
+    return props.values.desktop.unit;
+  }
+  if (null === value) {
+    return 'px';
+  }
+  return value;
+}
+;
+
+/**
+ * Get a value based on hierarchy. If the value is not set, get the value from the parent.
+ *
+ * @param {string} value Current value.
+ *
+ * @return {boolean} Value default or hierarchical value.
+ */
+function getHierarchicalValueUnitSync(props, screenSize, value) {
+  // Check mobile screen size.
+  if ('mobile' === screenSize && null === value) {
+    if (null === props.values.tablet.unitSync) {
+      return props.values.desktop.unitSync;
+    }
+    return props.values.tablet.unitSync;
+  }
+  if ('tablet' === screenSize && null === value) {
+    return props.values.desktop.unitSync;
+  }
+  if (null === value) {
+    return true;
+  }
+  return value;
+}
+;
 
 /***/ }),
 

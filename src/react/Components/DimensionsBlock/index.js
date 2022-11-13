@@ -14,6 +14,7 @@ import { __, sprintf, _x } from '@wordpress/i18n';
 import { Button, Tooltip, TextControl } from '@wordpress/components';
 import { useForm, Controller, useWatch, useFormState } from 'react-hook-form';
 import classNames from 'classnames';
+import { geHierarchicalPlaceholderValue, getHierarchicalValueUnit, getHierarchicalValueUnitSync } from '../../Utils/DimensionsHelper';
 
 const DimensionsControlBlock = ( props ) => {
 	const [ screenSize, setScreenSize ] = useState( 'desktop' );
@@ -130,7 +131,7 @@ const DimensionsControlBlock = ( props ) => {
 	};
 
 	const onDimensionChange = ( value ) => {
-		if ( getHierarchicalValueUnitSync( getValues( screenSize ).unitSync ) ) {
+		if ( getHierarchicalValueUnitSync( props, screenSize, getValues( screenSize ).unitSync ) ) {
 			changeAllValues( value );
 		}
 	};
@@ -162,85 +163,6 @@ const DimensionsControlBlock = ( props ) => {
 		</svg>
 	);
 
-	/**
-	 * Get a value placeholder based on hierarchy. If the value is not set, get the value from the parent.
-	 *
-	 * @param {string} value Current value.
-	 * @param {string} type  Type of value (top, right, bottom, left, etc.).
-	 *
-	 * @return {string} Value placeholder.
-	 */
-	const geHierarchicalPlaceholderValue = ( value, type ) => {
-		// Check mobile screen size.
-		if ( 'mobile' === screenSize && '' === value ) {
-			// Check tablet.
-			if ( '' !== props.values.tablet[ type ] ) {
-				return props.values.tablet[ type ];
-			} else if ( '' !== props.values.desktop[ type ] ) {
-				// Check desktop.
-				return props.values.desktop[ type ];
-			}
-		}
-
-		// Check tablet screen size.
-		if ( 'tablet' === screenSize && '' === value ) {
-			if ( '' !== props.values.desktop[ type ] ) {
-				// Check desktop.
-				return props.values.desktop[ type ];
-			}
-		}
-
-		return '0';
-	};
-
-	/**
-	 * Get a value placeholder based on hierarchy. If the value is not set, get the value from the parent.
-	 *
-	 * @param {string} value Current value.
-	 *
-	 * @return {string} Value default or hierarchical value.
-	 */
-	const getHierarchicalValueUnit = ( value ) => {
-		// Check mobile screen size.
-		if ( 'mobile' === screenSize && null === value ) {
-			if ( null === props.values.tablet.unit ) {
-				return props.values.desktop.unit;
-			}
-			return props.values.tablet.unit;
-		}
-		if ( 'tablet' === screenSize && null === value ) {
-			return props.values.desktop.unit;
-		}
-		if ( null === value ) {
-			return 'px';
-		}
-		return value;
-	};
-
-	/**
-	 * Get a value based on hierarchy. If the value is not set, get the value from the parent.
-	 *
-	 * @param {string} value Current value.
-	 *
-	 * @return {boolean} Value default or hierarchical value.
-	 */
-	const getHierarchicalValueUnitSync = ( value ) => {
-		// Check mobile screen size.
-		if ( 'mobile' === screenSize && null === value ) {
-			if ( null === props.values.tablet.unitSync ) {
-				return props.values.desktop.unitSync;
-			}
-			return props.values.tablet.unitSync;
-		}
-		if ( 'tablet' === screenSize && null === value ) {
-			return props.values.desktop.unitSync;
-		}
-		if ( null === value ) {
-			return true;
-		}
-		return value;
-	};
-
 	return (
 		<>
 			<div className="components-base-control components-has-dimensions-control">
@@ -250,7 +172,7 @@ const DimensionsControlBlock = ( props ) => {
 					render={ ( { field: { onChange, value } } ) => (
 						<UnitPicker
 							label={ label }
-							value={ getHierarchicalValueUnit( getValues( screenSize ).unit ) }
+							value={ getHierarchicalValueUnit( props, screenSize, getValues( screenSize ).unit ) }
 							units={ units }
 							onClick={ ( newValue ) => {
 								onChange( newValue );
@@ -275,7 +197,7 @@ const DimensionsControlBlock = ( props ) => {
 									onChange( newValue );
 								} }
 								min={ 0 }
-								placeholder={ geHierarchicalPlaceholderValue( getValues( screenSize ).top, 'top' ) }
+								placeholder={ geHierarchicalPlaceholderValue( props, screenSize, getValues( screenSize ).top, 'top' ) }
 							/>
 						) }
 					/>
@@ -293,7 +215,7 @@ const DimensionsControlBlock = ( props ) => {
 									onChange( newValue );
 								} }
 								min={ 0 }
-								placeholder={ geHierarchicalPlaceholderValue( getValues( screenSize ).right, 'right' ) }
+								placeholder={ geHierarchicalPlaceholderValue( props, screenSize, getValues( screenSize ).right, 'right' ) }
 							/>
 						) }
 					/>
@@ -311,7 +233,7 @@ const DimensionsControlBlock = ( props ) => {
 									onChange( newValue );
 								} }
 								min={ 0 }
-								placeholder={ geHierarchicalPlaceholderValue( getValues( screenSize ).bottom, 'bottom' ) }
+								placeholder={ geHierarchicalPlaceholderValue( props, screenSize, getValues( screenSize ).bottom, 'bottom' ) }
 							/>
 						) }
 					/>
@@ -329,7 +251,7 @@ const DimensionsControlBlock = ( props ) => {
 									onChange( newValue );
 								} }
 								min={ 0 }
-								placeholder={ geHierarchicalPlaceholderValue( getValues( screenSize ).left, 'left' ) }
+								placeholder={ geHierarchicalPlaceholderValue( props, screenSize, getValues( screenSize ).left, 'left' ) }
 							/>
 						) }
 					/>
@@ -344,10 +266,10 @@ const DimensionsControlBlock = ( props ) => {
 							className="components-has-dimensions-control_sync"
 							aria-label={ __( 'Sync Units', 'generateblocks' ) }
 							isPrimary={
-								getHierarchicalValueUnitSync( getValues( screenSize ).unitSync )
+								getHierarchicalValueUnitSync( props, screenSize, getValues( screenSize ).unitSync )
 							}
 							aria-pressed={
-								getHierarchicalValueUnitSync( getValues( screenSize ).unitSync )
+								getHierarchicalValueUnitSync( props, screenSize, getValues( screenSize ).unitSync )
 							}
 							// eslint-disable-next-line no-unused-vars
 							onClick={ ( value ) => syncUnits() }
