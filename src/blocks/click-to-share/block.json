@@ -22,7 +22,31 @@
 			"type": "string",
 			"default": "#FFFFFF"
 		},
+		"backgroundColorHover": {
+			"type": "string",
+			"default": "#FFFFFF"
+		},
+		"iconColor": {
+			"type": "string",
+			"default": "#000000"
+		},
+		"iconColorHover": {
+			"type": "string",
+			"default": "#000000"
+		},
 		"textColor": {
+			"type": "string",
+			"default": "#000000"
+		},
+		"textColorHover": {
+			"type": "string",
+			"default": "#000000"
+		},
+		"shareTextColor": {
+			"type": "string",
+			"default": "#000000"
+		},
+		"shareTextColorHover": {
 			"type": "string",
 			"default": "#000000"
 		},
@@ -54,6 +78,10 @@
 			"type": "string",
 			"default": "#000000"
 		},
+		"borderColorHover": {
+			"type": "string",
+			"default": "#000000"
+		},
 		"fontWeight": {
 			"type": "string",
 			"default": "#FFFFFF"
@@ -61,6 +89,10 @@
 		"maxWidth": {
 			"type": "integer",
 			"default": 100
+		},
+		"align": {
+			"type": "string",
+			"default": "center"
 		},
 		"alignment": {
 			"type": "string",
@@ -134,6 +166,64 @@
 					"top": "20",
 					"right": "",
 					"bottom": "20",
+					"left": "",
+					"unit": "px",
+					"unitSync": true
+				}
+			}
+		},
+		"borderWidth": {
+			"type": "object",
+			"default": {
+				"mobile": {
+					"top": "",
+					"right": "",
+					"bottom": "",
+					"left": "",
+					"unit": null,
+					"unitSync": null
+				},
+				"tablet": {
+					"top": "",
+					"right": "",
+					"bottom": "",
+					"left": "",
+					"unit": null,
+					"unitSync": null
+				},
+				"desktop": {
+					"top": "",
+					"right": "",
+					"bottom": "",
+					"left": "",
+					"unit": "px",
+					"unitSync": true
+				}
+			}
+		},
+		"borderRadiusSize": {
+			"type": "object",
+			"default": {
+				"mobile": {
+					"top": "",
+					"right": "",
+					"bottom": "",
+					"left": "",
+					"unit": null,
+					"unitSync": null
+				},
+				"tablet": {
+					"top": "",
+					"right": "",
+					"bottom": "",
+					"left": "",
+					"unit": null,
+					"unitSync": null
+				},
+				"desktop": {
+					"top": "",
+					"right": "",
+					"bottom": "",
 					"left": "",
 					"unit": "px",
 					"unitSync": true

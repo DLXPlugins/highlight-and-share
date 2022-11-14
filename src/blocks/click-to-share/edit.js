@@ -11,7 +11,16 @@ import { buildDimensionsCSS } from '../../react/Utils/DimensionsHelper';
 
 const { __ } = wp.i18n;
 
-const { PanelBody, PanelRow, RangeControl, SelectControl, TextControl, ButtonGroup, Button, BaseControl } = wp.components;
+const {
+	PanelBody,
+	PanelRow,
+	RangeControl,
+	SelectControl,
+	TextControl,
+	ButtonGroup,
+	Button,
+	BaseControl,
+} = wp.components;
 
 const { InspectorControls, RichText, useBlockProps } = wp.blockEditor;
 
@@ -19,22 +28,26 @@ const { useInstanceId } = wp.compose;
 
 const HAS_Click_To_Share = ( props ) => {
 	const [ deviceType, setDeviceType ] = useDeviceType( 'Desktop' );
-	const generatedUniqueId = useInstanceId(
-		HAS_Click_To_Share,
-		'has-cts'
-	);
+	const generatedUniqueId = useInstanceId( HAS_Click_To_Share, 'has-cts' );
 
 	const { attributes, setAttributes } = props;
 	const {
 		shareText,
 		backgroundColor,
+		backgroundColorHover,
 		textColor,
+		textColorHover,
+		shareTextColor,
+		shareTextColorHover,
 		fontSize,
 		clickText,
 		padding,
 		border,
 		borderRadius,
 		borderColor,
+		iconColor,
+		iconColorHover,
+		borderColorHover,
 		fontWeight,
 		clickShareFontSize,
 		maxWidth,
@@ -45,6 +58,8 @@ const HAS_Click_To_Share = ( props ) => {
 		marginLeft,
 		marginSize,
 		paddingSize,
+		borderWidth,
+		borderRadiusSize,
 		uniqueId,
 	} = attributes;
 
@@ -84,13 +99,51 @@ const HAS_Click_To_Share = ( props ) => {
 				marginTop: -1,
 			} );
 		}
+		// Port border width to new dimensions object.
+		if ( border !== -1 ) {
+			const portBorderWidth = borderWidth;
+			portBorderWidth.desktop = {
+				top: border,
+				right: border,
+				bottom: border,
+				left: border,
+				unit: 'px',
+				unitSync: true,
+			};
+			setAttributes( {
+				borderWidth: portBorderWidth,
+				border: -1,
+			} );
+		}
+		// Port border radius to new dimensions object.
+		if ( borderRadius !== -1 ) {
+			const portBorderRadius = borderRadiusSize;
+			portBorderRadius.desktop = {
+				top: borderRadius,
+				right: borderRadius,
+				bottom: borderRadius,
+				left: borderRadius,
+				unit: 'px',
+				unitSync: true,
+			};
+			setAttributes( {
+				borderRadiusSize: portBorderRadius,
+				borderRadius: -1,
+			} );
+		}
+
+		// Port alignment over to align variable.
+		if ( alignment !== 'none' ) {
+			setAttributes( { align: alignment, alignment: 'none' } );
+		}
+
 	}, [] );
 
 	const hasStyles = {
 		fontSize: fontSize + 'px',
 		padding: buildDimensionsCSS( paddingSize, deviceType ),
-		border: `${ border }px solid ${ borderColor }`,
-		borderRadius: borderRadius + 'px',
+		borderWidth: buildDimensionsCSS( borderWidth, deviceType ),
+		borderRadius: buildDimensionsCSS( borderRadiusSize, deviceType ),
 		backgroundColor,
 		color: textColor,
 		maxWidth: `${ maxWidth }%`,
@@ -107,27 +160,19 @@ const HAS_Click_To_Share = ( props ) => {
 		value: 700,
 	} );
 
-	const alignmentArr = Array();
-	alignmentArr.push( {
-		label: __( 'Left', 'highlight-and-share' ),
-		value: 'left',
-	} );
-	alignmentArr.push( {
-		label: __( 'center', 'highlight-and-share' ),
-		value: 'center',
-	} );
-	alignmentArr.push( {
-		label: __( 'right', 'highlight-and-share' ),
-		value: 'right',
-	} );
-
 	/* For sticky responsive: forked from GenerateBlocks */
-	const panelHeader = document.querySelector( '.edit-post-sidebar .edit-post-sidebar__panel-tabs' );
+	const panelHeader = document.querySelector(
+		'.edit-post-sidebar .edit-post-sidebar__panel-tabs'
+	);
 	const panelHeaderHeight = panelHeader ? panelHeader.offsetHeight : 0;
 
 	const inspectorControls = (
 		<InspectorControls>
-			<div id="has-screensize-group" className="has-screensize-variants" style={ { top: panelHeaderHeight + 'px' } }>
+			<div
+				id="has-screensize-group"
+				className="has-screensize-variants"
+				style={ { top: panelHeaderHeight + 'px' } }
+			>
 				<ButtonGroup>
 					<Button
 						variant={ deviceType === 'Desktop' ? 'primary' : 'secondary' }
@@ -171,7 +216,21 @@ const HAS_Click_To_Share = ( props ) => {
 						defaultColors={ has_gutenberg.colorPalette }
 						defaultColor={ backgroundColor }
 						slug={ 'background-color' }
-					/></PanelRow>
+					/>
+				</PanelRow>
+				<PanelRow>
+					<ColorPicker
+						value={ backgroundColorHover }
+						key={ 'background-color-hover' }
+						onChange={ ( slug, newValue ) => {
+							setAttributes( { backgroundColorHover: newValue } );
+						} }
+						label={ __( 'Background Color Hover', 'highlight-and-share' ) }
+						defaultColors={ has_gutenberg.colorPalette }
+						defaultColor={ backgroundColorHover }
+						slug={ 'background-color-hover' }
+					/>
+				</PanelRow>
 				<PanelRow>
 					<ColorPicker
 						value={ textColor }
@@ -183,7 +242,47 @@ const HAS_Click_To_Share = ( props ) => {
 						defaultColors={ has_gutenberg.colorPalette }
 						defaultColor={ textColor }
 						slug={ 'text-color' }
-					/>	</PanelRow>
+					/>{ ' ' }
+				</PanelRow>
+				<PanelRow>
+					<ColorPicker
+						value={ textColorHover }
+						key={ 'text-color-hover' }
+						onChange={ ( slug, newValue ) => {
+							setAttributes( { textColorHover: newValue } );
+						} }
+						label={ __( 'Text Color Hover', 'highlight-and-share' ) }
+						defaultColors={ has_gutenberg.colorPalette }
+						defaultColor={ textColorHover }
+						slug={ 'text-color-hover' }
+					/>
+				</PanelRow>
+				<PanelRow>
+					<ColorPicker
+						value={ shareTextColor }
+						key={ 'share-text-color' }
+						onChange={ ( slug, newValue ) => {
+							setAttributes( { shareTextColor: newValue } );
+						} }
+						label={ __( 'Share Text Color', 'highlight-and-share' ) }
+						defaultColors={ has_gutenberg.colorPalette }
+						defaultColor={ shareTextColor }
+						slug={ 'share-text-color' }
+					/>{ ' ' }
+				</PanelRow>
+				<PanelRow>
+					<ColorPicker
+						value={ shareTextColorHover }
+						key={ 'share-text-color-hover' }
+						onChange={ ( slug, newValue ) => {
+							setAttributes( { shareTextColorHover: newValue } );
+						} }
+						label={ __( 'Share Text Color Hover', 'highlight-and-share' ) }
+						defaultColors={ has_gutenberg.colorPalette }
+						defaultColor={ shareTextColorHover }
+						slug={ 'share-text-color-hover' }
+					/>
+				</PanelRow>
 				<PanelRow>
 					<ColorPicker
 						value={ borderColor }
@@ -195,8 +294,47 @@ const HAS_Click_To_Share = ( props ) => {
 						defaultColors={ has_gutenberg.colorPalette }
 						defaultColor={ borderColor }
 						slug={ 'border-color' }
-					/></PanelRow>
-					<div>Icon Color</div>
+					/>
+				</PanelRow>
+				<PanelRow>
+					<ColorPicker
+						value={ borderColorHover }
+						key={ 'border-color-hover' }
+						onChange={ ( slug, newValue ) => {
+							setAttributes( { borderColorHover: newValue } );
+						} }
+						label={ __( 'Border Color Hover', 'highlight-and-share' ) }
+						defaultColors={ has_gutenberg.colorPalette }
+						defaultColor={ borderColorHover }
+						slug={ 'border-color-hover' }
+					/>
+				</PanelRow>
+				<PanelRow>
+					<ColorPicker
+						value={ iconColor }
+						key={ 'icon-color' }
+						onChange={ ( slug, newValue ) => {
+							setAttributes( { iconColor: newValue } );
+						} }
+						label={ __( 'Icon Color', 'highlight-and-share' ) }
+						defaultColors={ has_gutenberg.colorPalette }
+						defaultColor={ iconColor }
+						slug={ 'icon-color' }
+					/>
+				</PanelRow>
+				<PanelRow>
+					<ColorPicker
+						value={ iconColorHover }
+						key={ 'icon-color-hover' }
+						onChange={ ( slug, newValue ) => {
+							setAttributes( { iconColorHover: newValue } );
+						} }
+						label={ __( 'Icon Color Hover', 'highlight-and-share' ) }
+						defaultColors={ has_gutenberg.colorPalette }
+						defaultColor={ iconColorHover }
+						slug={ 'icon-color-hover' }
+					/>
+				</PanelRow>
 			</PanelBody>
 			<PanelBody
 				title={ __( 'Fonts and Typography', 'highlight-and-share' ) }
@@ -220,10 +358,10 @@ const HAS_Click_To_Share = ( props ) => {
 						label={ __( 'Inner Padding', 'highlight-and-share' ) }
 						allowNegatives={ false }
 						values={ paddingSize }
-						labelTop={ __( 'T-Left', 'highlight-and-share' ) }
-						labelRight={ __( 'T-Right', 'highlight-and-share' ) }
-						labelBottom={ __( 'B-Right', 'highlight-and-share' ) }
-						labelLeft={ __( 'B-Left', 'highlight-and-share' ) }
+						labelTop={ __( 'Top', 'highlight-and-share' ) }
+						labelRight={ __( 'Right', 'highlight-and-share' ) }
+						labelBottom={ __( 'Bottom', 'highlight-and-share' ) }
+						labelLeft={ __( 'Left', 'highlight-and-share' ) }
 						units={ [ 'px', 'em', 'rem' ] }
 						screenSize={ deviceType }
 						onValuesChange={ ( newValues ) => {
@@ -238,10 +376,10 @@ const HAS_Click_To_Share = ( props ) => {
 						label={ __( 'Outer Margin', 'highlight-and-share' ) }
 						allowNegatives={ false }
 						values={ marginSize }
-						labelTop={ __( 'T-Left', 'highlight-and-share' ) }
-						labelRight={ __( 'T-Right', 'highlight-and-share' ) }
-						labelBottom={ __( 'B-Right', 'highlight-and-share' ) }
-						labelLeft={ __( 'B-Left', 'highlight-and-share' ) }
+						labelTop={ __( 'Top', 'highlight-and-share' ) }
+						labelRight={ __( 'Right', 'highlight-and-share' ) }
+						labelBottom={ __( 'Bottom', 'highlight-and-share' ) }
+						labelLeft={ __( 'Left', 'highlight-and-share' ) }
 						units={ [ 'px', 'em', 'rem' ] }
 						screenSize={ deviceType }
 						onValuesChange={ ( newValues ) => {
@@ -251,9 +389,42 @@ const HAS_Click_To_Share = ( props ) => {
 						} }
 					/>
 				</PanelRow>
-				<div>Padding</div>
-				<div>Margin</div>
-				<div>Border Width</div>
+				<PanelRow>
+					<DimensionsControlBlock
+						label={ __( 'Border Width', 'highlight-and-share' ) }
+						allowNegatives={ false }
+						values={ borderWidth }
+						labelTop={ __( 'Top', 'highlight-and-share' ) }
+						labelRight={ __( 'Right', 'highlight-and-share' ) }
+						labelBottom={ __( 'Bottom', 'highlight-and-share' ) }
+						labelLeft={ __( 'Left', 'highlight-and-share' ) }
+						units={ [ 'px', 'em', 'rem' ] }
+						screenSize={ deviceType }
+						onValuesChange={ ( newValues ) => {
+							setAttributes( {
+								borderWidth: newValues,
+							} );
+						} }
+					/>
+				</PanelRow>
+				<PanelRow>
+					<DimensionsControlBlock
+						label={ __( 'Border Radius', 'highlight-and-share' ) }
+						allowNegatives={ false }
+						values={ borderRadiusSize }
+						labelTop={ __( 'T-Left', 'highlight-and-share' ) }
+						labelRight={ __( 'T-Right', 'highlight-and-share' ) }
+						labelBottom={ __( 'B-Right', 'highlight-and-share' ) }
+						labelLeft={ __( 'B-Left', 'highlight-and-share' ) }
+						units={ [ 'px', 'em', 'rem' ] }
+						screenSize={ deviceType }
+						onValuesChange={ ( newValues ) => {
+							setAttributes( {
+								borderRadiusSize: newValues,
+							} );
+						} }
+					/>
+				</PanelRow>
 				<PanelRow>
 					<ColorPicker
 						value={ borderColor }
@@ -265,28 +436,25 @@ const HAS_Click_To_Share = ( props ) => {
 						defaultColors={ has_gutenberg.colorPalette }
 						defaultColor={ borderColor }
 						slug={ 'border-color' }
-					/></PanelRow>
-				<div>Border Radius</div>
+					/>
+				</PanelRow>
+				<PanelRow>
+					<ColorPicker
+						value={ borderColorHover }
+						key={ 'border-color-hover' }
+						onChange={ ( slug, newValue ) => {
+							setAttributes( { borderColorHover: newValue } );
+						} }
+						label={ __( 'Border Color Hover', 'highlight-and-share' ) }
+						defaultColors={ has_gutenberg.colorPalette }
+						defaultColor={ borderColorHover }
+						slug={ 'border-color-hover' }
+					/>
+				</PanelRow>
 			</PanelBody>
 			<PanelBody
 				title={ __( 'Highlight and Share Settings', 'highlight-and-share' ) }
 			>
-				<DimensionsControlBlock
-					label={ __( 'Border Radius', 'highlight-and-share' ) }
-					allowNegatives={ false }
-					values={ paddingSize }
-					labelTop={ __( 'T-Left', 'highlight-and-share' ) }
-					labelRight={ __( 'T-Right', 'highlight-and-share' ) }
-					labelBottom={ __( 'B-Right', 'highlight-and-share' ) }
-					labelLeft={ __( 'B-Left', 'highlight-and-share' ) }
-					units={ [ 'px', 'em', 'rem' ] }
-					screenSize={ deviceType }
-					onValuesChange={ ( newValues ) => {
-						setAttributes( {
-							paddingSize: newValues,
-						} );
-					} }
-				/>
 
 				<SelectControl
 					label={ __( 'Font Weight', 'highlight-and-share' ) }
@@ -319,9 +487,7 @@ const HAS_Click_To_Share = ( props ) => {
 				<RangeControl
 					label={ __( 'Click to Share Font Size', 'highlight-and-share' ) }
 					value={ clickShareFontSize }
-					onChange={ ( value ) =>
-						setAttributes( { clickShareFontSize: value } )
-					}
+					onChange={ ( value ) => setAttributes( { clickShareFontSize: value } ) }
 					min={ 10 }
 					max={ 40 }
 					step={ 1 }
@@ -344,7 +510,6 @@ const HAS_Click_To_Share = ( props ) => {
 					max={ 30 }
 					step={ 1 }
 				/>
-
 			</PanelBody>
 			<PanelBody
 				title={ __( 'Alignment, Width, and Margins', 'highlight-and-share' ) }
@@ -356,48 +521,6 @@ const HAS_Click_To_Share = ( props ) => {
 					min={ 0 }
 					max={ 100 }
 					step={ 5 }
-				/>
-				<SelectControl
-					label={ __( 'Alignment', 'highlight-and-share' ) }
-					value={ alignment }
-					options={ alignmentArr }
-					onChange={ ( value ) => {
-						setAttributes( { alignment: value } );
-					} }
-				/>
-				<RangeControl
-					label={ __( 'Margin Left', 'highlight-and-share' ) }
-					value={ marginLeft }
-					onChange={ ( value ) => setAttributes( { marginLeft: value } ) }
-					min={ 0 }
-					max={ 20 }
-					step={ 1 }
-				/>
-				<RangeControl
-					label={ __( 'Margin Right', 'highlight-and-share' ) }
-					value={ marginRight }
-					onChange={ ( value ) => setAttributes( { marginRight: value } ) }
-					min={ 0 }
-					max={ 20 }
-					step={ 1 }
-				/>
-				<RangeControl
-					label={ __( 'Margin Top', 'highlight-and-share' ) }
-					value={ marginTop }
-					onChange={ ( value ) => setAttributes( { marginTop: value } ) }
-					min={ 0 }
-					max={ 20 }
-					step={ 1 }
-				/>
-				<RangeControl
-					label={ __( 'Margin Bottom', 'highlight-and-share' ) }
-					value={ marginBottom }
-					onChange={ ( value ) =>
-						setAttributes( { marginBottom: value } )
-					}
-					min={ 0 }
-					max={ 20 }
-					step={ 1 }
 				/>
 			</PanelBody>
 		</InspectorControls>
@@ -460,7 +583,9 @@ const HAS_Click_To_Share = ( props ) => {
 
 	return (
 		<>
-			<div { ...blockProps } id={ uniqueId }>{ block }</div>
+			<div { ...blockProps } id={ uniqueId }>
+				{ block }
+			</div>
 		</>
 	);
 };
