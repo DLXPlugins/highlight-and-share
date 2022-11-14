@@ -3,6 +3,18 @@
  */
  @import "inline-themes.scss";
 
+.highlight-and-share {
+	&.aligncenter,
+	&.alignwide,
+	&.alignfull {
+		display: flex;
+		justify-content: center;
+	}
+
+	.has-click-to-share {
+		width: 100%; /* max width in block settings */
+	}
+}
 
 .has-click-to-share-wrapper {
 	.has-click-to-share-text {

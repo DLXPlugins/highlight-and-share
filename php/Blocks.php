@@ -106,6 +106,7 @@ class Blocks {
 				background-color: <?php echo esc_attr( $attributes['backgroundColor'] ); ?>;
 				border-color: <?php echo esc_attr( $attributes['borderColor'] ); ?>;
 				transition: all 0.3s ease-in-out;
+				max-width: <?php echo esc_attr( $attributes['maxWidth'] ); ?><?php echo esc_attr( $attributes['maxWidthUnit'] ); ?>;
 			}
 			.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?>:hover {
 				background-color: <?php echo esc_attr( $attributes['backgroundColorHover'] ); ?>;
@@ -154,7 +155,7 @@ class Blocks {
 				}
 			}
 		</style>
-		<div class='has-click-to-share' id="<?php echo esc_attr( $attributes['uniqueId'] ); ?>" style="max-width: <?php echo esc_attr( $attributes['maxWidth'] ); ?>%;">
+		<div class='has-click-to-share' id="<?php echo esc_attr( $attributes['uniqueId'] ); ?>">
 			<div class="has-click-to-share-wrapper">
 				<div class="has-click-to-share-text">
 					<?php echo wp_kses_post( $attributes['shareText'] ); ?>

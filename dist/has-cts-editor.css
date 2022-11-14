@@ -366,6 +366,14 @@
   border: 4px solid #2777d5;
 }
 
+.highlight-and-share.aligncenter, .highlight-and-share.alignwide, .highlight-and-share.alignfull {
+  display: flex;
+  justify-content: center;
+}
+.highlight-and-share .has-click-to-share {
+  width: 100%; /* max width in block settings */
+}
+
 .has-click-to-share-wrapper .has-click-to-share-text {
   font-family: "Helvetica Neue", Helvetica, Arial, sans-serif !important;
   font-weight: 100;

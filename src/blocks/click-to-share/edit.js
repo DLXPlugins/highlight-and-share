@@ -54,6 +54,7 @@ const HAS_Click_To_Share = ( props ) => {
 		maxWidth,
 		maxWidthUnit,
 		alignment,
+		align,
 		marginTop,
 		marginRight,
 		marginBottom,
@@ -622,7 +623,7 @@ const HAS_Click_To_Share = ( props ) => {
 	);
 
 	const blockProps = useBlockProps( {
-		className: classnames( `highlight-and-share` ),
+		className: classnames( `highlight-and-share`, `align${align}` ),
 	} );
 
 	return (
