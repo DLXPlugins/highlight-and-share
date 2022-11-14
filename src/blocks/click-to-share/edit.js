@@ -11,7 +11,7 @@ import { buildDimensionsCSS } from '../../react/Utils/DimensionsHelper';
 
 const { __ } = wp.i18n;
 
-const { PanelBody, RangeControl, SelectControl, TextControl, ButtonGroup, Button, BaseControl } = wp.components;
+const { PanelBody, PanelRow, RangeControl, SelectControl, TextControl, ButtonGroup, Button, BaseControl } = wp.components;
 
 const { InspectorControls, RichText, useBlockProps } = wp.blockEditor;
 
@@ -43,6 +43,7 @@ const HAS_Click_To_Share = ( props ) => {
 		marginRight,
 		marginBottom,
 		marginLeft,
+		marginSize,
 		paddingSize,
 		uniqueId,
 	} = attributes;
@@ -67,6 +68,22 @@ const HAS_Click_To_Share = ( props ) => {
 				padding: -1,
 			} );
 		}
+		// Port margin to new dimensions object.
+		if ( marginTop !== -1 ) {
+			const portMargin = marginSize;
+			portMargin.desktop = {
+				top: marginTop,
+				right: marginRight,
+				bottom: marginBottom,
+				left: marginLeft,
+				unit: 'px',
+				unitSync: true,
+			};
+			setAttributes( {
+				marginSize: portMargin,
+				marginTop: -1,
+			} );
+		}
 	}, [] );
 
 	const hasStyles = {
@@ -77,20 +94,8 @@ const HAS_Click_To_Share = ( props ) => {
 		backgroundColor,
 		color: textColor,
 		maxWidth: `${ maxWidth }%`,
-		marginLeft: marginLeft + 'px',
-		marginRight: marginRight + 'px',
-		marginBottom: marginBottom + 'px',
-		marginTop: marginTop + 'px',
+		margin: buildDimensionsCSS( marginSize, deviceType ),
 	};
-	if ( 'center' == alignment ) {
-		hasStyles.margin = '0 auto';
-	}
-	if ( 'left' == alignment ) {
-		hasStyles.float = 'left';
-	}
-	if ( 'right' == alignment ) {
-		hasStyles.float = 'right';
-	}
 	const fontWeightArr = Array();
 	fontWeightArr.push( {
 		label: __( 'Normal', 'highlight-and-share' ),
@@ -152,6 +157,118 @@ const HAS_Click_To_Share = ( props ) => {
 				</ButtonGroup>
 			</div>
 			<PanelBody
+				title={ __( 'Colors', 'highlight-and-share' ) }
+				initialOpen={ false }
+			>
+				<PanelRow>
+					<ColorPicker
+						value={ backgroundColor }
+						key={ 'background-color' }
+						onChange={ ( slug, newValue ) => {
+							setAttributes( { backgroundColor: newValue } );
+						} }
+						label={ __( 'Background Color', 'highlight-and-share' ) }
+						defaultColors={ has_gutenberg.colorPalette }
+						defaultColor={ backgroundColor }
+						slug={ 'background-color' }
+					/></PanelRow>
+				<PanelRow>
+					<ColorPicker
+						value={ textColor }
+						key={ 'text-color' }
+						onChange={ ( slug, newValue ) => {
+							setAttributes( { textColor: newValue } );
+						} }
+						label={ __( 'Text Color', 'highlight-and-share' ) }
+						defaultColors={ has_gutenberg.colorPalette }
+						defaultColor={ textColor }
+						slug={ 'text-color' }
+					/>	</PanelRow>
+				<PanelRow>
+					<ColorPicker
+						value={ borderColor }
+						key={ 'border-color' }
+						onChange={ ( slug, newValue ) => {
+							setAttributes( { borderColor: newValue } );
+						} }
+						label={ __( 'Border Color', 'highlight-and-share' ) }
+						defaultColors={ has_gutenberg.colorPalette }
+						defaultColor={ borderColor }
+						slug={ 'border-color' }
+					/></PanelRow>
+					<div>Icon Color</div>
+			</PanelBody>
+			<PanelBody
+				title={ __( 'Fonts and Typography', 'highlight-and-share' ) }
+				initialOpen={ false }
+			>
+				<div>Coming Soon</div>
+			</PanelBody>
+			<PanelBody
+				title={ __( 'Container Settings', 'highlight-and-share' ) }
+				initialOpen={ false }
+			>
+				<div>Max Width</div>
+				<div>Background Image</div>
+			</PanelBody>
+			<PanelBody
+				title={ __( 'Spacing and Border', 'highlight-and-share' ) }
+				initialOpen={ false }
+			>
+				<PanelRow>
+					<DimensionsControlBlock
+						label={ __( 'Inner Padding', 'highlight-and-share' ) }
+						allowNegatives={ false }
+						values={ paddingSize }
+						labelTop={ __( 'T-Left', 'highlight-and-share' ) }
+						labelRight={ __( 'T-Right', 'highlight-and-share' ) }
+						labelBottom={ __( 'B-Right', 'highlight-and-share' ) }
+						labelLeft={ __( 'B-Left', 'highlight-and-share' ) }
+						units={ [ 'px', 'em', 'rem' ] }
+						screenSize={ deviceType }
+						onValuesChange={ ( newValues ) => {
+							setAttributes( {
+								paddingSize: newValues,
+							} );
+						} }
+					/>
+				</PanelRow>
+				<PanelRow>
+					<DimensionsControlBlock
+						label={ __( 'Outer Margin', 'highlight-and-share' ) }
+						allowNegatives={ false }
+						values={ marginSize }
+						labelTop={ __( 'T-Left', 'highlight-and-share' ) }
+						labelRight={ __( 'T-Right', 'highlight-and-share' ) }
+						labelBottom={ __( 'B-Right', 'highlight-and-share' ) }
+						labelLeft={ __( 'B-Left', 'highlight-and-share' ) }
+						units={ [ 'px', 'em', 'rem' ] }
+						screenSize={ deviceType }
+						onValuesChange={ ( newValues ) => {
+							setAttributes( {
+								marginSize: newValues,
+							} );
+						} }
+					/>
+				</PanelRow>
+				<div>Padding</div>
+				<div>Margin</div>
+				<div>Border Width</div>
+				<PanelRow>
+					<ColorPicker
+						value={ borderColor }
+						key={ 'border-color' }
+						onChange={ ( slug, newValue ) => {
+							setAttributes( { borderColor: newValue } );
+						} }
+						label={ __( 'Border Color', 'highlight-and-share' ) }
+						defaultColors={ has_gutenberg.colorPalette }
+						defaultColor={ borderColor }
+						slug={ 'border-color' }
+					/></PanelRow>
+				<div>Border Radius</div>
+			</PanelBody>
+			<PanelBody
 				title={ __( 'Highlight and Share Settings', 'highlight-and-share' ) }
 			>
 				<DimensionsControlBlock
@@ -170,28 +287,7 @@ const HAS_Click_To_Share = ( props ) => {
 						} );
 					} }
 				/>
-				<ColorPicker
-					value={ backgroundColor }
-					key={ 'background-color' }
-					onChange={ ( slug, newValue ) => {
-						setAttributes( { backgroundColor: newValue } );
-					} }
-					label={ __( 'Background Color', 'highlight-and-share' ) }
-					defaultColors={ has_gutenberg.colorPalette }
-					defaultColor={ backgroundColor }
-					slug={ 'background-color' }
-				/>
-				<ColorPicker
-					value={ textColor }
-					key={ 'text-color' }
-					onChange={ ( slug, newValue ) => {
-						setAttributes( { textColor: newValue } );
-					} }
-					label={ __( 'Text Color', 'highlight-and-share' ) }
-					defaultColors={ has_gutenberg.colorPalette }
-					defaultColor={ textColor }
-					slug={ 'text-color' }
-				/>
+
 				<SelectControl
 					label={ __( 'Font Weight', 'highlight-and-share' ) }
 					value={ fontWeight }
@@ -248,17 +344,7 @@ const HAS_Click_To_Share = ( props ) => {
 					max={ 30 }
 					step={ 1 }
 				/>
-				<ColorPicker
-					value={ borderColor }
-					key={ 'border-color' }
-					onChange={ ( slug, newValue ) => {
-						setAttributes( { borderColor: newValue } );
-					} }
-					label={ __( 'Border Color', 'highlight-and-share' ) }
-					defaultColors={ has_gutenberg.colorPalette }
-					defaultColor={ borderColor }
-					slug={ 'border-color' }
-				/>
+
 			</PanelBody>
 			<PanelBody
 				title={ __( 'Alignment, Width, and Margins', 'highlight-and-share' ) }

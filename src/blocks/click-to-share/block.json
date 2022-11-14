@@ -110,6 +110,35 @@
 					"unitSync": true
 				}
 			}
+		},
+		"marginSize": {
+			"type": "object",
+			"default": {
+				"mobile": {
+					"top": "",
+					"right": "",
+					"bottom": "",
+					"left": "",
+					"unit": null,
+					"unitSync": null
+				},
+				"tablet": {
+					"top": "",
+					"right": "",
+					"bottom": "",
+					"left": "",
+					"unit": null,
+					"unitSync": null
+				},
+				"desktop": {
+					"top": "20",
+					"right": "",
+					"bottom": "20",
+					"left": "",
+					"unit": "px",
+					"unitSync": true
+				}
+			}
 		}
 	},
 	"example": {

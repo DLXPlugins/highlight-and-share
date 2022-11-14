@@ -37,6 +37,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 var __ = wp.i18n.__;
 var _wp$components = wp.components,
   PanelBody = _wp$components.PanelBody,
+  PanelRow = _wp$components.PanelRow,
   RangeControl = _wp$components.RangeControl,
   SelectControl = _wp$components.SelectControl,
   TextControl = _wp$components.TextControl,
@@ -73,6 +74,7 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
     marginRight = attributes.marginRight,
     marginBottom = attributes.marginBottom,
     marginLeft = attributes.marginLeft,
+    marginSize = attributes.marginSize,
     paddingSize = attributes.paddingSize,
     uniqueId = attributes.uniqueId;
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
@@ -97,6 +99,22 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
         padding: -1
       });
     }
+    // Port margin to new dimensions object.
+    if (marginTop !== -1) {
+      var portMargin = marginSize;
+      portMargin.desktop = {
+        top: marginTop,
+        right: marginRight,
+        bottom: marginBottom,
+        left: marginLeft,
+        unit: 'px',
+        unitSync: true
+      };
+      setAttributes({
+        marginSize: portMargin,
+        marginTop: -1
+      });
+    }
   }, []);
   var hasStyles = {
     fontSize: fontSize + 'px',
@@ -106,20 +124,8 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
     backgroundColor: backgroundColor,
     color: textColor,
     maxWidth: "".concat(maxWidth, "%"),
-    marginLeft: marginLeft + 'px',
-    marginRight: marginRight + 'px',
-    marginBottom: marginBottom + 'px',
-    marginTop: marginTop + 'px'
+    margin: (0,_react_Utils_DimensionsHelper__WEBPACK_IMPORTED_MODULE_5__.buildDimensionsCSS)(marginSize, deviceType)
   };
-  if ('center' == alignment) {
-    hasStyles.margin = '0 auto';
-  }
-  if ('left' == alignment) {
-    hasStyles["float"] = 'left';
-  }
-  if ('right' == alignment) {
-    hasStyles["float"] = 'right';
-  }
   var fontWeightArr = Array();
   fontWeightArr.push({
     label: __('Normal', 'highlight-and-share'),
@@ -179,6 +185,96 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
     icon: "smartphone",
     label: __('Mobile', 'highlight-and-share')
   }))), /*#__PURE__*/React.createElement(PanelBody, {
+    title: __('Colors', 'highlight-and-share'),
+    initialOpen: false
+  }, /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(_react_Components_ColorPicker__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    value: backgroundColor,
+    key: 'background-color',
+    onChange: function onChange(slug, newValue) {
+      setAttributes({
+        backgroundColor: newValue
+      });
+    },
+    label: __('Background Color', 'highlight-and-share'),
+    defaultColors: has_gutenberg.colorPalette,
+    defaultColor: backgroundColor,
+    slug: 'background-color'
+  })), /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(_react_Components_ColorPicker__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    value: textColor,
+    key: 'text-color',
+    onChange: function onChange(slug, newValue) {
+      setAttributes({
+        textColor: newValue
+      });
+    },
+    label: __('Text Color', 'highlight-and-share'),
+    defaultColors: has_gutenberg.colorPalette,
+    defaultColor: textColor,
+    slug: 'text-color'
+  }), " "), /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(_react_Components_ColorPicker__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    value: borderColor,
+    key: 'border-color',
+    onChange: function onChange(slug, newValue) {
+      setAttributes({
+        borderColor: newValue
+      });
+    },
+    label: __('Border Color', 'highlight-and-share'),
+    defaultColors: has_gutenberg.colorPalette,
+    defaultColor: borderColor,
+    slug: 'border-color'
+  })), /*#__PURE__*/React.createElement("div", null, "Icon Color")), /*#__PURE__*/React.createElement(PanelBody, {
+    title: __('Fonts and Typography', 'highlight-and-share'),
+    initialOpen: false
+  }, /*#__PURE__*/React.createElement("div", null, "Coming Soon")), /*#__PURE__*/React.createElement(PanelBody, {
+    title: __('Container Settings', 'highlight-and-share'),
+    initialOpen: false
+  }, /*#__PURE__*/React.createElement("div", null, "Max Width"), /*#__PURE__*/React.createElement("div", null, "Background Image")), /*#__PURE__*/React.createElement(PanelBody, {
+    title: __('Spacing and Border', 'highlight-and-share'),
+    initialOpen: false
+  }, /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(_react_Components_DimensionsBlock__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    label: __('Inner Padding', 'highlight-and-share'),
+    allowNegatives: false,
+    values: paddingSize,
+    labelTop: __('T-Left', 'highlight-and-share'),
+    labelRight: __('T-Right', 'highlight-and-share'),
+    labelBottom: __('B-Right', 'highlight-and-share'),
+    labelLeft: __('B-Left', 'highlight-and-share'),
+    units: ['px', 'em', 'rem'],
+    screenSize: deviceType,
+    onValuesChange: function onValuesChange(newValues) {
+      setAttributes({
+        paddingSize: newValues
+      });
+    }
+  })), /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(_react_Components_DimensionsBlock__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    label: __('Outer Margin', 'highlight-and-share'),
+    allowNegatives: false,
+    values: marginSize,
+    labelTop: __('T-Left', 'highlight-and-share'),
+    labelRight: __('T-Right', 'highlight-and-share'),
+    labelBottom: __('B-Right', 'highlight-and-share'),
+    labelLeft: __('B-Left', 'highlight-and-share'),
+    units: ['px', 'em', 'rem'],
+    screenSize: deviceType,
+    onValuesChange: function onValuesChange(newValues) {
+      setAttributes({
+        marginSize: newValues
+      });
+    }
+  })), /*#__PURE__*/React.createElement("div", null, "Padding"), /*#__PURE__*/React.createElement("div", null, "Margin"), /*#__PURE__*/React.createElement("div", null, "Border Width"), /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(_react_Components_ColorPicker__WEBPACK_IMPORTED_MODULE_2__["default"], {
+    value: borderColor,
+    key: 'border-color',
+    onChange: function onChange(slug, newValue) {
+      setAttributes({
+        borderColor: newValue
+      });
+    },
+    label: __('Border Color', 'highlight-and-share'),
+    defaultColors: has_gutenberg.colorPalette,
+    defaultColor: borderColor,
+    slug: 'border-color'
+  })), /*#__PURE__*/React.createElement("div", null, "Border Radius")), /*#__PURE__*/React.createElement(PanelBody, {
     title: __('Highlight and Share Settings', 'highlight-and-share')
   }, /*#__PURE__*/React.createElement(_react_Components_DimensionsBlock__WEBPACK_IMPORTED_MODULE_3__["default"], {
     label: __('Border Radius', 'highlight-and-share'),
@@ -195,30 +291,6 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
         paddingSize: newValues
       });
     }
-  }), /*#__PURE__*/React.createElement(_react_Components_ColorPicker__WEBPACK_IMPORTED_MODULE_2__["default"], {
-    value: backgroundColor,
-    key: 'background-color',
-    onChange: function onChange(slug, newValue) {
-      setAttributes({
-        backgroundColor: newValue
-      });
-    },
-    label: __('Background Color', 'highlight-and-share'),
-    defaultColors: has_gutenberg.colorPalette,
-    defaultColor: backgroundColor,
-    slug: 'background-color'
-  }), /*#__PURE__*/React.createElement(_react_Components_ColorPicker__WEBPACK_IMPORTED_MODULE_2__["default"], {
-    value: textColor,
-    key: 'text-color',
-    onChange: function onChange(slug, newValue) {
-      setAttributes({
-        textColor: newValue
-      });
-    },
-    label: __('Text Color', 'highlight-and-share'),
-    defaultColors: has_gutenberg.colorPalette,
-    defaultColor: textColor,
-    slug: 'text-color'
   }), /*#__PURE__*/React.createElement(SelectControl, {
     label: __('Font Weight', 'highlight-and-share'),
     value: fontWeight,
@@ -283,18 +355,6 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
     min: 0,
     max: 30,
     step: 1
-  }), /*#__PURE__*/React.createElement(_react_Components_ColorPicker__WEBPACK_IMPORTED_MODULE_2__["default"], {
-    value: borderColor,
-    key: 'border-color',
-    onChange: function onChange(slug, newValue) {
-      setAttributes({
-        borderColor: newValue
-      });
-    },
-    label: __('Border Color', 'highlight-and-share'),
-    defaultColors: has_gutenberg.colorPalette,
-    defaultColor: borderColor,
-    slug: 'border-color'
   })), /*#__PURE__*/React.createElement(PanelBody, {
     title: __('Alignment, Width, and Margins', 'highlight-and-share')
   }, /*#__PURE__*/React.createElement(RangeControl, {
@@ -830,12 +890,12 @@ var DimensionsControlBlock = function DimensionsControlBlock(props) {
         value = _ref2$field.value;
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.TextControl, {
         value: getValues(screenSize).top,
-        type: "text",
+        type: "number",
         label: labelTop,
         className: classnames__WEBPACK_IMPORTED_MODULE_5___default()('components-has-dimensions-control__number'),
         onChange: function onChange(newValue) {
-          onDimensionChange(parseFloat(newValue));
-          _onChange(parseFloat(newValue));
+          onDimensionChange(newValue);
+          _onChange(newValue);
         },
         min: 0,
         placeholder: (0,_Utils_DimensionsHelper__WEBPACK_IMPORTED_MODULE_6__.geHierarchicalPlaceholderValue)(props.values, screenSize, getValues(screenSize).top, 'top')
@@ -850,12 +910,12 @@ var DimensionsControlBlock = function DimensionsControlBlock(props) {
         value = _ref3$field.value;
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.TextControl, {
         value: getValues(screenSize).right,
-        type: "text",
+        type: "number",
         label: labelRight,
         className: classnames__WEBPACK_IMPORTED_MODULE_5___default()('components-has-dimensions-control__number'),
         onChange: function onChange(newValue) {
-          onDimensionChange(parseFloat(newValue));
-          _onChange2(parseFloat(newValue));
+          onDimensionChange(newValue);
+          _onChange2(newValue);
         },
         min: 0,
         placeholder: (0,_Utils_DimensionsHelper__WEBPACK_IMPORTED_MODULE_6__.geHierarchicalPlaceholderValue)(props.values, screenSize, getValues(screenSize).right, 'right')
@@ -870,12 +930,12 @@ var DimensionsControlBlock = function DimensionsControlBlock(props) {
         value = _ref4$field.value;
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.TextControl, {
         value: getValues(screenSize).bottom,
-        type: "text",
+        type: "number",
         label: labelBottom,
         className: classnames__WEBPACK_IMPORTED_MODULE_5___default()('components-has-dimensions-control__number'),
         onChange: function onChange(newValue) {
-          onDimensionChange(parseFloat(newValue));
-          _onChange3(parseFloat(newValue));
+          onDimensionChange(newValue);
+          _onChange3(newValue);
         },
         min: 0,
         placeholder: (0,_Utils_DimensionsHelper__WEBPACK_IMPORTED_MODULE_6__.geHierarchicalPlaceholderValue)(props.values, screenSize, getValues(screenSize).bottom, 'bottom')
@@ -885,17 +945,18 @@ var DimensionsControlBlock = function DimensionsControlBlock(props) {
     name: "".concat(screenSize, ".left"),
     control: control,
     render: function render(_ref5) {
+      var _getValues$left;
       var _ref5$field = _ref5.field,
         _onChange4 = _ref5$field.onChange,
         value = _ref5$field.value;
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_4__.TextControl, {
-        value: getValues(screenSize).left,
-        type: "text",
+        value: (_getValues$left = getValues(screenSize).left) !== null && _getValues$left !== void 0 ? _getValues$left : 0,
+        type: "number",
         label: labelLeft,
         className: classnames__WEBPACK_IMPORTED_MODULE_5___default()('components-has-dimensions-control__number'),
         onChange: function onChange(newValue) {
-          onDimensionChange(parseFloat(newValue));
-          _onChange4(parseFloat(newValue));
+          onDimensionChange(newValue);
+          _onChange4(newValue);
         },
         min: 0,
         placeholder: (0,_Utils_DimensionsHelper__WEBPACK_IMPORTED_MODULE_6__.geHierarchicalPlaceholderValue)(props.values, screenSize, getValues(screenSize).left, 'left')
@@ -3802,7 +3863,7 @@ function useForm(props = {}) {
 /***/ (function(module) {
 
 "use strict";
-module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","title":"Bootstrap Alert","apiVersion":2,"name":"has/click-to-share","category":"text","icon":"<svg aria-hidden=\'true\' focusable=\'false\' data-prefix=\'fas\' data-icon=\'share-alt\' className=\'svg-inline--fa fa-share-alt fa-w-14\' role=\'img\' xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 448 512\'><path fill=\'currentColor\' d=\'M352 320c-22.608 0-43.387 7.819-59.79 20.895l-102.486-64.054a96.551 96.551 0 0 0 0-41.683l102.486-64.054C308.613 184.181 329.392 192 352 192c53.019 0 96-42.981 96-96S405.019 0 352 0s-96 42.981-96 96c0 7.158.79 14.13 2.276 20.841L155.79 180.895C139.387 167.819 118.608 160 96 160c-53.019 0-96 42.981-96 96s42.981 96 96 96c22.608 0 43.387-7.819 59.79-20.895l102.486 64.054A96.301 96.301 0 0 0 256 416c0 53.019 42.981 96 96 96s96-42.981 96-96-42.981-96-96-96z\'></path></svg>","description":"An easy-to-use content highlighter.","keywords":["click","social","tweet","better","twitter","facebook","share","quote","blockquote"],"version":"1.0.0","textdomain":"highlight-and-share","attributes":{"uniqueId":{"type":"string","default":""},"shareText":{"type":"string","default":""},"backgroundColor":{"type":"string","default":"#FFFFFF"},"textColor":{"type":"string","default":"#000000"},"fontSize":{"type":"integer","default":24},"clickShareFontSize":{"type":"integer","default":24},"clickText":{"type":"string","default":"Click to Share"},"padding":{"type":"integer","default":-1},"border":{"type":"integer","default":true},"borderRadius":{"type":"integer","default":0},"borderColor":{"type":"string","default":"#000000"},"fontWeight":{"type":"string","default":"#FFFFFF"},"maxWidth":{"type":"integer","default":100},"alignment":{"type":"string","default":"center"},"marginLeft":{"type":"integer","default":0},"marginRight":{"type":"integer","default":0},"marginBottom":{"type":"integer","default":0},"marginTop":{"type":"integer","default":0},"paddingSize":{"type":"object","default":{"mobile":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"tablet":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"desktop":{"top":"","right":"","bottom":"","left":"","unit":"px","unitSync":true}}}},"example":{"attributes":{"alertType":"success","alertTitle":"Sample alert title","alertDescription":"<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>","buttonEnabled":true,"baseFontSize":14,"buttonText":"Learn More","icon":"<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'16\' height=\'16\' fill=\'currentColor\' className=\'bi bi-check\' viewBox=\'0 0 16 16\'><path d=\'M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z\' /></svg>"}},"supports":{"anchor":true,"align":true,"className":true},"editorScript":"has-click-to-share","editorStyle":"has-style-admin-css","style":"has-style-frontend-css"}');
+module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","title":"Bootstrap Alert","apiVersion":2,"name":"has/click-to-share","category":"text","icon":"<svg aria-hidden=\'true\' focusable=\'false\' data-prefix=\'fas\' data-icon=\'share-alt\' className=\'svg-inline--fa fa-share-alt fa-w-14\' role=\'img\' xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 448 512\'><path fill=\'currentColor\' d=\'M352 320c-22.608 0-43.387 7.819-59.79 20.895l-102.486-64.054a96.551 96.551 0 0 0 0-41.683l102.486-64.054C308.613 184.181 329.392 192 352 192c53.019 0 96-42.981 96-96S405.019 0 352 0s-96 42.981-96 96c0 7.158.79 14.13 2.276 20.841L155.79 180.895C139.387 167.819 118.608 160 96 160c-53.019 0-96 42.981-96 96s42.981 96 96 96c22.608 0 43.387-7.819 59.79-20.895l102.486 64.054A96.301 96.301 0 0 0 256 416c0 53.019 42.981 96 96 96s96-42.981 96-96-42.981-96-96-96z\'></path></svg>","description":"An easy-to-use content highlighter.","keywords":["click","social","tweet","better","twitter","facebook","share","quote","blockquote"],"version":"1.0.0","textdomain":"highlight-and-share","attributes":{"uniqueId":{"type":"string","default":""},"shareText":{"type":"string","default":""},"backgroundColor":{"type":"string","default":"#FFFFFF"},"textColor":{"type":"string","default":"#000000"},"fontSize":{"type":"integer","default":24},"clickShareFontSize":{"type":"integer","default":24},"clickText":{"type":"string","default":"Click to Share"},"padding":{"type":"integer","default":-1},"border":{"type":"integer","default":true},"borderRadius":{"type":"integer","default":0},"borderColor":{"type":"string","default":"#000000"},"fontWeight":{"type":"string","default":"#FFFFFF"},"maxWidth":{"type":"integer","default":100},"alignment":{"type":"string","default":"center"},"marginLeft":{"type":"integer","default":0},"marginRight":{"type":"integer","default":0},"marginBottom":{"type":"integer","default":0},"marginTop":{"type":"integer","default":0},"paddingSize":{"type":"object","default":{"mobile":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"tablet":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"desktop":{"top":"","right":"","bottom":"","left":"","unit":"px","unitSync":true}}},"marginSize":{"type":"object","default":{"mobile":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"tablet":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"desktop":{"top":"20","right":"","bottom":"20","left":"","unit":"px","unitSync":true}}}},"example":{"attributes":{"alertType":"success","alertTitle":"Sample alert title","alertDescription":"<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit.</p>","buttonEnabled":true,"baseFontSize":14,"buttonText":"Learn More","icon":"<svg xmlns=\'http://www.w3.org/2000/svg\' width=\'16\' height=\'16\' fill=\'currentColor\' className=\'bi bi-check\' viewBox=\'0 0 16 16\'><path d=\'M10.97 4.97a.75.75 0 0 1 1.07 1.05l-3.99 4.99a.75.75 0 0 1-1.08.02L4.324 8.384a.75.75 0 1 1 1.06-1.06l2.094 2.093 3.473-4.425a.267.267 0 0 1 .02-.022z\' /></svg>"}},"supports":{"anchor":true,"align":true,"className":true},"editorScript":"has-click-to-share","editorStyle":"has-style-admin-css","style":"has-style-frontend-css"}');
 
 /***/ })
 

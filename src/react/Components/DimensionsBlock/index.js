@@ -189,12 +189,12 @@ const DimensionsControlBlock = ( props ) => {
 						render={ ( { field: { onChange, value } } ) => (
 							<TextControl
 								value={ getValues( screenSize ).top }
-								type="text"
+								type="number"
 								label={ labelTop }
 								className={ classNames( 'components-has-dimensions-control__number' ) }
 								onChange={ ( newValue ) => {
-									onDimensionChange( parseFloat( newValue ) );
-									onChange( parseFloat( newValue ) );
+									onDimensionChange( newValue );
+									onChange( newValue );
 								} }
 								min={ 0 }
 								placeholder={ geHierarchicalPlaceholderValue( props.values, screenSize, getValues( screenSize ).top, 'top' ) }
@@ -207,12 +207,12 @@ const DimensionsControlBlock = ( props ) => {
 						render={ ( { field: { onChange, value } } ) => (
 							<TextControl
 								value={ getValues( screenSize ).right }
-								type="text"
+								type="number"
 								label={ labelRight }
 								className={ classNames( 'components-has-dimensions-control__number' ) }
 								onChange={ ( newValue ) => {
-									onDimensionChange( parseFloat( newValue ) );
-									onChange( parseFloat( newValue ) );
+									onDimensionChange( newValue );
+									onChange( newValue );
 								} }
 								min={ 0 }
 								placeholder={ geHierarchicalPlaceholderValue( props.values, screenSize, getValues( screenSize ).right, 'right' ) }
@@ -225,12 +225,12 @@ const DimensionsControlBlock = ( props ) => {
 						render={ ( { field: { onChange, value } } ) => (
 							<TextControl
 								value={ getValues( screenSize ).bottom }
-								type="text"
+								type="number"
 								label={ labelBottom }
 								className={ classNames( 'components-has-dimensions-control__number' ) }
 								onChange={ ( newValue ) => {
-									onDimensionChange( parseFloat( newValue ) );
-									onChange( parseFloat( newValue ) );
+									onDimensionChange( newValue );
+									onChange( newValue );
 								} }
 								min={ 0 }
 								placeholder={ geHierarchicalPlaceholderValue( props.values, screenSize, getValues( screenSize ).bottom, 'bottom' ) }
@@ -242,13 +242,13 @@ const DimensionsControlBlock = ( props ) => {
 						control={ control }
 						render={ ( { field: { onChange, value } } ) => (
 							<TextControl
-								value={ getValues( screenSize ).left }
-								type="text"
+								value={ getValues( screenSize ).left ?? 0 }
+								type="number"
 								label={ labelLeft }
 								className={ classNames( 'components-has-dimensions-control__number' ) }
 								onChange={ ( newValue ) => {
-									onDimensionChange( parseFloat( newValue ) );
-									onChange( parseFloat( newValue ) );
+									onDimensionChange( newValue );
+									onChange( newValue );
 								} }
 								min={ 0 }
 								placeholder={ geHierarchicalPlaceholderValue( props.values, screenSize, getValues( screenSize ).left, 'left' ) }
