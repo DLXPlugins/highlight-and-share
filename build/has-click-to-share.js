@@ -401,7 +401,7 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
   }, /*#__PURE__*/React.createElement("div", null, "Coming Soon")), /*#__PURE__*/React.createElement(PanelBody, {
     title: __('Spacing and Border', 'highlight-and-share'),
     initialOpen: false
-  }, /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(PanelRow, {
+  }, /*#__PURE__*/React.createElement(PanelRow, {
     className: "has-unit-picker"
   }, /*#__PURE__*/React.createElement(_react_Components_unit_picker__WEBPACK_IMPORTED_MODULE_6__["default"], {
     label: __('Maximum Width', 'quotes-dlx'),
@@ -420,7 +420,7 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
         maxWidth: value
       });
     }
-  })), /*#__PURE__*/React.createElement(_react_Components_DimensionsBlock__WEBPACK_IMPORTED_MODULE_3__["default"], {
+  })), /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(_react_Components_DimensionsBlock__WEBPACK_IMPORTED_MODULE_3__["default"], {
     label: __('Inner Padding', 'highlight-and-share'),
     allowNegatives: false,
     values: paddingSize,

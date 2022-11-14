@@ -432,29 +432,29 @@ const HAS_Click_To_Share = ( props ) => {
 				title={ __( 'Spacing and Border', 'highlight-and-share' ) }
 				initialOpen={ false }
 			>
-				<PanelRow>
-					<PanelRow className="has-unit-picker">
-						<UnitChooser
-							label={ __( 'Maximum Width', 'quotes-dlx' ) }
-							value={ maxWidthUnit }
-							units={ [ 'px', '%', 'vw' ] }
-							onClick={ ( value ) => {
-								setAttributes( {
-									maxWidthUnit: value,
-								} );
-							} }
-						/>
+				<PanelRow className="has-unit-picker">
+					<UnitChooser
+						label={ __( 'Maximum Width', 'quotes-dlx' ) }
+						value={ maxWidthUnit }
+						units={ [ 'px', '%', 'vw' ] }
+						onClick={ ( value ) => {
+							setAttributes( {
+								maxWidthUnit: value,
+							} );
+						} }
+					/>
 
-						<TextControl
-							type={ 'number' }
-							value={ maxWidth }
-							onChange={ ( value ) => {
-								setAttributes( {
-									maxWidth: value,
-								} );
-							} }
-						/>
-					</PanelRow>
+					<TextControl
+						type={ 'number' }
+						value={ maxWidth }
+						onChange={ ( value ) => {
+							setAttributes( {
+								maxWidth: value,
+							} );
+						} }
+					/>
+				</PanelRow>
+				<PanelRow>
 					<DimensionsControlBlock
 						label={ __( 'Inner Padding', 'highlight-and-share' ) }
 						allowNegatives={ false }
@@ -565,7 +565,7 @@ const HAS_Click_To_Share = ( props ) => {
 						setAttributes( { fontWeight: value } );
 					} }
 				/>
-				
+
 			</PanelBody>
 			<PanelBody
 				title={ __( 'Spacing and Font Settings', 'highlight-and-share' ) }
