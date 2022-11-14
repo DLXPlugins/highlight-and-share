@@ -68,7 +68,7 @@
 		},
 		"border": {
 			"type": "integer",
-			"default": true
+			"default": -1
 		},
 		"borderRadius": {
 			"type": "integer",
@@ -88,7 +88,11 @@
 		},
 		"maxWidth": {
 			"type": "integer",
-			"default": 100
+			"default": 80
+		},
+		"maxWidthUnit": {
+			"type": "string",
+			"default": "%"
 		},
 		"align": {
 			"type": "string",
@@ -134,10 +138,10 @@
 					"unitSync": null
 				},
 				"desktop": {
-					"top": "",
-					"right": "",
-					"bottom": "",
-					"left": "",
+					"top": "20",
+					"right": "20",
+					"bottom": "20",
+					"left": "20",
 					"unit": "px",
 					"unitSync": true
 				}
@@ -192,10 +196,10 @@
 					"unitSync": null
 				},
 				"desktop": {
-					"top": "",
-					"right": "",
-					"bottom": "",
-					"left": "",
+					"top": "1",
+					"right": "1",
+					"bottom": "1",
+					"left": "1",
 					"unit": "px",
 					"unitSync": true
 				}

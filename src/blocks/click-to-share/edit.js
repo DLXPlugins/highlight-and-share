@@ -8,6 +8,7 @@ import ColorPicker from '../../react/Components/ColorPicker';
 import DimensionsControlBlock from '../../react/Components/DimensionsBlock';
 import useDeviceType from '../../react/Hooks/useDeviceType';
 import { buildDimensionsCSS } from '../../react/Utils/DimensionsHelper';
+import UnitChooser from '../../react/Components/unit-picker';
 
 const { __ } = wp.i18n;
 
@@ -51,6 +52,7 @@ const HAS_Click_To_Share = ( props ) => {
 		fontWeight,
 		clickShareFontSize,
 		maxWidth,
+		maxWidthUnit,
 		alignment,
 		marginTop,
 		marginRight,
@@ -136,7 +138,6 @@ const HAS_Click_To_Share = ( props ) => {
 		if ( alignment !== 'none' ) {
 			setAttributes( { align: alignment, alignment: 'none' } );
 		}
-
 	}, [] );
 
 	const hasStyles = {
@@ -144,16 +145,16 @@ const HAS_Click_To_Share = ( props ) => {
 		padding: buildDimensionsCSS( paddingSize, deviceType ),
 		borderWidth: buildDimensionsCSS( borderWidth, deviceType ),
 		borderRadius: buildDimensionsCSS( borderRadiusSize, deviceType ),
-		maxWidth: `${ maxWidth }%`,
+		maxWidth: `${ maxWidth }${ maxWidthUnit }`,
 		margin: buildDimensionsCSS( marginSize, deviceType ),
 	};
 	const styles = `
-		#${ uniqueId } .has-click-to-share {
+		#${ uniqueId }.has-click-to-share {
 			background-color: ${ backgroundColor };
 			border-color: ${ borderColor };
 
 		}
-		#${ uniqueId } .has-click-to-share:hover {
+		#${ uniqueId }.has-click-to-share:hover {
 			background-color: ${ backgroundColorHover };
 			border-color: ${ borderColorHover };
 		}
@@ -229,6 +230,35 @@ const HAS_Click_To_Share = ( props ) => {
 					/>
 				</ButtonGroup>
 			</div>
+			<PanelBody
+				title={ __( 'Container Settings', 'highlight-and-share' ) }
+				initialOpen={ false }
+			>
+				<PanelRow className="has-unit-picker">
+					<UnitChooser
+						label={ __( 'Maximum Width', 'quotes-dlx' ) }
+						value={ maxWidthUnit }
+						units={ [ 'px', '%', 'vw' ] }
+						onClick={ ( value ) => {
+							setAttributes( {
+								maxWidthUnit: value,
+							} );
+						} }
+					/>
+
+					<TextControl
+						type={ 'text' }
+						value={ maxWidth }
+						onChange={ ( value ) => {
+							setAttributes( {
+								maxWidth: value,
+							} );
+						} }
+					/>
+				</PanelRow>
+				<div>Max Width</div>
+				<div>Background Image</div>
+			</PanelBody>
 			<PanelBody
 				title={ __( 'Colors', 'highlight-and-share' ) }
 				initialOpen={ false }
@@ -369,13 +399,6 @@ const HAS_Click_To_Share = ( props ) => {
 				initialOpen={ false }
 			>
 				<div>Coming Soon</div>
-			</PanelBody>
-			<PanelBody
-				title={ __( 'Container Settings', 'highlight-and-share' ) }
-				initialOpen={ false }
-			>
-				<div>Max Width</div>
-				<div>Background Image</div>
 			</PanelBody>
 			<PanelBody
 				title={ __( 'Spacing and Border', 'highlight-and-share' ) }
@@ -539,18 +562,6 @@ const HAS_Click_To_Share = ( props ) => {
 					step={ 1 }
 				/>
 			</PanelBody>
-			<PanelBody
-				title={ __( 'Alignment, Width, and Margins', 'highlight-and-share' ) }
-			>
-				<RangeControl
-					label={ __( 'Max Width', 'highlight-and-share' ) }
-					value={ maxWidth }
-					onChange={ ( value ) => setAttributes( { maxWidth: value } ) }
-					min={ 0 }
-					max={ 100 }
-					step={ 5 }
-				/>
-			</PanelBody>
 		</InspectorControls>
 	);
 
@@ -560,14 +571,22 @@ const HAS_Click_To_Share = ( props ) => {
 			<style>
 				{ styles }
 			</style>
-			<div className={ classnames( 'has-click-to-share' ) } style={ hasStyles }>
+			<div className={ classnames( 'has-click-to-share' ) } style={ hasStyles } id={ uniqueId }>
 				<div className="has-click-to-share-wrapper">
 					<RichText
 						tagName="div"
+						multiline="p"
 						placeholder={ __( 'Add share text', 'highlight-and-share' ) }
 						value={ shareText }
 						className="has-click-to-share-text"
-						allowedFormats={ [] }
+						allowedFormats={ [
+							'core/bold',
+							'core/italic',
+							'core/text-color',
+							'core/subscript',
+							'core/superscript',
+							'core/strikethrough',
+						] }
 						onChange={ ( value ) => {
 							setAttributes( { shareText: value } );
 						} }
@@ -608,7 +627,7 @@ const HAS_Click_To_Share = ( props ) => {
 
 	return (
 		<>
-			<div { ...blockProps } id={ uniqueId }>
+			<div { ...blockProps }>
 				{ block }
 			</div>
 		</>
