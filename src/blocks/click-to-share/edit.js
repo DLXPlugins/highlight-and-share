@@ -248,7 +248,7 @@ const HAS_Click_To_Share = ( props ) => {
 					/>
 
 					<TextControl
-						type={ 'text' }
+						type={ 'number' }
 						value={ maxWidth }
 						onChange={ ( value ) => {
 							setAttributes( {

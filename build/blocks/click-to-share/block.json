@@ -97,8 +97,8 @@
       "default": "#FFFFFF"
     },
     "maxWidth": {
-      "type": "integer",
-      "default": 80
+      "type": "string",
+      "default": "80"
     },
     "maxWidthUnit": {
       "type": "string",
