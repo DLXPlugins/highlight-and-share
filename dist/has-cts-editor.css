@@ -386,6 +386,11 @@
   padding: 20px;
 }
 
+.has-click-to-share,
+.has-click-to-share:hover {
+  transition: all 0.3s ease-in-out;
+}
+
 /* Color Component (forked from @GenerateBlocks) */
 .has-component-color-picker-wrapper,
 .qdlx-admin__tabs--content-inner .components-base-control.has-component-color-picker-wrapper {

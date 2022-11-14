@@ -103,7 +103,32 @@ class Blocks {
 		<style>
 			.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?> {
 				border-style: solid;
+				background-color: <?php echo esc_attr( $attributes['backgroundColor'] ); ?>;
 				border-color: <?php echo esc_attr( $attributes['borderColor'] ); ?>;
+				transition: all 0.3s ease-in-out;
+			}
+			.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?>:hover {
+				background-color: <?php echo esc_attr( $attributes['backgroundColorHover'] ); ?>;
+				border-color: <?php echo esc_attr( $attributes['borderColorHover'] ); ?>;
+				transition: all 0.3s ease-in-out;
+			}
+			.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?> .has-click-to-share-cta {
+				color: <?php echo esc_attr( $attributes['shareTextColor'] ); ?>;
+			}
+			.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?>:hover .has-click-to-share-cta {
+				color: <?php echo esc_attr( $attributes['shareTextColorHover'] ); ?>;
+			}
+			.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?> .has-click-to-share-text {
+				color: <?php echo esc_attr( $attributes['textColor'] ); ?>;
+			}
+			.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?>:hover .has-click-to-share-text {
+				color: <?php echo esc_attr( $attributes['textColorHover'] ); ?>;
+			}
+			.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?> .has-click-to-share-cta svg {
+				fill: <?php echo esc_attr( $attributes['iconColor'] ); ?>;
+			}
+			.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?>:hover .has-click-to-share-cta svg {
+				fill: <?php echo esc_attr( $attributes['iconColorHover'] ); ?>;
 			}
 			.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?> {
 				padding: <?php echo esc_attr( $this->build_dimensions_css( $attributes['paddingSize'], 'mobile' ) ); ?>;
@@ -129,12 +154,12 @@ class Blocks {
 				}
 			}
 		</style>
-		<div class='has-click-to-share' id="<?php echo esc_attr( $attributes['uniqueId'] ); ?>" style="background-color: <?php echo esc_attr( $attributes['backgroundColor'] ); ?>; color: <?php echo esc_attr( $attributes['textColor'] ); ?>; max-width: <?php echo esc_attr( $attributes['maxWidth'] ); ?>%;">
+		<div class='has-click-to-share' id="<?php echo esc_attr( $attributes['uniqueId'] ); ?>" style="max-width: <?php echo esc_attr( $attributes['maxWidth'] ); ?>%;">
 			<div class="has-click-to-share-wrapper">
-				<div class="has-click-to-share-text" style="color: <?php echo esc_attr( $attributes['textColor'] ); ?>; font-size: <?php echo esc_attr( $attributes['fontSize'] ); ?>px; font-weight: <?php echo esc_attr( $attributes['fontWeight'] ); ?>">
+				<div class="has-click-to-share-text">
 					<?php echo wp_kses_post( $attributes['shareText'] ); ?>
 				</div>
-				<div class='has-click-to-share-cta' style="font-size: <?php echo esc_attr( $attributes['clickShareFontSize'] ); ?>; color: <?php echo esc_attr( $attributes['textColor'] ); ?>">
+				<div class='has-click-to-share-cta'>
 				<?php echo wp_kses_post( $attributes['clickText'] ); ?> <svg width="<?php echo esc_attr( $attributes['clickShareFontSize'] ); ?>px" height="<?php echo esc_attr( $attributes['clickShareFontSize'] ); ?>px" class="has-cts-block-icon"><use xlink:href="#has-share-icon"></use></svg>
 				</div>
 				<a class="has-click-prompt" href="#" data-title="<?php echo esc_attr( $post->post_title ); ?>" data-url="<?php echo esc_url( get_permalink( $post->ID ) ); ?>">

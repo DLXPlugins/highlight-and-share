@@ -144,11 +144,39 @@ const HAS_Click_To_Share = ( props ) => {
 		padding: buildDimensionsCSS( paddingSize, deviceType ),
 		borderWidth: buildDimensionsCSS( borderWidth, deviceType ),
 		borderRadius: buildDimensionsCSS( borderRadiusSize, deviceType ),
-		backgroundColor,
-		color: textColor,
 		maxWidth: `${ maxWidth }%`,
 		margin: buildDimensionsCSS( marginSize, deviceType ),
 	};
+	const styles = `
+		#${ uniqueId } .has-click-to-share {
+			background-color: ${ backgroundColor };
+			border-color: ${ borderColor };
+
+		}
+		#${ uniqueId } .has-click-to-share:hover {
+			background-color: ${ backgroundColorHover };
+			border-color: ${ borderColorHover };
+		}
+		
+		#${ uniqueId } .has-click-to-share-cta {
+			color: ${ shareTextColor }
+		}
+		#${ uniqueId }:hover .has-click-to-share-cta {
+			color: ${ shareTextColorHover }
+		}
+		#${ uniqueId } .has-click-to-share-text {
+			color: ${ textColor };
+		}
+		#${ uniqueId }:hover .has-click-to-share-text {
+			color: ${ textColorHover };
+		}
+		#${ uniqueId } .has-click-to-share-cta svg {
+			color: ${ iconColor };
+		}
+		#${ uniqueId }:hover .has-click-to-share-cta svg {
+			color: ${ iconColorHover };
+		}
+	`;
 	const fontWeightArr = Array();
 	fontWeightArr.push( {
 		label: __( 'Normal', 'highlight-and-share' ),
@@ -529,7 +557,9 @@ const HAS_Click_To_Share = ( props ) => {
 	const block = (
 		<>
 			{ inspectorControls }
-
+			<style>
+				{ styles }
+			</style>
 			<div className={ classnames( 'has-click-to-share' ) } style={ hasStyles }>
 				<div className="has-click-to-share-wrapper">
 					<RichText
@@ -537,11 +567,6 @@ const HAS_Click_To_Share = ( props ) => {
 						placeholder={ __( 'Add share text', 'highlight-and-share' ) }
 						value={ shareText }
 						className="has-click-to-share-text"
-						style={ {
-							color: textColor,
-							fontSize: fontSize + 'px',
-							fontWeight,
-						} }
 						allowedFormats={ [] }
 						onChange={ ( value ) => {
 							setAttributes( { shareText: value } );
