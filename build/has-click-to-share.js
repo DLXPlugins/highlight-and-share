@@ -44,7 +44,7 @@ var _wp$components = wp.components,
   TextControl = _wp$components.TextControl,
   ButtonGroup = _wp$components.ButtonGroup,
   Button = _wp$components.Button,
-  BaseControl = _wp$components.BaseControl;
+  ToggleControl = _wp$components.ToggleControl;
 var _wp$blockEditor = wp.blockEditor,
   InspectorControls = _wp$blockEditor.InspectorControls,
   RichText = _wp$blockEditor.RichText,
@@ -65,7 +65,10 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
     textColorHover = attributes.textColorHover,
     shareTextColor = attributes.shareTextColor,
     shareTextColorHover = attributes.shareTextColorHover,
+    showClickToShare = attributes.showClickToShare,
+    showIcon = attributes.showIcon,
     fontSize = attributes.fontSize,
+    iconSize = attributes.iconSize,
     clickText = attributes.clickText,
     padding = attributes.padding,
     border = attributes.border,
@@ -167,6 +170,13 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
         alignment: 'none'
       });
     }
+
+    // Port over icon size.
+    if (-1 === iconSize) {
+      setAttributes({
+        iconSize: clickShareFontSize
+      });
+    }
   }, []);
   var hasStyles = {
     fontSize: fontSize + 'px',
@@ -223,28 +233,46 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
     icon: "smartphone",
     label: __('Mobile', 'highlight-and-share')
   }))), /*#__PURE__*/React.createElement(PanelBody, {
-    title: __('Container Settings', 'highlight-and-share'),
-    initialOpen: false
-  }, /*#__PURE__*/React.createElement(PanelRow, {
-    className: "has-unit-picker"
-  }, /*#__PURE__*/React.createElement(_react_Components_unit_picker__WEBPACK_IMPORTED_MODULE_6__["default"], {
-    label: __('Maximum Width', 'quotes-dlx'),
-    value: maxWidthUnit,
-    units: ['px', '%', 'vw'],
-    onClick: function onClick(value) {
-      setAttributes({
-        maxWidthUnit: value
-      });
-    }
-  }), /*#__PURE__*/React.createElement(TextControl, {
-    type: 'number',
-    value: maxWidth,
+    title: __('Share Settings', 'highlight-and-share'),
+    initialOpen: true
+  }, /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(ToggleControl, {
+    label: __('Show Click to Share Text', 'alerts-dlx'),
+    checked: showClickToShare,
     onChange: function onChange(value) {
       setAttributes({
-        maxWidth: value
+        showClickToShare: value
       });
     }
-  })), /*#__PURE__*/React.createElement("div", null, "Max Width"), /*#__PURE__*/React.createElement("div", null, "Background Image")), /*#__PURE__*/React.createElement(PanelBody, {
+  })), showClickToShare && /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(TextControl, {
+    label: __('Click to Share Text', 'highlight-and-share'),
+    value: clickText,
+    onChange: function onChange(value) {
+      setAttributes({
+        clickText: value
+      });
+    }
+  })), /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(ToggleControl, {
+    label: __('Show Share Icon', 'alerts-dlx'),
+    checked: showIcon,
+    onChange: function onChange(value) {
+      setAttributes({
+        showIcon: value
+      });
+    }
+  })), /*#__PURE__*/React.createElement(PanelRow, {
+    className: "has-range-control"
+  }, /*#__PURE__*/React.createElement(RangeControl, {
+    label: __('Icon Size', 'highlight-and-share'),
+    value: iconSize,
+    onChange: function onChange(value) {
+      return setAttributes({
+        iconSize: value
+      });
+    },
+    min: 10,
+    max: 150,
+    step: 1
+  }))), /*#__PURE__*/React.createElement(PanelBody, {
     title: __('Colors', 'highlight-and-share'),
     initialOpen: false
   }, /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(_react_Components_ColorPicker__WEBPACK_IMPORTED_MODULE_2__["default"], {
@@ -373,7 +401,26 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
   }, /*#__PURE__*/React.createElement("div", null, "Coming Soon")), /*#__PURE__*/React.createElement(PanelBody, {
     title: __('Spacing and Border', 'highlight-and-share'),
     initialOpen: false
-  }, /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(_react_Components_DimensionsBlock__WEBPACK_IMPORTED_MODULE_3__["default"], {
+  }, /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(PanelRow, {
+    className: "has-unit-picker"
+  }, /*#__PURE__*/React.createElement(_react_Components_unit_picker__WEBPACK_IMPORTED_MODULE_6__["default"], {
+    label: __('Maximum Width', 'quotes-dlx'),
+    value: maxWidthUnit,
+    units: ['px', '%', 'vw'],
+    onClick: function onClick(value) {
+      setAttributes({
+        maxWidthUnit: value
+      });
+    }
+  }), /*#__PURE__*/React.createElement(TextControl, {
+    type: 'number',
+    value: maxWidth,
+    onChange: function onChange(value) {
+      setAttributes({
+        maxWidth: value
+      });
+    }
+  })), /*#__PURE__*/React.createElement(_react_Components_DimensionsBlock__WEBPACK_IMPORTED_MODULE_3__["default"], {
     label: __('Inner Padding', 'highlight-and-share'),
     allowNegatives: false,
     values: paddingSize,
@@ -468,14 +515,6 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
         fontWeight: value
       });
     }
-  }), /*#__PURE__*/React.createElement(TextControl, {
-    label: __('Click to Share Text', 'highlight-and-share'),
-    value: clickText,
-    onChange: function onChange(value) {
-      setAttributes({
-        clickText: value
-      });
-    }
   })), /*#__PURE__*/React.createElement(PanelBody, {
     title: __('Spacing and Font Settings', 'highlight-and-share'),
     initialOpen: false
@@ -547,10 +586,10 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
     style: {
       fontSize: clickShareFontSize
     }
-  }, clickText, ' ', /*#__PURE__*/React.createElement("svg", {
+  }, showClickToShare && /*#__PURE__*/React.createElement(React.Fragment, null, clickText, ' '), showIcon && /*#__PURE__*/React.createElement("svg", {
     style: {
-      width: clickShareFontSize,
-      height: clickShareFontSize
+      width: iconSize,
+      height: iconSize
     },
     "aria-hidden": "true",
     focusable: "false",
@@ -3960,7 +3999,7 @@ function useForm(props = {}) {
 /***/ (function(module) {
 
 "use strict";
-module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","title":"Click to Share","apiVersion":2,"name":"has/click-to-share","category":"text","icon":"<svg aria-hidden=\'true\' focusable=\'false\' data-prefix=\'fas\' data-icon=\'share-alt\' className=\'svg-inline--fa fa-share-alt fa-w-14\' role=\'img\' xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 448 512\'><path fill=\'currentColor\' d=\'M352 320c-22.608 0-43.387 7.819-59.79 20.895l-102.486-64.054a96.551 96.551 0 0 0 0-41.683l102.486-64.054C308.613 184.181 329.392 192 352 192c53.019 0 96-42.981 96-96S405.019 0 352 0s-96 42.981-96 96c0 7.158.79 14.13 2.276 20.841L155.79 180.895C139.387 167.819 118.608 160 96 160c-53.019 0-96 42.981-96 96s42.981 96 96 96c22.608 0 43.387-7.819 59.79-20.895l102.486 64.054A96.301 96.301 0 0 0 256 416c0 53.019 42.981 96 96 96s96-42.981 96-96-42.981-96-96-96z\'></path></svg>","description":"An easy-to-use content highlighter.","keywords":["click","social","tweet","better","twitter","facebook","share","quote","blockquote"],"version":"1.0.0","textdomain":"highlight-and-share","attributes":{"uniqueId":{"type":"string","default":""},"shareText":{"type":"string","default":""},"backgroundColor":{"type":"string","default":"#FFFFFF"},"backgroundColorHover":{"type":"string","default":"#FFFFFF"},"iconColor":{"type":"string","default":"#000000"},"iconColorHover":{"type":"string","default":"#000000"},"textColor":{"type":"string","default":"#000000"},"textColorHover":{"type":"string","default":"#000000"},"shareTextColor":{"type":"string","default":"#000000"},"shareTextColorHover":{"type":"string","default":"#000000"},"fontSize":{"type":"integer","default":24},"clickShareFontSize":{"type":"integer","default":24},"clickText":{"type":"string","default":"Click to Share"},"padding":{"type":"integer","default":-1},"border":{"type":"integer","default":-1},"borderRadius":{"type":"integer","default":0},"borderColor":{"type":"string","default":"#000000"},"borderColorHover":{"type":"string","default":"#000000"},"fontWeight":{"type":"string","default":"#FFFFFF"},"maxWidth":{"type":"string","default":"80"},"maxWidthUnit":{"type":"string","default":"%"},"align":{"type":"string","default":"center"},"alignment":{"type":"string","default":"center"},"marginLeft":{"type":"integer","default":0},"marginRight":{"type":"integer","default":0},"marginBottom":{"type":"integer","default":0},"marginTop":{"type":"integer","default":0},"paddingSize":{"type":"object","default":{"mobile":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"tablet":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"desktop":{"top":"20","right":"20","bottom":"20","left":"20","unit":"px","unitSync":true}}},"marginSize":{"type":"object","default":{"mobile":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"tablet":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"desktop":{"top":"20","right":"","bottom":"20","left":"","unit":"px","unitSync":true}}},"borderWidth":{"type":"object","default":{"mobile":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"tablet":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"desktop":{"top":"1","right":"1","bottom":"1","left":"1","unit":"px","unitSync":true}}},"borderRadiusSize":{"type":"object","default":{"mobile":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"tablet":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"desktop":{"top":"","right":"","bottom":"","left":"","unit":"px","unitSync":true}}}},"supports":{"anchor":true,"align":true,"className":true},"editorScript":"has-click-to-share","editorStyle":"has-style-admin-css","style":"has-style-frontend-css"}');
+module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","title":"Click to Share","apiVersion":2,"name":"has/click-to-share","category":"text","icon":"<svg aria-hidden=\'true\' focusable=\'false\' data-prefix=\'fas\' data-icon=\'share-alt\' className=\'svg-inline--fa fa-share-alt fa-w-14\' role=\'img\' xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 448 512\'><path fill=\'currentColor\' d=\'M352 320c-22.608 0-43.387 7.819-59.79 20.895l-102.486-64.054a96.551 96.551 0 0 0 0-41.683l102.486-64.054C308.613 184.181 329.392 192 352 192c53.019 0 96-42.981 96-96S405.019 0 352 0s-96 42.981-96 96c0 7.158.79 14.13 2.276 20.841L155.79 180.895C139.387 167.819 118.608 160 96 160c-53.019 0-96 42.981-96 96s42.981 96 96 96c22.608 0 43.387-7.819 59.79-20.895l102.486 64.054A96.301 96.301 0 0 0 256 416c0 53.019 42.981 96 96 96s96-42.981 96-96-42.981-96-96-96z\'></path></svg>","description":"An easy-to-use content highlighter.","keywords":["click","social","tweet","better","twitter","facebook","share","quote","blockquote"],"version":"1.0.0","textdomain":"highlight-and-share","attributes":{"uniqueId":{"type":"string","default":""},"showClickToShare":{"type":"boolean","default":true},"showIcon":{"type":"boolean","default":true},"iconSize":{"type":"number","default":-1},"shareText":{"type":"string","default":""},"backgroundColor":{"type":"string","default":"#FFFFFF"},"backgroundColorHover":{"type":"string","default":"#FFFFFF"},"iconColor":{"type":"string","default":"#000000"},"iconColorHover":{"type":"string","default":"#000000"},"textColor":{"type":"string","default":"#000000"},"textColorHover":{"type":"string","default":"#000000"},"shareTextColor":{"type":"string","default":"#000000"},"shareTextColorHover":{"type":"string","default":"#000000"},"fontSize":{"type":"integer","default":24},"clickShareFontSize":{"type":"integer","default":24},"clickText":{"type":"string","default":"Click to Share"},"padding":{"type":"integer","default":-1},"border":{"type":"integer","default":-1},"borderRadius":{"type":"integer","default":0},"borderColor":{"type":"string","default":"#000000"},"borderColorHover":{"type":"string","default":"#000000"},"fontWeight":{"type":"string","default":"#FFFFFF"},"maxWidth":{"type":"string","default":"80"},"maxWidthUnit":{"type":"string","default":"%"},"align":{"type":"string","default":"center"},"alignment":{"type":"string","default":"center"},"marginLeft":{"type":"integer","default":0},"marginRight":{"type":"integer","default":0},"marginBottom":{"type":"integer","default":0},"marginTop":{"type":"integer","default":0},"paddingSize":{"type":"object","default":{"mobile":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"tablet":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"desktop":{"top":"20","right":"20","bottom":"20","left":"20","unit":"px","unitSync":true}}},"marginSize":{"type":"object","default":{"mobile":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"tablet":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"desktop":{"top":"20","right":"","bottom":"20","left":"","unit":"px","unitSync":true}}},"borderWidth":{"type":"object","default":{"mobile":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"tablet":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"desktop":{"top":"1","right":"1","bottom":"1","left":"1","unit":"px","unitSync":true}}},"borderRadiusSize":{"type":"object","default":{"mobile":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"tablet":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"desktop":{"top":"","right":"","bottom":"","left":"","unit":"px","unitSync":true}}}},"supports":{"anchor":true,"align":true,"className":true},"editorScript":"has-click-to-share","editorStyle":"has-style-admin-css","style":"has-style-frontend-css"}');
 
 /***/ })
 

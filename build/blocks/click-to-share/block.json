@@ -24,6 +24,18 @@
       "type": "string",
       "default": ""
     },
+    "showClickToShare": {
+      "type": "boolean",
+      "default": true
+    },
+    "showIcon": {
+      "type": "boolean",
+      "default": true
+    },
+    "iconSize": {
+      "type": "number",
+      "default": -1
+    },
     "shareText": {
       "type": "string",
       "default": ""

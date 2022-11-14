@@ -618,4 +618,8 @@
   font-weight: bold;
 }
 
+.has-range-control {
+  display: block;
+}
+
 /*# sourceMappingURL=has-cts-editor.css.map*/
