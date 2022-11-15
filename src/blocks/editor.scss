@@ -288,3 +288,69 @@
 .has-range-control {
 	display: block;
 }
+
+/* Typography Control */
+.has-typography-picker {
+	padding: 10px 15px;
+
+	.components-base-control {
+		padding-bottom: 0 !important; // override core styles.
+		margin-bottom: 0 !important; // override core styles.
+	}
+	.components-base-control__field {
+		padding-bottom: 0;
+		margin-bottom: 0;
+	}
+
+	.has-typography-picker__row {
+		margin-bottom: 10px;
+	}
+
+	.has-typography-picker__row__col-2 { /* there's a hidden div that has zero space */
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		grid-gap: 10px;
+		align-items: end;
+
+		.has-typography-picker__row_item.has-units {
+			display: grid;
+			grid-template-columns: 1fr 0 36px;
+			column-gap: 0;
+			align-items: end;
+
+			.components-button {
+				font-size: 13px;
+				line-height: normal;
+				padding: 6px 8px;
+				max-height: 30px;
+			}
+		}
+		
+	}
+}
+
+/* Popover unit picker for typography */
+.has-component-font-unit-picker {
+	.components-popover__content {
+		min-width: 48px;
+		background: #FFF;
+		outline: unset;
+		border: 1px solid #333;
+
+		.components-button {
+			width: 100%;
+			font-size: 13px;
+			padding: 6px 8px;
+			margin: 0;
+			box-shadow: unset;
+			justify-content: center;
+			border-bottom: 1px solid #dadada;
+			outline: unset;
+
+			&:last-child,
+			&.is-primary {
+				border-bottom: 0;
+			}
+		}
+	}
+}

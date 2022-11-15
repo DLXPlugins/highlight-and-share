@@ -49,22 +49,15 @@ const DimensionsControlBlock = ( props ) => {
 	};
 
 	const {
-		register,
 		control,
-		handleSubmit,
 		setValue,
 		getValues,
-		reset,
-		trigger,
 	} = useForm( {
 		defaultValues: getDefaultValues(),
 	} );
 
 	const formValues = useWatch( { control } );
 
-	const { errors, isDirty, dirtyFields, touchedFields } = useFormState( {
-		control,
-	} );
 	const {
 		label = __( 'Padding', 'highlight-and-share' ),
 		labelTop = __( 'Top', 'highlight-and-share' ),

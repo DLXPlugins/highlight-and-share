@@ -255,6 +255,82 @@
           "unitSync": true
         }
       }
+    },
+    "typographyQuote": {
+      "type": "object",
+      "default": {
+        "mobile": {
+          "fontFamily": "",
+          "fontSize": "",
+          "fontSizeUnit": "px",
+          "fontWeight": "",
+          "lineHeight": "",
+          "lineHeightUnit": "em",
+          "textTransform": "",
+          "letterSpacing": "",
+          "letterSpacingUnit": "px"
+        },
+        "tablet": {
+          "fontFamily": "",
+          "fontSize": "",
+          "fontSizeUnit": "px",
+          "fontWeight": "",
+          "lineHeight": "",
+          "lineHeightUnit": "em",
+          "textTransform": "",
+          "letterSpacing": "",
+          "letterSpacingUnit": "px"
+        },
+        "desktop": {
+          "fontFamily": "Arial",
+          "fontSize": "24",
+          "fontSizeUnit": "px",
+          "fontWeight": "normal",
+          "lineHeight": "1.3",
+          "lineHeightUnit": "em",
+          "textTransform": "none",
+          "letterSpacing": "0",
+          "letterSpacingUnit": "px"
+        }
+      }
+    },
+    "typographyShareText": {
+      "type": "object",
+      "default": {
+        "mobile": {
+          "fontFamily": "",
+          "fontSize": "",
+          "fontSizeUnit": "px",
+          "fontWeight": "",
+          "lineHeight": "",
+          "lineHeightUnit": "em",
+          "textTransform": "",
+          "letterSpacing": "",
+          "letterSpacingUnit": "px"
+        },
+        "tablet": {
+          "fontFamily": "",
+          "fontSize": "",
+          "fontSizeUnit": "px",
+          "fontWeight": "",
+          "lineHeight": "",
+          "lineHeightUnit": "em",
+          "textTransform": "",
+          "letterSpacing": "",
+          "letterSpacingUnit": "px"
+        },
+        "desktop": {
+          "fontFamily": "Arial",
+          "fontSize": "24",
+          "fontSizeUnit": "px",
+          "fontWeight": "normal",
+          "lineHeight": "1.3",
+          "lineHeightUnit": "em",
+          "textTransform": "none",
+          "letterSpacing": "0",
+          "letterSpacingUnit": "px"
+        }
+      }
     }
   },
   "supports": {

@@ -145,6 +145,7 @@ class Adobe_Fonts {
 				'slug'     => sanitize_text_field( $font_family['slug'] ),
 				'family'   => sanitize_text_field( current( $font_family['css_names'] ) ),
 				'fallback' => sanitize_text_field( $fallback_css ),
+				'type'     => 'adobe',
 			);
 		}
 		return $fonts;

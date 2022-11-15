@@ -76,12 +76,17 @@ class Blocks {
 		if ( isset( $settings['color']['palette']['theme'] ) ) {
 			$color_palette = $settings['color']['palette']['theme'];
 		}
+
+		// Get adobe fonts.
+		$block_editor_options = Options::get_block_editor_options( true );
+		$adobe_fonts = $block_editor_options['adobe_fonts'] ?? array();
 		wp_localize_script(
 			'has-click-to-share',
 			'has_gutenberg',
 			array(
 				'svg'          => Functions::get_plugin_url( 'img/share.svg' ),
 				'colorPalette' => $color_palette,
+				'adobeFonts'   => $adobe_fonts,
 			)
 		);
 		wp_set_script_translations( 'has-click-to-share', 'highlight-and-share' );
@@ -356,85 +361,5 @@ class Blocks {
 		$output = $top . $right . $bottom . $left;
 
 		return trim( $output );
-	}
-
-	/**
-	 * Register front-end scripts/styles.
-	 */
-	public function register_frontend_scripts() {
-
-		// Register front-end script if blocks are present on the post/page.
-		if ( has_block( 'mediaron/alerts-dlx-material' ) || has_block( '"mediaron/alerts-dlx-bootstrap' ) || has_block( 'mediaron/alerts-dlx-chakra' ) ) {
-			// Placeholder for now.
-		}
-
-		wp_register_style(
-			'alerts-dlx-block-editor-styles-lato',
-			Functions::get_plugin_url( 'dist/alerts-dlx-gfont-lato.css' ),
-			array(),
-			Functions::get_plugin_version(),
-			'all'
-		);
-
-		wp_register_style(
-			'alerts-dlx-common',
-			Functions::get_plugin_url( 'dist/alerts-dlx-common.css' ),
-			array( 'alerts-dlx-block-editor-styles-lato' ),
-			Functions::get_plugin_version(),
-			'all'
-		);
-	}
-
-	/**
-	 * Register the block editor script with localized vars.
-	 */
-	public function register_block_editor_scripts() {
-
-		// Register styles here because array in block.json fails when using array of styles (enqueues wrong script).
-		wp_register_style(
-			'alerts-dlx-block-editor',
-			Functions::get_plugin_url( 'dist/alerts-dlx-block-editor.css' ),
-			array(),
-			Functions::get_plugin_version(),
-			'all'
-		);
-		wp_register_style(
-			'alerts-dlx-block-editor-styles',
-			Functions::get_plugin_url( 'build/alerts-dlx.css' ),
-			array( 'alerts-dlx-block-editor' ),
-			Functions::get_plugin_version(),
-			'all'
-		);
-
-		wp_register_style(
-			'alerts-dlx-block-editor-styles-lato',
-			Functions::get_plugin_url( 'dist/alerts-dlx-gfont-lato.css' ),
-			array(),
-			Functions::get_plugin_version(),
-			'all'
-		);
-		wp_register_style(
-			'alerts-dlx-common',
-			Functions::get_plugin_url( 'dist/alerts-dlx-common.css' ),
-			array( 'alerts-dlx-block-editor-styles-lato' ),
-			Functions::get_plugin_version(),
-			'all'
-		);
-
-		wp_register_script(
-			'alerts-dlx-block',
-			Functions::get_plugin_url( 'build/alerts-dlx.js' ),
-			array(),
-			Functions::get_plugin_version(),
-			true
-		);
-
-		wp_localize_script(
-			'alerts-dlx-block',
-			'alertsDlxBlock',
-			array(
-				'font_stylesheet' => Functions::get_plugin_url( 'dist/alerts-dlx-gfont-lato.css' ),
-			)
-		);
 	}
 }

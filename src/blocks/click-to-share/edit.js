@@ -9,6 +9,7 @@ import DimensionsControlBlock from '../../react/Components/DimensionsBlock';
 import useDeviceType from '../../react/Hooks/useDeviceType';
 import { buildDimensionsCSS } from '../../react/Utils/DimensionsHelper';
 import UnitChooser from '../../react/Components/unit-picker';
+import Typography from '../../react/Components/Typography';
 
 const { __ } = wp.i18n;
 
@@ -67,6 +68,8 @@ const HAS_Click_To_Share = ( props ) => {
 		borderWidth,
 		borderRadiusSize,
 		uniqueId,
+		typographyQuote,
+		typographyShareText,
 	} = attributes;
 
 	useEffect( () => {
@@ -238,6 +241,15 @@ const HAS_Click_To_Share = ( props ) => {
 						label={ __( 'Mobile', 'highlight-and-share' ) }
 					/>
 				</ButtonGroup>
+			</div>
+			<div>
+				<Typography
+					values={ typographyQuote }
+					screenSize={ deviceType }
+					onValuesChange={ ( formValues ) => {
+						console.log( formValues );
+					} }
+				/>
 			</div>
 			<PanelBody
 				title={ __( 'Share Settings', 'highlight-and-share' ) }
@@ -556,7 +568,6 @@ const HAS_Click_To_Share = ( props ) => {
 			<PanelBody
 				title={ __( 'Highlight and Share Settings', 'highlight-and-share' ) }
 			>
-
 				<SelectControl
 					label={ __( 'Font Weight', 'highlight-and-share' ) }
 					value={ fontWeight }
@@ -565,7 +576,6 @@ const HAS_Click_To_Share = ( props ) => {
 						setAttributes( { fontWeight: value } );
 					} }
 				/>
-
 			</PanelBody>
 			<PanelBody
 				title={ __( 'Spacing and Font Settings', 'highlight-and-share' ) }
@@ -612,10 +622,12 @@ const HAS_Click_To_Share = ( props ) => {
 	const block = (
 		<>
 			{ inspectorControls }
-			<style>
-				{ styles }
-			</style>
-			<div className={ classnames( 'has-click-to-share' ) } style={ hasStyles } id={ uniqueId }>
+			<style>{ styles }</style>
+			<div
+				className={ classnames( 'has-click-to-share' ) }
+				style={ hasStyles }
+				id={ uniqueId }
+			>
 				<div className="has-click-to-share-wrapper">
 					<RichText
 						tagName="div"
@@ -639,11 +651,7 @@ const HAS_Click_To_Share = ( props ) => {
 						className="has-click-to-share-cta"
 						style={ { fontSize: clickShareFontSize } }
 					>
-						{ showClickToShare && (
-							<>
-								{ clickText }{ ' ' }
-							</>
-						) }
+						{ showClickToShare && <>{ clickText } </> }
 						{ showIcon && (
 							<svg
 								style={ {
@@ -677,9 +685,7 @@ const HAS_Click_To_Share = ( props ) => {
 
 	return (
 		<>
-			<div { ...blockProps }>
-				{ block }
-			</div>
+			<div { ...blockProps }>{ block }</div>
 		</>
 	);
 };
