@@ -213,12 +213,12 @@ const HAS_Click_To_Share = ( props ) => {
 		}
 		#${ uniqueId } .has-click-to-share-text,
 		#${ uniqueId } .has-click-to-share-text p {
-			font-family: "${ geHierarchicalPlaceholderValue( typographyQuote, screenSize.toLowerCase(), typographyQuote[ screenSize.toLowerCase() ].fontFamily, 'fontFamily' ) }";
-			font-weight: ${ typographyQuote[ screenSize.toLowerCase() ].fontWeight };
-			font-size: ${ geHierarchicalPlaceholderValue( typographyQuote, screenSize.toLowerCase(), typographyQuote[ screenSize.toLowerCase() ].fontSize, 'fontSize' ) + getHierarchicalValueUnit( typographyQuote, screenSize.toLowerCase(), typographyQuote[ screenSize.toLowerCase() ].fontSizeUnit, 'fontSizeUnit' ) };
-			line-height: ${ typographyQuote[ screenSize ].lineHeight }${ typographyQuote[ screenSize ].lineHeightUnit };
-			letter-spacing: ${ typographyQuote[ screenSize ].letterSpacing }${ typographyQuote[ screenSize ].letterSpacingUnit };
-			text-transform: ${ typographyQuote[ screenSize ].textTransform };
+			font-family: "${ geHierarchicalPlaceholderValue( typographyQuote, screenSize, typographyQuote[ screenSize ].fontFamily, 'fontFamily' ) }";
+			font-weight: ${ geHierarchicalPlaceholderValue( typographyQuote, screenSize, typographyQuote[ screenSize ].fontWeight, 'fontWeight' ) };
+			font-size: ${ geHierarchicalPlaceholderValue( typographyQuote, screenSize, typographyQuote[ screenSize ].fontSize, 'fontSize' ) + getHierarchicalValueUnit( typographyQuote, screenSize, typographyQuote[ screenSize ].fontSizeUnit, 'fontSizeUnit' ) };
+			line-height: ${ geHierarchicalPlaceholderValue( typographyQuote, screenSize, typographyQuote[ screenSize ].lineHeight, 'lineHeight' ) + getHierarchicalValueUnit( typographyQuote, screenSize, typographyQuote[ screenSize ].lineHeightUnit, 'lineHeightUnit' ) };
+			letter-spacing: ${ geHierarchicalPlaceholderValue( typographyQuote, screenSize, typographyQuote[ screenSize ].letterSpacing, 'letterSpacing' ) + getHierarchicalValueUnit( typographyQuote, screenSize, typographyQuote[ screenSize ].letterSpacingUnit, 'letterSpacingUnit' ) };
+			text-transform: ${ geHierarchicalPlaceholderValue( typographyQuote, screenSize, typographyQuote[ screenSize ].textTransform, 'textTransform' ) };
 		}
 	`;
 	const fontWeightArr = Array();
