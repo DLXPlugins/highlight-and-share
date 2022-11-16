@@ -2,8 +2,8 @@ import React, { useState, useEffect } from 'react';
 import fontFamilies from '../../../fonts/fonts';
 import { __ } from '@wordpress/i18n';
 import { ButtonGroup, Button, Tooltip, SelectControl, BaseControl, TextControl, Popover } from '@wordpress/components';
-import { useForm, Controller, useWatch, useFormState } from 'react-hook-form';
-import classNames from 'classnames';
+import { useForm, Controller, useWatch } from 'react-hook-form';
+import { geHierarchicalPlaceholderValue } from '../../Utils/TypographyHelper';
 
 const Typography = ( props ) => {
 	const [ screenSize, setScreenSize ] = useState( 'desktop' );
@@ -102,9 +102,10 @@ const Typography = ( props ) => {
 				render={ ( { field: { onChange, value } } ) => (
 					<SelectControl
 						label={ __( 'Font Family', 'highlight-and-share' ) }
-						value={ value }
+						value={ geHierarchicalPlaceholderValue( props.values, screenSize, getValues( screenSize ).fontFamily, 'fontFamily' ) }
 						options={ fonts }
 						onChange={ ( newValue ) => {
+							console.log( newValue );
 							onChange( newValue );
 						} }
 					/>
@@ -127,7 +128,7 @@ const Typography = ( props ) => {
 				render={ ( { field: { onChange, value } } ) => (
 					<SelectControl
 						label={ __( 'Text Transform', 'highlight-and-share' ) }
-						value={ value }
+						value={ geHierarchicalPlaceholderValue( props.values, screenSize, getValues( screenSize ).textTransform, 'textTransform' ) }
 						options={ textTransform }
 						onChange={ ( newValue ) => {
 							onChange( newValue );

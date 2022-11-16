@@ -246,7 +246,9 @@ const HAS_Click_To_Share = ( props ) => {
 						values={ typographyQuote }
 						screenSize={ deviceType }
 						onValuesChange={ ( formValues ) => {
-							console.log( formValues );
+							setAttributes( {
+								typographyQuote: formValues,
+							} );
 						} }
 						label={ __( 'Quote Typography', 'highlight-and-share' ) }
 					/>

@@ -314,7 +314,7 @@
 					"fontFallback": "sans-serif"
 				},
 				"desktop": {
-					"fontFamily": "Arial",
+					"fontFamily": "arial",
 					"fontSize": "24",
 					"fontSizeUnit": "px",
 					"fontWeight": "normal",
