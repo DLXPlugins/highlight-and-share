@@ -10,6 +10,7 @@ import useDeviceType from '../../react/Hooks/useDeviceType';
 import { buildDimensionsCSS } from '../../react/Utils/DimensionsHelper';
 import UnitChooser from '../../react/Components/unit-picker';
 import Typography from '../../react/Components/Typography';
+import { geHierarchicalPlaceholderValue, getHierarchicalValueUnit } from '../../react/Utils/TypographyHelper';
 
 const { __ } = wp.i18n;
 
@@ -152,6 +153,26 @@ const HAS_Click_To_Share = ( props ) => {
 		}
 	}, [] );
 
+	const getFontStyles = ( fontObject ) => {
+		const fontType = fontObject[ deviceType.toLowerCase() ].fontType;
+		const fontSlug = fontObject[ deviceType.toLowerCase() ].fontFamilySlug;
+		if ( 'google' === fontType ) {
+			return (
+				<>
+					<link rel="stylesheet" href={ `${ has_gutenberg.cssFolder }/has-gfont-${ fontSlug }.css` } />
+				</>
+			);
+		}
+		if ( 'adobe' === fontType ) {
+			return (
+				<>
+					<link rel="stylesheet" href={ `${ has_gutenberg.adobeFontsUrl }/${ has_gutenberg.adobeProjectId }.css` } />
+				</>
+			);
+		}
+		return null;
+	};
+
 	const hasStyles = {
 		fontSize: fontSize + 'px',
 		padding: buildDimensionsCSS( paddingSize, deviceType ),
@@ -192,11 +213,11 @@ const HAS_Click_To_Share = ( props ) => {
 		}
 		#${ uniqueId } .has-click-to-share-text,
 		#${ uniqueId } .has-click-to-share-text p {
-			font-family: "${ typographyQuote[ screenSize ].fontFamily }";
-			font-weight: ${ typographyQuote[ screenSize ].fontWeight };
-			font-size: ${ typographyQuote[ screenSize ].fontSize }${ typographyQuote.fontSizeUnit };
-			line-height: ${ typographyQuote[ screenSize ].lineHeight }${ typographyQuote.lineHeightUnit };
-			letter-spacing: ${ typographyQuote[ screenSize ].letterSpacing }${ typographyQuote.letterSpacingUnit };
+			font-family: "${ geHierarchicalPlaceholderValue( typographyQuote, screenSize.toLowerCase(), typographyQuote[ screenSize.toLowerCase() ].fontFamily, 'fontFamily' ) }";
+			font-weight: ${ typographyQuote[ screenSize.toLowerCase() ].fontWeight };
+			font-size: ${ geHierarchicalPlaceholderValue( typographyQuote, screenSize.toLowerCase(), typographyQuote[ screenSize.toLowerCase() ].fontSize, 'fontSize' ) + getHierarchicalValueUnit( typographyQuote, screenSize.toLowerCase(), typographyQuote[ screenSize.toLowerCase() ].fontSizeUnit, 'fontSizeUnit' ) };
+			line-height: ${ typographyQuote[ screenSize ].lineHeight }${ typographyQuote[ screenSize ].lineHeightUnit };
+			letter-spacing: ${ typographyQuote[ screenSize ].letterSpacing }${ typographyQuote[ screenSize ].letterSpacingUnit };
 			text-transform: ${ typographyQuote[ screenSize ].textTransform };
 		}
 	`;
@@ -644,6 +665,8 @@ const HAS_Click_To_Share = ( props ) => {
 	const block = (
 		<>
 			{ inspectorControls }
+			{ getFontStyles( typographyQuote ) }
+			{ getFontStyles( typographyShareText ) }
 			<style>{ styles }</style>
 			<div
 				className={ classnames( 'has-click-to-share' ) }

@@ -77,7 +77,6 @@ const Typography = ( props ) => {
 
 	useEffect( () => {
 		props.onValuesChange( formValues );
-		console.log( formValues );
 	}, [ formValues ] );
 
 	useEffect( () => {

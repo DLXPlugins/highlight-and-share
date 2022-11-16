@@ -79,19 +79,20 @@ export function geHierarchicalPlaceholderValue( props, screenSize, value, type )
  * @param {Object} props      Values object.
  * @param {string} screenSize mobile|tablet|desktop.
  * @param {string} value      Current value.
+ * @param {string} type       Type of value (fontSizeUnit, etc.).
  *
  * @return {string} Value default or hierarchical value.
  */
-export function getHierarchicalValueUnit( props, screenSize, value ) {
+export function getHierarchicalValueUnit( props, screenSize, value, type ) {
 	// Check mobile screen size.
 	if ( 'mobile' === screenSize && null === value ) {
-		if ( null === props.tablet.unit ) {
-			return props.desktop.unit;
+		if ( null === props.tablet[ type ] ) {
+			return props.desktop[ type ];
 		}
-		return props.tablet.unit;
+		return props.tablet[ type ];
 	}
 	if ( 'tablet' === screenSize && null === value ) {
-		return props.desktop.unit;
+		return props.desktop[ type ];
 	}
 	if ( null === value ) {
 		return 'px';

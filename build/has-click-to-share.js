@@ -19,6 +19,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _react_Utils_DimensionsHelper__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../react/Utils/DimensionsHelper */ "./src/react/Utils/DimensionsHelper.js");
 /* harmony import */ var _react_Components_unit_picker__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../react/Components/unit-picker */ "./src/react/Components/unit-picker/index.js");
 /* harmony import */ var _react_Components_Typography__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../react/Components/Typography */ "./src/react/Components/Typography/index.js");
+/* harmony import */ var _react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../react/Utils/TypographyHelper */ "./src/react/Utils/TypographyHelper.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
@@ -28,6 +29,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 /**
  * External dependencies
  */
+
 
 
 
@@ -182,6 +184,23 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
       });
     }
   }, []);
+  var getFontStyles = function getFontStyles(fontObject) {
+    var fontType = fontObject[deviceType.toLowerCase()].fontType;
+    var fontSlug = fontObject[deviceType.toLowerCase()].fontFamilySlug;
+    if ('google' === fontType) {
+      return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("link", {
+        rel: "stylesheet",
+        href: "".concat(has_gutenberg.cssFolder, "/has-gfont-").concat(fontSlug, ".css")
+      }));
+    }
+    if ('adobe' === fontType) {
+      return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("link", {
+        rel: "stylesheet",
+        href: "".concat(has_gutenberg.adobeFontsUrl, "/").concat(has_gutenberg.adobeProjectId, ".css")
+      }));
+    }
+    return null;
+  };
   var hasStyles = {
     fontSize: fontSize + 'px',
     padding: (0,_react_Utils_DimensionsHelper__WEBPACK_IMPORTED_MODULE_5__.buildDimensionsCSS)(paddingSize, deviceType),
@@ -191,7 +210,7 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
     margin: (0,_react_Utils_DimensionsHelper__WEBPACK_IMPORTED_MODULE_5__.buildDimensionsCSS)(marginSize, deviceType)
   };
   var screenSize = deviceType.toLowerCase();
-  var styles = "\n\t\t#".concat(uniqueId, ".has-click-to-share {\n\t\t\tbackground-color: ").concat(backgroundColor, ";\n\t\t\tborder-color: ").concat(borderColor, ";\n\n\t\t}\n\t\t#").concat(uniqueId, ".has-click-to-share:hover {\n\t\t\tbackground-color: ").concat(backgroundColorHover, ";\n\t\t\tborder-color: ").concat(borderColorHover, ";\n\t\t}\n\t\t\n\t\t#").concat(uniqueId, " .has-click-to-share-cta {\n\t\t\tcolor: ").concat(shareTextColor, "\n\t\t}\n\t\t#").concat(uniqueId, ":hover .has-click-to-share-cta {\n\t\t\tcolor: ").concat(shareTextColorHover, "\n\t\t}\n\t\t#").concat(uniqueId, " .has-click-to-share-text {\n\t\t\tcolor: ").concat(textColor, ";\n\t\t}\n\t\t#").concat(uniqueId, ":hover .has-click-to-share-text {\n\t\t\tcolor: ").concat(textColorHover, ";\n\t\t}\n\t\t#").concat(uniqueId, " .has-click-to-share-cta svg {\n\t\t\tcolor: ").concat(iconColor, ";\n\t\t}\n\t\t#").concat(uniqueId, ":hover .has-click-to-share-cta svg {\n\t\t\tcolor: ").concat(iconColorHover, ";\n\t\t}\n\t\t#").concat(uniqueId, " .has-click-to-share-text,\n\t\t#").concat(uniqueId, " .has-click-to-share-text p {\n\t\t\tfont-family: \"").concat(typographyQuote[screenSize].fontFamily, "\";\n\t\t\tfont-weight: ").concat(typographyQuote[screenSize].fontWeight, ";\n\t\t\tfont-size: ").concat(typographyQuote[screenSize].fontSize).concat(typographyQuote.fontSizeUnit, ";\n\t\t\tline-height: ").concat(typographyQuote[screenSize].lineHeight).concat(typographyQuote.lineHeightUnit, ";\n\t\t\tletter-spacing: ").concat(typographyQuote[screenSize].letterSpacing).concat(typographyQuote.letterSpacingUnit, ";\n\t\t\ttext-transform: ").concat(typographyQuote[screenSize].textTransform, ";\n\t\t}\n\t");
+  var styles = "\n\t\t#".concat(uniqueId, ".has-click-to-share {\n\t\t\tbackground-color: ").concat(backgroundColor, ";\n\t\t\tborder-color: ").concat(borderColor, ";\n\n\t\t}\n\t\t#").concat(uniqueId, ".has-click-to-share:hover {\n\t\t\tbackground-color: ").concat(backgroundColorHover, ";\n\t\t\tborder-color: ").concat(borderColorHover, ";\n\t\t}\n\t\t\n\t\t#").concat(uniqueId, " .has-click-to-share-cta {\n\t\t\tcolor: ").concat(shareTextColor, "\n\t\t}\n\t\t#").concat(uniqueId, ":hover .has-click-to-share-cta {\n\t\t\tcolor: ").concat(shareTextColorHover, "\n\t\t}\n\t\t#").concat(uniqueId, " .has-click-to-share-text {\n\t\t\tcolor: ").concat(textColor, ";\n\t\t}\n\t\t#").concat(uniqueId, ":hover .has-click-to-share-text {\n\t\t\tcolor: ").concat(textColorHover, ";\n\t\t}\n\t\t#").concat(uniqueId, " .has-click-to-share-cta svg {\n\t\t\tcolor: ").concat(iconColor, ";\n\t\t}\n\t\t#").concat(uniqueId, ":hover .has-click-to-share-cta svg {\n\t\t\tcolor: ").concat(iconColorHover, ";\n\t\t}\n\t\t#").concat(uniqueId, " .has-click-to-share-text,\n\t\t#").concat(uniqueId, " .has-click-to-share-text p {\n\t\t\tfont-family: \"").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_8__.geHierarchicalPlaceholderValue)(typographyQuote, screenSize.toLowerCase(), typographyQuote[screenSize.toLowerCase()].fontFamily, 'fontFamily'), "\";\n\t\t\tfont-weight: ").concat(typographyQuote[screenSize.toLowerCase()].fontWeight, ";\n\t\t\tfont-size: ").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_8__.geHierarchicalPlaceholderValue)(typographyQuote, screenSize.toLowerCase(), typographyQuote[screenSize.toLowerCase()].fontSize, 'fontSize') + (0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_8__.getHierarchicalValueUnit)(typographyQuote, screenSize.toLowerCase(), typographyQuote[screenSize.toLowerCase()].fontSizeUnit, 'fontSizeUnit'), ";\n\t\t\tline-height: ").concat(typographyQuote[screenSize].lineHeight).concat(typographyQuote[screenSize].lineHeightUnit, ";\n\t\t\tletter-spacing: ").concat(typographyQuote[screenSize].letterSpacing).concat(typographyQuote[screenSize].letterSpacingUnit, ";\n\t\t\ttext-transform: ").concat(typographyQuote[screenSize].textTransform, ";\n\t\t}\n\t");
   var fontWeightArr = Array();
   fontWeightArr.push({
     label: __('Normal', 'highlight-and-share'),
@@ -588,7 +607,7 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
     max: 30,
     step: 1
   })));
-  var block = /*#__PURE__*/React.createElement(React.Fragment, null, inspectorControls, /*#__PURE__*/React.createElement("style", null, styles), /*#__PURE__*/React.createElement("div", {
+  var block = /*#__PURE__*/React.createElement(React.Fragment, null, inspectorControls, getFontStyles(typographyQuote), getFontStyles(typographyShareText), /*#__PURE__*/React.createElement("style", null, styles), /*#__PURE__*/React.createElement("div", {
     className: classnames__WEBPACK_IMPORTED_MODULE_0___default()('has-click-to-share'),
     style: hasStyles,
     id: uniqueId
@@ -1442,7 +1461,6 @@ var Typography = function Typography(props) {
   var label = props.label;
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     props.onValuesChange(formValues);
-    console.log(formValues);
   }, [formValues]);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     setScreenSize(props.screenSize.toLowerCase());
@@ -2245,19 +2263,20 @@ function geHierarchicalPlaceholderValue(props, screenSize, value, type) {
  * @param {Object} props      Values object.
  * @param {string} screenSize mobile|tablet|desktop.
  * @param {string} value      Current value.
+ * @param {string} type       Type of value (fontSizeUnit, etc.).
  *
  * @return {string} Value default or hierarchical value.
  */
-function getHierarchicalValueUnit(props, screenSize, value) {
+function getHierarchicalValueUnit(props, screenSize, value, type) {
   // Check mobile screen size.
   if ('mobile' === screenSize && null === value) {
-    if (null === props.tablet.unit) {
-      return props.desktop.unit;
+    if (null === props.tablet[type]) {
+      return props.desktop[type];
     }
-    return props.tablet.unit;
+    return props.tablet[type];
   }
   if ('tablet' === screenSize && null === value) {
-    return props.desktop.unit;
+    return props.desktop[type];
   }
   if (null === value) {
     return 'px';

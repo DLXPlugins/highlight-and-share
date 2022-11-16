@@ -86,9 +86,12 @@ class Blocks {
 			'has-click-to-share',
 			'has_gutenberg',
 			array(
-				'svg'          => Functions::get_plugin_url( 'img/share.svg' ),
-				'colorPalette' => $color_palette,
-				'adobeFonts'   => $adobe_fonts,
+				'svg'            => Functions::get_plugin_url( 'img/share.svg' ),
+				'colorPalette'   => $color_palette,
+				'adobeFonts'     => $adobe_fonts,
+				'adobeFontsUrl'  => Adobe_Fonts::$typekit_css_url,
+				'adobeProjectId' => $block_editor_options['adobe_project_id'] ?? '',
+				'cssFolder'      => esc_url( functions::get_plugin_url( '/dist/' ) ),
 			)
 		);
 		wp_set_script_translations( 'has-click-to-share', 'highlight-and-share' );
