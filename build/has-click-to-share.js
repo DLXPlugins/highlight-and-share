@@ -236,13 +236,16 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
     },
     icon: "smartphone",
     label: __('Mobile', 'highlight-and-share')
-  }))), /*#__PURE__*/React.createElement("div", null, /*#__PURE__*/React.createElement(_react_Components_Typography__WEBPACK_IMPORTED_MODULE_7__["default"], {
+  })), /*#__PURE__*/React.createElement(PanelRow, {
+    className: "has-typography-panel-row"
+  }, /*#__PURE__*/React.createElement(_react_Components_Typography__WEBPACK_IMPORTED_MODULE_7__["default"], {
     values: typographyQuote,
     screenSize: deviceType,
     onValuesChange: function onValuesChange(formValues) {
       console.log(formValues);
-    }
-  })), /*#__PURE__*/React.createElement(PanelBody, {
+    },
+    label: __('Quote Typography', 'highlight-and-share')
+  }))), /*#__PURE__*/React.createElement(PanelBody, {
     title: __('Share Settings', 'highlight-and-share'),
     initialOpen: true
   }, /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(ToggleControl, {
@@ -408,7 +411,16 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
   }))), /*#__PURE__*/React.createElement(PanelBody, {
     title: __('Fonts and Typography', 'highlight-and-share'),
     initialOpen: false
-  }, /*#__PURE__*/React.createElement("div", null, "Coming Soon")), /*#__PURE__*/React.createElement(PanelBody, {
+  }, /*#__PURE__*/React.createElement(PanelRow, {
+    className: "has-typography-panel-row"
+  }, /*#__PURE__*/React.createElement(_react_Components_Typography__WEBPACK_IMPORTED_MODULE_7__["default"], {
+    values: typographyQuote,
+    screenSize: deviceType,
+    onValuesChange: function onValuesChange(formValues) {
+      console.log(formValues);
+    },
+    label: __('Quote Typography', 'highlight-and-share')
+  }))), /*#__PURE__*/React.createElement(PanelBody, {
     title: __('Spacing and Border', 'highlight-and-share'),
     initialOpen: false
   }, /*#__PURE__*/React.createElement(PanelRow, {
@@ -1362,6 +1374,14 @@ var Typography = function Typography(props) {
     _useState14 = _slicedToArray(_useState13, 2),
     letterSpacingUnitPopoverAnchor = _useState14[0],
     setLetterSpacingUnitPopoverAnchor = _useState14[1];
+  var _useState15 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState16 = _slicedToArray(_useState15, 2),
+    fontSettingsPopoverVisible = _useState16[0],
+    setFontSettingsPopoverVisible = _useState16[1];
+  var _useState17 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    _useState18 = _slicedToArray(_useState17, 2),
+    fontSettingsPopoverAnchor = _useState18[0],
+    setFontSettingsPopoverAnchor = _useState18[1];
   var getDefaultValues = function getDefaultValues() {
     return {
       mobile: {
@@ -1373,7 +1393,9 @@ var Typography = function Typography(props) {
         lineHeightUnit: props.values.mobile.lineHeightUnit,
         textTransform: props.values.mobile.textTransform,
         letterSpacing: props.values.mobile.letterSpacing,
-        letterSpacingUnit: props.values.mobile.letterSpacingUnit
+        letterSpacingUnit: props.values.mobile.letterSpacingUnit,
+        fontType: props.values.mobile.fontType,
+        fontFallback: props.values.mobile.fontFallback
       },
       tablet: {
         fontFamily: props.values.tablet.fontFamily,
@@ -1384,7 +1406,9 @@ var Typography = function Typography(props) {
         lineHeightUnit: props.values.tablet.lineHeightUnit,
         textTransform: props.values.tablet.textTransform,
         letterSpacing: props.values.tablet.letterSpacing,
-        letterSpacingUnit: props.values.tablet.letterSpacingUnit
+        letterSpacingUnit: props.values.tablet.letterSpacingUnit,
+        fontType: props.values.tablet.fontType,
+        fontFallback: props.values.tablet.fontFallback
       },
       desktop: {
         fontFamily: props.values.desktop.fontFamily,
@@ -1395,7 +1419,9 @@ var Typography = function Typography(props) {
         lineHeightUnit: props.values.desktop.lineHeightUnit,
         textTransform: props.values.desktop.textTransform,
         letterSpacing: props.values.desktop.letterSpacing,
-        letterSpacingUnit: props.values.desktop.letterSpacingUnit
+        letterSpacingUnit: props.values.desktop.letterSpacingUnit,
+        fontType: props.values.desktop.fontType,
+        fontFallback: props.values.desktop.fontFallback
       }
     };
   };
@@ -1408,6 +1434,7 @@ var Typography = function Typography(props) {
   var formValues = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_5__.useWatch)({
     control: control
   });
+  var label = props.label;
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     props.onValuesChange(formValues);
   }, [formValues]);
@@ -1652,14 +1679,40 @@ var Typography = function Typography(props) {
       }
     }, "rem"))));
   };
+  var getFontType = function getFontType() {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_5__.Controller, {
+      name: "".concat(screenSize, ".fontType"),
+      control: control,
+      render: function render(_ref8) {
+        var value = _ref8.field.value;
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.TextControl, {
+          type: "hidden",
+          value: value
+        });
+      }
+    });
+  };
+  var getFontFallback = function getFontFallback() {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_5__.Controller, {
+      name: "".concat(screenSize, ".fontFallback"),
+      control: control,
+      render: function render(_ref9) {
+        var value = _ref9.field.value;
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.TextControl, {
+          type: "hidden",
+          value: value
+        });
+      }
+    });
+  };
   var getLetterSpacing = function getLetterSpacing() {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_5__.Controller, {
       name: "".concat(screenSize, ".letterSpacing"),
       control: control,
-      render: function render(_ref8) {
-        var _ref8$field = _ref8.field,
-          _onChange6 = _ref8$field.onChange,
-          value = _ref8$field.value;
+      render: function render(_ref10) {
+        var _ref10$field = _ref10.field,
+          _onChange6 = _ref10$field.onChange,
+          value = _ref10$field.value;
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.TextControl, {
           label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Letter Spacing', 'highlight-and-share'),
           value: value,
@@ -1672,8 +1725,8 @@ var Typography = function Typography(props) {
     }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_5__.Controller, {
       name: "".concat(screenSize, ".letterSpacingUnit"),
       control: control,
-      render: function render(_ref9) {
-        var value = _ref9.field.value;
+      render: function render(_ref11) {
+        var value = _ref11.field.value;
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.TextControl, {
           type: "hidden",
           value: value
@@ -1710,29 +1763,51 @@ var Typography = function Typography(props) {
       }
     }, "rem"))));
   };
+  var getPopoverContent = function getPopoverContent() {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.BaseControl, {
+      className: "has-typography-picker"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "has-typography-picker__row has-typography-picker__row__col-full"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "has-typography-picker__row_item"
+    }, getFonts())), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "has-typography-picker__row has-typography-picker__row__col-full"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "has-typography-picker__row_item"
+    }, getTextTransform(), getFontType(), getFontFallback())), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "has-typography-picker__row has-typography-picker__row__col-2"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "has-typography-picker__row_item has-units"
+    }, getFontSize()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "has-typography-picker__row_item"
+    }, getFontWeights())), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "has-typography-picker__row has-typography-picker__row__col-2"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "has-typography-picker__row_item has-units"
+    }, getLineHeight()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "has-typography-picker__row_item has-units"
+    }, getLetterSpacing())));
+  };
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.BaseControl, {
-    className: "has-typography-picker"
+    className: "has-typography-picker-wrapper"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: "has-typography-picker__row has-typography-picker__row__col-full"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: "has-typography-picker__row_item"
-  }, getFonts())), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: "has-typography-picker__row has-typography-picker__row__col-full"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: "has-typography-picker__row_item"
-  }, getTextTransform())), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: "has-typography-picker__row has-typography-picker__row__col-2"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: "has-typography-picker__row_item has-units"
-  }, getFontSize()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: "has-typography-picker__row_item"
-  }, getFontWeights())), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: "has-typography-picker__row has-typography-picker__row__col-2"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: "has-typography-picker__row_item has-units"
-  }, getLineHeight()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: "has-typography-picker__row_item has-units"
-  }, getLetterSpacing())));
+    className: "has-typography-component-label"
+  }, label), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "has-typography-component-settings"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.Button, {
+    variant: "secondary",
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Font Settings', 'highlight-and-share'),
+    onClick: function onClick() {
+      setFontSettingsPopoverVisible(!fontSettingsPopoverVisible);
+    },
+    icon: "admin-settings"
+  }), true === fontSettingsPopoverVisible && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.Popover, {
+    className: "has-component-typography-popup",
+    noArrow: false,
+    anchor: fontSettingsPopoverAnchor,
+    placement: "left",
+    offset: 10
+  }, getPopoverContent())));
 };
 /* harmony default export */ __webpack_exports__["default"] = (Typography);
 
@@ -4608,7 +4683,7 @@ function useForm(props = {}) {
 /***/ (function(module) {
 
 "use strict";
-module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","title":"Click to Share","apiVersion":2,"name":"has/click-to-share","category":"text","icon":"<svg aria-hidden=\'true\' focusable=\'false\' data-prefix=\'fas\' data-icon=\'share-alt\' className=\'svg-inline--fa fa-share-alt fa-w-14\' role=\'img\' xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 448 512\'><path fill=\'currentColor\' d=\'M352 320c-22.608 0-43.387 7.819-59.79 20.895l-102.486-64.054a96.551 96.551 0 0 0 0-41.683l102.486-64.054C308.613 184.181 329.392 192 352 192c53.019 0 96-42.981 96-96S405.019 0 352 0s-96 42.981-96 96c0 7.158.79 14.13 2.276 20.841L155.79 180.895C139.387 167.819 118.608 160 96 160c-53.019 0-96 42.981-96 96s42.981 96 96 96c22.608 0 43.387-7.819 59.79-20.895l102.486 64.054A96.301 96.301 0 0 0 256 416c0 53.019 42.981 96 96 96s96-42.981 96-96-42.981-96-96-96z\'></path></svg>","description":"An easy-to-use content highlighter.","keywords":["click","social","tweet","better","twitter","facebook","share","quote","blockquote"],"version":"1.0.0","textdomain":"highlight-and-share","attributes":{"uniqueId":{"type":"string","default":""},"showClickToShare":{"type":"boolean","default":true},"showIcon":{"type":"boolean","default":true},"iconSize":{"type":"number","default":-1},"shareText":{"type":"string","default":""},"backgroundColor":{"type":"string","default":"#FFFFFF"},"backgroundColorHover":{"type":"string","default":"#FFFFFF"},"iconColor":{"type":"string","default":"#000000"},"iconColorHover":{"type":"string","default":"#000000"},"textColor":{"type":"string","default":"#000000"},"textColorHover":{"type":"string","default":"#000000"},"shareTextColor":{"type":"string","default":"#000000"},"shareTextColorHover":{"type":"string","default":"#000000"},"fontSize":{"type":"integer","default":24},"clickShareFontSize":{"type":"integer","default":24},"clickText":{"type":"string","default":"Click to Share"},"padding":{"type":"integer","default":-1},"border":{"type":"integer","default":-1},"borderRadius":{"type":"integer","default":0},"borderColor":{"type":"string","default":"#000000"},"borderColorHover":{"type":"string","default":"#000000"},"fontWeight":{"type":"string","default":"#FFFFFF"},"maxWidth":{"type":"string","default":"80"},"maxWidthUnit":{"type":"string","default":"%"},"align":{"type":"string","default":"center"},"alignment":{"type":"string","default":"center"},"marginLeft":{"type":"integer","default":0},"marginRight":{"type":"integer","default":0},"marginBottom":{"type":"integer","default":0},"marginTop":{"type":"integer","default":0},"paddingSize":{"type":"object","default":{"mobile":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"tablet":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"desktop":{"top":"20","right":"20","bottom":"20","left":"20","unit":"px","unitSync":true}}},"marginSize":{"type":"object","default":{"mobile":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"tablet":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"desktop":{"top":"20","right":"","bottom":"20","left":"","unit":"px","unitSync":true}}},"borderWidth":{"type":"object","default":{"mobile":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"tablet":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"desktop":{"top":"1","right":"1","bottom":"1","left":"1","unit":"px","unitSync":true}}},"borderRadiusSize":{"type":"object","default":{"mobile":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"tablet":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"desktop":{"top":"","right":"","bottom":"","left":"","unit":"px","unitSync":true}}},"typographyQuote":{"type":"object","default":{"mobile":{"fontFamily":"","fontSize":"","fontSizeUnit":"px","fontWeight":"","lineHeight":"","lineHeightUnit":"em","textTransform":"","letterSpacing":"","letterSpacingUnit":"px"},"tablet":{"fontFamily":"","fontSize":"","fontSizeUnit":"px","fontWeight":"","lineHeight":"","lineHeightUnit":"em","textTransform":"","letterSpacing":"","letterSpacingUnit":"px"},"desktop":{"fontFamily":"Arial","fontSize":"24","fontSizeUnit":"px","fontWeight":"normal","lineHeight":"1.3","lineHeightUnit":"em","textTransform":"none","letterSpacing":"0","letterSpacingUnit":"px"}}},"typographyShareText":{"type":"object","default":{"mobile":{"fontFamily":"","fontSize":"","fontSizeUnit":"px","fontWeight":"","lineHeight":"","lineHeightUnit":"em","textTransform":"","letterSpacing":"","letterSpacingUnit":"px"},"tablet":{"fontFamily":"","fontSize":"","fontSizeUnit":"px","fontWeight":"","lineHeight":"","lineHeightUnit":"em","textTransform":"","letterSpacing":"","letterSpacingUnit":"px"},"desktop":{"fontFamily":"Arial","fontSize":"24","fontSizeUnit":"px","fontWeight":"normal","lineHeight":"1.3","lineHeightUnit":"em","textTransform":"none","letterSpacing":"0","letterSpacingUnit":"px"}}}},"supports":{"anchor":true,"align":true,"className":true},"editorScript":"has-click-to-share","editorStyle":"has-style-admin-css","style":"has-style-frontend-css"}');
+module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","title":"Click to Share","apiVersion":2,"name":"has/click-to-share","category":"text","icon":"<svg aria-hidden=\'true\' focusable=\'false\' data-prefix=\'fas\' data-icon=\'share-alt\' className=\'svg-inline--fa fa-share-alt fa-w-14\' role=\'img\' xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 448 512\'><path fill=\'currentColor\' d=\'M352 320c-22.608 0-43.387 7.819-59.79 20.895l-102.486-64.054a96.551 96.551 0 0 0 0-41.683l102.486-64.054C308.613 184.181 329.392 192 352 192c53.019 0 96-42.981 96-96S405.019 0 352 0s-96 42.981-96 96c0 7.158.79 14.13 2.276 20.841L155.79 180.895C139.387 167.819 118.608 160 96 160c-53.019 0-96 42.981-96 96s42.981 96 96 96c22.608 0 43.387-7.819 59.79-20.895l102.486 64.054A96.301 96.301 0 0 0 256 416c0 53.019 42.981 96 96 96s96-42.981 96-96-42.981-96-96-96z\'></path></svg>","description":"An easy-to-use content highlighter.","keywords":["click","social","tweet","better","twitter","facebook","share","quote","blockquote"],"version":"1.0.0","textdomain":"highlight-and-share","attributes":{"uniqueId":{"type":"string","default":""},"showClickToShare":{"type":"boolean","default":true},"showIcon":{"type":"boolean","default":true},"iconSize":{"type":"number","default":-1},"shareText":{"type":"string","default":""},"backgroundColor":{"type":"string","default":"#FFFFFF"},"backgroundColorHover":{"type":"string","default":"#FFFFFF"},"iconColor":{"type":"string","default":"#000000"},"iconColorHover":{"type":"string","default":"#000000"},"textColor":{"type":"string","default":"#000000"},"textColorHover":{"type":"string","default":"#000000"},"shareTextColor":{"type":"string","default":"#000000"},"shareTextColorHover":{"type":"string","default":"#000000"},"fontSize":{"type":"integer","default":24},"clickShareFontSize":{"type":"integer","default":24},"clickText":{"type":"string","default":"Click to Share"},"padding":{"type":"integer","default":-1},"border":{"type":"integer","default":-1},"borderRadius":{"type":"integer","default":0},"borderColor":{"type":"string","default":"#000000"},"borderColorHover":{"type":"string","default":"#000000"},"fontWeight":{"type":"string","default":"#FFFFFF"},"maxWidth":{"type":"string","default":"80"},"maxWidthUnit":{"type":"string","default":"%"},"align":{"type":"string","default":"center"},"alignment":{"type":"string","default":"center"},"marginLeft":{"type":"integer","default":0},"marginRight":{"type":"integer","default":0},"marginBottom":{"type":"integer","default":0},"marginTop":{"type":"integer","default":0},"paddingSize":{"type":"object","default":{"mobile":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"tablet":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"desktop":{"top":"20","right":"20","bottom":"20","left":"20","unit":"px","unitSync":true}}},"marginSize":{"type":"object","default":{"mobile":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"tablet":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"desktop":{"top":"20","right":"","bottom":"20","left":"","unit":"px","unitSync":true}}},"borderWidth":{"type":"object","default":{"mobile":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"tablet":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"desktop":{"top":"1","right":"1","bottom":"1","left":"1","unit":"px","unitSync":true}}},"borderRadiusSize":{"type":"object","default":{"mobile":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"tablet":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"desktop":{"top":"","right":"","bottom":"","left":"","unit":"px","unitSync":true}}},"typographyQuote":{"type":"object","default":{"mobile":{"fontFamily":"","fontSize":"","fontSizeUnit":"px","fontWeight":"","lineHeight":"","lineHeightUnit":"em","textTransform":"","letterSpacing":"","letterSpacingUnit":"px"},"tablet":{"fontFamily":"","fontSize":"","fontSizeUnit":"px","fontWeight":"","lineHeight":"","lineHeightUnit":"em","textTransform":"","letterSpacing":"","letterSpacingUnit":"px"},"desktop":{"fontFamily":"Arial","fontSize":"24","fontSizeUnit":"px","fontWeight":"normal","lineHeight":"1.3","lineHeightUnit":"em","textTransform":"none","letterSpacing":"0","letterSpacingUnit":"px"}}},"typographyShareText":{"type":"object","default":{"mobile":{"fontFamily":"","fontSize":"","fontSizeUnit":"px","fontWeight":"","lineHeight":"","lineHeightUnit":"em","textTransform":"","letterSpacing":"","letterSpacingUnit":"px","fontType":"web","fontFallback":"sans-serif"},"tablet":{"fontFamily":"","fontSize":"","fontSizeUnit":"px","fontWeight":"","lineHeight":"","lineHeightUnit":"em","textTransform":"","letterSpacing":"","letterSpacingUnit":"px","fontType":"web","fontFallback":"sans-serif"},"desktop":{"fontFamily":"Arial","fontSize":"24","fontSizeUnit":"px","fontWeight":"normal","lineHeight":"1.3","lineHeightUnit":"em","textTransform":"none","letterSpacing":"0","letterSpacingUnit":"px","fontType":"web","fontFallback":"sans-serif"}}}},"supports":{"anchor":true,"align":true,"className":true},"editorScript":"has-click-to-share","editorStyle":"has-style-admin-css","style":"has-style-frontend-css"}');
 
 /***/ })
 

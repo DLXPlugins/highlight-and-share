@@ -241,15 +241,16 @@ const HAS_Click_To_Share = ( props ) => {
 						label={ __( 'Mobile', 'highlight-and-share' ) }
 					/>
 				</ButtonGroup>
-			</div>
-			<div>
-				<Typography
-					values={ typographyQuote }
-					screenSize={ deviceType }
-					onValuesChange={ ( formValues ) => {
-						console.log( formValues );
-					} }
-				/>
+				<PanelRow className="has-typography-panel-row">
+					<Typography
+						values={ typographyQuote }
+						screenSize={ deviceType }
+						onValuesChange={ ( formValues ) => {
+							console.log( formValues );
+						} }
+						label={ __( 'Quote Typography', 'highlight-and-share' ) }
+					/>
+				</PanelRow>
 			</div>
 			<PanelBody
 				title={ __( 'Share Settings', 'highlight-and-share' ) }
@@ -438,7 +439,16 @@ const HAS_Click_To_Share = ( props ) => {
 				title={ __( 'Fonts and Typography', 'highlight-and-share' ) }
 				initialOpen={ false }
 			>
-				<div>Coming Soon</div>
+				<PanelRow className="has-typography-panel-row">
+					<Typography
+						values={ typographyQuote }
+						screenSize={ deviceType }
+						onValuesChange={ ( formValues ) => {
+							console.log( formValues );
+						} }
+						label={ __( 'Quote Typography', 'highlight-and-share' ) }
+					/>
+				</PanelRow>
 			</PanelBody>
 			<PanelBody
 				title={ __( 'Spacing and Border', 'highlight-and-share' ) }

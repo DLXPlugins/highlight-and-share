@@ -13,6 +13,8 @@ const Typography = ( props ) => {
 	const [ lineHeightUnitPopoverAnchor, setLineHeightUnitPopoverAnchor ] = useState( null );
 	const [ letterSpacingUnitPopoverVisible, setLetterSpacingUnitPopoverVisible ] = useState( false );
 	const [ letterSpacingUnitPopoverAnchor, setLetterSpacingUnitPopoverAnchor ] = useState( null );
+	const [ fontSettingsPopoverVisible, setFontSettingsPopoverVisible ] = useState( false );
+	const [ fontSettingsPopoverAnchor, setFontSettingsPopoverAnchor ] = useState( null );
 
 	const getDefaultValues = () => {
 		return {
@@ -26,6 +28,8 @@ const Typography = ( props ) => {
 				textTransform: props.values.mobile.textTransform,
 				letterSpacing: props.values.mobile.letterSpacing,
 				letterSpacingUnit: props.values.mobile.letterSpacingUnit,
+				fontType: props.values.mobile.fontType,
+				fontFallback: props.values.mobile.fontFallback,
 			},
 			tablet: {
 				fontFamily: props.values.tablet.fontFamily,
@@ -37,6 +41,8 @@ const Typography = ( props ) => {
 				textTransform: props.values.tablet.textTransform,
 				letterSpacing: props.values.tablet.letterSpacing,
 				letterSpacingUnit: props.values.tablet.letterSpacingUnit,
+				fontType: props.values.tablet.fontType,
+				fontFallback: props.values.tablet.fontFallback,
 			},
 			desktop: {
 				fontFamily: props.values.desktop.fontFamily,
@@ -48,6 +54,8 @@ const Typography = ( props ) => {
 				textTransform: props.values.desktop.textTransform,
 				letterSpacing: props.values.desktop.letterSpacing,
 				letterSpacingUnit: props.values.desktop.letterSpacingUnit,
+				fontType: props.values.desktop.fontType,
+				fontFallback: props.values.desktop.fontFallback,
 			},
 		};
 	};
@@ -61,6 +69,8 @@ const Typography = ( props ) => {
 	} );
 
 	const formValues = useWatch( { control } );
+
+	const { label } = props;
 
 	useEffect( () => {
 		props.onValuesChange( formValues );
@@ -306,6 +316,36 @@ const Typography = ( props ) => {
 		);
 	};
 
+	const getFontType = () => {
+		return (
+			<Controller
+				name={ `${ screenSize }.fontType` }
+				control={ control }
+				render={ ( { field: { value } } ) => (
+					<TextControl
+						type="hidden"
+						value={ value }
+					/>
+				) }
+			/>
+		);
+	};
+
+	const getFontFallback = () => {
+		return (
+			<Controller
+				name={ `${ screenSize }.fontFallback` }
+				control={ control }
+				render={ ( { field: { value } } ) => (
+					<TextControl
+						type="hidden"
+						value={ value }
+					/>
+				) }
+			/>
+		);
+	};
+
 	const getLetterSpacing = () => {
 		return (
 			<>
@@ -380,33 +420,66 @@ const Typography = ( props ) => {
 		);
 	};
 
+	const getPopoverContent = () => {
+		return (
+			<BaseControl className="has-typography-picker">
+				<div className="has-typography-picker__row has-typography-picker__row__col-full">
+					<div className="has-typography-picker__row_item">
+						{ getFonts() }
+					</div>
+				</div>
+				<div className="has-typography-picker__row has-typography-picker__row__col-full">
+					<div className="has-typography-picker__row_item">
+						{ getTextTransform() }
+						{ getFontType() }
+						{ getFontFallback() }
+					</div>
+				</div>
+				<div className="has-typography-picker__row has-typography-picker__row__col-2">
+					<div className="has-typography-picker__row_item has-units">
+						{ getFontSize() }
+					</div>
+					<div className="has-typography-picker__row_item">
+						{ getFontWeights() }
+					</div>
+				</div>
+				<div className="has-typography-picker__row has-typography-picker__row__col-2">
+					<div className="has-typography-picker__row_item has-units">
+						{ getLineHeight() }
+					</div>
+					<div className="has-typography-picker__row_item has-units">
+						{ getLetterSpacing() }
+					</div>
+				</div>
+			</BaseControl>
+		);
+	};
+
 	return (
-		<BaseControl className="has-typography-picker">
-			<div className="has-typography-picker__row has-typography-picker__row__col-full">
-				<div className="has-typography-picker__row_item">
-					{ getFonts() }
-				</div>
+		<BaseControl className="has-typography-picker-wrapper">
+			<div className="has-typography-component-label">
+				{ label }
 			</div>
-			<div className="has-typography-picker__row has-typography-picker__row__col-full">
-				<div className="has-typography-picker__row_item">
-					{ getTextTransform() }
-				</div>
-			</div>
-			<div className="has-typography-picker__row has-typography-picker__row__col-2">
-				<div className="has-typography-picker__row_item has-units">
-					{ getFontSize() }
-				</div>
-				<div className="has-typography-picker__row_item">
-					{ getFontWeights() }
-				</div>
-			</div>
-			<div className="has-typography-picker__row has-typography-picker__row__col-2">
-				<div className="has-typography-picker__row_item has-units">
-					{ getLineHeight() }
-				</div>
-				<div className="has-typography-picker__row_item has-units">
-					{ getLetterSpacing() }
-				</div>
+			<div className="has-typography-component-settings">
+				<Button
+					variant="secondary"
+					label={ __( 'Font Settings', 'highlight-and-share' ) }
+					onClick={ () => {
+						setFontSettingsPopoverVisible( ! fontSettingsPopoverVisible );
+					} }
+					icon="admin-settings"
+				/>
+				{ true === fontSettingsPopoverVisible && (
+					<Popover
+						className="has-component-typography-popup"
+						noArrow={ false }
+						anchor={ fontSettingsPopoverAnchor }
+						placement="left"
+						offset={ 10 }
+					>
+						{ getPopoverContent() }
+					</Popover>
+				) }
 			</div>
 		</BaseControl>
 	);

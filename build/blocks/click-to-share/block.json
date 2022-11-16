@@ -306,7 +306,9 @@
           "lineHeightUnit": "em",
           "textTransform": "",
           "letterSpacing": "",
-          "letterSpacingUnit": "px"
+          "letterSpacingUnit": "px",
+          "fontType": "web",
+          "fontFallback": "sans-serif"
         },
         "tablet": {
           "fontFamily": "",
@@ -317,7 +319,9 @@
           "lineHeightUnit": "em",
           "textTransform": "",
           "letterSpacing": "",
-          "letterSpacingUnit": "px"
+          "letterSpacingUnit": "px",
+          "fontType": "web",
+          "fontFallback": "sans-serif"
         },
         "desktop": {
           "fontFamily": "Arial",
@@ -328,7 +332,9 @@
           "lineHeightUnit": "em",
           "textTransform": "none",
           "letterSpacing": "0",
-          "letterSpacingUnit": "px"
+          "letterSpacingUnit": "px",
+          "fontType": "web",
+          "fontFallback": "sans-serif"
         }
       }
     }

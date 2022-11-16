@@ -415,9 +415,9 @@
   margin: 0 auto;
   justify-content: space-between;
   text-align: left;
-  font-weight: 600;
   margin-bottom: 8px;
   align-items: center;
+  font-size: 13px;
 }
 .has-component-color-picker-wrapper > .components-base-control__field .components-color-palette__item-wrapper,
 .qdlx-admin__tabs--content-inner .components-base-control.has-component-color-picker-wrapper > .components-base-control__field .components-color-palette__item-wrapper {
@@ -675,6 +675,47 @@
 }
 .has-component-font-unit-picker .components-popover__content .components-button:last-child, .has-component-font-unit-picker .components-popover__content .components-button.is-primary {
   border-bottom: 0;
+}
+
+/* Typography row */
+.has-typography-panel-row {
+  display: block;
+}
+
+.has-typography-picker-wrapper > div {
+  display: grid;
+  grid-template-columns: 1fr 36px;
+  column-gap: 0;
+  align-items: center;
+  width: 100%;
+}
+.has-typography-picker-wrapper > div .has-typography-component-label {
+  font-size: 13px;
+}
+.has-typography-picker-wrapper > div .components-button {
+  width: 100%;
+  font-size: 13px;
+  padding: 6px 8px;
+  margin: 0;
+  justify-content: center;
+  outline: unset;
+}
+.has-typography-picker-wrapper > div .dashicon {
+  display: flex;
+  width: 25px;
+  justify-content: center;
+  align-items: center;
+}
+.has-typography-picker-wrapper > div .dashicon:before {
+  font-size: 1.4rem;
+}
+
+.has-component-typography-popup {
+  min-width: 250px;
+  max-width: 250px;
+}
+.has-component-typography-popup .components-popover__content {
+  width: unset;
 }
 
 /*# sourceMappingURL=has-cts-editor.css.map*/
