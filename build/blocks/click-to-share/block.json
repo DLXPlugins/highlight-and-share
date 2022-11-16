@@ -270,7 +270,8 @@
           "textTransform": "",
           "letterSpacing": "",
           "letterSpacingUnit": "px",
-          "fontFallback": ""
+          "fontFallback": "",
+          "fontType": "web"
         },
         "tablet": {
           "fontFamily": "",
@@ -283,7 +284,8 @@
           "textTransform": "",
           "letterSpacing": "",
           "letterSpacingUnit": "px",
-          "fontFallback": ""
+          "fontFallback": "",
+          "fontType": "web"
         },
         "desktop": {
           "fontFamily": "Arial",
@@ -296,7 +298,8 @@
           "textTransform": "none",
           "letterSpacing": "0",
           "letterSpacingUnit": "px",
-          "fontFallback": "serif"
+          "fontFallback": "serif",
+          "fontType": "web"
         }
       }
     },
@@ -305,6 +308,7 @@
       "default": {
         "mobile": {
           "fontFamily": "",
+          "fontFamilySlug": "",
           "fontSize": "",
           "fontSizeUnit": "px",
           "fontWeight": "",
@@ -318,6 +322,7 @@
         },
         "tablet": {
           "fontFamily": "",
+          "fontFamilySlug": "",
           "fontSize": "",
           "fontSizeUnit": "px",
           "fontWeight": "",
@@ -330,7 +335,8 @@
           "fontFallback": "sans-serif"
         },
         "desktop": {
-          "fontFamily": "arial",
+          "fontFamily": "Arial",
+          "fontFamilySlug": "arial",
           "fontSize": "24",
           "fontSizeUnit": "px",
           "fontWeight": "normal",

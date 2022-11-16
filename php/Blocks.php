@@ -22,6 +22,8 @@ class Blocks {
 		add_action( 'init', array( $self, 'register_block' ) );
 		add_action( 'enqueue_block_editor_assets', array( $self, 'register_block_assets' ) );
 		add_action( 'enqueue_block_assets', array( $self, 'enqueue_frontend_assets' ) );
+		// add_action( 'wp_enqueue_scripts', array( $self, 'register_font_scripts' ) );
+		add_action( 'admin_enqueue_scripts', array( $self, 'register_font_scripts' ) );
 		return $self;
 	}
 
@@ -79,7 +81,7 @@ class Blocks {
 
 		// Get adobe fonts.
 		$block_editor_options = Options::get_block_editor_options( true );
-		$adobe_fonts = $block_editor_options['adobe_fonts'] ?? array();
+		$adobe_fonts          = $block_editor_options['adobe_fonts'] ?? array();
 		wp_localize_script(
 			'has-click-to-share',
 			'has_gutenberg',
@@ -91,6 +93,132 @@ class Blocks {
 		);
 		wp_set_script_translations( 'has-click-to-share', 'highlight-and-share' );
 		do_action( 'has_enqueue_block_styles_scripts' );
+	}
+
+	/**
+	 * Register font scripts.
+	 *
+	 * @param string $hook Hook name.
+	 */
+	public function register_font_scripts( $hook ) {
+		global $post;
+
+		$can_enqueue = false;
+
+		// Check to see if we're in the admin and in the post editor.
+		if ( is_admin() && ( isset( $post->post_content ) ) ) {
+			$can_enqueue = true;
+		}
+
+		if ( ! ( is_singular() || is_page() ) && ! $can_enqueue ) {
+			return;
+		}
+
+		// Get array of all fonts used in blocks.
+		$blocks      = parse_blocks( $post->post_content );
+		$block_fonts = Functions::get_block_fonts( $blocks );
+
+		// Enqueue fonts.
+		foreach ( $block_fonts as $block_font ) {
+			if ( 'web' === $block_font['fontType'] ) {
+				continue;
+			}
+			if ( 'adobe' === $block_font['fontType'] ) {
+				$block_editor_options = Options::get_block_editor_options( true );
+				$adobe_project_id     = $block_editor_options['adobe_project_id'] ?? '';
+				if ( ! empty( $adobe_project_id ) ) {
+					$adobe_fonts_url = esc_url( Adobe_Fonts::$typekit_css_url . '/' . $adobe_project_id . '.css' );
+					wp_enqueue_style(
+						'has-adobe-fonts',
+						$adobe_fonts_url,
+						array(),
+						HIGHLIGHT_AND_SHARE_VERSION,
+						'all'
+					);
+					continue;
+				}
+			}
+			if ( 'google' === $block_font['fontType'] ) {
+				$font_slug = $block_font['fontFamilySlug'];
+				wp_enqueue_style(
+					'has-google-font-' . $font_slug,
+					esc_url( Functions::get_plugin_url( 'dist/has-gfont-' . $font_slug . '.css' ) ),
+					array(),
+					HIGHLIGHT_AND_SHARE_VERSION,
+					'all'
+				);
+				continue;
+			}
+		}
+	}
+
+	/**
+	 * Recursive function for printing out any block styles.
+	 *
+	 * @param array $blocks Array of blocks to parse.
+	 */
+	public function print_block_fonts( $blocks ) {
+		if ( ! empty( $blocks ) ) {
+			foreach ( $blocks as $block ) {
+				if ( 'mediaron/quotes-dlx' === $block['blockName'] ) {
+					$template = $block['attrs']['template'] ?? false;
+					// Try to get default template if there is no template.
+					if ( ! $template ) {
+						$block_defaults = Options_Defaults::get_defaults();
+						$template       = $block_defaults['template'] ?? false;
+					}
+					$template = $block['attrs']['template'] ?? false;
+					if ( $template ) {
+						$theme_options             = Options_Theme::get_options( $template );
+						$theme_enable_custom_fonts = (bool) ( $theme_options['enable_custom_fonts'] ?? false );
+						if ( ! $theme_enable_custom_fonts ) {
+							continue;
+						}
+
+						// Get primary font family for the theme and see if we can override the fonts set in the advanced section.
+						$primary_theme_font_family = $theme_options['primary_font_family'] ?? '';
+						if ( ! empty( $primary_theme_font_family ) ) {
+							$can_enqueue_primary = false;
+						}
+
+						$secondary_theme_font_family = $theme_options['secondary_font_family'] ?? '';
+						if ( ! empty( $secondary_theme_font_family ) ) {
+							$can_enqueue_secondary = false;
+						}
+
+						// Now enqueue the fonts for the theme.
+						if ( Functions::is_adobe_font( $primary_theme_font_family ) || Functions::is_adobe_font( $secondary_theme_font_family ) ) {
+							$project_id = Options_Advanced::get_options( 'adobe_project_id' );
+							Adobe_Fonts::set_dns_prefetch();
+							Adobe_Fonts::enqueue_adobe_fonts( $project_id );
+						}
+						if ( ! Functions::is_adobe_font( $primary_theme_font_family ) && 'custom' !== $primary_theme_font_family ) {
+							$primary_font_url = Functions::get_plugin_url( 'dist/quotes-dlx-gfont-' . $primary_theme_font_family . '.css' );
+							wp_enqueue_style(
+								'quotes-dlx-gfont-' . $primary_theme_font_family,
+								esc_url( $primary_font_url ),
+								array(),
+								Functions::get_plugin_version(),
+								'all'
+							);
+						}
+						if ( ! Functions::is_adobe_font( $secondary_theme_font_family ) && 'custom' !== $secondary_theme_font_family ) {
+							$secondary_font_url = Functions::get_plugin_url( 'dist/quotes-dlx-gfont-' . $secondary_theme_font_family . '.css' );
+							wp_enqueue_style(
+								'quotes-dlx-gfont-' . $secondary_theme_font_family,
+								esc_url( $secondary_font_url ),
+								array(),
+								Functions::get_plugin_version(),
+								'all'
+							);
+						}
+					}
+				}
+				if ( ! empty( $block['innerBlocks'] ) ) {
+					$this->print_block_fonts( $block['innerBlocks'] );
+				}
+			}
+		}
 	}
 
 	/**

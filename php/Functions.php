@@ -188,7 +188,7 @@ class Functions {
 			}
 			if ( 'true' === $value ) {
 				$value = true;
-			} elseif( 'false' === $value ) {
+			} elseif ( 'false' === $value ) {
 				$value = false;
 			}
 			if ( is_array( $value ) ) {
@@ -210,6 +210,49 @@ class Functions {
 			}
 		}
 		return $sanitized_data;
+	}
+
+	/**
+	 * Get all fonts used for the blocks.
+	 *
+	 * @param array $blocks Array of blocks/innerblocks.
+	 */
+	public static function get_block_fonts( $blocks, $fonts = array() ) {
+		$devices = array(
+			'desktop',
+			'mobile',
+			'tablet',
+		);
+		if ( ! empty( $blocks ) ) {
+			foreach ( $blocks as $block ) {
+				if ( 'has/click-to-share' === $block['blockName'] ) {
+					$quote_font = $block['attrs']['typographyQuote'] ?? false;
+					$cts_font   = $block['attrs']['typographyShareText'] ?? false;
+					if ( $quote_font ) {
+						foreach ( $devices as $device ) {
+							$font      = $quote_font[ $device ];
+							$font_slug = $font['fontFamilySlug'];
+							if ( ! isset( $fonts[ $font_slug ] ) ) {
+								$fonts[ $font_slug ] = $font;
+							}
+						}
+					}
+					if ( $cts_font ) {
+						foreach ( $devices as $device ) {
+							$font      = $quote_font[ $device ];
+							$font_slug = $font['fontFamilySlug'];
+							if ( ! isset( $fonts[ $font_slug ] ) ) {
+								$fonts[ $font_slug ] = $font;
+							}
+						}
+					}
+				}
+				if ( ! empty( $block['innerBlocks'] ) ) {
+					self::get_block_fonts( $block['innerBlocks'], $fonts );
+				}
+			}
+		}
+		return $fonts;
 	}
 
 	/**

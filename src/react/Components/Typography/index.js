@@ -93,12 +93,12 @@ const Typography = ( props ) => {
 		const mergedFamilies = [];
 		families.forEach( ( fontFamily ) => {
 			fonts.push( { label: fontFamily.name, value: fontFamily.slug } );
-			mergedFamilies.push( { family: fontFamily.family, slug: fontFamily.slug, fallback: fontFamily.fallback } );
+			mergedFamilies.push( { family: fontFamily.family, slug: fontFamily.slug, fallback: fontFamily.fallback, type: fontFamily.type  } );
 		} );
 		// Push adobe fonts to the front.
 		adobeFonts.forEach( ( font ) => {
 			fonts.unshift( { label: font.name, value: font.slug } );
-			mergedFamilies.push( { family: font.family, slug: font.slug, fallback: font.fallback } );
+			mergedFamilies.push( { family: font.family, slug: font.slug, fallback: font.fallback, type: 'adobe' } );
 		} );
 		// Add placeholder.
 		fonts.unshift( { label: __( 'Select a Font', 'highlight-and-share' ), value: '' } );
@@ -120,6 +120,7 @@ const Typography = ( props ) => {
 									if ( font.slug === newValue ) {
 										setValue( `${ screenSize }.fontFamily`, font.family );
 										setValue( `${ screenSize }.fontFallback`, font.fallback );
+										setValue( `${ screenSize }.fontType`, font.type );
 									}
 								} );
 							} }
