@@ -190,7 +190,8 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
     maxWidth: "".concat(maxWidth).concat(maxWidthUnit),
     margin: (0,_react_Utils_DimensionsHelper__WEBPACK_IMPORTED_MODULE_5__.buildDimensionsCSS)(marginSize, deviceType)
   };
-  var styles = "\n\t\t#".concat(uniqueId, ".has-click-to-share {\n\t\t\tbackground-color: ").concat(backgroundColor, ";\n\t\t\tborder-color: ").concat(borderColor, ";\n\n\t\t}\n\t\t#").concat(uniqueId, ".has-click-to-share:hover {\n\t\t\tbackground-color: ").concat(backgroundColorHover, ";\n\t\t\tborder-color: ").concat(borderColorHover, ";\n\t\t}\n\t\t\n\t\t#").concat(uniqueId, " .has-click-to-share-cta {\n\t\t\tcolor: ").concat(shareTextColor, "\n\t\t}\n\t\t#").concat(uniqueId, ":hover .has-click-to-share-cta {\n\t\t\tcolor: ").concat(shareTextColorHover, "\n\t\t}\n\t\t#").concat(uniqueId, " .has-click-to-share-text {\n\t\t\tcolor: ").concat(textColor, ";\n\t\t}\n\t\t#").concat(uniqueId, ":hover .has-click-to-share-text {\n\t\t\tcolor: ").concat(textColorHover, ";\n\t\t}\n\t\t#").concat(uniqueId, " .has-click-to-share-cta svg {\n\t\t\tcolor: ").concat(iconColor, ";\n\t\t}\n\t\t#").concat(uniqueId, ":hover .has-click-to-share-cta svg {\n\t\t\tcolor: ").concat(iconColorHover, ";\n\t\t}\n\t");
+  var screenSize = deviceType.toLowerCase();
+  var styles = "\n\t\t#".concat(uniqueId, ".has-click-to-share {\n\t\t\tbackground-color: ").concat(backgroundColor, ";\n\t\t\tborder-color: ").concat(borderColor, ";\n\n\t\t}\n\t\t#").concat(uniqueId, ".has-click-to-share:hover {\n\t\t\tbackground-color: ").concat(backgroundColorHover, ";\n\t\t\tborder-color: ").concat(borderColorHover, ";\n\t\t}\n\t\t\n\t\t#").concat(uniqueId, " .has-click-to-share-cta {\n\t\t\tcolor: ").concat(shareTextColor, "\n\t\t}\n\t\t#").concat(uniqueId, ":hover .has-click-to-share-cta {\n\t\t\tcolor: ").concat(shareTextColorHover, "\n\t\t}\n\t\t#").concat(uniqueId, " .has-click-to-share-text {\n\t\t\tcolor: ").concat(textColor, ";\n\t\t}\n\t\t#").concat(uniqueId, ":hover .has-click-to-share-text {\n\t\t\tcolor: ").concat(textColorHover, ";\n\t\t}\n\t\t#").concat(uniqueId, " .has-click-to-share-cta svg {\n\t\t\tcolor: ").concat(iconColor, ";\n\t\t}\n\t\t#").concat(uniqueId, ":hover .has-click-to-share-cta svg {\n\t\t\tcolor: ").concat(iconColorHover, ";\n\t\t}\n\t\t#").concat(uniqueId, " .has-click-to-share-text,\n\t\t#").concat(uniqueId, " .has-click-to-share-text p {\n\t\t\tfont-family: \"").concat(typographyQuote[screenSize].fontFamily, "\";\n\t\t\tfont-weight: ").concat(typographyQuote[screenSize].fontWeight, ";\n\t\t\tfont-size: ").concat(typographyQuote[screenSize].fontSize).concat(typographyQuote.fontSizeUnit, ";\n\t\t\tline-height: ").concat(typographyQuote[screenSize].lineHeight).concat(typographyQuote.lineHeightUnit, ";\n\t\t\tletter-spacing: ").concat(typographyQuote[screenSize].letterSpacing).concat(typographyQuote.letterSpacingUnit, ";\n\t\t\ttext-transform: ").concat(typographyQuote[screenSize].textTransform, ";\n\t\t}\n\t");
   var fontWeightArr = Array();
   fontWeightArr.push({
     label: __('Normal', 'highlight-and-share'),
@@ -1387,6 +1388,7 @@ var Typography = function Typography(props) {
     return {
       mobile: {
         fontFamily: props.values.mobile.fontFamily,
+        fontFamilySlug: props.values.mobile.fontFamilySlug,
         fontSize: props.values.mobile.fontSize,
         fontSizeUnit: props.values.mobile.fontSizeUnit,
         fontWeight: props.values.mobile.fontWeight,
@@ -1400,6 +1402,7 @@ var Typography = function Typography(props) {
       },
       tablet: {
         fontFamily: props.values.tablet.fontFamily,
+        fontFamilySlug: props.values.tablet.fontFamilySlug,
         fontSize: props.values.tablet.fontSize,
         fontSizeUnit: props.values.tablet.fontSizeUnit,
         fontWeight: props.values.tablet.fontWeight,
@@ -1413,6 +1416,7 @@ var Typography = function Typography(props) {
       },
       desktop: {
         fontFamily: props.values.desktop.fontFamily,
+        fontFamilySlug: props.values.desktop.fontFamilySlug,
         fontSize: props.values.desktop.fontSize,
         fontSizeUnit: props.values.desktop.fontSizeUnit,
         fontWeight: props.values.desktop.fontWeight,
@@ -1438,6 +1442,7 @@ var Typography = function Typography(props) {
   var label = props.label;
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     props.onValuesChange(formValues);
+    console.log(formValues);
   }, [formValues]);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     setScreenSize(props.screenSize.toLowerCase());
@@ -1449,10 +1454,16 @@ var Typography = function Typography(props) {
     var adobeFonts = has_gutenberg.adobeFonts;
     var fonts = [];
     var families = Object.values(_fonts_fonts__WEBPACK_IMPORTED_MODULE_1__["default"]);
+    var mergedFamilies = [];
     families.forEach(function (fontFamily) {
       fonts.push({
         label: fontFamily.name,
         value: fontFamily.slug
+      });
+      mergedFamilies.push({
+        family: fontFamily.family,
+        slug: fontFamily.slug,
+        fallback: fontFamily.fallback
       });
     });
     // Push adobe fonts to the front.
@@ -1461,14 +1472,19 @@ var Typography = function Typography(props) {
         label: font.name,
         value: font.slug
       });
+      mergedFamilies.push({
+        family: font.family,
+        slug: font.slug,
+        fallback: font.fallback
+      });
     });
     // Add placeholder.
     fonts.unshift({
       label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Select a Font', 'highlight-and-share'),
       value: ''
     });
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_5__.Controller, {
-      name: "".concat(screenSize, ".fontFamily"),
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_5__.Controller, {
+      name: "".concat(screenSize, ".fontFamilySlug"),
       control: control,
       render: function render(_ref) {
         var _ref$field = _ref.field,
@@ -1476,15 +1492,42 @@ var Typography = function Typography(props) {
           value = _ref$field.value;
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.SelectControl, {
           label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Font Family', 'highlight-and-share'),
-          value: (0,_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_4__.geHierarchicalPlaceholderValue)(props.values, screenSize, getValues(screenSize).fontFamily, 'fontFamily'),
+          value: (0,_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_4__.geHierarchicalPlaceholderValue)(props.values, screenSize, getValues(screenSize).fontFamilySlug, 'fontFamilySlug'),
           options: fonts,
           onChange: function onChange(newValue) {
-            console.log(newValue);
             _onChange(newValue);
+
+            // Get font family name for CSS.
+            mergedFamilies.forEach(function (font) {
+              if (font.slug === newValue) {
+                setValue("".concat(screenSize, ".fontFamily"), font.family);
+                setValue("".concat(screenSize, ".fontFallback"), font.fallback);
+              }
+            });
           }
         });
       }
-    });
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_5__.Controller, {
+      name: "".concat(screenSize, ".fontFamily"),
+      control: control,
+      render: function render(_ref2) {
+        var value = _ref2.field.value;
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.TextControl, {
+          type: "hidden",
+          value: getValues(screenSize).fontFamily
+        });
+      }
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_5__.Controller, {
+      name: "".concat(screenSize, ".fontFallback"),
+      control: control,
+      render: function render(_ref3) {
+        var value = _ref3.field.value;
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.TextControl, {
+          type: "hidden",
+          value: getValues(screenSize).fontFallback
+        });
+      }
+    }));
   };
   var getTextTransform = function getTextTransform() {
     var textTransform = [{
@@ -1503,10 +1546,10 @@ var Typography = function Typography(props) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_5__.Controller, {
       name: "".concat(screenSize, ".textTransform"),
       control: control,
-      render: function render(_ref2) {
-        var _ref2$field = _ref2.field,
-          _onChange2 = _ref2$field.onChange,
-          value = _ref2$field.value;
+      render: function render(_ref4) {
+        var _ref4$field = _ref4.field,
+          _onChange2 = _ref4$field.onChange,
+          value = _ref4$field.value;
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.SelectControl, {
           label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Text Transform', 'highlight-and-share'),
           value: (0,_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_4__.geHierarchicalPlaceholderValue)(props.values, screenSize, getValues(screenSize).textTransform, 'textTransform'),
@@ -1522,27 +1565,26 @@ var Typography = function Typography(props) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_5__.Controller, {
       name: "".concat(screenSize, ".fontSize"),
       control: control,
-      render: function render(_ref3) {
-        var _ref3$field = _ref3.field,
-          _onChange3 = _ref3$field.onChange,
-          value = _ref3$field.value;
+      render: function render(_ref5) {
+        var _onChange3 = _ref5.field.onChange;
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.TextControl, {
           label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Font Size', 'highlight-and-share'),
-          value: value,
+          value: getValues(screenSize).fontSize,
           onChange: function onChange(newValue) {
             _onChange3(newValue);
           },
-          type: "number"
+          type: "number",
+          placeholder: (0,_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_4__.geHierarchicalPlaceholderValue)(props.values, screenSize, getValues(screenSize).fontSize, 'fontSize')
         });
       }
     }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_5__.Controller, {
       name: "".concat(screenSize, ".fontSizeUnit"),
       control: control,
-      render: function render(_ref4) {
-        var value = _ref4.field.value;
+      render: function render(_ref6) {
+        var value = _ref6.field.value;
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.TextControl, {
           type: "hidden",
-          value: value
+          value: getValues(screenSize).fontSizeUnit
         });
       }
     }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.Button, {
@@ -1608,13 +1650,13 @@ var Typography = function Typography(props) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_5__.Controller, {
       name: "".concat(screenSize, ".fontWeight"),
       control: control,
-      render: function render(_ref5) {
-        var _ref5$field = _ref5.field,
-          _onChange4 = _ref5$field.onChange,
-          value = _ref5$field.value;
+      render: function render(_ref7) {
+        var _ref7$field = _ref7.field,
+          _onChange4 = _ref7$field.onChange,
+          value = _ref7$field.value;
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.SelectControl, {
           label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Font Weight', 'highlight-and-share'),
-          value: value,
+          value: getValues(screenSize).fontWeight,
           options: fontWeights,
           onChange: function onChange(newValue) {
             _onChange4(newValue);
@@ -1627,27 +1669,28 @@ var Typography = function Typography(props) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_5__.Controller, {
       name: "".concat(screenSize, ".lineHeight"),
       control: control,
-      render: function render(_ref6) {
-        var _ref6$field = _ref6.field,
-          _onChange5 = _ref6$field.onChange,
-          value = _ref6$field.value;
+      render: function render(_ref8) {
+        var _ref8$field = _ref8.field,
+          _onChange5 = _ref8$field.onChange,
+          value = _ref8$field.value;
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.TextControl, {
           label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Line Height', 'highlight-and-share'),
-          value: value,
+          value: getValues(screenSize).lineHeight,
           onChange: function onChange(newValue) {
             _onChange5(newValue);
           },
-          type: "number"
+          type: "number",
+          placeholder: (0,_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_4__.geHierarchicalPlaceholderValue)(props.values, screenSize, getValues(screenSize).lineHeight, 'lineHeight')
         });
       }
     }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_5__.Controller, {
       name: "".concat(screenSize, ".lineHeightUnit"),
       control: control,
-      render: function render(_ref7) {
-        var value = _ref7.field.value;
+      render: function render(_ref9) {
+        var value = _ref9.field.value;
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.TextControl, {
           type: "hidden",
-          value: value
+          value: getValues(screenSize).lineHeightUnit
         });
       }
     }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.Button, {
@@ -1685,11 +1728,11 @@ var Typography = function Typography(props) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_5__.Controller, {
       name: "".concat(screenSize, ".fontType"),
       control: control,
-      render: function render(_ref8) {
-        var value = _ref8.field.value;
+      render: function render(_ref10) {
+        var value = _ref10.field.value;
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.TextControl, {
           type: "hidden",
-          value: value
+          value: getValues(screenSize).fontType
         });
       }
     });
@@ -1698,11 +1741,11 @@ var Typography = function Typography(props) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_5__.Controller, {
       name: "".concat(screenSize, ".fontFallback"),
       control: control,
-      render: function render(_ref9) {
-        var value = _ref9.field.value;
+      render: function render(_ref11) {
+        var value = _ref11.field.value;
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.TextControl, {
           type: "hidden",
-          value: value
+          value: getValues(screenSize).fontFallback
         });
       }
     });
@@ -1711,27 +1754,28 @@ var Typography = function Typography(props) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_5__.Controller, {
       name: "".concat(screenSize, ".letterSpacing"),
       control: control,
-      render: function render(_ref10) {
-        var _ref10$field = _ref10.field,
-          _onChange6 = _ref10$field.onChange,
-          value = _ref10$field.value;
+      render: function render(_ref12) {
+        var _ref12$field = _ref12.field,
+          _onChange6 = _ref12$field.onChange,
+          value = _ref12$field.value;
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.TextControl, {
           label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Letter Spacing', 'highlight-and-share'),
-          value: value,
+          value: getValues(screenSize).letterSpacing,
           onChange: function onChange(newValue) {
             _onChange6(newValue);
           },
-          type: "number"
+          type: "number",
+          placeholder: (0,_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_4__.geHierarchicalPlaceholderValue)(props.values, screenSize, getValues(screenSize).letterSpacing, 'letterSpacing')
         });
       }
     }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_5__.Controller, {
       name: "".concat(screenSize, ".letterSpacingUnit"),
       control: control,
-      render: function render(_ref11) {
-        var value = _ref11.field.value;
+      render: function render(_ref13) {
+        var value = _ref13.field.value;
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.TextControl, {
           type: "hidden",
-          value: value
+          value: getValues(screenSize).letterSpacingUnit
         });
       }
     }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.Button, {
@@ -4824,7 +4868,7 @@ function useForm(props = {}) {
 /***/ (function(module) {
 
 "use strict";
-module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","title":"Click to Share","apiVersion":2,"name":"has/click-to-share","category":"text","icon":"<svg aria-hidden=\'true\' focusable=\'false\' data-prefix=\'fas\' data-icon=\'share-alt\' className=\'svg-inline--fa fa-share-alt fa-w-14\' role=\'img\' xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 448 512\'><path fill=\'currentColor\' d=\'M352 320c-22.608 0-43.387 7.819-59.79 20.895l-102.486-64.054a96.551 96.551 0 0 0 0-41.683l102.486-64.054C308.613 184.181 329.392 192 352 192c53.019 0 96-42.981 96-96S405.019 0 352 0s-96 42.981-96 96c0 7.158.79 14.13 2.276 20.841L155.79 180.895C139.387 167.819 118.608 160 96 160c-53.019 0-96 42.981-96 96s42.981 96 96 96c22.608 0 43.387-7.819 59.79-20.895l102.486 64.054A96.301 96.301 0 0 0 256 416c0 53.019 42.981 96 96 96s96-42.981 96-96-42.981-96-96-96z\'></path></svg>","description":"An easy-to-use content highlighter.","keywords":["click","social","tweet","better","twitter","facebook","share","quote","blockquote"],"version":"1.0.0","textdomain":"highlight-and-share","attributes":{"uniqueId":{"type":"string","default":""},"showClickToShare":{"type":"boolean","default":true},"showIcon":{"type":"boolean","default":true},"iconSize":{"type":"number","default":-1},"shareText":{"type":"string","default":""},"backgroundColor":{"type":"string","default":"#FFFFFF"},"backgroundColorHover":{"type":"string","default":"#FFFFFF"},"iconColor":{"type":"string","default":"#000000"},"iconColorHover":{"type":"string","default":"#000000"},"textColor":{"type":"string","default":"#000000"},"textColorHover":{"type":"string","default":"#000000"},"shareTextColor":{"type":"string","default":"#000000"},"shareTextColorHover":{"type":"string","default":"#000000"},"fontSize":{"type":"integer","default":24},"clickShareFontSize":{"type":"integer","default":24},"clickText":{"type":"string","default":"Click to Share"},"padding":{"type":"integer","default":-1},"border":{"type":"integer","default":-1},"borderRadius":{"type":"integer","default":0},"borderColor":{"type":"string","default":"#000000"},"borderColorHover":{"type":"string","default":"#000000"},"fontWeight":{"type":"string","default":"#FFFFFF"},"maxWidth":{"type":"string","default":"80"},"maxWidthUnit":{"type":"string","default":"%"},"align":{"type":"string","default":"center"},"alignment":{"type":"string","default":"center"},"marginLeft":{"type":"integer","default":0},"marginRight":{"type":"integer","default":0},"marginBottom":{"type":"integer","default":0},"marginTop":{"type":"integer","default":0},"paddingSize":{"type":"object","default":{"mobile":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"tablet":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"desktop":{"top":"20","right":"20","bottom":"20","left":"20","unit":"px","unitSync":true}}},"marginSize":{"type":"object","default":{"mobile":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"tablet":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"desktop":{"top":"20","right":"","bottom":"20","left":"","unit":"px","unitSync":true}}},"borderWidth":{"type":"object","default":{"mobile":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"tablet":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"desktop":{"top":"1","right":"1","bottom":"1","left":"1","unit":"px","unitSync":true}}},"borderRadiusSize":{"type":"object","default":{"mobile":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"tablet":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"desktop":{"top":"","right":"","bottom":"","left":"","unit":"px","unitSync":true}}},"typographyQuote":{"type":"object","default":{"mobile":{"fontFamily":"","fontSize":"","fontSizeUnit":"px","fontWeight":"","lineHeight":"","lineHeightUnit":"em","textTransform":"","letterSpacing":"","letterSpacingUnit":"px"},"tablet":{"fontFamily":"","fontSize":"","fontSizeUnit":"px","fontWeight":"","lineHeight":"","lineHeightUnit":"em","textTransform":"","letterSpacing":"","letterSpacingUnit":"px"},"desktop":{"fontFamily":"Arial","fontSize":"24","fontSizeUnit":"px","fontWeight":"normal","lineHeight":"1.3","lineHeightUnit":"em","textTransform":"none","letterSpacing":"0","letterSpacingUnit":"px"}}},"typographyShareText":{"type":"object","default":{"mobile":{"fontFamily":"","fontSize":"","fontSizeUnit":"px","fontWeight":"","lineHeight":"","lineHeightUnit":"em","textTransform":"","letterSpacing":"","letterSpacingUnit":"px","fontType":"web","fontFallback":"sans-serif"},"tablet":{"fontFamily":"","fontSize":"","fontSizeUnit":"px","fontWeight":"","lineHeight":"","lineHeightUnit":"em","textTransform":"","letterSpacing":"","letterSpacingUnit":"px","fontType":"web","fontFallback":"sans-serif"},"desktop":{"fontFamily":"arial","fontSize":"24","fontSizeUnit":"px","fontWeight":"normal","lineHeight":"1.3","lineHeightUnit":"em","textTransform":"none","letterSpacing":"0","letterSpacingUnit":"px","fontType":"web","fontFallback":"sans-serif"}}}},"supports":{"anchor":true,"align":true,"className":true},"editorScript":"has-click-to-share","editorStyle":"has-style-admin-css","style":"has-style-frontend-css"}');
+module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","title":"Click to Share","apiVersion":2,"name":"has/click-to-share","category":"text","icon":"<svg aria-hidden=\'true\' focusable=\'false\' data-prefix=\'fas\' data-icon=\'share-alt\' className=\'svg-inline--fa fa-share-alt fa-w-14\' role=\'img\' xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 448 512\'><path fill=\'currentColor\' d=\'M352 320c-22.608 0-43.387 7.819-59.79 20.895l-102.486-64.054a96.551 96.551 0 0 0 0-41.683l102.486-64.054C308.613 184.181 329.392 192 352 192c53.019 0 96-42.981 96-96S405.019 0 352 0s-96 42.981-96 96c0 7.158.79 14.13 2.276 20.841L155.79 180.895C139.387 167.819 118.608 160 96 160c-53.019 0-96 42.981-96 96s42.981 96 96 96c22.608 0 43.387-7.819 59.79-20.895l102.486 64.054A96.301 96.301 0 0 0 256 416c0 53.019 42.981 96 96 96s96-42.981 96-96-42.981-96-96-96z\'></path></svg>","description":"An easy-to-use content highlighter.","keywords":["click","social","tweet","better","twitter","facebook","share","quote","blockquote"],"version":"1.0.0","textdomain":"highlight-and-share","attributes":{"uniqueId":{"type":"string","default":""},"showClickToShare":{"type":"boolean","default":true},"showIcon":{"type":"boolean","default":true},"iconSize":{"type":"number","default":-1},"shareText":{"type":"string","default":""},"backgroundColor":{"type":"string","default":"#FFFFFF"},"backgroundColorHover":{"type":"string","default":"#FFFFFF"},"iconColor":{"type":"string","default":"#000000"},"iconColorHover":{"type":"string","default":"#000000"},"textColor":{"type":"string","default":"#000000"},"textColorHover":{"type":"string","default":"#000000"},"shareTextColor":{"type":"string","default":"#000000"},"shareTextColorHover":{"type":"string","default":"#000000"},"fontSize":{"type":"integer","default":24},"clickShareFontSize":{"type":"integer","default":24},"clickText":{"type":"string","default":"Click to Share"},"padding":{"type":"integer","default":-1},"border":{"type":"integer","default":-1},"borderRadius":{"type":"integer","default":0},"borderColor":{"type":"string","default":"#000000"},"borderColorHover":{"type":"string","default":"#000000"},"fontWeight":{"type":"string","default":"#FFFFFF"},"maxWidth":{"type":"string","default":"80"},"maxWidthUnit":{"type":"string","default":"%"},"align":{"type":"string","default":"center"},"alignment":{"type":"string","default":"center"},"marginLeft":{"type":"integer","default":0},"marginRight":{"type":"integer","default":0},"marginBottom":{"type":"integer","default":0},"marginTop":{"type":"integer","default":0},"paddingSize":{"type":"object","default":{"mobile":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"tablet":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"desktop":{"top":"20","right":"20","bottom":"20","left":"20","unit":"px","unitSync":true}}},"marginSize":{"type":"object","default":{"mobile":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"tablet":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"desktop":{"top":"20","right":"","bottom":"20","left":"","unit":"px","unitSync":true}}},"borderWidth":{"type":"object","default":{"mobile":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"tablet":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"desktop":{"top":"1","right":"1","bottom":"1","left":"1","unit":"px","unitSync":true}}},"borderRadiusSize":{"type":"object","default":{"mobile":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"tablet":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"desktop":{"top":"","right":"","bottom":"","left":"","unit":"px","unitSync":true}}},"typographyQuote":{"type":"object","default":{"mobile":{"fontFamily":"","fontFamilySlug":"","fontSize":"","fontSizeUnit":"px","fontWeight":"","lineHeight":"","lineHeightUnit":"em","textTransform":"","letterSpacing":"","letterSpacingUnit":"px","fontFallback":""},"tablet":{"fontFamily":"","fontFamilySlug":"","fontSize":"","fontSizeUnit":"px","fontWeight":"","lineHeight":"","lineHeightUnit":"em","textTransform":"","letterSpacing":"","letterSpacingUnit":"px","fontFallback":""},"desktop":{"fontFamily":"Arial","fontFamilySlug":"arial","fontSize":"24","fontSizeUnit":"px","fontWeight":"normal","lineHeight":"1.3","lineHeightUnit":"em","textTransform":"none","letterSpacing":"0","letterSpacingUnit":"px","fontFallback":"serif"}}},"typographyShareText":{"type":"object","default":{"mobile":{"fontFamily":"","fontSize":"","fontSizeUnit":"px","fontWeight":"","lineHeight":"","lineHeightUnit":"em","textTransform":"","letterSpacing":"","letterSpacingUnit":"px","fontType":"web","fontFallback":"sans-serif"},"tablet":{"fontFamily":"","fontSize":"","fontSizeUnit":"px","fontWeight":"","lineHeight":"","lineHeightUnit":"em","textTransform":"","letterSpacing":"","letterSpacingUnit":"px","fontType":"web","fontFallback":"sans-serif"},"desktop":{"fontFamily":"arial","fontSize":"24","fontSizeUnit":"px","fontWeight":"normal","lineHeight":"1.3","lineHeightUnit":"em","textTransform":"none","letterSpacing":"0","letterSpacingUnit":"px","fontType":"web","fontFallback":"sans-serif"}}}},"supports":{"anchor":true,"align":true,"className":true},"editorScript":"has-click-to-share","editorStyle":"has-style-admin-css","style":"has-style-frontend-css"}');
 
 /***/ })
 

@@ -160,6 +160,7 @@ const HAS_Click_To_Share = ( props ) => {
 		maxWidth: `${ maxWidth }${ maxWidthUnit }`,
 		margin: buildDimensionsCSS( marginSize, deviceType ),
 	};
+	const screenSize = deviceType.toLowerCase();
 	const styles = `
 		#${ uniqueId }.has-click-to-share {
 			background-color: ${ backgroundColor };
@@ -188,6 +189,15 @@ const HAS_Click_To_Share = ( props ) => {
 		}
 		#${ uniqueId }:hover .has-click-to-share-cta svg {
 			color: ${ iconColorHover };
+		}
+		#${ uniqueId } .has-click-to-share-text,
+		#${ uniqueId } .has-click-to-share-text p {
+			font-family: "${ typographyQuote[ screenSize ].fontFamily }";
+			font-weight: ${ typographyQuote[ screenSize ].fontWeight };
+			font-size: ${ typographyQuote[ screenSize ].fontSize }${ typographyQuote.fontSizeUnit };
+			line-height: ${ typographyQuote[ screenSize ].lineHeight }${ typographyQuote.lineHeightUnit };
+			letter-spacing: ${ typographyQuote[ screenSize ].letterSpacing }${ typographyQuote.letterSpacingUnit };
+			text-transform: ${ typographyQuote[ screenSize ].textTransform };
 		}
 	`;
 	const fontWeightArr = Array();

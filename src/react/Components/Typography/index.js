@@ -20,6 +20,7 @@ const Typography = ( props ) => {
 		return {
 			mobile: {
 				fontFamily: props.values.mobile.fontFamily,
+				fontFamilySlug: props.values.mobile.fontFamilySlug,
 				fontSize: props.values.mobile.fontSize,
 				fontSizeUnit: props.values.mobile.fontSizeUnit,
 				fontWeight: props.values.mobile.fontWeight,
@@ -33,6 +34,7 @@ const Typography = ( props ) => {
 			},
 			tablet: {
 				fontFamily: props.values.tablet.fontFamily,
+				fontFamilySlug: props.values.tablet.fontFamilySlug,
 				fontSize: props.values.tablet.fontSize,
 				fontSizeUnit: props.values.tablet.fontSizeUnit,
 				fontWeight: props.values.tablet.fontWeight,
@@ -46,6 +48,7 @@ const Typography = ( props ) => {
 			},
 			desktop: {
 				fontFamily: props.values.desktop.fontFamily,
+				fontFamilySlug: props.values.desktop.fontFamilySlug,
 				fontSize: props.values.desktop.fontSize,
 				fontSizeUnit: props.values.desktop.fontSizeUnit,
 				fontWeight: props.values.desktop.fontWeight,
@@ -74,6 +77,7 @@ const Typography = ( props ) => {
 
 	useEffect( () => {
 		props.onValuesChange( formValues );
+		console.log( formValues );
 	}, [ formValues ] );
 
 	useEffect( () => {
@@ -86,31 +90,63 @@ const Typography = ( props ) => {
 		const adobeFonts = has_gutenberg.adobeFonts;
 		const fonts = [];
 		const families = Object.values( fontFamilies );
+		const mergedFamilies = [];
 		families.forEach( ( fontFamily ) => {
 			fonts.push( { label: fontFamily.name, value: fontFamily.slug } );
+			mergedFamilies.push( { family: fontFamily.family, slug: fontFamily.slug, fallback: fontFamily.fallback } );
 		} );
 		// Push adobe fonts to the front.
 		adobeFonts.forEach( ( font ) => {
 			fonts.unshift( { label: font.name, value: font.slug } );
+			mergedFamilies.push( { family: font.family, slug: font.slug, fallback: font.fallback } );
 		} );
 		// Add placeholder.
 		fonts.unshift( { label: __( 'Select a Font', 'highlight-and-share' ), value: '' } );
 		return (
-			<Controller
-				name={ `${ screenSize }.fontFamily` }
-				control={ control }
-				render={ ( { field: { onChange, value } } ) => (
-					<SelectControl
-						label={ __( 'Font Family', 'highlight-and-share' ) }
-						value={ geHierarchicalPlaceholderValue( props.values, screenSize, getValues( screenSize ).fontFamily, 'fontFamily' ) }
-						options={ fonts }
-						onChange={ ( newValue ) => {
-							console.log( newValue );
-							onChange( newValue );
-						} }
-					/>
-				) }
-			/>
+			<>
+				<Controller
+					name={ `${ screenSize }.fontFamilySlug` }
+					control={ control }
+					render={ ( { field: { onChange, value } } ) => (
+						<SelectControl
+							label={ __( 'Font Family', 'highlight-and-share' ) }
+							value={ geHierarchicalPlaceholderValue( props.values, screenSize, getValues( screenSize ).fontFamilySlug, 'fontFamilySlug' ) }
+							options={ fonts }
+							onChange={ ( newValue ) => {
+								onChange( newValue );
+
+								// Get font family name for CSS.
+								mergedFamilies.forEach( ( font ) => {
+									if ( font.slug === newValue ) {
+										setValue( `${ screenSize }.fontFamily`, font.family );
+										setValue( `${ screenSize }.fontFallback`, font.fallback );
+									}
+								} );
+							} }
+						/>
+					) }
+				/>
+				<Controller
+					name={ `${ screenSize }.fontFamily` }
+					control={ control }
+					render={ ( { field: { value } } ) => (
+						<TextControl
+							type="hidden"
+							value={ getValues( screenSize ).fontFamily }
+						/>
+					) }
+				/>
+				<Controller
+					name={ `${ screenSize }.fontFallback` }
+					control={ control }
+					render={ ( { field: { value } } ) => (
+						<TextControl
+							type="hidden"
+							value={ getValues( screenSize ).fontFallback }
+						/>
+					) }
+				/>
+			</>
 		);
 	};
 
@@ -145,14 +181,15 @@ const Typography = ( props ) => {
 				<Controller
 					name={ `${ screenSize }.fontSize` }
 					control={ control }
-					render={ ( { field: { onChange, value } } ) => (
+					render={ ( { field: { onChange } } ) => (
 						<TextControl
 							label={ __( 'Font Size', 'highlight-and-share' ) }
-							value={ value }
+							value={ getValues( screenSize ).fontSize }
 							onChange={ ( newValue ) => {
 								onChange( newValue );
 							} }
 							type="number"
+							placeholder={ geHierarchicalPlaceholderValue( props.values, screenSize, getValues( screenSize ).fontSize, 'fontSize' ) }
 						/>
 					) }
 				/>
@@ -162,7 +199,7 @@ const Typography = ( props ) => {
 					render={ ( { field: { value } } ) => (
 						<TextControl
 							type="hidden"
-							value={ value }
+							value={ getValues( screenSize ).fontSizeUnit }
 						/>
 					) }
 				/>
@@ -232,7 +269,7 @@ const Typography = ( props ) => {
 				render={ ( { field: { onChange, value } } ) => (
 					<SelectControl
 						label={ __( 'Font Weight', 'highlight-and-share' ) }
-						value={ value }
+						value={ getValues( screenSize ).fontWeight }
 						options={ fontWeights }
 						onChange={ ( newValue ) => {
 							onChange( newValue );
@@ -252,11 +289,12 @@ const Typography = ( props ) => {
 					render={ ( { field: { onChange, value } } ) => (
 						<TextControl
 							label={ __( 'Line Height', 'highlight-and-share' ) }
-							value={ value }
+							value={ getValues( screenSize ).lineHeight }
 							onChange={ ( newValue ) => {
 								onChange( newValue );
 							} }
 							type="number"
+							placeholder={ geHierarchicalPlaceholderValue( props.values, screenSize, getValues( screenSize ).lineHeight, 'lineHeight' ) }
 						/>
 					) }
 				/>
@@ -266,7 +304,7 @@ const Typography = ( props ) => {
 					render={ ( { field: { value } } ) => (
 						<TextControl
 							type="hidden"
-							value={ value }
+							value={ getValues( screenSize ).lineHeightUnit }
 						/>
 					) }
 				/>
@@ -325,7 +363,7 @@ const Typography = ( props ) => {
 				render={ ( { field: { value } } ) => (
 					<TextControl
 						type="hidden"
-						value={ value }
+						value={ getValues( screenSize ).fontType }
 					/>
 				) }
 			/>
@@ -340,7 +378,7 @@ const Typography = ( props ) => {
 				render={ ( { field: { value } } ) => (
 					<TextControl
 						type="hidden"
-						value={ value }
+						value={ getValues( screenSize ).fontFallback }
 					/>
 				) }
 			/>
@@ -356,11 +394,12 @@ const Typography = ( props ) => {
 					render={ ( { field: { onChange, value } } ) => (
 						<TextControl
 							label={ __( 'Letter Spacing', 'highlight-and-share' ) }
-							value={ value }
+							value={ getValues( screenSize ).letterSpacing }
 							onChange={ ( newValue ) => {
 								onChange( newValue );
 							} }
 							type="number"
+							placeholder={ geHierarchicalPlaceholderValue( props.values, screenSize, getValues( screenSize ).letterSpacing, 'letterSpacing' ) }
 						/>
 					) }
 				/>
@@ -370,7 +409,7 @@ const Typography = ( props ) => {
 					render={ ( { field: { value } } ) => (
 						<TextControl
 							type="hidden"
-							value={ value }
+							value={ getValues( screenSize ).letterSpacingUnit }
 						/>
 					) }
 				/>

@@ -261,6 +261,7 @@
       "default": {
         "mobile": {
           "fontFamily": "",
+          "fontFamilySlug": "",
           "fontSize": "",
           "fontSizeUnit": "px",
           "fontWeight": "",
@@ -268,10 +269,12 @@
           "lineHeightUnit": "em",
           "textTransform": "",
           "letterSpacing": "",
-          "letterSpacingUnit": "px"
+          "letterSpacingUnit": "px",
+          "fontFallback": ""
         },
         "tablet": {
           "fontFamily": "",
+          "fontFamilySlug": "",
           "fontSize": "",
           "fontSizeUnit": "px",
           "fontWeight": "",
@@ -279,10 +282,12 @@
           "lineHeightUnit": "em",
           "textTransform": "",
           "letterSpacing": "",
-          "letterSpacingUnit": "px"
+          "letterSpacingUnit": "px",
+          "fontFallback": ""
         },
         "desktop": {
           "fontFamily": "Arial",
+          "fontFamilySlug": "arial",
           "fontSize": "24",
           "fontSizeUnit": "px",
           "fontWeight": "normal",
@@ -290,7 +295,8 @@
           "lineHeightUnit": "em",
           "textTransform": "none",
           "letterSpacing": "0",
-          "letterSpacingUnit": "px"
+          "letterSpacingUnit": "px",
+          "fontFallback": "serif"
         }
       }
     },
