@@ -334,6 +334,43 @@ const HAS_Click_To_Share = ( props ) => {
 			) }
 			{ deviceType === 'Desktop' && (
 				<PanelBody
+					title={ __( 'Background Settings', 'highlight-and-share' ) }
+					initialOpen={ true }
+				>
+					<PanelRow className="has-background-type">
+						<h3>Background Type</h3>
+						<ButtonGroup>
+							<Button
+								variant={ deviceType === 'Desktop' ? 'primary' : 'secondary' }
+								onClick={ ( e ) => {
+									setDeviceType( 'Desktop' );
+								} }
+								icon="laptop"
+								iconSize="14"
+								label={ __( 'Desktop', 'highlight-and-share' ) }
+							>Solid</Button>
+							<Button
+								variant={ deviceType === 'Tablet' ? 'primary' : 'secondary' }
+								onClick={ ( e ) => {
+									setDeviceType( 'Tablet' );
+								} }
+								icon="tablet"
+								label={ __( 'Tablet', 'highlight-and-share' ) }
+							>Gradient</Button>
+							<Button
+								variant={ deviceType === 'Mobile' ? 'primary' : 'secondary' }
+								onClick={ ( e ) => {
+									setDeviceType( 'Mobile' );
+								} }
+								icon="smartphone"
+								label={ __( 'Mobile', 'highlight-and-share' ) }
+							>Image</Button>
+						</ButtonGroup>
+					</PanelRow>
+				</PanelBody>
+			) }
+			{ deviceType === 'Desktop' && (
+				<PanelBody
 					title={ __( 'Colors', 'highlight-and-share' ) }
 					initialOpen={ false }
 				>

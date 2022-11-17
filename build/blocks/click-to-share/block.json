@@ -48,6 +48,30 @@
       "type": "string",
       "default": "#FFFFFF"
     },
+    "backgroundType": {
+      "type": "string",
+      "default": "solid"
+    },
+    "backgroundGradient": {
+      "type": "string",
+      "default": ""
+    },
+    "backgroundGradientHover": {
+      "type": "string",
+      "default": ""
+    },
+    "backgroundImage": {
+      "type": "object",
+      "default": {
+        "url": "",
+        "id": 0,
+        "backgroundSize": "cover",
+        "backgroundPosition": "center center",
+        "backgroundRepeat": "no-repeat",
+        "backgroundOpacity": 100,
+        "backgroundOpacityHover": 100
+      }
+    },
     "iconColor": {
       "type": "string",
       "default": "#000000"
