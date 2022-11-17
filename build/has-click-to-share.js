@@ -256,7 +256,7 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
     },
     icon: "smartphone",
     label: __('Mobile', 'highlight-and-share')
-  }))), /*#__PURE__*/React.createElement(PanelBody, {
+  }))), deviceType === 'Desktop' && /*#__PURE__*/React.createElement(PanelBody, {
     title: __('Share Settings', 'highlight-and-share'),
     initialOpen: true
   }, /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(ToggleControl, {
@@ -296,7 +296,7 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
     min: 10,
     max: 150,
     step: 1
-  }))), /*#__PURE__*/React.createElement(PanelBody, {
+  }))), deviceType === 'Desktop' && /*#__PURE__*/React.createElement(PanelBody, {
     title: __('Colors', 'highlight-and-share'),
     initialOpen: false
   }, /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(_react_Components_ColorPicker__WEBPACK_IMPORTED_MODULE_2__["default"], {
@@ -421,7 +421,7 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
     slug: 'icon-color-hover'
   }))), /*#__PURE__*/React.createElement(PanelBody, {
     title: __('Fonts and Typography', 'highlight-and-share'),
-    initialOpen: false
+    initialOpen: true
   }, /*#__PURE__*/React.createElement(PanelRow, {
     className: "has-typography-panel-row"
   }, /*#__PURE__*/React.createElement(_react_Components_Typography__WEBPACK_IMPORTED_MODULE_7__["default"], {
@@ -446,8 +446,8 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
     label: __('Share Text Typography', 'highlight-and-share')
   }))), /*#__PURE__*/React.createElement(PanelBody, {
     title: __('Spacing and Border', 'highlight-and-share'),
-    initialOpen: false
-  }, /*#__PURE__*/React.createElement(PanelRow, {
+    initialOpen: true
+  }, deviceType === 'Desktop' && /*#__PURE__*/React.createElement(PanelRow, {
     className: "has-unit-picker"
   }, /*#__PURE__*/React.createElement(_react_Components_unit_picker__WEBPACK_IMPORTED_MODULE_6__["default"], {
     label: __('Maximum Width', 'quotes-dlx'),
@@ -526,7 +526,7 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
         borderRadiusSize: newValues
       });
     }
-  })), /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(_react_Components_ColorPicker__WEBPACK_IMPORTED_MODULE_2__["default"], {
+  })), deviceType === 'Desktop' && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(_react_Components_ColorPicker__WEBPACK_IMPORTED_MODULE_2__["default"], {
     value: borderColor,
     key: 'border-color',
     onChange: function onChange(slug, newValue) {
@@ -550,65 +550,7 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
     defaultColors: has_gutenberg.colorPalette,
     defaultColor: borderColorHover,
     slug: 'border-color-hover'
-  }))), /*#__PURE__*/React.createElement(PanelBody, {
-    title: __('Highlight and Share Settings', 'highlight-and-share')
-  }, /*#__PURE__*/React.createElement(SelectControl, {
-    label: __('Font Weight', 'highlight-and-share'),
-    value: fontWeight,
-    options: fontWeightArr,
-    onChange: function onChange(value) {
-      setAttributes({
-        fontWeight: value
-      });
-    }
-  })), /*#__PURE__*/React.createElement(PanelBody, {
-    title: __('Spacing and Font Settings', 'highlight-and-share'),
-    initialOpen: false
-  }, /*#__PURE__*/React.createElement(RangeControl, {
-    label: __('Font Size', 'highlight-and-share'),
-    value: fontSize,
-    onChange: function onChange(value) {
-      return setAttributes({
-        fontSize: value
-      });
-    },
-    min: 10,
-    max: 40,
-    step: 1
-  }), /*#__PURE__*/React.createElement(RangeControl, {
-    label: __('Click to Share Font Size', 'highlight-and-share'),
-    value: clickShareFontSize,
-    onChange: function onChange(value) {
-      return setAttributes({
-        clickShareFontSize: value
-      });
-    },
-    min: 10,
-    max: 40,
-    step: 1
-  }), /*#__PURE__*/React.createElement(RangeControl, {
-    label: __('Border', 'highlight-and-share'),
-    value: border,
-    onChange: function onChange(value) {
-      return setAttributes({
-        border: value
-      });
-    },
-    min: 0,
-    max: 10,
-    step: 1
-  }), /*#__PURE__*/React.createElement(RangeControl, {
-    label: __('Border Rounded', 'highlight-and-share'),
-    value: borderRadius,
-    onChange: function onChange(value) {
-      setAttributes({
-        borderRadius: value
-      });
-    },
-    min: 0,
-    max: 30,
-    step: 1
-  })));
+  })))));
   var block = /*#__PURE__*/React.createElement(React.Fragment, null, inspectorControls, getFontStyles(typographyQuote), getFontStyles(typographyShareText), /*#__PURE__*/React.createElement("style", null, styles), /*#__PURE__*/React.createElement("div", {
     className: classnames__WEBPACK_IMPORTED_MODULE_0___default()('has-click-to-share'),
     style: hasStyles,

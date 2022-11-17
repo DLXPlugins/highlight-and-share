@@ -282,192 +282,196 @@ const HAS_Click_To_Share = ( props ) => {
 					/>
 				</ButtonGroup>
 			</div>
-			<PanelBody
-				title={ __( 'Share Settings', 'highlight-and-share' ) }
-				initialOpen={ true }
-			>
-				<PanelRow>
-					<ToggleControl
-						label={ __( 'Show Click to Share Text', 'alerts-dlx' ) }
-						checked={ showClickToShare }
-						onChange={ ( value ) => {
-							setAttributes( {
-								showClickToShare: value,
-							} );
-						} }
-					/>
-				</PanelRow>
-				{ showClickToShare && (
+			{ deviceType === 'Desktop' && (
+				<PanelBody
+					title={ __( 'Share Settings', 'highlight-and-share' ) }
+					initialOpen={ true }
+				>
 					<PanelRow>
-						<TextControl
-							label={ __( 'Click to Share Text', 'highlight-and-share' ) }
-							value={ clickText }
+						<ToggleControl
+							label={ __( 'Show Click to Share Text', 'alerts-dlx' ) }
+							checked={ showClickToShare }
 							onChange={ ( value ) => {
-								setAttributes( { clickText: value } );
+								setAttributes( {
+									showClickToShare: value,
+								} );
 							} }
 						/>
 					</PanelRow>
-				) }
-				<PanelRow>
-					<ToggleControl
-						label={ __( 'Show Share Icon', 'alerts-dlx' ) }
-						checked={ showIcon }
-						onChange={ ( value ) => {
-							setAttributes( {
-								showIcon: value,
-							} );
-						} }
-					/>
-				</PanelRow>
-				<PanelRow className="has-range-control">
-					<RangeControl
-						label={ __( 'Icon Size', 'highlight-and-share' ) }
-						value={ iconSize }
-						onChange={ ( value ) => setAttributes( { iconSize: value } ) }
-						min={ 10 }
-						max={ 150 }
-						step={ 1 }
-					/>
-				</PanelRow>
-			</PanelBody>
-			<PanelBody
-				title={ __( 'Colors', 'highlight-and-share' ) }
-				initialOpen={ false }
-			>
-				<PanelRow>
-					<ColorPicker
-						value={ backgroundColor }
-						key={ 'background-color' }
-						onChange={ ( slug, newValue ) => {
-							setAttributes( { backgroundColor: newValue } );
-						} }
-						label={ __( 'Background Color', 'highlight-and-share' ) }
-						defaultColors={ has_gutenberg.colorPalette }
-						defaultColor={ backgroundColor }
-						slug={ 'background-color' }
-					/>
-				</PanelRow>
-				<PanelRow>
-					<ColorPicker
-						value={ backgroundColorHover }
-						key={ 'background-color-hover' }
-						onChange={ ( slug, newValue ) => {
-							setAttributes( { backgroundColorHover: newValue } );
-						} }
-						label={ __( 'Background Color Hover', 'highlight-and-share' ) }
-						defaultColors={ has_gutenberg.colorPalette }
-						defaultColor={ backgroundColorHover }
-						slug={ 'background-color-hover' }
-					/>
-				</PanelRow>
-				<PanelRow>
-					<ColorPicker
-						value={ textColor }
-						key={ 'text-color' }
-						onChange={ ( slug, newValue ) => {
-							setAttributes( { textColor: newValue } );
-						} }
-						label={ __( 'Text Color', 'highlight-and-share' ) }
-						defaultColors={ has_gutenberg.colorPalette }
-						defaultColor={ textColor }
-						slug={ 'text-color' }
-					/>{ ' ' }
-				</PanelRow>
-				<PanelRow>
-					<ColorPicker
-						value={ textColorHover }
-						key={ 'text-color-hover' }
-						onChange={ ( slug, newValue ) => {
-							setAttributes( { textColorHover: newValue } );
-						} }
-						label={ __( 'Text Color Hover', 'highlight-and-share' ) }
-						defaultColors={ has_gutenberg.colorPalette }
-						defaultColor={ textColorHover }
-						slug={ 'text-color-hover' }
-					/>
-				</PanelRow>
-				<PanelRow>
-					<ColorPicker
-						value={ shareTextColor }
-						key={ 'share-text-color' }
-						onChange={ ( slug, newValue ) => {
-							setAttributes( { shareTextColor: newValue } );
-						} }
-						label={ __( 'Share Text Color', 'highlight-and-share' ) }
-						defaultColors={ has_gutenberg.colorPalette }
-						defaultColor={ shareTextColor }
-						slug={ 'share-text-color' }
-					/>{ ' ' }
-				</PanelRow>
-				<PanelRow>
-					<ColorPicker
-						value={ shareTextColorHover }
-						key={ 'share-text-color-hover' }
-						onChange={ ( slug, newValue ) => {
-							setAttributes( { shareTextColorHover: newValue } );
-						} }
-						label={ __( 'Share Text Color Hover', 'highlight-and-share' ) }
-						defaultColors={ has_gutenberg.colorPalette }
-						defaultColor={ shareTextColorHover }
-						slug={ 'share-text-color-hover' }
-					/>
-				</PanelRow>
-				<PanelRow>
-					<ColorPicker
-						value={ borderColor }
-						key={ 'border-color' }
-						onChange={ ( slug, newValue ) => {
-							setAttributes( { borderColor: newValue } );
-						} }
-						label={ __( 'Border Color', 'highlight-and-share' ) }
-						defaultColors={ has_gutenberg.colorPalette }
-						defaultColor={ borderColor }
-						slug={ 'border-color' }
-					/>
-				</PanelRow>
-				<PanelRow>
-					<ColorPicker
-						value={ borderColorHover }
-						key={ 'border-color-hover' }
-						onChange={ ( slug, newValue ) => {
-							setAttributes( { borderColorHover: newValue } );
-						} }
-						label={ __( 'Border Color Hover', 'highlight-and-share' ) }
-						defaultColors={ has_gutenberg.colorPalette }
-						defaultColor={ borderColorHover }
-						slug={ 'border-color-hover' }
-					/>
-				</PanelRow>
-				<PanelRow>
-					<ColorPicker
-						value={ iconColor }
-						key={ 'icon-color' }
-						onChange={ ( slug, newValue ) => {
-							setAttributes( { iconColor: newValue } );
-						} }
-						label={ __( 'Icon Color', 'highlight-and-share' ) }
-						defaultColors={ has_gutenberg.colorPalette }
-						defaultColor={ iconColor }
-						slug={ 'icon-color' }
-					/>
-				</PanelRow>
-				<PanelRow>
-					<ColorPicker
-						value={ iconColorHover }
-						key={ 'icon-color-hover' }
-						onChange={ ( slug, newValue ) => {
-							setAttributes( { iconColorHover: newValue } );
-						} }
-						label={ __( 'Icon Color Hover', 'highlight-and-share' ) }
-						defaultColors={ has_gutenberg.colorPalette }
-						defaultColor={ iconColorHover }
-						slug={ 'icon-color-hover' }
-					/>
-				</PanelRow>
-			</PanelBody>
+					{ showClickToShare && (
+						<PanelRow>
+							<TextControl
+								label={ __( 'Click to Share Text', 'highlight-and-share' ) }
+								value={ clickText }
+								onChange={ ( value ) => {
+									setAttributes( { clickText: value } );
+								} }
+							/>
+						</PanelRow>
+					) }
+					<PanelRow>
+						<ToggleControl
+							label={ __( 'Show Share Icon', 'alerts-dlx' ) }
+							checked={ showIcon }
+							onChange={ ( value ) => {
+								setAttributes( {
+									showIcon: value,
+								} );
+							} }
+						/>
+					</PanelRow>
+					<PanelRow className="has-range-control">
+						<RangeControl
+							label={ __( 'Icon Size', 'highlight-and-share' ) }
+							value={ iconSize }
+							onChange={ ( value ) => setAttributes( { iconSize: value } ) }
+							min={ 10 }
+							max={ 150 }
+							step={ 1 }
+						/>
+					</PanelRow>
+				</PanelBody>
+			) }
+			{ deviceType === 'Desktop' && (
+				<PanelBody
+					title={ __( 'Colors', 'highlight-and-share' ) }
+					initialOpen={ false }
+				>
+					<PanelRow>
+						<ColorPicker
+							value={ backgroundColor }
+							key={ 'background-color' }
+							onChange={ ( slug, newValue ) => {
+								setAttributes( { backgroundColor: newValue } );
+							} }
+							label={ __( 'Background Color', 'highlight-and-share' ) }
+							defaultColors={ has_gutenberg.colorPalette }
+							defaultColor={ backgroundColor }
+							slug={ 'background-color' }
+						/>
+					</PanelRow>
+					<PanelRow>
+						<ColorPicker
+							value={ backgroundColorHover }
+							key={ 'background-color-hover' }
+							onChange={ ( slug, newValue ) => {
+								setAttributes( { backgroundColorHover: newValue } );
+							} }
+							label={ __( 'Background Color Hover', 'highlight-and-share' ) }
+							defaultColors={ has_gutenberg.colorPalette }
+							defaultColor={ backgroundColorHover }
+							slug={ 'background-color-hover' }
+						/>
+					</PanelRow>
+					<PanelRow>
+						<ColorPicker
+							value={ textColor }
+							key={ 'text-color' }
+							onChange={ ( slug, newValue ) => {
+								setAttributes( { textColor: newValue } );
+							} }
+							label={ __( 'Text Color', 'highlight-and-share' ) }
+							defaultColors={ has_gutenberg.colorPalette }
+							defaultColor={ textColor }
+							slug={ 'text-color' }
+						/>{ ' ' }
+					</PanelRow>
+					<PanelRow>
+						<ColorPicker
+							value={ textColorHover }
+							key={ 'text-color-hover' }
+							onChange={ ( slug, newValue ) => {
+								setAttributes( { textColorHover: newValue } );
+							} }
+							label={ __( 'Text Color Hover', 'highlight-and-share' ) }
+							defaultColors={ has_gutenberg.colorPalette }
+							defaultColor={ textColorHover }
+							slug={ 'text-color-hover' }
+						/>
+					</PanelRow>
+					<PanelRow>
+						<ColorPicker
+							value={ shareTextColor }
+							key={ 'share-text-color' }
+							onChange={ ( slug, newValue ) => {
+								setAttributes( { shareTextColor: newValue } );
+							} }
+							label={ __( 'Share Text Color', 'highlight-and-share' ) }
+							defaultColors={ has_gutenberg.colorPalette }
+							defaultColor={ shareTextColor }
+							slug={ 'share-text-color' }
+						/>{ ' ' }
+					</PanelRow>
+					<PanelRow>
+						<ColorPicker
+							value={ shareTextColorHover }
+							key={ 'share-text-color-hover' }
+							onChange={ ( slug, newValue ) => {
+								setAttributes( { shareTextColorHover: newValue } );
+							} }
+							label={ __( 'Share Text Color Hover', 'highlight-and-share' ) }
+							defaultColors={ has_gutenberg.colorPalette }
+							defaultColor={ shareTextColorHover }
+							slug={ 'share-text-color-hover' }
+						/>
+					</PanelRow>
+					<PanelRow>
+						<ColorPicker
+							value={ borderColor }
+							key={ 'border-color' }
+							onChange={ ( slug, newValue ) => {
+								setAttributes( { borderColor: newValue } );
+							} }
+							label={ __( 'Border Color', 'highlight-and-share' ) }
+							defaultColors={ has_gutenberg.colorPalette }
+							defaultColor={ borderColor }
+							slug={ 'border-color' }
+						/>
+					</PanelRow>
+					<PanelRow>
+						<ColorPicker
+							value={ borderColorHover }
+							key={ 'border-color-hover' }
+							onChange={ ( slug, newValue ) => {
+								setAttributes( { borderColorHover: newValue } );
+							} }
+							label={ __( 'Border Color Hover', 'highlight-and-share' ) }
+							defaultColors={ has_gutenberg.colorPalette }
+							defaultColor={ borderColorHover }
+							slug={ 'border-color-hover' }
+						/>
+					</PanelRow>
+					<PanelRow>
+						<ColorPicker
+							value={ iconColor }
+							key={ 'icon-color' }
+							onChange={ ( slug, newValue ) => {
+								setAttributes( { iconColor: newValue } );
+							} }
+							label={ __( 'Icon Color', 'highlight-and-share' ) }
+							defaultColors={ has_gutenberg.colorPalette }
+							defaultColor={ iconColor }
+							slug={ 'icon-color' }
+						/>
+					</PanelRow>
+					<PanelRow>
+						<ColorPicker
+							value={ iconColorHover }
+							key={ 'icon-color-hover' }
+							onChange={ ( slug, newValue ) => {
+								setAttributes( { iconColorHover: newValue } );
+							} }
+							label={ __( 'Icon Color Hover', 'highlight-and-share' ) }
+							defaultColors={ has_gutenberg.colorPalette }
+							defaultColor={ iconColorHover }
+							slug={ 'icon-color-hover' }
+						/>
+					</PanelRow>
+				</PanelBody>
+			) }
 			<PanelBody
 				title={ __( 'Fonts and Typography', 'highlight-and-share' ) }
-				initialOpen={ false }
+				initialOpen={ true }
 			>
 				<PanelRow className="has-typography-panel-row">
 					<Typography
@@ -496,30 +500,32 @@ const HAS_Click_To_Share = ( props ) => {
 			</PanelBody>
 			<PanelBody
 				title={ __( 'Spacing and Border', 'highlight-and-share' ) }
-				initialOpen={ false }
+				initialOpen={ true }
 			>
-				<PanelRow className="has-unit-picker">
-					<UnitChooser
-						label={ __( 'Maximum Width', 'quotes-dlx' ) }
-						value={ maxWidthUnit }
-						units={ [ 'px', '%', 'vw' ] }
-						onClick={ ( value ) => {
-							setAttributes( {
-								maxWidthUnit: value,
-							} );
-						} }
-					/>
+				{ deviceType === 'Desktop' && (
+					<PanelRow className="has-unit-picker">
+						<UnitChooser
+							label={ __( 'Maximum Width', 'quotes-dlx' ) }
+							value={ maxWidthUnit }
+							units={ [ 'px', '%', 'vw' ] }
+							onClick={ ( value ) => {
+								setAttributes( {
+									maxWidthUnit: value,
+								} );
+							} }
+						/>
 
-					<TextControl
-						type={ 'number' }
-						value={ maxWidth }
-						onChange={ ( value ) => {
-							setAttributes( {
-								maxWidth: value,
-							} );
-						} }
-					/>
-				</PanelRow>
+						<TextControl
+							type={ 'number' }
+							value={ maxWidth }
+							onChange={ ( value ) => {
+								setAttributes( {
+									maxWidth: value,
+								} );
+							} }
+						/>
+					</PanelRow>
+				) }
 				<PanelRow>
 					<DimensionsControlBlock
 						label={ __( 'Inner Padding', 'highlight-and-share' ) }
@@ -592,83 +598,36 @@ const HAS_Click_To_Share = ( props ) => {
 						} }
 					/>
 				</PanelRow>
-				<PanelRow>
-					<ColorPicker
-						value={ borderColor }
-						key={ 'border-color' }
-						onChange={ ( slug, newValue ) => {
-							setAttributes( { borderColor: newValue } );
-						} }
-						label={ __( 'Border Color', 'highlight-and-share' ) }
-						defaultColors={ has_gutenberg.colorPalette }
-						defaultColor={ borderColor }
-						slug={ 'border-color' }
-					/>
-				</PanelRow>
-				<PanelRow>
-					<ColorPicker
-						value={ borderColorHover }
-						key={ 'border-color-hover' }
-						onChange={ ( slug, newValue ) => {
-							setAttributes( { borderColorHover: newValue } );
-						} }
-						label={ __( 'Border Color Hover', 'highlight-and-share' ) }
-						defaultColors={ has_gutenberg.colorPalette }
-						defaultColor={ borderColorHover }
-						slug={ 'border-color-hover' }
-					/>
-				</PanelRow>
-			</PanelBody>
-			<PanelBody
-				title={ __( 'Highlight and Share Settings', 'highlight-and-share' ) }
-			>
-				<SelectControl
-					label={ __( 'Font Weight', 'highlight-and-share' ) }
-					value={ fontWeight }
-					options={ fontWeightArr }
-					onChange={ ( value ) => {
-						setAttributes( { fontWeight: value } );
-					} }
-				/>
-			</PanelBody>
-			<PanelBody
-				title={ __( 'Spacing and Font Settings', 'highlight-and-share' ) }
-				initialOpen={ false }
-			>
-				<RangeControl
-					label={ __( 'Font Size', 'highlight-and-share' ) }
-					value={ fontSize }
-					onChange={ ( value ) => setAttributes( { fontSize: value } ) }
-					min={ 10 }
-					max={ 40 }
-					step={ 1 }
-				/>
-				<RangeControl
-					label={ __( 'Click to Share Font Size', 'highlight-and-share' ) }
-					value={ clickShareFontSize }
-					onChange={ ( value ) => setAttributes( { clickShareFontSize: value } ) }
-					min={ 10 }
-					max={ 40 }
-					step={ 1 }
-				/>
-				<RangeControl
-					label={ __( 'Border', 'highlight-and-share' ) }
-					value={ border }
-					onChange={ ( value ) => setAttributes( { border: value } ) }
-					min={ 0 }
-					max={ 10 }
-					step={ 1 }
-				/>
-				<RangeControl
-					label={ __( 'Border Rounded', 'highlight-and-share' ) }
-					value={ borderRadius }
-					onChange={ ( value ) => {
-						setAttributes( { borderRadius: value } );
-					} }
-					min={ 0 }
-					max={ 30 }
-					step={ 1 }
-				/>
+				{ deviceType === 'Desktop' && (
+					<>
+						<PanelRow>
+							<ColorPicker
+								value={ borderColor }
+								key={ 'border-color' }
+								onChange={ ( slug, newValue ) => {
+									setAttributes( { borderColor: newValue } );
+								} }
+								label={ __( 'Border Color', 'highlight-and-share' ) }
+								defaultColors={ has_gutenberg.colorPalette }
+								defaultColor={ borderColor }
+								slug={ 'border-color' }
+							/>
+						</PanelRow>
+						<PanelRow>
+							<ColorPicker
+								value={ borderColorHover }
+								key={ 'border-color-hover' }
+								onChange={ ( slug, newValue ) => {
+									setAttributes( { borderColorHover: newValue } );
+								} }
+								label={ __( 'Border Color Hover', 'highlight-and-share' ) }
+								defaultColors={ has_gutenberg.colorPalette }
+								defaultColor={ borderColorHover }
+								slug={ 'border-color-hover' }
+							/>
+						</PanelRow>
+					</>
+				) }
 			</PanelBody>
 		</InspectorControls>
 	);
