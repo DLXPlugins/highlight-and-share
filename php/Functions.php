@@ -256,6 +256,23 @@ class Functions {
 	}
 
 	/**
+	 * Check if Adobe Fonts are enabled or not.
+	 *
+	 * @return bool True if enabled, false if not.
+	 */
+	public static function is_adobe_fonts_enabled() {
+		$block_editor_options = Options::get_block_editor_options( true );
+		$adobe_project_id     = $block_editor_options['adobe_project_id'] ?? '';
+		$adobe_fonts          = $block_editor_options['adobe_fonts'] ?? false;
+		$adobe_fonts_enabled  = $block_editor_options['enable_adobe_fonts'] ?? false;
+
+		if ( $adobe_fonts_enabled && ! empty( $adobe_fonts ) && ! empty( $adobe_project_id ) ) {
+			return true;
+		}
+		return false;
+	}
+
+	/**
 	 * Take a _ separated field and convert to camelcase.
 	 *
 	 * @param string $field Field to convert to camelcase.

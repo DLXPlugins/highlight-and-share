@@ -37,23 +37,44 @@ class Adobe_Fonts {
 		add_action( 'wp_ajax_has_retrieve_remote_adobe_fonts', array( static::class, 'ajax_retrieve_remote_adobe_fonts' ) );
 		add_action( 'wp_ajax_has_save_remote_adobe_fonts', array( static::class, 'ajax_retrieve_remote_adobe_fonts' ) );
 
-		// if ( self::can_enqueue( 'frontend' ) ) {
-		// add_action( 'wp_head', array( static::class, 'add_dns_prefetch' ), 1 );
-		// add_action( 'wp_enqueue_scripts', array( static::class, 'enqueue_adobe_fonts' ) );
-		// }
-		// if ( self::can_enqueue( 'backend' ) ) {
-		// add_action( 'admin_head', array( static::class, 'add_dns_prefetch' ), 1 );
-		// add_action( 'admin_enqueue_scripts', array( static::class, 'enqueue_adobe_fonts' ) );
-		// }
+		add_action( 'wp_head', array( static::class, 'add_dns_prefetch' ), 1 );
+		add_action( 'wp_enqueue_scripts', array( static::class, 'enqueue_adobe_fonts' ) );
+		add_action( 'admin_head', array( static::class, 'add_dns_prefetch' ), 1 );
+		add_action( 'admin_enqueue_scripts', array( static::class, 'enqueue_adobe_fonts' ) );
+
 		return $self;
 	}
 
 	/**
-	 * Set a DNS prefetch expicitly for loading Adobe fonts on the frontend or backend.
+	 * Check to see if we need to load the Adobe Fonts.
+	 *
+	 * @param string $location Can be frontend or admin.
+	 *
+	 * @return bool True if we can load the Adobe Fonts.
 	 */
-	public static function set_dns_prefetch() {
-		add_action( 'wp_head', array( static::class, 'add_dns_prefetch' ), 1 );
-		add_action( 'admin_head', array( static::class, 'add_dns_prefetch' ), 1 );
+	public static function can_enqueue( $location = 'frontend' ) {
+		if ( ! Functions::is_adobe_fonts_enabled() ) {
+			return false;
+		}
+
+		// Check admin if we're in the block editor.
+		global $post;
+		if ( is_admin() && ( isset( $post->post_content ) ) && 'admin' === $location ) {
+			return true;
+		}
+
+		// Check frontend if we're on the frontend of the site and an adobe font is present.
+		if ( ! is_admin() && ( isset( $post->post_content ) ) && 'frontend' === $location ) {
+			$blocks      = parse_blocks( $post->post_content );
+			$block_fonts = Functions::get_block_fonts( $blocks );
+			foreach ( $block_fonts as $block_font ) {
+				if ( 'adobe' === $block_font['fontType'] ) {
+					return true;
+				}
+			}
+		}
+
+		return false;
 	}
 
 	/**
@@ -61,6 +82,9 @@ class Adobe_Fonts {
 	 */
 	public static function add_dns_prefetch() {
 		if ( self::$has_prefetched ) {
+			return;
+		}
+		if ( ! self::can_enqueue( 'frontend' ) && ! self::can_enqueue( 'admin' ) ) {
 			return;
 		}
 		$typekit_css_url = rtrim( self::$typekit_css_url, '/' );
@@ -72,6 +96,36 @@ class Adobe_Fonts {
 			echo '<link rel="preload" href="' . esc_url( $preload_url ) . '" crossorigin="anonymous" as="font">';
 		}
 		self::$has_prefetched = true;
+	}
+
+	/**
+	 * Enqueue adobe font scripts based on project id.
+	 *
+	 * @param string $project_id The project id.
+	 */
+	public static function enqueue_adobe_fonts( $project_id = '' ) {
+		if ( ! self::can_enqueue( 'frontend' ) && ! self::can_enqueue( 'admin' ) ) {
+			return;
+		}
+		$adobe_fonts_url = '';
+		// Retrieve project ID if empty.
+		if ( empty( $project_id ) ) {
+			$adobe_fonts_url = self::get_adobe_fonts_url();
+		}
+		// If still empty, return.
+		if ( empty( $adobe_fonts_url ) ) {
+			return;
+		}
+
+		wp_enqueue_style(
+			'has-adobe-fonts',
+			esc_url(
+				$adobe_fonts_url
+			),
+			array(),
+			Functions::get_plugin_version(),
+			'all'
+		);
 	}
 
 	/**

@@ -220,6 +220,15 @@ const HAS_Click_To_Share = ( props ) => {
 			letter-spacing: ${ geHierarchicalPlaceholderValue( typographyQuote, screenSize, typographyQuote[ screenSize ].letterSpacing, 'letterSpacing' ) + getHierarchicalValueUnit( typographyQuote, screenSize, typographyQuote[ screenSize ].letterSpacingUnit, 'letterSpacingUnit' ) };
 			text-transform: ${ geHierarchicalPlaceholderValue( typographyQuote, screenSize, typographyQuote[ screenSize ].textTransform, 'textTransform' ) };
 		}
+		#${ uniqueId } .has-click-to-share-cta,
+		#${ uniqueId } .has-click-to-share-cta p {
+			font-family: "${ geHierarchicalPlaceholderValue( typographyShareText, screenSize, typographyShareText[ screenSize ].fontFamily, 'fontFamily' ) }";
+			font-weight: ${ geHierarchicalPlaceholderValue( typographyShareText, screenSize, typographyShareText[ screenSize ].fontWeight, 'fontWeight' ) };
+			font-size: ${ geHierarchicalPlaceholderValue( typographyShareText, screenSize, typographyShareText[ screenSize ].fontSize, 'fontSize' ) + getHierarchicalValueUnit( typographyShareText, screenSize, typographyShareText[ screenSize ].fontSizeUnit, 'fontSizeUnit' ) };
+			line-height: ${ geHierarchicalPlaceholderValue( typographyShareText, screenSize, typographyShareText[ screenSize ].lineHeight, 'lineHeight' ) + getHierarchicalValueUnit( typographyShareText, screenSize, typographyShareText[ screenSize ].lineHeightUnit, 'lineHeightUnit' ) };
+			letter-spacing: ${ geHierarchicalPlaceholderValue( typographyShareText, screenSize, typographyShareText[ screenSize ].letterSpacing, 'letterSpacing' ) + getHierarchicalValueUnit( typographyShareText, screenSize, typographyShareText[ screenSize ].letterSpacingUnit, 'letterSpacingUnit' ) };
+			text-transform: ${ geHierarchicalPlaceholderValue( typographyShareText, screenSize, typographyShareText[ screenSize ].textTransform, 'textTransform' ) };
+		}
 	`;
 	const fontWeightArr = Array();
 	fontWeightArr.push( {
@@ -272,18 +281,6 @@ const HAS_Click_To_Share = ( props ) => {
 						label={ __( 'Mobile', 'highlight-and-share' ) }
 					/>
 				</ButtonGroup>
-				<PanelRow className="has-typography-panel-row">
-					<Typography
-						values={ typographyQuote }
-						screenSize={ deviceType }
-						onValuesChange={ ( formValues ) => {
-							setAttributes( {
-								typographyQuote: formValues,
-							} );
-						} }
-						label={ __( 'Quote Typography', 'highlight-and-share' ) }
-					/>
-				</PanelRow>
 			</div>
 			<PanelBody
 				title={ __( 'Share Settings', 'highlight-and-share' ) }
@@ -477,9 +474,23 @@ const HAS_Click_To_Share = ( props ) => {
 						values={ typographyQuote }
 						screenSize={ deviceType }
 						onValuesChange={ ( formValues ) => {
-							console.log( formValues );
+							setAttributes( {
+								typographyQuote: formValues,
+							} );
 						} }
 						label={ __( 'Quote Typography', 'highlight-and-share' ) }
+					/>
+				</PanelRow>
+				<PanelRow className="has-typography-panel-row">
+					<Typography
+						values={ typographyShareText }
+						screenSize={ deviceType }
+						onValuesChange={ ( formValues ) => {
+							setAttributes( {
+								typographyShareText: formValues,
+							} );
+						} }
+						label={ __( 'Share Text Typography', 'highlight-and-share' ) }
 					/>
 				</PanelRow>
 			</PanelBody>
@@ -694,7 +705,6 @@ const HAS_Click_To_Share = ( props ) => {
 					/>
 					<div
 						className="has-click-to-share-cta"
-						style={ { fontSize: clickShareFontSize } }
 					>
 						{ showClickToShare && <>{ clickText } </> }
 						{ showIcon && (
