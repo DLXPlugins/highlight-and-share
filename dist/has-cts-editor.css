@@ -402,11 +402,12 @@
   text-align: left;
   margin-bottom: 16px;
   margin-top: 2px;
+  width: 100%;
 }
 .has-component-color-picker-wrapper > .components-base-control__field,
 .qdlx-admin__tabs--content-inner .components-base-control.has-component-color-picker-wrapper > .components-base-control__field {
   position: relative;
-  display: inline-grid;
+  display: grid;
   grid-template-columns: 175px 30px;
   row-gap: 2;
   margin: 0 auto;
@@ -713,6 +714,51 @@
 }
 .has-component-typography-popup .components-popover__content {
   width: unset;
+}
+
+/* Background Selector */
+.has-background-type {
+  display: block;
+  margin-bottom: 15px;
+}
+.has-background-type .components-button-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+}
+.has-background-type .components-button-group button {
+  display: block;
+  text-align: center;
+}
+
+.has-background-gradient {
+  display: block;
+}
+
+.has-component-gradient-picker-wrapper > div {
+  display: grid;
+  grid-template-columns: 1fr 30px;
+  align-items: center;
+}
+.has-component-gradient-picker-wrapper > div h3 {
+  margin-bottom: 0;
+}
+
+.has-component-gradient-picker {
+  display: inline-block;
+  height: 28px;
+  width: 28px;
+  vertical-align: top;
+  transition: 100ms transform ease;
+  border-radius: 50%;
+  box-shadow: inset 0 0 0 1px !important;
+}
+.has-component-gradient-picker:hover {
+  transform: scale(1.1);
+}
+
+.has-component-gradient-picker-popover .components-popover__content {
+  width: 300px;
+  padding: 10px;
 }
 
 /*# sourceMappingURL=has-cts-editor.css.map*/

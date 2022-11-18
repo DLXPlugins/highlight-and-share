@@ -5,6 +5,7 @@
 import classnames from 'classnames';
 import { useEffect } from 'react';
 import ColorPicker from '../../react/Components/ColorPicker';
+import GradientPicker from '../../react/Components/GradientPicker';
 import DimensionsControlBlock from '../../react/Components/DimensionsBlock';
 import useDeviceType from '../../react/Hooks/useDeviceType';
 import { buildDimensionsCSS } from '../../react/Utils/DimensionsHelper';
@@ -36,8 +37,12 @@ const HAS_Click_To_Share = ( props ) => {
 	const { attributes, setAttributes } = props;
 	const {
 		shareText,
+		backgroundType,
 		backgroundColor,
 		backgroundColorHover,
+		backgroundGradient,
+		backgroundGradientHover,
+		backgroundImage,
 		textColor,
 		textColorHover,
 		shareTextColor,
@@ -54,7 +59,6 @@ const HAS_Click_To_Share = ( props ) => {
 		iconColor,
 		iconColorHover,
 		borderColorHover,
-		fontWeight,
 		clickShareFontSize,
 		maxWidth,
 		maxWidthUnit,
@@ -338,35 +342,85 @@ const HAS_Click_To_Share = ( props ) => {
 					initialOpen={ true }
 				>
 					<PanelRow className="has-background-type">
-						<h3>Background Type</h3>
+						<h3>{ __( 'Background Type', 'highlight-and-share' ) }</h3>
 						<ButtonGroup>
 							<Button
-								variant={ deviceType === 'Desktop' ? 'primary' : 'secondary' }
+								variant={ backgroundType === 'solid' ? 'primary' : 'secondary' }
 								onClick={ ( e ) => {
-									setDeviceType( 'Desktop' );
+									setAttributes( { backgroundType: 'solid' } );
 								} }
-								icon="laptop"
-								iconSize="14"
-								label={ __( 'Desktop', 'highlight-and-share' ) }
-							>Solid</Button>
+								label={ __( 'Solid Background', 'highlight-and-share' ) }
+							>{ __( 'Solid', 'highlight-and-share' ) }</Button>
 							<Button
-								variant={ deviceType === 'Tablet' ? 'primary' : 'secondary' }
+								variant={ backgroundType === 'gradient' ? 'primary' : 'secondary' }
 								onClick={ ( e ) => {
-									setDeviceType( 'Tablet' );
+									setAttributes( { backgroundType: 'gradient' } );
 								} }
-								icon="tablet"
-								label={ __( 'Tablet', 'highlight-and-share' ) }
-							>Gradient</Button>
+								label={ __( 'Gradient Background', 'highlight-and-share' ) }
+							>{ __( 'Gradient', 'highlight-and-share' ) }</Button>
 							<Button
-								variant={ deviceType === 'Mobile' ? 'primary' : 'secondary' }
+								variant={ backgroundType === 'image' ? 'primary' : 'secondary' }
 								onClick={ ( e ) => {
-									setDeviceType( 'Mobile' );
+									setAttributes( { backgroundType: 'image' } );
 								} }
-								icon="smartphone"
-								label={ __( 'Mobile', 'highlight-and-share' ) }
-							>Image</Button>
+								label={ __( 'Image Background', 'highlight-and-share' ) }
+							>{ __( 'Image', 'highlight-and-share' ) }</Button>
 						</ButtonGroup>
 					</PanelRow>
+					{ backgroundType === 'solid' && (
+						<>
+							<PanelRow>
+								<ColorPicker
+									value={ backgroundColor }
+									key={ 'background-color' }
+									onChange={ ( slug, newValue ) => {
+										setAttributes( { backgroundColor: newValue } );
+									} }
+									label={ __( 'Background Color', 'highlight-and-share' ) }
+									defaultColors={ has_gutenberg.colorPalette }
+									defaultColor={ backgroundColor }
+									slug={ 'background-color' }
+								/>
+							</PanelRow>
+							<PanelRow>
+								<ColorPicker
+									value={ backgroundColorHover }
+									key={ 'background-color-hover' }
+									onChange={ ( slug, newValue ) => {
+										setAttributes( { backgroundColorHover: newValue } );
+									} }
+									label={ __( 'Background Color Hover', 'highlight-and-share' ) }
+									defaultColors={ has_gutenberg.colorPalette }
+									defaultColor={ backgroundColorHover }
+									slug={ 'background-color-hover' }
+								/>
+							</PanelRow>
+						</>
+					) }
+					{ backgroundType === 'gradient' && (
+						<>
+							<PanelRow className="has-background-gradient">
+								<GradientPicker
+									value={ backgroundGradient }
+									onChange={ ( newValue ) => {
+										setAttributes( { backgroundGradient: newValue } );
+									} }
+									label={ __( 'Gradient Background', 'highlight-and-share' ) }
+									clearable={ false }
+								/>
+							</PanelRow>
+							<PanelRow className="has-background-gradient">
+								<GradientPicker
+									value={ backgroundGradientHover }
+									onChange={ ( newValue ) => {
+										setAttributes( { backgroundGradientHover: newValue } );
+									} }
+									label={ __( 'Gradient Background Hover', 'highlight-and-share' ) }
+									clearable={ false }
+								/>
+							</PanelRow>
+						</>
+					) }
 				</PanelBody>
 			) }
 			{ deviceType === 'Desktop' && (
