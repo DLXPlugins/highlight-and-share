@@ -69,11 +69,12 @@
       "default": {
         "url": "",
         "id": 0,
+        "backgroundColor": "#000000",
         "backgroundSize": "cover",
         "backgroundPosition": "center center",
         "backgroundRepeat": "no-repeat",
-        "backgroundOpacity": 100,
-        "backgroundOpacityHover": 100
+        "backgroundOpacity": 1,
+        "backgroundOpacityHover": 1
       }
     },
     "iconColor": {

@@ -409,7 +409,7 @@
   position: relative;
   display: grid;
   grid-template-columns: 175px 30px;
-  row-gap: 2;
+  column-gap: 15px;
   margin: 0 auto;
   justify-content: space-between;
   text-align: left;
@@ -423,6 +423,7 @@
 }
 .has-component-color-picker-wrapper .has-color-component-label,
 .qdlx-admin__tabs--content-inner .components-base-control.has-component-color-picker-wrapper .has-color-component-label {
+  margin-bottom: 0;
   line-height: 1.2;
 }
 
@@ -781,6 +782,28 @@
 .has-background-selector-upload-row .components-base-control__field,
 .has-background-selector-upload-row .components-base-control {
   margin-bottom: 0 !important;
+}
+
+.has-component-background-settings-popup .components-popover__content {
+  width: 250px;
+  padding: 10px;
+}
+
+.has-background-selector__row_item {
+  margin-bottom: 20px;
+}
+.has-background-selector__row_item.has-background-selector__row_item-2 {
+  display: grid;
+  grid-template-columns: 1fr 30px;
+  align-items: center;
+  column-gap: 15px;
+}
+.has-background-selector__row_item.has-background-selector__row_item-2 h3 {
+  margin-bottom: 0;
+}
+.has-background-selector__row_item.has-background-selector__row_item-2 button {
+  max-height: 30px;
+  max-width: 30px;
 }
 
 /*# sourceMappingURL=has-cts-editor.css.map*/

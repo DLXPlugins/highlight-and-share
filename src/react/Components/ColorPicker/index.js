@@ -99,9 +99,9 @@ const HASColorPicker = ( props ) => {
 	return (
 		<BaseControl className="has-component-color-picker-wrapper">
 			{ !! label && (
-				<div className="has-color-component-label">
+				<h3 className="has-color-component-label">
 					<span>{ label }</span>
-				</div>
+				</h3>
 			) }
 			<div className="has-component-color-picker">
 				<div className="has-color-picker-area has-component-color-picker-palette">

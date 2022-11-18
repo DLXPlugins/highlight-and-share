@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
-import fontFamilies from '../../../fonts/fonts';
 import { __ } from '@wordpress/i18n';
-import { ButtonGroup, Button, SelectControl, BaseControl, TextControl, Popover } from '@wordpress/components';
+import { RangeControl, Button, SelectControl, BaseControl, TextControl, Popover } from '@wordpress/components';
 import { useForm, Controller, useWatch } from 'react-hook-form';
+import ColorPicker from '../ColorPicker';
 
 const BackgroundSelector = ( props ) => {
-
 	const [ backgroundSettingsVisible, setBackgroundSettingsVisible ] = useState( false );
 	const [ backgroundSettingsPopoverAnchor, setBackgroundSettingsPopoverAnchor ] = useState( null );
 
@@ -13,6 +12,7 @@ const BackgroundSelector = ( props ) => {
 		return {
 			url: props.values.url,
 			id: props.values.id,
+			backgroundColor: props.values.backgroundColor,
 			backgroundSize: props.values.backgroundSize,
 			backgroundPosition: props.values.backgroundPosition,
 			backgroundRepeat: props.values.backgroundRepeat,
@@ -62,31 +62,41 @@ const BackgroundSelector = ( props ) => {
 		);
 	};
 
-
 	const getPopoverContent = () => {
 		return (
-			<BaseControl className="has-typography-picker">
-				<div className="has-typography-picker__row has-typography-picker__row__col-full">
-					<div className="has-typography-picker__row_item">
-						{ getBackgroundRepeat() }
-					</div>
+			<BaseControl className="has-background-settings-popover">
+				<div className="has-background-selector__row_item">
+					{ getBackgroundRepeat() }
 				</div>
-				<div className="has-typography-picker__row has-typography-picker__row__col-full">
-					<div className="has-typography-picker__row_item">
-						
-					</div>
+				<div className="has-background-selector__row_item">
+					<Controller
+						name={ 'backgroundSize' }
+						control={ control }
+						render={ ( { field: { onChange, value } } ) => (
+							<TextControl
+								label={ __( 'Background Size', 'highlight-and-share' ) }
+								value={ value }
+								onChange={ ( newValue ) => {
+									onChange( newValue );
+								} }
+							/>
+						) }
+					/>
 				</div>
-				<div className="has-typography-picker__row has-typography-picker__row__col-2">
-					<div className="has-typography-picker__row_item has-units">
-					</div>
-					<div className="has-typography-picker__row_item">
-					</div>
-				</div>
-				<div className="has-typography-picker__row has-typography-picker__row__col-2">
-					<div className="has-typography-picker__row_item has-units">
-					</div>
-					<div className="has-typography-picker__row_item has-units">
-					</div>
+				<div className="has-background-selector__row_item">
+					<Controller
+						name={ 'backgroundPosition' }
+						control={ control }
+						render={ ( { field: { onChange, value } } ) => (
+							<TextControl
+								label={ __( 'Background Position', 'highlight-and-share' ) }
+								value={ value }
+								onChange={ ( newValue ) => {
+									onChange( newValue );
+								} }
+							/>
+						) }
+					/>
 				</div>
 			</BaseControl>
 		);
@@ -131,7 +141,7 @@ const BackgroundSelector = ( props ) => {
 									const attachment = wp.media.attachment( attachmentId );
 									mediaUploader.state( 'library' ).get( 'selection' ).add( attachment );
 								}
-							});
+							} );
 							mediaUploader.open();
 						} }
 						label={ __( 'Upload Background Image', 'highlight-and-share' ) }
@@ -147,10 +157,8 @@ const BackgroundSelector = ( props ) => {
 			<div className="has-background-selector__row_item">
 				{ getBackgroundUploader() }
 			</div>
-			<div className="has-typography-component-label">
-				{ label }
-			</div>
-			<div className="has-typography-component-settings">
+			<div className="has-background-selector__row_item has-background-selector__row_item-2">
+				<h3>{ __( 'Background Settings', 'highlight-and-share' ) }</h3>
 				<Button
 					variant="secondary"
 					label={ __( 'Background Settings', 'highlight-and-share' ) }
@@ -162,15 +170,73 @@ const BackgroundSelector = ( props ) => {
 				/>
 				{ true === backgroundSettingsVisible && (
 					<Popover
-						className="has-component-typography-popup"
+						className="has-component-background-settings-popup"
 						noArrow={ false }
 						anchor={ backgroundSettingsPopoverAnchor }
 						placement="left"
 						offset={ 10 }
+						headerTitle={ __( 'Background Settings', 'highlight-and-share' ) }
 					>
 						{ getPopoverContent() }
 					</Popover>
 				) }
+			</div>
+			<div className="has-background-selector__row_item">
+				<Controller
+					name={ 'backgroundColor' }
+					control={ control }
+					render={ ( { field: { onChange, value } } ) => (
+						<ColorPicker
+							value={ value }
+							key={ 'background-color-image' }
+							onChange={ ( slug, newValue ) => {
+								onChange( newValue );
+							} }
+							label={ __( 'Background Color', 'highlight-and-share' ) }
+							defaultColors={ has_gutenberg.colorPalette }
+							defaultColor={ '#000000' }
+							slug={ 'background-color-image' }
+						/>
+					) }
+				/>
+			</div>
+			<div className="has-background-selector__row_item">
+				<Controller
+					name={ 'backgroundOpacity' }
+					control={ control }
+					render={ ( { field: { onChange, value } } ) => (
+						<RangeControl
+							label={ __( 'Background Opacity', 'highlight-and-share' ) }
+							value={ value }
+							onChange={ ( newValue ) => onChange( newValue ) }
+							min={ 0 }
+							max={ 1 }
+							step={ 0.01 }
+						/>
+					) }
+				/>
+			</div>
+			<div className="has-background-selector__row_item">
+				<Controller
+					name={ 'backgroundOpacityHover' }
+					control={ control }
+					render={ ( { field: { onChange, value } } ) => (
+						<RangeControl
+							label={ __( 'Background Opacity Hover', 'highlight-and-share' ) }
+							value={ value }
+							onChange={ ( newValue ) => onChange( newValue ) }
+							min={ 0 }
+							max={ 1 }
+							step={ 0.01 }
+						/>
+					) }
+				/>
+			</div>
+			<div className="has-typography-component-label">
+				{ label }
+			</div>
+			<div className="has-typography-component-settings">
+
 			</div>
 		</BaseControl>
 	);
