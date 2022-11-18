@@ -1,12 +1,25 @@
 import React, { useState, useEffect } from 'react';
 import { __ } from '@wordpress/i18n';
-import { RangeControl, Button, SelectControl, BaseControl, TextControl, Popover } from '@wordpress/components';
+import {
+	RangeControl,
+	Button,
+	SelectControl,
+	BaseControl,
+	TextControl,
+	Popover,
+} from '@wordpress/components';
+import { MediaUploadCheck, MediaUpload } from '@wordpress/block-editor';
 import { useForm, Controller, useWatch } from 'react-hook-form';
 import ColorPicker from '../ColorPicker';
 
 const BackgroundSelector = ( props ) => {
-	const [ backgroundSettingsVisible, setBackgroundSettingsVisible ] = useState( false );
-	const [ backgroundSettingsPopoverAnchor, setBackgroundSettingsPopoverAnchor ] = useState( null );
+	const [ backgroundSettingsVisible, setBackgroundSettingsVisible ] =
+		useState( false );
+	const [ backgroundSettingsPopoverAnchor, setBackgroundSettingsPopoverAnchor ] =
+		useState( null );
+
+	const [ isVisible, setIsVisible ] = useState( false );
+	const [ isToggled, setIsToggled ] = useState( false );
 
 	const getDefaultValues = () => {
 		return {
@@ -21,11 +34,7 @@ const BackgroundSelector = ( props ) => {
 		};
 	};
 
-	const {
-		control,
-		setValue,
-		getValues,
-	} = useForm( {
+	const { control, setValue, getValues } = useForm( {
 		defaultValues: getDefaultValues(),
 	} );
 
@@ -60,6 +69,17 @@ const BackgroundSelector = ( props ) => {
 				) }
 			/>
 		);
+	};
+
+	/**
+	 * Close color popup if visible.
+	 */
+	 const toggleClose = () => {
+		setIsToggled( true );
+		setIsVisible( ! isVisible );
+		setTimeout( () => {
+			setIsToggled( false );
+		}, 500 );
 	};
 
 	const getPopoverContent = () => {
@@ -120,33 +140,29 @@ const BackgroundSelector = ( props ) => {
 					) }
 				/>
 				<div className="has-background-selector-upload-button">
-					<Button
-						isSecondary
-						onClick={ () => {
-							const mediaUploader = wp.media( {
-								title: __( 'Select Background Image', 'highlight-and-share' ),
-								button: {
-									text: __( 'Select Background Image', 'highlight-and-share' ),
-								},
-								multiple: false,
-							} );
-							mediaUploader.on( 'select', () => {
-								const attachment = mediaUploader.state().get( 'selection' ).first().toJSON();
-								setValue( 'url', attachment.url );
-								setValue( 'id', attachment.id );
-							} );
-							mediaUploader.on( 'open', () => {
-								const attachmentId = getValues( 'id' );
-								if ( attachmentId ) {
-									const attachment = wp.media.attachment( attachmentId );
-									mediaUploader.state( 'library' ).get( 'selection' ).add( attachment );
+					<MediaUploadCheck>
+						<MediaUpload
+							onSelect={ ( media ) => {
+								if ( 'image' === media.type ) {
+									setValue( 'url', media.url );
+									setValue( 'id', media.id );
 								}
-							} );
-							mediaUploader.open();
-						} }
-						label={ __( 'Upload Background Image', 'highlight-and-share' ) }
-						icon="format-image"
-					/>
+							} }
+							title={ __( 'Select Background Image', 'highlight-and-share' ) }
+							mode={ 'upload' }
+							multiple={ false }
+							allowedTypes={ [ 'image' ] }
+							value={ getValues( 'id' ) }
+							render={ ( { open } ) => (
+								<Button
+									isSecondary
+									onClick={ open }
+									label={ __( 'Upload Background Image', 'highlight-and-share' ) }
+									icon="format-image"
+								/>
+							) }
+						/>
+					</MediaUploadCheck>
 				</div>
 			</div>
 		);
@@ -163,12 +179,16 @@ const BackgroundSelector = ( props ) => {
 					variant="secondary"
 					label={ __( 'Background Settings', 'highlight-and-share' ) }
 					onClick={ () => {
-						setBackgroundSettingsVisible( ! backgroundSettingsVisible );
+						if ( isToggled ) {
+							setIsToggled( false );
+						} else {
+							setIsVisible( ! isVisible );
+						}
 					} }
 					icon="admin-settings"
 					ref={ setBackgroundSettingsPopoverAnchor }
 				/>
-				{ true === backgroundSettingsVisible && (
+				{ true === isVisible && (
 					<Popover
 						className="has-component-background-settings-popup"
 						noArrow={ false }
@@ -176,6 +196,7 @@ const BackgroundSelector = ( props ) => {
 						placement="left"
 						offset={ 10 }
 						headerTitle={ __( 'Background Settings', 'highlight-and-share' ) }
+						onClose={ toggleClose }
 					>
 						{ getPopoverContent() }
 					</Popover>
@@ -231,12 +252,6 @@ const BackgroundSelector = ( props ) => {
 						/>
 					) }
 				/>
-			</div>
-			<div className="has-typography-component-label">
-				{ label }
-			</div>
-			<div className="has-typography-component-settings">
-
 			</div>
 		</BaseControl>
 	);

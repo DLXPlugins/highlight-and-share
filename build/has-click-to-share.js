@@ -398,7 +398,9 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
     label: __('Background Image', 'highlight-and-share'),
     values: backgroundImage,
     onValuesChange: function onValuesChange(newValue) {
-      //setAttributes( { backgroundImage: newValue } );
+      setAttributes({
+        backgroundImage: newValue
+      });
     }
   })))), deviceType === 'Desktop' && /*#__PURE__*/React.createElement(PanelBody, {
     title: __('Colors', 'highlight-and-share'),
@@ -894,14 +896,17 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var react_hook_form__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-hook-form */ "./node_modules/react-hook-form/dist/index.esm.mjs");
-/* harmony import */ var _ColorPicker__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../ColorPicker */ "./src/react/Components/ColorPicker/index.js");
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
+/* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var react_hook_form__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-hook-form */ "./node_modules/react-hook-form/dist/index.esm.mjs");
+/* harmony import */ var _ColorPicker__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../ColorPicker */ "./src/react/Components/ColorPicker/index.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -916,6 +921,14 @@ var BackgroundSelector = function BackgroundSelector(props) {
     _useState4 = _slicedToArray(_useState3, 2),
     backgroundSettingsPopoverAnchor = _useState4[0],
     setBackgroundSettingsPopoverAnchor = _useState4[1];
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState6 = _slicedToArray(_useState5, 2),
+    isVisible = _useState6[0],
+    setIsVisible = _useState6[1];
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState8 = _slicedToArray(_useState7, 2),
+    isToggled = _useState8[0],
+    setIsToggled = _useState8[1];
   var getDefaultValues = function getDefaultValues() {
     return {
       url: props.values.url,
@@ -928,13 +941,13 @@ var BackgroundSelector = function BackgroundSelector(props) {
       backgroundOpacityHover: props.values.backgroundOpacityHover
     };
   };
-  var _useForm = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_4__.useForm)({
+  var _useForm = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_5__.useForm)({
       defaultValues: getDefaultValues()
     }),
     control = _useForm.control,
     setValue = _useForm.setValue,
     getValues = _useForm.getValues;
-  var formValues = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_4__.useWatch)({
+  var formValues = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_5__.useWatch)({
     control: control
   });
   var label = props.label;
@@ -955,7 +968,7 @@ var BackgroundSelector = function BackgroundSelector(props) {
       label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('no-repeat', 'highlight-and-share'),
       value: 'no-repeat'
     }];
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_4__.Controller, {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_5__.Controller, {
       name: 'backgroundRepeat',
       control: control,
       render: function render(_ref) {
@@ -973,6 +986,17 @@ var BackgroundSelector = function BackgroundSelector(props) {
       }
     });
   };
+
+  /**
+   * Close color popup if visible.
+   */
+  var toggleClose = function toggleClose() {
+    setIsToggled(true);
+    setIsVisible(!isVisible);
+    setTimeout(function () {
+      setIsToggled(false);
+    }, 500);
+  };
   var getPopoverContent = function getPopoverContent() {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.BaseControl, {
       className: "has-background-settings-popover"
@@ -980,7 +1004,7 @@ var BackgroundSelector = function BackgroundSelector(props) {
       className: "has-background-selector__row_item"
     }, getBackgroundRepeat()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "has-background-selector__row_item"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_4__.Controller, {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_5__.Controller, {
       name: 'backgroundSize',
       control: control,
       render: function render(_ref2) {
@@ -997,7 +1021,7 @@ var BackgroundSelector = function BackgroundSelector(props) {
       }
     })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "has-background-selector__row_item"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_4__.Controller, {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_5__.Controller, {
       name: 'backgroundPosition',
       control: control,
       render: function render(_ref3) {
@@ -1017,7 +1041,7 @@ var BackgroundSelector = function BackgroundSelector(props) {
   var getBackgroundUploader = function getBackgroundUploader() {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "has-background-selector-upload-row"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_4__.Controller, {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_5__.Controller, {
       name: 'url',
       control: control,
       render: function render(_ref4) {
@@ -1035,33 +1059,28 @@ var BackgroundSelector = function BackgroundSelector(props) {
       }
     }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "has-background-selector-upload-button"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Button, {
-      isSecondary: true,
-      onClick: function onClick() {
-        var mediaUploader = wp.media({
-          title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Select Background Image', 'highlight-and-share'),
-          button: {
-            text: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Select Background Image', 'highlight-and-share')
-          },
-          multiple: false
-        });
-        mediaUploader.on('select', function () {
-          var attachment = mediaUploader.state().get('selection').first().toJSON();
-          setValue('url', attachment.url);
-          setValue('id', attachment.id);
-        });
-        mediaUploader.on('open', function () {
-          var attachmentId = getValues('id');
-          if (attachmentId) {
-            var attachment = wp.media.attachment(attachmentId);
-            mediaUploader.state('library').get('selection').add(attachment);
-          }
-        });
-        mediaUploader.open();
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.MediaUploadCheck, null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__.MediaUpload, {
+      onSelect: function onSelect(media) {
+        if ('image' === media.type) {
+          setValue('url', media.url);
+          setValue('id', media.id);
+        }
       },
-      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Upload Background Image', 'highlight-and-share'),
-      icon: "format-image"
-    })));
+      title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Select Background Image', 'highlight-and-share'),
+      mode: 'upload',
+      multiple: false,
+      allowedTypes: ['image'],
+      value: getValues('id'),
+      render: function render(_ref5) {
+        var open = _ref5.open;
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Button, {
+          isSecondary: true,
+          onClick: open,
+          label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Upload Background Image', 'highlight-and-share'),
+          icon: "format-image"
+        });
+      }
+    }))));
   };
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.BaseControl, {
     className: "has-background-selector-wrapper"
@@ -1073,27 +1092,32 @@ var BackgroundSelector = function BackgroundSelector(props) {
     variant: "secondary",
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Background Settings', 'highlight-and-share'),
     onClick: function onClick() {
-      setBackgroundSettingsVisible(!backgroundSettingsVisible);
+      if (isToggled) {
+        setIsToggled(false);
+      } else {
+        setIsVisible(!isVisible);
+      }
     },
     icon: "admin-settings",
     ref: setBackgroundSettingsPopoverAnchor
-  }), true === backgroundSettingsVisible && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Popover, {
+  }), true === isVisible && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Popover, {
     className: "has-component-background-settings-popup",
     noArrow: false,
     anchor: backgroundSettingsPopoverAnchor,
     placement: "left",
     offset: 10,
-    headerTitle: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Background Settings', 'highlight-and-share')
+    headerTitle: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Background Settings', 'highlight-and-share'),
+    onClose: toggleClose
   }, getPopoverContent())), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "has-background-selector__row_item"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_4__.Controller, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_5__.Controller, {
     name: 'backgroundColor',
     control: control,
-    render: function render(_ref5) {
-      var _ref5$field = _ref5.field,
-        _onChange5 = _ref5$field.onChange,
-        value = _ref5$field.value;
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_ColorPicker__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    render: function render(_ref6) {
+      var _ref6$field = _ref6.field,
+        _onChange5 = _ref6$field.onChange,
+        value = _ref6$field.value;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_ColorPicker__WEBPACK_IMPORTED_MODULE_4__["default"], {
         value: value,
         key: 'background-color-image',
         onChange: function onChange(slug, newValue) {
@@ -1107,13 +1131,13 @@ var BackgroundSelector = function BackgroundSelector(props) {
     }
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "has-background-selector__row_item"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_4__.Controller, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_5__.Controller, {
     name: 'backgroundOpacity',
     control: control,
-    render: function render(_ref6) {
-      var _ref6$field = _ref6.field,
-        _onChange6 = _ref6$field.onChange,
-        value = _ref6$field.value;
+    render: function render(_ref7) {
+      var _ref7$field = _ref7.field,
+        _onChange6 = _ref7$field.onChange,
+        value = _ref7$field.value;
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.RangeControl, {
         label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Background Opacity', 'highlight-and-share'),
         value: value,
@@ -1127,13 +1151,13 @@ var BackgroundSelector = function BackgroundSelector(props) {
     }
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "has-background-selector__row_item"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_4__.Controller, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_5__.Controller, {
     name: 'backgroundOpacityHover',
     control: control,
-    render: function render(_ref7) {
-      var _ref7$field = _ref7.field,
-        _onChange7 = _ref7$field.onChange,
-        value = _ref7$field.value;
+    render: function render(_ref8) {
+      var _ref8$field = _ref8.field,
+        _onChange7 = _ref8$field.onChange,
+        value = _ref8$field.value;
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.RangeControl, {
         label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Background Opacity Hover', 'highlight-and-share'),
         value: value,
@@ -1145,11 +1169,7 @@ var BackgroundSelector = function BackgroundSelector(props) {
         step: 0.01
       });
     }
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: "has-typography-component-label"
-  }, label), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
-    className: "has-typography-component-settings"
-  }));
+  })));
 };
 /* harmony default export */ __webpack_exports__["default"] = (BackgroundSelector);
 
@@ -1981,6 +2001,15 @@ var Typography = function Typography(props) {
     _useState18 = _slicedToArray(_useState17, 2),
     fontSettingsPopoverAnchor = _useState18[0],
     setFontSettingsPopoverAnchor = _useState18[1];
+  var _useState19 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState20 = _slicedToArray(_useState19, 2),
+    isVisible = _useState20[0],
+    setIsVisible = _useState20[1]; // for the main typography settings popup.
+  var _useState21 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState22 = _slicedToArray(_useState21, 2),
+    isToggled = _useState22[0],
+    setIsToggled = _useState22[1]; // for the main typography settings popup.
+
   var getDefaultValues = function getDefaultValues() {
     return {
       mobile: {
@@ -2044,6 +2073,17 @@ var Typography = function Typography(props) {
     setScreenSize(props.screenSize.toLowerCase());
     setValue(props.screenSize.toLowerCase(), getValues(props.screenSize.toLowerCase()));
   }, [props.screenSize]);
+
+  /**
+   * Close color popup if visible.
+   */
+  var toggleClose = function toggleClose() {
+    setIsToggled(true);
+    setIsVisible(!isVisible);
+    setTimeout(function () {
+      setIsToggled(false);
+    }, 500);
+  };
 
   // Retrieve the list all available fonts.
   var getFonts = function getFonts() {
@@ -2443,15 +2483,20 @@ var Typography = function Typography(props) {
     variant: "secondary",
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Font Settings', 'highlight-and-share'),
     onClick: function onClick() {
-      setFontSettingsPopoverVisible(!fontSettingsPopoverVisible);
+      if (isToggled) {
+        setIsToggled(false);
+      } else {
+        setIsVisible(!isVisible);
+      }
     },
     icon: "admin-settings"
-  }), true === fontSettingsPopoverVisible && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.Popover, {
+  }), true === isVisible && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.Popover, {
     className: "has-component-typography-popup",
     noArrow: false,
     anchor: fontSettingsPopoverAnchor,
     placement: "left",
-    offset: 10
+    offset: 10,
+    onClose: toggleClose
   }, getPopoverContent())));
 };
 /* harmony default export */ __webpack_exports__["default"] = (Typography);
@@ -4694,6 +4739,17 @@ if (false) {} else {
 
 "use strict";
 module.exports = window["React"];
+
+/***/ }),
+
+/***/ "@wordpress/block-editor":
+/*!*************************************!*\
+  !*** external ["wp","blockEditor"] ***!
+  \*************************************/
+/***/ (function(module) {
+
+"use strict";
+module.exports = window["wp"]["blockEditor"];
 
 /***/ }),
 

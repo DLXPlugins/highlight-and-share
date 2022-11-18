@@ -15,6 +15,8 @@ const Typography = ( props ) => {
 	const [ letterSpacingUnitPopoverAnchor, setLetterSpacingUnitPopoverAnchor ] = useState( null );
 	const [ fontSettingsPopoverVisible, setFontSettingsPopoverVisible ] = useState( false );
 	const [ fontSettingsPopoverAnchor, setFontSettingsPopoverAnchor ] = useState( null );
+	const [ isVisible, setIsVisible ] = useState( false ); // for the main typography settings popup.
+	const [ isToggled, setIsToggled ] = useState( false ); // for the main typography settings popup.
 
 	const getDefaultValues = () => {
 		return {
@@ -83,6 +85,17 @@ const Typography = ( props ) => {
 		setScreenSize( props.screenSize.toLowerCase() );
 		setValue( props.screenSize.toLowerCase(), getValues( props.screenSize.toLowerCase() ) );
 	}, [ props.screenSize ] );
+
+	/**
+	 * Close color popup if visible.
+	 */
+	const toggleClose = () => {
+		setIsToggled( true );
+		setIsVisible( ! isVisible );
+		setTimeout( () => {
+			setIsToggled( false );
+		}, 500 );
+	};
 
 	// Retrieve the list all available fonts.
 	const getFonts = () => {
@@ -505,17 +518,22 @@ const Typography = ( props ) => {
 					variant="secondary"
 					label={ __( 'Font Settings', 'highlight-and-share' ) }
 					onClick={ () => {
-						setFontSettingsPopoverVisible( ! fontSettingsPopoverVisible );
+						if ( isToggled ) {
+							setIsToggled( false );
+						} else {
+							setIsVisible( ! isVisible );
+						}
 					} }
 					icon="admin-settings"
 				/>
-				{ true === fontSettingsPopoverVisible && (
+				{ true === isVisible && (
 					<Popover
 						className="has-component-typography-popup"
 						noArrow={ false }
 						anchor={ fontSettingsPopoverAnchor }
 						placement="left"
 						offset={ 10 }
+						onClose={ toggleClose }
 					>
 						{ getPopoverContent() }
 					</Popover>

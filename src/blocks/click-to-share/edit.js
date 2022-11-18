@@ -580,7 +580,7 @@ const HAS_Click_To_Share = ( props ) => {
 									label={ __( 'Background Image', 'highlight-and-share' ) }
 									values={ backgroundImage }
 									onValuesChange={ ( newValue ) => {
-										//setAttributes( { backgroundImage: newValue } );
+										setAttributes( { backgroundImage: newValue } );
 									} }
 								/>
 							</PanelRow>
