@@ -6,12 +6,17 @@ import classnames from 'classnames';
 import { useEffect } from 'react';
 import ColorPicker from '../../react/Components/ColorPicker';
 import GradientPicker from '../../react/Components/GradientPicker';
+import GradientSync from '../../react/Components/GradientSync';
+import GradientGenerator from '../../react/Components/GradientGenerator';
 import DimensionsControlBlock from '../../react/Components/DimensionsBlock';
 import useDeviceType from '../../react/Hooks/useDeviceType';
 import { buildDimensionsCSS } from '../../react/Utils/DimensionsHelper';
 import UnitChooser from '../../react/Components/unit-picker';
 import Typography from '../../react/Components/Typography';
-import { geHierarchicalPlaceholderValue, getHierarchicalValueUnit } from '../../react/Utils/TypographyHelper';
+import {
+	geHierarchicalPlaceholderValue,
+	getHierarchicalValueUnit,
+} from '../../react/Utils/TypographyHelper';
 
 const { __ } = wp.i18n;
 
@@ -42,6 +47,7 @@ const HAS_Click_To_Share = ( props ) => {
 		backgroundColorHover,
 		backgroundGradient,
 		backgroundGradientHover,
+		backgroundGradientSync,
 		backgroundImage,
 		textColor,
 		textColorHover,
@@ -163,14 +169,20 @@ const HAS_Click_To_Share = ( props ) => {
 		if ( 'google' === fontType ) {
 			return (
 				<>
-					<link rel="stylesheet" href={ `${ has_gutenberg.cssFolder }/has-gfont-${ fontSlug }.css` } />
+					<link
+						rel="stylesheet"
+						href={ `${ has_gutenberg.cssFolder }/has-gfont-${ fontSlug }.css` }
+					/>
 				</>
 			);
 		}
 		if ( 'adobe' === fontType ) {
 			return (
 				<>
-					<link rel="stylesheet" href={ `${ has_gutenberg.adobeFontsUrl }/${ has_gutenberg.adobeProjectId }.css` } />
+					<link
+						rel="stylesheet"
+						href={ `${ has_gutenberg.adobeFontsUrl }/${ has_gutenberg.adobeProjectId }.css` }
+					/>
 				</>
 			);
 		}
@@ -185,15 +197,25 @@ const HAS_Click_To_Share = ( props ) => {
 		maxWidth: `${ maxWidth }${ maxWidthUnit }`,
 		margin: buildDimensionsCSS( marginSize, deviceType ),
 	};
+
 	const screenSize = deviceType.toLowerCase();
 	const styles = `
-		#${ uniqueId }.has-click-to-share {
+		#${ uniqueId }.has-click-to-share.has-background-color {
 			background-color: ${ backgroundColor };
+		}
+		#${ uniqueId }.has-click-to-share.has-background-color:hover {
+			background-color: ${ backgroundColorHover };
+		}
+		#${ uniqueId }.has-click-to-share.has-background-gradient {
+			background-image: ${ backgroundGradient };
+		}
+		#${ uniqueId }.has-click-to-share.has-background-gradient:hover {
+			background-image: ${ backgroundGradientHover };
+		}
+		#${ uniqueId }.has-click-to-share {
 			border-color: ${ borderColor };
-
 		}
 		#${ uniqueId }.has-click-to-share:hover {
-			background-color: ${ backgroundColorHover };
 			border-color: ${ borderColorHover };
 		}
 		
@@ -217,21 +239,129 @@ const HAS_Click_To_Share = ( props ) => {
 		}
 		#${ uniqueId } .has-click-to-share-text,
 		#${ uniqueId } .has-click-to-share-text p {
-			font-family: "${ geHierarchicalPlaceholderValue( typographyQuote, screenSize, typographyQuote[ screenSize ].fontFamily, 'fontFamily' ) }";
-			font-weight: ${ geHierarchicalPlaceholderValue( typographyQuote, screenSize, typographyQuote[ screenSize ].fontWeight, 'fontWeight' ) };
-			font-size: ${ geHierarchicalPlaceholderValue( typographyQuote, screenSize, typographyQuote[ screenSize ].fontSize, 'fontSize' ) + getHierarchicalValueUnit( typographyQuote, screenSize, typographyQuote[ screenSize ].fontSizeUnit, 'fontSizeUnit' ) };
-			line-height: ${ geHierarchicalPlaceholderValue( typographyQuote, screenSize, typographyQuote[ screenSize ].lineHeight, 'lineHeight' ) + getHierarchicalValueUnit( typographyQuote, screenSize, typographyQuote[ screenSize ].lineHeightUnit, 'lineHeightUnit' ) };
-			letter-spacing: ${ geHierarchicalPlaceholderValue( typographyQuote, screenSize, typographyQuote[ screenSize ].letterSpacing, 'letterSpacing' ) + getHierarchicalValueUnit( typographyQuote, screenSize, typographyQuote[ screenSize ].letterSpacingUnit, 'letterSpacingUnit' ) };
-			text-transform: ${ geHierarchicalPlaceholderValue( typographyQuote, screenSize, typographyQuote[ screenSize ].textTransform, 'textTransform' ) };
+			font-family: "${ geHierarchicalPlaceholderValue(
+		typographyQuote,
+		screenSize,
+		typographyQuote[ screenSize ].fontFamily,
+		'fontFamily'
+	) }";
+			font-weight: ${ geHierarchicalPlaceholderValue(
+		typographyQuote,
+		screenSize,
+		typographyQuote[ screenSize ].fontWeight,
+		'fontWeight'
+	) };
+			font-size: ${
+	geHierarchicalPlaceholderValue(
+		typographyQuote,
+		screenSize,
+		typographyQuote[ screenSize ].fontSize,
+		'fontSize'
+	) +
+				getHierarchicalValueUnit(
+					typographyQuote,
+					screenSize,
+					typographyQuote[ screenSize ].fontSizeUnit,
+					'fontSizeUnit'
+				)
+};
+			line-height: ${
+	geHierarchicalPlaceholderValue(
+		typographyQuote,
+		screenSize,
+		typographyQuote[ screenSize ].lineHeight,
+		'lineHeight'
+	) +
+				getHierarchicalValueUnit(
+					typographyQuote,
+					screenSize,
+					typographyQuote[ screenSize ].lineHeightUnit,
+					'lineHeightUnit'
+				)
+};
+			letter-spacing: ${
+	geHierarchicalPlaceholderValue(
+		typographyQuote,
+		screenSize,
+		typographyQuote[ screenSize ].letterSpacing,
+		'letterSpacing'
+	) +
+				getHierarchicalValueUnit(
+					typographyQuote,
+					screenSize,
+					typographyQuote[ screenSize ].letterSpacingUnit,
+					'letterSpacingUnit'
+				)
+};
+			text-transform: ${ geHierarchicalPlaceholderValue(
+		typographyQuote,
+		screenSize,
+		typographyQuote[ screenSize ].textTransform,
+		'textTransform'
+	) };
 		}
 		#${ uniqueId } .has-click-to-share-cta,
 		#${ uniqueId } .has-click-to-share-cta p {
-			font-family: "${ geHierarchicalPlaceholderValue( typographyShareText, screenSize, typographyShareText[ screenSize ].fontFamily, 'fontFamily' ) }";
-			font-weight: ${ geHierarchicalPlaceholderValue( typographyShareText, screenSize, typographyShareText[ screenSize ].fontWeight, 'fontWeight' ) };
-			font-size: ${ geHierarchicalPlaceholderValue( typographyShareText, screenSize, typographyShareText[ screenSize ].fontSize, 'fontSize' ) + getHierarchicalValueUnit( typographyShareText, screenSize, typographyShareText[ screenSize ].fontSizeUnit, 'fontSizeUnit' ) };
-			line-height: ${ geHierarchicalPlaceholderValue( typographyShareText, screenSize, typographyShareText[ screenSize ].lineHeight, 'lineHeight' ) + getHierarchicalValueUnit( typographyShareText, screenSize, typographyShareText[ screenSize ].lineHeightUnit, 'lineHeightUnit' ) };
-			letter-spacing: ${ geHierarchicalPlaceholderValue( typographyShareText, screenSize, typographyShareText[ screenSize ].letterSpacing, 'letterSpacing' ) + getHierarchicalValueUnit( typographyShareText, screenSize, typographyShareText[ screenSize ].letterSpacingUnit, 'letterSpacingUnit' ) };
-			text-transform: ${ geHierarchicalPlaceholderValue( typographyShareText, screenSize, typographyShareText[ screenSize ].textTransform, 'textTransform' ) };
+			font-family: "${ geHierarchicalPlaceholderValue(
+		typographyShareText,
+		screenSize,
+		typographyShareText[ screenSize ].fontFamily,
+		'fontFamily'
+	) }";
+			font-weight: ${ geHierarchicalPlaceholderValue(
+		typographyShareText,
+		screenSize,
+		typographyShareText[ screenSize ].fontWeight,
+		'fontWeight'
+	) };
+			font-size: ${
+	geHierarchicalPlaceholderValue(
+		typographyShareText,
+		screenSize,
+		typographyShareText[ screenSize ].fontSize,
+		'fontSize'
+	) +
+				getHierarchicalValueUnit(
+					typographyShareText,
+					screenSize,
+					typographyShareText[ screenSize ].fontSizeUnit,
+					'fontSizeUnit'
+				)
+};
+			line-height: ${
+	geHierarchicalPlaceholderValue(
+		typographyShareText,
+		screenSize,
+		typographyShareText[ screenSize ].lineHeight,
+		'lineHeight'
+	) +
+				getHierarchicalValueUnit(
+					typographyShareText,
+					screenSize,
+					typographyShareText[ screenSize ].lineHeightUnit,
+					'lineHeightUnit'
+				)
+};
+			letter-spacing: ${
+	geHierarchicalPlaceholderValue(
+		typographyShareText,
+		screenSize,
+		typographyShareText[ screenSize ].letterSpacing,
+		'letterSpacing'
+	) +
+				getHierarchicalValueUnit(
+					typographyShareText,
+					screenSize,
+					typographyShareText[ screenSize ].letterSpacingUnit,
+					'letterSpacingUnit'
+				)
+};
+			text-transform: ${ geHierarchicalPlaceholderValue(
+		typographyShareText,
+		screenSize,
+		typographyShareText[ screenSize ].textTransform,
+		'textTransform'
+	) };
 		}
 	`;
 	const fontWeightArr = Array();
@@ -350,21 +480,29 @@ const HAS_Click_To_Share = ( props ) => {
 									setAttributes( { backgroundType: 'solid' } );
 								} }
 								label={ __( 'Solid Background', 'highlight-and-share' ) }
-							>{ __( 'Solid', 'highlight-and-share' ) }</Button>
+							>
+								{ __( 'Solid', 'highlight-and-share' ) }
+							</Button>
 							<Button
-								variant={ backgroundType === 'gradient' ? 'primary' : 'secondary' }
+								variant={
+									backgroundType === 'gradient' ? 'primary' : 'secondary'
+								}
 								onClick={ ( e ) => {
 									setAttributes( { backgroundType: 'gradient' } );
 								} }
 								label={ __( 'Gradient Background', 'highlight-and-share' ) }
-							>{ __( 'Gradient', 'highlight-and-share' ) }</Button>
+							>
+								{ __( 'Gradient', 'highlight-and-share' ) }
+							</Button>
 							<Button
 								variant={ backgroundType === 'image' ? 'primary' : 'secondary' }
 								onClick={ ( e ) => {
 									setAttributes( { backgroundType: 'image' } );
 								} }
 								label={ __( 'Image Background', 'highlight-and-share' ) }
-							>{ __( 'Image', 'highlight-and-share' ) }</Button>
+							>
+								{ __( 'Image', 'highlight-and-share' ) }
+							</Button>
 						</ButtonGroup>
 					</PanelRow>
 					{ backgroundType === 'solid' && (
@@ -399,6 +537,13 @@ const HAS_Click_To_Share = ( props ) => {
 					) }
 					{ backgroundType === 'gradient' && (
 						<>
+							<PanelRow className="has-background-gradient-sync">
+								<GradientSync
+									attributes={ attributes }
+									setAttributes={ setAttributes }
+									label={ __( 'Sync Gradients', 'highlight-and-share' ) }
+								/>
+							</PanelRow>
 							<PanelRow className="has-background-gradient">
 								<GradientPicker
 									value={ backgroundGradient }
@@ -417,6 +562,12 @@ const HAS_Click_To_Share = ( props ) => {
 									} }
 									label={ __( 'Gradient Background Hover', 'highlight-and-share' ) }
 									clearable={ false }
+								/>
+							</PanelRow>
+							<PanelRow className="has-background-gradient-generator">
+								<GradientGenerator
+									setAttributes={ setAttributes }
+									label={ __( 'Generate Random Gradient', 'highlight-and-share' ) }
 								/>
 							</PanelRow>
 						</>
@@ -730,7 +881,11 @@ const HAS_Click_To_Share = ( props ) => {
 			{ getFontStyles( typographyShareText ) }
 			<style>{ styles }</style>
 			<div
-				className={ classnames( 'has-click-to-share' ) }
+				className={ classnames( 'has-click-to-share', {
+					'has-background-color': 'solid' === backgroundType,
+					'has-background-gradient': 'gradient' === backgroundType,
+					'has-background-image': 'image' === backgroundType,
+				} ) }
 				style={ hasStyles }
 				id={ uniqueId }
 			>
@@ -753,9 +908,7 @@ const HAS_Click_To_Share = ( props ) => {
 							setAttributes( { shareText: value } );
 						} }
 					/>
-					<div
-						className="has-click-to-share-cta"
-					>
+					<div className="has-click-to-share-cta">
 						{ showClickToShare && <>{ clickText } </> }
 						{ showIcon && (
 							<svg

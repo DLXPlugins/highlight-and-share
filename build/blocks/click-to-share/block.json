@@ -60,6 +60,10 @@
       "type": "string",
       "default": ""
     },
+    "backgroundGradientSync": {
+      "type": "boolean",
+      "default": true
+    },
     "backgroundImage": {
       "type": "object",
       "default": {

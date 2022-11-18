@@ -730,16 +730,22 @@
   text-align: center;
 }
 
-.has-background-gradient {
+.has-background-gradient,
+.has-background-gradient-sync,
+.has-background-gradient-generator {
   display: block;
 }
 
-.has-component-gradient-picker-wrapper > div {
+.has-component-gradient-picker-wrapper > div,
+.has-component-gradient-sync-wrapper > div,
+.has-component-gradient-generator-wrapper > div {
   display: grid;
   grid-template-columns: 1fr 30px;
   align-items: center;
 }
-.has-component-gradient-picker-wrapper > div h3 {
+.has-component-gradient-picker-wrapper > div h3,
+.has-component-gradient-sync-wrapper > div h3,
+.has-component-gradient-generator-wrapper > div h3 {
   margin-bottom: 0;
 }
 
