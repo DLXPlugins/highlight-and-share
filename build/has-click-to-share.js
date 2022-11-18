@@ -22,7 +22,8 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _react_Utils_DimensionsHelper__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../react/Utils/DimensionsHelper */ "./src/react/Utils/DimensionsHelper.js");
 /* harmony import */ var _react_Components_unit_picker__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../react/Components/unit-picker */ "./src/react/Components/unit-picker/index.js");
 /* harmony import */ var _react_Components_Typography__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../react/Components/Typography */ "./src/react/Components/Typography/index.js");
-/* harmony import */ var _react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../react/Utils/TypographyHelper */ "./src/react/Utils/TypographyHelper.js");
+/* harmony import */ var _react_Components_BackgroundSelector__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../react/Components/BackgroundSelector */ "./src/react/Components/BackgroundSelector/index.js");
+/* harmony import */ var _react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../react/Utils/TypographyHelper */ "./src/react/Utils/TypographyHelper.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
@@ -32,6 +33,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 /**
  * External dependencies
  */
+
 
 
 
@@ -220,7 +222,7 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
     margin: (0,_react_Utils_DimensionsHelper__WEBPACK_IMPORTED_MODULE_8__.buildDimensionsCSS)(marginSize, deviceType)
   };
   var screenSize = deviceType.toLowerCase();
-  var styles = "\n\t\t#".concat(uniqueId, ".has-click-to-share.has-background-color {\n\t\t\tbackground-color: ").concat(backgroundColor, ";\n\t\t}\n\t\t#").concat(uniqueId, ".has-click-to-share.has-background-color:hover {\n\t\t\tbackground-color: ").concat(backgroundColorHover, ";\n\t\t}\n\t\t#").concat(uniqueId, ".has-click-to-share.has-background-gradient {\n\t\t\tbackground-image: ").concat(backgroundGradient, ";\n\t\t}\n\t\t#").concat(uniqueId, ".has-click-to-share.has-background-gradient:hover {\n\t\t\tbackground-image: ").concat(backgroundGradientHover, ";\n\t\t}\n\t\t#").concat(uniqueId, ".has-click-to-share {\n\t\t\tborder-color: ").concat(borderColor, ";\n\t\t}\n\t\t#").concat(uniqueId, ".has-click-to-share:hover {\n\t\t\tborder-color: ").concat(borderColorHover, ";\n\t\t}\n\t\t\n\t\t#").concat(uniqueId, " .has-click-to-share-cta {\n\t\t\tcolor: ").concat(shareTextColor, "\n\t\t}\n\t\t#").concat(uniqueId, ":hover .has-click-to-share-cta {\n\t\t\tcolor: ").concat(shareTextColorHover, "\n\t\t}\n\t\t#").concat(uniqueId, " .has-click-to-share-text {\n\t\t\tcolor: ").concat(textColor, ";\n\t\t}\n\t\t#").concat(uniqueId, ":hover .has-click-to-share-text {\n\t\t\tcolor: ").concat(textColorHover, ";\n\t\t}\n\t\t#").concat(uniqueId, " .has-click-to-share-cta svg {\n\t\t\tcolor: ").concat(iconColor, ";\n\t\t}\n\t\t#").concat(uniqueId, ":hover .has-click-to-share-cta svg {\n\t\t\tcolor: ").concat(iconColorHover, ";\n\t\t}\n\t\t#").concat(uniqueId, " .has-click-to-share-text,\n\t\t#").concat(uniqueId, " .has-click-to-share-text p {\n\t\t\tfont-family: \"").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_11__.geHierarchicalPlaceholderValue)(typographyQuote, screenSize, typographyQuote[screenSize].fontFamily, 'fontFamily'), "\";\n\t\t\tfont-weight: ").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_11__.geHierarchicalPlaceholderValue)(typographyQuote, screenSize, typographyQuote[screenSize].fontWeight, 'fontWeight'), ";\n\t\t\tfont-size: ").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_11__.geHierarchicalPlaceholderValue)(typographyQuote, screenSize, typographyQuote[screenSize].fontSize, 'fontSize') + (0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_11__.getHierarchicalValueUnit)(typographyQuote, screenSize, typographyQuote[screenSize].fontSizeUnit, 'fontSizeUnit'), ";\n\t\t\tline-height: ").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_11__.geHierarchicalPlaceholderValue)(typographyQuote, screenSize, typographyQuote[screenSize].lineHeight, 'lineHeight') + (0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_11__.getHierarchicalValueUnit)(typographyQuote, screenSize, typographyQuote[screenSize].lineHeightUnit, 'lineHeightUnit'), ";\n\t\t\tletter-spacing: ").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_11__.geHierarchicalPlaceholderValue)(typographyQuote, screenSize, typographyQuote[screenSize].letterSpacing, 'letterSpacing') + (0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_11__.getHierarchicalValueUnit)(typographyQuote, screenSize, typographyQuote[screenSize].letterSpacingUnit, 'letterSpacingUnit'), ";\n\t\t\ttext-transform: ").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_11__.geHierarchicalPlaceholderValue)(typographyQuote, screenSize, typographyQuote[screenSize].textTransform, 'textTransform'), ";\n\t\t}\n\t\t#").concat(uniqueId, " .has-click-to-share-cta,\n\t\t#").concat(uniqueId, " .has-click-to-share-cta p {\n\t\t\tfont-family: \"").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_11__.geHierarchicalPlaceholderValue)(typographyShareText, screenSize, typographyShareText[screenSize].fontFamily, 'fontFamily'), "\";\n\t\t\tfont-weight: ").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_11__.geHierarchicalPlaceholderValue)(typographyShareText, screenSize, typographyShareText[screenSize].fontWeight, 'fontWeight'), ";\n\t\t\tfont-size: ").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_11__.geHierarchicalPlaceholderValue)(typographyShareText, screenSize, typographyShareText[screenSize].fontSize, 'fontSize') + (0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_11__.getHierarchicalValueUnit)(typographyShareText, screenSize, typographyShareText[screenSize].fontSizeUnit, 'fontSizeUnit'), ";\n\t\t\tline-height: ").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_11__.geHierarchicalPlaceholderValue)(typographyShareText, screenSize, typographyShareText[screenSize].lineHeight, 'lineHeight') + (0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_11__.getHierarchicalValueUnit)(typographyShareText, screenSize, typographyShareText[screenSize].lineHeightUnit, 'lineHeightUnit'), ";\n\t\t\tletter-spacing: ").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_11__.geHierarchicalPlaceholderValue)(typographyShareText, screenSize, typographyShareText[screenSize].letterSpacing, 'letterSpacing') + (0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_11__.getHierarchicalValueUnit)(typographyShareText, screenSize, typographyShareText[screenSize].letterSpacingUnit, 'letterSpacingUnit'), ";\n\t\t\ttext-transform: ").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_11__.geHierarchicalPlaceholderValue)(typographyShareText, screenSize, typographyShareText[screenSize].textTransform, 'textTransform'), ";\n\t\t}\n\t");
+  var styles = "\n\t\t#".concat(uniqueId, ".has-click-to-share.has-background-color {\n\t\t\tbackground-color: ").concat(backgroundColor, ";\n\t\t}\n\t\t#").concat(uniqueId, ".has-click-to-share.has-background-color:hover {\n\t\t\tbackground-color: ").concat(backgroundColorHover, ";\n\t\t}\n\t\t#").concat(uniqueId, ".has-click-to-share.has-background-gradient {\n\t\t\tbackground-image: ").concat(backgroundGradient, ";\n\t\t}\n\t\t#").concat(uniqueId, ".has-click-to-share.has-background-gradient:hover {\n\t\t\tbackground-image: ").concat(backgroundGradientHover, ";\n\t\t}\n\t\t#").concat(uniqueId, ".has-click-to-share {\n\t\t\tborder-color: ").concat(borderColor, ";\n\t\t}\n\t\t#").concat(uniqueId, ".has-click-to-share:hover {\n\t\t\tborder-color: ").concat(borderColorHover, ";\n\t\t}\n\t\t\n\t\t#").concat(uniqueId, " .has-click-to-share-cta {\n\t\t\tcolor: ").concat(shareTextColor, "\n\t\t}\n\t\t#").concat(uniqueId, ":hover .has-click-to-share-cta {\n\t\t\tcolor: ").concat(shareTextColorHover, "\n\t\t}\n\t\t#").concat(uniqueId, " .has-click-to-share-text {\n\t\t\tcolor: ").concat(textColor, ";\n\t\t}\n\t\t#").concat(uniqueId, ":hover .has-click-to-share-text {\n\t\t\tcolor: ").concat(textColorHover, ";\n\t\t}\n\t\t#").concat(uniqueId, " .has-click-to-share-cta svg {\n\t\t\tcolor: ").concat(iconColor, ";\n\t\t}\n\t\t#").concat(uniqueId, ":hover .has-click-to-share-cta svg {\n\t\t\tcolor: ").concat(iconColorHover, ";\n\t\t}\n\t\t#").concat(uniqueId, " .has-click-to-share-text,\n\t\t#").concat(uniqueId, " .has-click-to-share-text p {\n\t\t\tfont-family: \"").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_12__.geHierarchicalPlaceholderValue)(typographyQuote, screenSize, typographyQuote[screenSize].fontFamily, 'fontFamily'), "\";\n\t\t\tfont-weight: ").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_12__.geHierarchicalPlaceholderValue)(typographyQuote, screenSize, typographyQuote[screenSize].fontWeight, 'fontWeight'), ";\n\t\t\tfont-size: ").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_12__.geHierarchicalPlaceholderValue)(typographyQuote, screenSize, typographyQuote[screenSize].fontSize, 'fontSize') + (0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_12__.getHierarchicalValueUnit)(typographyQuote, screenSize, typographyQuote[screenSize].fontSizeUnit, 'fontSizeUnit'), ";\n\t\t\tline-height: ").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_12__.geHierarchicalPlaceholderValue)(typographyQuote, screenSize, typographyQuote[screenSize].lineHeight, 'lineHeight') + (0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_12__.getHierarchicalValueUnit)(typographyQuote, screenSize, typographyQuote[screenSize].lineHeightUnit, 'lineHeightUnit'), ";\n\t\t\tletter-spacing: ").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_12__.geHierarchicalPlaceholderValue)(typographyQuote, screenSize, typographyQuote[screenSize].letterSpacing, 'letterSpacing') + (0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_12__.getHierarchicalValueUnit)(typographyQuote, screenSize, typographyQuote[screenSize].letterSpacingUnit, 'letterSpacingUnit'), ";\n\t\t\ttext-transform: ").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_12__.geHierarchicalPlaceholderValue)(typographyQuote, screenSize, typographyQuote[screenSize].textTransform, 'textTransform'), ";\n\t\t}\n\t\t#").concat(uniqueId, " .has-click-to-share-cta,\n\t\t#").concat(uniqueId, " .has-click-to-share-cta p {\n\t\t\tfont-family: \"").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_12__.geHierarchicalPlaceholderValue)(typographyShareText, screenSize, typographyShareText[screenSize].fontFamily, 'fontFamily'), "\";\n\t\t\tfont-weight: ").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_12__.geHierarchicalPlaceholderValue)(typographyShareText, screenSize, typographyShareText[screenSize].fontWeight, 'fontWeight'), ";\n\t\t\tfont-size: ").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_12__.geHierarchicalPlaceholderValue)(typographyShareText, screenSize, typographyShareText[screenSize].fontSize, 'fontSize') + (0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_12__.getHierarchicalValueUnit)(typographyShareText, screenSize, typographyShareText[screenSize].fontSizeUnit, 'fontSizeUnit'), ";\n\t\t\tline-height: ").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_12__.geHierarchicalPlaceholderValue)(typographyShareText, screenSize, typographyShareText[screenSize].lineHeight, 'lineHeight') + (0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_12__.getHierarchicalValueUnit)(typographyShareText, screenSize, typographyShareText[screenSize].lineHeightUnit, 'lineHeightUnit'), ";\n\t\t\tletter-spacing: ").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_12__.geHierarchicalPlaceholderValue)(typographyShareText, screenSize, typographyShareText[screenSize].letterSpacing, 'letterSpacing') + (0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_12__.getHierarchicalValueUnit)(typographyShareText, screenSize, typographyShareText[screenSize].letterSpacingUnit, 'letterSpacingUnit'), ";\n\t\t\ttext-transform: ").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_12__.geHierarchicalPlaceholderValue)(typographyShareText, screenSize, typographyShareText[screenSize].textTransform, 'textTransform'), ";\n\t\t}\n\t");
   var fontWeightArr = Array();
   fontWeightArr.push({
     label: __('Normal', 'highlight-and-share'),
@@ -392,6 +394,12 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
   }, /*#__PURE__*/React.createElement(_react_Components_GradientGenerator__WEBPACK_IMPORTED_MODULE_5__["default"], {
     setAttributes: setAttributes,
     label: __('Generate Random Gradient', 'highlight-and-share')
+  }))), backgroundType === 'image' && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(_react_Components_BackgroundSelector__WEBPACK_IMPORTED_MODULE_11__["default"], {
+    label: __('Background Image', 'highlight-and-share'),
+    values: backgroundImage,
+    onValuesChange: function onValuesChange(newValue) {
+      //setAttributes( { backgroundImage: newValue } );
+    }
   })))), deviceType === 'Desktop' && /*#__PURE__*/React.createElement(PanelBody, {
     title: __('Colors', 'highlight-and-share'),
     initialOpen: false
@@ -869,6 +877,200 @@ var fontFamilies = {
   }
 };
 /* harmony default export */ __webpack_exports__["default"] = (fontFamilies);
+
+/***/ }),
+
+/***/ "./src/react/Components/BackgroundSelector/index.js":
+/*!**********************************************************!*\
+  !*** ./src/react/Components/BackgroundSelector/index.js ***!
+  \**********************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _fonts_fonts__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../../../fonts/fonts */ "./src/fonts/fonts.js");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var react_hook_form__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-hook-form */ "./node_modules/react-hook-form/dist/index.esm.mjs");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+var BackgroundSelector = function BackgroundSelector(props) {
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState2 = _slicedToArray(_useState, 2),
+    backgroundSettingsVisible = _useState2[0],
+    setBackgroundSettingsVisible = _useState2[1];
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(null),
+    _useState4 = _slicedToArray(_useState3, 2),
+    backgroundSettingsPopoverAnchor = _useState4[0],
+    setBackgroundSettingsPopoverAnchor = _useState4[1];
+  var getDefaultValues = function getDefaultValues() {
+    return {
+      url: props.values.url,
+      id: props.values.id,
+      backgroundSize: props.values.backgroundSize,
+      backgroundPosition: props.values.backgroundPosition,
+      backgroundRepeat: props.values.backgroundRepeat,
+      backgroundOpacity: props.values.backgroundOpacity,
+      backgroundOpacityHover: props.values.backgroundOpacityHover
+    };
+  };
+  var _useForm = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_4__.useForm)({
+      defaultValues: getDefaultValues()
+    }),
+    control = _useForm.control,
+    setValue = _useForm.setValue,
+    getValues = _useForm.getValues;
+  var formValues = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_4__.useWatch)({
+    control: control
+  });
+  var label = props.label;
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    props.onValuesChange(formValues);
+  }, [formValues]);
+  var getBackgroundRepeat = function getBackgroundRepeat() {
+    var backgroundRepeat = [{
+      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('repeat-x', 'highlight-and-share'),
+      value: 'repeat-x'
+    }, {
+      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('repeat-y', 'highlight-and-share'),
+      value: 'repeat-y'
+    }, {
+      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('repeat', 'highlight-and-share'),
+      value: 'repeat'
+    }, {
+      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('no-repeat', 'highlight-and-share'),
+      value: 'no-repeat'
+    }];
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_4__.Controller, {
+      name: 'backgroundRepeat',
+      control: control,
+      render: function render(_ref) {
+        var _ref$field = _ref.field,
+          _onChange = _ref$field.onChange,
+          value = _ref$field.value;
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.SelectControl, {
+          label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Background Repeat', 'highlight-and-share'),
+          value: value,
+          options: backgroundRepeat,
+          onChange: function onChange(newValue) {
+            _onChange(newValue);
+          }
+        });
+      }
+    });
+  };
+  var getPopoverContent = function getPopoverContent() {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.BaseControl, {
+      className: "has-typography-picker"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "has-typography-picker__row has-typography-picker__row__col-full"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "has-typography-picker__row_item"
+    }, getBackgroundRepeat())), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "has-typography-picker__row has-typography-picker__row__col-full"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "has-typography-picker__row_item"
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "has-typography-picker__row has-typography-picker__row__col-2"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "has-typography-picker__row_item has-units"
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "has-typography-picker__row_item"
+    })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "has-typography-picker__row has-typography-picker__row__col-2"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "has-typography-picker__row_item has-units"
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "has-typography-picker__row_item has-units"
+    })));
+  };
+  var getBackgroundUploader = function getBackgroundUploader() {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "has-background-selector-upload-row"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_4__.Controller, {
+      name: 'url',
+      control: control,
+      render: function render(_ref2) {
+        var _ref2$field = _ref2.field,
+          _onChange2 = _ref2$field.onChange,
+          value = _ref2$field.value;
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.TextControl, {
+          label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Background Image', 'highlight-and-share'),
+          value: value,
+          onChange: function onChange(newValue) {
+            _onChange2(newValue);
+          },
+          placeholder: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Enter URL', 'highlight-and-share')
+        });
+      }
+    }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "has-background-selector-upload-button"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.Button, {
+      isSecondary: true,
+      onClick: function onClick() {
+        var mediaUploader = wp.media({
+          title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Select Background Image', 'highlight-and-share'),
+          button: {
+            text: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Select Background Image', 'highlight-and-share')
+          },
+          multiple: false
+        });
+        mediaUploader.on('select', function () {
+          var attachment = mediaUploader.state().get('selection').first().toJSON();
+          setValue('url', attachment.url);
+          setValue('id', attachment.id);
+        });
+        mediaUploader.on('open', function () {
+          var attachmentId = getValues('id');
+          if (attachmentId) {
+            var attachment = wp.media.attachment(attachmentId);
+            mediaUploader.state('library').get('selection').add(attachment);
+          }
+        });
+        mediaUploader.open();
+      },
+      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Upload Background Image', 'highlight-and-share'),
+      icon: "format-image"
+    })));
+  };
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.BaseControl, {
+    className: "has-background-selector-wrapper"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "has-background-selector__row_item"
+  }, getBackgroundUploader()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "has-typography-component-label"
+  }, label), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "has-typography-component-settings"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.Button, {
+    variant: "secondary",
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Background Settings', 'highlight-and-share'),
+    onClick: function onClick() {
+      setBackgroundSettingsVisible(!backgroundSettingsVisible);
+    },
+    icon: "admin-settings",
+    ref: setBackgroundSettingsPopoverAnchor
+  }), true === backgroundSettingsVisible && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_3__.Popover, {
+    className: "has-component-typography-popup",
+    noArrow: false,
+    anchor: backgroundSettingsPopoverAnchor,
+    placement: "left",
+    offset: 10
+  }, getPopoverContent())));
+};
+/* harmony default export */ __webpack_exports__["default"] = (BackgroundSelector);
 
 /***/ }),
 

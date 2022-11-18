@@ -13,6 +13,7 @@ import useDeviceType from '../../react/Hooks/useDeviceType';
 import { buildDimensionsCSS } from '../../react/Utils/DimensionsHelper';
 import UnitChooser from '../../react/Components/unit-picker';
 import Typography from '../../react/Components/Typography';
+import BackgroundSelector from '../../react/Components/BackgroundSelector';
 import {
 	geHierarchicalPlaceholderValue,
 	getHierarchicalValueUnit,
@@ -568,6 +569,19 @@ const HAS_Click_To_Share = ( props ) => {
 								<GradientGenerator
 									setAttributes={ setAttributes }
 									label={ __( 'Generate Random Gradient', 'highlight-and-share' ) }
+								/>
+							</PanelRow>
+						</>
+					) }
+					{ backgroundType === 'image' && (
+						<>
+							<PanelRow>
+								<BackgroundSelector
+									label={ __( 'Background Image', 'highlight-and-share' ) }
+									values={ backgroundImage }
+									onValuesChange={ ( newValue ) => {
+										//setAttributes( { backgroundImage: newValue } );
+									} }
 								/>
 							</PanelRow>
 						</>
