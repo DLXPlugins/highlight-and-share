@@ -385,4 +385,10 @@
   left: 0;
 }
 
+.has-click-to-share-cta {
+  display: flex;
+  justify-content: flex-end;
+  align-items: center;
+}
+
 /*# sourceMappingURL=has-cts-style.css.map*/

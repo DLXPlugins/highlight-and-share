@@ -179,6 +179,20 @@ class Blocks {
 				margin: <?php echo esc_attr( $this->build_dimensions_css( $attributes['marginSize'], 'mobile' ) ); ?>;
 				transition: all 0.3s ease-in-out;
 			}
+			@media screen and (min-width: 728px) {
+				.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?> {
+					border-width: <?php echo esc_attr( $this->build_dimensions_css( $attributes['borderWidth'], 'tablet' ) ); ?>;
+					border-radius: <?php echo esc_attr( $this->build_dimensions_css( $attributes['borderRadiusSize'], 'tablet' ) ); ?>;
+					margin: <?php echo esc_attr( $this->build_dimensions_css( $attributes['marginSize'], 'tablet' ) ); ?>;
+				}
+			}
+			@media screen and (min-width: 1024px) {
+				.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?> {
+					border-width: <?php echo esc_attr( $this->build_dimensions_css( $attributes['borderWidth'], 'desktop' ) ); ?>;
+					border-radius: <?php echo esc_attr( $this->build_dimensions_css( $attributes['borderRadiusSize'], 'desktop' ) ); ?>;
+					margin: <?php echo esc_attr( $this->build_dimensions_css( $attributes['marginSize'], 'desktop' ) ); ?>;
+				}
+			}
 			.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?> {
 				transition: all 0.3s ease-in-out;
 			}
@@ -190,6 +204,16 @@ class Blocks {
 			.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?> .has-click-to-share-wrapper  {
 				padding: <?php echo esc_attr( $this->build_dimensions_css( $attributes['paddingSize'], 'mobile' ) ); ?>;
 				position: relative;
+			}
+			@media screen and (min-width: 728px) {
+				.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?> .has-click-to-share-wrapper {
+					padding: <?php echo esc_attr( $this->build_dimensions_css( $attributes['paddingSize'], 'tablet' ) ); ?>;
+				}
+			}
+			@media screen and (min-width: 1024px) {
+				.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?> .has-click-to-share-wrapper {
+					padding: <?php echo esc_attr( $this->build_dimensions_css( $attributes['paddingSize'], 'desktop' ) ); ?>;
+				}
 			}
 			.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?>.has-background-color  {
 				background-color: <?php echo esc_attr( $attributes['backgroundColor'] ); ?>;
@@ -291,9 +315,50 @@ class Blocks {
 					text-transform: <?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyQuote'], 'desktop', 'textTransform' ) ); ?>;
 				}
 			}
+			<?php
+			if ( 'image' === $attributes['backgroundType'] ) :
+				?>
+				.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?>.has-background-image {
+					background-color: <?php echo esc_attr( $attributes['backgroundImage']['backgroundColor'] ); ?>;
+				}
+				.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?>.has-background-image .has-click-to-share-wrapper:after {
+					display: block;
+					content: '';
+					width: 100%;
+					height: 100%;
+					position: absolute;
+					top: 0;
+					left: 0;
+					z-index: 1;
+					background-image: url('<?php echo esc_url( $attributes['backgroundImage']['url'] ); ?>');
+					background-position: <?php echo esc_attr( $attributes['backgroundImage']['backgroundPosition'] ); ?>;
+					background-repeat: <?php echo esc_attr( $attributes['backgroundImage']['backgroundRepeat'] ); ?>;
+					background-size: <?php echo esc_attr( $attributes['backgroundImage']['backgroundSize'] ); ?>;
+					opacity: <?php echo esc_attr( $attributes['backgroundImage']['backgroundOpacity'] ); ?>;
+				}
+				.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?>.has-background-image .has-click-to-share-wrapper:hover:after {
+					opacity: <?php echo esc_attr( $attributes['backgroundImage']['backgroundOpacityHover'] ); ?>;
+				}
+				<?php
+			endif;
+			?>
 			/* resume here */
 		</style>
-		<div class='has-click-to-share' id="<?php echo esc_attr( $attributes['uniqueId'] ); ?>">
+		<?php
+		$container_classes = array(
+			'has-click-to-share',
+		);
+		if ( 'image' === $attributes['backgroundType'] ) {
+			$container_classes[] = 'has-background-image';
+		}
+		if ( 'solid' === $attributes['backgroundType'] ) {
+			$container_classes[] = 'has-background-color';
+		}
+		if ( 'gradient' === $attributes['backgroundType'] ) {
+			$container_classes[] = 'has-background-gradient';
+		}
+		?>
+		<div class='<?php echo esc_attr( implode( ' ', $container_classes ) ); ?>' id="<?php echo esc_attr( $attributes['uniqueId'] ); ?>">
 			<div class="has-click-to-share-wrapper">
 				<div class="has-click-to-share-text">
 					<?php echo wp_kses_post( $attributes['shareText'] ); ?>
@@ -461,8 +526,8 @@ class Blocks {
 	/**
 	 * Get the hierarchical value for the dimension and screen size.
 	 *
-	 * @param array  $sizes {
-	 *   An array of sizes.
+	 * @param array  $typography_settings {
+	 *   An array of typography settings.
 	 *
 	 *   @type string $fontFamily        The Font Family.
 	 *   @type string $fontFamilySlug    Font Family slug.
