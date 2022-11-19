@@ -32,6 +32,8 @@ const {
 	ToggleControl,
 } = wp.components;
 
+const { escapeAttribute, escapeEditableHTML } = wp.escapeHtml;
+
 const { InspectorControls, RichText, useBlockProps } = wp.blockEditor;
 
 const { useInstanceId } = wp.compose;
@@ -190,17 +192,26 @@ const HAS_Click_To_Share = ( props ) => {
 		return null;
 	};
 
-	const hasStyles = {
-		fontSize: fontSize + 'px',
-		padding: buildDimensionsCSS( paddingSize, deviceType ),
-		borderWidth: buildDimensionsCSS( borderWidth, deviceType ),
-		borderRadius: buildDimensionsCSS( borderRadiusSize, deviceType ),
-		maxWidth: `${ maxWidth }${ maxWidthUnit }`,
-		margin: buildDimensionsCSS( marginSize, deviceType ),
-	};
-
 	const screenSize = deviceType.toLowerCase();
 	const styles = `
+		#${ uniqueId }.has-click-to-share {
+			margin: ${ buildDimensionsCSS( marginSize, deviceType ) };
+			border-radius: ${ buildDimensionsCSS( borderRadiusSize, deviceType ) };
+			border-style: solid;
+			border-width: ${ buildDimensionsCSS( borderWidth, deviceType ) };
+			max-width: ${ maxWidth }${ maxWidthUnit };
+			overflow: hidden;
+		}
+		#${ uniqueId }.has-click-to-share .has-click-to-share-cta,
+		#${ uniqueId }.has-click-to-share .has-click-to-share-text {
+			position: relative;
+			z-index: 2;
+		}
+		#${ uniqueId }.has-click-to-share .has-click-to-share-wrapper {
+			position: relative;
+			padding: ${ buildDimensionsCSS( paddingSize, deviceType ) };
+			font-size: ${ clickShareFontSize }px;
+		}
 		#${ uniqueId }.has-click-to-share.has-background-color {
 			background-color: ${ backgroundColor };
 		}
@@ -365,16 +376,37 @@ const HAS_Click_To_Share = ( props ) => {
 	) };
 		}
 	`;
-	const fontWeightArr = Array();
-	fontWeightArr.push( {
-		label: __( 'Normal', 'highlight-and-share' ),
-		value: 100,
-	} );
-	fontWeightArr.push( { label: __( 'Bold', 'highlight-and-share' ), value: 400 } );
-	fontWeightArr.push( {
-		label: __( 'Bolder', 'highlight-and-share' ),
-		value: 700,
-	} );
+
+	let backgroundImageStyles = '';
+	if ( 'image' === backgroundType ) {
+		backgroundImageStyles = `
+		#${ uniqueId }.has-click-to-share.has-background-image {
+			background-color: ${ backgroundImage.backgroundColor };
+		}
+		#${ uniqueId }.has-click-to-share.has-background-image .has-click-to-share-wrapper:after{
+			display: block;
+			content: '';
+			width: 100%;
+			height: 100%;
+			position: absolute;
+			top: 0;
+			left: 0;
+			z-index: 1;
+			background-image: url('${ decodeURIComponent(
+		encodeURIComponent( backgroundImage.url )
+	) } ');
+			background-position: ${ escapeEditableHTML(
+		backgroundImage.backgroundPosition
+	) };
+			background-repeat: ${ escapeEditableHTML( backgroundImage.backgroundRepeat ) };
+			background-size: ${ escapeEditableHTML( backgroundImage.backgroundSize ) };
+			opacity: ${ parseFloat( backgroundImage.backgroundOpacity ) };
+		}
+		#${ uniqueId }.has-click-to-share.has-background-image .has-click-to-share-wrapper:hover:after {
+			opacity: ${ parseFloat( backgroundImage.backgroundOpacityHover ) };
+		}
+		`;
+	}
 
 	/* For sticky responsive: forked from GenerateBlocks */
 	const panelHeader = document.querySelector(
@@ -845,7 +877,7 @@ const HAS_Click_To_Share = ( props ) => {
 						labelRight={ __( 'T-Right', 'highlight-and-share' ) }
 						labelBottom={ __( 'B-Right', 'highlight-and-share' ) }
 						labelLeft={ __( 'B-Left', 'highlight-and-share' ) }
-						units={ [ 'px', 'em', 'rem' ] }
+						units={ [ 'px', 'em', 'rem', '%' ] }
 						screenSize={ deviceType }
 						onValuesChange={ ( newValues ) => {
 							setAttributes( {
@@ -894,13 +926,17 @@ const HAS_Click_To_Share = ( props ) => {
 			{ getFontStyles( typographyQuote ) }
 			{ getFontStyles( typographyShareText ) }
 			<style>{ styles }</style>
+			{ 'image' === backgroundType && ( 
+				<style>
+					{ backgroundImageStyles }
+				</style>
+			) }
 			<div
 				className={ classnames( 'has-click-to-share', {
 					'has-background-color': 'solid' === backgroundType,
 					'has-background-gradient': 'gradient' === backgroundType,
 					'has-background-image': 'image' === backgroundType,
 				} ) }
-				style={ hasStyles }
 				id={ uniqueId }
 			>
 				<div className="has-click-to-share-wrapper">

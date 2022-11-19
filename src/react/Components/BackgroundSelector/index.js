@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import { __ } from '@wordpress/i18n';
 import {
 	RangeControl,
@@ -11,8 +11,12 @@ import {
 import { MediaUploadCheck, MediaUpload } from '@wordpress/block-editor';
 import { useForm, Controller, useWatch } from 'react-hook-form';
 import ColorPicker from '../ColorPicker';
+import classNames from 'classnames';
 
 const BackgroundSelector = ( props ) => {
+
+	const mediaUploadButton = useRef( null );
+
 	const [ backgroundSettingsVisible, setBackgroundSettingsVisible ] =
 		useState( false );
 	const [ backgroundSettingsPopoverAnchor, setBackgroundSettingsPopoverAnchor ] =
@@ -20,6 +24,10 @@ const BackgroundSelector = ( props ) => {
 
 	const [ isVisible, setIsVisible ] = useState( false );
 	const [ isToggled, setIsToggled ] = useState( false );
+
+	// Background error image state.
+	const [ errorImage, setErrorImage ] = useState( false );
+	
 
 	const getDefaultValues = () => {
 		return {
@@ -146,6 +154,14 @@ const BackgroundSelector = ( props ) => {
 								if ( 'image' === media.type ) {
 									setValue( 'url', media.url );
 									setValue( 'id', media.id );
+								} else {
+									setErrorImage( true );
+									setValue( 'url', '' );
+									setValue( 'id', '0' );
+									mediaUploadButton.current.focus();
+									setTimeout(() => {
+										setErrorImage( false );
+									}, 8000 );
 								}
 							} }
 							title={ __( 'Select Background Image', 'highlight-and-share' ) }
@@ -156,9 +172,16 @@ const BackgroundSelector = ( props ) => {
 							render={ ( { open } ) => (
 								<Button
 									isSecondary
-									onClick={ open }
-									label={ __( 'Upload Background Image', 'highlight-and-share' ) }
+									className={ classNames( { 'has-background-selector-image-button-error': errorImage} ) }
+									onClick={ () => {
+										setErrorImage( false );
+										open();
+									 } }
+									label={ ! errorImage ? __( 'Upload Background Image', 'highlight-and-share' ) : __( 'Please choose only images.', 'highlight-and-share' ) }
 									icon="format-image"
+									showTooltip={ errorImage }
+									tooltipPosition="top center"
+									ref={ mediaUploadButton }
 								/>
 							) }
 						/>

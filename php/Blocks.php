@@ -170,15 +170,44 @@ class Blocks {
 		<style>
 			.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?> {
 				border-style: solid;
-				background-color: <?php echo esc_attr( $attributes['backgroundColor'] ); ?>;
 				border-color: <?php echo esc_attr( $attributes['borderColor'] ); ?>;
 				transition: all 0.3s ease-in-out;
 				max-width: <?php echo esc_attr( $attributes['maxWidth'] ); ?><?php echo esc_attr( $attributes['maxWidthUnit'] ); ?>;
+				overflow: hidden;
+				border-width: <?php echo esc_attr( $this->build_dimensions_css( $attributes['borderWidth'], 'mobile' ) ); ?>;
+				border-radius: <?php echo esc_attr( $this->build_dimensions_css( $attributes['borderRadiusSize'], 'mobile' ) ); ?>;
+				margin: <?php echo esc_attr( $this->build_dimensions_css( $attributes['marginSize'], 'mobile' ) ); ?>;
+				transition: all 0.3s ease-in-out;
+			}
+			.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?> {
+				transition: all 0.3s ease-in-out;
+			}
+			.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?> .has-click-to-share-cta,
+			.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?> .has-click-to-share-text {
+				position: relative;
+				z-index: 2;
+			}
+			.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?> .has-click-to-share-wrapper  {
+				padding: <?php echo esc_attr( $this->build_dimensions_css( $attributes['paddingSize'], 'mobile' ) ); ?>;
+				position: relative;
+			}
+			.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?>.has-background-color  {
+				background-color: <?php echo esc_attr( $attributes['backgroundColor'] ); ?>;
+			}
+			.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?>.has-background-color:hover  {
+				background-color: <?php echo esc_attr( $attributes['backgroundColorHover'] ); ?>;
+			}
+			.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?>.has-background-gradient  {
+				background-color: <?php echo esc_attr( $attributes['backgroundGradient'] ); ?>;
+			}
+			.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?>.has-background-gradient:hover  {
+				background-color: <?php echo esc_attr( $attributes['backgroundGradientHover'] ); ?>;
+			}
+			.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?> {
+				border-color: <?php echo esc_attr( $attributes['borderColor'] ); ?>;
 			}
 			.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?>:hover {
-				background-color: <?php echo esc_attr( $attributes['backgroundColorHover'] ); ?>;
 				border-color: <?php echo esc_attr( $attributes['borderColorHover'] ); ?>;
-				transition: all 0.3s ease-in-out;
 			}
 			.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?> .has-click-to-share-cta {
 				color: <?php echo esc_attr( $attributes['shareTextColor'] ); ?>;
@@ -193,34 +222,76 @@ class Blocks {
 				color: <?php echo esc_attr( $attributes['textColorHover'] ); ?>;
 			}
 			.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?> .has-click-to-share-cta svg {
-				fill: <?php echo esc_attr( $attributes['iconColor'] ); ?>;
+				color: <?php echo esc_attr( $attributes['iconColor'] ); ?>;
 			}
 			.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?>:hover .has-click-to-share-cta svg {
-				fill: <?php echo esc_attr( $attributes['iconColorHover'] ); ?>;
+				color: <?php echo esc_attr( $attributes['iconColorHover'] ); ?>;
 			}
-			.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?> {
-				padding: <?php echo esc_attr( $this->build_dimensions_css( $attributes['paddingSize'], 'mobile' ) ); ?>;
-				margin: <?php echo esc_attr( $this->build_dimensions_css( $attributes['marginSize'], 'mobile' ) ); ?>;
-				border-width: <?php echo esc_attr( $this->build_dimensions_css( $attributes['borderWidth'], 'mobile' ) ); ?>;
-				border-radius: <?php echo esc_attr( $this->build_dimensions_css( $attributes['borderRadiusSize'], 'mobile' ) ); ?>;
-				
+			.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?> .has-click-to-share-cta,
+			.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?> .has-click-to-share-cta p {
+				font-family: "<?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyShareText'], 'mobile', 'fontFamily' ) ); ?>";
+				font-size: <?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyShareText'], 'mobile', 'fontSize' ) ); ?><?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyShareText'], 'mobile', 'fontSizeUnit' ) ); ?>;
+				font-weight: <?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyShareText'], 'mobile', 'fontWeight' ) ); ?>;
+				line-height: <?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyShareText'], 'mobile', 'lineHeight' ) ); ?><?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyShareText'], 'mobile', 'lineHeightUnit' ) ); ?>;
+				letter-spacing: <?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyShareText'], 'mobile', 'letterSpacing' ) ); ?><?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyShareText'], 'mobile', 'letterSpacingUnit' ) ); ?>;
+				text-transform: <?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyShareText'], 'mobile', 'textTransform' ) ); ?>;
+
 			}
 			@media screen and (min-width: 728px) {
-				.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?> {
-					padding: <?php echo esc_attr( $this->build_dimensions_css( $attributes['paddingSize'], 'tablet' ) ); ?>;
-					margin: <?php echo esc_attr( $this->build_dimensions_css( $attributes['marginSize'], 'tablet' ) ); ?>;
-					border-width: <?php echo esc_attr( $this->build_dimensions_css( $attributes['borderWidth'], 'tablet' ) ); ?>;
-					border-radius: <?php echo esc_attr( $this->build_dimensions_css( $attributes['borderRadiusSize'], 'tablet' ) ); ?>;
+				.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?> .has-click-to-share-cta,
+				.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?> .has-click-to-share-cta p {
+					font-family: "<?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyShareText'], 'tablet', 'fontFamily' ) ); ?>";
+					font-size: <?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyShareText'], 'tablet', 'fontSize' ) ); ?><?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyShareText'], 'mobile', 'fontSizeUnit' ) ); ?>;
+					font-weight: <?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyShareText'], 'tablet', 'fontWeight' ) ); ?>;
+					line-height: <?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyShareText'], 'tablet', 'lineHeight' ) ); ?><?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyShareText'], 'mobile', 'lineHeightUnit' ) ); ?>;
+					letter-spacing: <?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyShareText'], 'tablet', 'letterSpacing' ) ); ?><?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyShareText'], 'mobile', 'letterSpacingUnit' ) ); ?>;
+					text-transform: <?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyShareText'], 'tablet', 'textTransform' ) ); ?>;
 				}
 			}
 			@media screen and (min-width: 1024px) {
-				.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?> {
-					padding: <?php echo esc_attr( $this->build_dimensions_css( $attributes['paddingSize'], 'desktop' ) ); ?>;
-					margin: <?php echo esc_attr( $this->build_dimensions_css( $attributes['marginSize'], 'desktop' ) ); ?>;
-					border-width: <?php echo esc_attr( $this->build_dimensions_css( $attributes['borderWidth'], 'desktop' ) ); ?>;
-					border-radius: <?php echo esc_attr( $this->build_dimensions_css( $attributes['borderRadiusSize'], 'desktop' ) ); ?>;
+				.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?> .has-click-to-share-cta,
+				.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?> .has-click-to-share-cta p {
+					font-family: "<?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyShareText'], 'desktop', 'fontFamily' ) ); ?>";
+					font-size: <?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyShareText'], 'desktop', 'fontSize' ) ); ?><?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyShareText'], 'mobile', 'fontSizeUnit' ) ); ?>;
+					font-weight: <?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyShareText'], 'desktop', 'fontWeight' ) ); ?>;
+					line-height: <?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyShareText'], 'desktop', 'lineHeight' ) ); ?><?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyShareText'], 'mobile', 'lineHeightUnit' ) ); ?>;
+					letter-spacing: <?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyShareText'], 'desktop', 'letterSpacing' ) ); ?><?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyShareText'], 'mobile', 'letterSpacingUnit' ) ); ?>;
+					text-transform: <?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyShareText'], 'desktop', 'textTransform' ) ); ?>;
 				}
 			}
+			.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?> .has-click-to-share-text,
+			.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?> .has-click-to-share-text p {
+				font-family: "<?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyQuote'], 'mobile', 'fontFamily' ) ); ?>";
+				font-size: <?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyQuote'], 'mobile', 'fontSize' ) ); ?><?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyQuote'], 'mobile', 'fontSizeUnit' ) ); ?>;
+				font-weight: <?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyQuote'], 'mobile', 'fontWeight' ) ); ?>;
+				line-height: <?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyQuote'], 'mobile', 'lineHeight' ) ); ?><?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyQuote'], 'mobile', 'lineHeightUnit' ) ); ?>;
+				letter-spacing: <?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyQuote'], 'mobile', 'letterSpacing' ) ); ?><?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyQuote'], 'mobile', 'letterSpacingUnit' ) ); ?>;
+				text-transform: <?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyQuote'], 'mobile', 'textTransform' ) ); ?>;
+
+			}
+			@media screen and (min-width: 728px) {
+				.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?> .has-click-to-share-text,
+				.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?> .has-click-to-share-text p {
+					font-family: "<?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyQuote'], 'tablet', 'fontFamily' ) ); ?>";
+					font-size: <?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyQuote'], 'tablet', 'fontSize' ) ); ?><?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyQuote'], 'mobile', 'fontSizeUnit' ) ); ?>;
+					font-weight: <?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyQuote'], 'tablet', 'fontWeight' ) ); ?>;
+					line-height: <?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyQuote'], 'tablet', 'lineHeight' ) ); ?><?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyQuote'], 'mobile', 'lineHeightUnit' ) ); ?>;
+					letter-spacing: <?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyQuote'], 'tablet', 'letterSpacing' ) ); ?><?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyQuote'], 'mobile', 'letterSpacingUnit' ) ); ?>;
+					text-transform: <?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyQuote'], 'tablet', 'textTransform' ) ); ?>;
+				}
+			}
+			@media screen and (min-width: 1024px) {
+				.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?> .has-click-to-share-text,
+				.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?> .has-click-to-share-text p {
+					font-family: "<?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyQuote'], 'desktop', 'fontFamily' ) ); ?>";
+					font-size: <?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyQuote'], 'desktop', 'fontSize' ) ); ?><?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyQuote'], 'mobile', 'fontSizeUnit' ) ); ?>;
+					font-weight: <?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyQuote'], 'desktop', 'fontWeight' ) ); ?>;
+					line-height: <?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyQuote'], 'desktop', 'lineHeight' ) ); ?><?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyQuote'], 'mobile', 'lineHeightUnit' ) ); ?>;
+					letter-spacing: <?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyQuote'], 'desktop', 'letterSpacing' ) ); ?><?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyQuote'], 'mobile', 'letterSpacingUnit' ) ); ?>;
+					text-transform: <?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyQuote'], 'desktop', 'textTransform' ) ); ?>;
+				}
+			}
+			/* resume here */
 		</style>
 		<div class='has-click-to-share' id="<?php echo esc_attr( $attributes['uniqueId'] ); ?>">
 			<div class="has-click-to-share-wrapper">
@@ -385,6 +456,57 @@ class Blocks {
 		}
 
 		return '0';
+	}
+
+	/**
+	 * Get the hierarchical value for the dimension and screen size.
+	 *
+	 * @param array  $sizes {
+	 *   An array of sizes.
+	 *
+	 *   @type string $fontFamily        The Font Family.
+	 *   @type string $fontFamilySlug    Font Family slug.
+	 *   @type string $fontSize          The font size.
+	 *   @type string $fontSizeUnit      The font size unit.
+	 *   @type string $fontWeight        Font weight (100, 200, etc.).
+	 *   @type string $lineHeight        The line height.
+	 *   @type string $lineHeightUnit    The line height unit.
+	 *   @type string $textTransform     The text transform (uppercase, lowercase, etc.).
+	 *   @type string $letterSpacing     The letter spacing.
+	 *   @type string $letterSpacingUnit The letter spacing unit.
+	 *   @type string $fontType          The font type (google|adobe|web).
+	 *   @type string $fontFallback      The font fallback.
+	 * }
+	 * @param string $screen_size Screen size (desktop|mobile|tablet).
+	 * @param string $type        The dimension type (top|right|bottom|left).
+	 *
+	 * @return string The value of the typography type.
+	 */
+	public function get_hierarchical_typography( $typography_settings, $screen_size, $type ) {
+		// Check mobile screen size.
+		if ( 'mobile' === $screen_size && '' === $typography_settings[ $screen_size ][ $type ] ) {
+			// Check tablet.
+			if ( '' !== $typography_settings['tablet'][ $type ] ) {
+				return $typography_settings['tablet'][ $type ];
+			} elseif ( '' !== $typography_settings['desktop'][ $type ] ) {
+				// Check desktop.
+				return $typography_settings['desktop'][ $type ];
+			}
+		}
+
+		// Check tablet screen size.
+		if ( 'tablet' === $screen_size && '' === $typography_settings[ $screen_size ][ $type ] ) {
+			if ( '' !== $typography_settings['desktop'][ $type ] ) {
+				// Check desktop.
+				return $typography_settings['desktop'][ $type ];
+			}
+		}
+
+		if ( '' !== $typography_settings[ $screen_size ][ $type ] ) {
+			return $typography_settings[ $screen_size ][ $type ];
+		}
+
+		return '';
 	}
 
 	/**

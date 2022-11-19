@@ -22,7 +22,9 @@
 		font-weight: 100;
 	}
 	.has-click-to-share-cta {
-		float: right;
+		display: flex;
+		justify-content: flex-end;
+		align-items: center;
 	}
 	&:after {
 		content: '';
@@ -490,4 +492,10 @@
 			max-width: 30px;
 		}
 	}
+}
+.has-background-selector-image-button-error {
+	color: #bc2b2c !important; // override core styles.
+	background: #f5e5e4 !important; // override core styles.
+	border-color: #bc2b2c !important; // override core styles.
+	box-shadow: inset 0 0 0 1px #bc2b2c !important; // override core styles.
 }

@@ -57,6 +57,9 @@ var _wp$components = wp.components,
   ButtonGroup = _wp$components.ButtonGroup,
   Button = _wp$components.Button,
   ToggleControl = _wp$components.ToggleControl;
+var _wp$escapeHtml = wp.escapeHtml,
+  escapeAttribute = _wp$escapeHtml.escapeAttribute,
+  escapeEditableHTML = _wp$escapeHtml.escapeEditableHTML;
 var _wp$blockEditor = wp.blockEditor,
   InspectorControls = _wp$blockEditor.InspectorControls,
   RichText = _wp$blockEditor.RichText,
@@ -213,29 +216,12 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
     }
     return null;
   };
-  var hasStyles = {
-    fontSize: fontSize + 'px',
-    padding: (0,_react_Utils_DimensionsHelper__WEBPACK_IMPORTED_MODULE_8__.buildDimensionsCSS)(paddingSize, deviceType),
-    borderWidth: (0,_react_Utils_DimensionsHelper__WEBPACK_IMPORTED_MODULE_8__.buildDimensionsCSS)(borderWidth, deviceType),
-    borderRadius: (0,_react_Utils_DimensionsHelper__WEBPACK_IMPORTED_MODULE_8__.buildDimensionsCSS)(borderRadiusSize, deviceType),
-    maxWidth: "".concat(maxWidth).concat(maxWidthUnit),
-    margin: (0,_react_Utils_DimensionsHelper__WEBPACK_IMPORTED_MODULE_8__.buildDimensionsCSS)(marginSize, deviceType)
-  };
   var screenSize = deviceType.toLowerCase();
-  var styles = "\n\t\t#".concat(uniqueId, ".has-click-to-share.has-background-color {\n\t\t\tbackground-color: ").concat(backgroundColor, ";\n\t\t}\n\t\t#").concat(uniqueId, ".has-click-to-share.has-background-color:hover {\n\t\t\tbackground-color: ").concat(backgroundColorHover, ";\n\t\t}\n\t\t#").concat(uniqueId, ".has-click-to-share.has-background-gradient {\n\t\t\tbackground-image: ").concat(backgroundGradient, ";\n\t\t}\n\t\t#").concat(uniqueId, ".has-click-to-share.has-background-gradient:hover {\n\t\t\tbackground-image: ").concat(backgroundGradientHover, ";\n\t\t}\n\t\t#").concat(uniqueId, ".has-click-to-share {\n\t\t\tborder-color: ").concat(borderColor, ";\n\t\t}\n\t\t#").concat(uniqueId, ".has-click-to-share:hover {\n\t\t\tborder-color: ").concat(borderColorHover, ";\n\t\t}\n\t\t\n\t\t#").concat(uniqueId, " .has-click-to-share-cta {\n\t\t\tcolor: ").concat(shareTextColor, "\n\t\t}\n\t\t#").concat(uniqueId, ":hover .has-click-to-share-cta {\n\t\t\tcolor: ").concat(shareTextColorHover, "\n\t\t}\n\t\t#").concat(uniqueId, " .has-click-to-share-text {\n\t\t\tcolor: ").concat(textColor, ";\n\t\t}\n\t\t#").concat(uniqueId, ":hover .has-click-to-share-text {\n\t\t\tcolor: ").concat(textColorHover, ";\n\t\t}\n\t\t#").concat(uniqueId, " .has-click-to-share-cta svg {\n\t\t\tcolor: ").concat(iconColor, ";\n\t\t}\n\t\t#").concat(uniqueId, ":hover .has-click-to-share-cta svg {\n\t\t\tcolor: ").concat(iconColorHover, ";\n\t\t}\n\t\t#").concat(uniqueId, " .has-click-to-share-text,\n\t\t#").concat(uniqueId, " .has-click-to-share-text p {\n\t\t\tfont-family: \"").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_12__.geHierarchicalPlaceholderValue)(typographyQuote, screenSize, typographyQuote[screenSize].fontFamily, 'fontFamily'), "\";\n\t\t\tfont-weight: ").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_12__.geHierarchicalPlaceholderValue)(typographyQuote, screenSize, typographyQuote[screenSize].fontWeight, 'fontWeight'), ";\n\t\t\tfont-size: ").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_12__.geHierarchicalPlaceholderValue)(typographyQuote, screenSize, typographyQuote[screenSize].fontSize, 'fontSize') + (0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_12__.getHierarchicalValueUnit)(typographyQuote, screenSize, typographyQuote[screenSize].fontSizeUnit, 'fontSizeUnit'), ";\n\t\t\tline-height: ").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_12__.geHierarchicalPlaceholderValue)(typographyQuote, screenSize, typographyQuote[screenSize].lineHeight, 'lineHeight') + (0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_12__.getHierarchicalValueUnit)(typographyQuote, screenSize, typographyQuote[screenSize].lineHeightUnit, 'lineHeightUnit'), ";\n\t\t\tletter-spacing: ").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_12__.geHierarchicalPlaceholderValue)(typographyQuote, screenSize, typographyQuote[screenSize].letterSpacing, 'letterSpacing') + (0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_12__.getHierarchicalValueUnit)(typographyQuote, screenSize, typographyQuote[screenSize].letterSpacingUnit, 'letterSpacingUnit'), ";\n\t\t\ttext-transform: ").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_12__.geHierarchicalPlaceholderValue)(typographyQuote, screenSize, typographyQuote[screenSize].textTransform, 'textTransform'), ";\n\t\t}\n\t\t#").concat(uniqueId, " .has-click-to-share-cta,\n\t\t#").concat(uniqueId, " .has-click-to-share-cta p {\n\t\t\tfont-family: \"").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_12__.geHierarchicalPlaceholderValue)(typographyShareText, screenSize, typographyShareText[screenSize].fontFamily, 'fontFamily'), "\";\n\t\t\tfont-weight: ").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_12__.geHierarchicalPlaceholderValue)(typographyShareText, screenSize, typographyShareText[screenSize].fontWeight, 'fontWeight'), ";\n\t\t\tfont-size: ").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_12__.geHierarchicalPlaceholderValue)(typographyShareText, screenSize, typographyShareText[screenSize].fontSize, 'fontSize') + (0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_12__.getHierarchicalValueUnit)(typographyShareText, screenSize, typographyShareText[screenSize].fontSizeUnit, 'fontSizeUnit'), ";\n\t\t\tline-height: ").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_12__.geHierarchicalPlaceholderValue)(typographyShareText, screenSize, typographyShareText[screenSize].lineHeight, 'lineHeight') + (0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_12__.getHierarchicalValueUnit)(typographyShareText, screenSize, typographyShareText[screenSize].lineHeightUnit, 'lineHeightUnit'), ";\n\t\t\tletter-spacing: ").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_12__.geHierarchicalPlaceholderValue)(typographyShareText, screenSize, typographyShareText[screenSize].letterSpacing, 'letterSpacing') + (0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_12__.getHierarchicalValueUnit)(typographyShareText, screenSize, typographyShareText[screenSize].letterSpacingUnit, 'letterSpacingUnit'), ";\n\t\t\ttext-transform: ").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_12__.geHierarchicalPlaceholderValue)(typographyShareText, screenSize, typographyShareText[screenSize].textTransform, 'textTransform'), ";\n\t\t}\n\t");
-  var fontWeightArr = Array();
-  fontWeightArr.push({
-    label: __('Normal', 'highlight-and-share'),
-    value: 100
-  });
-  fontWeightArr.push({
-    label: __('Bold', 'highlight-and-share'),
-    value: 400
-  });
-  fontWeightArr.push({
-    label: __('Bolder', 'highlight-and-share'),
-    value: 700
-  });
+  var styles = "\n\t\t#".concat(uniqueId, ".has-click-to-share {\n\t\t\tmargin: ").concat((0,_react_Utils_DimensionsHelper__WEBPACK_IMPORTED_MODULE_8__.buildDimensionsCSS)(marginSize, deviceType), ";\n\t\t\tborder-radius: ").concat((0,_react_Utils_DimensionsHelper__WEBPACK_IMPORTED_MODULE_8__.buildDimensionsCSS)(borderRadiusSize, deviceType), ";\n\t\t\tborder-style: solid;\n\t\t\tborder-width: ").concat((0,_react_Utils_DimensionsHelper__WEBPACK_IMPORTED_MODULE_8__.buildDimensionsCSS)(borderWidth, deviceType), ";\n\t\t\tmax-width: ").concat(maxWidth).concat(maxWidthUnit, ";\n\t\t\toverflow: hidden;\n\t\t}\n\t\t#").concat(uniqueId, ".has-click-to-share .has-click-to-share-cta,\n\t\t#").concat(uniqueId, ".has-click-to-share .has-click-to-share-text {\n\t\t\tposition: relative;\n\t\t\tz-index: 2;\n\t\t}\n\t\t#").concat(uniqueId, ".has-click-to-share .has-click-to-share-wrapper {\n\t\t\tposition: relative;\n\t\t\tpadding: ").concat((0,_react_Utils_DimensionsHelper__WEBPACK_IMPORTED_MODULE_8__.buildDimensionsCSS)(paddingSize, deviceType), ";\n\t\t\tfont-size: ").concat(clickShareFontSize, "px;\n\t\t}\n\t\t#").concat(uniqueId, ".has-click-to-share.has-background-color {\n\t\t\tbackground-color: ").concat(backgroundColor, ";\n\t\t}\n\t\t#").concat(uniqueId, ".has-click-to-share.has-background-color:hover {\n\t\t\tbackground-color: ").concat(backgroundColorHover, ";\n\t\t}\n\t\t#").concat(uniqueId, ".has-click-to-share.has-background-gradient {\n\t\t\tbackground-image: ").concat(backgroundGradient, ";\n\t\t}\n\t\t#").concat(uniqueId, ".has-click-to-share.has-background-gradient:hover {\n\t\t\tbackground-image: ").concat(backgroundGradientHover, ";\n\t\t}\n\t\t#").concat(uniqueId, ".has-click-to-share {\n\t\t\tborder-color: ").concat(borderColor, ";\n\t\t}\n\t\t#").concat(uniqueId, ".has-click-to-share:hover {\n\t\t\tborder-color: ").concat(borderColorHover, ";\n\t\t}\n\t\t\n\t\t#").concat(uniqueId, " .has-click-to-share-cta {\n\t\t\tcolor: ").concat(shareTextColor, "\n\t\t}\n\t\t#").concat(uniqueId, ":hover .has-click-to-share-cta {\n\t\t\tcolor: ").concat(shareTextColorHover, "\n\t\t}\n\t\t#").concat(uniqueId, " .has-click-to-share-text {\n\t\t\tcolor: ").concat(textColor, ";\n\t\t}\n\t\t#").concat(uniqueId, ":hover .has-click-to-share-text {\n\t\t\tcolor: ").concat(textColorHover, ";\n\t\t}\n\t\t#").concat(uniqueId, " .has-click-to-share-cta svg {\n\t\t\tcolor: ").concat(iconColor, ";\n\t\t}\n\t\t#").concat(uniqueId, ":hover .has-click-to-share-cta svg {\n\t\t\tcolor: ").concat(iconColorHover, ";\n\t\t}\n\t\t#").concat(uniqueId, " .has-click-to-share-text,\n\t\t#").concat(uniqueId, " .has-click-to-share-text p {\n\t\t\tfont-family: \"").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_12__.geHierarchicalPlaceholderValue)(typographyQuote, screenSize, typographyQuote[screenSize].fontFamily, 'fontFamily'), "\";\n\t\t\tfont-weight: ").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_12__.geHierarchicalPlaceholderValue)(typographyQuote, screenSize, typographyQuote[screenSize].fontWeight, 'fontWeight'), ";\n\t\t\tfont-size: ").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_12__.geHierarchicalPlaceholderValue)(typographyQuote, screenSize, typographyQuote[screenSize].fontSize, 'fontSize') + (0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_12__.getHierarchicalValueUnit)(typographyQuote, screenSize, typographyQuote[screenSize].fontSizeUnit, 'fontSizeUnit'), ";\n\t\t\tline-height: ").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_12__.geHierarchicalPlaceholderValue)(typographyQuote, screenSize, typographyQuote[screenSize].lineHeight, 'lineHeight') + (0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_12__.getHierarchicalValueUnit)(typographyQuote, screenSize, typographyQuote[screenSize].lineHeightUnit, 'lineHeightUnit'), ";\n\t\t\tletter-spacing: ").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_12__.geHierarchicalPlaceholderValue)(typographyQuote, screenSize, typographyQuote[screenSize].letterSpacing, 'letterSpacing') + (0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_12__.getHierarchicalValueUnit)(typographyQuote, screenSize, typographyQuote[screenSize].letterSpacingUnit, 'letterSpacingUnit'), ";\n\t\t\ttext-transform: ").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_12__.geHierarchicalPlaceholderValue)(typographyQuote, screenSize, typographyQuote[screenSize].textTransform, 'textTransform'), ";\n\t\t}\n\t\t#").concat(uniqueId, " .has-click-to-share-cta,\n\t\t#").concat(uniqueId, " .has-click-to-share-cta p {\n\t\t\tfont-family: \"").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_12__.geHierarchicalPlaceholderValue)(typographyShareText, screenSize, typographyShareText[screenSize].fontFamily, 'fontFamily'), "\";\n\t\t\tfont-weight: ").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_12__.geHierarchicalPlaceholderValue)(typographyShareText, screenSize, typographyShareText[screenSize].fontWeight, 'fontWeight'), ";\n\t\t\tfont-size: ").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_12__.geHierarchicalPlaceholderValue)(typographyShareText, screenSize, typographyShareText[screenSize].fontSize, 'fontSize') + (0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_12__.getHierarchicalValueUnit)(typographyShareText, screenSize, typographyShareText[screenSize].fontSizeUnit, 'fontSizeUnit'), ";\n\t\t\tline-height: ").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_12__.geHierarchicalPlaceholderValue)(typographyShareText, screenSize, typographyShareText[screenSize].lineHeight, 'lineHeight') + (0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_12__.getHierarchicalValueUnit)(typographyShareText, screenSize, typographyShareText[screenSize].lineHeightUnit, 'lineHeightUnit'), ";\n\t\t\tletter-spacing: ").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_12__.geHierarchicalPlaceholderValue)(typographyShareText, screenSize, typographyShareText[screenSize].letterSpacing, 'letterSpacing') + (0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_12__.getHierarchicalValueUnit)(typographyShareText, screenSize, typographyShareText[screenSize].letterSpacingUnit, 'letterSpacingUnit'), ";\n\t\t\ttext-transform: ").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_12__.geHierarchicalPlaceholderValue)(typographyShareText, screenSize, typographyShareText[screenSize].textTransform, 'textTransform'), ";\n\t\t}\n\t");
+  var backgroundImageStyles = '';
+  if ('image' === backgroundType) {
+    backgroundImageStyles = "\n\t\t#".concat(uniqueId, ".has-click-to-share.has-background-image {\n\t\t\tbackground-color: ").concat(backgroundImage.backgroundColor, ";\n\t\t}\n\t\t#").concat(uniqueId, ".has-click-to-share.has-background-image .has-click-to-share-wrapper:after{\n\t\t\tdisplay: block;\n\t\t\tcontent: '';\n\t\t\twidth: 100%;\n\t\t\theight: 100%;\n\t\t\tposition: absolute;\n\t\t\ttop: 0;\n\t\t\tleft: 0;\n\t\t\tz-index: 1;\n\t\t\tbackground-image: url('").concat(decodeURIComponent(encodeURIComponent(backgroundImage.url)), " ');\n\t\t\tbackground-position: ").concat(escapeEditableHTML(backgroundImage.backgroundPosition), ";\n\t\t\tbackground-repeat: ").concat(escapeEditableHTML(backgroundImage.backgroundRepeat), ";\n\t\t\tbackground-size: ").concat(escapeEditableHTML(backgroundImage.backgroundSize), ";\n\t\t\topacity: ").concat(parseFloat(backgroundImage.backgroundOpacity), ";\n\t\t}\n\t\t#").concat(uniqueId, ".has-click-to-share.has-background-image .has-click-to-share-wrapper:hover:after {\n\t\t\topacity: ").concat(parseFloat(backgroundImage.backgroundOpacityHover), ";\n\t\t}\n\t\t");
+  }
 
   /* For sticky responsive: forked from GenerateBlocks */
   var panelHeader = document.querySelector('.edit-post-sidebar .edit-post-sidebar__panel-tabs');
@@ -625,7 +611,7 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
     labelRight: __('T-Right', 'highlight-and-share'),
     labelBottom: __('B-Right', 'highlight-and-share'),
     labelLeft: __('B-Left', 'highlight-and-share'),
-    units: ['px', 'em', 'rem'],
+    units: ['px', 'em', 'rem', '%'],
     screenSize: deviceType,
     onValuesChange: function onValuesChange(newValues) {
       setAttributes({
@@ -657,13 +643,12 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
     defaultColor: borderColorHover,
     slug: 'border-color-hover'
   })))));
-  var block = /*#__PURE__*/React.createElement(React.Fragment, null, inspectorControls, getFontStyles(typographyQuote), getFontStyles(typographyShareText), /*#__PURE__*/React.createElement("style", null, styles), /*#__PURE__*/React.createElement("div", {
+  var block = /*#__PURE__*/React.createElement(React.Fragment, null, inspectorControls, getFontStyles(typographyQuote), getFontStyles(typographyShareText), /*#__PURE__*/React.createElement("style", null, styles), 'image' === backgroundType && /*#__PURE__*/React.createElement("style", null, backgroundImageStyles), /*#__PURE__*/React.createElement("div", {
     className: classnames__WEBPACK_IMPORTED_MODULE_0___default()('has-click-to-share', {
       'has-background-color': 'solid' === backgroundType,
       'has-background-gradient': 'gradient' === backgroundType,
       'has-background-image': 'image' === backgroundType
     }),
-    style: hasStyles,
     id: uniqueId
   }, /*#__PURE__*/React.createElement("div", {
     className: "has-click-to-share-wrapper"
@@ -898,8 +883,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/block-editor */ "@wordpress/block-editor");
 /* harmony import */ var _wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_3__);
-/* harmony import */ var react_hook_form__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! react-hook-form */ "./node_modules/react-hook-form/dist/index.esm.mjs");
+/* harmony import */ var react_hook_form__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! react-hook-form */ "./node_modules/react-hook-form/dist/index.esm.mjs");
 /* harmony import */ var _ColorPicker__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../ColorPicker */ "./src/react/Components/ColorPicker/index.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_5___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_5__);
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
@@ -912,7 +899,9 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 var BackgroundSelector = function BackgroundSelector(props) {
+  var mediaUploadButton = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState2 = _slicedToArray(_useState, 2),
     backgroundSettingsVisible = _useState2[0],
@@ -929,6 +918,12 @@ var BackgroundSelector = function BackgroundSelector(props) {
     _useState8 = _slicedToArray(_useState7, 2),
     isToggled = _useState8[0],
     setIsToggled = _useState8[1];
+
+  // Background error image state.
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState10 = _slicedToArray(_useState9, 2),
+    errorImage = _useState10[0],
+    setErrorImage = _useState10[1];
   var getDefaultValues = function getDefaultValues() {
     return {
       url: props.values.url,
@@ -941,13 +936,13 @@ var BackgroundSelector = function BackgroundSelector(props) {
       backgroundOpacityHover: props.values.backgroundOpacityHover
     };
   };
-  var _useForm = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_5__.useForm)({
+  var _useForm = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_6__.useForm)({
       defaultValues: getDefaultValues()
     }),
     control = _useForm.control,
     setValue = _useForm.setValue,
     getValues = _useForm.getValues;
-  var formValues = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_5__.useWatch)({
+  var formValues = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_6__.useWatch)({
     control: control
   });
   var label = props.label;
@@ -968,7 +963,7 @@ var BackgroundSelector = function BackgroundSelector(props) {
       label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('no-repeat', 'highlight-and-share'),
       value: 'no-repeat'
     }];
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_5__.Controller, {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_6__.Controller, {
       name: 'backgroundRepeat',
       control: control,
       render: function render(_ref) {
@@ -1004,7 +999,7 @@ var BackgroundSelector = function BackgroundSelector(props) {
       className: "has-background-selector__row_item"
     }, getBackgroundRepeat()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "has-background-selector__row_item"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_5__.Controller, {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_6__.Controller, {
       name: 'backgroundSize',
       control: control,
       render: function render(_ref2) {
@@ -1021,7 +1016,7 @@ var BackgroundSelector = function BackgroundSelector(props) {
       }
     })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "has-background-selector__row_item"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_5__.Controller, {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_6__.Controller, {
       name: 'backgroundPosition',
       control: control,
       render: function render(_ref3) {
@@ -1041,7 +1036,7 @@ var BackgroundSelector = function BackgroundSelector(props) {
   var getBackgroundUploader = function getBackgroundUploader() {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
       className: "has-background-selector-upload-row"
-    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_5__.Controller, {
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_6__.Controller, {
       name: 'url',
       control: control,
       render: function render(_ref4) {
@@ -1064,6 +1059,14 @@ var BackgroundSelector = function BackgroundSelector(props) {
         if ('image' === media.type) {
           setValue('url', media.url);
           setValue('id', media.id);
+        } else {
+          setErrorImage(true);
+          setValue('url', '');
+          setValue('id', '0');
+          mediaUploadButton.current.focus();
+          setTimeout(function () {
+            setErrorImage(false);
+          }, 8000);
         }
       },
       title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Select Background Image', 'highlight-and-share'),
@@ -1075,9 +1078,18 @@ var BackgroundSelector = function BackgroundSelector(props) {
         var open = _ref5.open;
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Button, {
           isSecondary: true,
-          onClick: open,
-          label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Upload Background Image', 'highlight-and-share'),
-          icon: "format-image"
+          className: classnames__WEBPACK_IMPORTED_MODULE_5___default()({
+            'has-background-selector-image-button-error': errorImage
+          }),
+          onClick: function onClick() {
+            setErrorImage(false);
+            open();
+          },
+          label: !errorImage ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Upload Background Image', 'highlight-and-share') : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Please choose only images.', 'highlight-and-share'),
+          icon: "format-image",
+          showTooltip: errorImage,
+          tooltipPosition: "top center",
+          ref: mediaUploadButton
         });
       }
     }))));
@@ -1110,7 +1122,7 @@ var BackgroundSelector = function BackgroundSelector(props) {
     onClose: toggleClose
   }, getPopoverContent())), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "has-background-selector__row_item"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_5__.Controller, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_6__.Controller, {
     name: 'backgroundColor',
     control: control,
     render: function render(_ref6) {
@@ -1131,7 +1143,7 @@ var BackgroundSelector = function BackgroundSelector(props) {
     }
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "has-background-selector__row_item"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_5__.Controller, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_6__.Controller, {
     name: 'backgroundOpacity',
     control: control,
     render: function render(_ref7) {
@@ -1151,7 +1163,7 @@ var BackgroundSelector = function BackgroundSelector(props) {
     }
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "has-background-selector__row_item"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_5__.Controller, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_6__.Controller, {
     name: 'backgroundOpacityHover',
     control: control,
     render: function render(_ref8) {
