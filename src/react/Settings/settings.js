@@ -1,9 +1,10 @@
-import React, { useState, Suspense } from 'react';
-import { __ } from '@wordpress/i18n';
+import React, { useState, Suspense, useContext } from 'react';
+import { __, _x } from '@wordpress/i18n';
 import { escapeAttribute } from '@wordpress/escape-html';
 import { useForm, Controller, useWatch, useFormState } from 'react-hook-form';
 import classNames from 'classnames';
 import { useAsyncResource } from 'use-async-resource';
+import SocialIcons from './../Components/SocialIcons';
 import {
 	TextControl,
 	Button,
@@ -29,12 +30,12 @@ const retrieveDefaults = () => {
 
 const Settings = ( props ) => {
 	const [ defaults, getDefaults ] = useAsyncResource( retrieveDefaults, [] );
-
+	
 	return (
 		<ErrorBoundary
 			fallback={
 				<p>
-					{ __( 'Could not load advanced options.', 'quotes-dlx' ) }
+					{ __( 'Could not load advanced.', 'quotes-dlx' ) }
 					<br />
 					<a
 						href="https://dlxplugins.com/support/"
@@ -66,6 +67,7 @@ const Interface = ( props ) => {
 	const { defaults } = props;
 	const response = defaults();
 	const { data, success } = response.data;
+	const { getSocialIcon } = SocialIcons( data.socialNetworks );
 
 	const [ saving, setSaving ] = useState( false );
 	const [ isSaved, setIsSaved ] = useState( false );
@@ -74,27 +76,27 @@ const Interface = ( props ) => {
 
 	const getDefaultValues = () => {
 		return {
-			enableMobile: data.enableMobile,
-			enableContent: data.enableContent,
-			enableExcerpt: data.enableExcerpt,
-			sharingPrefix: data.sharingPrefix,
-			sharingSuffix: data.sharingSuffix,
-			showTwitter: data.showTwitter,
-			twitter: data.twitter,
-			enableHashtags: data.enableHashtags,
-			showFacebook: data.showFacebook,
-			showWhatsApp: data.showWhatsApp,
-			whatsAppApiEndpoint: data.whatsappApiEndpoint,
-			showReddit: data.showReddit,
-			showTelegram: data.showTelegram,
-			showLinkedin: data.showLinkedin,
-			showXing: data.showXing,
-			showCopy: data.showCopy,
-			enableEmails: data.enableEmails,
-			shortlinks: data.shortlinks,
-			jsContent: data.jsContent,
-			elementContent: data.elementContent,
-			idContent: data.idContent,
+			enableMobile: data.values.enableMobile,
+			enableContent: data.values.enableContent,
+			enableExcerpt: data.values.enableExcerpt,
+			sharingPrefix: data.values.sharingPrefix,
+			sharingSuffix: data.values.sharingSuffix,
+			showTwitter: data.values.showTwitter,
+			twitter: data.values.twitter,
+			enableHashtags: data.values.enableHashtags,
+			showFacebook: data.values.showFacebook,
+			showWhatsApp: data.values.showWhatsApp,
+			whatsAppApiEndpoint: data.values.whatsappApiEndpoint,
+			showReddit: data.values.showReddit,
+			showTelegram: data.values.showTelegram,
+			showLinkedin: data.values.showLinkedin,
+			showXing: data.values.showXing,
+			showCopy: data.values.showCopy,
+			enableEmails: data.values.enableEmails,
+			shortlinks: data.values.shortlinks,
+			jsContent: data.values.jsContent,
+			elementContent: data.values.elementContent,
+			idContent: data.values.idContent,
 		};
 	};
 	const {
@@ -169,6 +171,8 @@ const Interface = ( props ) => {
 	const hasErrors = () => {
 		return Object.keys( errors ).length > 0;
 	};
+
+	
 	return (
 		<form onSubmit={ handleSubmit( onSubmit ) }>
 			<div className="has-admin-content-wrapper">
@@ -306,7 +310,7 @@ const Interface = ( props ) => {
 					<h2 className="has-admin-content-subheading">
 						{ __( 'Social Networks', 'highlight-and-share' ) }
 					</h2>
-					<h3>{ __( 'Twitter Options', 'highlight-and-share' ) }</h3>
+					<h3 className="has-icon-heading">{ getSocialIcon( 'twitter' ) } { __( 'Twitter', 'highlight-and-share' ) }</h3>
 					<div className="has-admin-component-row">
 						<Controller
 							name="showTwitter"
@@ -348,7 +352,7 @@ const Interface = ( props ) => {
 												onChange( boolValue );
 											} }
 											help={ __(
-												'Hashtags can be set on a post or page in the sidebar options.',
+												'Hashtags can be set on a post or page in the sidebar.',
 												'highlight-and-share'
 											) }
 										/>
@@ -376,7 +380,7 @@ const Interface = ( props ) => {
 						</>
 					) }
 				</div>
-				<h3>{ __( 'Facebook Options', 'highlight-and-share' ) }</h3>
+				<h3 className="has-icon-heading">{ getSocialIcon( 'facebook' ) } { __( 'Facebook', 'highlight-and-share' ) }</h3>
 				<div className="has-admin-component-row">
 					<Controller
 						name="showFacebook"
@@ -400,7 +404,7 @@ const Interface = ( props ) => {
 						) }
 					/>
 				</div>
-				<h3>{ __( 'WhatsApp Options', 'highlight-and-share' ) }</h3>
+				<h3 className="has-icon-heading">{ getSocialIcon( 'whatsapp' ) } { __( 'WhatsApp', 'highlight-and-share' ) }</h3>
 				<div className="has-admin-component-row">
 					<Controller
 						name="showWhatsApp"
@@ -450,7 +454,7 @@ const Interface = ( props ) => {
 						/>
 					</div>
 				) }
-				<h3>{ __( 'Other Social Options', 'highlight-and-share' ) }</h3>
+				<h3 className="has-icon-heading">{ getSocialIcon( 'reddit' ) } { _x( 'Reddit', 'Reddit Social Network', 'highlight-and-share' ) }</h3>
 				<div className="has-admin-component-row">
 					<Controller
 						name="showReddit"
@@ -468,6 +472,7 @@ const Interface = ( props ) => {
 						) }
 					/>
 				</div>
+				<h3 className="has-icon-heading">{ getSocialIcon( 'telegram' ) } { _x( 'Telegram', 'Telegram Social Network', 'highlight-and-share' ) }</h3>
 				<div className="has-admin-component-row">
 					<Controller
 						name="showTelegram"
@@ -488,6 +493,7 @@ const Interface = ( props ) => {
 						) }
 					/>
 				</div>
+				<h3 className="has-icon-heading">{ getSocialIcon( 'linkedin' ) } { _x( 'LinkedIn', 'LinkedIn Social Network', 'highlight-and-share' ) }</h3>
 				<div className="has-admin-component-row">
 					<Controller
 						name="showLinkedin"
@@ -505,6 +511,7 @@ const Interface = ( props ) => {
 						) }
 					/>
 				</div>
+				<h3 className="has-icon-heading">{ getSocialIcon( 'xing' ) } { _x( 'Xing', 'Xing Social Network', 'highlight-and-share' ) }</h3>
 				<div className="has-admin-component-row">
 					<Controller
 						name="showXing"
@@ -522,6 +529,7 @@ const Interface = ( props ) => {
 						) }
 					/>
 				</div>
+				<h3 className="has-icon-heading">{ getSocialIcon( 'email' ) } { _x( 'Email', 'Email Social Network', 'highlight-and-share' ) }</h3>
 				<div className="has-admin-component-row">
 					<Controller
 						name="enableEmails"
@@ -542,6 +550,7 @@ const Interface = ( props ) => {
 						) }
 					/>
 				</div>
+				<h3 className="has-icon-heading">{ getSocialIcon( 'copy' ) } { _x( 'Copy', 'Copy Social Network', 'highlight-and-share' ) }</h3>
 				<div className="has-admin-component-row">
 					<Controller
 						name="showCopy"

@@ -16,7 +16,6 @@ const retrieveDefaults = () => {
 
 const Wrapper = ( props ) => {
 	const [ defaults, getDefaults ] = useAsyncResource( retrieveDefaults, [] );
-
 	return (
 		<ErrorBoundary
 			fallback={
@@ -55,7 +54,6 @@ const Interface = ( props ) => {
 	const { defaults } = props;
 	const response = defaults();
 	const { data, success } = response.data;
-
 	const [ socialNetworks, setSocialNetworks ] = useState(
 		data.socialNetworks
 	);

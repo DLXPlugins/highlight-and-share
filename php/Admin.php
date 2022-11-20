@@ -99,7 +99,7 @@ class Admin {
 			}
 		}
 
-		$converted_options['adobe_fonts']      = Adobe_Fonts::get_adobe_fonts( $converted_options['adobe_project_id'] );
+		$converted_options['adobe_fonts'] = Adobe_Fonts::get_adobe_fonts( $converted_options['adobe_project_id'] );
 		if ( is_wp_error( $converted_options['adobe_fonts'] ) ) {
 			wp_send_json_error( $converted_options['adobe_fonts'] );
 		}
@@ -228,14 +228,14 @@ class Admin {
 			wp_send_json_error( array() );
 		}
 
-		wp_send_json_success(
-			array(
-				'socialNetworks'     => Options::get_plugin_options_social_networks(),
-				'themes'             => Themes::get_main_themes(),
-				'colors'             => Themes::get_default_theme_colors(),
-				'themeOptionsCustom' => Options::get_theme_options(),
-			)
+		$return = array(
+			'socialNetworks'     => Options::get_plugin_options_social_networks(),
+			'themes'             => Themes::get_main_themes(),
+			'colors'             => Themes::get_default_theme_colors(),
+			'themeOptionsCustom' => Options::get_theme_options(),
 		);
+
+		wp_send_json_success( $return );
 	}
 
 	/**
@@ -247,7 +247,13 @@ class Admin {
 		}
 
 		$options = Options::get_plugin_options( true );
-		wp_send_json_success( $this->map_defaults_to_js( stripslashes_deep( $options ) ) );
+		$return = array(
+			'socialNetworks' => Options::get_plugin_options_social_networks(),
+			'values'         => $this->map_defaults_to_js(
+				stripslashes_deep( $options ),
+			),
+		);
+		wp_send_json_success( $return );
 	}
 
 	/**

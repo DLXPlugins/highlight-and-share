@@ -6,15 +6,81 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { faTwitter as TwitterIcon } from '@fortawesome/free-brands-svg-icons/faTwitter';
 import { faFacebook as FacebookIcon } from '@fortawesome/free-brands-svg-icons/faFacebook';
 import { faWhatsapp as WhatsappIcon } from '@fortawesome/free-brands-svg-icons/faWhatsapp';
-import { faLinkedin as LinkedinIcon } from '@fortawesome/free-brands-svg-icons/faLinkedin';
+import { faLinkedinIn as LinkedinIcon } from '@fortawesome/free-brands-svg-icons/faLinkedinIn';
 import { faReddit as RedditIcon } from '@fortawesome/free-brands-svg-icons/faReddit';
 import { faXing as XingIcon } from '@fortawesome/free-brands-svg-icons/faXing';
 import { faCopy as CopyIcon } from '@fortawesome/free-solid-svg-icons/faCopy';
 import { faAt as EmailIcon } from '@fortawesome/free-solid-svg-icons/faAt';
 import { faTelegram as TelegramIcon } from '@fortawesome/free-brands-svg-icons/faTelegram';
 import SocialNetworksContext from '../../Contexts/SocialNetworksContext';
-const SocialIcons = () => {
-	const { socialNetworks } = useContext( SocialNetworksContext );
+const SocialIcons = ( socialNetworksData = {} ) => {
+	let socialNetworks = {};
+	const socialNetworksContext = useContext( SocialNetworksContext );
+	if ( undefined !== socialNetworksContext ) {
+		socialNetworks = socialNetworksContext.socialNetworks;
+	} else {
+		socialNetworks = socialNetworksData;
+	}
+	const getSocialIcon = ( socialNetwork ) => {
+		switch ( socialNetwork ) {
+			case 'twitter':
+				return (
+					<>
+						<FontAwesomeIcon icon={ TwitterIcon } style={ { color: '#1da1f2' } } />
+					</>
+				);
+			case 'facebook':
+				return (
+					<>
+						<FontAwesomeIcon icon={ FacebookIcon } style={ { color: '#3b5998' } } />
+					</>
+				);
+			case 'whatsapp':
+				return (
+					<>
+						<FontAwesomeIcon icon={ WhatsappIcon } style={ { color: '#25d366' } } />
+					</>
+				);
+			case 'linkedin':
+				return (
+					<>
+						<FontAwesomeIcon icon={ LinkedinIcon } style={ { color: '#0077b5' } } />
+					</>
+				);
+			case 'reddit':
+				return (
+					<>
+						<FontAwesomeIcon icon={ RedditIcon } style={ { color: '#ff4500' } } />
+					</>
+				);
+			case 'xing':
+				return (
+					<>
+						<FontAwesomeIcon icon={ XingIcon } style={ { color: '#1a7576' } } />
+					</>
+				);
+			case 'copy':
+				return (
+					<>
+						<FontAwesomeIcon icon={ CopyIcon } style={ { color: '#000000' } } />
+					</>
+				);
+			case 'email':
+				return (
+					<>
+						<FontAwesomeIcon icon={ EmailIcon } style={ { color: '#000000' } } />
+					</>
+				);
+			case 'telegram':
+				return (
+					<>
+						<FontAwesomeIcon icon={ TelegramIcon } style={ { color: '#0088cc' } } />
+					</>
+				);
+			default:
+				return ( <></> );
+		}
+	};
 	const getSocialIcons = () => {
 		const socialIcons = [];
 		let socialIconCount = 0;
@@ -86,7 +152,7 @@ const SocialIcons = () => {
 		}
 		return socialIcons;
 	};
-	return { getSocialIcons };
+	return { getSocialIcons, getSocialIcon };
 };
 
 export default SocialIcons;
