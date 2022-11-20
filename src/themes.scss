@@ -159,6 +159,9 @@ body.has-body .highlight-and-share-wrapper:not(.theme-off) a:visited {
 }
 
 /* Theme Branded (icons only) */
+.highlight-and-share-wrapper.theme-brand-colors.orientation-vertical div {
+	margin-bottom: 0;
+}
 .highlight-and-share-wrapper.theme-brand-colors div {
 	padding: 10px;
 	background: #32CCFE;
@@ -1016,7 +1019,9 @@ div.highlight-and-share-wrapper.theme-blue div.has_signal:hover {
 }
 
 /* Theme Black */
-
+.highlight-and-share-wrapper.theme-black.orientation-vertical div {
+	margin-bottom: 0;
+}
 .highlight-and-share-wrapper.theme-black div {
 	padding: 10px;
 	background: #32CCFE;
