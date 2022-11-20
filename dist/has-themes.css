@@ -45,6 +45,33 @@
   width: 1px;
 }
 
+.highlight-and-share-wrapper.show-has-labels > div a {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Icon Only Themes Vertical Padding */
+body.has-body .highlight-and-share-wrapper.theme-black.orientation-vertical > div:first-child a,
+body.has-body .highlight-and-share-wrapper.theme-purple.orientation-vertical > div:first-child a,
+body.has-body .highlight-and-share-wrapper.theme-white.orientation-vertical > div:first-child a,
+body.has-body .highlight-and-share-wrapper.theme-cyan.orientation-vertical > div:first-child a,
+body.has-body .highlight-and-share-wrapper.theme-magenta.orientation-vertical > div:first-child a,
+body.has-body .highlight-and-share-wrapper.theme-blue.orientation-vertical > div:first-child a,
+body.has-body .highlight-and-share-wrapper.theme-green.orientation-vertical > div:first-child a {
+  padding-top: 18px;
+}
+
+body.has-body .highlight-and-share-wrapper.theme-black.orientation-vertical > div:last-child a,
+body.has-body .highlight-and-share-wrapper.theme-purple.orientation-vertical > div:last-child a,
+body.has-body .highlight-and-share-wrapper.theme-white.orientation-vertical > div:last-child a,
+body.has-body .highlight-and-share-wrapper.theme-cyan.orientation-vertical > div:last-child a,
+body.has-body .highlight-and-share-wrapper.theme-magenta.orientation-vertical > div:last-child a,
+body.has-body .highlight-and-share-wrapper.theme-blue.orientation-vertical > div:last-child a,
+body.has-body .highlight-and-share-wrapper.theme-green.orientation-vertical > div:last-child a {
+  padding-bottom: 18px;
+}
+
 /* Default Theme */
 .highlight-and-share-wrapper.theme-default:not(.orientation-vertical) div {
   padding: 10px;
@@ -1232,7 +1259,6 @@ body.has-body .highlight-and-share-wrapper.theme-black a:visited {
   text-decoration: none;
 }
 
-/* End Default HAS Styles */
 /* Size of the box and margin */
 div.highlight-and-share-wrapper.theme-black div {
   margin-right: 0;
