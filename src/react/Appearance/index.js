@@ -34,11 +34,13 @@ const Wrapper = ( props ) => {
 		>
 			<Suspense
 				fallback={
-					<Loader
-						title={ __( 'Appearance and Theme Settings', 'highlight-and-share' ) }
-						label={ __( 'Loading…', 'highlight-and-share' ) }
-						color="var(--wp-admin-theme-color)"
-					/>
+					<div className="has-admin-container-body__content">
+						<Loader
+							title={ __( 'Appearance and Theme Settings', 'highlight-and-share' ) }
+							label={ __( 'Loading…', 'highlight-and-share' ) }
+							color="var(--wp-admin-theme-color)"
+						/>
+					</div>
 				}
 			>
 				<Interface defaults={ defaults } { ...props } />

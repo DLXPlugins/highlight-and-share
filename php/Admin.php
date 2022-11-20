@@ -523,9 +523,9 @@ class Admin {
 			$enqueue_block_editor = false;
 			$current_tab          = Functions::get_admin_tab();
 			if ( null !== $current_tab && 'block-editor' === $current_tab ) {
-				$enqueue_appearance = true;
+				$enqueue_block_editor = true;
 			}
-			if ( $enqueue_appearance ) {
+			if ( $enqueue_block_editor ) {
 				wp_enqueue_script(
 					'has-block-editor-admin-js',
 					Functions::get_plugin_url( '/dist/has-admin-block-editor.js' ),
