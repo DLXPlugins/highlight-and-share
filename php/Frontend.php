@@ -248,11 +248,255 @@ class Frontend {
 			$has_container_classes[] = 'hide-has-labels';
 		}
 
+		// Get custom theme styles.
+		$custom_styles = false;
+		if ( 'custom' === $theme_options['theme'] ) {
+			ob_start();
+			if ( true === (bool) $theme_options['group_icons'] ) :
+				?>
+				<style>
+					.highlight-and-share-wrapper {
+						background-color: <?php echo esc_attr( $theme_options['background_color'] ); ?> !important;
+					}
+					.highlight-and-share-wrapper div a {
+						color:<?php echo esc_attr( $theme_options['icon_colors_group'] ); ?> !important;
+						background-color:<?php echo esc_attr( $theme_options['background_color'] ); ?> !important;
+					}
+					.highlight-and-share-wrapper div a:hover {
+						color:<?php echo esc_attr( $theme_options['icon_colors_group_hover'] ); ?> !important;
+						background-color:<?php echo esc_attr( $theme_options['background_color_hover'] ); ?> !important;
+					}
+				</style>
+				<?php
+			endif;
+			if ( true === (bool) $theme_options['border_radius_group']['attrSyncUnits'] ) :
+				?>
+				<style>
+					.highlight-and-share-wrapper,
+					.highlight-and-share-wrapper a {
+						border-radius: <?php echo esc_attr( $theme_options['border_radius_group']['attrTop'] . $theme_options['border_radius_group']['attrUnit'] ); ?> !important;
+					}
+				</style>
+				<?php
+			else :
+				?>
+				<style>
+					.highlight-and-share-wrapper,
+					.highlight-and-share-wrapper a {
+						border-top-left-radius: <?php echo esc_attr( $theme_options['border_radius_group']['attrTop'] . $theme_options['border_radius_group']['attrUnit'] ); ?> !important;
+						border-top-right-radius: <?php echo esc_attr( $theme_options['border_radius_group']['attrRight'] . $theme_options['border_radius_group']['attrUnit'] ); ?> !important;
+						border-bottom-right-radius: <?php echo esc_attr( $theme_options['border_radius_group']['attrBottom'] . $theme_options['border_radius_group']['attrUnit'] ); ?> !important;
+						border-bottom-left-radius: <?php echo esc_attr( $theme_options['border_radius_group']['attrLeft'] . $theme_options['border_radius_group']['attrUnit'] ); ?> !important;
+					}
+				</style>
+				<?php
+			endif;
+			if ( true !== (bool) $theme_options['group_icons'] ) :
+				?>
+				<style>
+					.highlight-and-share-wrapper .has_twitter a {
+						color: <?php echo esc_attr( $theme_options['icon_colors']['twitter']['icon_color'] ); ?> !important;
+						background: <?php echo esc_attr( $theme_options['icon_colors']['twitter']['background'] ); ?> !important;
+					}
+					.highlight-and-share-wrapper .has_twitter a:hover {
+						color: <?php echo esc_attr( $theme_options['icon_colors']['twitter']['icon_color_hover'] ); ?> !important;
+						background: <?php echo esc_attr( $theme_options['icon_colors']['twitter']['background_hover'] ); ?> !important;
+					}
+					.highlight-and-share-wrapper .has_facebook a {
+						color: <?php echo esc_attr( $theme_options['icon_colors']['facebook']['icon_color'] ); ?> !important;
+						background: <?php echo esc_attr( $theme_options['icon_colors']['facebook']['background'] ); ?> !important;
+					}
+					.highlight-and-share-wrapper .has_facebook a:hover {
+						color: <?php echo esc_attr( $theme_options['icon_colors']['facebook']['icon_color_hover'] ); ?> !important;
+						background: <?php echo esc_attr( $theme_options['icon_colors']['facebook']['background_hover'] ); ?> !important;
+					}
+					.highlight-and-share-wrapper .has_linkedin a {
+						color: <?php echo esc_attr( $theme_options['icon_colors']['linkedin']['icon_color'] ); ?> !important;
+						background: <?php echo esc_attr( $theme_options['icon_colors']['linkedin']['background'] ); ?> !important;
+					}
+					.highlight-and-share-wrapper .has_linkedin a:hover {
+						color: <?php echo esc_attr( $theme_options['icon_colors']['linkedin']['icon_color_hover'] ); ?> !important;
+						background: <?php echo esc_attr( $theme_options['icon_colors']['linkedin']['background_hover'] ); ?> !important;
+					}
+					.highlight-and-share-wrapper .has_whatsapp a {
+						color: <?php echo esc_attr( $theme_options['icon_colors']['whatsapp']['icon_color'] ); ?> !important;
+						background: <?php echo esc_attr( $theme_options['icon_colors']['whatsapp']['background'] ); ?> !important;
+					}
+					.highlight-and-share-wrapper .has_whatsapp a:hover {
+						color: <?php echo esc_attr( $theme_options['icon_colors']['whatsapp']['icon_color_hover'] ); ?> !important;
+						background: <?php echo esc_attr( $theme_options['icon_colors']['whatsapp']['background_hover'] ); ?> !important;
+					}
+					.highlight-and-share-wrapper .has_telegram a {
+						color: <?php echo esc_attr( $theme_options['icon_colors']['telegram']['icon_color'] ); ?> !important;
+						background: <?php echo esc_attr( $theme_options['icon_colors']['telegram']['background'] ); ?> !important;
+					}
+					.highlight-and-share-wrapper .has_telegram a:hover {
+						color: <?php echo esc_attr( $theme_options['icon_colors']['telegram']['icon_color_hover'] ); ?> !important;
+						background: <?php echo esc_attr( $theme_options['icon_colors']['telegram']['background_hover'] ); ?> !important;
+					}
+					.highlight-and-share-wrapper .has_reddit a {
+						color: <?php echo esc_attr( $theme_options['icon_colors']['reddit']['icon_color'] ); ?> !important;
+						background: <?php echo esc_attr( $theme_options['icon_colors']['reddit']['background'] ); ?> !important;
+					}
+					.highlight-and-share-wrapper .has_reddit a:hover {
+						color: <?php echo esc_attr( $theme_options['icon_colors']['reddit']['icon_color_hover'] ); ?> !important;
+						background: <?php echo esc_attr( $theme_options['icon_colors']['reddit']['background_hover'] ); ?> !important;
+					}
+					.highlight-and-share-wrapper .has_xing a {
+						color: <?php echo esc_attr( $theme_options['icon_colors']['xing']['icon_color'] ); ?> !important;
+						background: <?php echo esc_attr( $theme_options['icon_colors']['xing']['background'] ); ?> !important;
+					}
+					.highlight-and-share-wrapper .has_xing a:hover {
+						color: <?php echo esc_attr( $theme_options['icon_colors']['xing']['icon_color_hover'] ); ?> !important;
+						background: <?php echo esc_attr( $theme_options['icon_colors']['xing']['background_hover'] ); ?> !important;
+					}
+					.highlight-and-share-wrapper .has_email a {
+						color: <?php echo esc_attr( $theme_options['icon_colors']['email']['icon_color'] ); ?> !important;
+						background: <?php echo esc_attr( $theme_options['icon_colors']['email']['background'] ); ?> !important;
+					}
+					.highlight-and-share-wrapper .has_email a:hover {
+						color: <?php echo esc_attr( $theme_options['icon_colors']['email']['icon_color_hover'] ); ?> !important;
+						background: <?php echo esc_attr( $theme_options['icon_colors']['email']['background_hover'] ); ?> !important;
+					}
+					.highlight-and-share-wrapper .has_copy a {
+						color: <?php echo esc_attr( $theme_options['icon_colors']['copy']['icon_color'] ); ?> !important;
+						background: <?php echo esc_attr( $theme_options['icon_colors']['copy']['background'] ); ?> !important;
+					}
+					.highlight-and-share-wrapper .has_copy a:hover {
+						color: <?php echo esc_attr( $theme_options['icon_colors']['copy']['icon_color_hover'] ); ?> !important;
+						background: <?php echo esc_attr( $theme_options['icon_colors']['copy']['background_hover'] ); ?> !important;
+					}
+
+				</style>
+				<?php
+				if ( true === (bool) $theme_options['icon_border_radius']['attrSyncUnits'] ) :
+					?>
+					<style>
+						.highlight-and-share-wrapper div a {
+							border-radius: <?php echo esc_attr( $theme_options['icon_border_radius']['attrTop'] . $theme_options['icon_border_radius']['attrUnit'] ); ?> !important;
+						}
+					</style>
+					<?php
+				else :
+					?>
+					<style>
+						.highlight-and-share-wrapper div a {
+							border-top-left-radius: <?php echo esc_attr( $theme_options['icon_border_radius']['attrTop'] . $theme_options['icon_border_radius']['attrUnit'] ); ?> !important;
+							border-top-right-radius: <?php echo esc_attr( $theme_options['icon_border_radius']['attrRight'] . $theme_options['icon_border_radius']['attrUnit'] ); ?> !important;
+							border-bottom-right-radius: <?php echo esc_attr( $theme_options['icon_border_radius']['attrBottom'] . $theme_options['icon_border_radius']['attrUnit'] ); ?> !important;
+							border-bottom-left-radius: <?php echo esc_attr( $theme_options['icon_border_radius']['attrLeft'] . $theme_options['icon_border_radius']['attrUnit'] ); ?> !important;
+						}
+					</style>
+					<?php
+				endif;
+				if ( 'horizontal' === $theme_options['orientation'] ) :
+					?>
+					<style>
+						.highlight-and-share-wrapper div {
+							margin-right: <?php echo esc_attr( $theme_options['icon_gap'] ); ?>px !important;
+						}
+						.highlight-and-share-wrapper div:last-child {
+							margin-right: 0 !important;
+						}
+					</style>
+					<?php
+				endif;
+				if ( 'vertical' === $theme_options['orientation'] ) :
+					?>
+					<style>
+						.highlight-and-share-wrapper div {
+							margin-bottom: <?php echo esc_attr( $theme_options['icon_gap'] ); ?>px !important;
+						}
+						.highlight-and-share-wrapper div:last-child {
+							margin-bottom: 0 !important;
+						}
+					</style>
+					<?php
+				endif;
+			endif;
+			if ( true === (bool) $theme_options['icon_border_radius']['attrSyncUnits'] ) :
+				?>
+				<style>
+					.highlight-and-share-wrapper div a {
+						border-radius: <?php echo esc_attr( $theme_options['icon_border_radius']['attrTop'] . $theme_options['icon_border_radius']['attrUnit'] ); ?> !important;
+					}
+				</style>
+				<?php
+			else :
+				?>
+				<style>
+					.highlight-and-share-wrapper div a {
+						border-top-left-radius: <?php echo esc_attr( $theme_options['icon_border_radius']['attrTop'] . $theme_options['icon_border_radius']['attrUnit'] ); ?> !important;
+						border-top-right-radius: <?php echo esc_attr( $theme_options['icon_border_radius']['attrRight'] . $theme_options['icon_border_radius']['attrUnit'] ); ?> !important;
+						border-bottom-right-radius: <?php echo esc_attr( $theme_options['icon_border_radius']['attrBottom'] . $theme_options['icon_border_radius']['attrUnit'] ); ?> !important;
+						border-bottom-left-radius: <?php echo esc_attr( $theme_options['icon_border_radius']['attrLeft'] . $theme_options['icon_border_radius']['attrUnit'] ); ?> !important;
+					}
+				</style>
+				<?php
+			endif;
+			if ( true === (bool) $theme_options['icon_border_radius']['attrSyncUnits'] ) :
+				?>
+				<style>
+					.highlight-and-share-wrapper div a {
+						border-radius: <?php echo esc_attr( $theme_options['icon_border_radius']['attrTop'] . $theme_options['icon_border_radius']['attrUnit'] ); ?> !important;
+					}
+				</style>
+				<?php
+			else :
+				?>
+				<style>
+					.highlight-and-share-wrapper div a {
+						border-top-left-radius: <?php echo esc_attr( $theme_options['icon_border_radius']['attrTop'] . $theme_options['icon_border_radius']['attrUnit'] ); ?> !important;
+						border-top-right-radius: <?php echo esc_attr( $theme_options['icon_border_radius']['attrRight'] . $theme_options['icon_border_radius']['attrUnit'] ); ?> !important;
+						border-bottom-right-radius: <?php echo esc_attr( $theme_options['icon_border_radius']['attrBottom'] . $theme_options['icon_border_radius']['attrUnit'] ); ?> !important;
+						border-bottom-left-radius: <?php echo esc_attr( $theme_options['icon_border_radius']['attrLeft'] . $theme_options['icon_border_radius']['attrUnit'] ); ?> !important;
+					}
+				</style>
+				<?php
+			endif;
+			if ( true === (bool) $theme_options['icon_padding']['attrSyncUnits'] ) :
+				?>
+				<style>
+					.highlight-and-share-wrapper div a {
+						padding: <?php echo esc_attr( $theme_options['icon_padding']['attrTop'] . $theme_options['icon_padding']['attrUnit'] ); ?> !important;
+					}
+				</style>
+				<?php
+			else :
+				?>
+				<style>
+					.highlight-and-share-wrapper div a {
+						padding-top: <?php echo esc_attr( $theme_options['icon_padding']['attrTop'] . $theme_options['icon_padding']['attrUnit'] ); ?> !important;
+						padding-right: <?php echo esc_attr( $theme_options['icon_padding']['attrRight'] . $theme_options['icon_padding']['attrUnit'] ); ?> !important;
+						padding-bottom: <?php echo esc_attr( $theme_options['icon_padding']['attrBottom'] . $theme_options['icon_padding']['attrUnit'] ); ?> !important;
+						padding-left: <?php echo esc_attr( $theme_options['icon_padding']['attrLeft'] . $theme_options['icon_padding']['attrUnit'] ); ?> !important;
+					}
+				</style>
+				<?php
+			endif;
+			?>
+			<style>
+				.highlight-and-share-wrapper div a .has-icon {
+					width: <?php echo esc_attr( $theme_options['icon_size'] ); ?>px !important;
+					height: <?php echo esc_attr( $theme_options['icon_size'] ); ?>px !important;
+				}
+				.highlight-and-share-wrapper div a {
+					font-size: <?php echo esc_attr( $theme_options['font_size'] ); ?>px !important;
+				}
+			</style>
+			<?php
+			$custom_styles = ob_get_clean();
+		}
+
 		// Get wrapper opening HTML.
 		$html = sprintf(
 			'<div class="%s">',
 			esc_attr( implode( ' ', $has_container_classes ) )
 		);
+
+		if ( $custom_styles ) {
+			$html .= $custom_styles;
+		}
 
 		// Loop through order and outout social network HTML.
 		foreach ( $social_networks_ordered as $social_network ) {
