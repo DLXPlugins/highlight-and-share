@@ -11,7 +11,9 @@
 	display: block;
 
 	& > div {
-		display: inline-block !important;
+		display: inline-flex !important;
+		justify-content: center;
+		align-items: center;
 		
 	}
 }
@@ -685,7 +687,7 @@ body.has-body .highlight-and-share-wrapper.theme-colorful-circles a:visited {
 	letter-spacing: .2em;
 	color: #FFF;
 	height: 100%;
-	padding: 12px 20px;
+	padding: 12px;
 	text-decoration: none;
 }
 
@@ -698,9 +700,7 @@ div.highlight-and-share-wrapper.theme-colorful-circles div {
 }
 
 .theme-colorful-glass-circles .has-icon {
-	width: 15px;
 	vertical-align: middle;
-	height: 15px;
 }
 .highlight-and-share-wrapper.theme-colorful-glass-circles .fa {
     font-size: 14px;
@@ -718,8 +718,11 @@ div.highlight-and-share-wrapper.theme-colorful-circles div {
 	margin-bottom: 10px;
 	border-radius: 50%;
 }
+.highlight-and-share-wrapper.theme-colorful-glass-circles:not(.orientation-vertical) div:last-child {
+	margin-right: 0;
+}
 .highlight-and-share-wrapper.theme-colorful-glass-circles div:last-child {
-    margin-right: 0;
+	margin-bottom: 0;
 }
 .highlight-and-share-wrapper.theme-colorful-glass-circles div.has_facebook {
 	background-color: #3c5a9e;
@@ -851,7 +854,7 @@ body.has-body .highlight-and-share-wrapper.theme-colorful-glass-circles a:visite
 	letter-spacing: .2em;
 	color: #FFF;
 	height: 100%;
-	padding: 12px 20px;
+	padding: 12px;
 	text-decoration: none;
 }
 

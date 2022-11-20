@@ -12,7 +12,9 @@
   display: block;
 }
 .highlight-and-share-wrapper:not(.has-admin-theme-preview-list) > div {
-  display: inline-block !important;
+  display: inline-flex !important;
+  justify-content: center;
+  align-items: center;
 }
 
 .highlight-and-share-wrapper {
@@ -765,7 +767,7 @@ body.has-body .highlight-and-share-wrapper.theme-colorful-circles a:visited {
   letter-spacing: 0.2em;
   color: #FFF;
   height: 100%;
-  padding: 12px 20px;
+  padding: 12px;
   text-decoration: none;
 }
 
@@ -778,9 +780,7 @@ div.highlight-and-share-wrapper.theme-colorful-circles div {
 }
 
 .theme-colorful-glass-circles .has-icon {
-  width: 15px;
   vertical-align: middle;
-  height: 15px;
 }
 
 .highlight-and-share-wrapper.theme-colorful-glass-circles .fa {
@@ -801,8 +801,12 @@ div.highlight-and-share-wrapper.theme-colorful-circles div {
   border-radius: 50%;
 }
 
-.highlight-and-share-wrapper.theme-colorful-glass-circles div:last-child {
+.highlight-and-share-wrapper.theme-colorful-glass-circles:not(.orientation-vertical) div:last-child {
   margin-right: 0;
+}
+
+.highlight-and-share-wrapper.theme-colorful-glass-circles div:last-child {
+  margin-bottom: 0;
 }
 
 .highlight-and-share-wrapper.theme-colorful-glass-circles div.has_facebook {
@@ -963,7 +967,7 @@ body.has-body .highlight-and-share-wrapper.theme-colorful-glass-circles a:visite
   letter-spacing: 0.2em;
   color: #FFF;
   height: 100%;
-  padding: 12px 20px;
+  padding: 12px;
   text-decoration: none;
 }
 
