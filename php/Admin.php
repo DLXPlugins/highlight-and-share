@@ -147,8 +147,8 @@ class Admin {
 		delete_option( 'highlight-and-share-theme-options' );
 
 		// Get default options.
-		$options = Options::get_block_editor_options( true );
-		wp_send_json_success( $this->map_defaults_to_js( stripslashes_deep( $options ) ) );
+		$theme_options = Options::get_theme_options( true );
+		wp_send_json_success( $theme_options );
 	}
 
 	/**

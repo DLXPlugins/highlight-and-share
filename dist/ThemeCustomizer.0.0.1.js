@@ -899,13 +899,13 @@ var ThemeCustomizer = function ThemeCustomizer() {
         data = _response$data2.data,
         success = _response$data2.success;
       if (success) {
+        setAppearanceThemeData(data);
+        setTheme(data.theme);
         reset(data, {
           keepDirtyValues: false,
           keepDirty: false,
           keepDefaultValues: false
         });
-        setAppearanceThemeData(data);
-        setTheme(data.theme);
         setIsReset(true);
         setTimeout(function () {
           setIsReset(false);

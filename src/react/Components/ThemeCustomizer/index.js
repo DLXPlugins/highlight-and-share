@@ -88,9 +88,9 @@ const ThemeCustomizer = () => {
 		} ).then( ( response ) => {
 			const { data, success } = response.data;
 			if ( success ) {
-				reset( data, { keepDirtyValues: false, keepDirty: false, keepDefaultValues: false } );
 				setAppearanceThemeData( data );
 				setTheme( data.theme );
+				reset( data, { keepDirtyValues: false, keepDirty: false, keepDefaultValues: false } );
 				setIsReset( true );
 				setTimeout( () => {
 					setIsReset( false );
