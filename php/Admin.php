@@ -145,6 +145,7 @@ class Admin {
 		}
 
 		delete_option( 'highlight-and-share-theme-options' );
+		$this->clear_frontend_cache();
 
 		// Get default options.
 		$theme_options = Options::get_theme_options( true );
@@ -165,6 +166,7 @@ class Admin {
 
 		// Update options.
 		update_option( 'highlight-and-share-theme-options', $theme_options );
+		$this->clear_frontend_cache();
 
 		// Get options.
 		$theme_options = Options::get_theme_options( true );
@@ -194,6 +196,7 @@ class Admin {
 
 		// Update options.
 		update_option( 'highlight-and-share-social-networks', $settings );
+		$this->clear_frontend_cache();
 
 		// Get saved/formatted options.
 		$settings = Options::get_plugin_options_social_networks( true );
@@ -213,6 +216,7 @@ class Admin {
 
 		// Update options.
 		update_option( 'highlight-and-share-social-networks', $defaults );
+		$this->clear_frontend_cache();
 
 		// Get options.
 		$settings = Options::get_plugin_options_social_networks( true );
@@ -287,6 +291,7 @@ class Admin {
 
 		// Converted options are sanitized. Save the options.
 		update_option( 'highlight-and-share', $converted_options );
+		$this->clear_frontend_cache();
 		wp_send_json_success( $this->map_defaults_to_js( stripslashes_deep( $converted_options ) ) );
 	}
 
@@ -303,6 +308,7 @@ class Admin {
 		$options  = get_option( 'highlight-and-share', array() );
 		$options  = wp_parse_args( $defaults, $options ); // wp_parse_args in reverse order as to not lose data.
 		update_option( 'highlight-and-share', $options );
+		$this->clear_frontend_cache();
 
 		// Send the data home.
 		wp_send_json_success( $this->map_defaults_to_js( stripslashes_deep( $options ) ) );
@@ -654,5 +660,12 @@ class Admin {
 			$classes .= ' has-body';
 		}
 		return $classes;
+	}
+
+	/**
+	 * Clear frontend cache when settings are saved or reset.
+	 */
+	private function clear_frontend_cache() {
+		wp_cache_delete( 'has_frontend_html', 'highlight-and-share' );
 	}
 }

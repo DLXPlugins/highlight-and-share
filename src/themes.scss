@@ -4,12 +4,26 @@
 	vertical-align: middle;
 }
 .highlight-and-share-wrapper:not(.has-admin-theme-preview-list) {
-    display: none;
-    width: 0;
-    height: 0;
+    // display: none;
+    // width: 0;
+    // height: 0;
+	height: auto;
+	display: block;
+
+	& > div {
+		display: inline-block !important;
+		
+	}
 }
 .highlight-and-share-wrapper {
 	position: relative;
+
+	div,
+	div:hover {
+		transition: ease-in-out 0.35s;
+		z-index: 1000;
+	}
+	
 }
 .has-admin-theme-preview-list.highlight-and-share-wrapper {
 	display: inline-block;
@@ -18,20 +32,35 @@
     font-size: 14px;
 }
 
+/* Hide labels if appropriate and still be screen reader friendly. From: https://css-tricks.com/inclusively-hidden/ */
+.highlight-and-share-wrapper.hide-has-labels .has-text {
+	clip: rect(0 0 0 0); 
+	clip-path: inset(50%);
+	height: 1px;
+	overflow: hidden;
+	position: absolute;
+	white-space: nowrap; 
+	width: 1px;
+}
+
 /* Default Theme */
-.highlight-and-share-wrapper.theme-default div {
+.highlight-and-share-wrapper.theme-default:not(.orientation-vertical) div {
 	padding: 10px;
 	background: #32CCFE;
-	-moz-transition: background-color 200ms;
-	-o-transition: background-color 200ms;
-	-webkit-transition: background-color 200ms;
-	transition: background-color 200ms;
-	z-index: 1000;
 	margin-right: 5px;
 	margin-bottom: 10px;
 }
+.highlight-and-share-wrapper.theme-default.orientation-vertical div {
+	padding: 10px;
+	margin-right: 0;
+	margin-bottom: 8px;
+}
 .highlight-and-share-wrapper.theme-default div:last-child {
     margin-right: 0;
+	margin-bottom: 0;
+}
+.highlight-and-share-wrapper.theme-default div.has_twitter {
+	background: #1DA1F2;
 }
 .highlight-and-share-wrapper.theme-default div.has_facebook {
 	background: #3c5a9e;
@@ -175,6 +204,9 @@ body.has-body .highlight-and-share-wrapper:not(.theme-off) a:visited {
 }
 .highlight-and-share-wrapper.theme-brand-colors div:last-child {
     margin-right: 0;
+}
+.highlight-and-share-wrapper.theme-brand-colors div.has_twitter {
+	background: #1DA1F2;
 }
 .highlight-and-share-wrapper.theme-brand-colors div.has_facebook {
 	background: #3c5a9e;

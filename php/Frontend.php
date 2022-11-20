@@ -218,182 +218,112 @@ class Frontend {
 	 * Add general interface and SVG sprites.
 	 */
 	public function add_footer_html() {
-		$settings       = Options::get_plugin_options();
-		$html           = '<div class="highlight-and-share-wrapper">';
-		$click_to_share = '<div class="highlight-and-share-wrapper-cts highlight-and-share-wrapper">';
-		$inline_share   = '<div class="highlight-and-share-wrapper-inline highlight-and-share-wrapper">';
-		if ( $settings['show_twitter'] && '' !== $settings['twitter'] ) {
-			if ( ! $settings['icons'] ) {
-				$string          = '<div class="has_twitter" style="display: none;" data-type="twitter"><a href="https://twitter.com/intent/tweet?via=%username%&url=%url%&text=%prefix%%text%%suffix%&hashtags=%hashtags%" target="_blank"><svg class="has-icon"><use xlink:href="#has-twitter-icon"></use></svg>&nbsp;' . esc_html( apply_filters( 'has_twitter_text', _x( 'Tweet', 'Twitter share text', 'highlight-and-share' ) ) ) . '</a></div>';
-				$html           .= $string;
-				$click_to_share .= $string;
-				$inline_share   .= $string;
-			} else {
-				$string          = '<div class="has_twitter" style="display: none;" data-type="twitter"><a href="https://twitter.com/intent/tweet?via=%username%&url=%url%&text=%prefix%%text%%suffix%&hashtags=%hashtags%" target="_blank"><svg class="has-icon"><use xlink:href="#has-twitter-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_twitter_text', _x( 'Tweet', 'Twitter share text', 'highlight-and-share' ) ) ) . '</span></a></div>';
-				$html           .= $string;
-				$click_to_share .= $string;
-				$inline_share   .= $string;
-			}
-		} elseif ( $settings['show_twitter'] && '' === $settings['twitter'] ) {
-			if ( ! $settings['icons'] ) {
-				$string          = '<div class="has_twitter" style="display: none;" data-type="twitter"><a href="https://twitter.com/intent/tweet?url=%url%&text=%prefix%%text%%suffix%&hashtags=%hashtags%" target="_blank"><svg class="has-icon"><use xlink:href="#has-twitter-icon"></use></svg>&nbsp;' . esc_html( apply_filters( 'has_twitter_text', _x( 'Tweet', 'Twitter share text', 'highlight-and-share' ) ) ) . '</a></div>';
-				$html           .= $string;
-				$click_to_share .= $string;
-				$inline_share   .= $string;
-			} else {
-				$string          = '<div class="has_twitter" style="display: none;" data-type="twitter"><a href="https://twitter.com/intent/tweet?url=%url%&text=%prefix%%text%%suffix%&hashtags=%hashtags%" target="_blank"><svg class="has-icon"><use xlink:href="#has-twitter-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_twitter_text', _x( 'Tweet', 'Twitter share text', 'highlight-and-share' ) ) ) . '</span></a></div>';
-				$html           .= $string;
-				$click_to_share .= $string;
-				$inline_share   .= $string;
-			}
+
+		// Get cached HTML.
+		$maybe_cached_html = wp_cache_get( 'has_frontend_html', 'highlight-and-share' );
+		if ( $maybe_cached_html ) {
+			echo $maybe_cached_html;
+			$this->get_footer_svgs();
+			return;
 		}
-		if ( $settings['show_facebook'] ) {
-			if ( ! $settings['icons'] ) {
-				// Note, you must be on a publicly accesible URL to use this button.
-				$html .= '<div class="has_facebook" style="display: none;" data-type="facebook"><a href="https://www.facebook.com/sharer/sharer.php?u=%url%&t=%title%" target="_blank"><svg class="has-icon"><use xlink:href="#has-facebook-icon"></use></svg>&nbsp;' . esc_html( apply_filters( 'has_facebook_text', _x( 'Share', 'Facebook share text', 'highlight-and-share' ) ) ) . '</a></div>';
-			} else {
-				$html .= '<div class="has_facebook" style="display: none;" data-type="facebook"><a href="https://www.facebook.com/sharer/sharer.php?u=%url%&t=%title%" target="_blank"><svg class="has-icon"><use xlink:href="#has-facebook-icon"></use></svg><span class="has-text">' . esc_html( apply_filters( 'has_facebook_text', _x( 'Share', 'Facebook share text', 'highlight-and-share' ) ) ) . '</span></a></div>';
-			}
+		$social_networks_ordered = Options::get_plugin_options_social_networks(); // ordered social networks (appearances tab).
+		$theme_options           = Options::get_theme_options(); // appearance options (appearances tab).
+		$settings                = Options::get_plugin_options(); // main plugin options (settings tab).
+
+		// Get HAS container classes.
+		$has_container_classes = array(
+			'highlight-and-share-wrapper',
+			'theme-' . $theme_options['theme'],
+		);
+		// Check for horizontal vs vertical orientation.
+		if ( 'vertical' === $theme_options['orientation'] ) {
+			$has_container_classes[] = 'orientation-vertical';
+		} else {
+			$has_container_classes[] = 'orientation-horizontal';
 		}
-		if ( $settings['show_linkedin'] ) {
-			if ( ! $settings['icons'] ) {
-				// Note, you must be on a publicly accesible URL to use this button.
-				$html .= '<div class="has_linkedin" style="display: none;" data-type="linkedin"><a href="https://www.linkedin.com/sharing/share-offsite/?mini=true&url=%url%&title=%title%" target="_blank"><svg class="has-icon"><use xlink:href="#has-linkedin-icon"></use></svg>&nbsp;' . esc_html( apply_filters( 'has_linkedin_text', _x( 'LinkedIn', 'LinkedIn share text', 'highlight-and-share' ) ) ) . '</a></div>';
-			} else {
-				$html .= '<div class="has_linkedin" style="display: none;" data-type="linkedin"><a href="https://www.linkedin.com/sharing/share-offsite/?mini=true&url=%url%&title=%title%" target="_blank"><svg class="has-icon"><use xlink:href="#has-linkedin-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_linkedin_text', _x( 'LinkedIn', 'LinkedIn share text', 'highlight-and-share' ) ) ) . '</span></a></div>';
-			}
+		// Determine if labels are enabled.
+		if ( 'default' === $theme_options['theme'] || ( 'custom' === $theme_options['theme'] && false === (bool) $theme_options['icons_only'] ) ) {
+			$has_container_classes[] = 'show-has-labels';
+		} else {
+			$has_container_classes[] = 'hide-has-labels';
 		}
 
-		if ( $settings['show_xing'] ) {
-			if ( ! $settings['icons'] ) {
-				$html .= '<div class="has_xing" style="display: none;" data-type="xing"><a href="https://www.xing.com/spi/shares/new?url=%url%" target="_blank"><svg class="has-icon"><use xlink:href="#has-xing-icon"></use></svg>&nbsp;' . esc_html( apply_filters( 'has_xing_text', _x( 'Xing', 'Xing share text', 'highlight-and-share' ) ) ) . '</a></div>';
-			} else {
-				$html .= '<div class="has_xing" style="display: none;" data-type="xing"><a href="https://www.xing.com/spi/shares/new?url=%url%" target="_blank"><svg class="has-icon"><use xlink:href="#has-xing-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_xing_text', _x( 'Xing', 'Xing share text', 'highlight-and-share' ) ) ) . '</span></a></div>';
-			}
-		}
+		// Get wrapper opening HTML.
+		$html = sprintf(
+			'<div class="%s">',
+			esc_attr( implode( ' ', $has_container_classes ) )
+		);
 
-		if ( $settings['show_reddit'] ) {
-			if ( ! $settings['icons'] ) {
-				$string = '<div class="has_reddit" style="display: none;" data-type="reddit"><a href="https://www.reddit.com/submit?resubmit=true&url=%url&title=%title" target="_blank"><svg class="has-icon"><use xlink:href="#has-reddit-icon"></use></svg>&nbsp;' . esc_html( apply_filters( 'has_reddit_text', _x( 'Reddit', 'Reddit share text', 'highlight-and-share' ) ) ) . '</a></div>';
-				$html  .= $string;
-			} else {
-				$string = '<div class="has_reddit" style="display: none;" data-type="reddit"><a href="https://www.reddit.com/submit?resubmit=true&url=%url%&title=%title%" target="_blank"><svg class="has-icon"><use xlink:href="#has-reddit-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_reddit_text', _x( 'Reddit', 'Reddit share text', 'highlight-and-share' ) ) ) . '</span></a></div>';
-				$html  .= $string;
-			}
-		}
+		// Loop through order and outout social network HTML.
+		foreach ( $social_networks_ordered as $social_network ) {
+			$is_enabled = (bool) $social_network['enabled'];
+			if ( $is_enabled ) {
+				switch ( $social_network['slug'] ) {
+					case 'twitter':
+						// If "via" is blank, no username will show in Twitter.
+						$html .= '<div class="has_twitter" style="display: none;" data-type="twitter"><a href="https://twitter.com/intent/tweet?via=%username%&url=%url%&text=%prefix%%text%%suffix%&hashtags=%hashtags%" target="_blank"><svg class="has-icon"><use xlink:href="#has-twitter-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_twitter_text', _x( 'Tweet', 'Twitter share text', 'highlight-and-share' ) ) ) . '</span></a></div>';
+						break;
+					case 'facebook':
+						$html .= '<div class="has_facebook" style="display: none;" data-type="facebook"><a href="https://www.facebook.com/sharer/sharer.php?u=%url%&t=%title%" target="_blank"><svg class="has-icon"><use xlink:href="#has-facebook-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_facebook_text', _x( 'Share', 'Facebook share text', 'highlight-and-share' ) ) ) . '</span></a></div>';
+						break;
+					case 'linkedin':
+						$html .= '<div class="has_linkedin" style="display: none;" data-type="linkedin"><a href="https://www.linkedin.com/sharing/share-offsite/?mini=true&url=%url%&title=%title%" target="_blank"><svg class="has-icon"><use xlink:href="#has-linkedin-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_linkedin_text', _x( 'LinkedIn', 'LinkedIn share text', 'highlight-and-share' ) ) ) . '</span></a></div>';
+						break;
+					case 'xing':
+						$html .= '<div class="has_xing" style="display: none;" data-type="xing"><a href="https://www.xing.com/spi/shares/new?url=%url%" target="_blank"><svg class="has-icon"><use xlink:href="#has-xing-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_xing_text', _x( 'Xing', 'Xing share text', 'highlight-and-share' ) ) ) . '</span></a></div>';
+						break;
+					case 'reddit':
+						$html .= '<div class="has_reddit" style="display: none;" data-type="reddit"><a href="https://www.reddit.com/submit?resubmit=true&url=%url%&title=%title%" target="_blank"><svg class="has-icon"><use xlink:href="#has-reddit-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_reddit_text', _x( 'Reddit', 'Reddit share text', 'highlight-and-share' ) ) ) . '</span></a></div>';
+						break;
+					case 'telegram':
+						$html .= '<div class="has_telegram" style="display: none;" data-type="telegram"><a href="https://t.me/share/url?url=%url%&text=%prefix%%text%%suffix%" target="_blank"><svg class="has-icon"><use xlink:href="#has-telegram-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_telegram_text', _x( 'Telegram', 'Telegram share text', 'highlight-and-share' ) ) ) . '</span></a></div>';
+						break;
+					case 'whatsapp':
+						$whatsapp_endpoint_url      = 'whatsapp://send';
+						$whatsapp_endpoint_settings = $settings['whatsapp_api_endpoint'];
+						if ( 'web' === $whatsapp_endpoint_settings ) {
+							$whatsapp_endpoint_url = 'https://api.whatsapp.com/send';
+						}
+						/**
+						 * Filter: has_whatsapp_endpoint_url
+						 *
+						 * Filter the endpoint URL used for WhatsApp.
+						 *
+						 * @param string The endpoint URL.
+						 *
+						 * @since 3.6.5.
+						 */
+						$whatsapp_endpoint_url = apply_filters(
+							'has_whatsapp_endpoint_url',
+							$whatsapp_endpoint_url
+						);
+						$html                 .= '<div class="has_whatsapp" style="display: none;" data-type="whatsapp"><a href="' . esc_url_raw( $whatsapp_endpoint_url, array( 'whatsapp', 'http', 'https' ) ) . '?text=%prefix%%text%%suffix%: %url%" target="_blank"><svg class="has-icon"><use xlink:href="#has-whatsapp-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_whatsapp_text', _x( 'WhatsApp', 'WhatsApp share text', 'highlight-and-share' ) ) ) . '</span></a></div>';
+						break;
+					case 'copy':
+						$html .= '<div class="has_copy" style="display: none;" data-type="copy"><a href="#"><svg class="has-icon"><use xlink:href="#has-copy-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_copy_text', _x( 'Copy', 'Copy share text', 'highlight-and-share' ) ) ) . '</span></a></div>';
+						break;
+					case 'email':
+						$html .= '<div class="has_email" style="display: none;" data-type="email" data-title="%title%" data-url="%url%"><a href="' . esc_url( admin_url( 'admin-ajax.php' ) ) . '" target="_blank"><svg class="has-icon"><use xlink:href="#has-email-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_email_text', _x( 'E-mail', 'E-mail share text', 'highlight-and-share' ) ) ) . '</span></a></div>';
+						break;
 
-		if ( $settings['show_telegram'] ) {
-			if ( ! $settings['icons'] ) {
-				$string          = '<div class="has_telegram" style="display: none;" data-type="telegram"><a href="https://t.me/share/url?url=%url%&text=%prefix%%text%%suffix%" target="_blank"><svg class="has-icon"><use xlink:href="#has-telegram-icon"></use></svg>&nbsp;' . esc_html( apply_filters( 'has_telegram_text', _x( 'Telegram', 'Telegram share text', 'highlight-and-share' ) ) ) . '</a></div>';
-				$html           .= $string;
-				$click_to_share .= $string;
-				$inline_share   .= $string;
-			} else {
-				$string          = '<div class="has_telegram" style="display: none;" data-type="telegram"><a href="https://t.me/share/url?url=%url%&text=%prefix%%text%%suffix%" target="_blank"><svg class="has-icon"><use xlink:href="#has-telegram-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_telegram_text', _x( 'Telegram', 'Telegram share text', 'highlight-and-share' ) ) ) . '</span></a></div>';
-				$html           .= $string;
-				$click_to_share .= $string;
-				$inline_share   .= $string;
+				}
 			}
 		}
+		$html .= '</div><!-- #highlight-and-share-wrapper -->';
 
-		if ( false && $settings['show_signal'] ) {
-			if ( ! $settings['icons'] ) {
-				$string          = '<div class="has_signal" style="display: none;" data-type="signal"><a href="signal://send?text=%text%" target="_blank"><svg class="has-icon"><use xlink:href="#has-signal-icon"></use></svg>&nbsp;' . esc_html( apply_filters( 'has_signal_text', _x( 'Signal', 'Signal share text', 'highlight-and-share' ) ) ) . '</a></div>';
-				$html           .= $string;
-				$click_to_share .= $string;
-				$inline_share   .= $string;
-			} else {
-				$string          = '<div class="has_signal" style="display: none;" data-type="signal"><a href="signal://send?text=%text%" target="_blank"><svg class="has-icon"><use xlink:href="#has-signal-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_signal_text', _x( 'Signal', 'Signal share text', 'highlight-and-share' ) ) ) . '</span></a></div>';
-				$html           .= $string;
-				$click_to_share .= $string;
-				$inline_share   .= $string;
-			}
-		}
+		// Cache HTML.
+		wp_cache_set( 'has_frontend_html', $html, 'highlight-and-share', HOUR_IN_SECONDS );
+		echo $html;
+		$this->get_footer_svgs();
+		?>
+		
+		<?php
+	}
 
-		if ( ( $settings['show_whatsapp'] ?? $settings['show_whats_app'] ) ) {
-			$whatsapp_endpoint_url      = 'whatsapp://send';
-			$whatsapp_endpoint_settings = $settings['whatsapp_api_endpoint'];
-			if ( 'web' === $whatsapp_endpoint_settings ) {
-				$whatsapp_endpoint_url = 'https://api.whatsapp.com/send';
-			}
-			/**
-			 * Filter: has_whatsapp_endpoint_url
-			 *
-			 * Filter the endpoint URL used for WhatsApp.
-			 *
-			 * @param string The endpoint URL.
-			 *
-			 * @since 3.6.5.
-			 */
-			$whatsapp_endpoint_url = apply_filters(
-				'has_whatsapp_endpoint_url',
-				$whatsapp_endpoint_url
-			);
-			if ( ! $settings['icons'] ) {
-				$string          = '<div class="has_whatsapp" style="display: none;" data-type="whatsapp"><a href="' . esc_url_raw( $whatsapp_endpoint_url, array( 'whatsapp', 'http', 'https' ) ) . '?text=%prefix%%text%%suffix%: %url%" target="_blank"><svg class="has-icon"><use xlink:href="#has-whatsapp-icon"></use></svg>&nbsp;' . esc_html( apply_filters( 'has_whatsapp_text', _x( 'WhatsApp', 'WhatsApp share text', 'highlight-and-share' ) ) ) . '</a></div>'; // phpcs:ignore
-				$html           .= $string;
-				$click_to_share .= $string;
-				$inline_share   .= $string;
-			} else {
-				$string          = '<div class="has_whatsapp" style="display: none;" data-type="whatsapp"><a href="' . esc_url_raw( $whatsapp_endpoint_url, array( 'whatsapp', 'http', 'https' ) ) . '?text=%prefix%%text%%suffix%: %url%" target="_blank"><svg class="has-icon"><use xlink:href="#has-whatsapp-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_whatsapp_text', _x( 'WhatsApp', 'WhatsApp share text', 'highlight-and-share' ) ) ) . '</span></a></div>'; // phpcs:ignore
-				$html           .= $string;
-				$click_to_share .= $string;
-				$inline_share   .= $string;
-			}
-		}
-
-		if ( $settings['show_ok'] ) {
-			if ( ! $settings['icons'] ) {
-				// Note, you must be on a publicly accesible URL to use this button.
-				$html .= '<div class="has_ok" style="display: none;" data-type="ok"><a href="https://connect.ok.ru/offer?url=%url%&title=%title%" target="_blank"><svg class="has-icon"><use xlink:href="#has-ok-icon"></use></svg>&nbsp;' . esc_html( apply_filters( 'has_ok_text', _x( 'Odnoklassniki', 'Odnoklassniki share text', 'highlight-and-share' ) ) ) . '</a></div>';
-			} else {
-				$html .= '<div class="has_ok" style="display: none;" data-type="ok"><a href="https://connect.ok.ru/offer?url=%url%&title=%title%" target="_blank"><svg class="has-icon"><use xlink:href="#has-ok-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_ok_text', _x( 'Odnoklassniki', 'Odnoklassniki share text', 'highlight-and-share' ) ) ) . '</span></a></div>';
-			}
-		}
-		if ( $settings['show_vk'] ) {
-			if ( ! $settings['icons'] ) {
-				// Note, you must be on a publicly accesible URL to use this button.
-				$html .= '<div class="has_vk" style="display: none;" data-type="vk"><a href="http://vk.com/share.php?url=%url%&title=%title%&description=%text%" target="_blank"><svg class="has-icon"><use xlink:href="#has-vk-icon"></use></svg>&nbsp;' . esc_html( apply_filters( 'has_vk_text', _x( 'VKontakte', 'VKontakte share text', 'highlight-and-share' ) ) ) . '</a></div>';
-			} else {
-				$html .= '<div class="has_vk" style="display: none;" data-type="vk"><a href="http://vk.com/share.php?url=%url%&title=%title%&description=%text%" target="_blank"><svg class="has-icon"><use xlink:href="#has-vk-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_vk_text', _x( 'VKontakte', 'VKontakte share text', 'highlight-and-share' ) ) ) . '</span></a></div>';
-			}
-		}
-
-		if ( $settings['show_copy'] ) {
-			if ( ! $settings['icons'] ) {
-				$string          = '<div class="has_copy" style="display: none;" data-type="copy"><a href="#"><svg class="has-icon"><use xlink:href="#has-copy-icon"></use></svg>&nbsp;' . esc_html( apply_filters( 'has_copy_text', _x( 'Copy', 'Copy share text', 'highlight-and-share' ) ) ) . '</a></div>';
-				$html           .= $string;
-				$click_to_share .= $string;
-				$inline_share   .= $string;
-			} else {
-				$string          = '<div class="has_copy" style="display: none;" data-type="copy"><a href="#"><svg class="has-icon"><use xlink:href="#has-copy-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_copy_text', _x( 'Copy', 'Copy share text', 'highlight-and-share' ) ) ) . '</span></a></div>';
-				$html           .= $string;
-				$click_to_share .= $string;
-				$inline_share   .= $string;
-			}
-		}
-
-		if ( ( $settings['show_email'] ?? $settings['enable_emails'] ) ) {
-			if ( ! $settings['icons'] ) {
-				// Note, you must be on a publicly accesible URL to use this button.
-				$string          = '<div class="has_email" style="display: none;" data-type="email" data-title="%title%" data-url="%url%"><a href="' . esc_url( admin_url( 'admin-ajax.php' ) ) . '" target="_blank"><svg class="has-icon"><use xlink:href="#has-email-icon"></use></svg>&nbsp;' . esc_html( apply_filters( 'has_email_text', _x( 'E-mail', 'E-mail share text', 'highlight-and-share' ) ) ) . '</a></div>';
-				$html           .= $string;
-				$click_to_share .= $string;
-				$inline_share   .= $string;
-			} else {
-				$string          = '<div class="has_email" style="display: none;" data-type="email" data-title="%title%" data-url="%url%"><a href="' . esc_url( admin_url( 'admin-ajax.php' ) ) . '" target="_blank"><svg class="has-icon"><use xlink:href="#has-email-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_email_text', _x( 'E-mail', 'E-mail share text', 'highlight-and-share' ) ) ) . '</span></a></div>';
-				$html           .= $string;
-				$click_to_share .= $string;
-				$inline_share   .= $string;
-			}
-		}
-
-		$click_to_share .= '</div>';
-		$inline_share   .= '</div>';
-		$html           .= '</div><!-- #highlight-and-share-wrapper -->';
-		echo $inline_share; // phpcs:ignore
-		echo $click_to_share; // phpcs:ignore
-		echo $html; // phpcs:ignore
+	/**
+	 * Retrieve SVGs in the footer for reference.
+	 */
+	private function get_footer_svgs() {
 		?>
 		<svg width="0" height="0" class="hidden" style="display: none;">
 			<symbol aria-hidden="true" data-prefix="fas" data-icon="twitter" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="has-twitter-icon">
@@ -862,47 +792,10 @@ class Frontend {
 	 * @param string $theme The theme to output.
 	 */
 	private function output_stylesheets( $theme ) {
-		switch ( $theme ) {
-			case 'off':
-				return;
-			case 'default':
-				wp_enqueue_style( 'highlight-and-share', Functions::get_plugin_url( 'css/highlight-and-share.css' ), array(), HIGHLIGHT_AND_SHARE_VERSION, 'all' );
-				break;
-			case 'brand-colors':
-				wp_enqueue_style( 'highlight-and-share', Functions::get_plugin_url( 'css/highlight-and-share-brand.css' ), array(), HIGHLIGHT_AND_SHARE_VERSION, 'all' );
-				break;
-			case 'black':
-				wp_enqueue_style( 'highlight-and-share', Functions::get_plugin_url( 'css/highlight-and-share-black.css' ), array(), HIGHLIGHT_AND_SHARE_VERSION, 'all' );
-				break;
-			case 'colorful-circles':
-				wp_enqueue_style( 'highlight-and-share', Functions::get_plugin_url( 'css/highlight-and-share-circles.css' ), array(), HIGHLIGHT_AND_SHARE_VERSION, 'all' );
-				break;
-			case 'colorful-glass-circles':
-				wp_enqueue_style( 'highlight-and-share', Functions::get_plugin_url( 'css/highlight-and-share-circles-glass.css' ), array(), HIGHLIGHT_AND_SHARE_VERSION, 'all' );
-				break;
-			case 'purple':
-				wp_enqueue_style( 'highlight-and-share', Functions::get_plugin_url( 'css/highlight-and-share-purple.css' ), array(), HIGHLIGHT_AND_SHARE_VERSION, 'all' );
-				break;
-			case 'white':
-				wp_enqueue_style( 'highlight-and-share', Functions::get_plugin_url( 'css/highlight-and-share-white.css' ), array(), HIGHLIGHT_AND_SHARE_VERSION, 'all' );
-				break;
-			case 'blue':
-				wp_enqueue_style( 'highlight-and-share', Functions::get_plugin_url( 'css/highlight-and-share-blue.css' ), array(), HIGHLIGHT_AND_SHARE_VERSION, 'all' );
-				break;
-			case 'green':
-				wp_enqueue_style( 'highlight-and-share', Functions::get_plugin_url( 'css/highlight-and-share-green.css' ), array(), HIGHLIGHT_AND_SHARE_VERSION, 'all' );
-				break;
-			case 'cyan':
-				wp_enqueue_style( 'highlight-and-share', Functions::get_plugin_url( 'css/highlight-and-share-cyan.css' ), array(), HIGHLIGHT_AND_SHARE_VERSION, 'all' );
-				break;
-			case 'magenta':
-				wp_enqueue_style( 'highlight-and-share', Functions::get_plugin_url( 'css/highlight-and-share-magenta.css' ), array(), HIGHLIGHT_AND_SHARE_VERSION, 'all' );
-				break;
-			default:
-				wp_enqueue_style( 'highlight-and-share', Functions::get_plugin_url( 'css/highlight-and-share.css' ), array(), HIGHLIGHT_AND_SHARE_VERSION, 'all' );
-				do_action( 'has_default_theme', $theme );
-				break;
+		if ( 'off' === $theme ) {
+			return;
 		}
+		wp_enqueue_style( 'highlight-and-share', Functions::get_plugin_url( 'dist/has-themes.css' ), array(), HIGHLIGHT_AND_SHARE_VERSION, 'all' );
 		add_filter( 'body_class', array( $this, 'add_body_class' ), 10, 2 );
 	}
 
