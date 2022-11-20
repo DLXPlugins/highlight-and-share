@@ -478,7 +478,7 @@ class Functions {
 	 * @param bool $svg Whether to add SVG data to KSES.
 	 */
 	public static function get_kses_allowed_html( $svg = true ) {
-		$allowed_tags = wp_kses_allowed_html();
+		$allowed_tags = wp_kses_allowed_html( 'post');
 
 		$allowed_tags['nav']        = array(
 			'class' => array(),
@@ -496,6 +496,8 @@ class Functions {
 			'aria-hidden' => array(),
 			'focusable'   => array(),
 			'class'       => array(),
+			'width'       => array(),
+			'height'      => array(),
 		);
 
 		$allowed_tags['path'] = array(
@@ -505,6 +507,14 @@ class Functions {
 		);
 
 		$allowed_tags['g'] = array();
+
+		$allowed_tags['circle'] = array(
+			'cx'     => array(),
+			'cy'     => array(),
+			'r'      => array(),
+			'fill'   => array(),
+			'stroke' => array(),
+		);
 
 		$allowed_tags['use'] = array(
 			'xlink:href' => array(),

@@ -4322,6 +4322,14 @@ h2.has-admin-content-subheading:after {
   color: var(--quotes-dlx-admin--color-accent);
 }
 
+/* Admin loading icon */
+.has-load-static-svg svg {
+  animation: has-spin;
+  animation-duration: 1.5s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
+}
+
 /* Range Control Component */
 .has-admin__range-control {
   max-width: 450px;
