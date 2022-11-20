@@ -9,7 +9,7 @@
 
 .highlight-and-share-wrapper:not(.has-admin-theme-preview-list) {
   height: auto;
-  display: block;
+  display: inline-flex;
 }
 .highlight-and-share-wrapper:not(.has-admin-theme-preview-list) > div {
   display: inline-flex !important;
@@ -390,9 +390,14 @@ div.highlight-and-share-wrapper.theme-brand-colors div {
 }
 
 /* Theme White */
+.highlight-and-share-wrapper.theme-white.orientation-vertical div {
+  margin-bottom: 0;
+}
+
 div.highlight-and-share-wrapper.theme-white div {
   margin-right: 0;
   padding: 0;
+  margin-bottom: 10px;
 }
 
 div.highlight-and-share-wrapper.theme-white div.has_twitter,
@@ -448,6 +453,7 @@ body.has-body .highlight-and-share-wrapper.theme-white a:visited {
   display: block;
   position: absolute;
   left: calc(50% - 10px);
+  bottom: 0;
   border-top: 10px solid #FFF;
   border-top-color: #FFF;
   border-left: 10px solid transparent;
@@ -455,8 +461,13 @@ body.has-body .highlight-and-share-wrapper.theme-white a:visited {
 }
 
 /* Purple Theme color */
+.highlight-and-share-wrapper.theme-purple.orientation-vertical div {
+  margin-bottom: 0;
+}
+
 div.highlight-and-share-wrapper.theme-purple div {
   margin-right: 0;
+  margin-bottom: 10px;
   padding: 0;
 }
 
@@ -498,6 +509,7 @@ div.highlight-and-share-wrapper.theme-purple div.has_signal:hover {
   content: " ";
   display: block;
   position: absolute;
+  bottom: 0;
   left: calc(50% - 10px);
   border-top: 10px solid #8364E8;
   border-top-color: #8364E8;
@@ -506,8 +518,13 @@ div.highlight-and-share-wrapper.theme-purple div.has_signal:hover {
 }
 
 /* Magenta Color */
+.highlight-and-share-wrapper.theme-magenta.orientation-vertical div {
+  margin-bottom: 0;
+}
+
 div.highlight-and-share-wrapper.theme-magenta div {
   margin-right: 0;
+  margin-bottom: 10px;
   padding: 0;
 }
 
@@ -550,6 +567,7 @@ div.highlight-and-share-wrapper.theme-magenta div.has_signal:hover {
   display: block;
   position: absolute;
   left: calc(50% - 10px);
+  bottom: 0;
   border-top: 10px solid #FF00FF;
   border-top-color: #FF00FF;
   border-left: 10px solid transparent;
@@ -557,9 +575,14 @@ div.highlight-and-share-wrapper.theme-magenta div.has_signal:hover {
 }
 
 /* Green color */
+.highlight-and-share-wrapper.theme-green.orientation-vertical div {
+  margin-bottom: 0;
+}
+
 div.highlight-and-share-wrapper.theme-green div {
   margin-right: 0;
   padding: 0;
+  margin-bottom: 10px;
 }
 
 div.highlight-and-share-wrapper.theme-green div.has_twitter,
@@ -601,6 +624,7 @@ div.highlight-and-share-wrapper.theme-green div.has_signal:hover {
   display: block;
   position: absolute;
   left: calc(50% - 10px);
+  bottom: 0;
   border-top: 10px solid #03ac27;
   border-top-color: #03ac27;
   border-left: 10px solid transparent;
@@ -608,9 +632,14 @@ div.highlight-and-share-wrapper.theme-green div.has_signal:hover {
 }
 
 /* Cyan color */
+.highlight-and-share-wrapper.theme-cyan.orientation-vertical div {
+  margin-bottom: 0;
+}
+
 div.highlight-and-share-wrapper.theme-cyan div {
   margin-right: 0;
   padding: 0;
+  margin-bottom: 10px;
 }
 
 div.highlight-and-share-wrapper.theme-cyan div.has_twitter,
@@ -652,6 +681,7 @@ div.highlight-and-share-wrapper.theme-cyan div.has_signal:hover {
   display: block;
   position: absolute;
   left: calc(50% - 10px);
+  bottom: 0;
   border-top: 10px solid #0091b0;
   border-top-color: #0091b0;
   border-left: 10px solid transparent;
@@ -1146,9 +1176,14 @@ body.has-body .highlight-and-share-wrapper.theme-blue a:visited {
 
 /* End Default HAS Styles */
 /* Size of the box and margin */
+.highlight-and-share-wrapper.theme-blue.orientation-vertical div {
+  margin-bottom: 0;
+}
+
 div.highlight-and-share-wrapper.theme-blue div {
   margin-right: 0;
   padding: 0;
+  margin-bottom: 10px;
 }
 
 /* Padding for the anchors */
@@ -1198,6 +1233,7 @@ div.highlight-and-share-wrapper.theme-blue div.has_signal:hover {
   display: block;
   position: absolute;
   left: calc(50% - 10px);
+  bottom: 0;
   border-top: 10px solid #0009c1;
   border-top-color: #0009c1;
   border-left: 10px solid transparent;
@@ -1215,17 +1251,6 @@ div.highlight-and-share-wrapper.theme-blue div.has_signal:hover {
   z-index: 1000;
   margin-right: 5px;
   margin-bottom: 10px;
-}
-
-.highlight-and-share-wrapper.theme-black:after {
-  content: " ";
-  display: block;
-  position: absolute;
-  left: calc(50% - 10px);
-  border-top: 10px solid #333;
-  border-top-color: #333;
-  border-left: 10px solid transparent;
-  border-right: 10px solid transparent;
 }
 
 body.has-body .highlight-and-share-wrapper.theme-black a,
