@@ -21,7 +21,7 @@ import sendCommand from '../../Utils/SendCommand';
 const defaultColors = hasAppearanceAdmin.colors;
 
 const ThemeCustomizer = () => {
-	const { theme, setTheme, appearanceThemeData, setAppearanceThemeData, socialNetworkColors } = useContext( SocialNetworksContext );
+	const { theme, setTheme, appearanceThemeData, setAppearanceThemeData, socialNetworkColors, setSocialNetworkColors } = useContext( SocialNetworksContext );
 
 	const [ saving, setSaving ] = useState( false );
 	const [ isSaved, setIsSaved ] = useState( false );
@@ -90,6 +90,7 @@ const ThemeCustomizer = () => {
 			if ( success ) {
 				setAppearanceThemeData( data );
 				setTheme( data.theme );
+				setSocialNetworkColors( data.icon_colors );
 				reset( data, { keepDirtyValues: false, keepDirty: false, keepDefaultValues: false } );
 				setIsReset( true );
 				setTimeout( () => {

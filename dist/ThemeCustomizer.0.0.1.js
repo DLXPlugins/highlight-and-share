@@ -821,7 +821,8 @@ var ThemeCustomizer = function ThemeCustomizer() {
     setTheme = _useContext.setTheme,
     appearanceThemeData = _useContext.appearanceThemeData,
     setAppearanceThemeData = _useContext.setAppearanceThemeData,
-    socialNetworkColors = _useContext.socialNetworkColors;
+    socialNetworkColors = _useContext.socialNetworkColors,
+    setSocialNetworkColors = _useContext.setSocialNetworkColors;
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState2 = _slicedToArray(_useState, 2),
     saving = _useState2[0],
@@ -901,6 +902,7 @@ var ThemeCustomizer = function ThemeCustomizer() {
       if (success) {
         setAppearanceThemeData(data);
         setTheme(data.theme);
+        setSocialNetworkColors(data.icon_colors);
         reset(data, {
           keepDirtyValues: false,
           keepDirty: false,

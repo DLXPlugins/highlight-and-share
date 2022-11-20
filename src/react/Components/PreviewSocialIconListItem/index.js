@@ -9,14 +9,19 @@ const PreviewSocialIconListItem = ( { listItemKey, className, icon, label } ) =>
 
 	let iconStyles = '';
 	if ( ! appearanceThemeData.groupIcons && 'custom' === theme ) {
+		const iconColor = socialNetworkColors[ listItemKey ].icon_color;
+		const iconColorHover = socialNetworkColors[ listItemKey ].icon_color_hover;
+		const backgroundColor = socialNetworkColors[ listItemKey ].background;
+		const backgroundColorHover = socialNetworkColors[ listItemKey ].background_hover;
+
 		iconStyles = `
 			.has_${ listItemKey } a {
-				color: ${ socialNetworkColors[ listItemKey ].icon_color } !important;
-				background: ${ socialNetworkColors[ listItemKey ].background } !important;
+				color: ${ iconColor } !important;
+				background: ${ backgroundColor } !important;
 			}
 			.has_${ listItemKey } a:hover {
-				color: ${ socialNetworkColors[ listItemKey ].icon_color_hover } !important;
-				background: ${ socialNetworkColors[ listItemKey ].background_hover } !important;
+				color: ${ iconColorHover } !important;
+				background: ${ backgroundColorHover } !important;
 			}
 		`;
 	}
