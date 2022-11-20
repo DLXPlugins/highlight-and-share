@@ -339,6 +339,14 @@ class Options {
 			$settings = self::$options;
 		}
 
+		// Port old settings to new settings.
+		if ( ! isset( $settings['show_whats_app'] ) ) {
+			$settings['show_whats_app'] = $settings['show_whatsapp'] ?? false;
+		}
+		if ( ! isset( $settings['enable_emails'] ) ) {
+			$settings['enable_emails'] = $settings['show_email'] ?? false;
+		}
+
 		$defaults = self::get_defaults();
 
 		if ( false === $settings || ! is_array( $settings ) ) {
