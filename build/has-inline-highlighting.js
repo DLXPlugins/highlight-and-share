@@ -164,7 +164,7 @@ var HighlightSvg = function HighlightSvg(props) {
         color: "#cbb200",
         padding: "0"
       }),
-      title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Highlight and Share', 'highlight-and-share'),
+      title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Inline Social Highlight', 'highlight-and-share'),
       onClick: onClick
     }), true === props.isActive && /*#__PURE__*/React.createElement(_wordpress_block_editor__WEBPACK_IMPORTED_MODULE_2__.RichTextToolbarButton, {
       icon: /*#__PURE__*/React.createElement(HighlightSvg, {
@@ -172,7 +172,7 @@ var HighlightSvg = function HighlightSvg(props) {
         color: "#ffd700",
         padding: "5px"
       }),
-      title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Highlight and Share', 'highlight-and-share'),
+      title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_0__.__)('Inline Social Highlight', 'highlight-and-share'),
       onClick: onClick
     }));
   }

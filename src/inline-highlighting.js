@@ -53,7 +53,7 @@ registerFormatType( 'has/inline', {
 						icon={
 							<HighlightSvg background="transparent" color="#cbb200" padding="0" />
 						}
-						title={ __( 'Highlight and Share', 'highlight-and-share' ) }
+						title={ __( 'Inline Social Highlight', 'highlight-and-share' ) }
 						onClick={ onClick }
 					/>
 				) }
@@ -62,7 +62,7 @@ registerFormatType( 'has/inline', {
 						icon={
 							<HighlightSvg background="#1e1e1e" color="#ffd700" padding="5px" />
 						}
-						title={ __( 'Highlight and Share', 'highlight-and-share' ) }
+						title={ __( 'Inline Social Highlight', 'highlight-and-share' ) }
 						onClick={ onClick }
 					/>
 				) }
