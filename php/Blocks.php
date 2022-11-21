@@ -364,7 +364,19 @@ class Blocks {
 					<?php echo wp_kses_post( $attributes['shareText'] ); ?>
 				</div>
 				<div class='has-click-to-share-cta'>
-				<?php echo wp_kses_post( $attributes['clickText'] ); ?> <svg width="<?php echo esc_attr( $attributes['clickShareFontSize'] ); ?>px" height="<?php echo esc_attr( $attributes['clickShareFontSize'] ); ?>px" class="has-cts-block-icon"><use xlink:href="#has-share-icon"></use></svg>
+					<?php
+					if ( (bool) $attributes['showClickToShare'] ) {
+						echo wp_kses_post( $attributes['clickText'] );
+					}
+					if ( (bool) $attributes['showClickToShare'] && (bool) $attributes['showIcon'] ) {
+						echo '&nbsp;';
+					}
+					if ( (bool) $attributes['showIcon'] ) {
+						?>
+						<svg width="<?php echo esc_attr( $attributes['clickShareFontSize'] ); ?>px" height="<?php echo esc_attr( $attributes['clickShareFontSize'] ); ?>px" class="has-cts-block-icon"><use xlink:href="#has-share-icon"></use></svg>
+						<?php
+					}
+					?>
 				</div>
 				<a class="has-click-prompt" href="#" data-title="<?php echo esc_attr( $post->post_title ); ?>" data-url="<?php echo esc_url( get_permalink( $post->ID ) ); ?>">
 				</a>
@@ -373,7 +385,6 @@ class Blocks {
 		<?php
 
 		return ob_get_clean();
-		return 'hello';
 	}
 
 	/**
