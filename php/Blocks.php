@@ -19,11 +19,23 @@ class Blocks {
 	 */
 	public static function run() {
 		$self = new self();
-		add_action( 'init', array( $self, 'register_block' ) );
-		add_action( 'enqueue_block_editor_assets', array( $self, 'register_block_assets' ) );
-		add_action( 'enqueue_block_assets', array( $self, 'enqueue_frontend_assets' ) );
-		// add_action( 'wp_enqueue_scripts', array( $self, 'register_font_scripts' ) );
-		add_action( 'admin_enqueue_scripts', array( $self, 'register_font_scripts' ) );
+
+		// Get block editor options.
+		$options = Options::get_block_editor_options();
+
+		// Enqueue inline highlighting script if enabled.
+		if ( (bool) $options['enable_inline_highlighting'] ) {
+			add_action( 'enqueue_block_editor_assets', array( $self, 'enqueue_inline_highlighting_script' ) );
+		}
+
+		// Register the block if enabled.
+		if ( (bool) $options['enable_blocks'] ) {
+			add_action( 'init', array( $self, 'register_block' ) );
+			add_action( 'enqueue_block_editor_assets', array( $self, 'register_block_assets' ) );
+			add_action( 'enqueue_block_assets', array( $self, 'enqueue_frontend_assets' ) );
+			// add_action( 'wp_enqueue_scripts', array( $self, 'register_font_scripts' ) );
+			add_action( 'admin_enqueue_scripts', array( $self, 'register_font_scripts' ) );
+		}
 		return $self;
 	}
 
@@ -53,6 +65,19 @@ class Blocks {
 				'all'
 			);
 		}
+	}
+
+	/**
+	 * Enqueue inline highlighting script in the block editor.
+	 */
+	public function enqueue_inline_highlighting_script() {
+		wp_enqueue_script(
+			'has-inline-highlighting-js',
+			Functions::get_plugin_url( 'build/has-inline-highlighting.js' ),
+			array(),
+			HIGHLIGHT_AND_SHARE_VERSION,
+			true
+		);
 	}
 
 	/**
