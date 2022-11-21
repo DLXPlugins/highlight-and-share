@@ -644,112 +644,16 @@ class Frontend {
 		$json_arr = array();
 
 		// Facebook.
-		if ( is_customize_preview() ) {
-			$maybe_facebook = get_option( 'highlight-and-share' );
-			if ( ! isset( $maybe_facebook['show_facebook'] ) ) {
-				$json_arr['show_facebook'] = (bool) apply_filters( 'has_show_facebook', $settings['show_facebook'] );
-			} else {
-				$json_arr['show_facebook'] = apply_filters( 'has_show_facebook', $maybe_facebook['show_facebook'] );
-			}
-		} else {
-			$json_arr['show_facebook'] = (bool) apply_filters( 'has_show_facebook', $settings['show_facebook'] );
-		}
-
-		// Twitter.
-		if ( is_customize_preview() ) {
-			$maybe_twitter = get_option( 'highlight-and-share' );
-			if ( ! isset( $maybe_twitter['show_twitter'] ) ) {
-				$json_arr['show_twitter'] = (bool) apply_filters( 'has_show_twitter', $settings['show_twitter'] );
-			} else {
-				$json_arr['show_twitter'] = apply_filters( 'has_show_twitter', $maybe_twitter['show_twitter'] );
-			}
-		} else {
-			$json_arr['show_twitter'] = (bool) apply_filters( 'has_show_twitter', $settings['show_twitter'] );
-		}
-
-		// LinkedIn.
-		if ( is_customize_preview() ) {
-			$maybe_linkedin = get_option( 'highlight-and-share' );
-			if ( ! isset( $maybe_linkedin['show_linkedin'] ) ) {
-				$json_arr['show_linkedin'] = (bool) apply_filters( 'has_show_linkedin', $settings['show_linkedin'] );
-			} else {
-				$json_arr['show_linkedin'] = apply_filters( 'has_show_linkedin', $maybe_linkedin['show_linkedin'] );
-			}
-		} else {
-			$json_arr['show_linkedin'] = (bool) apply_filters( 'has_show_linkedin', $settings['show_linkedin'] );
-		}
-
-		// Odnoklassniki.
-		if ( is_customize_preview() ) {
-			$maybe_ok = get_option( 'highlight-and-share' );
-			if ( ! isset( $maybe_ok['show_ok'] ) ) {
-				$json_arr['show_ok'] = (bool) apply_filters( 'has_show_ok', $settings['show_ok'] );
-			} else {
-				$json_arr['show_ok'] = apply_filters( 'has_show_ok', $maybe_ok['show_ok'] );
-			}
-		} else {
-			$json_arr['show_ok'] = (bool) apply_filters( 'has_show_ok', $settings['show_ok'] );
-		}
-
-		// VKontakte.
-		if ( is_customize_preview() ) {
-			$maybe_vk = get_option( 'highlight-and-share' );
-			if ( ! isset( $maybe_vk['show_vk'] ) ) {
-				$json_arr['show_vk'] = (bool) apply_filters( 'has_show_vk', $settings['show_vk'] );
-			} else {
-				$json_arr['show_vk'] = apply_filters( 'has_show_vk', $maybe_vk['show_vk'] );
-			}
-		} else {
-			$json_arr['show_vk'] = (bool) apply_filters( 'has_show_vk', $settings['show_vk'] );
-		}
-
-		// Email.
-		if ( is_customize_preview() ) {
-			$maybe_email = get_option( 'highlight-and-share' );
-			if ( ! isset( $maybe_email['show_email'] ) ) {
-				$json_arr['show_email'] = (bool) apply_filters( 'has_show_email', $settings['show_email'] );
-			} else {
-				$json_arr['show_email'] = apply_filters( 'has_show_email', $maybe_email['show_email'] );
-			}
-		} else {
-			$json_arr['show_email'] = (bool) apply_filters( 'has_show_email', ( $settings['show_email'] ?? $settings['enable_emails'] ) );
-		}
-
-		// Xing.
-		if ( is_customize_preview() ) {
-			$maybe_xing = get_option( 'highlight-and-share' );
-			if ( ! isset( $maybe_xing['show_xing'] ) ) {
-				$json_arr['show_xing'] = (bool) apply_filters( 'has_show_xing', $settings['show_xing'] );
-			} else {
-				$json_arr['show_xing'] = apply_filters( 'has_show_xing', $maybe_xing['show_xing'] );
-			}
-		} else {
-			$json_arr['show_xing'] = (bool) apply_filters( 'has_show_xing', $settings['show_xing'] );
-		}
-
-		// Copy.
-		if ( is_customize_preview() ) {
-			$maybe_copy = get_option( 'highlight-and-share' );
-			if ( ! isset( $maybe_copy['show_copy'] ) ) {
-				$json_arr['show_copy'] = (bool) apply_filters( 'has_show_copy', $settings['show_copy'] );
-			} else {
-				$json_arr['show_copy'] = apply_filters( 'has_show_copy', $maybe_xing['show_copy'] );
-			}
-		} else {
-			$json_arr['show_copy'] = (bool) apply_filters( 'has_show_copy', $settings['show_copy'] );
-		}
-
-		// Whatsapp.
-		if ( is_customize_preview() ) {
-			$maybe_whatsapp = get_option( 'highlight-and-share' );
-			if ( ! isset( $maybe_whatsapp['show_whatsapp'] ) ) {
-				$json_arr['show_whatsapp'] = (bool) apply_filters( 'has_show_whatsapp', $settings['show_whatsapp'] );
-			} else {
-				$json_arr['show_whatsapp'] = apply_filters( 'has_show_whatsapp', $maybe_whatsapp['show_whatsapp'] );
-			}
-		} else {
-			$json_arr['show_whatsapp'] = (bool) apply_filters( 'has_show_whatsapp', ( $settings['show_whatsapp'] ?? $settings['show_whats_app'] ) );
-		}
+		$json_arr['show_facebook'] = (bool) apply_filters( 'has_show_facebook', $settings['show_facebook'] );
+		$json_arr['show_twitter']  = (bool) apply_filters( 'has_show_twitter', $settings['show_twitter'] );
+		$json_arr['show_linkedin'] = (bool) apply_filters( 'has_show_linkedin', $settings['show_linkedin'] );
+		$json_arr['show_ok']       = (bool) apply_filters( 'has_show_ok', $settings['show_ok'] );
+		$json_arr['show_vk']       = (bool) apply_filters( 'has_show_vk', $settings['show_vk'] );
+		$json_arr['show_email']    = (bool) apply_filters( 'has_show_email', ( $settings['show_email'] ?? $settings['enable_emails'] ) );
+		$json_arr['show_xing']     = (bool) apply_filters( 'has_show_xing', $settings['show_xing'] );
+		$json_arr['show_copy']     = (bool) apply_filters( 'has_show_copy', $settings['show_copy'] );
+		$json_arr['show_whatsapp'] = (bool) apply_filters( 'has_show_whatsapp', ( $settings['show_whatsapp'] ?? $settings['show_whats_app'] ) );
+		$json_arr['show_telegram'] = (bool) apply_filters( 'has_show_telegram', $settings['show_telegram'] );
 
 		// Twitter Username.
 		$json_arr['twitter_username'] = trim( sanitize_text_field( apply_filters( 'has_twitter_username', $settings['twitter'] ) ) );
@@ -985,16 +889,7 @@ class Frontend {
 		 */
 		if ( apply_filters( 'has_load_css', true ) ) {
 			wp_enqueue_style( 'highlight-and-share-email', Functions::get_plugin_url( 'css/highlight-and-share-emails.css' ), array(), HIGHLIGHT_AND_SHARE_VERSION, 'all' );
-			if ( is_customize_preview() ) {
-				$maybe_theme = get_option( 'highlight-and-share' );
-				if ( isset( $maybe_theme['theme'] ) ) {
-					$this->output_stylesheets( $maybe_theme['theme'] );
-				} else {
-					$this->output_stylesheets( $settings['theme'] );
-				}
-			} else {
-				$this->output_stylesheets( $settings['theme'] );
-			}
+			$this->output_stylesheets( $settings['theme'] );
 		}
 	}
 
@@ -1014,7 +909,17 @@ class Frontend {
 		if ( 'off' === $theme ) {
 			return;
 		}
-		wp_enqueue_style( 'highlight-and-share', Functions::get_plugin_url( 'dist/has-themes.css' ), array(), HIGHLIGHT_AND_SHARE_VERSION, 'all' );
+		wp_enqueue_style(
+			'highlight-and-share',
+			Functions::get_plugin_url( 'dist/has-themes.css' ),
+			array(),
+			HIGHLIGHT_AND_SHARE_VERSION,
+			'all'
+		);
+		wp_add_inline_style(
+			'highlight-and-share',
+			Themes::get_inline_highlight_css()
+		);
 		add_filter( 'body_class', array( $this, 'add_body_class' ), 10, 2 );
 	}
 

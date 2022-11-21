@@ -91,6 +91,10 @@ class Blocks {
 			HIGHLIGHT_AND_SHARE_VERSION,
 			'all'
 		);
+		wp_add_inline_style(
+			'has-style-admin-css',
+			Themes::get_inline_highlight_css()
+		);
 		wp_register_script(
 			'has-click-to-share',
 			Functions::get_plugin_url( 'build/has-click-to-share.js' ),
