@@ -9,6 +9,7 @@
 		"hasAppearanceAdmin": "readonly",
 		"hasBlockEditorAdmin": "readonly",
 		"has_gutenberg": "readonly",
+		"highlight_and_share": "readonly",
 		"React": "readonly"
 	},
 	"env": {

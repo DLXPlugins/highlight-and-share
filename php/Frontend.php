@@ -460,7 +460,12 @@ class Frontend {
 				}
 			</style>
 			<?php
+			// From: https://datayze.com/howto/minify-css-with-php.
 			$custom_styles = ob_get_clean();
+			$custom_styles = preg_replace( '/\/\*((?!\*\/).)*\*\//', '', $custom_styles ); // negative look ahead.
+			$custom_styles = preg_replace( '/\s{2,}/', ' ', $custom_styles );
+			$custom_styles = preg_replace( '/\s*([:;{}])\s*/', '$1', $custom_styles );
+			$custom_styles = preg_replace( '/;}/', '}', $custom_styles );
 		}
 
 		// Get wrapper opening HTML.
@@ -633,7 +638,7 @@ class Frontend {
 		$sweet_alert_uri = Functions::get_plugin_url( 'js/sweetalert2.all.min.js' );
 		$deps[]          = 'sweetalert2';
 		wp_register_script( 'sweetalert2', $sweet_alert_uri, array( 'jquery' ), '7.28.4', true );
-		$main_script_uri = Functions::get_plugin_url( 'js/highlight-and-share.js' );
+		$main_script_uri = Functions::get_plugin_url( 'dist/highlight-and-share.js' );
 		wp_enqueue_script( 'highlight-and-share', $main_script_uri, $deps, HIGHLIGHT_AND_SHARE_VERSION, true );
 		if ( function_exists( 'wp_set_script_translations' ) ) {
 			wp_set_script_translations( 'highlight-and-share', 'highlight-and-share' );
@@ -670,6 +675,9 @@ class Frontend {
 			$json_arr['mobile'] = false;
 		}
 
+		$regex_style_elements = '/([.#])/';
+		$js_selector_string   = '';
+
 		/**
 		 * Filter: has_js_classes
 		 *
@@ -679,16 +687,11 @@ class Frontend {
 		 */
 		$classes = apply_filters( 'has_js_classes', $settings['js_content'] ); // Pass comma separated values (e.g., entry-content,type-post,type-page).
 		$classes = explode( ',', $classes );
-		if ( apply_filters( 'has_enable_content', (bool) $settings['enable_content'] ) ) {
-			$classes[] = 'has-content-area';
-		}
-		if ( apply_filters( 'has_enable_excerpt', (bool) $settings['enable_excerpt'] ) ) {
-			$classes[] = 'has-excerpt-area';
-		}
+		$classes = preg_replace( $regex_style_elements, '', $classes );
 		foreach ( $classes as $index => &$string ) {
 			$string = trim( $string ); // Trim.
 			if ( empty( $string ) ) {
-				unset( $classes[ $index ] );
+				unset( $classes[ $index ] ); // Remove empty values.
 				continue;
 			}
 			$string = trim( esc_js( '.' . $string ) ); // Get in class format (.%s) and trim just in case.
@@ -701,31 +704,40 @@ class Frontend {
 		 *
 		 * @param string Comma-separated CSS IDs
 		 */
-		$ids = (array) apply_filters( 'has_js_ids', array() ); // Pass array of jQuery ID elements (without the #).
+		$ids = apply_filters( 'has_js_ids', $settings['id_content'] ); // Pass array of jQuery ID elements (without the #).
+		$ids = explode( ',', $ids );
+		$ids = preg_replace( $regex_style_elements, '', $ids );
 		foreach ( $ids as $index => &$string ) {
-			$string = trim( $string );
+			$string = trim( $string ); // Trim.
 			if ( empty( $string ) ) {
+				unset( $ids[ $index ] ); // Remove empty values.
 				continue;
 			}
-			$string = trim( esc_js( '#' . $string ) ); // Get in ID format (#%s) and trim just in case.
+			$string = trim( esc_js( '#' . $string ) ); // Get in class format (.%s) and trim just in case.
 		}
 
-		/**
-		 * Filter: has_js_elements
-		 *
-		 * Comman-separated HTML elements that Highlight and Share should be enabled on.
-		 *
-		 * @param string Comma-separated CSS IDs
-		 */
-		$elements = (array) apply_filters( 'has_js_elements', array() ); // Pass array of jQuery HTML elements (e.g., blockquote, article).
+		$elements = apply_filters( 'has_js_elements', $settings['element_content'] ); // Pass array of jQuery HTML elements (e.g., blockquote, article).
+		$elements = explode( ',', $elements );
+		$elements = preg_replace( $regex_style_elements, '', $elements );
 		foreach ( $elements as $index => &$string ) {
-			$string = trim( $string );
+			$string = trim( $string ); // Trim.
 			if ( empty( $string ) ) {
+				unset( $elements[ $index ] ); // Remove empty values.
 				continue;
 			}
-			$string = trim( esc_js( $string ) );
+			$string = trim( esc_js( $string ) ); // Get in class format (.%s) and trim just in case.
 		}
-		$content = array_merge( $classes, $ids, $elements );
+
+		// Populate/Add content items.
+		if ( apply_filters( 'has_enable_content', (bool) $settings['enable_content'] ) ) {
+			$classes[] = '.has-content-area';
+		}
+		if ( apply_filters( 'has_enable_excerpt', (bool) $settings['enable_excerpt'] ) ) {
+			$classes[] = '.has-excerpt-area';
+		}
+
+		// Merge the content together.
+		$js_selector_string = implode( ',', array_merge( $classes, $ids, $elements ) );
 
 		/**
 		 * Filter: has_js_selectors
@@ -733,12 +745,11 @@ class Frontend {
 		 * Modify all the selectors (classes, ids, elements) that are used for Highlight and Share.
 		 *
 		 * @param string          Comma-separated CSS IDs, classes and HTML elements.
-		 * @param array $content  Array with all of the CSS classes (uses .), IDs (uses #), and HTML elements.
 		 * @param array $classes  Array with CSS classes (with the .).
 		 * @param array $ids      Array with CSS IDs (with the #).
 		 * @param array $elements Array with HTML elements.
 		 */
-		$json_arr['content'] = apply_filters( 'has_js_selectors', implode( ',', $content ), $content, $classes, $ids, $elements );
+		$json_arr['content'] = apply_filters( 'has_js_selectors', $js_selector_string, $classes, $ids, $elements );
 
 		/**
 		 * Filter: has_twitter_text
@@ -840,9 +851,6 @@ class Frontend {
 		} else {
 			$json_arr['icons'] = apply_filters( 'has_icons', $settings['icons'] );
 		}
-
-		// Facebook API Key.
-		$json_arr['facebook_app_id'] = isset( $settings['facebook_app_id'] ) ? sanitize_text_field( $settings['facebook_app_id'] ) : 0;
 
 		// For emails.
 		if ( is_user_logged_in() ) {
