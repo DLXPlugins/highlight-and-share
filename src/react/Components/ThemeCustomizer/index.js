@@ -17,6 +17,7 @@ import DimensionsControl from '../Dimensions';
 import SocialNetworkColorsTabs from '../SocialNetworkColorsTabs';
 import Spinner from '../Icons/Spinner';
 import sendCommand from '../../Utils/SendCommand';
+import ErrorBoundary from '../ErrorBoundary';
 
 const defaultColors = hasAppearanceAdmin.colors;
 

@@ -42,7 +42,7 @@ const BlockEditor = ( props ) => {
 		<ErrorBoundary
 			fallback={
 				<p>
-					{ __( 'Could not load advanced options.', 'highlight-and-share' ) }
+					{ __( 'Could not load Block Editor options.', 'highlight-and-share' ) }
 					<br />
 					<a
 						href="https://dlxplugins.com/support/"

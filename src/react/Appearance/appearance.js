@@ -4,6 +4,7 @@ import { DndProvider } from 'react-dnd';
 import { HTML5Backend } from 'react-dnd-html5-backend';
 import SocialIconList from '../Components/SocialIconList';
 import PreviewSocialIconList from '../Components/PreviewSocialIconList';
+import ErrorBoundary from '../Components/ErrorBoundary';
 
 // Lazy load theme customizer.
 const ThemeCustomizer = lazy( () =>
@@ -14,9 +15,26 @@ const Appearance = () => {
 	const getIcons = () => {
 		// Now return component with icons.
 		return (
-			<DndProvider backend={ HTML5Backend }>
-				<SocialIconList />
-			</DndProvider>
+			<ErrorBoundary
+				fallback={
+					<p>
+						{ __( 'Could not load appearance Reorder Settings.', 'quotes-dlx' ) }
+						<br />
+						<a
+							href="https://dlxplugins.com/support/"
+							target="_blank"
+							rel="noopener noreferrer"
+						>
+							DLX Plugins Support
+						</a>
+					</p>
+				}
+			>
+				<DndProvider backend={ HTML5Backend }>
+					<SocialIconList />
+				</DndProvider>
+			</ErrorBoundary>
+
 		);
 	};
 
@@ -24,7 +42,22 @@ const Appearance = () => {
 		// Now return component with icons.
 		return (
 			<>
-				<PreviewSocialIconList />
+				<ErrorBoundary
+					fallback={
+						<p>
+							{ __( 'Could not load appearance Preview.', 'quotes-dlx' ) }
+							<br />
+							<a
+								href="https://dlxplugins.com/support/"
+								target="_blank"
+								rel="noopener noreferrer"
+							>
+								DLX Plugins Support
+							</a>
+						</p>
+					}
+				><PreviewSocialIconList /></ErrorBoundary>
+
 			</>
 		);
 	};
@@ -65,7 +98,22 @@ const Appearance = () => {
 								{ __( 'Theme Selection and Customizer', 'highlight-and-share' ) }
 							</h2>
 							<p className="description">{ __( 'Select a theme to use for Highlight and Share, or choose custom and manually configure a theme.', 'highlight-and-share' ) }</p>
-							<ThemeCustomizer />
+							<ErrorBoundary
+								fallback={
+									<p>
+										{ __( 'Could not load Theme Customizer.', 'quotes-dlx' ) }
+										<br />
+										<a
+											href="https://dlxplugins.com/support/"
+											target="_blank"
+											rel="noopener noreferrer"
+										>
+											DLX Plugins Support
+										</a>
+									</p>
+								}
+							><ThemeCustomizer /></ErrorBoundary>
+
 						</div>
 					</div>
 				</div>
