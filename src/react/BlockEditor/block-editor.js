@@ -1,20 +1,13 @@
-import React, { useState, lazy, Suspense, useCallback } from 'react';
+import React, { useState, lazy, Suspense } from 'react';
 import { __ } from '@wordpress/i18n';
-import { escapeAttribute } from '@wordpress/escape-html';
 import { useForm, Controller, useWatch, useFormState } from 'react-hook-form';
 import classNames from 'classnames';
 import { useAsyncResource } from 'use-async-resource';
 import {
 	TextControl,
 	Button,
-	ButtonGroup,
-	RadioControl,
-	SelectControl,
 	ToggleControl,
-	RangeControl,
 } from '@wordpress/components';
-import { DndProvider } from 'react-dnd';
-import { HTML5Backend } from 'react-dnd-html5-backend';
 import ErrorBoundary from '../Components/ErrorBoundary';
 import Notice from '../Components/Notice';
 import CircularInfoIcon from '../Components/Icons/CircularInfo';
@@ -23,11 +16,6 @@ import Spinner from '../Components/Icons/Spinner';
 import sendCommand from '../Utils/SendCommand';
 import Loader from '../Components/Loader';
 import HASColorPicker from '../Components/ColorPicker';
-
-// Lazy load theme customizer.
-const ThemeCustomizer = lazy( () =>
-	import( /* webpackChunkName: "ThemeCustomizer.0.0.1" */ '../Components/ThemeCustomizer' )
-);
 
 const retrieveDefaults = () => {
 	return sendCommand( 'has_retrieve_block_editor_tab', {

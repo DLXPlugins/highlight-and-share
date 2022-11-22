@@ -18,7 +18,7 @@ module.exports = ( env ) => {
 				'has-cts-editor': './src/blocks/editor.scss',
 				'has-cts-style': './src/blocks/style.scss',
 				'has-admin-style': './src/admin.scss',
-				'has-admin': ['./src/admin.js'],
+				'has-admin': [ './src/admin.js' ],
 				'has-admin-settings': [ './src/react/Settings/index.js' ],
 				'has-admin-appearance': [ './src/react/Appearance/index.js' ],
 				'has-admin-block-editor': [ './src/react/BlockEditor/index.js' ],
@@ -45,6 +45,14 @@ module.exports = ( env ) => {
 			resolve: {
 				alias: {
 					react: path.resolve( 'node_modules/react' ),
+					'react-dom': path.resolve( 'node_modules/react-dom' ),
+					lodash: path.resolve( 'node_modules/lodash' ),
+					'@wordpress/i18n': path.resolve( 'node_modules/@wordpress/i18n' ),
+					'@wordpress/element': path.resolve( 'node_modules/@wordpress/element' ),
+					'@wordpress/components': path.resolve( 'node_modules/@wordpress/components' ),
+					'@wordpress/block-editor': path.resolve( 'node_modules/@wordpress/block-editor' ),
+					'@wordpress/hooks': path.resolve( 'node_modules/@wordpress/hooks' ),
+
 				},
 			},
 			module: {
@@ -58,6 +66,7 @@ module.exports = ( env ) => {
 							plugins: [
 								'@babel/plugin-proposal-class-properties',
 								'@babel/plugin-transform-arrow-functions',
+								'lodash',
 							],
 						},
 					},
@@ -92,7 +101,7 @@ module.exports = ( env ) => {
 								__dirname,
 								'node_modules/photoswipe/dist/photoswipe.css'
 							),
-							path.resolve(__dirname, './src/photoswipe-caption.css'),
+							path.resolve( __dirname, './src/photoswipe-caption.css' ),
 							path.resolve(
 								__dirname,
 								'node_modules/@wordpress/components/build-style/style.css'
@@ -123,3 +132,4 @@ module.exports = ( env ) => {
 		},
 	];
 };
+
