@@ -25,8 +25,12 @@
 	}
 	
 }
-.has-admin-theme-preview-list.highlight-and-share-wrapper {
-	display: inline-block;
+/* No bottom margin if container is off-center */
+.highlight-and-share-wrapper.has-no-margin-bottom > div {
+	margin-bottom: 0 !important;
+}
+.highlight-and-share-wrapper.has-no-margin-bottom:after {
+	display: none !important;
 }
 .highlight-and-share-wrapper .fa {
     font-size: 14px;

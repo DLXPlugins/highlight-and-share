@@ -204,6 +204,7 @@
 		// Set container width to smaller than window width if larger.
 		if ( element.offsetWidth > windowWidth ) {
 			element.style.maxWidth = ( windowWidth - 20 ) + 'px';
+			element.classList.add( 'has-no-margin-bottom' );
 		}
 
 		// Get the dimensions of the click to share container.
@@ -217,6 +218,7 @@
 		const hasSharerY = ( selectionTop + window.scrollY ) - hasCloneHeight - 15;
 
 		// Determine if hasSharerX is outside of view.
+		element.classList.add( 'has-no-margin-bottom' );
 		if ( hasSharerX < 0 ) {
 			// If so, set to 0.
 			element.style.left = '15px';
@@ -226,6 +228,7 @@
 		} else {
 			// Otherwise, set to hasSharerX.
 			element.style.left = hasSharerX + 'px';
+			element.classList.remove( 'has-no-margin-bottom' );
 		}
 
 		// Set the left,top CSS in the clone.
@@ -250,11 +253,6 @@
 		const inlineWidth = inlineRect.width;
 		const inlineHeight = inlineRect.height;
 
-		// Set container width to smaller than window width if larger.
-		if ( element.offsetWidth > windowWidth ) {
-			element.style.maxWidth = ( windowWidth - 20 ) + 'px';
-		}
-
 		// Get the dimensions of the click to share container.
 		const hasCloneRect = element.getBoundingClientRect();
 		const hasCloneWidth = hasCloneRect.width;
@@ -266,6 +264,7 @@
 		const hasSharerY = ( inlineTop + window.scrollY ) - hasCloneHeight - 15;
 
 		// Determine if hasSharerX is outside of view.
+		element.classList.add( 'has-no-margin-bottom' );
 		if ( hasSharerX < 0 ) {
 			// If so, set to 0.
 			element.style.left = '15px';
@@ -275,6 +274,7 @@
 		} else {
 			// Otherwise, set to hasSharerX.
 			element.style.left = hasSharerX + 'px';
+			element.classList.remove( 'has-no-margin-bottom' );
 		}
 
 		// Set the left,top CSS in the clone.
@@ -298,10 +298,12 @@
 		const ctaLeft = ctaRect.left; // left position relative to view port.
 		const ctaWidth = ctaRect.width;
 		const ctaHeight = ctaRect.height;
+		console.log( windowWidth );
 
 		// Set container width to smaller than window width if larger.
-		if ( element.offsetWidth > windowWidth ) {
+		if ( element.getBoundingClientRect().width > windowWidth ) {
 			element.style.maxWidth = ( windowWidth - 20 ) + 'px';
+			element.classList.add( 'has-no-margin-bottom' );
 		}
 
 		// Get the dimensions of the click to share container.
@@ -315,6 +317,7 @@
 		const hasSharerY = ( ctaTop + window.scrollY ) - hasCloneHeight - 15;
 
 		// Determine if hasSharerX is outside of view.
+		element.classList.add( 'has-no-margin-bottom' );
 		if ( hasSharerX < 0 ) {
 			// If so, set to 0.
 			element.style.left = '15px';
@@ -324,6 +327,7 @@
 		} else {
 			// Otherwise, set to hasSharerX.
 			element.style.left = hasSharerX + 'px';
+			element.classList.remove( 'has-no-margin-bottom' );
 		}
 
 		// Set the left,top CSS in the clone.

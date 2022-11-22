@@ -209,6 +209,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     // Set container width to smaller than window width if larger.
     if (element.offsetWidth > windowWidth) {
       element.style.maxWidth = windowWidth - 20 + 'px';
+      element.classList.add('has-no-margin-bottom');
     }
 
     // Get the dimensions of the click to share container.
@@ -222,6 +223,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     var hasSharerY = selectionTop + window.scrollY - hasCloneHeight - 15;
 
     // Determine if hasSharerX is outside of view.
+    element.classList.add('has-no-margin-bottom');
     if (hasSharerX < 0) {
       // If so, set to 0.
       element.style.left = '15px';
@@ -231,6 +233,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     } else {
       // Otherwise, set to hasSharerX.
       element.style.left = hasSharerX + 'px';
+      element.classList.remove('has-no-margin-bottom');
     }
 
     // Set the left,top CSS in the clone.
@@ -255,11 +258,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     var inlineWidth = inlineRect.width;
     var inlineHeight = inlineRect.height;
 
-    // Set container width to smaller than window width if larger.
-    if (element.offsetWidth > windowWidth) {
-      element.style.maxWidth = windowWidth - 20 + 'px';
-    }
-
     // Get the dimensions of the click to share container.
     var hasCloneRect = element.getBoundingClientRect();
     var hasCloneWidth = hasCloneRect.width;
@@ -271,6 +269,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     var hasSharerY = inlineTop + window.scrollY - hasCloneHeight - 15;
 
     // Determine if hasSharerX is outside of view.
+    element.classList.add('has-no-margin-bottom');
     if (hasSharerX < 0) {
       // If so, set to 0.
       element.style.left = '15px';
@@ -280,6 +279,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     } else {
       // Otherwise, set to hasSharerX.
       element.style.left = hasSharerX + 'px';
+      element.classList.remove('has-no-margin-bottom');
     }
 
     // Set the left,top CSS in the clone.
@@ -303,10 +303,12 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     var ctaLeft = ctaRect.left; // left position relative to view port.
     var ctaWidth = ctaRect.width;
     var ctaHeight = ctaRect.height;
+    console.log(windowWidth);
 
     // Set container width to smaller than window width if larger.
-    if (element.offsetWidth > windowWidth) {
+    if (element.getBoundingClientRect().width > windowWidth) {
       element.style.maxWidth = windowWidth - 20 + 'px';
+      element.classList.add('has-no-margin-bottom');
     }
 
     // Get the dimensions of the click to share container.
@@ -320,6 +322,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     var hasSharerY = ctaTop + window.scrollY - hasCloneHeight - 15;
 
     // Determine if hasSharerX is outside of view.
+    element.classList.add('has-no-margin-bottom');
     if (hasSharerX < 0) {
       // If so, set to 0.
       element.style.left = '15px';
@@ -329,6 +332,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     } else {
       // Otherwise, set to hasSharerX.
       element.style.left = hasSharerX + 'px';
+      element.classList.remove('has-no-margin-bottom');
     }
 
     // Set the left,top CSS in the clone.
