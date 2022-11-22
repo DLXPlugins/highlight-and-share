@@ -3,6 +3,7 @@ var __webpack_exports__ = {};
 /*!***********************************************!*\
   !*** ./src/frontendjs/highlight-and-share.js ***!
   \***********************************************/
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 (function () {
   'use strict';
 
@@ -19,6 +20,7 @@ var __webpack_exports__ = {};
   if (null === hasContainer) {
     return;
   }
+  var socialNetworks = '.has_whatsapp, .has_facebook, .has_twitter, .has_copy, .has_email, .has_reddit, .has_telegram, .has_linkedin, .has_xing, .has_signal, .has_vk';
 
   // Get highlight and share container dimensions.
   var hasSharingIconsContainer = hasContainer.querySelector('.highlight-and-share-wrapper');
@@ -68,8 +70,7 @@ var __webpack_exports__ = {};
    *
    */
   var hasVariableReplace = function hasVariableReplace(element, url, title, text, hashtags) {
-    var query = '.has_whatsapp, .has_facebook, .has_twitter, .has_copy, .has_email, .has_reddit, .has_telegram, .has_linkedin, .has_xing, .has_signal, .has_vk';
-    var queryElements = element.querySelectorAll(query);
+    var queryElements = element.querySelectorAll(socialNetworks);
     if (null === queryElements) {
       return element;
     }
@@ -150,6 +151,42 @@ var __webpack_exports__ = {};
         setHasContainerPositionCta(hasClone, triggerElement);
         break;
     }
+
+    // Setup event handlers for links (for desktop).
+    var queryElements = document.querySelector('body').querySelectorAll('.has_whatsapp, .has_facebook, .has_twitter, .has_telegram, .has_linkedin, .has_xing');
+    if (null !== queryElements) {
+      // Add click listeners to visible elements.
+      queryElements.forEach(function (el) {
+        if (isVisible(el)) {
+          el.querySelector('a').addEventListener('click', function (event) {
+            event.preventDefault();
+
+            // Get the URL.
+            var url = el.querySelector('a').getAttribute('href');
+            window.open(url, 'Highlight and Share', 'width=575,height=430,toolbar=false,menubar=false,location=false,status=false');
+          });
+        }
+      });
+    }
+
+    // Set up copy event.
+    var copyButtons = document.querySelectorAll('.has_copy');
+    if (null !== copyButtons) {
+      copyButtons.forEach(function (el) {
+        if (isVisible(el)) {
+          el.addEventListener('click', function (event) {
+            event.preventDefault();
+            var copyBlob = new Blob([text], {
+              type: 'text/plain'
+            });
+            var data = [new ClipboardItem(_defineProperty({}, copyBlob.type, copyBlob))];
+            navigator.clipboard.write(data);
+          });
+        }
+      });
+    }
+
+    // Todo - set up email event.
   };
 
   /**

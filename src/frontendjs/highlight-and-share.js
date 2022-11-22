@@ -16,6 +16,8 @@
 		return;
 	}
 
+	const socialNetworks = '.has_whatsapp, .has_facebook, .has_twitter, .has_copy, .has_email, .has_reddit, .has_telegram, .has_linkedin, .has_xing, .has_signal, .has_vk';
+
 	// Get highlight and share container dimensions.
 	const hasSharingIconsContainer = hasContainer.querySelector( '.highlight-and-share-wrapper' );
 
@@ -64,8 +66,7 @@
 	 *
 	 */
 	const hasVariableReplace = ( element, url, title, text, hashtags ) => {
-		const query = '.has_whatsapp, .has_facebook, .has_twitter, .has_copy, .has_email, .has_reddit, .has_telegram, .has_linkedin, .has_xing, .has_signal, .has_vk';
-		const queryElements = element.querySelectorAll( query );
+		const queryElements = element.querySelectorAll( socialNetworks );
 		if ( null === queryElements ) {
 			return element;
 		}
@@ -146,6 +147,41 @@
 				setHasContainerPositionCta( hasClone, triggerElement );
 				break;
 		}
+
+		// Setup event handlers for links (for desktop).
+		const queryElements = document.querySelector( 'body' ).querySelectorAll( '.has_whatsapp, .has_facebook, .has_twitter, .has_telegram, .has_linkedin, .has_xing' );
+		if ( null !== queryElements ) {
+			// Add click listeners to visible elements.
+			queryElements.forEach( ( el ) => {
+				if ( isVisible( el ) ) {
+					el.querySelector( 'a' ).addEventListener( 'click', ( event ) => {
+						event.preventDefault();
+
+						// Get the URL.
+						const url = el.querySelector( 'a' ).getAttribute( 'href' );
+
+						window.open( url, 'Highlight and Share', 'width=575,height=430,toolbar=false,menubar=false,location=false,status=false' );
+					} );
+				}
+			} );
+		}
+
+		// Set up copy event.
+		const copyButtons = document.querySelectorAll( '.has_copy' );
+		if ( null !== copyButtons ) {
+			copyButtons.forEach( ( el ) => {
+				if ( isVisible( el ) ) {
+					el.addEventListener( 'click', ( event ) => {
+						event.preventDefault();
+						const copyBlob = new Blob( [ text ], { type: 'text/plain' } );
+						const data = [ new ClipboardItem( { [ copyBlob.type ]: copyBlob } ) ];
+						navigator.clipboard.write( data );
+					} );
+				}
+			} );
+		}
+
+		// Todo - set up email event.
 	};
 
 	/**
