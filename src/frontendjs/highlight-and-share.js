@@ -165,6 +165,18 @@
 						// Get the URL.
 						const url = el.querySelector( 'a' ).getAttribute( 'href' );
 
+						// Set dataLayer event for GTM.
+						if ( 'undefined' !== typeof blah ) {
+							// eslint-disable-next-line no-undef
+							dataLayer.push( {
+								event: 'highlight-and-share',
+								hasShareText: text,
+								hasSharePostUrl: href,
+								hasSharePostTitle: title,
+								hasShareType: type,
+							} );
+						}
+
 						window.open( url, 'Highlight and Share', 'width=575,height=430,toolbar=false,menubar=false,location=false,status=false' );
 					} );
 				}
@@ -580,10 +592,6 @@
 			hasDisplay( selectedText, title, href, hashtags, 'inline', element );
 		};
 		inlineElements.forEach( ( element ) => {
-			// For mobile.
-			// element.addEventListener( 'touchend', ( event ) => {
-			// 	hasHandleInlineEvents( event, element );
-			// } );
 			// For mouse and trackpad.
 			element.addEventListener( 'click', ( event ) => {
 				hasHandleInlineEvents( event, element );

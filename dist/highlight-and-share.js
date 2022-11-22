@@ -168,6 +168,18 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
 
             // Get the URL.
             var url = el.querySelector('a').getAttribute('href');
+
+            // Set dataLayer event for GTM.
+            if ('undefined' !== typeof blah) {
+              // eslint-disable-next-line no-undef
+              dataLayer.push({
+                event: 'highlight-and-share',
+                hasShareText: text,
+                hasSharePostUrl: href,
+                hasSharePostTitle: title,
+                hasShareType: type
+              });
+            }
             window.open(url, 'Highlight and Share', 'width=575,height=430,toolbar=false,menubar=false,location=false,status=false');
           });
         }
@@ -582,10 +594,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       hasDisplay(selectedText, title, href, hashtags, 'inline', element);
     };
     inlineElements.forEach(function (element) {
-      // For mobile.
-      // element.addEventListener( 'touchend', ( event ) => {
-      // 	hasHandleInlineEvents( event, element );
-      // } );
       // For mouse and trackpad.
       element.addEventListener('click', function (event) {
         hasHandleInlineEvents(event, element);
