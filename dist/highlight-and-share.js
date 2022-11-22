@@ -12,6 +12,7 @@ var __webpack_exports__ = {};
   // Set variables.
   var prefix = HAS.prefix;
   var suffix = HAS.suffix;
+  var currentElement = null;
 
   // Main HAS container in the footer. If ".highlight-and-share-wrapper" doesn't have this parent, it is a clone.
   var hasContainer = document.querySelector('#has-highlight-and-share');
@@ -67,7 +68,7 @@ var __webpack_exports__ = {};
    *
    */
   var hasVariableReplace = function hasVariableReplace(element, url, title, text, hashtags) {
-    var query = '.has_whatsapp, .has_facebook, .has_twitter, .has_copy, .has_email, .has_reddit, .has_telegram, .has_signal, .has_vk';
+    var query = '.has_whatsapp, .has_facebook, .has_twitter, .has_copy, .has_email, .has_reddit, .has_telegram, .has_linkedin, .has_xing, .has_signal, .has_vk';
     var queryElements = element.querySelectorAll(query);
     if (null === queryElements) {
       return element;
@@ -131,7 +132,7 @@ var __webpack_exports__ = {};
     hasClone.style.width = 'auto';
     hasClone.style.height = 'auto';
     hasClone.style['z-index'] = 10000;
-    hasVariableReplace(hasClone, href, title, text, hashtags);
+    hasVariableReplace(hasClone, href, title, text, hashtags); // Replaced by reference.
 
     // Add to the end of the body element.
     document.body.appendChild(hasClone);
@@ -297,39 +298,61 @@ var __webpack_exports__ = {};
     element.style.top = hasSharerY + 'px';
   };
 
+  // Begin setting up events.
+
   // Get JS Content and return if not set.
   var jsContent = HAS.content;
   if ('' === jsContent) {
     return;
   }
 
-  // Get all elements matching jsContent. Return if nothing is found.
+  // Get all elements matching jsContent. Set up events.
   var elements = document.querySelectorAll(jsContent);
   if (null !== elements) {
+    /**
+     * Handle touch/click events for select (mouseup) events.
+     *
+     * @param {event} event The original event.
+     */
+    var hasHandleSelectEvents = function hasHandleSelectEvents(event) {
+      var _elementParent$datase, _elementParent$datase2, _elementParent$datase3;
+      // Remove any visible elements.
+      hasRemoveVisibleElements();
+
+      // Get selection.
+      var selection = document.defaultView.getSelection();
+
+      // Get the selected text.
+      var selectedText = selection.toString().trim();
+      if ('' === selectedText) {
+        return;
+      }
+
+      // Exit early if the element selection is the same (works like a toggle).
+      if (selection === currentElement) {
+        currentElement = null;
+        return;
+      }
+      currentElement = selection;
+
+      // Get closest parent container.
+      var elementParent = event.target.closest('.has-content-area');
+
+      // Get data attributes.
+      var href = (_elementParent$datase = elementParent.dataset.url) !== null && _elementParent$datase !== void 0 ? _elementParent$datase : window.location.href;
+      var title = (_elementParent$datase2 = elementParent.dataset.title) !== null && _elementParent$datase2 !== void 0 ? _elementParent$datase2 : document.title;
+      var hashtags = (_elementParent$datase3 = elementParent.dataset.hashtags) !== null && _elementParent$datase3 !== void 0 ? _elementParent$datase3 : '';
+
+      // Display Highlight and Share.
+      hasDisplay(selectedText, title, href, hashtags, 'selection');
+    };
     // Loop through elements and set up mouseup event.
     elements.forEach(function (element) {
+      // element.addEventListener( 'touchcancel', ( event ) => {  // This partially works on Android, but only for the first word. Selections do not work. Android is currently not supported. iOS still works.
+      // 	hasHandleSelectEvents( event );
+      // } );
       element.addEventListener('mouseup', function (event) {
-        var _elementParent$datase, _elementParent$datase2, _elementParent$datase3;
-        // Remove any visible elements.
-        hasRemoveVisibleElements();
-
-        // Get selected text.
-        var selection = document.defaultView.getSelection();
-        var selectedText = selection.toString().trim();
-        if ('' === selectedText) {
-          return;
-        }
-
-        // Get closest parent container.
-        var elementParent = event.target.closest('.has-content-area');
-
-        // Get data attributes.
-        var href = (_elementParent$datase = elementParent.dataset.url) !== null && _elementParent$datase !== void 0 ? _elementParent$datase : window.location.href;
-        var title = (_elementParent$datase2 = elementParent.dataset.title) !== null && _elementParent$datase2 !== void 0 ? _elementParent$datase2 : document.title;
-        var hashtags = (_elementParent$datase3 = elementParent.dataset.hashtags) !== null && _elementParent$datase3 !== void 0 ? _elementParent$datase3 : '';
-
-        // Display Highlight and Share.
-        hasDisplay(selectedText, title, href, hashtags, 'selection');
+        hasHandleSelectEvents(event);
       });
     });
   }
@@ -337,28 +360,49 @@ var __webpack_exports__ = {};
   // Get inline elements.
   var inlineElements = document.querySelectorAll('.has-inline-text');
   if (null !== inlineElements) {
+    /**
+     * Handle touch/click events for inline highlighting.
+     *
+     * @param {event}   event   The original event.
+     * @param {element} element The element the event happened on.
+     */
+    var hasHandleInlineEvents = function hasHandleInlineEvents(event, element) {
+      var _elementParent$datase4, _elementParent$datase5, _elementParent$datase6;
+      // Remove any visible elements.
+      hasRemoveVisibleElements();
+
+      // Exit early if the element is already visible (works like a toggle).
+      if (element === currentElement) {
+        currentElement = null;
+        return;
+      }
+      currentElement = element;
+
+      // Get selected text.
+      var selectedText = element.innerText.trim();
+      if ('' === selectedText) {
+        return;
+      }
+
+      // Get closest parent container.
+      var elementParent = event.target.closest('.has-content-area');
+
+      // Get data attributes.
+      var href = (_elementParent$datase4 = elementParent.dataset.url) !== null && _elementParent$datase4 !== void 0 ? _elementParent$datase4 : window.location.href;
+      var title = (_elementParent$datase5 = elementParent.dataset.title) !== null && _elementParent$datase5 !== void 0 ? _elementParent$datase5 : document.title;
+      var hashtags = (_elementParent$datase6 = elementParent.dataset.hashtags) !== null && _elementParent$datase6 !== void 0 ? _elementParent$datase6 : '';
+
+      // Display Highlight and Share.
+      hasDisplay(selectedText, title, href, hashtags, 'inline', element);
+    };
     inlineElements.forEach(function (element) {
+      // For mobile.
+      // element.addEventListener( 'touchend', ( event ) => {
+      // 	hasHandleInlineEvents( event, element );
+      // } );
+      // For mouse and trackpad.
       element.addEventListener('click', function (event) {
-        var _elementParent$datase4, _elementParent$datase5, _elementParent$datase6;
-        // Remove any visible elements.
-        hasRemoveVisibleElements();
-
-        // Get selected text.
-        var selectedText = element.innerText.trim();
-        if ('' === selectedText) {
-          return;
-        }
-
-        // Get closest parent container.
-        var elementParent = event.target.closest('.has-content-area');
-
-        // Get data attributes.
-        var href = (_elementParent$datase4 = elementParent.dataset.url) !== null && _elementParent$datase4 !== void 0 ? _elementParent$datase4 : window.location.href;
-        var title = (_elementParent$datase5 = elementParent.dataset.title) !== null && _elementParent$datase5 !== void 0 ? _elementParent$datase5 : document.title;
-        var hashtags = (_elementParent$datase6 = elementParent.dataset.hashtags) !== null && _elementParent$datase6 !== void 0 ? _elementParent$datase6 : '';
-
-        // Display Highlight and Share.
-        hasDisplay(selectedText, title, href, hashtags, 'inline', element);
+        hasHandleInlineEvents(event, element);
       });
     });
   }
@@ -373,6 +417,14 @@ var __webpack_exports__ = {};
 
         // Remove any visible elements.
         hasRemoveVisibleElements();
+        console.log(currentElement);
+
+        // Exit early if the element is already visible (works like a toggle).
+        if (element === currentElement) {
+          currentElement = null;
+          return;
+        }
+        currentElement = element;
 
         // Get parent element of prompt.
         var ctsTextElement = element.parentNode.querySelector('.has-click-to-share-text');

@@ -8,6 +8,8 @@
 	const prefix = HAS.prefix;
 	const suffix = HAS.suffix;
 
+	let currentElement = null;
+
 	// Main HAS container in the footer. If ".highlight-and-share-wrapper" doesn't have this parent, it is a clone.
 	const hasContainer = document.querySelector( '#has-highlight-and-share' );
 	if ( null === hasContainer ) {
@@ -62,7 +64,7 @@
 	 *
 	 */
 	const hasVariableReplace = ( element, url, title, text, hashtags ) => {
-		const query = '.has_whatsapp, .has_facebook, .has_twitter, .has_copy, .has_email, .has_reddit, .has_telegram, .has_signal, .has_vk';
+		const query = '.has_whatsapp, .has_facebook, .has_twitter, .has_copy, .has_email, .has_reddit, .has_telegram, .has_linkedin, .has_xing, .has_signal, .has_vk';
 		const queryElements = element.querySelectorAll( query );
 		if ( null === queryElements ) {
 			return element;
@@ -126,7 +128,7 @@
 		hasClone.style.height = 'auto';
 		hasClone.style[ 'z-index' ] = 10000;
 
-		hasVariableReplace( hasClone, href, title, text, hashtags );
+		hasVariableReplace( hasClone, href, title, text, hashtags ); // Replaced by reference.
 
 		// Add to the end of the body element.
 		document.body.appendChild( hasClone );
@@ -292,39 +294,61 @@
 		element.style.top = hasSharerY + 'px';
 	};
 
+	// Begin setting up events.
+
 	// Get JS Content and return if not set.
 	const jsContent = HAS.content;
 	if ( '' === jsContent ) {
 		return;
 	}
 
-	// Get all elements matching jsContent. Return if nothing is found.
+	// Get all elements matching jsContent. Set up events.
 	const elements = document.querySelectorAll( jsContent );
 	if ( null !== elements ) {
+		/**
+		 * Handle touch/click events for select (mouseup) events.
+		 *
+		 * @param {event} event The original event.
+		 */
+		const hasHandleSelectEvents = ( event ) => {
+			// Remove any visible elements.
+			hasRemoveVisibleElements();
+
+			// Get selection.
+			const selection = document.defaultView.getSelection();
+
+			// Get the selected text.
+			const selectedText = selection.toString().trim();
+
+			if ( '' === selectedText ) {
+				return;
+			}
+
+			// Exit early if the element selection is the same (works like a toggle).
+			if ( selection === currentElement ) {
+				currentElement = null;
+				return;
+			}
+			currentElement = selection;
+
+			// Get closest parent container.
+			const elementParent = event.target.closest( '.has-content-area' );
+
+			// Get data attributes.
+			const href = elementParent.dataset.url ?? window.location.href;
+			const title = elementParent.dataset.title ?? document.title;
+			const hashtags = elementParent.dataset.hashtags ?? '';
+
+			// Display Highlight and Share.
+			hasDisplay( selectedText, title, href, hashtags, 'selection' );
+		};
 		// Loop through elements and set up mouseup event.
 		elements.forEach( ( element ) => {
+			// element.addEventListener( 'touchcancel', ( event ) => {  // This partially works on Android, but only for the first word. Selections do not work. Android is currently not supported. iOS still works.
+			// 	hasHandleSelectEvents( event );
+			// } );
 			element.addEventListener( 'mouseup', ( event ) => {
-			// Remove any visible elements.
-				hasRemoveVisibleElements();
-
-				// Get selected text.
-				const selection = document.defaultView.getSelection();
-				const selectedText = selection.toString().trim();
-
-				if ( '' === selectedText ) {
-					return;
-				}
-
-				// Get closest parent container.
-				const elementParent = event.target.closest( '.has-content-area' );
-
-				// Get data attributes.
-				const href = elementParent.dataset.url ?? window.location.href;
-				const title = elementParent.dataset.title ?? document.title;
-				const hashtags = elementParent.dataset.hashtags ?? '';
-
-				// Display Highlight and Share.
-				hasDisplay( selectedText, title, href, hashtags, 'selection' );
+				hasHandleSelectEvents( event );
 			} );
 		} );
 	}
@@ -332,28 +356,49 @@
 	// Get inline elements.
 	const inlineElements = document.querySelectorAll( '.has-inline-text' );
 	if ( null !== inlineElements ) {
-		inlineElements.forEach( ( element ) => {
-			element.addEventListener( 'click', ( event ) => {
+		/**
+		 * Handle touch/click events for inline highlighting.
+		 *
+		 * @param {event}   event   The original event.
+		 * @param {element} element The element the event happened on.
+		 */
+		const hasHandleInlineEvents = ( event, element ) => {
 			// Remove any visible elements.
-				hasRemoveVisibleElements();
+			hasRemoveVisibleElements();
 
-				// Get selected text.
-				const selectedText = element.innerText.trim();
+			// Exit early if the element is already visible (works like a toggle).
+			if ( element === currentElement ) {
+				currentElement = null;
+				return;
+			}
+			currentElement = element;
 
-				if ( '' === selectedText ) {
-					return;
-				}
+			// Get selected text.
+			const selectedText = element.innerText.trim();
 
-				// Get closest parent container.
-				const elementParent = event.target.closest( '.has-content-area' );
+			if ( '' === selectedText ) {
+				return;
+			}
 
-				// Get data attributes.
-				const href = elementParent.dataset.url ?? window.location.href;
-				const title = elementParent.dataset.title ?? document.title;
-				const hashtags = elementParent.dataset.hashtags ?? '';
+			// Get closest parent container.
+			const elementParent = event.target.closest( '.has-content-area' );
 
-				// Display Highlight and Share.
-				hasDisplay( selectedText, title, href, hashtags, 'inline', element );
+			// Get data attributes.
+			const href = elementParent.dataset.url ?? window.location.href;
+			const title = elementParent.dataset.title ?? document.title;
+			const hashtags = elementParent.dataset.hashtags ?? '';
+
+			// Display Highlight and Share.
+			hasDisplay( selectedText, title, href, hashtags, 'inline', element );
+		};
+		inlineElements.forEach( ( element ) => {
+			// For mobile.
+			// element.addEventListener( 'touchend', ( event ) => {
+			// 	hasHandleInlineEvents( event, element );
+			// } );
+			// For mouse and trackpad.
+			element.addEventListener( 'click', ( event ) => {
+				hasHandleInlineEvents( event, element );
 			} );
 		} );
 	}
@@ -367,6 +412,14 @@
 
 				// Remove any visible elements.
 				hasRemoveVisibleElements();
+				console.log( currentElement );
+
+				// Exit early if the element is already visible (works like a toggle).
+				if ( element === currentElement ) {
+					currentElement = null;
+					return;
+				}
+				currentElement = element;
 
 				// Get parent element of prompt.
 				const ctsTextElement = element.parentNode.querySelector( '.has-click-to-share-text' );
