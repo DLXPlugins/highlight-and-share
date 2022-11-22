@@ -33,7 +33,7 @@ class Blocks {
 			add_action( 'init', array( $self, 'register_block' ) );
 			add_action( 'enqueue_block_editor_assets', array( $self, 'register_block_assets' ) );
 			add_action( 'enqueue_block_assets', array( $self, 'enqueue_frontend_assets' ) );
-			// add_action( 'wp_enqueue_scripts', array( $self, 'register_font_scripts' ) );
+			add_action( 'wp_enqueue_scripts', array( $self, 'register_font_scripts' ) );
 			add_action( 'admin_enqueue_scripts', array( $self, 'register_font_scripts' ) );
 		}
 		return $self;
