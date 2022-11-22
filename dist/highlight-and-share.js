@@ -328,7 +328,7 @@ var __webpack_exports__ = {};
         return;
       }
 
-      // Exit early if the element selection is the same (works like a toggle).
+      // Exit early if the element selection is the same and the sharing interface is visible (works like a toggle).
       if (selection === currentElement) {
         currentElement = null;
         return;
@@ -417,7 +417,6 @@ var __webpack_exports__ = {};
 
         // Remove any visible elements.
         hasRemoveVisibleElements();
-        console.log(currentElement);
 
         // Exit early if the element is already visible (works like a toggle).
         if (element === currentElement) {
@@ -430,7 +429,7 @@ var __webpack_exports__ = {};
         var ctsTextElement = element.parentNode.querySelector('.has-click-to-share-text');
 
         // Get text.
-        var selectedText = ctsTextElement.innerText.trim();
+        var selectedText = ctsTextElement.getAttribute('data-text-full');
 
         // Get closest parent container.
         var elementParent = element.closest('.has-content-area');

@@ -324,7 +324,7 @@
 				return;
 			}
 
-			// Exit early if the element selection is the same (works like a toggle).
+			// Exit early if the element selection is the same and the sharing interface is visible (works like a toggle).
 			if ( selection === currentElement ) {
 				currentElement = null;
 				return;
@@ -412,7 +412,6 @@
 
 				// Remove any visible elements.
 				hasRemoveVisibleElements();
-				console.log( currentElement );
 
 				// Exit early if the element is already visible (works like a toggle).
 				if ( element === currentElement ) {
@@ -425,7 +424,7 @@
 				const ctsTextElement = element.parentNode.querySelector( '.has-click-to-share-text' );
 
 				// Get text.
-				const selectedText = ctsTextElement.innerText.trim();
+				const selectedText = ctsTextElement.getAttribute( 'data-text-full' );
 
 				// Get closest parent container.
 				const elementParent = element.closest( '.has-content-area' );

@@ -389,7 +389,7 @@ class Blocks {
 		?>
 		<div class='<?php echo esc_attr( implode( ' ', $container_classes ) ); ?>' id="<?php echo esc_attr( $attributes['uniqueId'] ); ?>">
 			<div class="has-click-to-share-wrapper">
-				<div class="has-click-to-share-text">
+				<div class="has-click-to-share-text" data-text-full="<?php echo esc_attr( esc_html( wp_strip_all_tags( $attributes['shareText'] ) ) ); ?>">
 					<?php echo wp_kses_post( $attributes['shareText'] ); ?>
 				</div>
 				<div class='has-click-to-share-cta'>
