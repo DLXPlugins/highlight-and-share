@@ -239,7 +239,7 @@ class Functions {
 					}
 					if ( $cts_font ) {
 						foreach ( $devices as $device ) {
-							$font      = $quote_font[ $device ];
+							$font      = $cts_font[ $device ];
 							$font_slug = $font['fontFamilySlug'];
 							if ( ! isset( $fonts[ $font_slug ] ) ) {
 								$fonts[ $font_slug ] = $font;
