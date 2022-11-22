@@ -377,12 +377,10 @@ class Frontend {
 							border-bottom-right-radius: <?php echo esc_attr( $theme_options['icon_border_radius']['attrBottom'] . $theme_options['icon_border_radius']['attrUnit'] ); ?> !important;
 							border-bottom-left-radius: <?php echo esc_attr( $theme_options['icon_border_radius']['attrLeft'] . $theme_options['icon_border_radius']['attrUnit'] ); ?> !important;
 						}
-					</style>
 					<?php
 				endif;
 				if ( 'horizontal' === $theme_options['orientation'] ) :
 					?>
-					<style>
 						.highlight-and-share-wrapper div {
 							margin-right: <?php echo esc_attr( $theme_options['icon_gap'] ); ?>px !important;
 						}
@@ -470,7 +468,7 @@ class Frontend {
 
 		// Get wrapper opening HTML.
 		$html = sprintf(
-			'<div class="%s">',
+			'<div id="has-highlight-and-share"><div class="%s">',
 			esc_attr( implode( ' ', $has_container_classes ) )
 		);
 
@@ -533,7 +531,7 @@ class Frontend {
 				}
 			}
 		}
-		$html .= '</div><!-- #highlight-and-share-wrapper -->';
+		$html .= '</div><!-- #highlight-and-share-wrapper --><!-- #has-highlight-and-share -->';
 
 		// Cache HTML.
 		wp_cache_set( 'has_frontend_html', $html, 'highlight-and-share', HOUR_IN_SECONDS );

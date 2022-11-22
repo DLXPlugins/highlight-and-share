@@ -4,12 +4,10 @@
 	vertical-align: middle;
 }
 .highlight-and-share-wrapper:not(.has-admin-theme-preview-list) {
-    // display: none;
-    // width: 0;
-    // height: 0;
-	height: auto;
-	display: inline-flex;
-
+    display: none;
+    width: 0;
+    height: 0;
+	
 	& > div {
 		display: inline-flex !important;
 		justify-content: center;

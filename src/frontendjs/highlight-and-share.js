@@ -3,6 +3,25 @@
 
 	// Get localized var.
 	const HAS = highlight_and_share;
+
+	// Set variables.
+	const prefix = HAS.prefix;
+	const suffix = HAS.suffix;
+
+	// Main HAS container in the footer. If ".highlight-and-share-wrapper" doesn't have this parent, it is a clone.
+	const hasContainer = document.querySelector( '#has-highlight-and-share' );
+	if ( null === hasContainer ) {
+		return;
+	}
+
+	// Get highlight and share container dimensions.
+	const hasSharingIconsContainer = hasContainer.querySelector( '.highlight-and-share-wrapper' );
+
+	// Populate container dimensions/width/height.
+	const rect = hasSharingIconsContainer.getBoundingClientRect();
+	const hasSharerWidth = rect.width;
+	const hasSharerHeight = rect.height;
+
 	/**
 	 * Determine if an element is visible or not.
 	 *
@@ -22,7 +41,8 @@
 		if ( null !== hasContainers ) {
 			// Remove visible containers from dom.
 			hasContainers.forEach( ( container ) => {
-				if ( isVisible( container ) ) {
+				// If the container is a clone, remove it. (doesn't have the parent "#has-highlight-and-share").
+				if ( null === container.closest( '#has-highlight-and-share' ) ) {
 					container.remove();
 				}
 			} );
@@ -30,16 +50,65 @@
 	};
 
 	/**
+	 * Replace attributes of element and child elements.
+	 *
+	 * @param {Element} element  The element to replace attributes on with child social networks.
+	 * @param {string}  url      The URL of the post/page.
+	 * @param {string}  title    The title of the post/page.
+	 * @param {string}  text     Text that is selected or to be shared
+	 * @param {string}  hashtags Hashtags present on the post/page.
+	 *
+	 * @return {Element} The element with replaced attributes.
+	 *
+	 */
+	const hasVariableReplace = ( element, url, title, text, hashtags ) => {
+		const query = '.has_whatsapp, .has_facebook, .has_twitter, .has_copy, .has_email, .has_reddit, .has_telegram, .has_signal, .has_vk';
+		const queryElements = element.querySelectorAll( query );
+		if ( null === queryElements ) {
+			return element;
+		}
+
+		// Loop through elements.
+		queryElements.forEach( ( el ) => {
+			// Replace attributes in URL.
+			const elementAnchor = el.querySelector( 'a' );
+			let elementUrl = elementAnchor.getAttribute( 'href' );
+			elementUrl = elementUrl.replace( '%url%', encodeURIComponent( url ) );
+			elementUrl = elementUrl.replace( '%username%', encodeURIComponent( HAS.twitter_username ) );
+			elementUrl = elementUrl.replace( '%title%', encodeURIComponent( title ) );
+			elementUrl = elementUrl.replace( '%text%', encodeURIComponent( text ) );
+			elementUrl = elementUrl.replace( '%hashtags%', encodeURIComponent( hashtags ) );
+			elementUrl = elementUrl.replace( '%prefix%', encodeURIComponent( prefix ) );
+			elementUrl = elementUrl.replace( '%suffix%', encodeURIComponent( suffix ) );
+			elementAnchor.setAttribute( 'href', elementUrl );
+
+			// Replace the title data attribute.
+			let title_attr = el.getAttribute( 'data-title' );
+			if ( null !== title_attr ) {
+				title_attr = title_attr.replace( '%title%', encodeURIComponent( title ) );
+				el.setAttribute( 'data-title', title_attr );
+			}
+
+			// Replace the url data attribute.
+			let url_attr = el.getAttribute( 'data-url' );
+			if ( null !== url_attr ) {
+				url_attr = url_attr.replace( '%url%', encodeURIComponent( url ) );
+				el.setAttribute( 'data-url', url_attr );
+			}
+		} );
+	};
+
+	/**
 	 * Display the Highlight and Share Interface.
 	 *
-	 * @param {string} text     Text that is selected or to be shared.
-	 * @param {string} title    The title of the post/page.
-	 * @param {string} href     The URL of the post/page.
-	 * @param {string} hashtags Hashtags present on the post/page.
-	 * @param {event}  event    The original event.
+	 * @param {string}  text           Text that is selected or to be shared.
+	 * @param {string}  title          The title of the post/page.
+	 * @param {string}  href           The URL of the post/page.
+	 * @param {string}  hashtags       Hashtags present on the post/page.
+	 * @param {string}  type           The type of display (selection|inline|cta).
+	 * @param {element} triggerElement The event initiator (null if no trigger element).
 	 */
-	const hasDisplay = ( text, title, href, hashtags, event ) => {
-
+	const hasDisplay = ( text, title, href, hashtags, type, triggerElement = null ) => {
 		// Do not show the interface if nothing is enabled.
 		if ( false === highlight_and_share.show_twitter && false === highlight_and_share.show_facebook && false === highlight_and_share.show_linkedin && false === highlight_and_share.show_ok && false === highlight_and_share.show_vk && false === highlight_and_share.show_pinterest && false === highlight_and_share.show_email ) {
 			return;
@@ -48,48 +117,274 @@
 		// Remove any existing visible interfaces/containers.
 		hasRemoveVisibleElements();
 
-		
+		// Get interface clone.
+		const hasClone = hasContainer.querySelector( '.highlight-and-share-wrapper' ).cloneNode( true );
+		// Style the interface via inline styles and position.
+		hasClone.style.display = 'block';
+		hasClone.style.position = 'absolute';
+		hasClone.style.width = 'auto';
+		hasClone.style.height = 'auto';
+		hasClone.style[ 'z-index' ] = 10000;
+
+		hasVariableReplace( hasClone, href, title, text, hashtags );
+
+		// Add to the end of the body element.
+		document.body.appendChild( hasClone );
+		switch ( type ) {
+			case 'selection':
+				// Position the interface.
+				setHasContainerPositionSelection( hasClone );
+				break;
+			case 'inline':
+				// Position the interface.
+				setHasContainerPositionInline( hasClone, triggerElement );
+				break;
+			case 'cta':
+				// Position the interface.
+				setHasContainerPositionCta( hasClone, triggerElement );
+				break;
+		}
 	};
+
+	/**
+	 * Set the Social Sharer container position for the current selection. This needs to run after cloned element has been appended to the dom.
+	 *
+	 * @param {element} element The cloned social sharer element.
+	 */
+	const setHasContainerPositionSelection = ( element ) => {
+		// Get the dimensions of the window.
+		const windowWidth = window.innerWidth;
+		const windowHeight = window.innerHeight;
+
+		// Get the dimensions and location of the selection.
+		const selectionRect = window.getSelection().getRangeAt( 0 ).getBoundingClientRect();
+		const selectionTop = selectionRect.top; // top position relative to view port.
+		const selectionLeft = selectionRect.left; // left position relative to view port.
+		const selectionWidth = selectionRect.width;
+		const selectionHeight = selectionRect.height;
+
+		// Set container width to smaller than window width if larger.
+		if ( element.offsetWidth > windowWidth ) {
+			element.style.maxWidth = ( windowWidth - 20 ) + 'px';
+		}
+
+		// Get the dimensions of the click to share container.
+		const hasCloneRect = element.getBoundingClientRect();
+		const hasCloneWidth = hasCloneRect.width;
+		const hasCloneHeight = hasCloneRect.height;
+
+		// Get the X position of where the HAS Sharer inteface should be displayed.
+		const hasSharerX = selectionLeft + window.scrollX + ( selectionWidth / 2 ) - ( hasCloneWidth / 2 );
+		// Get the Y position of where the HAS Sharer inteface should be displayed.
+		const hasSharerY = ( selectionTop + window.scrollY ) - hasCloneHeight - 15;
+
+		// Determine if hasSharerX is outside of view.
+		if ( hasSharerX < 0 ) {
+			// If so, set to 0.
+			element.style.left = '15px';
+		} else if ( hasSharerX + hasSharerWidth > windowWidth ) {
+			// If so, set to windowWidth - hasSharerWidth.
+			element.style.right = '15px';
+		} else {
+			// Otherwise, set to hasSharerX.
+			element.style.left = hasSharerX + 'px';
+		}
+
+		// Set the left,top CSS in the clone.
+		element.style.top = hasSharerY + 'px';
+	};
+
+	/**
+	 * Set the Social Sharer container position for the inline highlighter. This needs to run after cloned element has been appended to the dom.
+	 *
+	 * @param {element} element        The cloned social sharer element.
+	 * @param {element} triggerElement The event initiator (null if no trigger element).
+	 */
+	const setHasContainerPositionInline = ( element, triggerElement ) => {
+		// Get the dimensions of the window.
+		const windowWidth = window.innerWidth;
+		const windowHeight = window.innerHeight;
+
+		// Get the dimensions and location of the selection.
+		const inlineRect = triggerElement.getBoundingClientRect();
+		const inlineTop = inlineRect.top; // top position relative to view port.
+		const inlineLeft = inlineRect.left; // left position relative to view port.
+		const inlineWidth = inlineRect.width;
+		const inlineHeight = inlineRect.height;
+
+		// Set container width to smaller than window width if larger.
+		if ( element.offsetWidth > windowWidth ) {
+			element.style.maxWidth = ( windowWidth - 20 ) + 'px';
+		}
+
+		// Get the dimensions of the click to share container.
+		const hasCloneRect = element.getBoundingClientRect();
+		const hasCloneWidth = hasCloneRect.width;
+		const hasCloneHeight = hasCloneRect.height;
+
+		// Get the X position of where the HAS Sharer inteface should be displayed.
+		const hasSharerX = inlineLeft + window.scrollX + ( inlineWidth / 2 ) - ( hasCloneWidth / 2 );
+		// Get the Y position of where the HAS Sharer inteface should be displayed.
+		const hasSharerY = ( inlineTop + window.scrollY ) - hasCloneHeight - 15;
+
+		// Determine if hasSharerX is outside of view.
+		if ( hasSharerX < 0 ) {
+			// If so, set to 0.
+			element.style.left = '15px';
+		} else if ( hasSharerX + hasSharerWidth > windowWidth ) {
+			// If so, set to windowWidth - hasSharerWidth.
+			element.style.right = '15px';
+		} else {
+			// Otherwise, set to hasSharerX.
+			element.style.left = hasSharerX + 'px';
+		}
+
+		// Set the left,top CSS in the clone.
+		element.style.top = hasSharerY + 'px';
+	};
+
+	/**
+	 * Set the Social Sharer container position for the inline highlighter. This needs to run after cloned element has been appended to the dom.
+	 *
+	 * @param {element} element        The cloned social sharer element.
+	 * @param {element} triggerElement The event initiator (null if no trigger element).
+	 */
+	const setHasContainerPositionCta = ( element, triggerElement ) => {
+		// Get the dimensions of the window.
+		const windowWidth = window.innerWidth;
+		const windowHeight = window.innerHeight;
+
+		// Get the dimensions and location of the selection.
+		const ctaRect = triggerElement.getBoundingClientRect();
+		const ctaTop = ctaRect.top; // top position relative to view port.
+		const ctaLeft = ctaRect.left; // left position relative to view port.
+		const ctaWidth = ctaRect.width;
+		const ctaHeight = ctaRect.height;
+
+		// Set container width to smaller than window width if larger.
+		if ( element.offsetWidth > windowWidth ) {
+			element.style.maxWidth = ( windowWidth - 20 ) + 'px';
+		}
+
+		// Get the dimensions of the click to share container.
+		const hasCloneRect = element.getBoundingClientRect();
+		const hasCloneWidth = hasCloneRect.width;
+		const hasCloneHeight = hasCloneRect.height;
+
+		// Get the X position of where the HAS Sharer inteface should be displayed.
+		const hasSharerX = ctaLeft + window.scrollX + ( ctaWidth / 2 ) - ( hasCloneWidth / 2 );
+		// Get the Y position of where the HAS Sharer inteface should be displayed.
+		const hasSharerY = ( ctaTop + window.scrollY ) - hasCloneHeight - 15;
+
+		// Determine if hasSharerX is outside of view.
+		if ( hasSharerX < 0 ) {
+			// If so, set to 0.
+			element.style.left = '15px';
+		} else if ( hasSharerX + hasSharerWidth > windowWidth ) {
+			// If so, set to windowWidth - hasSharerWidth.
+			element.style.right = '15px';
+		} else {
+			// Otherwise, set to hasSharerX.
+			element.style.left = hasSharerX + 'px';
+		}
+
+		// Set the left,top CSS in the clone.
+		element.style.top = hasSharerY + 'px';
+	};
+
 	// Get JS Content and return if not set.
 	const jsContent = HAS.content;
 	if ( '' === jsContent ) {
 		return;
 	}
 
-	// Set variables.
-	const prefix = HAS.prefix;
-	const suffix = HAS.suffix;
-
 	// Get all elements matching jsContent. Return if nothing is found.
 	const elements = document.querySelectorAll( jsContent );
-	if ( null === elements ) {
-		return;
+	if ( null !== elements ) {
+		// Loop through elements and set up mouseup event.
+		elements.forEach( ( element ) => {
+			element.addEventListener( 'mouseup', ( event ) => {
+			// Remove any visible elements.
+				hasRemoveVisibleElements();
+
+				// Get selected text.
+				const selection = document.defaultView.getSelection();
+				const selectedText = selection.toString().trim();
+
+				if ( '' === selectedText ) {
+					return;
+				}
+
+				// Get closest parent container.
+				const elementParent = event.target.closest( '.has-content-area' );
+
+				// Get data attributes.
+				const href = elementParent.dataset.url ?? window.location.href;
+				const title = elementParent.dataset.title ?? document.title;
+				const hashtags = elementParent.dataset.hashtags ?? '';
+
+				// Display Highlight and Share.
+				hasDisplay( selectedText, title, href, hashtags, 'selection' );
+			} );
+		} );
 	}
 
-	// Loop through elements and set up mouseup event.
-	elements.forEach( ( element ) => {
-		element.addEventListener( 'mouseup', ( event ) => {
+	// Get inline elements.
+	const inlineElements = document.querySelectorAll( '.has-inline-text' );
+	if ( null !== inlineElements ) {
+		inlineElements.forEach( ( element ) => {
+			element.addEventListener( 'click', ( event ) => {
 			// Remove any visible elements.
-			hasRemoveVisibleElements();
+				hasRemoveVisibleElements();
 
-			// Get selected text.
-			const selection = window.getSelection();
-			const selectedText = selection.toString().trim();
+				// Get selected text.
+				const selectedText = element.innerText.trim();
 
-			if ( '' === selectedText ) {
-				return;
-			}
+				if ( '' === selectedText ) {
+					return;
+				}
 
-			// Get closest parent container.
-			const elementParent = event.target.closest( '.has-content-area' );
+				// Get closest parent container.
+				const elementParent = event.target.closest( '.has-content-area' );
 
-			// Get data attributes.
-			const href = elementParent.dataset.url ?? window.location.href;
-			const title = elementParent.dataset.title ?? document.title;
-			const hashtags = elementParent.dataset.hashtags ?? '';
+				// Get data attributes.
+				const href = elementParent.dataset.url ?? window.location.href;
+				const title = elementParent.dataset.title ?? document.title;
+				const hashtags = elementParent.dataset.hashtags ?? '';
 
-			// Display Highlight and Share.
-			hasDisplay( selectedText, title, href, hashtags, event );
+				// Display Highlight and Share.
+				hasDisplay( selectedText, title, href, hashtags, 'inline', element );
+			} );
 		} );
-	} );
+	}
+
+	// Get click to share block elements.
+	const ctsElements = document.querySelectorAll( '.has-click-prompt' );
+	if ( null !== ctsElements ) {
+		ctsElements.forEach( ( element ) => {
+			element.addEventListener( 'click', ( event ) => {
+				event.preventDefault();
+
+				// Remove any visible elements.
+				hasRemoveVisibleElements();
+
+				// Get parent element of prompt.
+				const ctsTextElement = element.parentNode.querySelector( '.has-click-to-share-text' );
+
+				// Get text.
+				const selectedText = ctsTextElement.innerText.trim();
+
+				// Get closest parent container.
+				const elementParent = element.closest( '.has-content-area' );
+
+				// Get data attributes.
+				const href = elementParent.dataset.url ?? window.location.href;
+				const title = elementParent.dataset.title ?? document.title;
+				const hashtags = elementParent.dataset.hashtags ?? '';
+
+				// Display Highlight and Share.
+				hasDisplay( selectedText, title, href, hashtags, 'cta', element.closest( '.has-click-to-share-wrapper' ) );
+			} );
+		} );
+	}
 }() );

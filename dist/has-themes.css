@@ -8,8 +8,9 @@
 }
 
 .highlight-and-share-wrapper:not(.has-admin-theme-preview-list) {
-  height: auto;
-  display: inline-flex;
+  display: none;
+  width: 0;
+  height: 0;
 }
 .highlight-and-share-wrapper:not(.has-admin-theme-preview-list) > div {
   display: inline-flex !important;
