@@ -154,7 +154,7 @@
 		}
 
 		// Setup event handlers for links (for desktop).
-		const queryElements = document.querySelector( 'body' ).querySelectorAll( '.has_whatsapp, .has_facebook, .has_twitter, .has_telegram, .has_linkedin, .has_xing' );
+		const queryElements = document.querySelector( 'body' ).querySelectorAll( '.has_whatsapp, .has_facebook, .has_twitter, .has_telegram, .has_linkedin, .has_xing, .has_reddit' );
 		if ( null !== queryElements ) {
 			// Add click listeners to visible elements.
 			queryElements.forEach( ( el ) => {
@@ -166,14 +166,15 @@
 						const url = el.querySelector( 'a' ).getAttribute( 'href' );
 
 						// Set dataLayer event for GTM.
-						if ( 'undefined' !== typeof blah ) {
+						if ( 'undefined' !== typeof dataLayer ) {
 							// eslint-disable-next-line no-undef
 							dataLayer.push( {
 								event: 'highlight-and-share',
 								hasShareText: text,
 								hasSharePostUrl: href,
 								hasSharePostTitle: title,
-								hasShareType: type,
+								hasShareType: type, /* selection|cta|inline */
+								hasSocialNetwork: el.getAttribute( 'data-type' ),
 							} );
 						}
 
@@ -193,6 +194,19 @@
 						const copyBlob = new Blob( [ text ], { type: 'text/plain' } );
 						const data = [ new ClipboardItem( { [ copyBlob.type ]: copyBlob } ) ];
 						navigator.clipboard.write( data );
+
+						// Set dataLayer event for GTM.
+						if ( 'undefined' !== typeof dataLayer ) {
+							// eslint-disable-next-line no-undef
+							dataLayer.push( {
+								event: 'highlight-and-share',
+								hasShareText: text,
+								hasSharePostUrl: href,
+								hasSharePostTitle: title,
+								hasShareType: type, /* selection|cta|inline */
+								hasSocialNetwork: 'copy',
+							} );
+						}
 					} );
 				}
 			} );

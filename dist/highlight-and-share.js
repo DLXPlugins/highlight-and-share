@@ -158,7 +158,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
 
     // Setup event handlers for links (for desktop).
-    var queryElements = document.querySelector('body').querySelectorAll('.has_whatsapp, .has_facebook, .has_twitter, .has_telegram, .has_linkedin, .has_xing');
+    var queryElements = document.querySelector('body').querySelectorAll('.has_whatsapp, .has_facebook, .has_twitter, .has_telegram, .has_linkedin, .has_xing, .has_reddit');
     if (null !== queryElements) {
       // Add click listeners to visible elements.
       queryElements.forEach(function (el) {
@@ -170,14 +170,16 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             var url = el.querySelector('a').getAttribute('href');
 
             // Set dataLayer event for GTM.
-            if ('undefined' !== typeof blah) {
+            if ('undefined' !== typeof dataLayer) {
               // eslint-disable-next-line no-undef
               dataLayer.push({
                 event: 'highlight-and-share',
                 hasShareText: text,
                 hasSharePostUrl: href,
                 hasSharePostTitle: title,
-                hasShareType: type
+                hasShareType: type,
+                /* selection|cta|inline */
+                hasSocialNetwork: el.getAttribute('data-type')
               });
             }
             window.open(url, 'Highlight and Share', 'width=575,height=430,toolbar=false,menubar=false,location=false,status=false');
@@ -198,6 +200,20 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             });
             var data = [new ClipboardItem(_defineProperty({}, copyBlob.type, copyBlob))];
             navigator.clipboard.write(data);
+
+            // Set dataLayer event for GTM.
+            if ('undefined' !== typeof dataLayer) {
+              // eslint-disable-next-line no-undef
+              dataLayer.push({
+                event: 'highlight-and-share',
+                hasShareText: text,
+                hasSharePostUrl: href,
+                hasSharePostTitle: title,
+                hasShareType: type,
+                /* selection|cta|inline */
+                hasSocialNetwork: 'copy'
+              });
+            }
           });
         }
       });
