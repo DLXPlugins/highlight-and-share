@@ -539,11 +539,12 @@
 			}
 
 			// Exit early if the element selection is the same and the sharing interface is visible (works like a toggle).
-			if ( selection === currentElement ) {
-				currentElement = null;
-				return;
-			}
-			currentElement = selection;
+			// Commented out as this causes jumps in state, unlike with regular toggles.
+			// if ( selection === currentElement ) {
+			// 	currentElement = null;
+			// 	return;
+			// }
+			// currentElement = selection;
 
 			// Get closest parent container.
 			const elementParent = event.target.closest( '.has-content-area' );
