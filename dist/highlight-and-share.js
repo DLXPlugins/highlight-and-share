@@ -133,6 +133,11 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     hasClone.style.width = 'auto';
     hasClone.style.height = 'auto';
     hasClone.style['z-index'] = 10000;
+
+    // Change to inline flex if vertical.
+    if (hasClone.classList.contains('orientation-vertical')) {
+      hasClone.style.display = 'inline-flex';
+    }
     hasVariableReplace(hasClone, href, title, text, hashtags); // Replaced by reference.
 
     // Add to the end of the body element.
@@ -216,28 +221,71 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     var hasCloneRect = element.getBoundingClientRect();
     var hasCloneWidth = hasCloneRect.width;
     var hasCloneHeight = hasCloneRect.height;
+    if (element.classList.contains('orientation-vertical')) {
+      /**
+       * Get Vertical position.
+       */
 
-    // Get the X position of where the HAS Sharer inteface should be displayed.
-    var hasSharerX = selectionLeft + window.scrollX + selectionWidth / 2 - hasCloneWidth / 2;
-    // Get the Y position of where the HAS Sharer inteface should be displayed.
-    var hasSharerY = selectionTop + window.scrollY - hasCloneHeight - 15;
+      // Get the X position of where the HAS Sharer inteface should be displayed.
+      var hasSharerX = selectionLeft + window.scrollX - (hasCloneWidth + 15);
+      // Get the Y position of where the HAS Sharer inteface should be displayed.
+      var hasSharerY = selectionTop + window.scrollY - hasCloneHeight / 2 + selectionHeight / 2;
+      element.classList.add('has-no-margin-bottom');
+      // If clone is outside of viewport, set width.
+      if (selectionTop + window.scrollY - hasCloneHeight / 2 < 0) {
+        element.style.display = 'grid';
+        element.style.gridTemplateColumns = '1fr 1fr';
 
-    // Determine if hasSharerX is outside of view.
-    element.classList.add('has-no-margin-bottom');
-    if (hasSharerX < 0) {
-      // If so, set to 0.
-      element.style.left = '15px';
-    } else if (hasSharerX + hasSharerWidth > windowWidth) {
-      // If so, set to windowWidth - hasSharerWidth.
-      element.style.right = '15px';
+        // Get new clone width dimensions.
+        var newCloneRect = element.getBoundingClientRect();
+
+        // calculate left/top position.
+        element.style.top = selectionTop + window.scrollY - newCloneRect.height / 2 + selectionHeight / 2 + 'px';
+        element.style.left = selectionLeft + window.scrollX - newCloneRect.width - 15 + 'px';
+
+        // Calculate top position.
+      } else if (selectionTop + window.scrollY + hasCloneHeight / 2 > windowHeight) {
+        element.style.display = 'grid';
+        element.style.gridTemplateColumns = '1fr 1fr';
+
+        // Get new clone width dimensions.
+        var _newCloneRect = element.getBoundingClientRect();
+
+        // calculate left/top position.
+        element.style.top = selectionTop + window.scrollY - _newCloneRect.height / 2 + selectionHeight / 2 + 'px';
+        element.style.left = selectionLeft + window.scrollX - _newCloneRect.width - 15 + 'px';
+      } else {
+        element.style.left = hasSharerX + 'px';
+        element.style.top = hasSharerY + 'px';
+        element.classList.remove('has-no-margin-bottom');
+      }
     } else {
-      // Otherwise, set to hasSharerX.
-      element.style.left = hasSharerX + 'px';
-      element.classList.remove('has-no-margin-bottom');
-    }
+      /**
+       * Get horizontal position.
+       */
 
-    // Set the left,top CSS in the clone.
-    element.style.top = hasSharerY + 'px';
+      // Get the X position of where the HAS Sharer inteface should be displayed.
+      var _hasSharerX = selectionLeft + window.scrollX + selectionWidth / 2 - hasCloneWidth / 2;
+      // Get the Y position of where the HAS Sharer inteface should be displayed.
+      var _hasSharerY = selectionTop + window.scrollY - hasCloneHeight - 15;
+
+      // Determine if hasSharerX is outside of view.
+      element.classList.add('has-no-margin-bottom');
+      if (_hasSharerX < 0) {
+        // If so, set to 0.
+        element.style.left = '15px';
+      } else if (_hasSharerX + hasSharerWidth > windowWidth) {
+        // If so, set to windowWidth - hasSharerWidth.
+        element.style.right = '15px';
+      } else {
+        // Otherwise, set to hasSharerX.
+        element.style.left = _hasSharerX + 'px';
+        element.classList.remove('has-no-margin-bottom');
+      }
+
+      // Set the left,top CSS in the clone.
+      element.style.top = _hasSharerY + 'px';
+    }
   };
 
   /**
@@ -262,28 +310,77 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     var hasCloneRect = element.getBoundingClientRect();
     var hasCloneWidth = hasCloneRect.width;
     var hasCloneHeight = hasCloneRect.height;
+    if (element.classList.contains('orientation-vertical')) {
+      /**
+       * Get Vertical position.
+       */
 
-    // Get the X position of where the HAS Sharer inteface should be displayed.
-    var hasSharerX = inlineLeft + window.scrollX + inlineWidth / 2 - hasCloneWidth / 2;
-    // Get the Y position of where the HAS Sharer inteface should be displayed.
-    var hasSharerY = inlineTop + window.scrollY - hasCloneHeight - 15;
+      // Get the X position of where the HAS Sharer inteface should be displayed.
+      var hasSharerX = inlineLeft + window.scrollX - (hasCloneWidth + 15);
+      // Get the Y position of where the HAS Sharer inteface should be displayed.
+      var hasSharerY = inlineTop + window.scrollY - hasCloneHeight / 2 + inlineHeight / 2;
+      element.classList.add('has-no-margin-bottom');
+      // If clone is outside of viewport, set width.
+      if (inlineTop + window.scrollY - hasCloneHeight / 2 < 0) {
+        element.style.display = 'grid';
+        element.style.gridTemplateColumns = '1fr 1fr';
 
-    // Determine if hasSharerX is outside of view.
-    element.classList.add('has-no-margin-bottom');
-    if (hasSharerX < 0) {
-      // If so, set to 0.
-      element.style.left = '15px';
-    } else if (hasSharerX + hasSharerWidth > windowWidth) {
-      // If so, set to windowWidth - hasSharerWidth.
-      element.style.right = '15px';
+        // Get new clone width dimensions.
+        var newCloneRect = element.getBoundingClientRect();
+
+        // calculate left/top position.
+        element.style.top = inlineTop + window.scrollY - newCloneRect.height / 2 + inlineHeight / 2 + 'px';
+        var leftPosition = inlineLeft + window.scrollX - newCloneRect.width - 15;
+        if (leftPosition < 0) {
+          element.style.left = '15px';
+        } else {
+          element.style.left = leftPosition + 'px';
+        }
+
+        // Calculate top position.
+      } else if (inlineTop + window.scrollY + hasCloneHeight / 2 > windowHeight) {
+        element.style.display = 'grid';
+        element.style.gridTemplateColumns = '1fr 1fr';
+
+        // Get new clone width dimensions.
+        var _newCloneRect2 = element.getBoundingClientRect();
+
+        // calculate left/top position.
+        element.style.top = inlineTop + window.scrollY - _newCloneRect2.height / 2 + inlineHeight / 2 + 'px';
+        var _leftPosition = inlineLeft + window.scrollX - _newCloneRect2.width - 15;
+        if (_leftPosition < 0) {
+          element.style.left = '15px';
+        } else {
+          element.style.left = _leftPosition + 'px';
+        }
+      } else {
+        element.style.left = hasSharerX + 'px';
+        element.style.top = hasSharerY + 'px';
+        element.classList.remove('has-no-margin-bottom');
+      }
     } else {
-      // Otherwise, set to hasSharerX.
-      element.style.left = hasSharerX + 'px';
-      element.classList.remove('has-no-margin-bottom');
-    }
+      // Get the X position of where the HAS Sharer inteface should be displayed.
+      var _hasSharerX2 = inlineLeft + window.scrollX + inlineWidth / 2 - hasCloneWidth / 2;
+      // Get the Y position of where the HAS Sharer inteface should be displayed.
+      var _hasSharerY2 = inlineTop + window.scrollY - hasCloneHeight - 15;
 
-    // Set the left,top CSS in the clone.
-    element.style.top = hasSharerY + 'px';
+      // Determine if hasSharerX is outside of view.
+      element.classList.add('has-no-margin-bottom');
+      if (_hasSharerX2 < 0) {
+        // If so, set to 0.
+        element.style.left = '15px';
+      } else if (_hasSharerX2 + hasSharerWidth > windowWidth) {
+        // If so, set to windowWidth - hasSharerWidth.
+        element.style.right = '15px';
+      } else {
+        // Otherwise, set to hasSharerX.
+        element.style.left = _hasSharerX2 + 'px';
+        element.classList.remove('has-no-margin-bottom');
+      }
+
+      // Set the left,top CSS in the clone.
+      element.style.top = _hasSharerY2 + 'px';
+    }
   };
 
   /**
@@ -303,7 +400,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     var ctaLeft = ctaRect.left; // left position relative to view port.
     var ctaWidth = ctaRect.width;
     var ctaHeight = ctaRect.height;
-    console.log(windowWidth);
 
     // Set container width to smaller than window width if larger.
     if (element.getBoundingClientRect().width > windowWidth) {
@@ -315,28 +411,77 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     var hasCloneRect = element.getBoundingClientRect();
     var hasCloneWidth = hasCloneRect.width;
     var hasCloneHeight = hasCloneRect.height;
+    if (element.classList.contains('orientation-vertical')) {
+      /**
+       * Get Vertical position.
+       */
 
-    // Get the X position of where the HAS Sharer inteface should be displayed.
-    var hasSharerX = ctaLeft + window.scrollX + ctaWidth / 2 - hasCloneWidth / 2;
-    // Get the Y position of where the HAS Sharer inteface should be displayed.
-    var hasSharerY = ctaTop + window.scrollY - hasCloneHeight - 15;
+      // Get the X position of where the HAS Sharer inteface should be displayed.
+      var hasSharerX = ctaLeft + window.scrollX - (hasCloneWidth + 15);
+      // Get the Y position of where the HAS Sharer inteface should be displayed.
+      var hasSharerY = ctaTop + window.scrollY - hasCloneHeight / 2 + ctaHeight / 2;
+      element.classList.add('has-no-margin-bottom');
+      // If clone is outside of viewport, set width.
+      if (ctaTop + window.scrollY - hasCloneHeight / 2 < 0) {
+        element.style.display = 'grid';
+        element.style.gridTemplateColumns = '1fr 1fr';
 
-    // Determine if hasSharerX is outside of view.
-    element.classList.add('has-no-margin-bottom');
-    if (hasSharerX < 0) {
-      // If so, set to 0.
-      element.style.left = '15px';
-    } else if (hasSharerX + hasSharerWidth > windowWidth) {
-      // If so, set to windowWidth - hasSharerWidth.
-      element.style.right = '15px';
+        // Get new clone width dimensions.
+        var newCloneRect = element.getBoundingClientRect();
+
+        // calculate left/top position.
+        element.style.top = ctaTop + window.scrollY - newCloneRect.height / 2 + ctaHeight / 2 + 'px';
+        var leftPosition = ctaLeft + window.scrollX - newCloneRect.width - 15;
+        if (leftPosition < 0) {
+          element.style.left = '15px';
+        } else {
+          element.style.left = leftPosition + 'px';
+        }
+
+        // Calculate top position.
+      } else if (ctaTop + window.scrollY + hasCloneHeight / 2 > windowHeight) {
+        element.style.display = 'grid';
+        element.style.gridTemplateColumns = '1fr 1fr';
+
+        // Get new clone width dimensions.
+        var _newCloneRect3 = element.getBoundingClientRect();
+
+        // calculate left/top position.
+        element.style.top = ctaTop + window.scrollY - _newCloneRect3.height / 2 + ctaHeight / 2 + 'px';
+        var _leftPosition2 = ctaLeft + window.scrollX - _newCloneRect3.width - 15;
+        if (_leftPosition2 < 0) {
+          element.style.left = '15px';
+        } else {
+          element.style.left = _leftPosition2 + 'px';
+        }
+      } else {
+        element.style.left = hasSharerX + 'px';
+        element.style.top = hasSharerY + 'px';
+        element.classList.remove('has-no-margin-bottom');
+      }
     } else {
-      // Otherwise, set to hasSharerX.
-      element.style.left = hasSharerX + 'px';
-      element.classList.remove('has-no-margin-bottom');
-    }
+      // Get the X position of where the HAS Sharer inteface should be displayed.
+      var _hasSharerX3 = ctaLeft + window.scrollX + ctaWidth / 2 - hasCloneWidth / 2;
+      // Get the Y position of where the HAS Sharer inteface should be displayed.
+      var _hasSharerY3 = ctaTop + window.scrollY - hasCloneHeight - 15;
 
-    // Set the left,top CSS in the clone.
-    element.style.top = hasSharerY + 'px';
+      // Determine if hasSharerX is outside of view.
+      element.classList.add('has-no-margin-bottom');
+      if (_hasSharerX3 < 0) {
+        // If so, set to 0.
+        element.style.left = '15px';
+      } else if (_hasSharerX3 + hasSharerWidth > windowWidth) {
+        // If so, set to windowWidth - hasSharerWidth.
+        element.style.right = '15px';
+      } else {
+        // Otherwise, set to hasSharerX.
+        element.style.left = _hasSharerX3 + 'px';
+        element.classList.remove('has-no-margin-bottom');
+      }
+
+      // Set the left,top CSS in the clone.
+      element.style.top = _hasSharerY3 + 'px';
+    }
   };
 
   // Begin setting up events.

@@ -212,8 +212,11 @@ body.has-body .highlight-and-share-wrapper.has-admin-theme-preview-list > div > 
   margin-left: 5px;
 }
 
-body.has-body .highlight-and-share-wrapper.orientation-vertical {
+body.has-body .highlight-and-share-wrapper.has-admin-theme-preview-list.orientation-vertical {
   display: inline-flex;
+}
+
+body.has-body .highlight-and-share-wrapper.orientation-vertical {
   flex-wrap: wrap;
   flex-direction: column;
 }
