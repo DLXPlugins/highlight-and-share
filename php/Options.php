@@ -172,8 +172,9 @@ class Options {
 		$defaults = array(
 			'theme'                   => 'default',
 			'icons_only'              => true, /* custom theme option */
-			'orientation'             => 'horizontal', /* custom theme option */
-			'group_icons'             => true,
+			'orientation'             => 'horizontal',
+			'show_tooltips'           => true,
+			'group_icons'             => true,  /* custom theme option */
 			'background_color'        => '#000000', /* only applicable if icons are grouped */
 			'background_color_hover'  => '#333333', /* only applicable if icons are grouped */
 			'icon_colors_group'       => '#FFFFFF', /* only applicable if icons are grouped */

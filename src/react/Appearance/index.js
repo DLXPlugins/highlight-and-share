@@ -67,6 +67,7 @@ const Interface = ( props ) => {
 	const [ socialNetworkColors, setSocialNetworkColors ] = useState(
 		data.themeOptionsCustom.icon_colors
 	);
+	const [ mainSettings ] = useState( data.settings );
 
 	return (
 		<SocialNetworksContext.Provider
@@ -81,6 +82,7 @@ const Interface = ( props ) => {
 				setHasIconsOnly,
 				socialNetworkColors,
 				setSocialNetworkColors,
+				mainSettings,
 			} }
 		>
 			<Appearance />

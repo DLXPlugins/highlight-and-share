@@ -855,7 +855,8 @@ var ThemeCustomizer = function ThemeCustomizer() {
       icon_size: appearanceThemeData.icon_size,
       font_size: appearanceThemeData.font_size,
       icon_gap: appearanceThemeData.icon_gap,
-      icon_colors: appearanceThemeData.icon_colors
+      icon_colors: appearanceThemeData.icon_colors,
+      show_tooltips: appearanceThemeData.show_tooltips
     };
   };
   var _useForm = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_4__.useForm)({
@@ -1255,12 +1256,31 @@ var ThemeCustomizer = function ThemeCustomizer() {
   })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "has-admin-component-row"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_4__.Controller, {
-    name: "orientation",
+    name: "show_tooltips",
     control: control,
     render: function render(_ref14) {
       var _ref14$field = _ref14.field,
         _onChange11 = _ref14$field.onChange,
         value = _ref14$field.value;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["default"], {
+        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Show Tooltips', 'highlight-and-share'),
+        className: "has-admin__toggle-control",
+        checked: value,
+        onChange: function onChange(boolValue) {
+          _onChange11(boolValue);
+        },
+        help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Hover over a social network to see a tooltip.', 'highlight-and-share')
+      });
+    }
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "has-admin-component-row"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_4__.Controller, {
+    name: "orientation",
+    control: control,
+    render: function render(_ref15) {
+      var _ref15$field = _ref15.field,
+        _onChange12 = _ref15$field.onChange,
+        value = _ref15$field.value;
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_14__["default"], {
         label: "Orientation",
         help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Select the orientation of the icons (can be horizontal or vertical).', 'highlight-and-share'),
@@ -1273,7 +1293,7 @@ var ThemeCustomizer = function ThemeCustomizer() {
           value: 'vertical'
         }],
         onChange: function onChange(radioValue) {
-          return _onChange11(radioValue);
+          return _onChange12(radioValue);
         }
       });
     }

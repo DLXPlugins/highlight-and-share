@@ -46,6 +46,7 @@ const ThemeCustomizer = () => {
 			font_size: appearanceThemeData.font_size,
 			icon_gap: appearanceThemeData.icon_gap,
 			icon_colors: appearanceThemeData.icon_colors,
+			show_tooltips: appearanceThemeData.show_tooltips,
 		};
 	};
 
@@ -465,6 +466,26 @@ const ThemeCustomizer = () => {
 						) }
 					</>
 				) }
+				<div className="has-admin-component-row">
+					<Controller
+						name="show_tooltips"
+						control={ control }
+						render={ ( { field: { onChange, value } } ) => (
+							<ToggleControl
+								label={ __( 'Show Tooltips', 'highlight-and-share' ) }
+								className="has-admin__toggle-control"
+								checked={ value }
+								onChange={ ( boolValue ) => {
+									onChange( boolValue );
+								} }
+								help={ __(
+									'Hover over a social network to see a tooltip.',
+									'highlight-and-share'
+								) }
+							/>
+						) }
+					/>
+				</div>
 				<div className="has-admin-component-row">
 					<Controller
 						name="orientation"

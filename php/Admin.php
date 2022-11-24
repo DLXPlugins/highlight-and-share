@@ -237,6 +237,7 @@ class Admin {
 			'themes'             => Themes::get_main_themes(),
 			'colors'             => Themes::get_default_theme_colors(),
 			'themeOptionsCustom' => Options::get_theme_options(),
+			'settings'           => Options::get_plugin_options(),
 		);
 
 		wp_send_json_success( $return );

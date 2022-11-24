@@ -18187,8 +18187,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_escape_html__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/escape-html */ "./node_modules/@wordpress/escape-html/build-module/index.js");
 /* harmony import */ var _Contexts_SocialNetworksContext__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../Contexts/SocialNetworksContext */ "./src/react/Contexts/SocialNetworksContext.js");
 /* eslint-disable jsx-a11y/anchor-is-valid */
+
 
 
 
@@ -18201,8 +18203,11 @@ var PreviewSocialIconListItem = function PreviewSocialIconListItem(_ref) {
     theme = _useContext.theme,
     hasIconsOnly = _useContext.hasIconsOnly,
     socialNetworkColors = _useContext.socialNetworkColors,
-    appearanceThemeData = _useContext.appearanceThemeData;
-  var classes = classnames__WEBPACK_IMPORTED_MODULE_1___default()(className, "has_".concat(listItemKey));
+    appearanceThemeData = _useContext.appearanceThemeData,
+    mainSettings = _useContext.mainSettings;
+  var classes = classnames__WEBPACK_IMPORTED_MODULE_1___default()(className, "has_".concat(listItemKey), {
+    'has-tooltip': appearanceThemeData.show_tooltips
+  });
   var iconStyles = '';
   if (!appearanceThemeData.groupIcons && 'custom' === theme) {
     var iconColor = socialNetworkColors[listItemKey].icon_color;
@@ -18211,6 +18216,31 @@ var PreviewSocialIconListItem = function PreviewSocialIconListItem(_ref) {
     var backgroundColorHover = socialNetworkColors[listItemKey].background_hover;
     iconStyles = "\n\t\t\t.has_".concat(listItemKey, " a {\n\t\t\t\tcolor: ").concat(iconColor, " !important;\n\t\t\t\tbackground: ").concat(backgroundColor, " !important;\n\t\t\t}\n\t\t\t.has_").concat(listItemKey, " a:hover {\n\t\t\t\tcolor: ").concat(iconColorHover, " !important;\n\t\t\t\tbackground: ").concat(backgroundColorHover, " !important;\n\t\t\t}\n\t\t");
   }
+
+  /**
+   * Get a translated label for the social network.
+   *
+   * @return {string} The social network label.
+   */
+  var getLabel = function getLabel() {
+    var _mainSettings;
+    var maybeLabel = (_mainSettings = mainSettings["".concat(listItemKey, "_label")]) !== null && _mainSettings !== void 0 ? _mainSettings : '';
+    if ('' === maybeLabel) {
+      return label;
+    }
+    return maybeLabel;
+  };
+
+  /**
+   * Get a tooltip for the social network.
+   *
+   * @return {string} The social network label.
+   */
+  var getTooltip = function getTooltip() {
+    var _mainSettings2;
+    var maybeTooltip = (_mainSettings2 = mainSettings["".concat(listItemKey, "_tooltip")]) !== null && _mainSettings2 !== void 0 ? _mainSettings2 : '';
+    return maybeTooltip;
+  };
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     key: listItemKey,
     className: classes
@@ -18218,10 +18248,11 @@ var PreviewSocialIconListItem = function PreviewSocialIconListItem(_ref) {
     href: "#",
     onClick: function onClick(e) {
       e.preventDefault();
-    }
+    },
+    "data-tooltip": (0,_wordpress_escape_html__WEBPACK_IMPORTED_MODULE_3__.escapeAttribute)(getTooltip())
   }, icon, ('default' === appearanceThemeData.theme || 'custom' === appearanceThemeData.theme && !appearanceThemeData.icons_only) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
     className: "has-icon-label"
-  }, "".concat(label))))));
+  }, "".concat((0,_wordpress_escape_html__WEBPACK_IMPORTED_MODULE_3__.escapeEditableHTML)(getLabel())))))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (PreviewSocialIconListItem);
 
@@ -101805,6 +101836,9 @@ var Interface = function Interface(props) {
     _useState10 = _slicedToArray(_useState9, 2),
     socialNetworkColors = _useState10[0],
     setSocialNetworkColors = _useState10[1];
+  var _useState11 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(data.settings),
+    _useState12 = _slicedToArray(_useState11, 1),
+    mainSettings = _useState12[0];
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Contexts_SocialNetworksContext__WEBPACK_IMPORTED_MODULE_7__["default"].Provider, {
     value: {
       socialNetworks: socialNetworks,
@@ -101816,7 +101850,8 @@ var Interface = function Interface(props) {
       hasIconsOnly: hasIconsOnly,
       setHasIconsOnly: setHasIconsOnly,
       socialNetworkColors: socialNetworkColors,
-      setSocialNetworkColors: setSocialNetworkColors
+      setSocialNetworkColors: setSocialNetworkColors,
+      mainSettings: mainSettings
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_appearance__WEBPACK_IMPORTED_MODULE_8__["default"], null));
 };
