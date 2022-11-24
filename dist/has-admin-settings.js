@@ -20568,24 +20568,25 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "./node_modules/react/index.js");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "./node_modules/@wordpress/i18n/build-module/index.js");
-/* harmony import */ var react_hook_form__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! react-hook-form */ "./node_modules/react-hook-form/dist/index.esm.mjs");
+/* harmony import */ var _wordpress_escape_html__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @wordpress/escape-html */ "./node_modules/@wordpress/escape-html/build-module/index.js");
+/* harmony import */ var react_hook_form__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! react-hook-form */ "./node_modules/react-hook-form/dist/index.esm.mjs");
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var use_async_resource__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! use-async-resource */ "./node_modules/use-async-resource/lib/index.js");
 /* harmony import */ var use_async_resource__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(use_async_resource__WEBPACK_IMPORTED_MODULE_3__);
 /* harmony import */ var _Components_SocialIcons__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./../Components/SocialIcons */ "./src/react/Components/SocialIcons/index.js");
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @wordpress/components */ "./node_modules/@wordpress/components/build-module/toggle-control/index.js");
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @wordpress/components */ "./node_modules/@wordpress/components/build-module/text-control/index.js");
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @wordpress/components */ "./node_modules/@wordpress/components/build-module/radio-control/index.js");
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! @wordpress/components */ "./node_modules/@wordpress/components/build-module/button/index.js");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! @wordpress/components */ "./node_modules/@wordpress/components/build-module/toggle-control/index.js");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @wordpress/components */ "./node_modules/@wordpress/components/build-module/text-control/index.js");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! @wordpress/components */ "./node_modules/@wordpress/components/build-module/radio-control/index.js");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! @wordpress/components */ "./node_modules/@wordpress/components/build-module/button/index.js");
 /* harmony import */ var _Components_ErrorBoundary__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../Components/ErrorBoundary */ "./src/react/Components/ErrorBoundary/index.js");
-/* harmony import */ var _Components_Notice__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../Components/Notice */ "./src/react/Components/Notice/index.js");
-/* harmony import */ var _Components_Icons_CircularInfo__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../Components/Icons/CircularInfo */ "./src/react/Components/Icons/CircularInfo.js");
-/* harmony import */ var _Components_Icons_CircularExplanation__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../Components/Icons/CircularExplanation */ "./src/react/Components/Icons/CircularExplanation.js");
-/* harmony import */ var _Components_Icons_Spinner__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../Components/Icons/Spinner */ "./src/react/Components/Icons/Spinner.js");
+/* harmony import */ var _Components_Notice__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../Components/Notice */ "./src/react/Components/Notice/index.js");
+/* harmony import */ var _Components_Icons_CircularInfo__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../Components/Icons/CircularInfo */ "./src/react/Components/Icons/CircularInfo.js");
+/* harmony import */ var _Components_Icons_CircularExplanation__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../Components/Icons/CircularExplanation */ "./src/react/Components/Icons/CircularExplanation.js");
+/* harmony import */ var _Components_Icons_Spinner__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../Components/Icons/Spinner */ "./src/react/Components/Icons/Spinner.js");
 /* harmony import */ var _Utils_SendCommand__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../Utils/SendCommand */ "./src/react/Utils/SendCommand.js");
 /* harmony import */ var _Components_Loader__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../Components/Loader */ "./src/react/Components/Loader/index.js");
-/* harmony import */ var _Validation_twitter__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../Validation/twitter */ "./src/react/Validation/twitter.js");
+/* harmony import */ var _Validation_twitter__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../Validation/twitter */ "./src/react/Validation/twitter.js");
 function _extends() { _extends = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -20668,7 +20669,7 @@ var Interface = function Interface(props) {
       sharingPrefix: data.values.sharingPrefix,
       sharingSuffix: data.values.sharingSuffix,
       showTwitter: data.values.showTwitter,
-      twitter: data.values.twitter,
+      twitter: (0,_wordpress_escape_html__WEBPACK_IMPORTED_MODULE_8__.escapeEditableHTML)(data.values.twitter),
       enableHashtags: data.values.enableHashtags,
       showFacebook: data.values.showFacebook,
       showWhatsApp: data.values.showWhatsApp,
@@ -20680,37 +20681,40 @@ var Interface = function Interface(props) {
       showCopy: data.values.showCopy,
       enableEmails: data.values.enableEmails,
       shortlinks: data.values.shortlinks,
-      jsContent: data.values.jsContent,
-      elementContent: data.values.elementContent,
-      idContent: data.values.idContent,
-      twitterLabel: data.values.twitterLabel,
-      twitterTooltip: data.values.twitterTooltip,
-      facebookLabel: data.values.facebookLabel,
-      facebookTooltip: data.values.facebookTooltip,
-      whatsappLabel: data.values.whatsappLabel,
-      whatsappTooltip: data.values.whatsappTooltip,
-      redditLabel: data.values.redditLabel,
-      redditTooltip: data.values.redditTooltip,
-      telegramLabel: data.values.telegramLabel,
-      telegramTooltip: data.values.telegramTooltip,
-      linkedinLabel: data.values.linkedinLabel,
-      linkedinTooltip: data.values.linkedinTooltip,
-      xingLabel: data.values.xingLabel,
-      xingTooltip: data.values.xingTooltip,
-      copyLabel: data.values.copyLabel,
-      copyTooltip: data.values.copyTooltip,
-      emailLabel: data.values.emailLabel,
-      emailTooltip: data.values.emailTooltip
+      jsContent: (0,_wordpress_escape_html__WEBPACK_IMPORTED_MODULE_8__.escapeEditableHTML)(data.values.jsContent),
+      elementContent: (0,_wordpress_escape_html__WEBPACK_IMPORTED_MODULE_8__.escapeEditableHTML)(data.values.elementContent),
+      idContent: (0,_wordpress_escape_html__WEBPACK_IMPORTED_MODULE_8__.escapeEditableHTML)(data.values.idContent),
+      twitterLabel: (0,_wordpress_escape_html__WEBPACK_IMPORTED_MODULE_8__.escapeEditableHTML)(data.values.twitterLabel),
+      twitterTooltip: (0,_wordpress_escape_html__WEBPACK_IMPORTED_MODULE_8__.escapeEditableHTML)(data.values.twitterTooltip),
+      facebookLabel: (0,_wordpress_escape_html__WEBPACK_IMPORTED_MODULE_8__.escapeEditableHTML)(data.values.facebookLabel),
+      facebookTooltip: (0,_wordpress_escape_html__WEBPACK_IMPORTED_MODULE_8__.escapeEditableHTML)(data.values.facebookTooltip),
+      whatsappLabel: (0,_wordpress_escape_html__WEBPACK_IMPORTED_MODULE_8__.escapeEditableHTML)(data.values.whatsappLabel),
+      whatsappTooltip: (0,_wordpress_escape_html__WEBPACK_IMPORTED_MODULE_8__.escapeEditableHTML)(data.values.whatsappTooltip),
+      redditLabel: (0,_wordpress_escape_html__WEBPACK_IMPORTED_MODULE_8__.escapeEditableHTML)(data.values.redditLabel),
+      redditTooltip: (0,_wordpress_escape_html__WEBPACK_IMPORTED_MODULE_8__.escapeEditableHTML)(data.values.redditTooltip),
+      telegramLabel: (0,_wordpress_escape_html__WEBPACK_IMPORTED_MODULE_8__.escapeEditableHTML)(data.values.telegramLabel),
+      telegramTooltip: (0,_wordpress_escape_html__WEBPACK_IMPORTED_MODULE_8__.escapeEditableHTML)(data.values.telegramTooltip),
+      linkedinLabel: (0,_wordpress_escape_html__WEBPACK_IMPORTED_MODULE_8__.escapeEditableHTML)(data.values.linkedinLabel),
+      linkedinTooltip: (0,_wordpress_escape_html__WEBPACK_IMPORTED_MODULE_8__.escapeEditableHTML)(data.values.linkedinTooltip),
+      xingLabel: (0,_wordpress_escape_html__WEBPACK_IMPORTED_MODULE_8__.escapeEditableHTML)(data.values.xingLabel),
+      xingTooltip: (0,_wordpress_escape_html__WEBPACK_IMPORTED_MODULE_8__.escapeEditableHTML)(data.values.xingTooltip),
+      copyLabel: (0,_wordpress_escape_html__WEBPACK_IMPORTED_MODULE_8__.escapeEditableHTML)(data.values.copyLabel),
+      copyTooltip: (0,_wordpress_escape_html__WEBPACK_IMPORTED_MODULE_8__.escapeEditableHTML)(data.values.copyTooltip),
+      emailLabel: (0,_wordpress_escape_html__WEBPACK_IMPORTED_MODULE_8__.escapeEditableHTML)(data.values.emailLabel),
+      emailTooltip: (0,_wordpress_escape_html__WEBPACK_IMPORTED_MODULE_8__.escapeEditableHTML)(data.values.emailTooltip)
     };
   };
-  var _useForm = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_8__.useForm)({
+  var _useForm = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_9__.useForm)({
       defaultValues: getDefaultValues()
     }),
     control = _useForm.control,
     handleSubmit = _useForm.handleSubmit,
     getValues = _useForm.getValues,
     reset = _useForm.reset;
-  var _useFormState = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_8__.useFormState)({
+  var formValues = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_9__.useWatch)({
+    control: control
+  });
+  var _useFormState = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_9__.useFormState)({
       control: control
     }),
     errors = _useFormState.errors;
@@ -20778,14 +20782,14 @@ var Interface = function Interface(props) {
     className: "has-admin-content-subheading"
   }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Display', 'highlight-and-share')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "has-admin-component-row"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_8__.Controller, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_9__.Controller, {
     name: "enableMobile",
     control: control,
     render: function render(_ref) {
       var _ref$field = _ref.field,
         _onChange = _ref$field.onChange,
         value = _ref$field.value;
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["default"], {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_10__["default"], {
         label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Enable on Mobile Devices', 'highlight-and-share'),
         className: "has-admin__toggle-control",
         checked: value,
@@ -20797,14 +20801,14 @@ var Interface = function Interface(props) {
     }
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "has-admin-component-row"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_8__.Controller, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_9__.Controller, {
     name: "enableContent",
     control: control,
     render: function render(_ref2) {
       var _ref2$field = _ref2.field,
         _onChange2 = _ref2$field.onChange,
         value = _ref2$field.value;
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["default"], {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_10__["default"], {
         label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Enable on the Post Content', 'highlight-and-share'),
         className: "has-admin__toggle-control",
         checked: value,
@@ -20816,14 +20820,14 @@ var Interface = function Interface(props) {
     }
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "has-admin-component-row"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_8__.Controller, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_9__.Controller, {
     name: "enableExcerpt",
     control: control,
     render: function render(_ref3) {
       var _ref3$field = _ref3.field,
         _onChange3 = _ref3$field.onChange,
         value = _ref3$field.value;
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["default"], {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_10__["default"], {
         label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Enable on the Post Excerpt', 'highlight-and-share'),
         className: "has-admin__toggle-control",
         checked: value,
@@ -20839,12 +20843,12 @@ var Interface = function Interface(props) {
     className: "has-admin-content-subheading"
   }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Text Settings', 'highlight-and-share')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "has-admin-component-row"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_8__.Controller, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_9__.Controller, {
     name: "sharingPrefix",
     control: control,
     render: function render(_ref4) {
       var field = _ref4.field;
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_10__["default"], _extends({}, field, {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["default"], _extends({}, field, {
         type: "text",
         label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Sharing Text Before', 'highlight-and-share'),
         className: classnames__WEBPACK_IMPORTED_MODULE_2___default()('has-admin__text-control'),
@@ -20853,12 +20857,12 @@ var Interface = function Interface(props) {
     }
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "has-admin-component-row"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_8__.Controller, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_9__.Controller, {
     name: "sharingSuffix",
     control: control,
     render: function render(_ref5) {
       var field = _ref5.field;
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_10__["default"], _extends({}, field, {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["default"], _extends({}, field, {
         type: "text",
         label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Sharing Text After', 'highlight-and-share'),
         className: classnames__WEBPACK_IMPORTED_MODULE_2___default()('has-admin__text-control'),
@@ -20873,14 +20877,14 @@ var Interface = function Interface(props) {
     className: "has-icon-heading"
   }, getSocialIcon('twitter'), " ", (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Twitter', 'highlight-and-share')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "has-admin-component-row"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_8__.Controller, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_9__.Controller, {
     name: "showTwitter",
     control: control,
     render: function render(_ref6) {
       var _ref6$field = _ref6.field,
         _onChange4 = _ref6$field.onChange,
         value = _ref6$field.value;
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["default"], {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_10__["default"], {
         label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Enable the Twitter Social Network', 'highlight-and-share'),
         className: "has-admin__toggle-control",
         checked: value,
@@ -20892,7 +20896,7 @@ var Interface = function Interface(props) {
     }
   })), getValues('showTwitter') && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "has-admin-component-row"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_8__.Controller, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_9__.Controller, {
     name: "twitterLabel",
     control: control,
     rules: {
@@ -20901,7 +20905,7 @@ var Interface = function Interface(props) {
     render: function render(_ref7) {
       var _errors$twitterLabel, _errors$twitterLabel2;
       var field = _ref7.field;
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_10__["default"], _extends({}, field, {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["default"], _extends({}, field, {
         type: "text",
         label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Twitter Label', 'highlight-and-share'),
         className: classnames__WEBPACK_IMPORTED_MODULE_2___default()('has-admin__text-control', {
@@ -20910,17 +20914,17 @@ var Interface = function Interface(props) {
         }),
         help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Choose a label for the Twitter button.', 'highlight-and-share'),
         "aria-required": "true"
-      })), 'required' === ((_errors$twitterLabel2 = errors.twitterLabel) === null || _errors$twitterLabel2 === void 0 ? void 0 : _errors$twitterLabel2.type) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_11__["default"], {
+      })), 'required' === ((_errors$twitterLabel2 = errors.twitterLabel) === null || _errors$twitterLabel2 === void 0 ? void 0 : _errors$twitterLabel2.type) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_12__["default"], {
         message: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('This field is a required field.'),
         status: "error",
         politeness: "assertive",
         inline: false,
-        icon: _Components_Icons_CircularExplanation__WEBPACK_IMPORTED_MODULE_12__["default"]
+        icon: _Components_Icons_CircularExplanation__WEBPACK_IMPORTED_MODULE_13__["default"]
       }));
     }
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "has-admin-component-row"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_8__.Controller, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_9__.Controller, {
     name: "twitterTooltip",
     control: control,
     rules: {
@@ -20929,33 +20933,33 @@ var Interface = function Interface(props) {
     render: function render(_ref8) {
       var _errors$twitterToolti, _errors$twitterToolti2;
       var field = _ref8.field;
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_10__["default"], _extends({}, field, {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["default"], _extends({}, field, {
         type: "text",
         label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Twitter Tooltip', 'highlight-and-share'),
         className: classnames__WEBPACK_IMPORTED_MODULE_2___default()('has-admin__text-control', {
           'is-required': true,
           'has-error': 'required' === ((_errors$twitterToolti = errors.twitterTooltip) === null || _errors$twitterToolti === void 0 ? void 0 : _errors$twitterToolti.type)
         }),
-        help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Choose a label for the Twitter button.', 'highlight-and-share'),
+        help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Choose tooltip text for the Twitter button.', 'highlight-and-share'),
         "aria-required": "true"
-      })), 'required' === ((_errors$twitterToolti2 = errors.twitterTooltip) === null || _errors$twitterToolti2 === void 0 ? void 0 : _errors$twitterToolti2.type) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_11__["default"], {
+      })), 'required' === ((_errors$twitterToolti2 = errors.twitterTooltip) === null || _errors$twitterToolti2 === void 0 ? void 0 : _errors$twitterToolti2.type) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_12__["default"], {
         message: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('This field is a required field.'),
         status: "error",
         politeness: "assertive",
         inline: false,
-        icon: _Components_Icons_CircularExplanation__WEBPACK_IMPORTED_MODULE_12__["default"]
+        icon: _Components_Icons_CircularExplanation__WEBPACK_IMPORTED_MODULE_13__["default"]
       }));
     }
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "has-admin-component-row"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_8__.Controller, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_9__.Controller, {
     name: "enableHashtags",
     control: control,
     render: function render(_ref9) {
       var _ref9$field = _ref9.field,
         _onChange5 = _ref9$field.onChange,
         value = _ref9$field.value;
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["default"], {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_10__["default"], {
         label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Enable Twitter Hashtags', 'highlight-and-share'),
         className: "has-admin__toggle-control",
         checked: value,
@@ -20967,7 +20971,7 @@ var Interface = function Interface(props) {
     }
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "has-admin-component-row"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_8__.Controller, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_9__.Controller, {
     name: "twitter",
     control: control,
     rules: {
@@ -20975,7 +20979,7 @@ var Interface = function Interface(props) {
         if (value.length === 0) {
           return true;
         }
-        return _Validation_twitter__WEBPACK_IMPORTED_MODULE_13__["default"].txt.isValidUsername('@' + value);
+        return _Validation_twitter__WEBPACK_IMPORTED_MODULE_14__["default"].txt.isValidUsername('@' + value);
       }
     },
     render: function render(_ref10) {
@@ -20983,7 +20987,7 @@ var Interface = function Interface(props) {
       var _ref10$field = _ref10.field,
         _onChange6 = _ref10$field.onChange,
         value = _ref10$field.value;
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_10__["default"], {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["default"], {
         value: value,
         type: "text",
         label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Twitter Username', 'highlight-and-share'),
@@ -20996,7 +21000,7 @@ var Interface = function Interface(props) {
           if (currentValue.length > 0) {
             var replacement = currentValue.replace('@', ''); // Strip @ symbol.
             if (currentValue.length > 0) {
-              var usernames = _Validation_twitter__WEBPACK_IMPORTED_MODULE_13__["default"].txt.extractMentions('@' + replacement);
+              var usernames = _Validation_twitter__WEBPACK_IMPORTED_MODULE_14__["default"].txt.extractMentions('@' + replacement);
               if (typeof usernames[0] !== 'undefined') {
                 twitterUsername = usernames[0];
               } else {
@@ -21006,26 +21010,26 @@ var Interface = function Interface(props) {
           }
           _onChange6(twitterUsername);
         }
-      }), 'validate' === ((_errors$twitter = errors.twitter) === null || _errors$twitter === void 0 ? void 0 : _errors$twitter.type) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_11__["default"], {
+      }), 'validate' === ((_errors$twitter = errors.twitter) === null || _errors$twitter === void 0 ? void 0 : _errors$twitter.type) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_12__["default"], {
         message: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('The Twitter Username is Invalid.', 'highlight-and-share'),
         status: "error",
         politeness: "assertive",
         inline: false,
-        icon: _Components_Icons_CircularExplanation__WEBPACK_IMPORTED_MODULE_12__["default"]
+        icon: _Components_Icons_CircularExplanation__WEBPACK_IMPORTED_MODULE_13__["default"]
       }));
     }
-  })))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", {
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", {
     className: "has-icon-heading"
   }, getSocialIcon('facebook'), " ", (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Facebook', 'highlight-and-share')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "has-admin-component-row"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_8__.Controller, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_9__.Controller, {
     name: "showFacebook",
     control: control,
     render: function render(_ref11) {
       var _ref11$field = _ref11.field,
         _onChange7 = _ref11$field.onChange,
         value = _ref11$field.value;
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["default"], {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_10__["default"], {
         label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Enable the Facebook Social Network', 'highlight-and-share'),
         className: "has-admin__toggle-control",
         checked: value,
@@ -21035,18 +21039,74 @@ var Interface = function Interface(props) {
         help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Facebook only allows URL sharing.', 'highlight-and-share')
       });
     }
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", {
+  })), getValues('showFacebook') && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "has-admin-component-row"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_9__.Controller, {
+    name: "facebookLabel",
+    control: control,
+    rules: {
+      required: true
+    },
+    render: function render(_ref12) {
+      var _errors$facebookLabel, _errors$facebookLabel2;
+      var field = _ref12.field;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["default"], _extends({}, field, {
+        type: "text",
+        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Facebook Label', 'highlight-and-share'),
+        className: classnames__WEBPACK_IMPORTED_MODULE_2___default()('has-admin__text-control', {
+          'is-required': true,
+          'has-error': 'required' === ((_errors$facebookLabel = errors.facebookLabel) === null || _errors$facebookLabel === void 0 ? void 0 : _errors$facebookLabel.type)
+        }),
+        help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Choose a label for the Facebook button.', 'highlight-and-share'),
+        "aria-required": "true"
+      })), 'required' === ((_errors$facebookLabel2 = errors.facebookLabel) === null || _errors$facebookLabel2 === void 0 ? void 0 : _errors$facebookLabel2.type) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_12__["default"], {
+        message: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('This field is a required field.'),
+        status: "error",
+        politeness: "assertive",
+        inline: false,
+        icon: _Components_Icons_CircularExplanation__WEBPACK_IMPORTED_MODULE_13__["default"]
+      }));
+    }
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "has-admin-component-row"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_9__.Controller, {
+    name: "facebookTooltip",
+    control: control,
+    rules: {
+      required: true
+    },
+    render: function render(_ref13) {
+      var _errors$facebookToolt, _errors$facebookToolt2;
+      var field = _ref13.field;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["default"], _extends({}, field, {
+        type: "text",
+        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Facebook Tooltip', 'highlight-and-share'),
+        className: classnames__WEBPACK_IMPORTED_MODULE_2___default()('has-admin__text-control', {
+          'is-required': true,
+          'has-error': 'required' === ((_errors$facebookToolt = errors.facebookTooltip) === null || _errors$facebookToolt === void 0 ? void 0 : _errors$facebookToolt.type)
+        }),
+        help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Choose tooltip text for the Facebook button.', 'highlight-and-share'),
+        "aria-required": "true"
+      })), 'required' === ((_errors$facebookToolt2 = errors.facebookTooltip) === null || _errors$facebookToolt2 === void 0 ? void 0 : _errors$facebookToolt2.type) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_12__["default"], {
+        message: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('This field is a required field.'),
+        status: "error",
+        politeness: "assertive",
+        inline: false,
+        icon: _Components_Icons_CircularExplanation__WEBPACK_IMPORTED_MODULE_13__["default"]
+      }));
+    }
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", {
     className: "has-icon-heading"
   }, getSocialIcon('whatsapp'), " ", (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('WhatsApp', 'highlight-and-share')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "has-admin-component-row"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_8__.Controller, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_9__.Controller, {
     name: "showWhatsApp",
     control: control,
-    render: function render(_ref12) {
-      var _ref12$field = _ref12.field,
-        _onChange8 = _ref12$field.onChange,
-        value = _ref12$field.value;
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["default"], {
+    render: function render(_ref14) {
+      var _ref14$field = _ref14.field,
+        _onChange8 = _ref14$field.onChange,
+        value = _ref14$field.value;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_10__["default"], {
         label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Enable WhatsApp', 'highlight-and-share'),
         className: "has-admin__toggle-control",
         checked: value,
@@ -21056,16 +21116,72 @@ var Interface = function Interface(props) {
         help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('WhatsApp allows text sharing.', 'highlight-and-share')
       });
     }
-  })), getValues('showWhatsApp') && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+  })), getValues('showWhatsApp') && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "has-admin-component-row"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_8__.Controller, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_9__.Controller, {
+    name: "whatsappLabel",
+    control: control,
+    rules: {
+      required: true
+    },
+    render: function render(_ref15) {
+      var _errors$whatsappLabel, _errors$whatsappLabel2;
+      var field = _ref15.field;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["default"], _extends({}, field, {
+        type: "text",
+        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('WhatsApp Label', 'highlight-and-share'),
+        className: classnames__WEBPACK_IMPORTED_MODULE_2___default()('has-admin__text-control', {
+          'is-required': true,
+          'has-error': 'required' === ((_errors$whatsappLabel = errors.whatsappLabel) === null || _errors$whatsappLabel === void 0 ? void 0 : _errors$whatsappLabel.type)
+        }),
+        help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Choose a label for the WhatsApp button.', 'highlight-and-share'),
+        "aria-required": "true"
+      })), 'required' === ((_errors$whatsappLabel2 = errors.whatsappLabel) === null || _errors$whatsappLabel2 === void 0 ? void 0 : _errors$whatsappLabel2.type) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_12__["default"], {
+        message: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('This field is a required field.'),
+        status: "error",
+        politeness: "assertive",
+        inline: false,
+        icon: _Components_Icons_CircularExplanation__WEBPACK_IMPORTED_MODULE_13__["default"]
+      }));
+    }
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "has-admin-component-row"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_9__.Controller, {
+    name: "whatsappTooltip",
+    control: control,
+    rules: {
+      required: true
+    },
+    render: function render(_ref16) {
+      var _errors$whatsappToolt, _errors$whatsappToolt2;
+      var field = _ref16.field;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["default"], _extends({}, field, {
+        type: "text",
+        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('WhatsApp Tooltip', 'highlight-and-share'),
+        className: classnames__WEBPACK_IMPORTED_MODULE_2___default()('has-admin__text-control', {
+          'is-required': true,
+          'has-error': 'required' === ((_errors$whatsappToolt = errors.whatsappTooltip) === null || _errors$whatsappToolt === void 0 ? void 0 : _errors$whatsappToolt.type)
+        }),
+        help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Choose tooltip text for the Facebook button.', 'highlight-and-share'),
+        "aria-required": "true"
+      })), 'required' === ((_errors$whatsappToolt2 = errors.whatsappTooltip) === null || _errors$whatsappToolt2 === void 0 ? void 0 : _errors$whatsappToolt2.type) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_12__["default"], {
+        message: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('This field is a required field.'),
+        status: "error",
+        politeness: "assertive",
+        inline: false,
+        icon: _Components_Icons_CircularExplanation__WEBPACK_IMPORTED_MODULE_13__["default"]
+      }));
+    }
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "has-admin-component-row"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_9__.Controller, {
     name: "whatsAppApiEndpoint",
     control: control,
-    render: function render(_ref13) {
-      var _ref13$field = _ref13.field,
-        _onChange9 = _ref13$field.onChange,
-        value = _ref13$field.value;
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_14__["default"], {
+    render: function render(_ref17) {
+      var _ref17$field = _ref17.field,
+        _onChange9 = _ref17$field.onChange,
+        value = _ref17$field.value;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_15__["default"], {
         label: "WhatsApp Endpoint",
         help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Select the endpoint to use.', 'highlight-and-share'),
         selected: value,
@@ -21081,18 +21197,18 @@ var Interface = function Interface(props) {
         }
       });
     }
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", {
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", {
     className: "has-icon-heading"
   }, getSocialIcon('reddit'), ' ', (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__._x)('Reddit', 'Reddit Social Network', 'highlight-and-share')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "has-admin-component-row"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_8__.Controller, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_9__.Controller, {
     name: "showReddit",
     control: control,
-    render: function render(_ref14) {
-      var _ref14$field = _ref14.field,
-        _onChange10 = _ref14$field.onChange,
-        value = _ref14$field.value;
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["default"], {
+    render: function render(_ref18) {
+      var _ref18$field = _ref18.field,
+        _onChange10 = _ref18$field.onChange,
+        value = _ref18$field.value;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_10__["default"], {
         label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Enable Reddit', 'highlight-and-share'),
         className: "has-admin__toggle-control",
         checked: value,
@@ -21102,18 +21218,74 @@ var Interface = function Interface(props) {
         help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Reddit allows URL sharing.', 'highlight-and-share')
       });
     }
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", {
+  })), getValues('showReddit') && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "has-admin-component-row"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_9__.Controller, {
+    name: "redditLabel",
+    control: control,
+    rules: {
+      required: true
+    },
+    render: function render(_ref19) {
+      var _errors$redditLabel, _errors$redditLabel2;
+      var field = _ref19.field;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["default"], _extends({}, field, {
+        type: "text",
+        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Reddit Label', 'highlight-and-share'),
+        className: classnames__WEBPACK_IMPORTED_MODULE_2___default()('has-admin__text-control', {
+          'is-required': true,
+          'has-error': 'required' === ((_errors$redditLabel = errors.redditLabel) === null || _errors$redditLabel === void 0 ? void 0 : _errors$redditLabel.type)
+        }),
+        help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Choose a label for the Reddit button.', 'highlight-and-share'),
+        "aria-required": "true"
+      })), 'required' === ((_errors$redditLabel2 = errors.redditLabel) === null || _errors$redditLabel2 === void 0 ? void 0 : _errors$redditLabel2.type) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_12__["default"], {
+        message: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('This field is a required field.'),
+        status: "error",
+        politeness: "assertive",
+        inline: false,
+        icon: _Components_Icons_CircularExplanation__WEBPACK_IMPORTED_MODULE_13__["default"]
+      }));
+    }
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "has-admin-component-row"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_9__.Controller, {
+    name: "redditTooltip",
+    control: control,
+    rules: {
+      required: true
+    },
+    render: function render(_ref20) {
+      var _errors$redditTooltip, _errors$redditTooltip2;
+      var field = _ref20.field;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["default"], _extends({}, field, {
+        type: "text",
+        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Reddit Tooltip', 'highlight-and-share'),
+        className: classnames__WEBPACK_IMPORTED_MODULE_2___default()('has-admin__text-control', {
+          'is-required': true,
+          'has-error': 'required' === ((_errors$redditTooltip = errors.redditTooltip) === null || _errors$redditTooltip === void 0 ? void 0 : _errors$redditTooltip.type)
+        }),
+        help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Choose tooltip text for the Facebook button.', 'highlight-and-share'),
+        "aria-required": "true"
+      })), 'required' === ((_errors$redditTooltip2 = errors.redditTooltip) === null || _errors$redditTooltip2 === void 0 ? void 0 : _errors$redditTooltip2.type) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_12__["default"], {
+        message: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('This field is a required field.'),
+        status: "error",
+        politeness: "assertive",
+        inline: false,
+        icon: _Components_Icons_CircularExplanation__WEBPACK_IMPORTED_MODULE_13__["default"]
+      }));
+    }
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", {
     className: "has-icon-heading"
   }, getSocialIcon('telegram'), ' ', (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__._x)('Telegram', 'Telegram Social Network', 'highlight-and-share')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "has-admin-component-row"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_8__.Controller, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_9__.Controller, {
     name: "showTelegram",
     control: control,
-    render: function render(_ref15) {
-      var _ref15$field = _ref15.field,
-        _onChange11 = _ref15$field.onChange,
-        value = _ref15$field.value;
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["default"], {
+    render: function render(_ref21) {
+      var _ref21$field = _ref21.field,
+        _onChange11 = _ref21$field.onChange,
+        value = _ref21$field.value;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_10__["default"], {
         label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Enable Telegram', 'highlight-and-share'),
         className: "has-admin__toggle-control",
         checked: value,
@@ -21123,18 +21295,74 @@ var Interface = function Interface(props) {
         help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Telegram allows text sharing.', 'highlight-and-share')
       });
     }
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", {
+  })), getValues('showTelegram') && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "has-admin-component-row"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_9__.Controller, {
+    name: "telegramLabel",
+    control: control,
+    rules: {
+      required: true
+    },
+    render: function render(_ref22) {
+      var _errors$telegramLabel, _errors$telegramLabel2;
+      var field = _ref22.field;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["default"], _extends({}, field, {
+        type: "text",
+        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Telegram Label', 'highlight-and-share'),
+        className: classnames__WEBPACK_IMPORTED_MODULE_2___default()('has-admin__text-control', {
+          'is-required': true,
+          'has-error': 'required' === ((_errors$telegramLabel = errors.telegramLabel) === null || _errors$telegramLabel === void 0 ? void 0 : _errors$telegramLabel.type)
+        }),
+        help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Choose a label for the Telegram button.', 'highlight-and-share'),
+        "aria-required": "true"
+      })), 'required' === ((_errors$telegramLabel2 = errors.telegramLabel) === null || _errors$telegramLabel2 === void 0 ? void 0 : _errors$telegramLabel2.type) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_12__["default"], {
+        message: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('This field is a required field.'),
+        status: "error",
+        politeness: "assertive",
+        inline: false,
+        icon: _Components_Icons_CircularExplanation__WEBPACK_IMPORTED_MODULE_13__["default"]
+      }));
+    }
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "has-admin-component-row"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_9__.Controller, {
+    name: "telegramTooltip",
+    control: control,
+    rules: {
+      required: true
+    },
+    render: function render(_ref23) {
+      var _errors$telegramToolt, _errors$telegramToolt2;
+      var field = _ref23.field;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["default"], _extends({}, field, {
+        type: "text",
+        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Telegram Tooltip', 'highlight-and-share'),
+        className: classnames__WEBPACK_IMPORTED_MODULE_2___default()('has-admin__text-control', {
+          'is-required': true,
+          'has-error': 'required' === ((_errors$telegramToolt = errors.telegramTooltip) === null || _errors$telegramToolt === void 0 ? void 0 : _errors$telegramToolt.type)
+        }),
+        help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Choose tooltip text for the Facebook button.', 'highlight-and-share'),
+        "aria-required": "true"
+      })), 'required' === ((_errors$telegramToolt2 = errors.telegramTooltip) === null || _errors$telegramToolt2 === void 0 ? void 0 : _errors$telegramToolt2.type) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_12__["default"], {
+        message: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('This field is a required field.'),
+        status: "error",
+        politeness: "assertive",
+        inline: false,
+        icon: _Components_Icons_CircularExplanation__WEBPACK_IMPORTED_MODULE_13__["default"]
+      }));
+    }
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", {
     className: "has-icon-heading"
   }, getSocialIcon('linkedin'), ' ', (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__._x)('LinkedIn', 'LinkedIn Social Network', 'highlight-and-share')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "has-admin-component-row"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_8__.Controller, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_9__.Controller, {
     name: "showLinkedin",
     control: control,
-    render: function render(_ref16) {
-      var _ref16$field = _ref16.field,
-        _onChange12 = _ref16$field.onChange,
-        value = _ref16$field.value;
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["default"], {
+    render: function render(_ref24) {
+      var _ref24$field = _ref24.field,
+        _onChange12 = _ref24$field.onChange,
+        value = _ref24$field.value;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_10__["default"], {
         label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Enable LinkedIn', 'highlight-and-share'),
         className: "has-admin__toggle-control",
         checked: value,
@@ -21144,18 +21372,74 @@ var Interface = function Interface(props) {
         help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('LinkedIn allows URL sharing.', 'highlight-and-share')
       });
     }
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", {
+  })), getValues('showLinkedin') && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "has-admin-component-row"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_9__.Controller, {
+    name: "linkedinLabel",
+    control: control,
+    rules: {
+      required: true
+    },
+    render: function render(_ref25) {
+      var _errors$linkedinLabel, _errors$linkedinLabel2;
+      var field = _ref25.field;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["default"], _extends({}, field, {
+        type: "text",
+        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('LinkedIn Label', 'highlight-and-share'),
+        className: classnames__WEBPACK_IMPORTED_MODULE_2___default()('has-admin__text-control', {
+          'is-required': true,
+          'has-error': 'required' === ((_errors$linkedinLabel = errors.linkedinLabel) === null || _errors$linkedinLabel === void 0 ? void 0 : _errors$linkedinLabel.type)
+        }),
+        help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Choose a label for the LinkedIn button.', 'highlight-and-share'),
+        "aria-required": "true"
+      })), 'required' === ((_errors$linkedinLabel2 = errors.linkedinLabel) === null || _errors$linkedinLabel2 === void 0 ? void 0 : _errors$linkedinLabel2.type) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_12__["default"], {
+        message: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('This field is a required field.'),
+        status: "error",
+        politeness: "assertive",
+        inline: false,
+        icon: _Components_Icons_CircularExplanation__WEBPACK_IMPORTED_MODULE_13__["default"]
+      }));
+    }
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "has-admin-component-row"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_9__.Controller, {
+    name: "linkedinTooltip",
+    control: control,
+    rules: {
+      required: true
+    },
+    render: function render(_ref26) {
+      var _errors$linkedinToolt, _errors$linkedinToolt2;
+      var field = _ref26.field;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["default"], _extends({}, field, {
+        type: "text",
+        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('LinkedIn Tooltip', 'highlight-and-share'),
+        className: classnames__WEBPACK_IMPORTED_MODULE_2___default()('has-admin__text-control', {
+          'is-required': true,
+          'has-error': 'required' === ((_errors$linkedinToolt = errors.linkedinTooltip) === null || _errors$linkedinToolt === void 0 ? void 0 : _errors$linkedinToolt.type)
+        }),
+        help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Choose tooltip text for the Facebook button.', 'highlight-and-share'),
+        "aria-required": "true"
+      })), 'required' === ((_errors$linkedinToolt2 = errors.linkedinTooltip) === null || _errors$linkedinToolt2 === void 0 ? void 0 : _errors$linkedinToolt2.type) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_12__["default"], {
+        message: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('This field is a required field.'),
+        status: "error",
+        politeness: "assertive",
+        inline: false,
+        icon: _Components_Icons_CircularExplanation__WEBPACK_IMPORTED_MODULE_13__["default"]
+      }));
+    }
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", {
     className: "has-icon-heading"
   }, getSocialIcon('xing'), ' ', (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__._x)('Xing', 'Xing Social Network', 'highlight-and-share')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "has-admin-component-row"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_8__.Controller, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_9__.Controller, {
     name: "showXing",
     control: control,
-    render: function render(_ref17) {
-      var _ref17$field = _ref17.field,
-        _onChange13 = _ref17$field.onChange,
-        value = _ref17$field.value;
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["default"], {
+    render: function render(_ref27) {
+      var _ref27$field = _ref27.field,
+        _onChange13 = _ref27$field.onChange,
+        value = _ref27$field.value;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_10__["default"], {
         label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Enable Xing', 'highlight-and-share'),
         className: "has-admin__toggle-control",
         checked: value,
@@ -21165,18 +21449,74 @@ var Interface = function Interface(props) {
         help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Xing allows URL sharing.', 'highlight-and-share')
       });
     }
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", {
+  })), getValues('showXing') && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "has-admin-component-row"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_9__.Controller, {
+    name: "xingLabel",
+    control: control,
+    rules: {
+      required: true
+    },
+    render: function render(_ref28) {
+      var _errors$xingLabel, _errors$xingLabel2;
+      var field = _ref28.field;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["default"], _extends({}, field, {
+        type: "text",
+        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Xing Label', 'highlight-and-share'),
+        className: classnames__WEBPACK_IMPORTED_MODULE_2___default()('has-admin__text-control', {
+          'is-required': true,
+          'has-error': 'required' === ((_errors$xingLabel = errors.xingLabel) === null || _errors$xingLabel === void 0 ? void 0 : _errors$xingLabel.type)
+        }),
+        help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Choose a label for the Xing button.', 'highlight-and-share'),
+        "aria-required": "true"
+      })), 'required' === ((_errors$xingLabel2 = errors.xingLabel) === null || _errors$xingLabel2 === void 0 ? void 0 : _errors$xingLabel2.type) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_12__["default"], {
+        message: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('This field is a required field.'),
+        status: "error",
+        politeness: "assertive",
+        inline: false,
+        icon: _Components_Icons_CircularExplanation__WEBPACK_IMPORTED_MODULE_13__["default"]
+      }));
+    }
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "has-admin-component-row"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_9__.Controller, {
+    name: "xingTooltip",
+    control: control,
+    rules: {
+      required: true
+    },
+    render: function render(_ref29) {
+      var _errors$xingTooltip, _errors$xingTooltip2;
+      var field = _ref29.field;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["default"], _extends({}, field, {
+        type: "text",
+        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Xing Tooltip', 'highlight-and-share'),
+        className: classnames__WEBPACK_IMPORTED_MODULE_2___default()('has-admin__text-control', {
+          'is-required': true,
+          'has-error': 'required' === ((_errors$xingTooltip = errors.xingTooltip) === null || _errors$xingTooltip === void 0 ? void 0 : _errors$xingTooltip.type)
+        }),
+        help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Choose tooltip text for the Facebook button.', 'highlight-and-share'),
+        "aria-required": "true"
+      })), 'required' === ((_errors$xingTooltip2 = errors.xingTooltip) === null || _errors$xingTooltip2 === void 0 ? void 0 : _errors$xingTooltip2.type) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_12__["default"], {
+        message: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('This field is a required field.'),
+        status: "error",
+        politeness: "assertive",
+        inline: false,
+        icon: _Components_Icons_CircularExplanation__WEBPACK_IMPORTED_MODULE_13__["default"]
+      }));
+    }
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", {
     className: "has-icon-heading"
   }, getSocialIcon('email'), ' ', (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__._x)('Email', 'Email Social Network', 'highlight-and-share')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "has-admin-component-row"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_8__.Controller, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_9__.Controller, {
     name: "enableEmails",
     control: control,
-    render: function render(_ref18) {
-      var _ref18$field = _ref18.field,
-        _onChange14 = _ref18$field.onChange,
-        value = _ref18$field.value;
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["default"], {
+    render: function render(_ref30) {
+      var _ref30$field = _ref30.field,
+        _onChange14 = _ref30$field.onChange,
+        value = _ref30$field.value;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_10__["default"], {
         label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Enable Emails', 'highlight-and-share'),
         className: "has-admin__toggle-control",
         checked: value,
@@ -21186,18 +21526,74 @@ var Interface = function Interface(props) {
         help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Users will be able to send an email when highlighting text.', 'highlight-and-share')
       });
     }
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", {
+  })), getValues('enableEmails') && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "has-admin-component-row"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_9__.Controller, {
+    name: "emailLabel",
+    control: control,
+    rules: {
+      required: true
+    },
+    render: function render(_ref31) {
+      var _errors$emailLabel, _errors$emailLabel2;
+      var field = _ref31.field;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["default"], _extends({}, field, {
+        type: "text",
+        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Email Label', 'highlight-and-share'),
+        className: classnames__WEBPACK_IMPORTED_MODULE_2___default()('has-admin__text-control', {
+          'is-required': true,
+          'has-error': 'required' === ((_errors$emailLabel = errors.emailLabel) === null || _errors$emailLabel === void 0 ? void 0 : _errors$emailLabel.type)
+        }),
+        help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Choose a label for the Email button.', 'highlight-and-share'),
+        "aria-required": "true"
+      })), 'required' === ((_errors$emailLabel2 = errors.emailLabel) === null || _errors$emailLabel2 === void 0 ? void 0 : _errors$emailLabel2.type) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_12__["default"], {
+        message: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('This field is a required field.'),
+        status: "error",
+        politeness: "assertive",
+        inline: false,
+        icon: _Components_Icons_CircularExplanation__WEBPACK_IMPORTED_MODULE_13__["default"]
+      }));
+    }
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "has-admin-component-row"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_9__.Controller, {
+    name: "emailTooltip",
+    control: control,
+    rules: {
+      required: true
+    },
+    render: function render(_ref32) {
+      var _errors$emailTooltip, _errors$emailTooltip2;
+      var field = _ref32.field;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["default"], _extends({}, field, {
+        type: "text",
+        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Email Tooltip', 'highlight-and-share'),
+        className: classnames__WEBPACK_IMPORTED_MODULE_2___default()('has-admin__text-control', {
+          'is-required': true,
+          'has-error': 'required' === ((_errors$emailTooltip = errors.emailTooltip) === null || _errors$emailTooltip === void 0 ? void 0 : _errors$emailTooltip.type)
+        }),
+        help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Choose tooltip text for the Facebook button.', 'highlight-and-share'),
+        "aria-required": "true"
+      })), 'required' === ((_errors$emailTooltip2 = errors.emailTooltip) === null || _errors$emailTooltip2 === void 0 ? void 0 : _errors$emailTooltip2.type) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_12__["default"], {
+        message: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('This field is a required field.'),
+        status: "error",
+        politeness: "assertive",
+        inline: false,
+        icon: _Components_Icons_CircularExplanation__WEBPACK_IMPORTED_MODULE_13__["default"]
+      }));
+    }
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", {
     className: "has-icon-heading"
   }, getSocialIcon('copy'), ' ', (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__._x)('Copy', 'Copy Social Network', 'highlight-and-share')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "has-admin-component-row"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_8__.Controller, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_9__.Controller, {
     name: "showCopy",
     control: control,
-    render: function render(_ref19) {
-      var _ref19$field = _ref19.field,
-        _onChange15 = _ref19$field.onChange,
-        value = _ref19$field.value;
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["default"], {
+    render: function render(_ref33) {
+      var _ref33$field = _ref33.field,
+        _onChange15 = _ref33$field.onChange,
+        value = _ref33$field.value;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_10__["default"], {
         label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Enable Copy', 'highlight-and-share'),
         className: "has-admin__toggle-control",
         checked: value,
@@ -21207,22 +21603,78 @@ var Interface = function Interface(props) {
         help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Users will be able to copy the selected text when highlighting content.', 'highlight-and-share')
       });
     }
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Shortlinks', 'highlight-and-share')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+  })), getValues('showCopy') && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "has-admin-component-row"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_11__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_9__.Controller, {
+    name: "copyLabel",
+    control: control,
+    rules: {
+      required: true
+    },
+    render: function render(_ref34) {
+      var _errors$copyLabel, _errors$copyLabel2;
+      var field = _ref34.field;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["default"], _extends({}, field, {
+        type: "text",
+        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Copy Label', 'highlight-and-share'),
+        className: classnames__WEBPACK_IMPORTED_MODULE_2___default()('has-admin__text-control', {
+          'is-required': true,
+          'has-error': 'required' === ((_errors$copyLabel = errors.copyLabel) === null || _errors$copyLabel === void 0 ? void 0 : _errors$copyLabel.type)
+        }),
+        help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Choose a label for the Copy button.', 'highlight-and-share'),
+        "aria-required": "true"
+      })), 'required' === ((_errors$copyLabel2 = errors.copyLabel) === null || _errors$copyLabel2 === void 0 ? void 0 : _errors$copyLabel2.type) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_12__["default"], {
+        message: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('This field is a required field.'),
+        status: "error",
+        politeness: "assertive",
+        inline: false,
+        icon: _Components_Icons_CircularExplanation__WEBPACK_IMPORTED_MODULE_13__["default"]
+      }));
+    }
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "has-admin-component-row"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_9__.Controller, {
+    name: "copyTooltip",
+    control: control,
+    rules: {
+      required: true
+    },
+    render: function render(_ref35) {
+      var _errors$copyTooltip, _errors$copyTooltip2;
+      var field = _ref35.field;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["default"], _extends({}, field, {
+        type: "text",
+        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Copy Tooltip', 'highlight-and-share'),
+        className: classnames__WEBPACK_IMPORTED_MODULE_2___default()('has-admin__text-control', {
+          'is-required': true,
+          'has-error': 'required' === ((_errors$copyTooltip = errors.copyTooltip) === null || _errors$copyTooltip === void 0 ? void 0 : _errors$copyTooltip.type)
+        }),
+        help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Choose tooltip text for the Facebook button.', 'highlight-and-share'),
+        "aria-required": "true"
+      })), 'required' === ((_errors$copyTooltip2 = errors.copyTooltip) === null || _errors$copyTooltip2 === void 0 ? void 0 : _errors$copyTooltip2.type) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_12__["default"], {
+        message: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('This field is a required field.'),
+        status: "error",
+        politeness: "assertive",
+        inline: false,
+        icon: _Components_Icons_CircularExplanation__WEBPACK_IMPORTED_MODULE_13__["default"]
+      }));
+    }
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Shortlinks', 'highlight-and-share')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "has-admin-component-row"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_12__["default"], {
     message: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('A third-party URL shortening service must be installed for URL shortening to work.', 'highlight-and-share'),
     status: "info",
     politeness: "polite",
     inline: false,
-    icon: _Components_Icons_CircularInfo__WEBPACK_IMPORTED_MODULE_15__["default"]
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_8__.Controller, {
+    icon: _Components_Icons_CircularInfo__WEBPACK_IMPORTED_MODULE_16__["default"]
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_9__.Controller, {
     name: "shortlinks",
     control: control,
-    render: function render(_ref20) {
-      var _ref20$field = _ref20.field,
-        _onChange16 = _ref20$field.onChange,
-        value = _ref20$field.value;
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_9__["default"], {
+    render: function render(_ref36) {
+      var _ref36$field = _ref36.field,
+        _onChange16 = _ref36$field.onChange,
+        value = _ref36$field.value;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_10__["default"], {
         label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Enable Shortlinks', 'highlight-and-share'),
         className: "has-admin__toggle-control",
         checked: value,
@@ -21238,81 +21690,81 @@ var Interface = function Interface(props) {
     className: "description"
   }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('These advanced settings allow Highlight and Share to work with your theme, particularly if you are using a page builder.', 'highlight-and-share')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "has-admin-component-row"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_8__.Controller, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_9__.Controller, {
     name: "jsContent",
     control: control,
     rules: {
       pattern: /^\.?[-_,A-Za-z0-9]+$/i
     },
-    render: function render(_ref21) {
+    render: function render(_ref37) {
       var _errors$jsContent;
-      var field = _ref21.field;
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_10__["default"], _extends({}, field, {
+      var field = _ref37.field;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["default"], _extends({}, field, {
         type: "text",
         label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('CSS Class Selectors', 'highlight-and-share'),
         className: classnames__WEBPACK_IMPORTED_MODULE_2___default()('has-admin__text-control'),
         help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Separate each class with commas.', 'highlight-and-share')
-      })), 'pattern' === ((_errors$jsContent = errors.jsContent) === null || _errors$jsContent === void 0 ? void 0 : _errors$jsContent.type) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_11__["default"], {
+      })), 'pattern' === ((_errors$jsContent = errors.jsContent) === null || _errors$jsContent === void 0 ? void 0 : _errors$jsContent.type) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_12__["default"], {
         message: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('There are invalid characters.'),
         status: "error",
         politeness: "assertive",
         inline: true,
-        icon: _Components_Icons_CircularExplanation__WEBPACK_IMPORTED_MODULE_12__["default"]
+        icon: _Components_Icons_CircularExplanation__WEBPACK_IMPORTED_MODULE_13__["default"]
       }));
     }
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "has-admin-component-row"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_8__.Controller, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_9__.Controller, {
     name: "idContent",
     control: control,
     rules: {
       pattern: /^\#?[-_,A-Za-z0-9]+$/i
     },
-    render: function render(_ref22) {
+    render: function render(_ref38) {
       var _errors$jsContent2;
-      var field = _ref22.field;
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_10__["default"], _extends({}, field, {
+      var field = _ref38.field;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["default"], _extends({}, field, {
         type: "text",
         label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('CSS ID Selectors', 'highlight-and-share'),
         className: classnames__WEBPACK_IMPORTED_MODULE_2___default()('has-admin__text-control'),
         help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Separate each ID with commas.', 'highlight-and-share')
-      })), 'pattern' === ((_errors$jsContent2 = errors.jsContent) === null || _errors$jsContent2 === void 0 ? void 0 : _errors$jsContent2.type) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_11__["default"], {
+      })), 'pattern' === ((_errors$jsContent2 = errors.jsContent) === null || _errors$jsContent2 === void 0 ? void 0 : _errors$jsContent2.type) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_12__["default"], {
         message: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('There are invalid characters.'),
         status: "error",
         politeness: "assertive",
         inline: true,
-        icon: _Components_Icons_CircularExplanation__WEBPACK_IMPORTED_MODULE_12__["default"]
+        icon: _Components_Icons_CircularExplanation__WEBPACK_IMPORTED_MODULE_13__["default"]
       }));
     }
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "has-admin-component-row"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_8__.Controller, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_9__.Controller, {
     name: "elementContent",
     control: control,
     rules: {
       pattern: /^[,A-Za-z0-9]+$/i
     },
-    render: function render(_ref23) {
+    render: function render(_ref39) {
       var _errors$elementConten;
-      var field = _ref23.field;
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_10__["default"], _extends({}, field, {
+      var field = _ref39.field;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["default"], _extends({}, field, {
         type: "text",
         label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('HTML Element Selectors', 'highlight-and-share'),
         className: classnames__WEBPACK_IMPORTED_MODULE_2___default()('has-admin__text-control'),
         help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Separate each element with commas.', 'highlight-and-share')
-      })), 'pattern' === ((_errors$elementConten = errors.elementContent) === null || _errors$elementConten === void 0 ? void 0 : _errors$elementConten.type) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_11__["default"], {
+      })), 'pattern' === ((_errors$elementConten = errors.elementContent) === null || _errors$elementConten === void 0 ? void 0 : _errors$elementConten.type) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_12__["default"], {
         message: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('There are invalid characters.'),
         status: "error",
         politeness: "assertive",
         inline: true,
-        icon: _Components_Icons_CircularExplanation__WEBPACK_IMPORTED_MODULE_12__["default"]
+        icon: _Components_Icons_CircularExplanation__WEBPACK_IMPORTED_MODULE_13__["default"]
       }));
     }
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "has-admin__tabs--content-actions"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "has-admin__tabs--content-actions--left"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_16__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_17__["default"], {
     className: classnames__WEBPACK_IMPORTED_MODULE_2___default()('has__btn has__btn-primary has__btn--icon-right', {
       'has-error': hasErrors()
     }, {
@@ -21324,13 +21776,13 @@ var Interface = function Interface(props) {
     }),
     type: "submit",
     text: saving ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Saving…', 'highlight-and-share') : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Save Settings', 'highlight-and-share'),
-    icon: saving ? _Components_Icons_Spinner__WEBPACK_IMPORTED_MODULE_17__["default"] : false,
+    icon: saving ? _Components_Icons_Spinner__WEBPACK_IMPORTED_MODULE_18__["default"] : false,
     iconSize: "18",
     iconPosition: "right",
     disabled: saving || resetting
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "has-admin__tabs--content-actions--right"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_16__["default"], {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_17__["default"], {
     className: classnames__WEBPACK_IMPORTED_MODULE_2___default()('has__btn has__btn-danger has__btn--icon-right', {
       'has-icon': resetting
     }, {
@@ -21340,7 +21792,7 @@ var Interface = function Interface(props) {
     }),
     type: "button",
     text: resetting ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Resetting…', 'highlight-and-share') : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Reset Settings', 'highlight-and-share'),
-    icon: resetting ? _Components_Icons_Spinner__WEBPACK_IMPORTED_MODULE_17__["default"] : false,
+    icon: resetting ? _Components_Icons_Spinner__WEBPACK_IMPORTED_MODULE_18__["default"] : false,
     iconSize: "18",
     iconPosition: "right",
     disabled: saving || resetting,
@@ -21348,19 +21800,19 @@ var Interface = function Interface(props) {
       setResetting(true);
       handleReset(e);
     }
-  }))), hasErrors() && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_11__["default"], {
+  }))), hasErrors() && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_12__["default"], {
     message: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('There are form validation errors. Please correct them above.'),
     status: "error",
     politeness: "polite"
-  }), isSaved && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_11__["default"], {
+  }), isSaved && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_12__["default"], {
     message: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Your settings have been saved.'),
     status: "success",
     politeness: "assertive"
-  }), isReset && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_11__["default"], {
+  }), isReset && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_12__["default"], {
     message: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Your settings have been reset to defaults.'),
     status: "success",
     politeness: "assertive"
-  })));
+  }))));
 };
 /* harmony default export */ const __WEBPACK_DEFAULT_EXPORT__ = (Settings);
 
