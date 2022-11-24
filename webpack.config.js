@@ -22,6 +22,7 @@ module.exports = ( env ) => {
 				'has-admin-settings': [ './src/react/Settings/index.js' ],
 				'has-admin-appearance': [ './src/react/Appearance/index.js' ],
 				'has-admin-block-editor': [ './src/react/BlockEditor/index.js' ],
+				'has-admin-emails': [ './src/react/Emails/index.js' ],
 				'has-themes': [ './src/themes.scss' ],
 				'has-gfont-josefin-sans': { import: './src/scss/fonts/josefin-sans.scss' },
 				'has-gfont-karla': { import: './src/scss/fonts/karla.scss' },

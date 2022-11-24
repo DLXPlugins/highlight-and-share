@@ -42,6 +42,9 @@ class Admin {
 		add_action( 'wp_ajax_has_save_block_editor_options', array( $this, 'ajax_save_block_editor_options' ) );
 		add_action( 'wp_ajax_has_reset_block_editor_options', array( $this, 'ajax_reset_block_editor_options' ) );
 
+		// Retrieve, save, and reset recaptcha options.
+		add_action( 'wp_ajax_has_retrieve_emails_tab', array( $this, 'ajax_retrieve_emails_tab' ) );
+
 		// For HAS styling in the admin.
 		add_action( 'admin_body_class', array( $this, 'add_admin_body_class' ) );
 	}
@@ -106,6 +109,24 @@ class Admin {
 		update_option( 'highlight-and-share-block-editor-options', $converted_options );
 
 		wp_send_json_success( $this->map_defaults_to_js( stripslashes_deep( $converted_options ) ) );
+	}
+
+	/**
+	 * Retrieve email settings in the emails tab.
+	 */
+	public function ajax_retrieve_emails_tab() {
+		if ( ! wp_verify_nonce( filter_input( INPUT_POST, 'nonce', FILTER_DEFAULT ), 'has_retrieve_email_settings' ) || ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( array() );
+		}
+
+		// Get saved options.
+		$options = Options::get_plugin_options( true );
+		$return  = array(
+			'values' => $this->map_defaults_to_js(
+				stripslashes_deep( $options ),
+			),
+		);
+		wp_send_json_success( $return );
 	}
 
 	/**
@@ -395,6 +416,10 @@ class Admin {
 			if ( 'block-editor' === $current_tab ) {
 				$block_editor_tab_class[] = 'nav-tab-active';
 			}
+			$emails_tab_class = array( 'nav-tab' );
+			if ( 'emails' === $current_tab ) {
+				$emails_tab_class[] = 'nav-tab-active';
+			}
 			?>
 
 
@@ -404,6 +429,7 @@ class Admin {
 						<a class="<?php echo esc_attr( implode( ' ', $settings_tab_class ) ); ?>" href="<?php echo esc_url( Functions::get_settings_url( 'settings' ) ); ?>"><?php esc_html_e( 'Settings', 'highlight-and-share' ); ?></a>
 						<a class="<?php echo esc_attr( implode( ' ', $appearance_tab_class ) ); ?>" href="<?php echo esc_url( Functions::get_settings_url( 'appearance' ) ); ?>"><?php esc_html_e( 'Appearance', 'highlight-and-share' ); ?></a>
 						<a class="<?php echo esc_attr( implode( ' ', $block_editor_tab_class ) ); ?>" href="<?php echo esc_url( Functions::get_settings_url( 'block-editor' ) ); ?>"><?php esc_html_e( 'Block Editor', 'highlight-and-share' ); ?></a>
+						<a class="<?php echo esc_attr( implode( ' ', $emails_tab_class ) ); ?>" href="<?php echo esc_url( Functions::get_settings_url( 'emails' ) ); ?>"><?php esc_html_e( 'Emails', 'highlight-and-share' ); ?></a>
 					</nav>
 					<?php
 					if ( null === $current_tab || 'settings' === $current_tab ) {
@@ -425,6 +451,12 @@ class Admin {
 						// No wrapper as there are separate wrappers for each section. A wrapper is included in the loader.
 						?>
 						<div id="has-block-editor-admin-settings"><div class="has-admin-container-body__content"><?php echo wp_kses( $this->get_loading_svg(), Functions::get_kses_allowed_html() ); ?></div></div>
+						<?php
+					}
+					if ( 'emails' === $current_tab ) {
+						// No wrapper as there are separate wrappers for each section. A wrapper is included in the loader.
+						?>
+						<div id="has-emails-admin-settings"><div class="has-admin-container-body__content"><?php echo wp_kses( $this->get_loading_svg(), Functions::get_kses_allowed_html() ); ?></div></div>
 						<?php
 					}
 					?>
@@ -557,6 +589,31 @@ class Admin {
 						'saveNonce'     => wp_create_nonce( 'has_save_block_editor' ),
 						'retrieveNonce' => wp_create_nonce( 'has_retrieve_block_editor' ),
 						'resetNonce'    => wp_create_nonce( 'has_reset_block_editor' ),
+					)
+				);
+			}
+
+			// Determine if we're loading the emails tab.
+			$enqueue_emails = false;
+			$current_tab    = Functions::get_admin_tab();
+			if ( null !== $current_tab && 'emails' === $current_tab ) {
+				$enqueue_emails = true;
+			}
+			if ( $enqueue_emails ) {
+				wp_enqueue_script(
+					'has-emails-admin-js',
+					Functions::get_plugin_url( '/dist/has-admin-emails.js' ),
+					array(),
+					HIGHLIGHT_AND_SHARE_VERSION,
+					true
+				);
+				wp_localize_script(
+					'has-emails-admin-js',
+					'hasEmailsAdmin',
+					array(
+						'saveNonce'     => wp_create_nonce( 'has_save_email_settings' ),
+						'retrieveNonce' => wp_create_nonce( 'has_retrieve_email_settings' ),
+						'resetNonce'    => wp_create_nonce( 'has_reset_email_settings' ),
 					)
 				);
 			}
