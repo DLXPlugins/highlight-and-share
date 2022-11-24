@@ -20680,7 +20680,25 @@ var Interface = function Interface(props) {
       shortlinks: data.values.shortlinks,
       jsContent: data.values.jsContent,
       elementContent: data.values.elementContent,
-      idContent: data.values.idContent
+      idContent: data.values.idContent,
+      twitterLabel: data.values.twitterLabel,
+      twitterTooltip: data.values.twitterTooltip,
+      facebookLabel: data.values.facebookLabel,
+      facebookTooltip: data.values.facebookTooltip,
+      whatsappLabel: data.values.whatsappLabel,
+      whatsappTooltip: data.values.whatsappTooltip,
+      redditLabel: data.values.redditLabel,
+      redditTooltip: data.values.redditTooltip,
+      telegramLabel: data.values.telegramLabel,
+      telegramTooltip: data.values.telegramTooltip,
+      linkedinLabel: data.values.linkedinLabel,
+      linkedinTooltip: data.values.linkedinTooltip,
+      xingLabel: data.values.xingLabel,
+      xingTooltip: data.values.xingTooltip,
+      copyLabel: data.values.copyLabel,
+      copyTooltip: data.values.copyTooltip,
+      emailLabel: data.values.emailLabel,
+      emailTooltip: data.values.emailTooltip
     };
   };
   var _useForm = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_8__.useForm)({
@@ -21144,22 +21162,13 @@ var Interface = function Interface(props) {
     },
     render: function render(_ref19) {
       var _errors$jsContent;
-      var _ref19$field = _ref19.field,
-        onChange = _ref19$field.onChange,
-        value = _ref19$field.value;
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_8__.Controller, {
-        name: "jsContent",
-        control: control,
-        render: function render(_ref20) {
-          var field = _ref20.field;
-          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_10__["default"], _extends({}, field, {
-            type: "text",
-            label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('CSS Class Selectors', 'highlight-and-share'),
-            className: classnames__WEBPACK_IMPORTED_MODULE_2___default()('has-admin__text-control'),
-            help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Separate each class with commas.', 'highlight-and-share')
-          }));
-        }
-      }), 'pattern' === ((_errors$jsContent = errors.jsContent) === null || _errors$jsContent === void 0 ? void 0 : _errors$jsContent.type) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_12__["default"], {
+      var field = _ref19.field;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_10__["default"], _extends({}, field, {
+        type: "text",
+        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('CSS Class Selectors', 'highlight-and-share'),
+        className: classnames__WEBPACK_IMPORTED_MODULE_2___default()('has-admin__text-control'),
+        help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Separate each class with commas.', 'highlight-and-share')
+      })), 'pattern' === ((_errors$jsContent = errors.jsContent) === null || _errors$jsContent === void 0 ? void 0 : _errors$jsContent.type) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_12__["default"], {
         message: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('There are invalid characters.'),
         status: "error",
         politeness: "assertive",
@@ -21175,24 +21184,15 @@ var Interface = function Interface(props) {
     rules: {
       pattern: /^\#?[-_,A-Za-z0-9]+$/i
     },
-    render: function render(_ref21) {
-      var _errors$idContent;
-      var _ref21$field = _ref21.field,
-        onChange = _ref21$field.onChange,
-        value = _ref21$field.value;
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_8__.Controller, {
-        name: "idContent",
-        control: control,
-        render: function render(_ref22) {
-          var field = _ref22.field;
-          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_10__["default"], _extends({}, field, {
-            type: "text",
-            label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('CSS ID Selectors', 'highlight-and-share'),
-            className: classnames__WEBPACK_IMPORTED_MODULE_2___default()('has-admin__text-control'),
-            help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Separate each ID with commas.', 'highlight-and-share')
-          }));
-        }
-      }), 'pattern' === ((_errors$idContent = errors.idContent) === null || _errors$idContent === void 0 ? void 0 : _errors$idContent.type) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_12__["default"], {
+    render: function render(_ref20) {
+      var _errors$jsContent2;
+      var field = _ref20.field;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_10__["default"], _extends({}, field, {
+        type: "text",
+        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('CSS ID Selectors', 'highlight-and-share'),
+        className: classnames__WEBPACK_IMPORTED_MODULE_2___default()('has-admin__text-control'),
+        help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Separate each ID with commas.', 'highlight-and-share')
+      })), 'pattern' === ((_errors$jsContent2 = errors.jsContent) === null || _errors$jsContent2 === void 0 ? void 0 : _errors$jsContent2.type) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_12__["default"], {
         message: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('There are invalid characters.'),
         status: "error",
         politeness: "assertive",
@@ -21208,24 +21208,15 @@ var Interface = function Interface(props) {
     rules: {
       pattern: /^[,A-Za-z0-9]+$/i
     },
-    render: function render(_ref23) {
+    render: function render(_ref21) {
       var _errors$elementConten;
-      var _ref23$field = _ref23.field,
-        onChange = _ref23$field.onChange,
-        value = _ref23$field.value;
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_8__.Controller, {
-        name: "elementContent",
-        control: control,
-        render: function render(_ref24) {
-          var field = _ref24.field;
-          return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_10__["default"], _extends({}, field, {
-            type: "text",
-            label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('HTML Element Selectors', 'highlight-and-share'),
-            className: classnames__WEBPACK_IMPORTED_MODULE_2___default()('has-admin__text-control'),
-            help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Separate each element with commas.', 'highlight-and-share')
-          }));
-        }
-      }), 'pattern' === ((_errors$elementConten = errors.elementContent) === null || _errors$elementConten === void 0 ? void 0 : _errors$elementConten.type) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_12__["default"], {
+      var field = _ref21.field;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_10__["default"], _extends({}, field, {
+        type: "text",
+        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('HTML Element Selectors', 'highlight-and-share'),
+        className: classnames__WEBPACK_IMPORTED_MODULE_2___default()('has-admin__text-control'),
+        help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Separate each element with commas.', 'highlight-and-share')
+      })), 'pattern' === ((_errors$elementConten = errors.elementContent) === null || _errors$elementConten === void 0 ? void 0 : _errors$elementConten.type) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_12__["default"], {
         message: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('There are invalid characters.'),
         status: "error",
         politeness: "assertive",

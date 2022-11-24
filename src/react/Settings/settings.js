@@ -30,7 +30,7 @@ const retrieveDefaults = () => {
 
 const Settings = ( props ) => {
 	const [ defaults, getDefaults ] = useAsyncResource( retrieveDefaults, [] );
-	
+
 	return (
 		<ErrorBoundary
 			fallback={
@@ -97,6 +97,24 @@ const Interface = ( props ) => {
 			jsContent: data.values.jsContent,
 			elementContent: data.values.elementContent,
 			idContent: data.values.idContent,
+			twitterLabel: data.values.twitterLabel,
+			twitterTooltip: data.values.twitterTooltip,
+			facebookLabel: data.values.facebookLabel,
+			facebookTooltip: data.values.facebookTooltip,
+			whatsappLabel: data.values.whatsappLabel,
+			whatsappTooltip: data.values.whatsappTooltip,
+			redditLabel: data.values.redditLabel,
+			redditTooltip: data.values.redditTooltip,
+			telegramLabel: data.values.telegramLabel,
+			telegramTooltip: data.values.telegramTooltip,
+			linkedinLabel: data.values.linkedinLabel,
+			linkedinTooltip: data.values.linkedinTooltip,
+			xingLabel: data.values.xingLabel,
+			xingTooltip: data.values.xingTooltip,
+			copyLabel: data.values.copyLabel,
+			copyTooltip: data.values.copyTooltip,
+			emailLabel: data.values.emailLabel,
+			emailTooltip: data.values.emailTooltip,
 		};
 	};
 	const {
@@ -172,7 +190,6 @@ const Interface = ( props ) => {
 		return Object.keys( errors ).length > 0;
 	};
 
-	
 	return (
 		<form onSubmit={ handleSubmit( onSubmit ) }>
 			<div className="has-admin-content-wrapper">
@@ -621,22 +638,16 @@ const Interface = ( props ) => {
 							rules={ {
 								pattern: /^\.?[-_,A-Za-z0-9]+$/i,
 							} }
-							render={ ( { field: { onChange, value } } ) => (
+							render={ ( { field } ) => (
 								<>
-									<Controller
-										name="jsContent"
-										control={ control }
-										render={ ( { field } ) => (
-											<TextControl
-												{ ...field }
-												type="text"
-												label={ __( 'CSS Class Selectors', 'highlight-and-share' ) }
-												className={ classNames( 'has-admin__text-control' ) }
-												help={ __(
-													'Separate each class with commas.',
-													'highlight-and-share'
-												) }
-											/>
+									<TextControl
+										{ ...field }
+										type="text"
+										label={ __( 'CSS Class Selectors', 'highlight-and-share' ) }
+										className={ classNames( 'has-admin__text-control' ) }
+										help={ __(
+											'Separate each class with commas.',
+											'highlight-and-share'
 										) }
 									/>
 									{ 'pattern' === errors.jsContent?.type && (
@@ -661,25 +672,19 @@ const Interface = ( props ) => {
 							rules={ {
 								pattern: /^\#?[-_,A-Za-z0-9]+$/i,
 							} }
-							render={ ( { field: { onChange, value } } ) => (
+							render={ ( { field } ) => (
 								<>
-									<Controller
-										name="idContent"
-										control={ control }
-										render={ ( { field } ) => (
-											<TextControl
-												{ ...field }
-												type="text"
-												label={ __( 'CSS ID Selectors', 'highlight-and-share' ) }
-												className={ classNames( 'has-admin__text-control' ) }
-												help={ __(
-													'Separate each ID with commas.',
-													'highlight-and-share'
-												) }
-											/>
+									<TextControl
+										{ ...field }
+										type="text"
+										label={ __( 'CSS ID Selectors', 'highlight-and-share' ) }
+										className={ classNames( 'has-admin__text-control' ) }
+										help={ __(
+											'Separate each ID with commas.',
+											'highlight-and-share'
 										) }
 									/>
-									{ 'pattern' === errors.idContent?.type && (
+									{ 'pattern' === errors.jsContent?.type && (
 										<Notice
 											message={ __( 'There are invalid characters.' ) }
 											status="error"
@@ -701,25 +706,19 @@ const Interface = ( props ) => {
 							rules={ {
 								pattern: /^[,A-Za-z0-9]+$/i,
 							} }
-							render={ ( { field: { onChange, value } } ) => (
+							render={ ( { field } ) => (
 								<>
-									<Controller
-										name="elementContent"
-										control={ control }
-										render={ ( { field } ) => (
-											<TextControl
-												{ ...field }
-												type="text"
-												label={ __(
-													'HTML Element Selectors',
-													'highlight-and-share'
-												) }
-												className={ classNames( 'has-admin__text-control' ) }
-												help={ __(
-													'Separate each element with commas.',
-													'highlight-and-share'
-												) }
-											/>
+									<TextControl
+										{ ...field }
+										type="text"
+										label={ __(
+											'HTML Element Selectors',
+											'highlight-and-share'
+										) }
+										className={ classNames( 'has-admin__text-control' ) }
+										help={ __(
+											'Separate each element with commas.',
+											'highlight-and-share'
 										) }
 									/>
 									{ 'pattern' === errors.elementContent?.type && (
