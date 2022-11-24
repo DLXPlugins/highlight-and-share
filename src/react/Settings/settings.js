@@ -8,11 +8,8 @@ import SocialIcons from './../Components/SocialIcons';
 import {
 	TextControl,
 	Button,
-	ButtonGroup,
 	RadioControl,
-	SelectControl,
 	ToggleControl,
-	RangeControl,
 } from '@wordpress/components';
 import ErrorBoundary from '../Components/ErrorBoundary';
 import Notice from '../Components/Notice';
@@ -21,6 +18,7 @@ import CircularExclamationIcon from '../Components/Icons/CircularExplanation';
 import Spinner from '../Components/Icons/Spinner';
 import sendCommand from '../Utils/SendCommand';
 import Loader from '../Components/Loader';
+import twttr from '../Validation/twitter';
 
 const retrieveDefaults = () => {
 	return sendCommand( 'has_retrieve_settings_tab', {
@@ -117,21 +115,11 @@ const Interface = ( props ) => {
 			emailTooltip: data.values.emailTooltip,
 		};
 	};
-	const {
-		register,
-		control,
-		handleSubmit,
-		setValue,
-		getValues,
-		reset,
-		trigger,
-	} = useForm( {
+	const { control, handleSubmit, getValues, reset } = useForm( {
 		defaultValues: getDefaultValues(),
 	} );
 
-	const formValues = useWatch( { control } );
-
-	const { errors, isDirty, dirtyFields, touchedFields } = useFormState( {
+	const { errors } = useFormState( {
 		control,
 	} );
 
@@ -327,7 +315,9 @@ const Interface = ( props ) => {
 					<h2 className="has-admin-content-subheading">
 						{ __( 'Social Networks', 'highlight-and-share' ) }
 					</h2>
-					<h3 className="has-icon-heading">{ getSocialIcon( 'twitter' ) } { __( 'Twitter', 'highlight-and-share' ) }</h3>
+					<h3 className="has-icon-heading">
+						{ getSocialIcon( 'twitter' ) } { __( 'Twitter', 'highlight-and-share' ) }
+					</h3>
 					<div className="has-admin-component-row">
 						<Controller
 							name="showTwitter"
@@ -355,6 +345,74 @@ const Interface = ( props ) => {
 						<>
 							<div className="has-admin-component-row">
 								<Controller
+									name="twitterLabel"
+									control={ control }
+									rules={ { required: true } }
+									render={ ( { field } ) => (
+										<>
+											<TextControl
+												{ ...field }
+												type="text"
+												label={ __( 'Twitter Label', 'highlight-and-share' ) }
+												className={ classNames( 'has-admin__text-control', {
+													'is-required': true,
+													'has-error': 'required' === errors.twitterLabel?.type,
+												} ) }
+												help={ __(
+													'Choose a label for the Twitter button.',
+													'highlight-and-share'
+												) }
+												aria-required="true"
+											/>
+											{ 'required' === errors.twitterLabel?.type && (
+												<Notice
+													message={ __( 'This field is a required field.' ) }
+													status="error"
+													politeness="assertive"
+													inline={ false }
+													icon={ CircularExclamationIcon }
+												/>
+											) }
+										</>
+									) }
+								/>
+							</div>
+							<div className="has-admin-component-row">
+								<Controller
+									name="twitterTooltip"
+									control={ control }
+									rules={ { required: true } }
+									render={ ( { field } ) => (
+										<>
+											<TextControl
+												{ ...field }
+												type="text"
+												label={ __( 'Twitter Tooltip', 'highlight-and-share' ) }
+												className={ classNames( 'has-admin__text-control', {
+													'is-required': true,
+													'has-error': 'required' === errors.twitterTooltip?.type,
+												} ) }
+												help={ __(
+													'Choose a label for the Twitter button.',
+													'highlight-and-share'
+												) }
+												aria-required="true"
+											/>
+											{ 'required' === errors.twitterTooltip?.type && (
+												<Notice
+													message={ __( 'This field is a required field.' ) }
+													status="error"
+													politeness="assertive"
+													inline={ false }
+													icon={ CircularExclamationIcon }
+												/>
+											) }
+										</>
+									) }
+								/>
+							</div>
+							<div className="has-admin-component-row">
+								<Controller
 									name="enableHashtags"
 									control={ control }
 									render={ ( { field: { onChange, value } } ) => (
@@ -380,24 +438,67 @@ const Interface = ( props ) => {
 								<Controller
 									name="twitter"
 									control={ control }
-									render={ ( { field } ) => (
-										<TextControl
-											{ ...field }
-											type="text"
-											label={ __( 'Twitter Username', 'highlight-and-share' ) }
-											className={ classNames( 'has-admin__text-control' ) }
-											help={ __(
-												'Enter Your Twitter Username without the @ symbol.',
-												'highlight-and-share'
+									rules={ {
+										validate: ( value ) => {
+											if ( value.length === 0 ) {
+												return true;
+											}
+											return twttr.txt.isValidUsername( '@' + value );
+										},
+									} }
+									render={ ( { field: { onChange, value } } ) => (
+										<>
+											<TextControl
+												value={ value }
+												type="text"
+												label={ __( 'Twitter Username', 'highlight-and-share' ) }
+												className={ classNames( 'has-admin__text-control', { 
+													'has-error': errors.twitter,
+												} ) }
+												help={ __(
+													'Enter Your Twitter Username without the @ symbol.',
+													'highlight-and-share'
+												) }
+												onChange={ ( currentValue ) => {
+													let twitterUsername = '';
+													if ( currentValue.length > 0 ) {
+														const replacement = currentValue.replace( '@', '' ); // Strip @ symbol.
+														if ( currentValue.length > 0 ) {
+															const usernames = twttr.txt.extractMentions(
+																'@' + replacement
+															);
+															if ( typeof usernames[ 0 ] !== 'undefined' ) {
+																twitterUsername = usernames[ 0 ];
+															} else {
+																twitterUsername = replacement;
+															}
+														}
+													}
+													onChange( twitterUsername );
+												} }
+											/>
+											{ 'validate' === errors.twitter?.type && (
+												<Notice
+													message={ __(
+														'The Twitter Username is Invalid.',
+														'highlight-and-share'
+													) }
+													status="error"
+													politeness="assertive"
+													inline={ false }
+													icon={ CircularExclamationIcon }
+												/>
 											) }
-										/>
+										</>
 									) }
 								/>
 							</div>
 						</>
 					) }
 				</div>
-				<h3 className="has-icon-heading">{ getSocialIcon( 'facebook' ) } { __( 'Facebook', 'highlight-and-share' ) }</h3>
+				<h3 className="has-icon-heading">
+					{ getSocialIcon( 'facebook' ) } { __( 'Facebook', 'highlight-and-share' ) }
+				</h3>
 				<div className="has-admin-component-row">
 					<Controller
 						name="showFacebook"
@@ -421,7 +522,9 @@ const Interface = ( props ) => {
 						) }
 					/>
 				</div>
-				<h3 className="has-icon-heading">{ getSocialIcon( 'whatsapp' ) } { __( 'WhatsApp', 'highlight-and-share' ) }</h3>
+				<h3 className="has-icon-heading">
+					{ getSocialIcon( 'whatsapp' ) } { __( 'WhatsApp', 'highlight-and-share' ) }
+				</h3>
 				<div className="has-admin-component-row">
 					<Controller
 						name="showWhatsApp"
@@ -471,7 +574,10 @@ const Interface = ( props ) => {
 						/>
 					</div>
 				) }
-				<h3 className="has-icon-heading">{ getSocialIcon( 'reddit' ) } { _x( 'Reddit', 'Reddit Social Network', 'highlight-and-share' ) }</h3>
+				<h3 className="has-icon-heading">
+					{ getSocialIcon( 'reddit' ) }{ ' ' }
+					{ _x( 'Reddit', 'Reddit Social Network', 'highlight-and-share' ) }
+				</h3>
 				<div className="has-admin-component-row">
 					<Controller
 						name="showReddit"
@@ -489,7 +595,10 @@ const Interface = ( props ) => {
 						) }
 					/>
 				</div>
-				<h3 className="has-icon-heading">{ getSocialIcon( 'telegram' ) } { _x( 'Telegram', 'Telegram Social Network', 'highlight-and-share' ) }</h3>
+				<h3 className="has-icon-heading">
+					{ getSocialIcon( 'telegram' ) }{ ' ' }
+					{ _x( 'Telegram', 'Telegram Social Network', 'highlight-and-share' ) }
+				</h3>
 				<div className="has-admin-component-row">
 					<Controller
 						name="showTelegram"
@@ -510,7 +619,10 @@ const Interface = ( props ) => {
 						) }
 					/>
 				</div>
-				<h3 className="has-icon-heading">{ getSocialIcon( 'linkedin' ) } { _x( 'LinkedIn', 'LinkedIn Social Network', 'highlight-and-share' ) }</h3>
+				<h3 className="has-icon-heading">
+					{ getSocialIcon( 'linkedin' ) }{ ' ' }
+					{ _x( 'LinkedIn', 'LinkedIn Social Network', 'highlight-and-share' ) }
+				</h3>
 				<div className="has-admin-component-row">
 					<Controller
 						name="showLinkedin"
@@ -528,7 +640,10 @@ const Interface = ( props ) => {
 						) }
 					/>
 				</div>
-				<h3 className="has-icon-heading">{ getSocialIcon( 'xing' ) } { _x( 'Xing', 'Xing Social Network', 'highlight-and-share' ) }</h3>
+				<h3 className="has-icon-heading">
+					{ getSocialIcon( 'xing' ) }{ ' ' }
+					{ _x( 'Xing', 'Xing Social Network', 'highlight-and-share' ) }
+				</h3>
 				<div className="has-admin-component-row">
 					<Controller
 						name="showXing"
@@ -546,7 +661,10 @@ const Interface = ( props ) => {
 						) }
 					/>
 				</div>
-				<h3 className="has-icon-heading">{ getSocialIcon( 'email' ) } { _x( 'Email', 'Email Social Network', 'highlight-and-share' ) }</h3>
+				<h3 className="has-icon-heading">
+					{ getSocialIcon( 'email' ) }{ ' ' }
+					{ _x( 'Email', 'Email Social Network', 'highlight-and-share' ) }
+				</h3>
 				<div className="has-admin-component-row">
 					<Controller
 						name="enableEmails"
@@ -567,7 +685,10 @@ const Interface = ( props ) => {
 						) }
 					/>
 				</div>
-				<h3 className="has-icon-heading">{ getSocialIcon( 'copy' ) } { _x( 'Copy', 'Copy Social Network', 'highlight-and-share' ) }</h3>
+				<h3 className="has-icon-heading">
+					{ getSocialIcon( 'copy' ) }{ ' ' }
+					{ _x( 'Copy', 'Copy Social Network', 'highlight-and-share' ) }
+				</h3>
 				<div className="has-admin-component-row">
 					<Controller
 						name="showCopy"
@@ -711,10 +832,7 @@ const Interface = ( props ) => {
 									<TextControl
 										{ ...field }
 										type="text"
-										label={ __(
-											'HTML Element Selectors',
-											'highlight-and-share'
-										) }
+										label={ __( 'HTML Element Selectors', 'highlight-and-share' ) }
 										className={ classNames( 'has-admin__text-control' ) }
 										help={ __(
 											'Separate each element with commas.',
