@@ -1,6 +1,14 @@
 /*!*************************************************************************************************************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js??ruleSet[1].rules[1].use[1]!./node_modules/resolve-url-loader/index.js!./node_modules/sass-loader/dist/cjs.js??ruleSet[1].rules[1].use[3]!./src/themes.scss ***!
   \*************************************************************************************************************************************************************************************************************/
+@keyframes hasFadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
 .has-icon:not(.components-button) {
   width: 25px;
   height: 25px;
@@ -55,6 +63,32 @@
   display: inline-flex;
   align-items: center;
   justify-content: center;
+}
+
+/* Item tooltips */
+.highlight-and-share-wrapper > div.has-tooltip {
+  position: relative;
+}
+.highlight-and-share-wrapper > div.has-tooltip:hover:after {
+  z-index: 1000;
+  animation-duration: 0.8s;
+  animation-name: hasFadeIn;
+  opacity: 1;
+  transition: all 0.2s ease-in-out;
+  display: block;
+  position: absolute;
+  padding: 8px;
+  content: attr(data-tooltip);
+  font-family: "FranklinGothic", Helvetica, sans-serif;
+  background-color: #333;
+  color: #FFF;
+  font-size: 13px;
+  line-height: 1.2;
+  top: -40px;
+  left: 0;
+  text-align: center;
+  min-width: 175px;
+  border-radius: 3px;
 }
 
 /* Icon Only Themes Vertical Padding */

@@ -18243,13 +18243,13 @@ var PreviewSocialIconListItem = function PreviewSocialIconListItem(_ref) {
   };
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     key: listItemKey,
-    className: classes
+    className: classes,
+    "data-tooltip": (0,_wordpress_escape_html__WEBPACK_IMPORTED_MODULE_3__.escapeAttribute)(getTooltip())
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, iconStyles && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("style", null, iconStyles), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("a", {
     href: "#",
     onClick: function onClick(e) {
       e.preventDefault();
-    },
-    "data-tooltip": (0,_wordpress_escape_html__WEBPACK_IMPORTED_MODULE_3__.escapeAttribute)(getTooltip())
+    }
   }, icon, ('default' === appearanceThemeData.theme || 'custom' === appearanceThemeData.theme && !appearanceThemeData.icons_only) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("span", {
     className: "has-icon-label"
   }, "".concat((0,_wordpress_escape_html__WEBPACK_IMPORTED_MODULE_3__.escapeEditableHTML)(getLabel())))))));

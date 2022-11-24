@@ -51,7 +51,7 @@ const PreviewSocialIconListItem = ( { listItemKey, className, icon, label } ) =>
 	};
 
 	return (
-		<div key={ listItemKey } className={ classes }>
+		<div key={ listItemKey } className={ classes } data-tooltip={ escapeAttribute( getTooltip() ) }>
 			<>
 				{ iconStyles && <style>{ iconStyles }</style> }
 				<a
@@ -59,7 +59,6 @@ const PreviewSocialIconListItem = ( { listItemKey, className, icon, label } ) =>
 					onClick={ ( e ) => {
 						e.preventDefault();
 					} }
-					data-tooltip={ escapeAttribute( getTooltip() ) }
 				>
 					{ icon }
 					{ ( 'default' === appearanceThemeData.theme || ( 'custom' === appearanceThemeData.theme && ! appearanceThemeData.icons_only ) ) && (
