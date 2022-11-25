@@ -19,6 +19,13 @@ class Options {
 	private static $options = false;
 
 	/**
+	 * Highlight and Share email options.
+	 *
+	 * @var array $options Highlight and Share email options..
+	 */
+	private static $options_emails = false;
+
+	/**
 	 * Highlight and Share Social Networks.
 	 *
 	 * @var array $options Highlight and Share options.
@@ -57,6 +64,20 @@ class Options {
 		add_action( 'enqueue_block_assets', array( $self, 'enqueue_frontend_assets' ) );
 		$self->instance = $self;
 		return $self;
+	}
+
+	/**
+	 * Get email setting options.
+	 */
+	public static function get_email_settings_defaults() {
+		return array(
+			'enable_logged_in_only'     => false,
+			'akismet_enabled'           => true,
+			'recaptcha_enabled'         => false,
+			'recaptcha_site_key'        => '',
+			'recaptcha_secret_key'      => '',
+			'recaptcha_score_threshold' => 0.5,
+		);
 	}
 
 	/**
@@ -289,61 +310,56 @@ class Options {
 	 */
 	public static function get_defaults() {
 		$defaults = array(
-			'js_content'                => '',
-			'element_content'           => '',
-			'id_content'                => '',
-			'twitter'                   => '',
-			'show_twitter'              => true,
-			'show_facebook'             => true,
-			'show_linkedin'             => false,
-			'show_ok'                   => false,
-			'show_vk'                   => false,
-			'enable_emails'             => false,
-			'show_copy'                 => false,
-			'show_whats_app'            => false,
-			'show_xing'                 => false,
-			'enable_mobile'             => true,
-			'show_reddit'               => false,
-			'show_telegram'             => false,
-			'show_signal'               => false,
-			'enable_content'            => true,
-			'enable_excerpt'            => true,
-			'enable_hashtags'           => true,
-			'shortlinks'                => false,
-			'icons'                     => false,
-			'theme'                     => 'default',
-			'sharing_prefix'            => '',
-			'sharing_suffix'            => '',
-			'whatsapp_api_endpoint'     => 'app', // Can also we 'web'.
-			'twitter_label'             => __( 'Twitter', 'highlight-and-share' ),
-			'twitter_tooltip'           => __( 'Share on Twitter', 'highlight-and-share' ),
-			'facebook_label'            => __( 'Facebook', 'highlight-and-share' ),
-			'facebook_tooltip'          => __( 'Share on Facebook', 'highlight-and-share' ),
-			'linkedin_label'            => __( 'LinkedIn', 'highlight-and-share' ),
-			'linkedin_tooltip'          => __( 'Share on LinkedIn', 'highlight-and-share' ),
-			'ok_label'                  => __( 'OK', 'highlight-and-share' ),
-			'ok_tooltip'                => __( 'Share on OK', 'highlight-and-share' ),
-			'vk_label'                  => __( 'VK', 'highlight-and-share' ),
-			'vk_tooltip'                => __( 'Share on VK', 'highlight-and-share' ),
-			'whatsapp_label'            => __( 'WhatsApp', 'highlight-and-share' ),
-			'whatsapp_tooltip'          => __( 'Share on WhatsApp', 'highlight-and-share' ),
-			'reddit_label'              => __( 'Reddit', 'highlight-and-share' ),
-			'reddit_tooltip'            => __( 'Share on Reddit', 'highlight-and-share' ),
-			'telegram_label'            => __( 'Telegram', 'highlight-and-share' ),
-			'telegram_tooltip'          => __( 'Share on Telegram', 'highlight-and-share' ),
-			'signal_label'              => __( 'Signal', 'highlight-and-share' ),
-			'signal_tooltip'            => __( 'Share on Signal', 'highlight-and-share' ),
-			'xing_label'                => __( 'Xing', 'highlight-and-share' ),
-			'xing_tooltip'              => __( 'Share on Xing', 'highlight-and-share' ),
-			'copy_label'                => __( 'Copy', 'highlight-and-share' ),
-			'copy_tooltip'              => __( 'Copy Selection', 'highlight-and-share' ),
-			'email_label'               => __( 'Email', 'highlight-and-share' ),
-			'email_tooltip'             => __( 'Share via email', 'highlight-and-share' ),
-			'akismet_enabled'           => true,
-			'recaptcha_enabled'         => false,
-			'recaptcha_site_key'        => '',
-			'recaptcha_secret_key'      => '',
-			'recaptcha_score_threshold' => 0.5,
+			'js_content'            => '',
+			'element_content'       => '',
+			'id_content'            => '',
+			'twitter'               => '',
+			'show_twitter'          => true,
+			'show_facebook'         => true,
+			'show_linkedin'         => false,
+			'show_ok'               => false,
+			'show_vk'               => false,
+			'enable_emails'         => false,
+			'show_copy'             => false,
+			'show_whats_app'        => false,
+			'show_xing'             => false,
+			'enable_mobile'         => true,
+			'show_reddit'           => false,
+			'show_telegram'         => false,
+			'show_signal'           => false,
+			'enable_content'        => true,
+			'enable_excerpt'        => true,
+			'enable_hashtags'       => true,
+			'shortlinks'            => false,
+			'icons'                 => false,
+			'theme'                 => 'default',
+			'sharing_prefix'        => '',
+			'sharing_suffix'        => '',
+			'whatsapp_api_endpoint' => 'app', // Can also we 'web'.
+			'twitter_label'         => __( 'Twitter', 'highlight-and-share' ),
+			'twitter_tooltip'       => __( 'Share on Twitter', 'highlight-and-share' ),
+			'facebook_label'        => __( 'Facebook', 'highlight-and-share' ),
+			'facebook_tooltip'      => __( 'Share on Facebook', 'highlight-and-share' ),
+			'linkedin_label'        => __( 'LinkedIn', 'highlight-and-share' ),
+			'linkedin_tooltip'      => __( 'Share on LinkedIn', 'highlight-and-share' ),
+			'ok_label'              => __( 'OK', 'highlight-and-share' ),
+			'ok_tooltip'            => __( 'Share on OK', 'highlight-and-share' ),
+			'vk_label'              => __( 'VK', 'highlight-and-share' ),
+			'vk_tooltip'            => __( 'Share on VK', 'highlight-and-share' ),
+			'whatsapp_label'        => __( 'WhatsApp', 'highlight-and-share' ),
+			'whatsapp_tooltip'      => __( 'Share on WhatsApp', 'highlight-and-share' ),
+			'reddit_label'          => __( 'Reddit', 'highlight-and-share' ),
+			'reddit_tooltip'        => __( 'Share on Reddit', 'highlight-and-share' ),
+			'telegram_label'        => __( 'Telegram', 'highlight-and-share' ),
+			'telegram_tooltip'      => __( 'Share on Telegram', 'highlight-and-share' ),
+			'signal_label'          => __( 'Signal', 'highlight-and-share' ),
+			'signal_tooltip'        => __( 'Share on Signal', 'highlight-and-share' ),
+			'xing_label'            => __( 'Xing', 'highlight-and-share' ),
+			'xing_tooltip'          => __( 'Share on Xing', 'highlight-and-share' ),
+			'copy_label'            => __( 'Copy', 'highlight-and-share' ),
+			'copy_tooltip'          => __( 'Copy Selection', 'highlight-and-share' ),
+			'email_label'           => __( 'Email', 'highlight-and-share' ),
+			'email_tooltip'         => __( 'Share via email', 'highlight-and-share' ),
 		);
 		return $defaults;
 	}
@@ -386,6 +402,39 @@ class Options {
 
 		$settings      = wp_parse_args( $settings, $defaults );
 		self::$options = $settings;
+		return $settings;
+	}
+
+	/**
+	 * Initialize and return email options.
+	 *
+	 * Return an array of email options.
+	 *
+	 * @since 1.0.0
+	 * @access public
+	 *
+	 * @see init
+	 *
+	 * @param bool $force Force a refresh of the options.
+	 *
+	 * @return array Plugin options
+	 */
+	public static function get_email_options( $force = false ) {
+		if ( false === self::$options_emails || $force ) {
+			$settings = get_option( 'highlight-and-share-email-settings' );
+		} else {
+			$settings = self::$options_emails;
+		}
+
+		$defaults = self::get_email_settings_defaults();
+
+		if ( false === $settings || ! is_array( $settings ) ) {
+			update_option( 'highlight-and-share-email-settings', $defaults );
+			return $defaults;
+		}
+
+		$settings             = wp_parse_args( $settings, $defaults );
+		self::$options_emails = $settings;
 		return $settings;
 	}
 

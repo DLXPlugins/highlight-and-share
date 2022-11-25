@@ -273,6 +273,22 @@ class Functions {
 	}
 
 	/**
+	 * Get's a user's IP address (or at least tries to).
+	 */
+	public static function get_user_ip() {
+		if ( array_key_exists( 'HTTP_X_FORWARDED_FOR', $_SERVER ) && ! empty( $_SERVER['HTTP_X_FORWARDED_FOR'] ) ) {
+			if ( strpos( $_SERVER['HTTP_X_FORWARDED_FOR'], ',' ) > 0 ) {
+				$addr = explode( ',', $_SERVER['HTTP_X_FORWARDED_FOR'] );
+				return trim( $addr[0] );
+			} else {
+				return $_SERVER['HTTP_X_FORWARDED_FOR'];
+			}
+		} else {
+			return $_SERVER['REMOTE_ADDR'];
+		}
+	}
+
+	/**
 	 * Take a _ separated field and convert to camelcase.
 	 *
 	 * @param string $field Field to convert to camelcase.

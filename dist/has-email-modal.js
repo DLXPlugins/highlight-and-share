@@ -18112,7 +18112,7 @@ var View = function View() {
       fromEmail: '',
       fromName: '',
       subject: getEmailSubject(),
-      recaptchaToken: hasEmailModal.recaptcha_site_key,
+      recaptchaToken: '',
       nonce: hasEmailModal.nonce,
       permalink: hasEmailModal.permalink,
       shareText: hasEmailModal.share_text,

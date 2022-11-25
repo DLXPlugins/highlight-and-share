@@ -122,7 +122,7 @@ class Admin {
 		}
 
 		// Existing settings.
-		$existing_settings = Options::get_defaults();
+		$existing_settings = Options::get_email_options( true );
 		$form_data         = filter_input( INPUT_POST, 'form_data', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
 		$form_data         = Functions::sanitize_array_recursive( $form_data );
 		$settings          = array_replace_recursive( $existing_settings, $form_data );
@@ -134,8 +134,7 @@ class Admin {
 		}
 
 		// Update options.
-		update_option( 'highlight-and-share', $overrides );
-		$this->clear_frontend_cache();
+		update_option( 'highlight-and-share-email-settings', $overrides );
 
 		wp_send_json_success( $this->map_defaults_to_js( stripslashes_deep( $overrides ) ) );
 	}
@@ -149,7 +148,7 @@ class Admin {
 		}
 
 		// Get saved options.
-		$options = Options::get_plugin_options( true );
+		$options = Options::get_email_options( true );
 
 		// Get Akismet optioons.
 		$akismet_api_key_valid = false;
@@ -180,14 +179,11 @@ class Admin {
 		}
 
 		// Get saved options. Then write over it with the defaults (wp_parse_args in reverse).
-		$defaults = Options::get_defaults();
-		$options  = get_option( 'highlight-and-share', array() );
-		$options  = wp_parse_args( $defaults, $options ); // wp_parse_args in reverse order as to not lose data.
-		update_option( 'highlight-and-share', $options );
-		$this->clear_frontend_cache();
+		$defaults = Options::get_email_settings_defaults();
+		update_option( 'highlight-and-share-email-settings', $defaults );
 
 		// Send the data home.
-		wp_send_json_success( $this->map_defaults_to_js( stripslashes_deep( $options ) ) );
+		wp_send_json_success( $this->map_defaults_to_js( stripslashes_deep( $defaults ) ) );
 
 	}
 

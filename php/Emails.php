@@ -34,7 +34,7 @@ class Emails {
 			wp_die( 'Invalid request.' );
 		}
 
-		$options            = Options::get_plugin_options();
+		$options            = Options::get_email_options();
 		$recaptcha_site_key = $options['recaptcha_site_key'];
 		$recaptcha_enabled  = (bool) $options['recaptcha_enabled'];
 
@@ -99,7 +99,7 @@ class Emails {
 				);
 				?>
 			</head>
-			<body>
+			<body class="<?php echo ( $recaptcha_enabled && ! empty( $recaptcha_site_key ) ) ? 'showing-recaptcha' : ''; ?>">
 				<div id="has-email-interface"></div>
 				<?php
 				wp_print_scripts(
@@ -141,6 +141,68 @@ class Emails {
 			$return['errors']  = true;
 			$return['message'] = __( 'Nonce could not be verified.', 'highlight-and-share' );
 			wp_send_json( $return );
+
+		}
+		// Get recaptcha keys.
+		$recaptcha_site_key   = $ajax_data['recaptchaSiteKey'] ?? '';
+		$recaptcha_secret_key = $ajax_data['recaptchaSecretKey'] ?? '';
+		$recaptcha_enabled    = (bool) ( $ajax_data['recaptchaEnabled'] ?? false );
+		$score_threshold      = (float) ( $ajax_data['recaptchaScoreThreshold'] ?? 0 );
+
+		if ( $recaptcha_enabled ) {
+			if ( empty( $recaptcha_site_key ) || empty( $recaptcha_secret_key ) ) {
+				wp_send_json_error(
+					array(
+						'message' => __( 'The site owner has not set reCAPTCHA 3 site keys.', 'highlight-and-share' ),
+					)
+				);
+			}
+			$token = sanitize_text_field( filter_input( INPUT_POST, 'recaptchaToken', FILTER_DEFAULT ) );
+			if ( ! $token ) {
+				wp_send_json_error(
+					array(
+						'message' => __( 'Invalid reCAPTCHA 3 token.', 'highlight-and-share' ),
+					)
+				);
+			}
+
+			// Now get token back from reCAPTCHA.
+			$url      = 'https://www.google.com/recaptcha/api/siteverify';
+			$data     = array(
+				'secret'   => $recaptcha_secret_key,
+				'response' => $token,
+			);
+			$args     = array(
+				'body'      => $data,
+				'method'    => 'POST',
+				'sslverify' => true,
+			);
+			$response = wp_remote_post( esc_url( $url ), $args );
+			if ( is_wp_error( $response ) ) {
+				wp_send_json_error(
+					array(
+						'message' => __( 'Error validating reCAPTCHA 3 token.', 'highlight-and-share' ),
+					)
+				);
+			}
+			$body = json_decode( wp_remote_retrieve_body( $response ), true );
+			if ( ! $body['success'] ) {
+				wp_send_json_error(
+					array(
+						'message' => __( 'reCAPTCHA 3 security challenge has failed.', 'highlight-and-share' ),
+					)
+				);
+			}
+
+			// Now check the score with threshold.
+			$recaptcha_score = (float) $body['score'];
+			if ( $recaptcha_score < $score_threshold ) {
+				wp_send_json_error(
+					array(
+						'message' => __( 'reCAPTCHA 3 security challenge has failed.', 'highlight-and-share' ),
+					)
+				);
+			}
 		}
 
 		// Set Email Variables.
@@ -149,6 +211,39 @@ class Emails {
 		$email_name          = trim( urldecode( $ajax_data['fromName'] ) );
 		$email_subject       = trim( urldecode( $ajax_data['subject'] ) );
 		$email_selected_text = trim( urldecode( $ajax_data['shareText'] ) );
+
+		// Now check Akismet.
+		if ( class_exists( 'Akismet' ) ) {
+			$akismet_fields                         = array();
+			$akismet_fields['comment_type']         = 'quotesdlx';
+			$akismet_fields['comment_author']       = $email_name;
+			$akismet_fields['comment_author_email'] = $email_from;
+			$akismet_fields['comment_author_url']   = '';
+			$akismet_fields['comment_content']      = '';
+			$akismet_fields['contact_form_subject'] = $email_subject;
+			$akismet_fields['comment_author_IP']    = Functions::get_user_ip();
+			$akismet_fields['permalink']            = esc_url( urldecode( $permalink ) );
+			$akismet_fields['user_ip']              = preg_replace( '/[^0-9., ]/', '', Functions::get_user_ip() );
+			$akismet_fields['user_agent']           = '';
+			$akismet_fields['referrer']             = sanitize_text_field( $_SERVER['HTTP_REFERER'] );
+			$akismet_fields['blog']                 = get_option( 'home' );
+
+			// Get all the fields and consolidate.
+			$akismet_fields = http_build_query( $akismet_fields );
+
+			// Submit spam check.
+			$response = \Akismet::http_post( $akismet_fields, 'comment-check' );
+
+			// Get spam response.
+			$maybe_spam = (bool) filter_var( $response[1] ?? false, FILTER_VALIDATE_BOOLEAN );
+			if ( $maybe_spam ) {
+				wp_send_json_error(
+					array(
+						'message' => _x( 'The email coult not be sent.', 'The email was flagged for spam.', 'highlight-and-share' ),
+					)
+				);
+			}
+		}
 
 		// Set title and url variables.
 		$title = get_the_title( $ajax_data['postId'] );
