@@ -18133,7 +18133,7 @@ var View = function View() {
     setIsSending(true);
     setFormErrors(false);
     setErrorMessage('');
-    console.log(formData);
+
     // Save stuff here.
     (0,_Utils_SendCommand__WEBPACK_IMPORTED_MODULE_4__["default"])('has_email_form_submission', {
       formData: formData

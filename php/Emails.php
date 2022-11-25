@@ -141,13 +141,15 @@ class Emails {
 			$return['errors']  = true;
 			$return['message'] = __( 'Nonce could not be verified.', 'highlight-and-share' );
 			wp_send_json( $return );
-
 		}
+		// Get email options.
+		$options = Options::get_email_options();
+
 		// Get recaptcha keys.
-		$recaptcha_site_key   = $ajax_data['recaptchaSiteKey'] ?? '';
-		$recaptcha_secret_key = $ajax_data['recaptchaSecretKey'] ?? '';
-		$recaptcha_enabled    = (bool) ( $ajax_data['recaptchaEnabled'] ?? false );
-		$score_threshold      = (float) ( $ajax_data['recaptchaScoreThreshold'] ?? 0 );
+		$recaptcha_site_key   = $options['recaptcha_site_key'] ?? '';
+		$recaptcha_secret_key = $options['recaptcha_secret_key'] ?? '';
+		$recaptcha_enabled    = (bool) ( $options['recaptcha_enabled'] ?? false );
+		$score_threshold      = (float) ( $options['recaptcha_score_threshold'] ?? 0 );
 
 		if ( $recaptcha_enabled ) {
 			if ( empty( $recaptcha_site_key ) || empty( $recaptcha_secret_key ) ) {
@@ -157,7 +159,7 @@ class Emails {
 					)
 				);
 			}
-			$token = sanitize_text_field( filter_input( INPUT_POST, 'recaptchaToken', FILTER_DEFAULT ) );
+			$token = $ajax_data['recaptchaToken'];
 			if ( ! $token ) {
 				wp_send_json_error(
 					array(
@@ -213,9 +215,9 @@ class Emails {
 		$email_selected_text = trim( urldecode( $ajax_data['shareText'] ) );
 
 		// Now check Akismet.
-		if ( class_exists( 'Akismet' ) ) {
+		if ( class_exists( 'Akismet' ) && (bool) $options['akismet_enabled'] ) {
 			$akismet_fields                         = array();
-			$akismet_fields['comment_type']         = 'quotesdlx';
+			$akismet_fields['comment_type']         = 'highlight-and-share';
 			$akismet_fields['comment_author']       = $email_name;
 			$akismet_fields['comment_author_email'] = $email_from;
 			$akismet_fields['comment_author_url']   = '';
@@ -251,23 +253,18 @@ class Emails {
 
 		// Check emails to destination.
 		if ( ! is_email( $email_to ) ) {
-			$return['errors']  = true;
-			$return['message'] = __( 'The Send email address is not a valid email address.', 'highlight-and-share' );
+			wp_send_json_error( array( 'message' => __( 'The Send email address is not a valid email address.', 'highlight-and-share' ) ) );
 			wp_send_json( $return );
 		}
 
 		// Check emails from destination.
 		if ( ! is_email( $email_from ) ) {
-			$return['errors']  = true;
-			$return['message'] = __( 'Your email address is not a valid email address.', 'highlight-and-share' );
-			wp_send_json( $return );
+			wp_send_json_error( array( 'message' => __( 'Your email address is not a valid email address.', 'highlight-and-share' ) ) );
 		}
 
 		// Check emails from destination.
 		if ( empty( $email_name ) ) {
-			$return['errors']  = true;
-			$return['message'] = __( 'Your name cannot be empty.', 'highlight-and-share' );
-			wp_send_json( $return );
+			wp_send_json_error( array( 'message' => __( 'Your name cannot be empty.', 'highlight-and-share' ) ) );
 		}
 
 		// Check Subject.
@@ -291,6 +288,7 @@ class Emails {
 		$return['message_subject']      = __( '[Shared Post]', 'highlight-and-share' ) . ' ' . $title;
 		$return['message_source_name']  = $email_name;
 		$return['message_source_email'] = $email_from;
-		wp_send_json( $return );
+
+		wp_send_json_success( $return );
 	}
 }

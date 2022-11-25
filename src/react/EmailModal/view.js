@@ -103,7 +103,6 @@ const View = () => {
 		setFormErrors( false );
 		setErrorMessage( '' );
 
-		console.log( formData );
 		// Save stuff here.
 		sendCommand( 'has_email_form_submission', {
 			formData,
