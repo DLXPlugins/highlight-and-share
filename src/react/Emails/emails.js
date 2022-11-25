@@ -73,17 +73,20 @@ const Interface = ( props ) => {
 	const [ isSaved, setIsSaved ] = useState( false );
 	const [ resetting, setResetting ] = useState( false );
 	const [ isReset, setIsReset ] = useState( false );
+	const [ ajaxError, setAjaxError ] = useState( null );
+	const [ akismetInstalled ] = useState( data.akismet.isInstalled );
+	const [ akismetApiKeyValid ] = useState( data.akismet.apiKeyValid );
 
 	const getDefaultValues = () => {
 		return {
 			akismetEnabled: data.values.akismetEnabled,
 			recaptchaEnabled: data.values.recaptchaEnabled,
 			recaptchaSiteKey: data.values.recaptchaSiteKey,
-			recaptchaSecretKey: data.values.recaptcahSecretKey,
+			recaptchaSecretKey: data.values.recaptchaSecretKey,
 			recaptchaScoreThreshold: data.values.recaptchaScoreThreshold,
 		};
 	};
-	const { control, handleSubmit, getValues, reset } = useForm( {
+	const { control, handleSubmit, getValues, reset, setError } = useForm( {
 		defaultValues: getDefaultValues(),
 	} );
 	const formValues = useWatch( { control } );
@@ -93,9 +96,9 @@ const Interface = ( props ) => {
 
 	const onSubmit = ( formData ) => {
 		setSaving( true );
-
-		sendCommand( 'has_save_settings_tab', {
-			nonce: hasSettingsAdmin.saveNonce,
+		setAjaxError( null );
+		sendCommand( 'has_save_emails_tab', {
+			nonce: hasEmailsAdmin.saveNonce,
 			form_data: formData,
 		} )
 			.then( ( ajaxResponse ) => {
@@ -110,6 +113,8 @@ const Interface = ( props ) => {
 					}, 3000 );
 				} else {
 					// Error stuff.
+					const { message } = ajaxData;
+					setAjaxError( message );
 				}
 			} )
 			.catch( ( ajaxResponse ) => {} )
@@ -118,9 +123,10 @@ const Interface = ( props ) => {
 			} );
 	};
 	const handleReset = ( e ) => {
+		setAjaxError( null );
 		setResetting( true );
-		sendCommand( 'has_reset_settings_tab', {
-			nonce: hasSettingsAdmin.resetNonce,
+		sendCommand( 'has_reset_emails_tab', {
+			nonce: hasEmailsAdmin.resetNonce,
 		} )
 			.then( ( ajaxResponse ) => {
 				const ajaxData = ajaxResponse.data.data;
@@ -135,10 +141,13 @@ const Interface = ( props ) => {
 					}, 3000 );
 				} else {
 					// Error stuff.
+					const { message } = ajaxData;
+					setAjaxError( message );
 				}
 			} )
 			.catch( ( ajaxResponse ) => {} )
 			.then( ( ajaxResponse ) => {
+			
 				setResetting( false );
 			} );
 	};
@@ -170,6 +179,24 @@ const Interface = ( props ) => {
 									{ __( 'Akismet Spam Protection', 'highlight-and-share' ) }
 								</h2>
 								<p className="description">{ __( 'Akismet is a spam protection service that is very effective in determining if a particular email is spammy.', 'highlight-and-share' ) }</p>
+								{ ( ! akismetInstalled ) && (
+									<Notice
+										message={ __( 'Akismet is not installed, so this option will have no effect.', 'highlight-and-share' ) }
+										status="warning"
+										politeness="assertive"
+										inline={ false }
+										icon={ CircularExclamationIcon }
+									/>
+								) }
+								{ ( akismetInstalled && ! akismetApiKeyValid ) && (
+									<Notice
+										message={ __( 'Akismet is installed, but it does not appear that the API key for Akismet is valid.', 'highlight-and-share' ) }
+										status="error"
+										politeness="assertive"
+										inline={ false }
+										icon={ CircularExclamationIcon }
+									/>
+								) }
 								<div className="has-admin-component-row">
 									<Controller
 										name="akismetEnabled"
@@ -249,7 +276,7 @@ const Interface = ( props ) => {
 												message={ __( 'This field is a required field.' ) }
 												status="error"
 												politeness="assertive"
-												inline={ true }
+												inline={ false }
 												icon={ CircularExclamationIcon }
 											/>
 										) }
@@ -278,7 +305,7 @@ const Interface = ( props ) => {
 												message={ __( 'This field is a required field.' ) }
 												status="error"
 												politeness="assertive"
-												inline={ true }
+												inline={ false }
 												icon={ CircularExclamationIcon }
 											/>
 										) }
@@ -290,7 +317,7 @@ const Interface = ( props ) => {
 													<RangeControl
 														label={ __( 'Set reCAPTCHA Minimum Threshold', 'comment-edit-pro' ) }
 														step={ 0.05 }
-														value={ value }
+														value={ parseFloat( value ) }
 														max={ 1 }
 														min={ 0 }
 														currentInput={ value }
@@ -383,6 +410,15 @@ const Interface = ( props ) => {
 							/>
 						) }
 					</div>
+					{ ( null !== ajaxError ) && (
+						<Notice
+							message={ escapeAttribute( ajaxError ) }
+							status="error"
+							politeness="assertive"
+							inline={ false }
+							icon={ CircularExclamationIcon }
+						/>
+					) }
 				</div>
 			</form>
 		</>

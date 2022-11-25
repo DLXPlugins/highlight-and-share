@@ -1,20 +1,6 @@
 @import 'breakpoints-mixin.scss';
 @import '../node_modules/@wordpress/components/build-style/style.css';
-
-:root {
-	--quotes-dlx-admin--color-dark: #393838;
-	--quotes-dlx-admin--color-notice--info: #e3f3f7;
-	--quotes-dlx-admin--color-notice--info-alt: #3a8dc4;
-	--quotes-dlx-admin--color-notice--success: #eaf5ea;
-	--quotes-dlx-admin--color-notice--success-alt: #49a939;
-	--quotes-dlx-admin--color-notice--warning: #fef6e1;
-	--quotes-dlx-admin--color-notice--warning-alt: #e8a931;
-	--quotes-dlx-admin--color-notice--error: #f5e5e4;
-	--quotes-dlx-admin--color-notice--error-alt: #bc2b2c;
-	--quotes-dlx-admin--color-notice--secondary: #e2e3e5;
-	--quotes-dlx-admin--color-notice--secondary-alt: #41464b;
-}
-
+@import 'common.scss';
 @keyframes has-fade-in {
 	from {
 		opacity: 0;

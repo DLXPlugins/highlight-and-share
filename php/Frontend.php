@@ -525,7 +525,21 @@ class Frontend {
 						$html .= '<div class="has_copy ' . ( $theme_options['show_tooltips'] ? 'has-tooltip' : '' ) . '" style="display: none;" data-type="copy" data-tooltip="' . esc_attr( $settings['copy_tooltip'] ) . '"><a href="#"><svg class="has-icon"><use xlink:href="#has-copy-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_copy_text', $settings['copy_label'] ) ) . '</span></a></div>';
 						break;
 					case 'email':
-						$html .= '<div class="has_email ' . ( $theme_options['show_tooltips'] ? 'has-tooltip' : '' ) . '" style="display: none;" data-type="email" data-title="%title%" data-url="%url%" data-tooltip="' . esc_attr( $settings['email_tooltip'] ) . '"><a href="' . esc_url( admin_url( 'admin-ajax.php' ) ) . '" target="_blank"><svg class="has-icon"><use xlink:href="#has-email-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_email_text', $settings['email_label'] ) ) . '</span></a></div>';
+						global $post;
+						$post_id    = $post->ID ?? 0;
+						$ajax_nonce = wp_create_nonce( 'has_share_' . get_permalink( $post_id ) );
+						$ajax_url   = admin_url( 'admin-ajax.php' );
+						$ajax_url   = add_query_arg(
+							array(
+								'action'    => 'has_email_social_modal',
+								'permalink' => '%url%',
+								'nonce'     => $ajax_nonce,
+								'text'      => '%prefix%%text%%suffix%',
+								'post_id'   => $post_id,
+							),
+							$ajax_url
+						);
+						$html      .= '<div class="has_email ' . ( $theme_options['show_tooltips'] ? 'has-tooltip' : '' ) . '" style="display: none;" data-type="email" data-title="%title%" data-url="%url%" data-tooltip="' . esc_attr( $settings['email_tooltip'] ) . '"><a href="' . esc_url( $ajax_url ) . '" target="_blank"><svg class="has-icon"><use xlink:href="#has-email-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_email_text', $settings['email_label'] ) ) . '</span></a></div>';
 						break;
 
 				}

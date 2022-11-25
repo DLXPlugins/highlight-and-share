@@ -43,7 +43,9 @@ class Admin {
 		add_action( 'wp_ajax_has_reset_block_editor_options', array( $this, 'ajax_reset_block_editor_options' ) );
 
 		// Retrieve, save, and reset recaptcha options.
+		add_action( 'wp_ajax_has_save_emails_tab', array( $this, 'ajax_save_emails_tab' ) );
 		add_action( 'wp_ajax_has_retrieve_emails_tab', array( $this, 'ajax_retrieve_emails_tab' ) );
+		add_action( 'wp_ajax_has_reset_emails_tab', array( $this, 'ajax_reset_emails_tab' ) );
 
 		// For HAS styling in the admin.
 		add_action( 'admin_body_class', array( $this, 'add_admin_body_class' ) );
@@ -112,21 +114,81 @@ class Admin {
 	}
 
 	/**
+	 * Save Highlight and Share settings options (for emails).
+	 */
+	public function ajax_save_emails_tab() {
+		if ( ! wp_verify_nonce( filter_input( INPUT_POST, 'nonce', FILTER_DEFAULT ), 'has_save_email_settings' ) || ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( array( 'message' => __( 'Security check failed', 'highlight-and-share' ) ) );
+		}
+
+		// Existing settings.
+		$existing_settings = Options::get_defaults();
+		$form_data         = filter_input( INPUT_POST, 'form_data', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
+		$form_data         = Functions::sanitize_array_recursive( $form_data );
+		$settings          = array_replace_recursive( $existing_settings, $form_data );
+
+		// Get into array_key format.
+		$overrides = array();
+		foreach ( $settings as $key => $value ) {
+			$overrides[ sanitize_key( Functions::to_underlines( $key ) ) ] = $value;
+		}
+
+		// Update options.
+		update_option( 'highlight-and-share', $overrides );
+		$this->clear_frontend_cache();
+
+		wp_send_json_success( $this->map_defaults_to_js( stripslashes_deep( $overrides ) ) );
+	}
+
+	/**
 	 * Retrieve email settings in the emails tab.
 	 */
 	public function ajax_retrieve_emails_tab() {
 		if ( ! wp_verify_nonce( filter_input( INPUT_POST, 'nonce', FILTER_DEFAULT ), 'has_retrieve_email_settings' ) || ! current_user_can( 'manage_options' ) ) {
-			wp_send_json_error( array() );
+			wp_send_json_error( array( 'message' => __( 'Security check failed', 'highlight-and-share' ) ) );
 		}
 
 		// Get saved options.
 		$options = Options::get_plugin_options( true );
-		$return  = array(
-			'values' => $this->map_defaults_to_js(
+
+		// Get Akismet optioons.
+		$akismet_api_key_valid = false;
+		if ( class_exists( 'Akismet' ) ) {
+			$akismet_api_key = \Akismet::get_api_key();
+			if ( $akismet_api_key ) {
+				$akismet_api_key_valid = true;
+			}
+		}
+		$return = array(
+			'values'  => $this->map_defaults_to_js(
 				stripslashes_deep( $options ),
+			),
+			'akismet' => array(
+				'apiKeyValid' => $akismet_api_key_valid,
+				'isInstalled' => class_exists( 'Akismet' ),
 			),
 		);
 		wp_send_json_success( $return );
+	}
+
+	/**
+	 * Reset the admin emails option.
+	 */
+	public function ajax_reset_emails_tab() {
+		if ( ! wp_verify_nonce( filter_input( INPUT_POST, 'nonce', FILTER_DEFAULT ), 'has_reset_email_settings' ) || ! current_user_can( 'manage_options' ) ) {
+			wp_send_json_error( array( 'message' => __( 'Security check failed', 'highlight-and-share' ) ) );
+		}
+
+		// Get saved options. Then write over it with the defaults (wp_parse_args in reverse).
+		$defaults = Options::get_defaults();
+		$options  = get_option( 'highlight-and-share', array() );
+		$options  = wp_parse_args( $defaults, $options ); // wp_parse_args in reverse order as to not lose data.
+		update_option( 'highlight-and-share', $options );
+		$this->clear_frontend_cache();
+
+		// Send the data home.
+		wp_send_json_success( $this->map_defaults_to_js( stripslashes_deep( $options ) ) );
+
 	}
 
 	/**
