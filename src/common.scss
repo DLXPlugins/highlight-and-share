@@ -1,6 +1,57 @@
-/**
- * #.# Common SCSS
- *
- * Can include things like variables and mixins
- * that are used across the project.
-*/
+:root {
+	--quotes-dlx-admin--color-white: #ffffff;
+	--quotes-dlx-admin--color-dark: #393838;
+	--quotes-dlx-admin--color-dark-darker: #191c1f;
+	--quotes-dlx-admin--color-gray: #dddddd;
+	--quotes-dlx-admin--color-gray-light: #f5f5f5;
+	--quotes-dlx-admin--color-green: #006400;
+	--quotes-dlx-admin--color-green-light: #e9ece6;
+	--quotes-dlx-admin--color-green-alt: #017e01;
+	--quotes-dlx-admin--color-green-vivid: #009700;
+	--quotes-dlx-admin--color-green-dark: #005200;
+	--quotes-dlx-admin--color-red: #641e00;
+	--quotes-dlx-admin--color-red-alt: #822700;
+	--quotes-dlx-admin--color-red-light: #ece6e6;
+	--quotes-dlx-admin--color-red--required: #b53b07;
+	--quotes-dlx-admin--color-background: #fefdfa;
+	--quotes-dlx-admin--color-accent: #8019c4;
+	--quotes-dlx-admin--color-text-color: #6f6f6f;
+	--quotes-dlx-admin--color-text--alt-color: #874c9e;
+	--quotes-dlx-admin--color-text-link-color: #874c9e;
+	--quotes-dlx-admin--color-text-link-color--hover: #9c68b0;
+	--quotes-dlx-admin--color-anchor: #9949cf;
+	--quotes-dlx-admin--color-anchor--hover: #8019c4;
+	--quotes-dlx-admin--color-button-border: #6f6f6f;
+	--quotes-dlx-admin--color-button-border--hover: #9949cf;
+	--quotes-dlx-admin--color-button-background: #ffffff;
+	--quotes-dlx-admin--color-button-background--hover: #ffffff;
+	--quotes-dlx-admin--color-button-text-color: #6f6f6f;
+	--quotes-dlx-admin--color-button-text-color--hover: #9949cf;
+	--quotes-dlx-admin--color-button--alt-border: #9c68b0;
+	--quotes-dlx-admin--color-button--alt-border--hover: #874c9e;
+	--quotes-dlx-admin--color-button--alt-background: #874c9e;
+	--quotes-dlx-admin--color-button--alt-background--hover: #9c68b0;
+	--quotes-dlx-admin--color-button--alt-text-color: #ffffff;
+	--quotes-dlx-admin--color-button--alt-text-color--hover: #ffffff;
+	--quotes-dlx-admin--color-nav-border: transparent;
+	--quotes-dlx-admin--color-nav-border--active: #e3e6ef;
+	--quotes-dlx-admin--color-nav-background: transparent;
+	--quotes-dlx-admin--color-nav-background--active: #ffffff;
+	--quotes-dlx-admin--color-nav-icon: #242748;
+	--quotes-dlx-admin--color-nav-icon--hover: #9949cf;
+	--quotes-dlx-admin--color-nav-icon--active: #a774c9;
+	--quotes-dlx-admin--color-nav-text: #5b5e80;
+	--quotes-dlx-admin--color-nav-text--hover: #242748;
+	--quotes-dlx-admin--color-skeleton--base: #dad4eb;
+	--quotes-dlx-admin--color-skeleton--highlight: #cbc3e3;
+	--quotes-dlx-admin--color-notice--info: #e3f3f7;
+	--quotes-dlx-admin--color-notice--info-alt: #3a8dc4;
+	--quotes-dlx-admin--color-notice--success: #eaf5ea;
+	--quotes-dlx-admin--color-notice--success-alt: #49a939;
+	--quotes-dlx-admin--color-notice--warning: #fef6e1;
+	--quotes-dlx-admin--color-notice--warning-alt: #e8a931;
+	--quotes-dlx-admin--color-notice--error: #f5e5e4;
+	--quotes-dlx-admin--color-notice--error-alt: #bc2b2c;
+	--quotes-dlx-admin--color-notice--secondary: #e2e3e5;
+	--quotes-dlx-admin--color-notice--secondary-alt: #41464b;
+}
