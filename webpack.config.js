@@ -37,7 +37,7 @@ module.exports = ( env ) => {
 				'highlight-and-share': [ './src/frontendjs/highlight-and-share.js' ],
 			},
 			mode: env.mode,
-			devtool: 'source-map',
+			devtool: 'production' === env.mode ? false : 'source-map',
 			output: {
 				filename: '[name].js',
 				sourceMapFilename: '[file].map[query]',
