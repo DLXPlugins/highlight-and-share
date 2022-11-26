@@ -104,6 +104,14 @@ const HAS_Click_To_Share = ( props ) => {
 			setAttributes( {
 				paddingSize: portPadding,
 				padding: -1,
+				backgroundColorHover: backgroundColor,
+				shareTextColor: textColor,
+				shareTextColorHover: textColor,
+				textColorHover: textColor,
+				borderColorHover: borderColor,
+				iconColorHover: textColor,
+				iconColor: textColor,
+
 			} );
 		}
 		// Port margin to new dimensions object.
