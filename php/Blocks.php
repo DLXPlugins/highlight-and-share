@@ -251,10 +251,10 @@ class Blocks {
 				background-color: <?php echo esc_attr( $attributes['backgroundColorHover'] ); ?>;
 			}
 			.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?>.has-background-gradient  {
-				background-color: <?php echo esc_attr( $attributes['backgroundGradient'] ); ?>;
+				background: <?php echo esc_attr( $attributes['backgroundGradient'] ); ?>;
 			}
 			.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?>.has-background-gradient:hover  {
-				background-color: <?php echo esc_attr( $attributes['backgroundGradientHover'] ); ?>;
+				background: <?php echo esc_attr( $attributes['backgroundGradientHover'] ); ?>;
 			}
 			.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?> {
 				border-color: <?php echo esc_attr( $attributes['borderColor'] ); ?>;
