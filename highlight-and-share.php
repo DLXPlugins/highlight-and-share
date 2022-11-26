@@ -5,7 +5,7 @@
  * Plugin URI: https://dlxplugins.com/plugins/highlight-and-share/
  * Description: Allows you to highlight text and enable social sharing to share with services including Twitter,  * Facebook, LinkedIn, Xing, Telegram, Reddit, WhatsApp, email, and others.
  * Author: DLX Plugins
- * Version: 3.7.1
+ * Version: 3.9.9.1
  * Requires at least: 5.1
  * Requires PHP: 7.2
  * Author URI: https://dlxplugins.com
@@ -17,7 +17,7 @@
 
 namespace DLXPlugins\HAS;
 
-define( 'HIGHLIGHT_AND_SHARE_VERSION', '3.7.1' );
+define( 'HIGHLIGHT_AND_SHARE_VERSION', '3.9.9.1' );
 define( 'HIGHLIGHT_AND_SHARE_FILE', __FILE__ );
 
 // Support for site-level autoloading.
