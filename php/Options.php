@@ -452,14 +452,13 @@ class Options {
 	 */
 	public static function get_plugin_options_social_networks( $force = false ) {
 		if ( false === self::$options_social_networks || $force ) {
-			$settings = get_option( 'highlight-and-share-social-networks' );
+			$settings = get_option( 'highlight-and-share-social-networks', array() );
 		} else {
 			$settings = self::$options_social_networks;
 		}
 
 		$defaults = self::get_social_network_defaults();
 		if ( false === $settings || ! is_array( $settings ) ) {
-			$settings = $defaults;
 			update_option( 'highlight-and-share-social-networks', $defaults );
 		}
 
