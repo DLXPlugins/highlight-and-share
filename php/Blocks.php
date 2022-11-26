@@ -205,21 +205,21 @@ class Blocks {
 				overflow: hidden;
 				border-width: <?php echo esc_attr( $this->build_dimensions_css( $attributes['borderWidth'], 'mobile' ) ); ?>;
 				border-radius: <?php echo esc_attr( $this->build_dimensions_css( $attributes['borderRadiusSize'], 'mobile' ) ); ?>;
-				margin: <?php echo esc_attr( $this->build_dimensions_css( $attributes['marginSize'], 'mobile' ) ); ?>;
+				margin: <?php echo esc_attr( $this->build_dimensions_css( $attributes['marginSize'], 'mobile', true ) ); ?>;
 				transition: all 0.3s ease-in-out;
 			}
 			@media screen and (min-width: 728px) {
 				.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?> {
 					border-width: <?php echo esc_attr( $this->build_dimensions_css( $attributes['borderWidth'], 'tablet' ) ); ?>;
 					border-radius: <?php echo esc_attr( $this->build_dimensions_css( $attributes['borderRadiusSize'], 'tablet' ) ); ?>;
-					margin: <?php echo esc_attr( $this->build_dimensions_css( $attributes['marginSize'], 'tablet' ) ); ?>;
+					margin: <?php echo esc_attr( $this->build_dimensions_css( $attributes['marginSize'], 'tablet', true ) ); ?>;
 				}
 			}
 			@media screen and (min-width: 1024px) {
 				.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?> {
 					border-width: <?php echo esc_attr( $this->build_dimensions_css( $attributes['borderWidth'], 'desktop' ) ); ?>;
 					border-radius: <?php echo esc_attr( $this->build_dimensions_css( $attributes['borderRadiusSize'], 'desktop' ) ); ?>;
-					margin: <?php echo esc_attr( $this->build_dimensions_css( $attributes['marginSize'], 'desktop' ) ); ?>;
+					margin: <?php echo esc_attr( $this->build_dimensions_css( $attributes['marginSize'], 'desktop', true ) ); ?>;
 				}
 			}
 			.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?> {
@@ -376,6 +376,7 @@ class Blocks {
 		<?php
 		$container_classes = array(
 			'has-click-to-share',
+			'align' . $attributes['align'],
 		);
 		if ( 'image' === $attributes['backgroundType'] ) {
 			$container_classes[] = 'has-background-image';
@@ -454,10 +455,11 @@ class Blocks {
 	 *   @type string $unit The dimensikon's unit.
 	 * }
 	 * @param string $screen_size Screen size (desktop|mobile|tablet).
+	 * @param bool   $is_margin   Whether the dimension is a margin or not (so we do not set left/right margins).
 	 *
 	 * @return string The CSS for the dimensions.
 	 */
-	public function build_dimensions_css( $sizes, $screen_size = 'desktop' ) {
+	public function build_dimensions_css( $sizes, $screen_size = 'desktop', $is_margin = false ) {
 		$dimensions = $sizes[ $screen_size ];
 
 		if ( 'desktop' === $screen_size ) {
@@ -466,7 +468,8 @@ class Blocks {
 				$dimensions['right'],
 				$dimensions['bottom'],
 				$dimensions['left'],
-				$dimensions['unit']
+				$dimensions['unit'],
+				$is_margin
 			);
 			return $css;
 		}
@@ -476,7 +479,8 @@ class Blocks {
 				$this->get_hierarchical_value( $sizes, $screen_size, $dimensions['right'], 'right' ),
 				$this->get_hierarchical_value( $sizes, $screen_size, $dimensions['bottom'], 'bottom' ),
 				$this->get_hierarchical_value( $sizes, $screen_size, $dimensions['left'], 'left' ),
-				$this->get_hierarchical_value_unit( $sizes, $screen_size, $dimensions['unit'], 'unit' )
+				$this->get_hierarchical_value_unit( $sizes, $screen_size, $dimensions['unit'], 'unit' ),
+				$is_margin
 			);
 			return $css;
 		}
@@ -622,10 +626,11 @@ class Blocks {
 	 * @param string $bottom The bottom dimension.
 	 * @param string $left The left dimension.
 	 * @param string $unit The dimensions's unit.
+	 * @param bool   $is_margin Whether margin is set so left right values are not set.
 	 *
 	 * @return string The shorthand CSS for the dimensions.
 	 */
-	public function get_dimensions_shorthand( $top, $right, $bottom, $left, $unit ) {
+	public function get_dimensions_shorthand( $top, $right, $bottom, $left, $unit, $is_margin = false ) {
 		if ( '' === $top && '' === $right && '' === $bottom && '' === $left ) {
 			return;
 		}
@@ -647,8 +652,13 @@ class Blocks {
 			}
 		}
 
-		$output = $top . $right . $bottom . $left;
+		if ( $is_margin ) {
+			$right = ' auto ';
+			$left  = ' auto ';
+		}
+		
 
+		$output = $top . $right . $bottom . $left;
 		return trim( $output );
 	}
 }
