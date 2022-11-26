@@ -18003,11 +18003,11 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "./node_modules/@wordpress/i18n/build-module/index.js");
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! @wordpress/components */ "./node_modules/@wordpress/components/build-module/text-control/index.js");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! @wordpress/components */ "./node_modules/@wordpress/components/build-module/text-control/index.js");
 /* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! @wordpress/components */ "./node_modules/@wordpress/components/build-module/button/index.js");
 /* harmony import */ var _wordpress_escape_html__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! @wordpress/escape-html */ "./node_modules/@wordpress/escape-html/build-module/index.js");
 /* harmony import */ var react_hook_form__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! react-hook-form */ "./node_modules/react-hook-form/dist/index.esm.mjs");
-/* harmony import */ var _Components_Notice__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../Components/Notice */ "./src/react/Components/Notice/index.js");
+/* harmony import */ var _Components_Notice__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../Components/Notice */ "./src/react/Components/Notice/index.js");
 /* harmony import */ var _Components_Icons_CircularExplanation__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../Components/Icons/CircularExplanation */ "./src/react/Components/Icons/CircularExplanation.js");
 /* harmony import */ var _Utils_SendCommand__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../Utils/SendCommand */ "./src/react/Utils/SendCommand.js");
 function _extends() { _extends = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
@@ -18164,6 +18164,19 @@ var View = function View() {
     }
     return false;
   };
+
+  // If the email is sent, show a success message.
+  if (isSent) {
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("section", {
+      className: "has-email--content-wrap"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+      className: "has-email-control-row"
+    }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_5__["default"], {
+      message: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('The email has been sent.'),
+      status: "success",
+      politeness: "assertive"
+    })));
+  }
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("section", {
     className: "has-email--content-wrap"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h2", null, getModalTitle()), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("form", {
@@ -18180,7 +18193,7 @@ var View = function View() {
     render: function render(_ref) {
       var _errors$fromName;
       var field = _ref.field;
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__["default"], _extends({}, field, {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["default"], _extends({}, field, {
         label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Your Name:', 'highlight-and-share'),
         className: classnames__WEBPACK_IMPORTED_MODULE_2___default()('has-admin__text-control', {
           'has-error': 'required' === ((_errors$fromName = errors.fromName) === null || _errors$fromName === void 0 ? void 0 : _errors$fromName.type),
@@ -18191,7 +18204,7 @@ var View = function View() {
         ref: firstNameField
       }));
     }
-  }), 'required' === ((_errors$fromName2 = errors.fromName) === null || _errors$fromName2 === void 0 ? void 0 : _errors$fromName2.type) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_6__["default"], {
+  }), 'required' === ((_errors$fromName2 = errors.fromName) === null || _errors$fromName2 === void 0 ? void 0 : _errors$fromName2.type) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_5__["default"], {
     message: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('This is a required field.'),
     status: "error",
     politeness: "assertive",
@@ -18216,7 +18229,7 @@ var View = function View() {
       var _ref2$field = _ref2.field,
         onChange = _ref2$field.onChange,
         value = _ref2$field.value;
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__["default"], {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["default"], {
         type: "text",
         value: (0,_wordpress_escape_html__WEBPACK_IMPORTED_MODULE_8__.escapeEditableHTML)(value),
         onChange: onChange,
@@ -18230,13 +18243,13 @@ var View = function View() {
         help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Please add in your email address.', 'highlight-and-share')
       });
     }
-  }), 'validate' === ((_errors$fromEmail2 = errors.fromEmail) === null || _errors$fromEmail2 === void 0 ? void 0 : _errors$fromEmail2.type) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_6__["default"], {
+  }), 'validate' === ((_errors$fromEmail2 = errors.fromEmail) === null || _errors$fromEmail2 === void 0 ? void 0 : _errors$fromEmail2.type) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_5__["default"], {
     message: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('The Email is Invalid.'),
     status: "error",
     politeness: "assertive",
     inline: true,
     icon: _Components_Icons_CircularExplanation__WEBPACK_IMPORTED_MODULE_7__["default"]
-  }), 'required' === ((_errors$fromEmail3 = errors.fromEmail) === null || _errors$fromEmail3 === void 0 ? void 0 : _errors$fromEmail3.type) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_6__["default"], {
+  }), 'required' === ((_errors$fromEmail3 = errors.fromEmail) === null || _errors$fromEmail3 === void 0 ? void 0 : _errors$fromEmail3.type) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_5__["default"], {
     message: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('This is a required field.'),
     status: "error",
     politeness: "assertive",
@@ -18259,7 +18272,7 @@ var View = function View() {
     render: function render(_ref3) {
       var _errors$toEmail;
       var field = _ref3.field;
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__["default"], _extends({}, field, {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["default"], _extends({}, field, {
         label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('To (email):', 'highlight-and-share'),
         className: classnames__WEBPACK_IMPORTED_MODULE_2___default()('search-has-admin has-admin__text-control', {
           'has-error': 'required' === ((_errors$toEmail = errors.toEmail) === null || _errors$toEmail === void 0 ? void 0 : _errors$toEmail.type),
@@ -18270,13 +18283,13 @@ var View = function View() {
         help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Please select who you would like to email.', 'highlight-and-share')
       }));
     }
-  }), 'validate' === ((_errors$toEmail2 = errors.toEmail) === null || _errors$toEmail2 === void 0 ? void 0 : _errors$toEmail2.type) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_6__["default"], {
+  }), 'validate' === ((_errors$toEmail2 = errors.toEmail) === null || _errors$toEmail2 === void 0 ? void 0 : _errors$toEmail2.type) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_5__["default"], {
     message: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('The Email is Invalid.'),
     status: "error",
     politeness: "assertive",
     inline: true,
     icon: _Components_Icons_CircularExplanation__WEBPACK_IMPORTED_MODULE_7__["default"]
-  }), 'required' === ((_errors$toEmail3 = errors.toEmail) === null || _errors$toEmail3 === void 0 ? void 0 : _errors$toEmail3.type) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_6__["default"], {
+  }), 'required' === ((_errors$toEmail3 = errors.toEmail) === null || _errors$toEmail3 === void 0 ? void 0 : _errors$toEmail3.type) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_5__["default"], {
     message: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('This is a required field.'),
     status: "error",
     politeness: "assertive",
@@ -18293,7 +18306,7 @@ var View = function View() {
     render: function render(_ref4) {
       var _errors$subject;
       var field = _ref4.field;
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__["default"], _extends({}, field, {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["default"], _extends({}, field, {
         label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Subject:', 'highlight-and-share'),
         className: classnames__WEBPACK_IMPORTED_MODULE_2___default()('search-has-admin has-admin__text-control', {
           'has-error': 'required' === ((_errors$subject = errors.subject) === null || _errors$subject === void 0 ? void 0 : _errors$subject.type),
@@ -18303,7 +18316,7 @@ var View = function View() {
         help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Please enter the subject of the email.', 'highlight-and-share')
       }));
     }
-  }), 'required' === ((_errors$subject2 = errors.subject) === null || _errors$subject2 === void 0 ? void 0 : _errors$subject2.type) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_6__["default"], {
+  }), 'required' === ((_errors$subject2 = errors.subject) === null || _errors$subject2 === void 0 ? void 0 : _errors$subject2.type) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_5__["default"], {
     message: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('This is a required field.'),
     status: "error",
     politeness: "assertive",
@@ -18314,7 +18327,7 @@ var View = function View() {
     control: control,
     render: function render(_ref5) {
       var field = _ref5.field;
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__["default"], _extends({}, field, {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["default"], _extends({}, field, {
         type: "hidden",
         register: "recaptchaToken"
       }));
@@ -18324,7 +18337,7 @@ var View = function View() {
     control: control,
     render: function render(_ref6) {
       var field = _ref6.field;
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__["default"], _extends({}, field, {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["default"], _extends({}, field, {
         type: "hidden",
         register: "postId"
       }));
@@ -18334,7 +18347,7 @@ var View = function View() {
     control: control,
     render: function render(_ref7) {
       var field = _ref7.field;
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__["default"], _extends({}, field, {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["default"], _extends({}, field, {
         type: "hidden",
         register: "nonce"
       }));
@@ -18344,7 +18357,7 @@ var View = function View() {
     control: control,
     render: function render(_ref8) {
       var field = _ref8.field;
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__["default"], _extends({}, field, {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["default"], _extends({}, field, {
         type: "hidden",
         register: "permalink"
       }));
@@ -18354,7 +18367,7 @@ var View = function View() {
     control: control,
     render: function render(_ref9) {
       var field = _ref9.field;
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_5__["default"], _extends({}, field, {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["default"], _extends({}, field, {
         type: "hidden",
         register: "shareText"
       }));
@@ -18407,15 +18420,15 @@ var View = function View() {
     onClick: function onClick() {
       window.parent.window.highlightShareFancy.close(); // See frontendjs/highlight-and-share.js for this variable.
     }
-  })), hasErrors() && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_6__["default"], {
+  })), hasErrors() && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_5__["default"], {
     message: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('There are form validation errors. Please correct them above.'),
     status: "error",
     politeness: "polite"
-  }), formErrors && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_6__["default"], {
+  }), formErrors && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_5__["default"], {
     message: errorMessage,
     status: "error",
     politeness: "polite"
-  }), isSent && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_6__["default"], {
+  }), isSent && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_5__["default"], {
     message: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('The email has been sent.'),
     status: "success",
     politeness: "assertive"

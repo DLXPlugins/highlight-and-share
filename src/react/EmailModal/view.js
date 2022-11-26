@@ -143,6 +143,21 @@ const View = () => {
 		return false;
 	};
 
+	// If the email is sent, show a success message.
+	if ( isSent ) {
+		return (
+			<section className="has-email--content-wrap">
+				<div className="has-email-control-row">
+					<Notice
+						message={ __( 'The email has been sent.' ) }
+						status="success"
+						politeness="assertive"
+					/>
+				</div>
+			</section>
+		);
+	}
+
 	return (
 		<section className="has-email--content-wrap">
 			<h2>{ getModalTitle() }</h2>

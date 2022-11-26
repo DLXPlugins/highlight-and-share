@@ -65,14 +65,25 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
    * @param {string}  title    The title of the post/page.
    * @param {string}  text     Text that is selected or to be shared
    * @param {string}  hashtags Hashtags present on the post/page.
+   * @param {string}  type     The type of trigger element (inline, selection, cta).
    *
    * @return {Element} The element with replaced attributes.
    *
    */
-  var hasVariableReplace = function hasVariableReplace(element, url, title, text, hashtags) {
+  var hasVariableReplace = function hasVariableReplace(element, url, title, text, hashtags, type) {
     var queryElements = element.querySelectorAll(socialNetworks);
     if (null === queryElements) {
       return element;
+    }
+
+    // Get types mapped for the modal view.
+    var triggerType = '';
+    if ('inline' === type) {
+      triggerType = 'highlight';
+    } else if ('selection' === type) {
+      triggerType = 'selection';
+    } else if ('cta' === type) {
+      triggerType = 'quote';
     }
 
     // Loop through elements.
@@ -85,6 +96,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       elementUrl = elementUrl.replace('%title%', encodeURIComponent(title));
       elementUrl = elementUrl.replace('%text%', encodeURIComponent(text));
       elementUrl = elementUrl.replace('%hashtags%', encodeURIComponent(hashtags));
+      elementUrl = elementUrl.replace('%type%', encodeURIComponent(triggerType));
       elementUrl = elementUrl.replace('%prefix%', encodeURIComponent(prefix));
       elementUrl = elementUrl.replace('%suffix%', encodeURIComponent(suffix));
       elementAnchor.setAttribute('href', elementUrl);
@@ -138,7 +150,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     if (hasClone.classList.contains('orientation-vertical')) {
       hasClone.style.display = 'inline-flex';
     }
-    hasVariableReplace(hasClone, href, title, text, hashtags); // Replaced by reference.
+    hasVariableReplace(hasClone, href, title, text, hashtags, type); // Replaced by reference.
 
     // Add to the end of the body element.
     document.body.appendChild(hasClone);

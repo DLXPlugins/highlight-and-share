@@ -536,6 +536,7 @@ class Frontend {
 								'nonce'     => $ajax_nonce,
 								'text'      => '%prefix%%text%%suffix%',
 								'post_id'   => $post_id,
+								'type'      => '%type%',
 							),
 							$ajax_url
 						);
