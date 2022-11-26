@@ -459,6 +459,7 @@ class Options {
 
 		$defaults = self::get_social_network_defaults();
 		if ( false === $settings || ! is_array( $settings ) ) {
+			$settings = $defaults;
 			update_option( 'highlight-and-share-social-networks', $defaults );
 		}
 
