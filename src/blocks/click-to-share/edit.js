@@ -38,6 +38,8 @@ const { InspectorControls, RichText, useBlockProps } = wp.blockEditor;
 
 const { useInstanceId } = wp.compose;
 
+const { create, toHTMLString } = wp.richText;
+
 const HAS_Click_To_Share = ( props ) => {
 	const [ deviceType, setDeviceType ] = useDeviceType( 'Desktop' );
 	const generatedUniqueId = useInstanceId( HAS_Click_To_Share, 'has-cts' );
@@ -101,6 +103,15 @@ const HAS_Click_To_Share = ( props ) => {
 				unit: 'px',
 				unitSync: true,
 			};
+			// Convert text over.
+			const portText = toHTMLString( {
+				// Stolen from: https://github.com/WordPress/gutenberg/pull/23562/files
+				value: create( {
+					html: shareText,
+					preserveWhiteSpace: true,
+				} ),
+				multilineTag: 'p',
+			} );
 			setAttributes( {
 				paddingSize: portPadding,
 				padding: -1,
@@ -111,7 +122,7 @@ const HAS_Click_To_Share = ( props ) => {
 				borderColorHover: borderColor,
 				iconColorHover: textColor,
 				iconColor: textColor,
-
+				shareText: portText,
 			} );
 		}
 		// Port margin to new dimensions object.
