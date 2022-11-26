@@ -460,7 +460,6 @@ class Options {
 		$defaults = self::get_social_network_defaults();
 		if ( false === $settings || ! is_array( $settings ) ) {
 			update_option( 'highlight-and-share-social-networks', $defaults );
-			return $defaults;
 		}
 
 		// Merge two multi-dimensional arrays (defaults, and from settings).
