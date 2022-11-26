@@ -207,6 +207,7 @@ const HASColorPicker = ( props ) => {
 									colors={ getDefaultColors() }
 									value={ color }
 									onChange={ ( newColor ) => {
+										console.log( newColor );
 										onChange( slug, newColor );
 										setColor( newColor );
 										setColorKey( newColor );
