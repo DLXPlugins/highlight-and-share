@@ -540,8 +540,25 @@ class Frontend {
 							$ajax_url
 						);
 						$html      .= '<div class="has_email ' . ( $theme_options['show_tooltips'] ? 'has-tooltip' : '' ) . '" style="display: none;" data-type="email" data-title="%title%" data-url="%url%" data-tooltip="' . esc_attr( $settings['email_tooltip'] ) . '"><a href="' . esc_url( $ajax_url ) . '" target="_blank"><svg class="has-icon"><use xlink:href="#has-email-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_email_text', $settings['email_label'] ) ) . '</span></a></div>';
-						break;
 
+						// Enqueue the modal script.
+						if ( ! wp_script_is( 'fslightbox', 'enqueued' ) ) {
+							wp_enqueue_script(
+								'fancybox',
+								Functions::get_plugin_url( '/js/fancybox.umd.js' ),
+								array(),
+								Functions::get_plugin_version(),
+								true
+							);
+							wp_register_style(
+								'fancybox',
+								Functions::get_plugin_url( '/js/fancybox.css' ),
+								array(),
+								Functions::get_plugin_version(),
+								'all'
+							);
+						}
+						break;
 				}
 			}
 		}
@@ -551,9 +568,11 @@ class Frontend {
 		wp_cache_set( 'has_frontend_html', $html, 'highlight-and-share', HOUR_IN_SECONDS );
 		echo $html;
 		$this->get_footer_svgs();
-		?>
-		
-		<?php
+
+		// Enqueue / print fancybox styles.
+		if ( wp_style_is( 'fancybox', 'registered' ) && ! wp_style_is( 'fancybox', 'done' ) ) {
+			wp_print_styles( 'fancybox' );
+		}
 	}
 
 	/**
@@ -643,15 +662,8 @@ class Frontend {
 		if ( false !== strpos( $_SERVER['REQUEST_URI'], 'elementor' ) ) { // phpcs:ignore
 			return;
 		}
-		$deps = array( 'jquery' );
-		if ( wp_is_mobile() && apply_filters( 'has_enable_mobile', true ) ) {
-			$deps[] = 'jquery.mobile';
-		}
-		$sweet_alert_uri = Functions::get_plugin_url( 'js/sweetalert2.all.min.js' );
-		$deps[]          = 'sweetalert2';
-		wp_register_script( 'sweetalert2', $sweet_alert_uri, array( 'jquery' ), '7.28.4', true );
 		$main_script_uri = Functions::get_plugin_url( 'dist/highlight-and-share.js' );
-		wp_enqueue_script( 'highlight-and-share', $main_script_uri, $deps, HIGHLIGHT_AND_SHARE_VERSION, true );
+		wp_enqueue_script( 'highlight-and-share', $main_script_uri, array(), HIGHLIGHT_AND_SHARE_VERSION, true );
 		if ( function_exists( 'wp_set_script_translations' ) ) {
 			wp_set_script_translations( 'highlight-and-share', 'highlight-and-share' );
 		}
@@ -908,7 +920,6 @@ class Frontend {
 		 * @param bool true for allowing CSS, false if not.
 		 */
 		if ( apply_filters( 'has_load_css', true ) ) {
-			wp_enqueue_style( 'highlight-and-share-email', Functions::get_plugin_url( 'css/highlight-and-share-emails.css' ), array(), HIGHLIGHT_AND_SHARE_VERSION, 'all' );
 			$this->output_stylesheets( $settings['theme'] );
 		}
 	}

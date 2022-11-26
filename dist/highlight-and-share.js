@@ -177,8 +177,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 hasShareText: text,
                 hasSharePostUrl: href,
                 hasSharePostTitle: title,
-                hasShareType: type,
-                /* selection|cta|inline */
+                hasShareType: type /* selection|cta|inline */,
                 hasSocialNetwork: el.getAttribute('data-type')
               });
             }
@@ -209,9 +208,35 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 hasShareText: text,
                 hasSharePostUrl: href,
                 hasSharePostTitle: title,
-                hasShareType: type,
-                /* selection|cta|inline */
+                hasShareType: type /* selection|cta|inline */,
                 hasSocialNetwork: 'copy'
+              });
+            }
+          });
+        }
+      });
+    }
+
+    // Set up email event.
+    var emailButtons = document.querySelectorAll('.has_email');
+    if (null !== emailButtons) {
+      emailButtons.forEach(function (el) {
+        if (isVisible(el)) {
+          el.addEventListener('click', function (event) {
+            event.preventDefault();
+            var url = event.target.closest('a').getAttribute('href');
+            if ('undefined' !== typeof Fancybox) {
+              // eslint-disable-next-line no-undef
+              hasRemoveVisibleElements();
+              // eslint-disable-next-line no-undef
+              window.highlightShareFancy = new Fancybox([{
+                src: url,
+                type: 'iframe',
+                preload: true
+              }], {
+                Toolbar: {
+                  autoEnable: false
+                }
               });
             }
           });

@@ -16,10 +16,13 @@
 		return;
 	}
 
-	const socialNetworks = '.has_whatsapp, .has_facebook, .has_twitter, .has_copy, .has_email, .has_reddit, .has_telegram, .has_linkedin, .has_xing, .has_signal, .has_vk';
+	const socialNetworks =
+		'.has_whatsapp, .has_facebook, .has_twitter, .has_copy, .has_email, .has_reddit, .has_telegram, .has_linkedin, .has_xing, .has_signal, .has_vk';
 
 	// Get highlight and share container dimensions.
-	const hasSharingIconsContainer = hasContainer.querySelector( '.highlight-and-share-wrapper' );
+	const hasSharingIconsContainer = hasContainer.querySelector(
+		'.highlight-and-share-wrapper'
+	);
 
 	// Populate container dimensions/width/height.
 	const rect = hasSharingIconsContainer.getBoundingClientRect();
@@ -34,14 +37,20 @@
 	 */
 	const isVisible = ( element ) => {
 		const style = window.getComputedStyle( element );
-		return style.display !== 'none' && style.visibility !== 'hidden' && style.opacity !== '0';
+		return (
+			style.display !== 'none' &&
+			style.visibility !== 'hidden' &&
+			style.opacity !== '0'
+		);
 	};
 
 	/**
 	 * Remove any visible HAS containers.
 	 */
 	const hasRemoveVisibleElements = () => {
-		const hasContainers = document.querySelectorAll( '.highlight-and-share-wrapper' );
+		const hasContainers = document.querySelectorAll(
+			'.highlight-and-share-wrapper'
+		);
 		if ( null !== hasContainers ) {
 			// Remove visible containers from dom.
 			hasContainers.forEach( ( container ) => {
@@ -77,10 +86,16 @@
 			const elementAnchor = el.querySelector( 'a' );
 			let elementUrl = elementAnchor.getAttribute( 'href' );
 			elementUrl = elementUrl.replace( '%url%', encodeURIComponent( url ) );
-			elementUrl = elementUrl.replace( '%username%', encodeURIComponent( HAS.twitter_username ) );
+			elementUrl = elementUrl.replace(
+				'%username%',
+				encodeURIComponent( HAS.twitter_username )
+			);
 			elementUrl = elementUrl.replace( '%title%', encodeURIComponent( title ) );
 			elementUrl = elementUrl.replace( '%text%', encodeURIComponent( text ) );
-			elementUrl = elementUrl.replace( '%hashtags%', encodeURIComponent( hashtags ) );
+			elementUrl = elementUrl.replace(
+				'%hashtags%',
+				encodeURIComponent( hashtags )
+			);
 			elementUrl = elementUrl.replace( '%prefix%', encodeURIComponent( prefix ) );
 			elementUrl = elementUrl.replace( '%suffix%', encodeURIComponent( suffix ) );
 			elementAnchor.setAttribute( 'href', elementUrl );
@@ -111,9 +126,24 @@
 	 * @param {string}  type           The type of display (selection|inline|cta).
 	 * @param {element} triggerElement The event initiator (null if no trigger element).
 	 */
-	const hasDisplay = ( text, title, href, hashtags, type, triggerElement = null ) => {
+	const hasDisplay = (
+		text,
+		title,
+		href,
+		hashtags,
+		type,
+		triggerElement = null
+	) => {
 		// Do not show the interface if nothing is enabled.
-		if ( false === highlight_and_share.show_twitter && false === highlight_and_share.show_facebook && false === highlight_and_share.show_linkedin && false === highlight_and_share.show_ok && false === highlight_and_share.show_vk && false === highlight_and_share.show_pinterest && false === highlight_and_share.show_email ) {
+		if (
+			false === highlight_and_share.show_twitter &&
+			false === highlight_and_share.show_facebook &&
+			false === highlight_and_share.show_linkedin &&
+			false === highlight_and_share.show_ok &&
+			false === highlight_and_share.show_vk &&
+			false === highlight_and_share.show_pinterest &&
+			false === highlight_and_share.show_email
+		) {
 			return;
 		}
 
@@ -121,7 +151,9 @@
 		hasRemoveVisibleElements();
 
 		// Get interface clone.
-		const hasClone = hasContainer.querySelector( '.highlight-and-share-wrapper' ).cloneNode( true );
+		const hasClone = hasContainer
+			.querySelector( '.highlight-and-share-wrapper' )
+			.cloneNode( true );
 		// Style the interface via inline styles and position.
 		hasClone.style.display = 'block';
 		hasClone.style.position = 'absolute';
@@ -154,7 +186,11 @@
 		}
 
 		// Setup event handlers for links (for desktop).
-		const queryElements = document.querySelector( 'body' ).querySelectorAll( '.has_whatsapp, .has_facebook, .has_twitter, .has_telegram, .has_linkedin, .has_xing, .has_reddit' );
+		const queryElements = document
+			.querySelector( 'body' )
+			.querySelectorAll(
+				'.has_whatsapp, .has_facebook, .has_twitter, .has_telegram, .has_linkedin, .has_xing, .has_reddit'
+			);
 		if ( null !== queryElements ) {
 			// Add click listeners to visible elements.
 			queryElements.forEach( ( el ) => {
@@ -173,12 +209,16 @@
 								hasShareText: text,
 								hasSharePostUrl: href,
 								hasSharePostTitle: title,
-								hasShareType: type, /* selection|cta|inline */
+								hasShareType: type /* selection|cta|inline */,
 								hasSocialNetwork: el.getAttribute( 'data-type' ),
 							} );
 						}
 
-						window.open( url, 'Highlight and Share', 'width=575,height=430,toolbar=false,menubar=false,location=false,status=false' );
+						window.open(
+							url,
+							'Highlight and Share',
+							'width=575,height=430,toolbar=false,menubar=false,location=false,status=false'
+						);
 					} );
 				}
 			} );
@@ -203,9 +243,41 @@
 								hasShareText: text,
 								hasSharePostUrl: href,
 								hasSharePostTitle: title,
-								hasShareType: type, /* selection|cta|inline */
+								hasShareType: type /* selection|cta|inline */,
 								hasSocialNetwork: 'copy',
 							} );
+						}
+					} );
+				}
+			} );
+		}
+
+		// Set up email event.
+		const emailButtons = document.querySelectorAll( '.has_email' );
+		if ( null !== emailButtons ) {
+			emailButtons.forEach( ( el ) => {
+				if ( isVisible( el ) ) {
+					el.addEventListener( 'click', ( event ) => {
+						event.preventDefault();
+						const url = event.target.closest( 'a' ).getAttribute( 'href' );
+						if ( 'undefined' !== typeof Fancybox ) {
+							// eslint-disable-next-line no-undef
+							hasRemoveVisibleElements();
+							// eslint-disable-next-line no-undef
+							window.highlightShareFancy = new Fancybox(
+								[
+									{
+										src: url,
+										type: 'iframe',
+										preload: true,
+									},
+								],
+								{
+									Toolbar: {
+										autoEnable: false,
+									},
+								}
+							);
 						}
 					} );
 				}
@@ -226,7 +298,10 @@
 		const windowHeight = window.innerHeight;
 
 		// Get the dimensions and location of the selection.
-		const selectionRect = window.getSelection().getRangeAt( 0 ).getBoundingClientRect();
+		const selectionRect = window
+			.getSelection()
+			.getRangeAt( 0 )
+			.getBoundingClientRect();
 		const selectionTop = selectionRect.top; // top position relative to view port.
 		const selectionLeft = selectionRect.left; // left position relative to view port.
 		const selectionWidth = selectionRect.width;
@@ -234,7 +309,7 @@
 
 		// Set container width to smaller than window width if larger.
 		if ( element.offsetWidth > windowWidth ) {
-			element.style.maxWidth = ( windowWidth - 20 ) + 'px';
+			element.style.maxWidth = windowWidth - 20 + 'px';
 			element.classList.add( 'has-no-margin-bottom' );
 		}
 
@@ -251,10 +326,14 @@
 			// Get the X position of where the HAS Sharer inteface should be displayed.
 			const hasSharerX = selectionLeft + window.scrollX - ( hasCloneWidth + 15 );
 			// Get the Y position of where the HAS Sharer inteface should be displayed.
-			const hasSharerY = ( selectionTop + window.scrollY ) - ( hasCloneHeight / 2 ) + ( selectionHeight / 2 );
+			const hasSharerY =
+				selectionTop +
+				window.scrollY -
+				hasCloneHeight / 2 +
+				selectionHeight / 2;
 			element.classList.add( 'has-no-margin-bottom' );
 			// If clone is outside of viewport, set width.
-			if ( ( selectionTop + window.scrollY ) - ( hasCloneHeight / 2 ) < 0 ) {
+			if ( selectionTop + window.scrollY - hasCloneHeight / 2 < 0 ) {
 				element.style.display = 'grid';
 				element.style.gridTemplateColumns = '1fr 1fr';
 
@@ -262,11 +341,20 @@
 				const newCloneRect = element.getBoundingClientRect();
 
 				// calculate left/top position.
-				element.style.top = ( selectionTop + window.scrollY - ( newCloneRect.height / 2 ) + ( selectionHeight / 2 ) ) + 'px';
-				element.style.left = ( selectionLeft + window.scrollX - newCloneRect.width - 15 ) + 'px';
+				element.style.top =
+					selectionTop +
+					window.scrollY -
+					newCloneRect.height / 2 +
+					selectionHeight / 2 +
+					'px';
+				element.style.left =
+					selectionLeft + window.scrollX - newCloneRect.width - 15 + 'px';
 
 				// Calculate top position.
-			} else if ( ( selectionTop + window.scrollY ) + ( hasCloneHeight / 2 ) > windowHeight ) {
+			} else if (
+				selectionTop + window.scrollY + hasCloneHeight / 2 >
+				windowHeight
+			) {
 				element.style.display = 'grid';
 				element.style.gridTemplateColumns = '1fr 1fr';
 
@@ -274,8 +362,14 @@
 				const newCloneRect = element.getBoundingClientRect();
 
 				// calculate left/top position.
-				element.style.top = ( selectionTop + window.scrollY - ( newCloneRect.height / 2 ) + ( selectionHeight / 2 ) ) + 'px';
-				element.style.left = ( selectionLeft + window.scrollX - newCloneRect.width - 15 ) + 'px';
+				element.style.top =
+					selectionTop +
+					window.scrollY -
+					newCloneRect.height / 2 +
+					selectionHeight / 2 +
+					'px';
+				element.style.left =
+					selectionLeft + window.scrollX - newCloneRect.width - 15 + 'px';
 			} else {
 				element.style.left = hasSharerX + 'px';
 				element.style.top = hasSharerY + 'px';
@@ -287,9 +381,10 @@
 			 */
 
 			// Get the X position of where the HAS Sharer inteface should be displayed.
-			const hasSharerX = selectionLeft + window.scrollX + ( selectionWidth / 2 ) - ( hasCloneWidth / 2 );
+			const hasSharerX =
+				selectionLeft + window.scrollX + selectionWidth / 2 - hasCloneWidth / 2;
 			// Get the Y position of where the HAS Sharer inteface should be displayed.
-			const hasSharerY = ( selectionTop + window.scrollY ) - hasCloneHeight - 15;
+			const hasSharerY = selectionTop + window.scrollY - hasCloneHeight - 15;
 
 			// Determine if hasSharerX is outside of view.
 			element.classList.add( 'has-no-margin-bottom' );
@@ -341,10 +436,11 @@
 			// Get the X position of where the HAS Sharer inteface should be displayed.
 			const hasSharerX = inlineLeft + window.scrollX - ( hasCloneWidth + 15 );
 			// Get the Y position of where the HAS Sharer inteface should be displayed.
-			const hasSharerY = ( inlineTop + window.scrollY ) - ( hasCloneHeight / 2 ) + ( inlineHeight / 2 );
+			const hasSharerY =
+				inlineTop + window.scrollY - hasCloneHeight / 2 + inlineHeight / 2;
 			element.classList.add( 'has-no-margin-bottom' );
 			// If clone is outside of viewport, set width.
-			if ( ( inlineTop + window.scrollY ) - ( hasCloneHeight / 2 ) < 0 ) {
+			if ( inlineTop + window.scrollY - hasCloneHeight / 2 < 0 ) {
 				element.style.display = 'grid';
 				element.style.gridTemplateColumns = '1fr 1fr';
 
@@ -352,8 +448,14 @@
 				const newCloneRect = element.getBoundingClientRect();
 
 				// calculate left/top position.
-				element.style.top = ( inlineTop + window.scrollY - ( newCloneRect.height / 2 ) + ( inlineHeight / 2 ) ) + 'px';
-				const leftPosition = ( inlineLeft + window.scrollX - newCloneRect.width - 15 );
+				element.style.top =
+					inlineTop +
+					window.scrollY -
+					newCloneRect.height / 2 +
+					inlineHeight / 2 +
+					'px';
+				const leftPosition =
+					inlineLeft + window.scrollX - newCloneRect.width - 15;
 				if ( leftPosition < 0 ) {
 					element.style.left = '15px';
 				} else {
@@ -361,7 +463,10 @@
 				}
 
 				// Calculate top position.
-			} else if ( ( inlineTop + window.scrollY ) + ( hasCloneHeight / 2 ) > windowHeight ) {
+			} else if (
+				inlineTop + window.scrollY + hasCloneHeight / 2 >
+				windowHeight
+			) {
 				element.style.display = 'grid';
 				element.style.gridTemplateColumns = '1fr 1fr';
 
@@ -369,8 +474,14 @@
 				const newCloneRect = element.getBoundingClientRect();
 
 				// calculate left/top position.
-				element.style.top = ( inlineTop + window.scrollY - ( newCloneRect.height / 2 ) + ( inlineHeight / 2 ) ) + 'px';
-				const leftPosition = ( inlineLeft + window.scrollX - newCloneRect.width - 15 );
+				element.style.top =
+					inlineTop +
+					window.scrollY -
+					newCloneRect.height / 2 +
+					inlineHeight / 2 +
+					'px';
+				const leftPosition =
+					inlineLeft + window.scrollX - newCloneRect.width - 15;
 				if ( leftPosition < 0 ) {
 					element.style.left = '15px';
 				} else {
@@ -383,20 +494,21 @@
 			}
 		} else {
 			// Get the X position of where the HAS Sharer inteface should be displayed.
-			const hasSharerX = inlineLeft + window.scrollX + ( inlineWidth / 2 ) - ( hasCloneWidth / 2 );
+			const hasSharerX =
+				inlineLeft + window.scrollX + inlineWidth / 2 - hasCloneWidth / 2;
 			// Get the Y position of where the HAS Sharer inteface should be displayed.
-			const hasSharerY = ( inlineTop + window.scrollY ) - hasCloneHeight - 15;
+			const hasSharerY = inlineTop + window.scrollY - hasCloneHeight - 15;
 
 			// Determine if hasSharerX is outside of view.
 			element.classList.add( 'has-no-margin-bottom' );
 			if ( hasSharerX < 0 ) {
-			// If so, set to 0.
+				// If so, set to 0.
 				element.style.left = '15px';
 			} else if ( hasSharerX + hasSharerWidth > windowWidth ) {
-			// If so, set to windowWidth - hasSharerWidth.
+				// If so, set to windowWidth - hasSharerWidth.
 				element.style.right = '15px';
 			} else {
-			// Otherwise, set to hasSharerX.
+				// Otherwise, set to hasSharerX.
 				element.style.left = hasSharerX + 'px';
 				element.classList.remove( 'has-no-margin-bottom' );
 			}
@@ -426,7 +538,7 @@
 
 		// Set container width to smaller than window width if larger.
 		if ( element.getBoundingClientRect().width > windowWidth ) {
-			element.style.maxWidth = ( windowWidth - 20 ) + 'px';
+			element.style.maxWidth = windowWidth - 20 + 'px';
 			element.classList.add( 'has-no-margin-bottom' );
 		}
 
@@ -443,10 +555,11 @@
 			// Get the X position of where the HAS Sharer inteface should be displayed.
 			const hasSharerX = ctaLeft + window.scrollX - ( hasCloneWidth + 15 );
 			// Get the Y position of where the HAS Sharer inteface should be displayed.
-			const hasSharerY = ( ctaTop + window.scrollY ) - ( hasCloneHeight / 2 ) + ( ctaHeight / 2 );
+			const hasSharerY =
+				ctaTop + window.scrollY - hasCloneHeight / 2 + ctaHeight / 2;
 			element.classList.add( 'has-no-margin-bottom' );
 			// If clone is outside of viewport, set width.
-			if ( ( ctaTop + window.scrollY ) - ( hasCloneHeight / 2 ) < 0 ) {
+			if ( ctaTop + window.scrollY - hasCloneHeight / 2 < 0 ) {
 				element.style.display = 'grid';
 				element.style.gridTemplateColumns = '1fr 1fr';
 
@@ -454,8 +567,13 @@
 				const newCloneRect = element.getBoundingClientRect();
 
 				// calculate left/top position.
-				element.style.top = ( ctaTop + window.scrollY - ( newCloneRect.height / 2 ) + ( ctaHeight / 2 ) ) + 'px';
-				const leftPosition = ( ctaLeft + window.scrollX - newCloneRect.width - 15 );
+				element.style.top =
+					ctaTop +
+					window.scrollY -
+					newCloneRect.height / 2 +
+					ctaHeight / 2 +
+					'px';
+				const leftPosition = ctaLeft + window.scrollX - newCloneRect.width - 15;
 				if ( leftPosition < 0 ) {
 					element.style.left = '15px';
 				} else {
@@ -463,7 +581,7 @@
 				}
 
 				// Calculate top position.
-			} else if ( ( ctaTop + window.scrollY ) + ( hasCloneHeight / 2 ) > windowHeight ) {
+			} else if ( ctaTop + window.scrollY + hasCloneHeight / 2 > windowHeight ) {
 				element.style.display = 'grid';
 				element.style.gridTemplateColumns = '1fr 1fr';
 
@@ -471,8 +589,13 @@
 				const newCloneRect = element.getBoundingClientRect();
 
 				// calculate left/top position.
-				element.style.top = ( ctaTop + window.scrollY - ( newCloneRect.height / 2 ) + ( ctaHeight / 2 ) ) + 'px';
-				const leftPosition = ( ctaLeft + window.scrollX - newCloneRect.width - 15 );
+				element.style.top =
+					ctaTop +
+					window.scrollY -
+					newCloneRect.height / 2 +
+					ctaHeight / 2 +
+					'px';
+				const leftPosition = ctaLeft + window.scrollX - newCloneRect.width - 15;
 				if ( leftPosition < 0 ) {
 					element.style.left = '15px';
 				} else {
@@ -485,20 +608,21 @@
 			}
 		} else {
 			// Get the X position of where the HAS Sharer inteface should be displayed.
-			const hasSharerX = ctaLeft + window.scrollX + ( ctaWidth / 2 ) - ( hasCloneWidth / 2 );
+			const hasSharerX =
+				ctaLeft + window.scrollX + ctaWidth / 2 - hasCloneWidth / 2;
 			// Get the Y position of where the HAS Sharer inteface should be displayed.
-			const hasSharerY = ( ctaTop + window.scrollY ) - hasCloneHeight - 15;
+			const hasSharerY = ctaTop + window.scrollY - hasCloneHeight - 15;
 
 			// Determine if hasSharerX is outside of view.
 			element.classList.add( 'has-no-margin-bottom' );
 			if ( hasSharerX < 0 ) {
-			// If so, set to 0.
+				// If so, set to 0.
 				element.style.left = '15px';
 			} else if ( hasSharerX + hasSharerWidth > windowWidth ) {
-			// If so, set to windowWidth - hasSharerWidth.
+				// If so, set to windowWidth - hasSharerWidth.
 				element.style.right = '15px';
 			} else {
-			// Otherwise, set to hasSharerX.
+				// Otherwise, set to hasSharerX.
 				element.style.left = hasSharerX + 'px';
 				element.classList.remove( 'has-no-margin-bottom' );
 			}
@@ -632,7 +756,9 @@
 				currentElement = element;
 
 				// Get parent element of prompt.
-				const ctsTextElement = element.parentNode.querySelector( '.has-click-to-share-text' );
+				const ctsTextElement = element.parentNode.querySelector(
+					'.has-click-to-share-text'
+				);
 
 				// Get text.
 				const selectedText = ctsTextElement.getAttribute( 'data-text-full' );
@@ -646,7 +772,14 @@
 				const hashtags = elementParent.dataset.hashtags ?? '';
 
 				// Display Highlight and Share.
-				hasDisplay( selectedText, title, href, hashtags, 'cta', element.closest( '.has-click-to-share-wrapper' ) );
+				hasDisplay(
+					selectedText,
+					title,
+					href,
+					hashtags,
+					'cta',
+					element.closest( '.has-click-to-share-wrapper' )
+				);
 			} );
 		} );
 	}

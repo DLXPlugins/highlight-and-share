@@ -114,7 +114,7 @@ const View = () => {
 				setIsSent( true );
 				setTimeout(
 					() => {
-						//window.parent.window.qdlxfancy.close(); // See tweet-actions/actions.js for this variable.
+						window.parent.window.highlightShareFancy.close(); // See frontendjs/highlight-and-share.js for this variable.
 					},
 					3000
 				);
@@ -400,7 +400,7 @@ const View = () => {
 						}
 						disabled={ isSending }
 						onClick={ () => {
-							//window.parent.window.qdlxfancy.close(); // See tweet-actions/actions.js for this variable.
+							window.parent.window.highlightShareFancy.close(); // See frontendjs/highlight-and-share.js for this variable.
 						} }
 					/>
 				</div>

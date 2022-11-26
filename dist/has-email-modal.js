@@ -18143,7 +18143,7 @@ var View = function View() {
       if (ajaxSuccess) {
         setIsSent(true);
         setTimeout(function () {
-          //window.parent.window.qdlxfancy.close(); // See tweet-actions/actions.js for this variable.
+          window.parent.window.highlightShareFancy.close(); // See frontendjs/highlight-and-share.js for this variable.
         }, 3000);
       } else {
         setFormErrors(true);
@@ -18405,7 +18405,7 @@ var View = function View() {
     text: isSent ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Close', 'highlight-and-share') : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Cancel', 'highlight-and-share'),
     disabled: isSending,
     onClick: function onClick() {
-      //window.parent.window.qdlxfancy.close(); // See tweet-actions/actions.js for this variable.
+      window.parent.window.highlightShareFancy.close(); // See frontendjs/highlight-and-share.js for this variable.
     }
   })), hasErrors() && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_6__["default"], {
     message: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('There are form validation errors. Please correct them above.'),
