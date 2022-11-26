@@ -24,6 +24,10 @@
 		display: flex;
 		justify-content: flex-end;
 		align-items: center;
+
+		svg {
+			margin-left: 12px;
+		}
 	}
 	&:after {
 		content: '';
