@@ -21,9 +21,6 @@ const PreviewSocialIconList = () => {
 	if ( 'custom' === appearanceThemeData.theme && ! appearanceEmpty ) {
 		if ( appearanceThemeData.group_icons ) {
 			themeStyles += `
-				.has-admin-theme-preview-list.highlight-and-share-wrapper {
-					background-color: ${ appearanceThemeData.background_color } !important;
-				}
 				.has-admin-theme-preview-list.highlight-and-share-wrapper div a {
 					color: ${ appearanceThemeData.icon_colors_group } !important;
 					background-color: ${ appearanceThemeData.background_color } !important;

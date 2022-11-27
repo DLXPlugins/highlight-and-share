@@ -124,7 +124,6 @@ body.has-body .highlight-and-share-wrapper.theme-green.orientation-vertical > di
 }
 .highlight-and-share-wrapper.theme-default div:last-child {
     margin-right: 0;
-	margin-bottom: 0;
 }
 .highlight-and-share-wrapper.theme-default div.has_twitter {
 	background: #1DA1F2;
@@ -209,6 +208,7 @@ body.has-body .highlight-and-share-wrapper.has-admin-theme-preview-list > div > 
 	display: inline-flex;
 	align-items: center;
 	justify-content: center;
+	box-sizing: border-box;
 
 	& > .has-icon-label {
 		margin-left: 5px;
