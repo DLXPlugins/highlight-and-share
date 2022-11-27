@@ -4384,7 +4384,6 @@ h2.has-admin-content-subheading:after {
 
 /* Preview List Padding/Margin */
 .has-admin-theme-preview-list {
-<<<<<<< Updated upstream
   display: inline-flex;
   flex-wrap: wrap;
 }
@@ -4395,9 +4394,6 @@ h2.has-admin-content-subheading:after {
   width: 100%;
   height: 0;
   margin-bottom: 30px;
-=======
-  margin-bottom: 35px;
->>>>>>> Stashed changes
 }
 
 /* Appearance Content Wrapper styles */

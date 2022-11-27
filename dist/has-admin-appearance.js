@@ -18095,11 +18095,7 @@ var PreviewSocialIconList = function PreviewSocialIconList() {
   // If appearance theme data is present, and the theme is custom, then add custom styles.
   if ('custom' === appearanceThemeData.theme && !appearanceEmpty) {
     if (appearanceThemeData.group_icons) {
-<<<<<<< Updated upstream
       themeStyles += "\n\t\t\t\t.has-admin-theme-preview-list.highlight-and-share-wrapper div a {\n\t\t\t\t\tcolor: ".concat(appearanceThemeData.icon_colors_group, " !important;\n\t\t\t\t\tbackground-color: ").concat(appearanceThemeData.background_color, " !important;\n\t\t\t\t}\n\t\t\t\t.has-admin-theme-preview-list.highlight-and-share-wrapper div a:hover {\n\t\t\t\t\tcolor: ").concat(appearanceThemeData.icon_colors_group_hover, " !important;\n\t\t\t\t\tbackground-color: ").concat(appearanceThemeData.background_color_hover, " !important;\n\t\t\t\t}\n\t\t\t");
-=======
-      themeStyles += "\n\t\t\t\t.has-admin-theme-preview-list.highlight-and-share-wrapper {\n\t\t\t\t\tbackground-color: ".concat(appearanceThemeData.background_color, " !important;\n\t\t\t\t}\n\t\t\t\t.has-admin-theme-preview-list.highlight-and-share-wrapper div a {\n\t\t\t\t\tcolor: ").concat(appearanceThemeData.icon_colors_group, " !important;\n\t\t\t\t\tbackground-color: ").concat(appearanceThemeData.background_color, " !important;\n\t\t\t\t}\n\t\t\t\t.has-admin-theme-preview-list.highlight-and-share-wrapper div a:hover {\n\t\t\t\t\tcolor: ").concat(appearanceThemeData.icon_colors_group_hover, " !important;\n\t\t\t\t\tbackground-color: ").concat(appearanceThemeData.background_color_hover, " !important;\n\t\t\t\t}\n\t\t\t");
->>>>>>> Stashed changes
       // Get border radius values.
       if (appearanceThemeData.border_radius_group.attrSyncUnits) {
         themeStyles += "\n\t\t\t\t\t.has-admin-theme-preview-list.highlight-and-share-wrapper,\n\t\t\t\t\t.has-admin-theme-preview-list.highlight-and-share-wrapper a {\n\t\t\t\t\t\tborder-radius: ".concat(appearanceThemeData.border_radius_group.attrTop).concat(appearanceThemeData.border_radius_group.attrUnit, " !important;\n\t\t\t\t\t}\n\t\t\t\t");

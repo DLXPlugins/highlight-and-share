@@ -128,10 +128,6 @@ body.has-body .highlight-and-share-wrapper.theme-green.orientation-vertical > di
 
 .highlight-and-share-wrapper.theme-default div:last-child {
   margin-right: 0;
-<<<<<<< Updated upstream
-=======
-  margin-bottom: 0;
->>>>>>> Stashed changes
 }
 
 .highlight-and-share-wrapper.theme-default div.has_twitter {
@@ -243,10 +239,7 @@ body.has-body .highlight-and-share-wrapper.has-admin-theme-preview-list > div > 
   display: inline-flex;
   align-items: center;
   justify-content: center;
-<<<<<<< Updated upstream
   box-sizing: border-box;
-=======
->>>>>>> Stashed changes
 }
 body.has-body .highlight-and-share-wrapper.has-admin-theme-preview-list > div > .has-icon-label,
 body.has-body .highlight-and-share-wrapper.has-admin-theme-preview-list > div > a > .has-icon-label {
