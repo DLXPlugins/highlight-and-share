@@ -1018,15 +1018,6 @@ h2.has-admin-content-subheading {
 .has-admin-theme-preview-list {
 	display: inline-flex;
 	flex-wrap: wrap;
-
-	&:after {
-		content: '';
-		position: relative;
-		display: block;
-		width: 100%;
-		height: 0;
-		margin-bottom: 30px;
-	}
 }
 
 /* Appearance Content Wrapper styles */

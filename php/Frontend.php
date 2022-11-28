@@ -272,9 +272,16 @@ class Frontend {
 			endif;
 			if ( true === (bool) $theme_options['border_radius_group']['attrSyncUnits'] ) :
 				?>
-					.highlight-and-share-wrapper,
-					.highlight-and-share-wrapper a {
+					.highlight-and-share-wrapper {
 						border-radius: <?php echo esc_attr( $theme_options['border_radius_group']['attrTop'] . $theme_options['border_radius_group']['attrUnit'] ); ?> !important;
+					}
+					.highlight-and-share-wrapper a:first-child {
+						border-top-left-radius: <?php echo esc_attr( $theme_options['border_radius_group']['attrTop'] . $theme_options['border_radius_group']['attrUnit'] ); ?> !important;
+						border-bottom-left-radius: <?php echo esc_attr( $theme_options['border_radius_group']['attrTop'] . $theme_options['border_radius_group']['attrUnit'] ); ?> !important;
+					}
+					.highlight-and-share-wrapper a:last-child {
+						border-bottom-right-radius: <?php echo esc_attr( $theme_options['border_radius_group']['attrTop'] . $theme_options['border_radius_group']['attrUnit'] ); ?> !important;
+						border-top-right-radius: <?php echo esc_attr( $theme_options['border_radius_group']['attrTop'] . $theme_options['border_radius_group']['attrUnit'] ); ?> !important;
 					}
 				<?php
 			else :

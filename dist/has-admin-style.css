@@ -4387,14 +4387,6 @@ h2.has-admin-content-subheading:after {
   display: inline-flex;
   flex-wrap: wrap;
 }
-.has-admin-theme-preview-list:after {
-  content: "";
-  position: relative;
-  display: block;
-  width: 100%;
-  height: 0;
-  margin-bottom: 30px;
-}
 
 /* Appearance Content Wrapper styles */
 .has-admin-container-body__content:has(.has-admin__tabs--content-actions) {
