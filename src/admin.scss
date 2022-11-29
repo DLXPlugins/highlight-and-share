@@ -719,6 +719,10 @@ h2.has-admin-content-subheading {
 			border-radius: 50%;
 			width: 100%;
 			height: 100%;
+
+			.components-popover {
+				display: none;
+			}
 		}
 		.components-circular-option-picker__swatches {
 			display: flex;

@@ -627,10 +627,10 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
     label: __('Border Radius', 'highlight-and-share'),
     allowNegatives: false,
     values: borderRadiusSize,
-    labelTop: __('T-Left', 'highlight-and-share'),
-    labelRight: __('T-Right', 'highlight-and-share'),
-    labelBottom: __('B-Right', 'highlight-and-share'),
-    labelLeft: __('B-Left', 'highlight-and-share'),
+    labelTop: __('Top Left', 'highlight-and-share'),
+    labelRight: __('Top Right', 'highlight-and-share'),
+    labelBottom: __('Bottom Right', 'highlight-and-share'),
+    labelLeft: __('Bottom Left', 'highlight-and-share'),
     units: ['px', 'em', 'rem', '%'],
     screenSize: deviceType,
     onValuesChange: function onValuesChange(newValues) {
@@ -1560,26 +1560,12 @@ var DimensionsControlBlock = function DimensionsControlBlock(props) {
     }
   };
   var syncIcon = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("svg", {
-    "aria-hidden": "true",
-    focusable: "false",
-    "data-prefix": "fad",
-    "data-icon": "sync",
-    className: "svg-inline--fa fa-sync fa-w-16",
-    role: "img",
     xmlns: "http://www.w3.org/2000/svg",
-    viewBox: "0 0 512 512"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("g", {
-    className: "fa-group"
+    viewBox: "0 0 640 512"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("path", {
-    className: "fa-secondary",
     fill: "currentColor",
-    d: "M0 500V299.67a12 12 0 0 1 12-12h200.33a12 12 0 0 1 12 12v47.41a12 12 0 0 1-12.57 12l-101.87-4.88a176.07 176.07 0 0 0 317.25-56.94 12 12 0 0 1 11.67-9.26h49.09a12 12 0 0 1 11.8 14.18C478.07 417.08 377.19 504 256 504a247.43 247.43 0 0 1-188.76-87.17l4.13 82.57a12 12 0 0 1-12 12.6H12a12 12 0 0 1-12-12z",
-    opacity: "0.4"
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("path", {
-    className: "fa-primary",
-    fill: "currentColor",
-    d: "M12.3 209.82C33.93 94.92 134.81 8 256 8a247.4 247.4 0 0 1 188.9 87.34l-4-82.77A12 12 0 0 1 452.92 0h47.41a12 12 0 0 1 12 12v200.33a12 12 0 0 1-12 12H300a12 12 0 0 1-12-12v-47.41a12 12 0 0 1 12.57-12l101.53 4.88a176.07 176.07 0 0 0-317.24 56.94A12 12 0 0 1 73.19 224H24.1a12 12 0 0 1-11.8-14.18z"
-  })));
+    d: "M580.2 267.3c56.2-56.2 56.2-147.4 0-203.6s-147.4-56.3-203.6 0L365.3 75l45.3 45.3 11.3-11.3c31.2-31.2 81.9-31.2 113.1 0s31.2 81.9 0 113.1L421.8 335.2c-31.2 31.2-81.9 31.2-113.1 0-25.6-25.6-30.3-64.3-13.8-94.6 1.8-3.4 3.9-6.7 6.3-9.8L250 192.4c-4.3 5.7-8.1 11.6-11.4 17.8-29.5 54.6-21.3 124.2 24.9 170.3 56.2 56.2 147.4 56.2 203.6 0l113.1-113.2zM59.8 244.7c-56.2 56.2-56.2 147.4 0 203.6s147.4 56.2 203.6 0l11.3-11.3-45.3-45.3-11.3 11.3c-31.2 31.2-81.9 31.2-113.1 0s-31.2-81.9 0-113.1l113.2-113.1c31.2-31.2 81.9-31.2 113.1 0 25.6 25.6 30.3 64.3 13.8 94.6-1.8 3.4-3.9 6.7-6.3 9.8l51.2 38.4c4.3-5.7 8.1-11.6 11.4-17.8 29.5-54.6 21.3-124.2-24.9-170.3-56.2-56.2-147.4-56.2-203.6 0L59.8 244.7z"
+  }));
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "components-base-control components-has-dimensions-control"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_4__.Controller, {
@@ -1608,7 +1594,10 @@ var DimensionsControlBlock = function DimensionsControlBlock(props) {
       var _ref2$field = _ref2.field,
         _onChange = _ref2$field.onChange,
         value = _ref2$field.value;
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+        className: "components-has-dimensions-control__input",
+        "data-tooltip": labelTop
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
         value: getValues(screenSize).top,
         type: "number",
         label: labelTop,
@@ -1618,8 +1607,9 @@ var DimensionsControlBlock = function DimensionsControlBlock(props) {
           _onChange(newValue);
         },
         min: 0,
-        placeholder: (0,_Utils_DimensionsHelper__WEBPACK_IMPORTED_MODULE_5__.geHierarchicalPlaceholderValue)(props.values, screenSize, getValues(screenSize).top, 'top')
-      });
+        placeholder: (0,_Utils_DimensionsHelper__WEBPACK_IMPORTED_MODULE_5__.geHierarchicalPlaceholderValue)(props.values, screenSize, getValues(screenSize).top, 'top'),
+        "data-tooltip": labelTop
+      }));
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_4__.Controller, {
     name: "".concat(screenSize, ".right"),
@@ -1628,7 +1618,10 @@ var DimensionsControlBlock = function DimensionsControlBlock(props) {
       var _ref3$field = _ref3.field,
         _onChange2 = _ref3$field.onChange,
         value = _ref3$field.value;
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+        className: "components-has-dimensions-control__input",
+        "data-tooltip": labelRight
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
         value: getValues(screenSize).right,
         type: "number",
         label: labelRight,
@@ -1638,8 +1631,9 @@ var DimensionsControlBlock = function DimensionsControlBlock(props) {
           _onChange2(newValue);
         },
         min: 0,
-        placeholder: (0,_Utils_DimensionsHelper__WEBPACK_IMPORTED_MODULE_5__.geHierarchicalPlaceholderValue)(props.values, screenSize, getValues(screenSize).right, 'right')
-      });
+        placeholder: (0,_Utils_DimensionsHelper__WEBPACK_IMPORTED_MODULE_5__.geHierarchicalPlaceholderValue)(props.values, screenSize, getValues(screenSize).right, 'right'),
+        "data-tooltip": labelRight
+      }));
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_4__.Controller, {
     name: "".concat(screenSize, ".bottom"),
@@ -1648,7 +1642,10 @@ var DimensionsControlBlock = function DimensionsControlBlock(props) {
       var _ref4$field = _ref4.field,
         _onChange3 = _ref4$field.onChange,
         value = _ref4$field.value;
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+        className: "components-has-dimensions-control__input",
+        "data-tooltip": labelBottom
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
         value: getValues(screenSize).bottom,
         type: "number",
         label: labelBottom,
@@ -1659,7 +1656,7 @@ var DimensionsControlBlock = function DimensionsControlBlock(props) {
         },
         min: 0,
         placeholder: (0,_Utils_DimensionsHelper__WEBPACK_IMPORTED_MODULE_5__.geHierarchicalPlaceholderValue)(props.values, screenSize, getValues(screenSize).bottom, 'bottom')
-      });
+      }));
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_4__.Controller, {
     name: "".concat(screenSize, ".left"),
@@ -1669,7 +1666,10 @@ var DimensionsControlBlock = function DimensionsControlBlock(props) {
       var _ref5$field = _ref5.field,
         _onChange4 = _ref5$field.onChange,
         value = _ref5$field.value;
-      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+        className: "components-has-dimensions-control__input",
+        "data-tooltip": labelLeft
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
         value: (_getValues$left = getValues(screenSize).left) !== null && _getValues$left !== void 0 ? _getValues$left : 0,
         type: "number",
         label: labelLeft,
@@ -1680,7 +1680,7 @@ var DimensionsControlBlock = function DimensionsControlBlock(props) {
         },
         min: 0,
         placeholder: (0,_Utils_DimensionsHelper__WEBPACK_IMPORTED_MODULE_5__.geHierarchicalPlaceholderValue)(props.values, screenSize, getValues(screenSize).left, 'left')
-      });
+      }));
     }
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Tooltip, {
     text: !!getValues(screenSize).unitSync ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Unsync', 'highlight-and-share') : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Sync', 'highlight-and-share')

@@ -17,7 +17,7 @@ class Themes {
 	 */
 	public static function get_default_theme_colors() {
 		// Return colors for each social network. Each has a slug, value, and label.
-		return array(
+		$colors = array(
 			array(
 				'slug'  => 'twitter',
 				'color' => '#1da1f2',
@@ -68,7 +68,54 @@ class Themes {
 				'color' => '#ffffff',
 				'label' => __( 'White', 'highlight-and-share' ),
 			),
+			/* Purple */
+			array(
+				'slug'  => 'theme-purple',
+				'color' => '#8364E8',
+				'label' => __( 'Purple', 'highlight-and-share' ),
+			),
+			/* Black */
+			array(
+				'slug'  => 'theme-black',
+				'color' => '#333',
+				'label' => __( 'Black', 'highlight-and-share' ),
+			),
+			/* Blue */
+			array(
+				'slug'  => 'theme-blue',
+				'color' => '#0009c1',
+				'label' => __( 'Blue', 'highlight-and-share' ),
+			),
+			/* Green */
+			array(
+				'slug'  => 'theme-green',
+				'color' => '#03ac27',
+				'label' => __( 'Green', 'highlight-and-share' ),
+			),
+			/* Cyan */
+			array(
+				'slug'  => 'theme-cyan',
+				'color' => '#0091b0',
+				'label' => __( 'Cyan', 'highlight-and-share' ),
+			),
+			/* Magenta */
+			array(
+				'slug'  => 'theme-magenta',
+				'color' => '#c700c7',
+				'label' => __( 'Magenta', 'highlight-and-share' ),
+			),
 		);
+
+		/**
+		 * Filter the default theme colors.
+		 *
+		 * @param array $colors Array of theme colors
+		 */
+		$colors = apply_filters(
+			'has_default_theme_color_palette',
+			$colors
+		);
+		return $colors;
 	}
 
 	/**

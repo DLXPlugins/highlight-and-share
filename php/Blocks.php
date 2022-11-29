@@ -116,7 +116,7 @@ class Blocks {
 			'has_gutenberg',
 			array(
 				'svg'            => Functions::get_plugin_url( 'img/share.svg' ),
-				'colorPalette'   => $color_palette,
+				'colorPalette'   => Themes::get_default_theme_colors(),
 				'adobeFonts'     => $adobe_fonts,
 				'adobeFontsUrl'  => Adobe_Fonts::$typekit_css_url,
 				'adobeProjectId' => $block_editor_options['adobe_project_id'] ?? '',
