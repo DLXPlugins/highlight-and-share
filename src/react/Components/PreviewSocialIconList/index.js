@@ -32,6 +32,14 @@ const PreviewSocialIconList = () => {
 					color: ${ appearanceThemeData.icon_colors_group_hover } !important;
 					background-color: ${ appearanceThemeData.background_color_hover } !important;
 				}
+				.has-admin-theme-preview-list.highlight-and-share-wrapper div:first-child a {
+					border-top-left-radius: ${ appearanceThemeData.border_radius_group.attrTop + appearanceThemeData.border_radius_group.attrUnit } !important;
+					border-bottom-left-radius: ${ appearanceThemeData.border_radius_group.attrTop + appearanceThemeData.border_radius_group.attrUnit } !important;
+				}
+				.has-admin-theme-preview-list.highlight-and-share-wrapper div:last-child a {
+					border-bottom-right-radius: ${ appearanceThemeData.border_radius_group.attrTop + appearanceThemeData.border_radius_group.attrUnit } !important;
+					border-top-right-radius: ${ appearanceThemeData.border_radius_group.attrTop + appearanceThemeData.border_radius_group.attrUnit } !important;
+				}
 			`;
 			// Get border radius values.
 			if ( appearanceThemeData.border_radius_group.attrSyncUnits ) {

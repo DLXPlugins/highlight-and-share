@@ -112,24 +112,6 @@ class Frontend {
 			return;
 		}
 
-		/**
-		 * Filter: has_enable_mobile
-		 *
-		 * Whether Highlight and Share scripts are run on mobile.
-		 *
-		 * @param bool true to enable mobile, false to not.
-		 */
-		$show_on_mobile = (bool) apply_filters( 'has_enable_mobile', isset( $settings['enable_mobile'] ) ? $settings['enable_mobile'] : true );
-
-		// Disable if mobile.
-		if ( wp_is_mobile() ) {
-			if ( $show_on_mobile ) {
-				add_action( 'wp_enqueue_scripts', array( $this, 'add_scripts_mobile' ) );
-			} else {
-				return;
-			}
-		}
-
 		// Load scripts.
 		add_action( 'wp_enqueue_scripts', array( $this, 'add_scripts' ) );
 
@@ -277,20 +259,20 @@ class Frontend {
 						color:<?php echo esc_attr( $theme_options['icon_colors_group_hover'] ); ?> !important;
 						background-color:<?php echo esc_attr( $theme_options['background_color_hover'] ); ?> !important;
 					}
+					.highlight-and-share-wrapper div:first-of-type a {
+						border-top-left-radius: <?php echo esc_attr( $theme_options['border_radius_group']['attrTop'] . $theme_options['border_radius_group']['attrUnit'] ); ?> !important;
+						border-bottom-left-radius: <?php echo esc_attr( $theme_options['border_radius_group']['attrTop'] . $theme_options['border_radius_group']['attrUnit'] ); ?> !important;
+					}
+					.highlight-and-share-wrapper div:last-of-type a {
+						border-bottom-right-radius: <?php echo esc_attr( $theme_options['border_radius_group']['attrTop'] . $theme_options['border_radius_group']['attrUnit'] ); ?> !important;
+						border-top-right-radius: <?php echo esc_attr( $theme_options['border_radius_group']['attrTop'] . $theme_options['border_radius_group']['attrUnit'] ); ?> !important;
+					}
 				<?php
 			endif;
 			if ( true === (bool) $theme_options['border_radius_group']['attrSyncUnits'] ) :
 				?>
 					.highlight-and-share-wrapper {
 						border-radius: <?php echo esc_attr( $theme_options['border_radius_group']['attrTop'] . $theme_options['border_radius_group']['attrUnit'] ); ?> !important;
-					}
-					.highlight-and-share-wrapper a:first-child {
-						border-top-left-radius: <?php echo esc_attr( $theme_options['border_radius_group']['attrTop'] . $theme_options['border_radius_group']['attrUnit'] ); ?> !important;
-						border-bottom-left-radius: <?php echo esc_attr( $theme_options['border_radius_group']['attrTop'] . $theme_options['border_radius_group']['attrUnit'] ); ?> !important;
-					}
-					.highlight-and-share-wrapper a:last-child {
-						border-bottom-right-radius: <?php echo esc_attr( $theme_options['border_radius_group']['attrTop'] . $theme_options['border_radius_group']['attrUnit'] ); ?> !important;
-						border-top-right-radius: <?php echo esc_attr( $theme_options['border_radius_group']['attrTop'] . $theme_options['border_radius_group']['attrUnit'] ); ?> !important;
 					}
 				<?php
 			else :
@@ -499,22 +481,22 @@ class Frontend {
 				switch ( $social_network['slug'] ) {
 					case 'twitter':
 						// If "via" is blank, no username will show in Twitter.
-						$html .= '<div class="has_twitter ' . ( $theme_options['show_tooltips'] ? 'has-tooltip' : '' ) . '" style="display: none;" data-type="twitter" data-tooltip="' . esc_attr( $settings['twitter_tooltip'] ) . '"><a href="https://twitter.com/intent/tweet?via=%username%&url=%url%&text=%prefix%%text%%suffix%&hashtags=%hashtags%" target="_blank"><svg class="has-icon"><use xlink:href="#has-twitter-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_twitter_text', $settings['twitter_label'] ) ) . '</span></a></div>';
+						$html .= '<div class="has_twitter ' . ( $theme_options['show_tooltips'] ? 'has-tooltip' : '' ) . '" style="display: none;" data-type="twitter" data-tooltip="' . esc_attr( apply_filters( 'has_twitter_tooltip', $settings['twitter_tooltip'] ) ) . '"><a href="https://twitter.com/intent/tweet?via=%username%&url=%url%&text=%prefix%%text%%suffix%&hashtags=%hashtags%" target="_blank"><svg class="has-icon"><use xlink:href="#has-twitter-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_twitter_text', $settings['twitter_label'] ) ) . '</span></a></div>';
 						break;
 					case 'facebook':
-						$html .= '<div class="has_facebook ' . ( $theme_options['show_tooltips'] ? 'has-tooltip' : '' ) . '" style="display: none;" data-type="facebook" data-tooltip="' . esc_attr( $settings['facebook_tooltip'] ) . '"><a href="https://www.facebook.com/sharer/sharer.php?u=%url%&t=%title%" target="_blank"><svg class="has-icon"><use xlink:href="#has-facebook-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_facebook_text', $settings['facebook_label'] ) ) . '</span></a></div>';
+						$html .= '<div class="has_facebook ' . ( $theme_options['show_tooltips'] ? 'has-tooltip' : '' ) . '" style="display: none;" data-type="facebook" data-tooltip="' . esc_attr( apply_filters( 'has_facebook_tooltip', $settings['facebook_tooltip'] ) ) . '"><a href="https://www.facebook.com/sharer/sharer.php?u=%url%&t=%title%" target="_blank"><svg class="has-icon"><use xlink:href="#has-facebook-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_facebook_text', $settings['facebook_label'] ) ) . '</span></a></div>';
 						break;
 					case 'linkedin':
-						$html .= '<div class="has_linkedin ' . ( $theme_options['show_tooltips'] ? 'has-tooltip' : '' ) . '" style="display: none;" data-type="linkedin" data-tooltip="' . esc_attr( $settings['linkedin_tooltip'] ) . '"><a href="https://www.linkedin.com/sharing/share-offsite/?mini=true&url=%url%&title=%title%" target="_blank"><svg class="has-icon"><use xlink:href="#has-linkedin-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_linkedin_text', $settings['linkedin_label'] ) ) . '</span></a></div>';
+						$html .= '<div class="has_linkedin ' . ( $theme_options['show_tooltips'] ? 'has-tooltip' : '' ) . '" style="display: none;" data-type="linkedin" data-tooltip="' . esc_attr( apply_filters( 'has_linkedin_tooltip', $settings['linkedin_tooltip'] ) ) . '"><a href="https://www.linkedin.com/sharing/share-offsite/?mini=true&url=%url%&title=%title%" target="_blank"><svg class="has-icon"><use xlink:href="#has-linkedin-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_linkedin_text', $settings['linkedin_label'] ) ) . '</span></a></div>';
 						break;
 					case 'xing':
-						$html .= '<div class="has_xing ' . ( $theme_options['show_tooltips'] ? 'has-tooltip' : '' ) . '" style="display: none;" data-type="xing" data-tooltip="' . esc_attr( $settings['xing_tooltip'] ) . '"><a href="https://www.xing.com/spi/shares/new?url=%url%" target="_blank"><svg class="has-icon"><use xlink:href="#has-xing-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_xing_text', $settings['xing_label'] ) ) . '</span></a></div>';
+						$html .= '<div class="has_xing ' . ( $theme_options['show_tooltips'] ? 'has-tooltip' : '' ) . '" style="display: none;" data-type="xing" data-tooltip="' . esc_attr( apply_filters( 'has_xing_tooltip', $settings['xing_tooltip'] ) ) . '"><a href="https://www.xing.com/spi/shares/new?url=%url%" target="_blank"><svg class="has-icon"><use xlink:href="#has-xing-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_xing_text', $settings['xing_label'] ) ) . '</span></a></div>';
 						break;
 					case 'reddit':
-						$html .= '<div class="has_reddit ' . ( $theme_options['show_tooltips'] ? 'has-tooltip' : '' ) . '" style="display: none;" data-type="reddit" data-tooltip="' . esc_attr( $settings['reddit_tooltip'] ) . '"><a href="https://www.reddit.com/submit?resubmit=true&url=%url%&title=%title%" target="_blank"><svg class="has-icon"><use xlink:href="#has-reddit-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_reddit_text', $settings['reddit_label'] ) ) . '</span></a></div>';
+						$html .= '<div class="has_reddit ' . ( $theme_options['show_tooltips'] ? 'has-tooltip' : '' ) . '" style="display: none;" data-type="reddit" data-tooltip="' . esc_attr( apply_filters( 'has_reddit_tooltip', $settings['reddit_tooltip'] ) ) . '"><a href="https://www.reddit.com/submit?resubmit=true&url=%url%&title=%title%" target="_blank"><svg class="has-icon"><use xlink:href="#has-reddit-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_reddit_text', $settings['reddit_label'] ) ) . '</span></a></div>';
 						break;
 					case 'telegram':
-						$html .= '<div class="has_telegram ' . ( $theme_options['show_tooltips'] ? 'has-tooltip' : '' ) . '" style="display: none;" data-type="telegram" data-tooltip="' . esc_attr( $settings['telegram_tooltip'] ) . '"><a href="https://t.me/share/url?url=%url%&text=%prefix%%text%%suffix%" target="_blank"><svg class="has-icon"><use xlink:href="#has-telegram-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_telegram_text', $settings['telegram_label'] ) ) . '</span></a></div>';
+						$html .= '<div class="has_telegram ' . ( $theme_options['show_tooltips'] ? 'has-tooltip' : '' ) . '" style="display: none;" data-type="telegram" data-tooltip="' . esc_attr( apply_filters( 'has_telegram_tooltip', $settings['telegram_tooltip'] ) ) . '"><a href="https://t.me/share/url?url=%url%&text=%prefix%%text%%suffix%" target="_blank"><svg class="has-icon"><use xlink:href="#has-telegram-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_telegram_text', $settings['telegram_label'] ) ) . '</span></a></div>';
 						break;
 					case 'whatsapp':
 						$whatsapp_endpoint_url      = 'whatsapp://send';
@@ -535,10 +517,10 @@ class Frontend {
 							'has_whatsapp_endpoint_url',
 							$whatsapp_endpoint_url
 						);
-						$html                 .= '<div class="has_whatsapp ' . ( $theme_options['show_tooltips'] ? 'has-tooltip' : '' ) . '" style="display: none;" data-type="whatsapp" data-tooltip="' . esc_attr( $settings['whatsapp_tooltip'] ) . '"><a href="' . esc_url_raw( $whatsapp_endpoint_url, array( 'whatsapp', 'http', 'https' ) ) . '?text=%prefix%%text%%suffix%: %url%" target="_blank"><svg class="has-icon"><use xlink:href="#has-whatsapp-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_whatsapp_text', $settings['whatsapp_label'] ) ) . '</span></a></div>';
+						$html                 .= '<div class="has_whatsapp ' . ( $theme_options['show_tooltips'] ? 'has-tooltip' : '' ) . '" style="display: none;" data-type="whatsapp" data-tooltip="' . esc_attr( apply_filters( 'has_whatsapp_tooltip', $settings['whatsapp_tooltip'] ) ) . '"><a href="' . esc_url_raw( $whatsapp_endpoint_url, array( 'whatsapp', 'http', 'https' ) ) . '?text=%prefix%%text%%suffix%: %url%" target="_blank"><svg class="has-icon"><use xlink:href="#has-whatsapp-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_whatsapp_text', $settings['whatsapp_label'] ) ) . '</span></a></div>';
 						break;
 					case 'copy':
-						$html .= '<div class="has_copy ' . ( $theme_options['show_tooltips'] ? 'has-tooltip' : '' ) . '" style="display: none;" data-type="copy" data-tooltip="' . esc_attr( $settings['copy_tooltip'] ) . '"><a href="#"><svg class="has-icon"><use xlink:href="#has-copy-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_copy_text', $settings['copy_label'] ) ) . '</span></a></div>';
+						$html .= '<div class="has_copy ' . ( $theme_options['show_tooltips'] ? 'has-tooltip' : '' ) . '" style="display: none;" data-type="copy" data-tooltip="' . esc_attr( apply_filters( 'has_copy_tooltip', $settings['copy_tooltip'] ) ) . '"><a href="#"><svg class="has-icon"><use xlink:href="#has-copy-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_copy_text', $settings['copy_label'] ) ) . '</span></a></div>';
 						break;
 					case 'email':
 						global $post;
@@ -556,10 +538,10 @@ class Frontend {
 							),
 							$ajax_url
 						);
-						$html      .= '<div class="has_email ' . ( $theme_options['show_tooltips'] ? 'has-tooltip' : '' ) . '" style="display: none;" data-type="email" data-title="%title%" data-url="%url%" data-tooltip="' . esc_attr( $settings['email_tooltip'] ) . '"><a href="' . esc_url( $ajax_url ) . '" target="_blank"><svg class="has-icon"><use xlink:href="#has-email-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_email_text', $settings['email_label'] ) ) . '</span></a></div>';
+						$html      .= '<div class="has_email ' . ( $theme_options['show_tooltips'] ? 'has-tooltip' : '' ) . '" style="display: none;" data-type="email" data-title="%title%" data-url="%url%" data-tooltip="' . esc_attr( apply_filters( 'has_email_tooltip', $settings['email_tooltip'] ) ) . '"><a href="' . esc_url( $ajax_url ) . '" target="_blank"><svg class="has-icon"><use xlink:href="#has-email-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_email_text', $settings['email_label'] ) ) . '</span></a></div>';
 
 						// Enqueue the modal script.
-						if ( ! wp_script_is( 'fslightbox', 'enqueued' ) ) {
+						if ( ! wp_script_is( 'fancybox', 'enqueued' ) ) {
 							wp_enqueue_script(
 								'fancybox',
 								Functions::get_plugin_url( '/js/fancybox.umd.js' ),
@@ -873,55 +855,6 @@ class Frontend {
 		 */
 		$json_arr['email_text'] = apply_filters( 'has_email_text', _x( 'E-mail', 'E-mail share text', 'highlight-and-share' ) );
 
-		// Icons.
-		if ( is_customize_preview() ) {
-			$maybe_icons = get_option( 'highlight-and-share' );
-
-			/**
-			 * Filter: has_icons
-			 *
-			 * Whether icon-only view is supported.
-			 *
-			 * @param bool true for icons-only enabled, false if not.
-			 */
-			if ( isset( $maybe_icons['icons'] ) ) {
-				$json_arr['icons'] = apply_filters( 'has_icons', $maybe_icons['icons'] );
-			} else {
-				$json_arr['icons'] = apply_filters( 'has_icons', $settings['icons'] );
-			}
-		} else {
-			$json_arr['icons'] = apply_filters( 'has_icons', $settings['icons'] );
-		}
-
-		// For emails.
-		if ( is_user_logged_in() ) {
-			$user                              = wp_get_current_user();
-			$json_arr['email_your_name_value'] = $user->display_name;
-			$json_arr['email_from_value']      = $user->user_email;
-		} else {
-			$json_arr['email_your_name_value'] = '';
-			$json_arr['email_from_value']      = '';
-		}
-		$json_arr['nonce']               = wp_create_nonce( 'has_email_nonce' );
-		$json_arr['ajax_url']            = admin_url( 'admin-ajax.php' );
-		$json_arr['email_share']         = __( 'Share This Post Via Email', 'highlight-and-share' );
-		$json_arr['email_subject']       = __( 'Your Subject', 'highlight-and-share' );
-		$json_arr['email_your_name']     = __( 'Your Name', 'highlight-and-share' );
-		$json_arr['email_send_email']    = __( 'Send to Email Address', 'highlight-and-share' );
-		$json_arr['email_subject']       = __( 'Your Subject', 'highlight-and-share' );
-		$json_arr['email_subject_text']  = __( '[Shared Post]', 'highlight-and-share' ) . ' %title%';
-		$json_arr['email_from']          = __( 'Your Email Address', 'highlight-and-share' );
-		$json_arr['email_send']          = __( 'Send Email', 'highlight-and-share' );
-		$json_arr['email_cancel']        = __( 'Cancel', 'highlight-and-share' );
-		$json_arr['email_close']         = __( 'Close', 'highlight-and-share' );
-		$json_arr['email_loading']       = Functions::get_plugin_url( 'img/loading.gif' );
-		$json_arr['email_subject_error'] = __( 'You must fill in a subject.', 'highlight-and-share' );
-		$json_arr['email_email_to']      = __( 'Send to Email Address is blank.', 'highlight-and-share' );
-		$json_arr['email_email_from']    = __( 'Your email address is blank.', 'highlight-and-share' );
-		$json_arr['email_email_name']    = __( 'Your name is blank.', 'highlight-and-share' );
-		$json_arr['email_sending']       = __( 'Sending...', 'highlight-and-share' );
-		$json_arr['customizer_preview']  = is_customize_preview();
-
 		// Load prefix and suffix (before/after text).
 		$json_arr['prefix'] = isset( $settings['sharing_prefix'] ) ? sanitize_text_field( $settings['sharing_prefix'] ) : '';
 		$json_arr['suffix'] = isset( $settings['sharing_suffix'] ) ? sanitize_text_field( $settings['sharing_suffix'] ) : '';
@@ -969,28 +902,6 @@ class Frontend {
 			Themes::get_inline_highlight_css()
 		);
 		add_filter( 'body_class', array( $this, 'add_body_class' ), 10, 2 );
-	}
-
-
-
-	/**
-	 * Load mobile scripts
-	 *
-	 * Enqueue scripts/styles to enable mobile events
-	 *
-	 * @since 1.0.0
-	 * @access public
-	 *
-	 * @see init
-	 */
-	public function add_scripts_mobile() {
-		$main_script_uri = Functions::get_plugin_url( 'js/jquery.mobile.custom.min.js' );
-		if ( defined( 'SCRIPT_DEBUG' ) ) {
-			if ( SCRIPT_DEBUG === true ) {
-				$main_script_uri = Functions::get_plugin_url( 'js/jquery.mobile.custom.js' );
-			}
-		}
-		wp_enqueue_script( 'jquery.mobile', $main_script_uri, array( 'jquery' ), '1.4.5', true );
 	}
 
 	/**
