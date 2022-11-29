@@ -95,11 +95,20 @@ class Frontend {
 		 */
 		$show_telegram = (bool) apply_filters( 'has_show_telegram', isset( $settings['show_telegram'] ) ? $settings['show_telegram'] : false );
 
+		/**
+		 * Filter: has_show_whatsapp
+		 *
+		 * Hide or show the WhatsApp option.
+		 *
+		 * @param bool true to show WhatsApp feature, false to not.
+		 */
+		$show_whatsapp = (bool) apply_filters( 'has_show_whatsapp', isset( $settings['show_whats_app'] ) ? $settings['show_whats_app'] : false );
+
 		// Placeholder for signal.
 		$show_signal = false;
 
 		// If no social network is active, exit.
-		if ( ! $show_facebook && ! $show_twitter && ! $show_linkedin && ! $show_ok && ! $show_email && ! $show_copy && ! $show_reddit && ! $show_telegram ) {
+		if ( ! $show_facebook && ! $show_twitter && ! $show_linkedin && ! $show_ok && ! $show_email && ! $show_copy && ! $show_reddit && ! $show_telegram && ! $show_whatsapp ) {
 			return;
 		}
 

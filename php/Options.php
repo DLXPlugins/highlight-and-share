@@ -467,15 +467,15 @@ class Options {
 
 		// Add enabled/disabled state from main options.
 		$plugin_options                  = self::get_plugin_options();
-		$settings['twitter']['enabled']  = $plugin_options['show_twitter'] ?? false;
-		$settings['facebook']['enabled'] = $plugin_options['show_facebook'] ?? false;
-		$settings['linkedin']['enabled'] = $plugin_options['show_linkedin'] ?? false;
-		$settings['email']['enabled']    = $plugin_options['enable_emails'] ?? false;
-		$settings['copy']['enabled']     = $plugin_options['show_copy'] ?? false;
-		$settings['whatsapp']['enabled'] = $plugin_options['show_whats_app'] ?? false;
-		$settings['xing']['enabled']     = $plugin_options['show_xing'] ?? false;
-		$settings['reddit']['enabled']   = $plugin_options['show_reddit'] ?? false;
-		$settings['telegram']['enabled'] = $plugin_options['show_telegram'] ?? false;
+		$settings['twitter']['enabled']  = (bool) apply_filters( 'has_show_twitter', ( $plugin_options['show_twitter'] ?? false ) );
+		$settings['facebook']['enabled'] = (bool) apply_filters( 'has_show_facebook', ( $plugin_options['show_facebook'] ?? false ) );
+		$settings['linkedin']['enabled'] = (bool) apply_filters( 'has_show_linkedin', ( $plugin_options['show_linkedin'] ?? false ) );
+		$settings['email']['enabled']    = (bool) apply_filters( 'has_show_email', ( $plugin_options['enable_emails'] ?? false ) );
+		$settings['copy']['enabled']     = (bool) apply_filters( 'has_show_copy', ( $plugin_options['show_copy'] ?? false ) );
+		$settings['whatsapp']['enabled'] = (bool) apply_filters( 'has_show_whatsapp', ( $plugin_options['show_whats_app'] ?? false ) );
+		$settings['xing']['enabled']     = (bool) apply_filters( 'has_show_xing', ( $plugin_options['show_xing'] ?? false ) );
+		$settings['reddit']['enabled']   = (bool) apply_filters( 'has_show_reddit', ( $plugin_options['show_reddit'] ?? false ) );
+		$settings['telegram']['enabled'] = (bool) apply_filters( 'has_show_telegram', ( $plugin_options['show_telegram'] ?? false ) );
 
 		// Now sort the arrays based on order.
 		array_multisort( array_column( $settings, 'order' ), SORT_ASC, $settings );
