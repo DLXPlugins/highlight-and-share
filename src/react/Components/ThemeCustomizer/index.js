@@ -296,10 +296,10 @@ const ThemeCustomizer = () => {
 												attrLeft={ value.attrLeft }
 												attrUnit={ value.attrUnit }
 												attrSyncUnits={ value.attrSyncUnits }
-												labelTop={ __( 'T-Left', 'highlight-and-share' ) }
-												labelRight={ __( 'T-Right', 'highlight-and-share' ) }
-												labelBottom={ __( 'B-Right', 'highlight-and-share' ) }
-												labelLeft={ __( 'B-Left', 'highlight-and-share' ) }
+												labelTop={ __( 'Top Left', 'highlight-and-share' ) }
+												labelRight={ __( 'Top Right', 'highlight-and-share' ) }
+												labelBottom={ __( 'Bottom Right', 'highlight-and-share' ) }
+												labelLeft={ __( 'Bottom Left', 'highlight-and-share' ) }
 												units={ [ 'px', 'em', 'rem', '%' ] }
 												onValuesChange={ ( newValues ) => {
 													onChange( newValues );
@@ -329,10 +329,10 @@ const ThemeCustomizer = () => {
 												attrLeft={ value.attrLeft }
 												attrUnit={ value.attrUnit }
 												attrSyncUnits={ value.attrSyncUnits }
-												labelTop={ __( 'T-Left', 'highlight-and-share' ) }
-												labelRight={ __( 'T-Right', 'highlight-and-share' ) }
-												labelBottom={ __( 'B-Right', 'highlight-and-share' ) }
-												labelLeft={ __( 'B-Left', 'highlight-and-share' ) }
+												labelTop={ __( 'Top Left', 'highlight-and-share' ) }
+												labelRight={ __( 'Top Right', 'highlight-and-share' ) }
+												labelBottom={ __( 'Bottom Right', 'highlight-and-share' ) }
+												labelLeft={ __( 'Bottom Left', 'highlight-and-share' ) }
 												units={ [ 'px', 'em', 'rem', '%' ] }
 												onValuesChange={ ( newValues ) => {
 													onChange( newValues );

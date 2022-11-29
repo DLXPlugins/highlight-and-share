@@ -823,6 +823,40 @@ h2.has-admin-content-subheading {
 		text-align: center;
 	}
 
+	.components-has-dimensions-control__input {
+		display: inline-block;
+		position: relative;
+		overflow: visible;
+
+		&:hover:after,
+		&:focus-within:after {
+			z-index: 1000;
+			animation-duration: 0.8s;
+			animation-name: hasFadeIn;
+			opacity: 1;
+			transition: all 0.2s ease-in-out;
+			display: block;
+			position: absolute;
+			padding: 8px;
+			content: attr(data-tooltip);
+			font-family: "FranklinGothic", Helvetica, sans-serif;
+			background-color: #333;
+			color: #FFF;
+			font-size: 13px;
+			line-height: 1.2;
+			top: -40px;
+			left: 0;
+			text-align: center;
+			border-radius: 3px;
+			min-width: 100px;
+		}
+	}
+
+	svg {
+		width: auto;
+		height: 16px;
+	}
+
 	.components-has-dimensions-control__number {
 		display: inline;
 
