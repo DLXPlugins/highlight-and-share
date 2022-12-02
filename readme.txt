@@ -3,44 +3,47 @@ Contributors: ronalfy
 Tags: highlight, social sharing, click to tweet, sharing, highlight text
 Requires at least: 5.1
 Tested up to: 6.1
-Stable tag: 3.9.9.2
+Stable tag: 4.0.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://github.com/sponsors/DLXPlugins
 
-Allows you to highlight text and enable social sharing to share with services including Twitter, Facebook, LinkedIn, Xing, Telegram, Reddit, WhatsApp, and email.
+Easily Show Social Networks When Users Interact With Your Site's Text
 
 == Description ==
 
-https://www.youtube.com/watch?v=j2ZiUqGLSwc&rel=0
+Meet your readers at your content.
 
-A social sharing plugin that allows you to highlight text and and share amonst several social networks including Twitter, Facebook, LinkedIn, Xing, Telegram, Reddit, WhatsApp, and email.
+Show social network options when users interact with your text.
+
+Highlight has the following major features:
+
+1. Show social networks when users select text.
+2. Add inline highlighting to split out longform text.
+3. Use the included Click to Share to show social networks when the user clicks on the quote.
 
 > <a href="https://has.dlxplugins.com/">In-depth Documentation</a> - Please check out our thorough documentation ❤️️
-
-> <a href="https://dlxplugins.com/plugins/highlight-and-share/">View a Brief Overview of Highlight and Share</a>.
-
-Click to Tweet functionality is allowed via highlighting text or using the Gutenberg block or inline highlighting for social sharing.
 
 If you have a feature request, <a href="https://dlxplugins.com/support/">please leave a support request.</a>.
 
 <h3>Features</h3>
 
 <ul>
-<li>A free alternative to Better Click to Tweet.</li>
-<li>Choose from many themes for display.</li>
+<li>Show social networks on text selection.</li>
+<li>Inline highlighting.</li>
+<li>A comprehensive Click to Share block.
 <li>Enable or disable on main content and excerpts.</li>
-<li>Enable or disable Facebook sharing.</li>
-<li>Enable or disable Twitter sharing.</li>
+<li>Enable or disable each social network.</li>
+<li>Translate the labels and tooltips into your language, or just change up the text.</li>
 <li>Customize the Twitter username used.</li>
-<li>Advanced: Override which content is selectable (using jQuery class notation without the dots).</li>
-<li>Advanced: Override the Font Awesome classes, especially if you're using Font Awesome 5</li>
-<li>Advanced: Gutenberg block for Click to Share and Click to Tweet functionality</li>
+<li>Enable hashtags on posts/pages</li>
+<li>Pre-selected and locally sourced Google Fonts and Adobe Fonts.
+<li>Theme Customizer: modify how the social networks look on the frontend.</li>
+<li>Email protection via Akismet and reCAPTCHA 3</li>
+<li>Customize how inline highlighting looks</li>
 </ul>
 
 Advanced customization is allowed via hooks.  See the plugin's <a href="https://has.dlxplugins.com/">documentation</a>.
-
-> <a href="https://dlxplugins.com/plugins/highlight-and-share/">Visit Highlight and Share Overview</a>
 
 == Installation ==
 
@@ -89,6 +92,24 @@ So far, the latest versions of Chrome, Firefox, and Safari. Works for IE9+
 6. Circular Glass Theme.
 
 == Changelog ==
+
+= 4.0.0 =
+* Released 2022-12-02
+* The plugin has been completely re-written, but should for the most part be backwards compatible.
+* Re-designed admin panel, with a better and usable appearance splitting out most applicable sections.
+* Feature: reorder the social networks.
+* Feature: customize the look of Highlight and Share on the frontend.
+* Feature: edit individual icon colors.
+* Feature: new vertical orientation.
+* Feature: customize the look of inline highlighting on the frontend.
+* Feature: email spam protection via Akismet and reCAPTCHA 3.
+* Feature: completely rewritten Click to Share block with a ton of customization options.
+* Feature: tooltips. Show a contextual tooltip when hovering over a social network.
+* Feature: modify the labels and tooltips per social network.
+* Feature: new advanced selectors for those with pagebuilders.
+* Bug fix: fixing Highlight and Share social network positioning so it always loads in a predictable location (up top)
+* Feature: local storage of Google Fonts and an Adobe Fonts option for customizable typography in the Click to Share block.
+* Feature: Completely rewritten JavaScript. No longer relies on jQuery.
 
 = 3.6.9 =
 * Released 2022-10-25
@@ -366,8 +387,5 @@ So far, the latest versions of Chrome, Firefox, and Safari. Works for IE9+
 
 == Upgrade Notice ==
 
-= 3.6.9 =
-Removed Facebook App ID requirement. Facebook only allows URL sharing now. Fixed the Facebook sharing dialogue.
-
-= 3.6.5 =
-Added in option to set WhatsApp endpoints.
+= 4.0.0 =
+The plugin has been completely re-written, but should for the most part be backwards compatible. See the changelog for changes.
