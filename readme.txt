@@ -3,7 +3,7 @@ Contributors: ronalfy
 Tags: highlight, social sharing, click to tweet, sharing, highlight text
 Requires at least: 5.1
 Tested up to: 6.1
-Stable tag: 4.0.0
+Stable tag: 4.0.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://github.com/sponsors/DLXPlugins
@@ -93,7 +93,7 @@ So far, the latest versions of Chrome, Firefox, and Safari. Works for IE9+
 
 == Changelog ==
 
-= 4.0.0 =
+= 4.0.1 =
 * Released 2022-12-02
 * The plugin has been completely re-written, but should for the most part be backwards compatible.
 * Re-designed admin panel, with a better and usable appearance splitting out most applicable sections.
@@ -387,5 +387,5 @@ So far, the latest versions of Chrome, Firefox, and Safari. Works for IE9+
 
 == Upgrade Notice ==
 
-= 4.0.0 =
+= 4.0.1 =
 The plugin has been completely re-written, but should for the most part be backwards compatible. See the changelog for changes.
