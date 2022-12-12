@@ -215,7 +215,7 @@ const BackgroundSelector = ( props ) => {
 					<Popover
 						className="has-component-background-settings-popup"
 						noArrow={ false }
-						anchor={ backgroundSettingsPopoverAnchor }
+						anchorRef={ backgroundSettingsPopoverAnchor }
 						placement="left"
 						offset={ 10 }
 						headerTitle={ __( 'Background Settings', 'highlight-and-share' ) }

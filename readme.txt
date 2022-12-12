@@ -84,12 +84,17 @@ So far, the latest versions of Chrome, Firefox, and Safari. Works for IE9+
 
 == Screenshots ==
 
-1. Highlight and Share Default Appearance.
-2. Brand Colors With Icons Only.
-3. Purple Theme. There are several themes to choose from.
-4. Inline Highlighting Example with Purple Theme.
-5. Circular Theme.
-6. Circular Glass Theme.
+1. Social Networks are shown when selecting text.
+2. Use Inline Highlighting to break up text and show the Social Networks on click.
+3. Use the Click to Share block to show Social Networks on click.
+4. Allow users to email a highlight, quote, or text selection.
+5. Inline Highlight text using the Block Editor formatting options.
+6. Reorder the Social Networks in the admin settings.
+7. Choose between several built-in themes or customize your own.
+8. Configure a custom theme.
+9. Use reCAPTCHA 3 for spam protection if emails are enabled.
+10. Customize each icon's colors if a custom theme is selected.
+
 
 == Changelog ==
 
