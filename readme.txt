@@ -3,7 +3,7 @@ Contributors: ronalfy
 Tags: highlight, social sharing, click to tweet, sharing, highlight text
 Requires at least: 5.1
 Tested up to: 6.1
-Stable tag: 4.0.2
+Stable tag: 4.0.3
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://github.com/sponsors/DLXPlugins
@@ -107,6 +107,11 @@ So far, the latest versions of Chrome, Firefox, Safari, Edge, and IE9+.
 
 
 == Changelog ==
+
+= 4.0.3 =
+* Released 2022-12-12 (Plot Bunny)
+* Fixing JS bug when custom selectors are used to show Highlight and Share.
+* Props <a href="https://jahangiri.us/">Holly</a> for spotting the bug and naming this release.
 
 = 4.0.2 =
 * Released 2022-12-12
@@ -406,6 +411,9 @@ So far, the latest versions of Chrome, Firefox, Safari, Edge, and IE9+.
 * Initial release on WordPress.org
 
 == Upgrade Notice ==
+
+= 4.0.3 =
+Fixing JS bug when custom selectors are used to show Highlight and Share.
 
 = 4.0.2 =
 Adding nofollow to social links for SEO.
