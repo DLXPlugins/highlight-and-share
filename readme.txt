@@ -1,4 +1,4 @@
-=== Highlight and Share - Highlight Text and Share It ===
+=== Highlight and Share - Inline Highlighting and Click to Share ===
 Contributors: ronalfy
 Tags: highlight, social sharing, click to tweet, sharing, highlight text
 Requires at least: 5.1
@@ -62,48 +62,15 @@ Highlight and Share shows social networks <a href="https://docs.dlxplugins.com/v
 
 Highlight and Share <a href="https://docs.dlxplugins.com/v/highlight-and-share/developers/available-social-networks">works with the following networks</a>:
 
-<table>
-	<tr>
-		<th>Network</th>
-		<th>Allows Text Sharing</th>
-	</tr>
-	<tr>
-		<td>Twitter</td>
-		<td>Yes</td>
-	</tr>
-	<tr>
-		<td>Facebook</td>
-		<td>No</td>
-	</tr>
-	<tr>
-		<td>WhatsApp</td>
-		<td>Yes</td>
-	</tr>
-	<tr>
-		<td>Reddit</td>
-		<td>No</td>
-	</tr>
-	<tr>
-		<td>Telegram</td>
-		<td>Yes</td>
-	</tr>
-	<tr>
-		<td>LinkedIn</td>
-		<td>No</td>
-	</tr>
-	<tr>
-		<td>Xing</td>
-		<td>No</td>
-	</tr>
-	<tr>
-		<td>Copy</td>
-		<td>Yes</td>
-	</tr>
-	<tr>
-		<td>Email</td>
-		<td>Yes</td>
-	</tr>
-</table>
+* Twitter (allows text sharing)
+* Facebook
+* WhatsApp (allows text sharing)
+* Reddit
+* Telegram (allows text sharing)
+* LinkedIn
+* Xing
+* Copy (allows text sharing)
+* Email (allows text sharing)
 
 = How can I customize the look of Highlight and Share? =
 
