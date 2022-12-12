@@ -3,7 +3,7 @@ Contributors: ronalfy
 Tags: highlight, social sharing, click to tweet, sharing, highlight text
 Requires at least: 5.1
 Tested up to: 6.1
-Stable tag: 4.0.1
+Stable tag: 4.0.2
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://github.com/sponsors/DLXPlugins
@@ -14,13 +14,13 @@ Easily Show Social Networks When Users Interact With Your Site's Text
 
 Meet your readers at your content.
 
-Show social network options when users interact with your text.
+Show social network options when users interact with your text (<a href="https://docs.dlxplugins.com/v/highlight-and-share/getting-started/how-highlight-and-share-works">find out how Highlight and Share works</a>).
 
 Highlight has the following major features:
 
 1. Show social networks when users select text.
-2. Add inline highlighting to split out longform text.
-3. Use the included Click to Share to show social networks when the user clicks on the quote.
+2. Add <a href="https://docs.dlxplugins.com/v/highlight-and-share/inline-highlighting/what-is-inline-highlighting">inline highlighting</a> to split out longform text.
+3. Use the included <a href="https://docs.dlxplugins.com/v/highlight-and-share/click-to-share-block/the-click-to-share-block">Click to Share</a> to show social networks when the user clicks on the quote.
 
 > <a href="https://has.dlxplugins.com/">In-depth Documentation</a> - Please check out our thorough documentation ❤️️
 
@@ -54,21 +54,64 @@ Advanced customization is allowed via hooks.  See the plugin's <a href="https://
 
 == Frequently Asked Questions ==
 
-= Can I share text using Signal? =
+= How does Highlight and Share work? =
 
-Signal doesn't have a sharing API currently.
+Highlight and Share shows social networks <a href="https://docs.dlxplugins.com/v/highlight-and-share/getting-started/how-highlight-and-share-works">as users interact with your site's text</a>. This can be via text selection, <a href="https://docs.dlxplugins.com/v/highlight-and-share/inline-highlighting/what-is-inline-highlighting">inline highlighting</a>, or using the <a href="https://docs.dlxplugins.com/v/highlight-and-share/click-to-share-block/the-click-to-share-block">Click to Share block</a>.
 
-= Can I share text using Facebook? =
+= What social networks does this plugin work with? =
 
-Unfortunately not. Facebook recently removed its text sharing feature.
+Highlight and Share <a href="https://docs.dlxplugins.com/v/highlight-and-share/developers/available-social-networks">works with the following networks</a>:
+
+<table>
+	<tr>
+		<th>Network</th>
+		<th>Allows Text Sharing</th>
+	</tr>
+	<tr>
+		<td>Twitter</td>
+		<td>Yes</td>
+	</tr>
+	<tr>
+		<td>Facebook</td>
+		<td>No</td>
+	</tr>
+	<tr>
+		<td>WhatsApp</td>
+		<td>Yes</td>
+	</tr>
+	<tr>
+		<td>Reddit</td>
+		<td>No</td>
+	</tr>
+	<tr>
+		<td>Telegram</td>
+		<td>Yes</td>
+	</tr>
+	<tr>
+		<td>LinkedIn</td>
+		<td>No</td>
+	</tr>
+	<tr>
+		<td>Xing</td>
+		<td>No</td>
+	</tr>
+	<tr>
+		<td>Copy</td>
+		<td>Yes</td>
+	</tr>
+	<tr>
+		<td>Email</td>
+		<td>Yes</td>
+	</tr>
+</table>
+
+= How can I customize the look of Highlight and Share? =
+
+Several ways. There are several built-in themes, and you have the oppotunity to <a href="https://docs.dlxplugins.com/v/highlight-and-share/getting-started/changing-themes-and-appearance/configuring-a-custom-theme">completely customize a custom theme</a>.
 
 = Will you be adding more sharing services? =
 
-Possibly.  <a href="https://dlxplugins.com/support/">Please send me a message</a>.
-
-= Where did my icons go? =
-
-Since people are having issues with the icons, I decided to do SVG includes instead. This should be more reliable and faster.
+If the social network has an endpoint, it can be added. Please see <a href="https://docs.dlxplugins.com/v/highlight-and-share/developers/available-social-networks">the available social networks</a> and their specifications.
 
 = I want to include my own CSS.  How can I do that? =
 
@@ -76,11 +119,11 @@ You can turn off the theme and include CSS in your own theme.
 
 = Does this plugin work on mobile devices? =
 
-Yes, it has successfully been tested on iOS and Android devices.
+Most mobile devices already have sharing features on text selection, but Highlight and Share works especially well for <a href="https://docs.dlxplugins.com/v/highlight-and-share/inline-highlighting/what-is-inline-highlighting">inline highlighting</a> and the <a href="https://docs.dlxplugins.com/v/highlight-and-share/click-to-share-block/the-click-to-share-block">Click to Share block</a>.
 
 = What Browsers Have You Tested This In? =
 
-So far, the latest versions of Chrome, Firefox, and Safari. Works for IE9+
+So far, the latest versions of Chrome, Firefox, Safari, Edge, and IE9+.
 
 == Screenshots ==
 
@@ -97,6 +140,11 @@ So far, the latest versions of Chrome, Firefox, and Safari. Works for IE9+
 
 
 == Changelog ==
+
+= 4.0.2 =
+* Released 2022-12-12
+* Added nofolllow to social links.
+* Added copy state to tooltip when copying text.
 
 = 4.0.1 =
 * Released 2022-12-02
@@ -392,5 +440,5 @@ So far, the latest versions of Chrome, Firefox, and Safari. Works for IE9+
 
 == Upgrade Notice ==
 
-= 4.0.1 =
-The plugin has been completely re-written, but should for the most part be backwards compatible. See the changelog for changes.
+= 4.0.2 =
+Adding nofollow to social links for SEO.

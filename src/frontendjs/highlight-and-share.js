@@ -247,6 +247,9 @@
 						const data = [ new ClipboardItem( { [ copyBlob.type ]: copyBlob } ) ];
 						navigator.clipboard.write( data );
 
+						// Change tooltip data attribute.
+						el.setAttribute( 'data-tooltip', 'Copied!' );
+
 						// Set dataLayer event for GTM.
 						if ( 'undefined' !== typeof dataLayer ) {
 							// eslint-disable-next-line no-undef

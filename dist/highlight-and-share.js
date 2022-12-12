@@ -212,6 +212,9 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
             var data = [new ClipboardItem(_defineProperty({}, copyBlob.type, copyBlob))];
             navigator.clipboard.write(data);
 
+            // Change tooltip data attribute.
+            el.setAttribute('data-tooltip', 'Copied!');
+
             // Set dataLayer event for GTM.
             if ('undefined' !== typeof dataLayer) {
               // eslint-disable-next-line no-undef
