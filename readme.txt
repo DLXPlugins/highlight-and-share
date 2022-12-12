@@ -16,7 +16,7 @@ Meet your readers at your content.
 
 Show social network options when users interact with your text (<a href="https://docs.dlxplugins.com/v/highlight-and-share/getting-started/how-highlight-and-share-works">find out how Highlight and Share works</a>).
 
-Highlight has the following major features:
+Highlight and Share has the following major features:
 
 1. Show social networks when users select text.
 2. Add <a href="https://docs.dlxplugins.com/v/highlight-and-share/inline-highlighting/what-is-inline-highlighting">inline highlighting</a> to split out longform text.
