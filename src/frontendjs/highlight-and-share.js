@@ -247,6 +247,9 @@
 						const data = [ new ClipboardItem( { [ copyBlob.type ]: copyBlob } ) ];
 						navigator.clipboard.write( data );
 
+						// Change tooltip data attribute.
+						el.setAttribute( 'data-tooltip', 'Copied!' );
+
 						// Set dataLayer event for GTM.
 						if ( 'undefined' !== typeof dataLayer ) {
 							// eslint-disable-next-line no-undef
@@ -686,9 +689,9 @@
 			const elementParent = event.target.closest( '.has-content-area' );
 
 			// Get data attributes.
-			const href = elementParent.dataset.url ?? window.location.href;
-			const title = elementParent.dataset.title ?? document.title;
-			const hashtags = elementParent.dataset.hashtags ?? '';
+			const href = null !== elementParent ? elementParent.dataset.url : window.location.href;
+			const title = null !== elementParent ? elementParent.dataset.title : document.title;
+			const hashtags = null !== elementParent ? elementParent.dataset.hashtags : '';
 
 			// Display Highlight and Share.
 			hasDisplay( selectedText, title, href, hashtags, 'selection' );
@@ -735,9 +738,9 @@
 			const elementParent = event.target.closest( '.has-content-area' );
 
 			// Get data attributes.
-			const href = elementParent.dataset.url ?? window.location.href;
-			const title = elementParent.dataset.title ?? document.title;
-			const hashtags = elementParent.dataset.hashtags ?? '';
+			const href = null !== elementParent ? elementParent.dataset.url : window.location.href;
+			const title = null !== elementParent ? elementParent.dataset.title : document.title;
+			const hashtags = null !== elementParent ? elementParent.dataset.hashtags : '';
 
 			// Display Highlight and Share.
 			hasDisplay( selectedText, title, href, hashtags, 'inline', element );
@@ -779,9 +782,9 @@
 				const elementParent = element.closest( '.has-content-area' );
 
 				// Get data attributes.
-				const href = elementParent.dataset.url ?? window.location.href;
-				const title = elementParent.dataset.title ?? document.title;
-				const hashtags = elementParent.dataset.hashtags ?? '';
+				const href = null !== elementParent ? elementParent.dataset.url : window.location.href;
+				const title = null !== elementParent ? elementParent.dataset.title : document.title;
+				const hashtags = null !== elementParent ? elementParent.dataset.hashtags : '';
 
 				// Display Highlight and Share.
 				hasDisplay(
