@@ -17,7 +17,7 @@
 	}
 
 	const socialNetworks =
-		'.has_whatsapp, .has_facebook, .has_twitter, .has_copy, .has_email, .has_reddit, .has_telegram, .has_linkedin, .has_xing, .has_signal, .has_vk';
+		'.has_whatsapp, .has_facebook, .has_twitter, .has_copy, .has_email, .has_reddit, .has_telegram, .has_linkedin, .has_xing, .has_signal, .has_vk, .has_tumblr';
 
 	// Get highlight and share container dimensions.
 	const hasSharingIconsContainer = hasContainer.querySelector(
@@ -344,11 +344,11 @@
 			const hasSharerY =
 				selectionTop +
 				window.scrollY -
-				hasCloneHeight / 2 +
-				selectionHeight / 2;
+				( hasCloneHeight / 2 ) +
+				( selectionHeight / 2 );
 			element.classList.add( 'has-no-margin-bottom' );
 			// If clone is outside of viewport, set width.
-			if ( selectionTop + window.scrollY - hasCloneHeight / 2 < 0 ) {
+			if ( selectionTop + window.scrollY - ( hasCloneHeight / 2 ) < 0 ) {
 				element.style.display = 'grid';
 				element.style.gridTemplateColumns = '1fr 1fr';
 
@@ -359,15 +359,15 @@
 				element.style.top =
 					selectionTop +
 					window.scrollY -
-					newCloneRect.height / 2 +
-					selectionHeight / 2 +
+					( newCloneRect.height / 2 ) +
+					( selectionHeight / 2 ) +
 					'px';
 				element.style.left =
 					selectionLeft + window.scrollX - newCloneRect.width - 15 + 'px';
 
 				// Calculate top position.
 			} else if (
-				selectionTop + window.scrollY + hasCloneHeight / 2 >
+				selectionTop + hasCloneHeight >
 				windowHeight
 			) {
 				element.style.display = 'grid';
@@ -452,10 +452,10 @@
 			const hasSharerX = inlineLeft + window.scrollX - ( hasCloneWidth + 15 );
 			// Get the Y position of where the HAS Sharer inteface should be displayed.
 			const hasSharerY =
-				inlineTop + window.scrollY - hasCloneHeight / 2 + inlineHeight / 2;
+				inlineTop + window.scrollY - ( hasCloneHeight / 2 ) + ( inlineHeight / 2 );
 			element.classList.add( 'has-no-margin-bottom' );
 			// If clone is outside of viewport, set width.
-			if ( inlineTop + window.scrollY - hasCloneHeight / 2 < 0 ) {
+			if ( inlineTop + window.scrollY - ( hasCloneHeight / 2 ) < 0 ) {
 				element.style.display = 'grid';
 				element.style.gridTemplateColumns = '1fr 1fr';
 
@@ -479,7 +479,7 @@
 
 				// Calculate top position.
 			} else if (
-				inlineTop + window.scrollY + hasCloneHeight / 2 >
+				inlineTop + hasCloneHeight >
 				windowHeight
 			) {
 				element.style.display = 'grid';
@@ -571,10 +571,10 @@
 			const hasSharerX = ctaLeft + window.scrollX - ( hasCloneWidth + 15 );
 			// Get the Y position of where the HAS Sharer inteface should be displayed.
 			const hasSharerY =
-				ctaTop + window.scrollY - hasCloneHeight / 2 + ctaHeight / 2;
+				ctaTop + window.scrollY - ( hasCloneHeight / 2 ) + ( ctaHeight / 2 );
 			element.classList.add( 'has-no-margin-bottom' );
 			// If clone is outside of viewport, set width.
-			if ( ctaTop + window.scrollY - hasCloneHeight / 2 < 0 ) {
+			if ( ctaTop + window.scrollY - ( hasCloneHeight / 2 ) < 0 ) {
 				element.style.display = 'grid';
 				element.style.gridTemplateColumns = '1fr 1fr';
 
@@ -596,7 +596,7 @@
 				}
 
 				// Calculate top position.
-			} else if ( ctaTop + window.scrollY + hasCloneHeight / 2 > windowHeight ) {
+			} else if ( ctaTop + hasCloneHeight > windowHeight ) {
 				element.style.display = 'grid';
 				element.style.gridTemplateColumns = '1fr 1fr';
 
@@ -617,7 +617,8 @@
 					element.style.left = leftPosition + 'px';
 				}
 			} else {
-				element.style.left = hasSharerX + 'px';
+				const newCloneRect = element.getBoundingClientRect();
+				element.style.left = ( ctaLeft + window.scrollX - newCloneRect.width - 15 ) + 'px';
 				element.style.top = hasSharerY + 'px';
 				element.classList.remove( 'has-no-margin-bottom' );
 			}
@@ -793,7 +794,7 @@
 					href,
 					hashtags,
 					'cta',
-					element.closest( '.has-click-to-share-wrapper' )
+					element.closest( '.has-click-to-share' )
 				);
 			} );
 		} );

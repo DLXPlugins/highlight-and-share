@@ -141,12 +141,20 @@ class Options {
 				'order'      => 6,
 				'custom'     => false,
 			),
+			'tumblr'   => array(
+				'label'      => __( 'Tumblr', 'highlight-and-share' ),
+				'slug'       => 'tumblr',
+				'color'      => '#000000',
+				'background' => '#fff',
+				'order'      => 7,
+				'custom'     => false,
+			),
 			'copy'     => array(
 				'label'      => __( 'Copy', 'highlight-and-share' ),
 				'slug'       => 'copy',
 				'color'      => '#000',
 				'background' => '#fff',
-				'order'      => 7,
+				'order'      => 8,
 				'custom'     => false,
 			),
 			'email'    => array(
@@ -154,7 +162,7 @@ class Options {
 				'slug'       => 'email',
 				'color'      => '#000',
 				'background' => '#fff',
-				'order'      => 8,
+				'order'      => 9,
 				'custom'     => false,
 			),
 		);
@@ -268,6 +276,14 @@ class Options {
 					'icon_color'       => '#fff',
 					'icon_color_hover' => '#fff',
 				),
+				'tumblr'   => array(
+					'label'            => __( 'Tumblr', 'highlight-and-share' ),
+					'slug'             => 'tumblr',
+					'background'       => '#000000',
+					'background_hover' => '#333333',
+					'icon_color'       => '#fff',
+					'icon_color_hover' => '#fff',
+				),
 				'linkedin' => array(
 					'label'            => __( 'LinkedIn', 'highlight-and-share' ),
 					'slug'             => 'linkedin',
@@ -326,6 +342,7 @@ class Options {
 			'enable_mobile'         => true,
 			'show_reddit'           => false,
 			'show_telegram'         => false,
+			'show_tumblr'           => false,
 			'show_signal'           => false,
 			'enable_content'        => true,
 			'enable_excerpt'        => true,
@@ -360,6 +377,8 @@ class Options {
 			'copy_tooltip'          => __( 'Copy Selection', 'highlight-and-share' ),
 			'email_label'           => __( 'Email', 'highlight-and-share' ),
 			'email_tooltip'         => __( 'Share via email', 'highlight-and-share' ),
+			'tumblr_label'          => __( 'Tumblr', 'highlight-and-share' ),
+			'tumblr_tooltip'        => __( 'Share on Tumblr', 'highlight-and-share' ),
 		);
 		return $defaults;
 	}
@@ -475,6 +494,7 @@ class Options {
 		$settings['whatsapp']['enabled'] = (bool) apply_filters( 'has_show_whatsapp', ( $plugin_options['show_whats_app'] ?? false ) );
 		$settings['xing']['enabled']     = (bool) apply_filters( 'has_show_xing', ( $plugin_options['show_xing'] ?? false ) );
 		$settings['reddit']['enabled']   = (bool) apply_filters( 'has_show_reddit', ( $plugin_options['show_reddit'] ?? false ) );
+		$settings['tumblr']['enabled']   = (bool) apply_filters( 'has_show_tumblr', ( $plugin_options['show_tumblr'] ?? false ) );
 		$settings['telegram']['enabled'] = (bool) apply_filters( 'has_show_telegram', ( $plugin_options['show_telegram'] ?? false ) );
 
 		// Now sort the arrays based on order.
