@@ -199,16 +199,18 @@ class Options {
 	 */
 	public static function get_theme_defaults() {
 		$defaults = array(
-			'theme'                   => 'default',
-			'icons_only'              => true, /* custom theme option */
-			'orientation'             => 'horizontal',
-			'show_tooltips'           => true,
-			'group_icons'             => true,  /* custom theme option */
-			'background_color'        => '#000000', /* only applicable if icons are grouped */
-			'background_color_hover'  => '#333333', /* only applicable if icons are grouped */
-			'icon_colors_group'       => '#FFFFFF', /* only applicable if icons are grouped */
-			'icon_colors_group_hover' => '#FFFFFF', /* only applicable if icons are grouped */
-			'border_radius_group'     => array( /* only applicable if icons are grouped */
+			'theme'                     => 'default',
+			'icons_only'                => true, /* custom theme option */
+			'orientation'               => 'horizontal',
+			'show_tooltips'             => true,
+			'tooltips_text_color'       => '#FFFFFF',
+			'tooltips_background_color' => '#000000',
+			'group_icons'               => true,  /* custom theme option */
+			'background_color'          => '#000000', /* only applicable if icons are grouped */
+			'background_color_hover'    => '#333333', /* only applicable if icons are grouped */
+			'icon_colors_group'         => '#FFFFFF', /* only applicable if icons are grouped */
+			'icon_colors_group_hover'   => '#FFFFFF', /* only applicable if icons are grouped */
+			'border_radius_group'       => array( /* only applicable if icons are grouped */
 				'attrTop'       => 0,
 				'attrRight'     => 0,
 				'attrBottom'    => 0,
@@ -216,7 +218,7 @@ class Options {
 				'attrUnit'      => 'px',
 				'attrSyncUnits' => false,
 			),
-			'icon_border_radius'      => array( /* only applicable if icons are NOT grouped */
+			'icon_border_radius'        => array( /* only applicable if icons are NOT grouped */
 				'attrTop'       => 0,
 				'attrRight'     => 0,
 				'attrBottom'    => 0,
@@ -224,8 +226,8 @@ class Options {
 				'attrUnit'      => 'px',
 				'attrSyncUnits' => false,
 			),
-			'font_size'               => 14,
-			'icon_padding'            => array( /* Applicable to grouped and ungrouped icons */
+			'font_size'                 => 14,
+			'icon_padding'              => array( /* Applicable to grouped and ungrouped icons */
 				'attrTop'       => 12,
 				'attrRight'     => 20,
 				'attrBottom'    => 12,
@@ -233,9 +235,9 @@ class Options {
 				'attrUnit'      => 'px',
 				'attrSyncUnits' => false,
 			),
-			'icon_size'               => 25, /* Applicable to grouped and ungrouped icons */
-			'icon_gap'                => 0, /* Applicable to ungrouped icons */
-			'icon_colors'             => array( /* Social Icon Colors */
+			'icon_size'                 => 25, /* Applicable to grouped and ungrouped icons */
+			'icon_gap'                  => 0, /* Applicable to ungrouped icons */
+			'icon_colors'               => array( /* Social Icon Colors */
 				'twitter'  => array(
 					'label'            => __( 'Twitter', 'highlight-and-share' ),
 					'slug'             => 'twitter',

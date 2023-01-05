@@ -248,6 +248,18 @@ class Frontend {
 			$has_container_classes[] = 'hide-has-labels';
 		}
 
+		// Tooltip styles.
+		ob_start();
+		?>
+		<style>
+			.highlight-and-share-wrapper div.has-tooltip:hover:after {
+				background-color: <?php echo esc_attr( $theme_options['tooltips_background_color'] ); ?> !important;
+				color: <?php echo esc_attr( $theme_options['tooltips_text_color'] ); ?> !important;
+			}
+		</style>
+		<?php
+		$tooltip_styles = ob_get_clean();
+
 		// Get custom theme styles.
 		$custom_styles = false;
 		if ( 'custom' === $theme_options['theme'] ) {
@@ -489,6 +501,9 @@ class Frontend {
 
 		if ( $custom_styles ) {
 			$html .= $custom_styles;
+		}
+		if ( $tooltip_styles ) {
+			$html .= $tooltip_styles;
 		}
 
 		// Loop through order and outout social network HTML.

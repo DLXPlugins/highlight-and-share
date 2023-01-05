@@ -857,7 +857,9 @@ var ThemeCustomizer = function ThemeCustomizer() {
       font_size: appearanceThemeData.font_size,
       icon_gap: appearanceThemeData.icon_gap,
       icon_colors: appearanceThemeData.icon_colors,
-      show_tooltips: appearanceThemeData.show_tooltips
+      show_tooltips: appearanceThemeData.show_tooltips,
+      tooltips_text_color: appearanceThemeData.tooltips_text_color,
+      tooltips_background_color: appearanceThemeData.tooltips_background_color
     };
   };
   var _useForm = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_4__.useForm)({
@@ -1273,15 +1275,55 @@ var ThemeCustomizer = function ThemeCustomizer() {
         help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Hover over a social network to see a tooltip.', 'highlight-and-share')
       });
     }
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+  })), getValues('show_tooltips') && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "has-admin-component-row"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_4__.Controller, {
-    name: "orientation",
+    name: "tooltips_background_color",
     control: control,
     render: function render(_ref15) {
       var _ref15$field = _ref15.field,
         _onChange12 = _ref15$field.onChange,
         value = _ref15$field.value;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_ColorPicker__WEBPACK_IMPORTED_MODULE_10__["default"], {
+        value: value,
+        onChange: function onChange(slug, newValue) {
+          _onChange12(newValue);
+        },
+        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Tooltips Background Color', 'highlight-and-share'),
+        defaultColors: defaultColors,
+        defaultColor: '#000000',
+        slug: 'tooltips_background_color'
+      });
+    }
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "has-admin-component-row"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_4__.Controller, {
+    name: "tooltips_text_color",
+    control: control,
+    render: function render(_ref16) {
+      var _ref16$field = _ref16.field,
+        _onChange13 = _ref16$field.onChange,
+        value = _ref16$field.value;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_ColorPicker__WEBPACK_IMPORTED_MODULE_10__["default"], {
+        value: value,
+        onChange: function onChange(slug, newValue) {
+          _onChange13(newValue);
+        },
+        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Tooltips Text Color', 'highlight-and-share'),
+        defaultColors: defaultColors,
+        defaultColor: '#FFFFFF',
+        slug: 'tooltips_text_color'
+      });
+    }
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "has-admin-component-row"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_4__.Controller, {
+    name: "orientation",
+    control: control,
+    render: function render(_ref17) {
+      var _ref17$field = _ref17.field,
+        _onChange14 = _ref17$field.onChange,
+        value = _ref17$field.value;
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_14__["default"], {
         label: "Orientation",
         help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Select the orientation of the icons (can be horizontal or vertical).', 'highlight-and-share'),
@@ -1294,7 +1336,7 @@ var ThemeCustomizer = function ThemeCustomizer() {
           value: 'vertical'
         }],
         onChange: function onChange(radioValue) {
-          return _onChange12(radioValue);
+          return _onChange14(radioValue);
         }
       });
     }

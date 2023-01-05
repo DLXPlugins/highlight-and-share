@@ -18181,6 +18181,9 @@ var PreviewSocialIconList = function PreviewSocialIconList() {
       }
     }
   }
+
+  // Set the tooltip background and color.
+  themeStyles += "\n\t\t.has-admin-theme-preview-list.highlight-and-share-wrapper > div.has-tooltip:hover:after {\n\t\t\tbackground-color: ".concat(appearanceThemeData.tooltips_background_color, " !important;\n\t\t\tcolor: ").concat(appearanceThemeData.tooltips_text_color, " !important;\n\t\t}\n\t");
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("style", null, themeStyles), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: classnames__WEBPACK_IMPORTED_MODULE_1___default()('has-admin-theme-preview-list highlight-and-share-wrapper', "theme-".concat(appearanceThemeData.theme), {
       'icons-grouped': appearanceThemeData.group_icons
