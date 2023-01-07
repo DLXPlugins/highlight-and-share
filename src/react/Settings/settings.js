@@ -113,6 +113,9 @@ const Interface = ( props ) => {
 			copyTooltip: escapeEditableHTML( data.values.copyTooltip ),
 			emailLabel: escapeEditableHTML( data.values.emailLabel ),
 			emailTooltip: escapeEditableHTML( data.values.emailTooltip ),
+			showTumblr: data.values.showTumblr,
+			tumblrLabel: escapeEditableHTML( data.values.tumblrLabel ),
+			tumblrTooltip: escapeEditableHTML( data.values.tumblrTooltip ),
 		};
 	};
 	const { control, handleSubmit, getValues, reset } = useForm( {
@@ -710,6 +713,104 @@ const Interface = ( props ) => {
 											] }
 											onChange={ ( radioValue ) => onChange( radioValue ) }
 										/>
+									) }
+								/>
+							</div>
+						</>
+					) }
+					<h3 className="has-icon-heading">
+						{ getSocialIcon( 'tumblr' ) } { __( 'Tumblr', 'highlight-and-share' ) }
+					</h3>
+					<div className="has-admin-component-row">
+						<Controller
+							name="showTumblr"
+							control={ control }
+							render={ ( { field: { onChange, value } } ) => (
+								<ToggleControl
+									label={ __(
+										'Enable Tumblr Sharing',
+										'highlight-and-share'
+									) }
+									className="has-admin__toggle-control"
+									checked={ value }
+									onChange={ ( boolValue ) => {
+										onChange( boolValue );
+									} }
+									help={ __(
+										'Tumblr allows text sharing.',
+										'highlight-and-share'
+									) }
+								/>
+							) }
+						/>
+					</div>
+					{ getValues( 'showTumblr' ) && (
+						<>
+							<div className="has-admin-component-row">
+								<Controller
+									name="tumblrLabel"
+									control={ control }
+									rules={ { required: true } }
+									render={ ( { field } ) => (
+										<>
+											<TextControl
+												{ ...field }
+												type="text"
+												label={ __( 'Tumblr Label', 'highlight-and-share' ) }
+												className={ classNames( 'has-admin__text-control', {
+													'is-required': true,
+													'has-error': 'required' === errors.tumblrLabel?.type,
+												} ) }
+												help={ __(
+													'Choose a label for the Tumblr button.',
+													'highlight-and-share'
+												) }
+												aria-required="true"
+											/>
+											{ 'required' === errors.tumblrLabel?.type && (
+												<Notice
+													message={ __( 'This field is a required field.' ) }
+													status="error"
+													politeness="assertive"
+													inline={ false }
+													icon={ CircularExclamationIcon }
+												/>
+											) }
+										</>
+									) }
+								/>
+							</div>
+							<div className="has-admin-component-row">
+								<Controller
+									name="tumblrTooltip"
+									control={ control }
+									rules={ { required: true } }
+									render={ ( { field } ) => (
+										<>
+											<TextControl
+												{ ...field }
+												type="text"
+												label={ __( 'Tumblr Tooltip', 'highlight-and-share' ) }
+												className={ classNames( 'has-admin__text-control', {
+													'is-required': true,
+													'has-error': 'required' === errors.tumblrTooltip?.type,
+												} ) }
+												help={ __(
+													'Choose tooltip text for the Tumblr button.',
+													'highlight-and-share'
+												) }
+												aria-required="true"
+											/>
+											{ 'required' === errors.tumblrTooltip?.type && (
+												<Notice
+													message={ __( 'This field is a required field.' ) }
+													status="error"
+													politeness="assertive"
+													inline={ false }
+													icon={ CircularExclamationIcon }
+												/>
+											) }
+										</>
 									) }
 								/>
 							</div>

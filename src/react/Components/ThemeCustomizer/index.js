@@ -47,6 +47,8 @@ const ThemeCustomizer = () => {
 			icon_gap: appearanceThemeData.icon_gap,
 			icon_colors: appearanceThemeData.icon_colors,
 			show_tooltips: appearanceThemeData.show_tooltips,
+			tooltips_text_color: appearanceThemeData.tooltips_text_color,
+			tooltips_background_color: appearanceThemeData.tooltips_background_color,
 		};
 	};
 
@@ -486,6 +488,47 @@ const ThemeCustomizer = () => {
 						) }
 					/>
 				</div>
+				{ getValues( 'show_tooltips' ) && (
+					<>
+						<div className="has-admin-component-row">
+							<Controller
+								name="tooltips_background_color"
+								control={ control }
+								render={ ( { field: { onChange, value } } ) => (
+									<HASColorPicker
+										value={ value }
+										onChange={ ( slug, newValue ) => {
+											onChange( newValue );
+										} }
+										label={ __( 'Tooltips Background Color', 'highlight-and-share' ) }
+										defaultColors={ defaultColors }
+										defaultColor={ '#000000' }
+										slug={ 'tooltips_background_color' }
+									/>
+								) }
+							/>
+						</div>
+						<div className="has-admin-component-row">
+							<Controller
+								name="tooltips_text_color"
+								control={ control }
+								render={ ( { field: { onChange, value } } ) => (
+									<HASColorPicker
+										value={ value }
+										onChange={ ( slug, newValue ) => {
+											onChange( newValue );
+										} }
+										label={ __( 'Tooltips Text Color', 'highlight-and-share' ) }
+										defaultColors={ defaultColors }
+										defaultColor={ '#FFFFFF' }
+										slug={ 'tooltips_text_color' }
+									/>
+								) }
+							/>
+						</div>	
+
+					</>
+				) }
 				<div className="has-admin-component-row">
 					<Controller
 						name="orientation"
