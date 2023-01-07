@@ -908,8 +908,8 @@ class Frontend {
 		$json_arr['email_text'] = apply_filters( 'has_email_text', _x( 'E-mail', 'E-mail share text', 'highlight-and-share' ) );
 
 		// Load prefix and suffix (before/after text).
-		$json_arr['prefix'] = isset( $settings['sharing_prefix'] ) ? sanitize_text_field( $settings['sharing_prefix'] ) : '';
-		$json_arr['suffix'] = isset( $settings['sharing_suffix'] ) ? sanitize_text_field( $settings['sharing_suffix'] ) : '';
+		$json_arr['prefix'] = isset( $settings['sharing_prefix'] ) ? stripslashes_deep( sanitize_text_field( $settings['sharing_prefix'] ) ) : '';
+		$json_arr['suffix'] = isset( $settings['sharing_suffix'] ) ? stripslashes_deep( sanitize_text_field( $settings['sharing_suffix'] ) ) : '';
 
 		// Localize.
 		wp_localize_script( 'highlight-and-share', 'highlight_and_share', $json_arr );
