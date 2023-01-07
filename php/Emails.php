@@ -207,10 +207,12 @@ class Emails {
 			}
 		}
 
+		// Get email name and address from options.
+		$email_name = trim( sanitize_text_field( $options['from_name'] ) );
+		$email_from = trim( sanitize_text_field( $options['from_email'] ) );
+
 		// Set Email Variables.
 		$email_to            = trim( sanitize_text_field( $ajax_data['toEmail'] ) );
-		$email_from          = trim( sanitize_text_field( $ajax_data['fromEmail'] ) );
-		$email_name          = trim( urldecode( $ajax_data['fromName'] ) );
 		$email_subject       = trim( urldecode( $ajax_data['subject'] ) );
 		$email_selected_text = trim( urldecode( $ajax_data['shareText'] ) );
 
@@ -241,7 +243,7 @@ class Emails {
 			if ( $maybe_spam ) {
 				wp_send_json_error(
 					array(
-						'message' => _x( 'The email coult not be sent.', 'The email was flagged for spam.', 'highlight-and-share' ),
+						'message' => _x( 'The email could not be sent.', 'The email was flagged for spam.', 'highlight-and-share' ),
 					)
 				);
 			}
