@@ -1,24 +1,24 @@
 import React, { useState, Suspense, useContext } from 'react';
 import { __, _x } from '@wordpress/i18n';
-import { escapeAttribute, escapeEditableHTML } from '@wordpress/escape-html';
+import { escapeAttribute } from '@wordpress/escape-html';
 import { useForm, Controller, useWatch, useFormState } from 'react-hook-form';
 import classNames from 'classnames';
 import { useAsyncResource } from 'use-async-resource';
-import SocialIcons from '../Components/SocialIcons';
 import {
 	TextControl,
 	Button,
 	RangeControl,
 	ToggleControl,
+	RadioControl
 } from '@wordpress/components';
 import ErrorBoundary from '../Components/ErrorBoundary';
 import Notice from '../Components/Notice';
-import CircularInfoIcon from '../Components/Icons/CircularInfo';
 import CircularExclamationIcon from '../Components/Icons/CircularExplanation';
 import Spinner from '../Components/Icons/Spinner';
 import sendCommand from '../Utils/SendCommand';
 import Loader from '../Components/Loader';
-import twttr from '../Validation/twitter';
+import ValidateEmail from '../Validation/ValidateEmail';
+import { validate } from 'schema-utils';
 
 const retrieveDefaults = () => {
 	return sendCommand( 'has_retrieve_emails_tab', {
@@ -67,7 +67,6 @@ const Interface = ( props ) => {
 	const { defaults } = props;
 	const response = defaults();
 	const { data, success } = response.data;
-	const { getSocialIcon } = SocialIcons( data.socialNetworks );
 
 	const [ saving, setSaving ] = useState( false );
 	const [ isSaved, setIsSaved ] = useState( false );
@@ -84,9 +83,12 @@ const Interface = ( props ) => {
 			recaptchaSiteKey: data.values.recaptchaSiteKey,
 			recaptchaSecretKey: data.values.recaptchaSecretKey,
 			recaptchaScoreThreshold: data.values.recaptchaScoreThreshold,
+			fromName: data.values.fromName,
+			fromEmail: data.values.fromEmail,
+			emailSendType: data.values.emailSendType,
 		};
 	};
-	const { control, handleSubmit, getValues, reset, setError } = useForm( {
+	const { control, handleSubmit, getValues, reset, setError, clearErrors } = useForm( {
 		defaultValues: getDefaultValues(),
 	} );
 	const formValues = useWatch( { control } );
@@ -174,6 +176,89 @@ const Interface = ( props ) => {
 									) }
 								</p>
 							</div>
+							<div className="has-admin-content-body">
+								<h2 className="has-admin-content-subheading">
+									{ __( 'Email Send Behavior', 'highlight-and-share' ) }
+								</h2>
+								<p className="description">{ __( 'By default, emails are sent via a form. You can change this to mailto to use the user\'s email client.', 'highlight-and-share' ) }</p>
+								<div className="has-admin-component-row">
+									<Controller
+										name="emailSendType"
+										control={ control }
+										render={ ( { field: { onChange, value } } ) => (
+											<RadioControl
+												label={ __( 'Email Send Type', 'highlight-and-share' ) }
+												selected={ value }
+												options={ [
+													{ label: __( 'Form', 'highlight-and-share' ), value: 'form' },
+													{ label: __( 'Mailto', 'highlight-and-share' ), value: 'mailto' },
+												] }
+												onChange={ onChange }
+											/>
+										) }
+									/>
+								</div>
+							</div>
+							{ 'form' === getValues('emailSendType') && (
+								<div className="has-admin-content-body">
+									<h2 className="has-admin-content-subheading">
+										{ __( 'Email Customization', 'highlight-and-share' ) }
+									</h2>
+									<p className="description">{ __( 'Choose how users see your emails.', 'highlight-and-share' ) }</p>
+									<div className="has-admin-component-row">
+										<Controller
+											name="fromEmail"
+											control={ control }
+											rules={ { required: true } }
+											render={ ( { field: { onChange, value } } ) => (
+												<TextControl
+													label={ __( 'From Email', 'highlight-and-share' ) }
+													value={ value }
+													onChange={ ( newValue ) => {
+														if ( ! ValidateEmail( newValue ) ) {
+															setError( 'fromEmail', { shouldFocus: true } );
+														} else {
+															clearErrors( 'fromEmail' );
+														}
+														onChange( newValue );
+													} }
+													className={ classNames( 'has-admin__text-control', {
+														'has-error': 'required' === errors.fromEmail?.type,
+														'is-required': true,
+													} ) }
+												/>
+											) }
+										/>
+										{ errors.fromEmail && (
+											<Notice
+												message={ __( 'This does not appear to be a valid email address.' ) }
+												status="error"
+												politeness="assertive"
+												inline={ false }
+												icon={ CircularExclamationIcon }
+											/>
+										) }
+									</div>
+									<div className="has-admin-component-row">
+										<Controller
+											name="fromName"
+											control={ control }
+											rules={ { required: true } }
+											render={ ( { field: { onChange, value } } ) => (
+												<TextControl
+													label={ __( 'From Name', 'highlight-and-share' ) }
+													value={ value }
+													onChange={ onChange }
+													className={ classNames( 'has-admin__text-control', {
+														'has-error': 'required' === errors.fromName?.type,
+														'is-required': true,
+													} ) }
+												/>
+											) }
+										/>
+									</div>
+								</div>	
+							) }
 							<div className="has-admin-content-body">
 								<h2 className="has-admin-content-subheading">
 									{ __( 'Akismet Spam Protection', 'highlight-and-share' ) }
