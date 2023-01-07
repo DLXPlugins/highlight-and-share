@@ -77,6 +77,9 @@ class Options {
 			'recaptcha_site_key'        => '',
 			'recaptcha_secret_key'      => '',
 			'recaptcha_score_threshold' => 0.5,
+			'from_name'                 => get_bloginfo( 'name' ),
+			'from_email'                => get_bloginfo( 'admin_email' ),
+			'email_send_type'           => 'form', /* can be form|mailto */
 		);
 	}
 
