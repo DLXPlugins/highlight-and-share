@@ -17711,7 +17711,7 @@ __webpack_require__.r(__webpack_exports__);
 
 // Lazy load theme customizer.
 var ThemeCustomizer = /*#__PURE__*/(0,react__WEBPACK_IMPORTED_MODULE_0__.lazy)(function () {
-  return Promise.all(/*! import() | ThemeCustomizer.0.0.2 */[__webpack_require__.e("vendors-node_modules_wordpress_components_build-module_button-group_index_js-node_modules_wor-f40fee"), __webpack_require__.e("ThemeCustomizer.0.0.2")]).then(__webpack_require__.bind(__webpack_require__, /*! ../Components/ThemeCustomizer */ "./src/react/Components/ThemeCustomizer/index.js"));
+  return Promise.all(/*! import() | ThemeCustomizer.0.0.3 */[__webpack_require__.e("vendors-node_modules_wordpress_components_build-module_button-group_index_js-node_modules_wor-f40fee"), __webpack_require__.e("ThemeCustomizer.0.0.3")]).then(__webpack_require__.bind(__webpack_require__, /*! ../Components/ThemeCustomizer */ "./src/react/Components/ThemeCustomizer/index.js"));
 });
 var Appearance = function Appearance() {
   var getIcons = function getIcons() {

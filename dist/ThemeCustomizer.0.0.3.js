@@ -1,5 +1,5 @@
 "use strict";
-(self["webpackChunkhighlight_and_share"] = self["webpackChunkhighlight_and_share"] || []).push([["ThemeCustomizer.0.0.2"],{
+(self["webpackChunkhighlight_and_share"] = self["webpackChunkhighlight_and_share"] || []).push([["ThemeCustomizer.0.0.3"],{
 
 /***/ "./src/react/Components/ColorPicker/index.js":
 /*!***************************************************!*\
@@ -1473,4 +1473,4 @@ var UnitChooser = function UnitChooser(props) {
 /***/ })
 
 }]);
-//# sourceMappingURL=ThemeCustomizer.0.0.2.js.map
+//# sourceMappingURL=ThemeCustomizer.0.0.3.js.map
