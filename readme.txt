@@ -3,7 +3,7 @@ Contributors: ronalfy
 Tags: highlight, social sharing, click to tweet, sharing, highlight text
 Requires at least: 5.1
 Tested up to: 6.1
-Stable tag: 4.0.3
+Stable tag: 4.1.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://github.com/sponsors/DLXPlugins
@@ -107,6 +107,16 @@ So far, the latest versions of Chrome, Firefox, Safari, Edge, and IE9+.
 
 
 == Changelog ==
+
+= 4.1.0 =
+* Released 2023-01-07
+* Feature: Add the Tumblr social network.
+* Feature: Customize the appearance of the Tooltips (text, background color).
+* Feature: Add mailto to emails instead of a modal.
+* Feature: Customize the from email and name when sending emails as a form modal.
+* Bug fix: Remove customizing the from email and name to emails to prevent spoofing.
+* Bug fix: Prefix/Suffixes we not being stripped of slashes.
+* Bug fix: Vertical orientation is much more reliable and polished.
 
 = 4.0.3 =
 * Released 2022-12-12 (Plot Bunny)
@@ -412,8 +422,5 @@ So far, the latest versions of Chrome, Firefox, Safari, Edge, and IE9+.
 
 == Upgrade Notice ==
 
-= 4.0.3 =
-Fixing JS bug when custom selectors are used to show Highlight and Share.
-
-= 4.0.2 =
-Adding nofollow to social links for SEO.
+= 4.1.0 =
+Added Tumblr network. Add mailto to email sending. Can customize tooltip appearance. Numerous bug fixes (see changelog).
