@@ -20,7 +20,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   if (null === hasContainer) {
     return;
   }
-  var socialNetworks = '.has_whatsapp, .has_facebook, .has_twitter, .has_copy, .has_email, .has_reddit, .has_telegram, .has_linkedin, .has_xing, .has_signal, .has_vk, .has_tumblr';
+  var socialNetworks = '.has_whatsapp, .has_facebook, .has_twitter, .has_copy, .has_reddit, .has_telegram, .has_linkedin, .has_xing, .has_signal, .has_vk, .has_tumblr, .has_email_mailto, .has_email_form';
 
   // Get highlight and share container dimensions.
   var hasSharingIconsContainer = hasContainer.querySelector('.highlight-and-share-wrapper');
@@ -170,7 +170,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
 
     // Setup event handlers for links (for desktop).
-    var queryElements = document.querySelector('body').querySelectorAll('.has_whatsapp, .has_facebook, .has_twitter, .has_telegram, .has_linkedin, .has_xing, .has_reddit');
+    var queryElements = document.querySelector('body').querySelectorAll('.has_whatsapp, .has_facebook, .has_twitter, .has_telegram, .has_linkedin, .has_xing, .has_reddit, .has_tumblr');
     if (null !== queryElements) {
       // Add click listeners to visible elements.
       queryElements.forEach(function (el) {
@@ -233,7 +233,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
     }
 
     // Set up email event.
-    var emailButtons = document.querySelectorAll('.has_email');
+    var emailButtons = document.querySelectorAll('.has_email_form');
     if (null !== emailButtons) {
       emailButtons.forEach(function (el) {
         if (isVisible(el)) {
@@ -258,8 +258,6 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         }
       });
     }
-
-    // Todo - set up email event.
   };
 
   /**

@@ -17,7 +17,7 @@
 	}
 
 	const socialNetworks =
-		'.has_whatsapp, .has_facebook, .has_twitter, .has_copy, .has_email, .has_reddit, .has_telegram, .has_linkedin, .has_xing, .has_signal, .has_vk, .has_tumblr';
+		'.has_whatsapp, .has_facebook, .has_twitter, .has_copy, .has_reddit, .has_telegram, .has_linkedin, .has_xing, .has_signal, .has_vk, .has_tumblr, .has_email_mailto, .has_email_form';
 
 	// Get highlight and share container dimensions.
 	const hasSharingIconsContainer = hasContainer.querySelector(
@@ -201,7 +201,7 @@
 		const queryElements = document
 			.querySelector( 'body' )
 			.querySelectorAll(
-				'.has_whatsapp, .has_facebook, .has_twitter, .has_telegram, .has_linkedin, .has_xing, .has_reddit'
+				'.has_whatsapp, .has_facebook, .has_twitter, .has_telegram, .has_linkedin, .has_xing, .has_reddit, .has_tumblr'
 			);
 		if ( null !== queryElements ) {
 			// Add click listeners to visible elements.
@@ -268,7 +268,7 @@
 		}
 
 		// Set up email event.
-		const emailButtons = document.querySelectorAll( '.has_email' );
+		const emailButtons = document.querySelectorAll( '.has_email_form' );
 		if ( null !== emailButtons ) {
 			emailButtons.forEach( ( el ) => {
 				if ( isVisible( el ) ) {
@@ -298,8 +298,6 @@
 				}
 			} );
 		}
-
-		// Todo - set up email event.
 	};
 
 	/**

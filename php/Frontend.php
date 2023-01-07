@@ -229,6 +229,7 @@ class Frontend {
 		$social_networks_ordered = Options::get_plugin_options_social_networks(); // ordered social networks (appearances tab).
 		$theme_options           = Options::get_theme_options(); // appearance options (appearances tab).
 		$settings                = Options::get_plugin_options(); // main plugin options (settings tab).
+		$email_options           = Options::get_email_options(); // email options (emails tab).
 
 		// Get HAS container classes.
 		$has_container_classes = array(
@@ -560,24 +561,38 @@ class Frontend {
 						break;
 					case 'email':
 						global $post;
-						$post_id    = $post->ID ?? 0;
-						$ajax_nonce = wp_create_nonce( 'has_share_' . get_permalink( $post_id ) );
-						$ajax_url   = admin_url( 'admin-ajax.php' );
-						$ajax_url   = add_query_arg(
-							array(
-								'action'    => 'has_email_social_modal',
-								'permalink' => '%url%',
-								'nonce'     => $ajax_nonce,
-								'text'      => '%prefix%%text%%suffix%',
-								'post_id'   => $post_id,
-								'type'      => '%type%',
-							),
-							$ajax_url
-						);
-						$html      .= '<div class="has_email ' . ( $theme_options['show_tooltips'] ? 'has-tooltip' : '' ) . '" style="display: none;" data-type="email" data-title="%title%" data-url="%url%" data-tooltip="' . esc_attr( apply_filters( 'has_email_tooltip', $settings['email_tooltip'] ) ) . '"><a href="' . esc_url( $ajax_url ) . '" target="_blank" rel="nofollow"><svg class="has-icon"><use xlink:href="#has-email-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_email_text', $settings['email_label'] ) ) . '</span></a></div>';
+						$post_id   = $post->ID ?? 0;
+						$email_url = '';
+						$email_class = 'has_email_form';
+						if ( 'mailto' === $email_options['email_send_type'] ) {
+							$email_url = add_query_arg(
+								array(
+									'body'    => '%prefix%%text%%suffix%',
+									'subject' => __( '[Shared Post]', 'highlight-and-share' ) . ' %title%',
+
+								),
+								'mailto:ronalfy@gmail.com'
+							);
+							$email_class = 'has_email_mailto';
+						} else {
+							$ajax_nonce = wp_create_nonce( 'has_share_' . get_permalink( $post_id ) );
+							$email_url  = admin_url( 'admin-ajax.php' );
+							$email_url  = add_query_arg(
+								array(
+									'action'    => 'has_email_social_modal',
+									'permalink' => '%url%',
+									'nonce'     => $ajax_nonce,
+									'text'      => '%prefix%%text%%suffix%',
+									'post_id'   => $post_id,
+									'type'      => '%type%',
+								),
+								$email_url
+							);
+						}
+						$html .= '<div class="has_email ' . esc_attr( $email_class ) . ' ' . ( $theme_options['show_tooltips'] ? 'has-tooltip' : '' ) . '" style="display: none;" data-type="email" data-title="%title%" data-url="%url%" data-tooltip="' . esc_attr( apply_filters( 'has_email_tooltip', $settings['email_tooltip'] ) ) . '"><a href="' . esc_url( $email_url ) . '" target="_blank" rel="nofollow"><svg class="has-icon"><use xlink:href="#has-email-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_email_text', $settings['email_label'] ) ) . '</span></a></div>';
 
 						// Enqueue the modal script.
-						if ( ! wp_script_is( 'fancybox', 'enqueued' ) ) {
+						if ( ! wp_script_is( 'fancybox', 'enqueued' ) && 'form' === $email_options['email_send_type'] ) {
 							wp_enqueue_script(
 								'fancybox',
 								Functions::get_plugin_url( '/js/fancybox.umd.js' ),
@@ -605,7 +620,7 @@ class Frontend {
 		$this->get_footer_svgs();
 
 		// Enqueue / print fancybox styles.
-		if ( wp_style_is( 'fancybox', 'registered' ) && ! wp_style_is( 'fancybox', 'done' ) ) {
+		if ( wp_style_is( 'fancybox', 'registered' ) && ! wp_style_is( 'fancybox', 'done' ) && 'form' === $email_options['email_send_type'] ) {
 			wp_print_styles( 'fancybox' );
 		}
 	}
