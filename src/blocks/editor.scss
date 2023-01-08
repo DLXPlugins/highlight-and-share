@@ -1,6 +1,15 @@
 /**
  * Editor styles for the admin
  */
+ @keyframes hasFadeIn {
+	from {
+	  opacity: 0;
+	}
+  
+	to {
+	  opacity: 1;
+	}
+  }
 
 .highlight-and-share {
 	&.aligncenter,
@@ -179,12 +188,47 @@
 		width: 100%;
 	}
 }
-
 /* Dimensions Component */
 .components-has-dimensions-control {
 	display: inline-block;
+	/* Hide labels if appropriate and still be screen reader friendly. From: https://css-tricks.com/inclusively-hidden/ */
 	label {
-		display: none;
+		clip: rect(0 0 0 0); 
+		clip-path: inset(50%);
+		height: 1px;
+		overflow: hidden;
+		position: absolute;
+		white-space: nowrap; 
+		width: 1px;
+	}
+
+	.components-has-dimensions-control__input {
+		display: inline-block;
+		position: relative;
+		overflow: visible;
+
+		&:hover:after,
+		&:focus-within:after {
+			z-index: 1000;
+			animation-duration: 0.8s;
+			animation-name: hasFadeIn;
+			opacity: 1;
+			transition: all 0.2s ease-in-out;
+			display: block;
+			position: absolute;
+			padding: 8px;
+			content: attr(data-tooltip);
+			font-family: "FranklinGothic", Helvetica, sans-serif;
+			background-color: #333;
+			color: #FFF;
+			font-size: 13px;
+			line-height: 1.2;
+			top: -40px;
+			left: 0;
+			text-align: center;
+			border-radius: 3px;
+			min-width: 100px;
+		}
 	}
 
 	.components-has-dimensions-control__inputs {

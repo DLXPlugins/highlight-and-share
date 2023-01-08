@@ -77,6 +77,9 @@ class Options {
 			'recaptcha_site_key'        => '',
 			'recaptcha_secret_key'      => '',
 			'recaptcha_score_threshold' => 0.5,
+			'from_name'                 => get_bloginfo( 'name' ),
+			'from_email'                => get_bloginfo( 'admin_email' ),
+			'email_send_type'           => 'form', /* can be form|mailto */
 		);
 	}
 
@@ -141,12 +144,20 @@ class Options {
 				'order'      => 6,
 				'custom'     => false,
 			),
+			'tumblr'   => array(
+				'label'      => __( 'Tumblr', 'highlight-and-share' ),
+				'slug'       => 'tumblr',
+				'color'      => '#000000',
+				'background' => '#fff',
+				'order'      => 7,
+				'custom'     => false,
+			),
 			'copy'     => array(
 				'label'      => __( 'Copy', 'highlight-and-share' ),
 				'slug'       => 'copy',
 				'color'      => '#000',
 				'background' => '#fff',
-				'order'      => 7,
+				'order'      => 8,
 				'custom'     => false,
 			),
 			'email'    => array(
@@ -154,7 +165,7 @@ class Options {
 				'slug'       => 'email',
 				'color'      => '#000',
 				'background' => '#fff',
-				'order'      => 8,
+				'order'      => 9,
 				'custom'     => false,
 			),
 		);
@@ -191,16 +202,18 @@ class Options {
 	 */
 	public static function get_theme_defaults() {
 		$defaults = array(
-			'theme'                   => 'default',
-			'icons_only'              => true, /* custom theme option */
-			'orientation'             => 'horizontal',
-			'show_tooltips'           => true,
-			'group_icons'             => true,  /* custom theme option */
-			'background_color'        => '#000000', /* only applicable if icons are grouped */
-			'background_color_hover'  => '#333333', /* only applicable if icons are grouped */
-			'icon_colors_group'       => '#FFFFFF', /* only applicable if icons are grouped */
-			'icon_colors_group_hover' => '#FFFFFF', /* only applicable if icons are grouped */
-			'border_radius_group'     => array( /* only applicable if icons are grouped */
+			'theme'                     => 'default',
+			'icons_only'                => true, /* custom theme option */
+			'orientation'               => 'horizontal',
+			'show_tooltips'             => true,
+			'tooltips_text_color'       => '#FFFFFF',
+			'tooltips_background_color' => '#000000',
+			'group_icons'               => true,  /* custom theme option */
+			'background_color'          => '#000000', /* only applicable if icons are grouped */
+			'background_color_hover'    => '#333333', /* only applicable if icons are grouped */
+			'icon_colors_group'         => '#FFFFFF', /* only applicable if icons are grouped */
+			'icon_colors_group_hover'   => '#FFFFFF', /* only applicable if icons are grouped */
+			'border_radius_group'       => array( /* only applicable if icons are grouped */
 				'attrTop'       => 0,
 				'attrRight'     => 0,
 				'attrBottom'    => 0,
@@ -208,7 +221,7 @@ class Options {
 				'attrUnit'      => 'px',
 				'attrSyncUnits' => false,
 			),
-			'icon_border_radius'      => array( /* only applicable if icons are NOT grouped */
+			'icon_border_radius'        => array( /* only applicable if icons are NOT grouped */
 				'attrTop'       => 0,
 				'attrRight'     => 0,
 				'attrBottom'    => 0,
@@ -216,8 +229,8 @@ class Options {
 				'attrUnit'      => 'px',
 				'attrSyncUnits' => false,
 			),
-			'font_size'               => 14,
-			'icon_padding'            => array( /* Applicable to grouped and ungrouped icons */
+			'font_size'                 => 14,
+			'icon_padding'              => array( /* Applicable to grouped and ungrouped icons */
 				'attrTop'       => 12,
 				'attrRight'     => 20,
 				'attrBottom'    => 12,
@@ -225,9 +238,9 @@ class Options {
 				'attrUnit'      => 'px',
 				'attrSyncUnits' => false,
 			),
-			'icon_size'               => 25, /* Applicable to grouped and ungrouped icons */
-			'icon_gap'                => 0, /* Applicable to ungrouped icons */
-			'icon_colors'             => array( /* Social Icon Colors */
+			'icon_size'                 => 25, /* Applicable to grouped and ungrouped icons */
+			'icon_gap'                  => 0, /* Applicable to ungrouped icons */
+			'icon_colors'               => array( /* Social Icon Colors */
 				'twitter'  => array(
 					'label'            => __( 'Twitter', 'highlight-and-share' ),
 					'slug'             => 'twitter',
@@ -265,6 +278,14 @@ class Options {
 					'slug'             => 'telegram',
 					'background'       => '#0088cc',
 					'background_hover' => '#006b9f',
+					'icon_color'       => '#fff',
+					'icon_color_hover' => '#fff',
+				),
+				'tumblr'   => array(
+					'label'            => __( 'Tumblr', 'highlight-and-share' ),
+					'slug'             => 'tumblr',
+					'background'       => '#000000',
+					'background_hover' => '#333333',
 					'icon_color'       => '#fff',
 					'icon_color_hover' => '#fff',
 				),
@@ -326,6 +347,7 @@ class Options {
 			'enable_mobile'         => true,
 			'show_reddit'           => false,
 			'show_telegram'         => false,
+			'show_tumblr'           => false,
 			'show_signal'           => false,
 			'enable_content'        => true,
 			'enable_excerpt'        => true,
@@ -360,6 +382,8 @@ class Options {
 			'copy_tooltip'          => __( 'Copy Selection', 'highlight-and-share' ),
 			'email_label'           => __( 'Email', 'highlight-and-share' ),
 			'email_tooltip'         => __( 'Share via email', 'highlight-and-share' ),
+			'tumblr_label'          => __( 'Tumblr', 'highlight-and-share' ),
+			'tumblr_tooltip'        => __( 'Share on Tumblr', 'highlight-and-share' ),
 		);
 		return $defaults;
 	}
@@ -467,15 +491,16 @@ class Options {
 
 		// Add enabled/disabled state from main options.
 		$plugin_options                  = self::get_plugin_options();
-		$settings['twitter']['enabled']  = $plugin_options['show_twitter'] ?? false;
-		$settings['facebook']['enabled'] = $plugin_options['show_facebook'] ?? false;
-		$settings['linkedin']['enabled'] = $plugin_options['show_linkedin'] ?? false;
-		$settings['email']['enabled']    = $plugin_options['enable_emails'] ?? false;
-		$settings['copy']['enabled']     = $plugin_options['show_copy'] ?? false;
-		$settings['whatsapp']['enabled'] = $plugin_options['show_whats_app'] ?? false;
-		$settings['xing']['enabled']     = $plugin_options['show_xing'] ?? false;
-		$settings['reddit']['enabled']   = $plugin_options['show_reddit'] ?? false;
-		$settings['telegram']['enabled'] = $plugin_options['show_telegram'] ?? false;
+		$settings['twitter']['enabled']  = (bool) apply_filters( 'has_show_twitter', ( $plugin_options['show_twitter'] ?? false ) );
+		$settings['facebook']['enabled'] = (bool) apply_filters( 'has_show_facebook', ( $plugin_options['show_facebook'] ?? false ) );
+		$settings['linkedin']['enabled'] = (bool) apply_filters( 'has_show_linkedin', ( $plugin_options['show_linkedin'] ?? false ) );
+		$settings['email']['enabled']    = (bool) apply_filters( 'has_show_email', ( $plugin_options['enable_emails'] ?? false ) );
+		$settings['copy']['enabled']     = (bool) apply_filters( 'has_show_copy', ( $plugin_options['show_copy'] ?? false ) );
+		$settings['whatsapp']['enabled'] = (bool) apply_filters( 'has_show_whatsapp', ( $plugin_options['show_whats_app'] ?? false ) );
+		$settings['xing']['enabled']     = (bool) apply_filters( 'has_show_xing', ( $plugin_options['show_xing'] ?? false ) );
+		$settings['reddit']['enabled']   = (bool) apply_filters( 'has_show_reddit', ( $plugin_options['show_reddit'] ?? false ) );
+		$settings['tumblr']['enabled']   = (bool) apply_filters( 'has_show_tumblr', ( $plugin_options['show_tumblr'] ?? false ) );
+		$settings['telegram']['enabled'] = (bool) apply_filters( 'has_show_telegram', ( $plugin_options['show_telegram'] ?? false ) );
 
 		// Now sort the arrays based on order.
 		array_multisort( array_column( $settings, 'order' ), SORT_ASC, $settings );

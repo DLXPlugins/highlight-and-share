@@ -47,6 +47,8 @@ const ThemeCustomizer = () => {
 			icon_gap: appearanceThemeData.icon_gap,
 			icon_colors: appearanceThemeData.icon_colors,
 			show_tooltips: appearanceThemeData.show_tooltips,
+			tooltips_text_color: appearanceThemeData.tooltips_text_color,
+			tooltips_background_color: appearanceThemeData.tooltips_background_color,
 		};
 	};
 
@@ -296,10 +298,10 @@ const ThemeCustomizer = () => {
 												attrLeft={ value.attrLeft }
 												attrUnit={ value.attrUnit }
 												attrSyncUnits={ value.attrSyncUnits }
-												labelTop={ __( 'T-Left', 'highlight-and-share' ) }
-												labelRight={ __( 'T-Right', 'highlight-and-share' ) }
-												labelBottom={ __( 'B-Right', 'highlight-and-share' ) }
-												labelLeft={ __( 'B-Left', 'highlight-and-share' ) }
+												labelTop={ __( 'Top Left', 'highlight-and-share' ) }
+												labelRight={ __( 'Top Right', 'highlight-and-share' ) }
+												labelBottom={ __( 'Bottom Right', 'highlight-and-share' ) }
+												labelLeft={ __( 'Bottom Left', 'highlight-and-share' ) }
 												units={ [ 'px', 'em', 'rem', '%' ] }
 												onValuesChange={ ( newValues ) => {
 													onChange( newValues );
@@ -329,10 +331,10 @@ const ThemeCustomizer = () => {
 												attrLeft={ value.attrLeft }
 												attrUnit={ value.attrUnit }
 												attrSyncUnits={ value.attrSyncUnits }
-												labelTop={ __( 'T-Left', 'highlight-and-share' ) }
-												labelRight={ __( 'T-Right', 'highlight-and-share' ) }
-												labelBottom={ __( 'B-Right', 'highlight-and-share' ) }
-												labelLeft={ __( 'B-Left', 'highlight-and-share' ) }
+												labelTop={ __( 'Top Left', 'highlight-and-share' ) }
+												labelRight={ __( 'Top Right', 'highlight-and-share' ) }
+												labelBottom={ __( 'Bottom Right', 'highlight-and-share' ) }
+												labelLeft={ __( 'Bottom Left', 'highlight-and-share' ) }
 												units={ [ 'px', 'em', 'rem', '%' ] }
 												onValuesChange={ ( newValues ) => {
 													onChange( newValues );
@@ -486,6 +488,47 @@ const ThemeCustomizer = () => {
 						) }
 					/>
 				</div>
+				{ getValues( 'show_tooltips' ) && (
+					<>
+						<div className="has-admin-component-row">
+							<Controller
+								name="tooltips_background_color"
+								control={ control }
+								render={ ( { field: { onChange, value } } ) => (
+									<HASColorPicker
+										value={ value }
+										onChange={ ( slug, newValue ) => {
+											onChange( newValue );
+										} }
+										label={ __( 'Tooltips Background Color', 'highlight-and-share' ) }
+										defaultColors={ defaultColors }
+										defaultColor={ '#000000' }
+										slug={ 'tooltips_background_color' }
+									/>
+								) }
+							/>
+						</div>
+						<div className="has-admin-component-row">
+							<Controller
+								name="tooltips_text_color"
+								control={ control }
+								render={ ( { field: { onChange, value } } ) => (
+									<HASColorPicker
+										value={ value }
+										onChange={ ( slug, newValue ) => {
+											onChange( newValue );
+										} }
+										label={ __( 'Tooltips Text Color', 'highlight-and-share' ) }
+										defaultColors={ defaultColors }
+										defaultColor={ '#FFFFFF' }
+										slug={ 'tooltips_text_color' }
+									/>
+								) }
+							/>
+						</div>	
+
+					</>
+				) }
 				<div className="has-admin-component-row">
 					<Controller
 						name="orientation"

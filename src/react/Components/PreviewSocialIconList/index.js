@@ -21,6 +21,9 @@ const PreviewSocialIconList = () => {
 	if ( 'custom' === appearanceThemeData.theme && ! appearanceEmpty ) {
 		if ( appearanceThemeData.group_icons ) {
 			themeStyles += `
+				.has-admin-theme-preview-list.highlight-and-share-wrapper {
+					background-color: ${ appearanceThemeData.background_color } !important;
+				}
 				.has-admin-theme-preview-list.highlight-and-share-wrapper div a {
 					color: ${ appearanceThemeData.icon_colors_group } !important;
 					background-color: ${ appearanceThemeData.background_color } !important;
@@ -29,12 +32,20 @@ const PreviewSocialIconList = () => {
 					color: ${ appearanceThemeData.icon_colors_group_hover } !important;
 					background-color: ${ appearanceThemeData.background_color_hover } !important;
 				}
+				.has-admin-theme-preview-list.highlight-and-share-wrapper div:first-child a {
+					border-top-left-radius: ${ appearanceThemeData.border_radius_group.attrTop + appearanceThemeData.border_radius_group.attrUnit } !important;
+					border-bottom-left-radius: ${ appearanceThemeData.border_radius_group.attrTop + appearanceThemeData.border_radius_group.attrUnit } !important;
+				}
+				.has-admin-theme-preview-list.highlight-and-share-wrapper div:last-child a {
+					border-bottom-right-radius: ${ appearanceThemeData.border_radius_group.attrTop + appearanceThemeData.border_radius_group.attrUnit } !important;
+					border-top-right-radius: ${ appearanceThemeData.border_radius_group.attrTop + appearanceThemeData.border_radius_group.attrUnit } !important;
+				}
 			`;
 			// Get border radius values.
 			if ( appearanceThemeData.border_radius_group.attrSyncUnits ) {
 				themeStyles += `
 					.has-admin-theme-preview-list.highlight-and-share-wrapper,
-					.has-admin-theme-preview-list.highlight-and-share-wrapper a {
+					.has-admin-theme-preview-list.highlight-and-share-wrapper:not(.icons-grouped) a {
 						border-radius: ${ appearanceThemeData.border_radius_group.attrTop }${ appearanceThemeData.border_radius_group.attrUnit } !important;
 					}
 				`;
@@ -132,8 +143,15 @@ const PreviewSocialIconList = () => {
 				`;
 			}
 		}
-		
 	}
+
+	// Set the tooltip background and color.
+	themeStyles += `
+		.has-admin-theme-preview-list.highlight-and-share-wrapper > div.has-tooltip:hover:after {
+			background-color: ${ appearanceThemeData.tooltips_background_color } !important;
+			color: ${ appearanceThemeData.tooltips_text_color } !important;
+		}
+	`;
 
 	return (
 		<>

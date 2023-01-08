@@ -892,10 +892,10 @@ const HAS_Click_To_Share = ( props ) => {
 						label={ __( 'Border Radius', 'highlight-and-share' ) }
 						allowNegatives={ false }
 						values={ borderRadiusSize }
-						labelTop={ __( 'T-Left', 'highlight-and-share' ) }
-						labelRight={ __( 'T-Right', 'highlight-and-share' ) }
-						labelBottom={ __( 'B-Right', 'highlight-and-share' ) }
-						labelLeft={ __( 'B-Left', 'highlight-and-share' ) }
+						labelTop={ __( 'Top Left', 'highlight-and-share' ) }
+						labelRight={ __( 'Top Right', 'highlight-and-share' ) }
+						labelBottom={ __( 'Bottom Right', 'highlight-and-share' ) }
+						labelLeft={ __( 'Bottom Left', 'highlight-and-share' ) }
 						units={ [ 'px', 'em', 'rem', '%' ] }
 						screenSize={ deviceType }
 						onValuesChange={ ( newValues ) => {

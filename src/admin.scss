@@ -719,6 +719,10 @@ h2.has-admin-content-subheading {
 			border-radius: 50%;
 			width: 100%;
 			height: 100%;
+
+			.components-popover {
+				display: none;
+			}
 		}
 		.components-circular-option-picker__swatches {
 			display: flex;
@@ -817,6 +821,40 @@ h2.has-admin-content-subheading {
 		display: inline-grid;
 		grid-template-columns: 55px 55px 55px 55px 1fr;
 		text-align: center;
+	}
+
+	.components-has-dimensions-control__input {
+		display: inline-block;
+		position: relative;
+		overflow: visible;
+
+		&:hover:after,
+		&:focus-within:after {
+			z-index: 1000;
+			animation-duration: 0.8s;
+			animation-name: hasFadeIn;
+			opacity: 1;
+			transition: all 0.2s ease-in-out;
+			display: block;
+			position: absolute;
+			padding: 8px;
+			content: attr(data-tooltip);
+			font-family: "FranklinGothic", Helvetica, sans-serif;
+			background-color: #333;
+			color: #FFF;
+			font-size: 13px;
+			line-height: 1.2;
+			top: -40px;
+			left: 0;
+			text-align: center;
+			border-radius: 3px;
+			min-width: 100px;
+		}
+	}
+
+	svg {
+		width: auto;
+		height: 16px;
 	}
 
 	.components-has-dimensions-control__number {
@@ -1018,15 +1056,6 @@ h2.has-admin-content-subheading {
 .has-admin-theme-preview-list {
 	display: inline-flex;
 	flex-wrap: wrap;
-
-	&:after {
-		content: '';
-		position: relative;
-		display: block;
-		width: 100%;
-		height: 0;
-		margin-bottom: 30px;
-	}
 }
 
 /* Appearance Content Wrapper styles */

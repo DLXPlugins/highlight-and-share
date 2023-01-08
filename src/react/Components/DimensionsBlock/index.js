@@ -14,7 +14,11 @@ import { __, sprintf, _x } from '@wordpress/i18n';
 import { Button, Tooltip, TextControl } from '@wordpress/components';
 import { useForm, Controller, useWatch, useFormState } from 'react-hook-form';
 import classNames from 'classnames';
-import { geHierarchicalPlaceholderValue, getHierarchicalValueUnit, getHierarchicalValueUnitSync } from '../../Utils/DimensionsHelper';
+import {
+	geHierarchicalPlaceholderValue,
+	getHierarchicalValueUnit,
+	getHierarchicalValueUnitSync,
+} from '../../Utils/DimensionsHelper';
 
 const DimensionsControlBlock = ( props ) => {
 	const [ screenSize, setScreenSize ] = useState( 'desktop' );
@@ -48,11 +52,7 @@ const DimensionsControlBlock = ( props ) => {
 		};
 	};
 
-	const {
-		control,
-		setValue,
-		getValues,
-	} = useForm( {
+	const { control, setValue, getValues } = useForm( {
 		defaultValues: getDefaultValues(),
 	} );
 
@@ -72,9 +72,12 @@ const DimensionsControlBlock = ( props ) => {
 		onValuesChange( formValues );
 	}, [ formValues ] );
 
-	useEffect( () =>{
+	useEffect( () => {
 		setScreenSize( props.screenSize.toLowerCase() );
-		setValue( props.screenSize.toLowerCase(), getValues( props.screenSize.toLowerCase() ) );
+		setValue(
+			props.screenSize.toLowerCase(),
+			getValues( props.screenSize.toLowerCase() )
+		);
 	}, [ props.screenSize ] );
 	/**
 	 * Change the all values in parent.
@@ -124,35 +127,23 @@ const DimensionsControlBlock = ( props ) => {
 	};
 
 	const onDimensionChange = ( value ) => {
-		if ( getHierarchicalValueUnitSync( props.values, screenSize, getValues( screenSize ).unitSync ) ) {
+		if (
+			getHierarchicalValueUnitSync(
+				props.values,
+				screenSize,
+				getValues( screenSize ).unitSync
+			)
+		) {
 			changeAllValues( value );
 		}
 	};
 
 	const syncIcon = (
-		<svg
-			aria-hidden="true"
-			focusable="false"
-			data-prefix="fad"
-			data-icon="sync"
-			className="svg-inline--fa fa-sync fa-w-16"
-			role="img"
-			xmlns="http://www.w3.org/2000/svg"
-			viewBox="0 0 512 512"
-		>
-			<g className="fa-group">
-				<path
-					className="fa-secondary"
-					fill="currentColor"
-					d="M0 500V299.67a12 12 0 0 1 12-12h200.33a12 12 0 0 1 12 12v47.41a12 12 0 0 1-12.57 12l-101.87-4.88a176.07 176.07 0 0 0 317.25-56.94 12 12 0 0 1 11.67-9.26h49.09a12 12 0 0 1 11.8 14.18C478.07 417.08 377.19 504 256 504a247.43 247.43 0 0 1-188.76-87.17l4.13 82.57a12 12 0 0 1-12 12.6H12a12 12 0 0 1-12-12z"
-					opacity="0.4"
-				></path>
-				<path
-					className="fa-primary"
-					fill="currentColor"
-					d="M12.3 209.82C33.93 94.92 134.81 8 256 8a247.4 247.4 0 0 1 188.9 87.34l-4-82.77A12 12 0 0 1 452.92 0h47.41a12 12 0 0 1 12 12v200.33a12 12 0 0 1-12 12H300a12 12 0 0 1-12-12v-47.41a12 12 0 0 1 12.57-12l101.53 4.88a176.07 176.07 0 0 0-317.24 56.94A12 12 0 0 1 73.19 224H24.1a12 12 0 0 1-11.8-14.18z"
-				></path>
-			</g>
+		<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 640 512">
+			<path
+				fill="currentColor"
+				d="M580.2 267.3c56.2-56.2 56.2-147.4 0-203.6s-147.4-56.3-203.6 0L365.3 75l45.3 45.3 11.3-11.3c31.2-31.2 81.9-31.2 113.1 0s31.2 81.9 0 113.1L421.8 335.2c-31.2 31.2-81.9 31.2-113.1 0-25.6-25.6-30.3-64.3-13.8-94.6 1.8-3.4 3.9-6.7 6.3-9.8L250 192.4c-4.3 5.7-8.1 11.6-11.4 17.8-29.5 54.6-21.3 124.2 24.9 170.3 56.2 56.2 147.4 56.2 203.6 0l113.1-113.2zM59.8 244.7c-56.2 56.2-56.2 147.4 0 203.6s147.4 56.2 203.6 0l11.3-11.3-45.3-45.3-11.3 11.3c-31.2 31.2-81.9 31.2-113.1 0s-31.2-81.9 0-113.1l113.2-113.1c31.2-31.2 81.9-31.2 113.1 0 25.6 25.6 30.3 64.3 13.8 94.6-1.8 3.4-3.9 6.7-6.3 9.8l51.2 38.4c4.3-5.7 8.1-11.6 11.4-17.8 29.5-54.6 21.3-124.2-24.9-170.3-56.2-56.2-147.4-56.2-203.6 0L59.8 244.7z"
+			/>
 		</svg>
 	);
 
@@ -165,7 +156,11 @@ const DimensionsControlBlock = ( props ) => {
 					render={ ( { field: { onChange, value } } ) => (
 						<UnitPicker
 							label={ label }
-							value={ getHierarchicalValueUnit( props.values, screenSize, getValues( screenSize ).unit ) }
+							value={ getHierarchicalValueUnit(
+								props.values,
+								screenSize,
+								getValues( screenSize ).unit
+							) }
 							units={ units }
 							onClick={ ( newValue ) => {
 								onChange( newValue );
@@ -180,72 +175,122 @@ const DimensionsControlBlock = ( props ) => {
 						name={ `${ screenSize }.top` }
 						control={ control }
 						render={ ( { field: { onChange, value } } ) => (
-							<TextControl
-								value={ getValues( screenSize ).top }
-								type="number"
-								label={ labelTop }
-								className={ classNames( 'components-has-dimensions-control__number' ) }
-								onChange={ ( newValue ) => {
-									onDimensionChange( newValue );
-									onChange( newValue );
-								} }
-								min={ 0 }
-								placeholder={ geHierarchicalPlaceholderValue( props.values, screenSize, getValues( screenSize ).top, 'top' ) }
-							/>
+							<div
+								className="components-has-dimensions-control__input"
+								data-tooltip={ labelTop }
+							>
+								<TextControl
+									value={ getValues( screenSize ).top }
+									type="number"
+									label={ labelTop }
+									className={ classNames(
+										'components-has-dimensions-control__number'
+									) }
+									onChange={ ( newValue ) => {
+										onDimensionChange( newValue );
+										onChange( newValue );
+									} }
+									min={ 0 }
+									placeholder={ geHierarchicalPlaceholderValue(
+										props.values,
+										screenSize,
+										getValues( screenSize ).top,
+										'top'
+									) }
+									data-tooltip={ labelTop }
+								/>
+							</div>
 						) }
 					/>
 					<Controller
 						name={ `${ screenSize }.right` }
 						control={ control }
 						render={ ( { field: { onChange, value } } ) => (
-							<TextControl
-								value={ getValues( screenSize ).right }
-								type="number"
-								label={ labelRight }
-								className={ classNames( 'components-has-dimensions-control__number' ) }
-								onChange={ ( newValue ) => {
-									onDimensionChange( newValue );
-									onChange( newValue );
-								} }
-								min={ 0 }
-								placeholder={ geHierarchicalPlaceholderValue( props.values, screenSize, getValues( screenSize ).right, 'right' ) }
-							/>
+							<div
+								className="components-has-dimensions-control__input"
+								data-tooltip={ labelRight }
+							>
+								<TextControl
+									value={ getValues( screenSize ).right }
+									type="number"
+									label={ labelRight }
+									className={ classNames(
+										'components-has-dimensions-control__number'
+									) }
+									onChange={ ( newValue ) => {
+										onDimensionChange( newValue );
+										onChange( newValue );
+									} }
+									min={ 0 }
+									placeholder={ geHierarchicalPlaceholderValue(
+										props.values,
+										screenSize,
+										getValues( screenSize ).right,
+										'right'
+									) }
+									data-tooltip={ labelRight }
+								/>
+							</div>
 						) }
 					/>
 					<Controller
 						name={ `${ screenSize }.bottom` }
 						control={ control }
 						render={ ( { field: { onChange, value } } ) => (
-							<TextControl
-								value={ getValues( screenSize ).bottom }
-								type="number"
-								label={ labelBottom }
-								className={ classNames( 'components-has-dimensions-control__number' ) }
-								onChange={ ( newValue ) => {
-									onDimensionChange( newValue );
-									onChange( newValue );
-								} }
-								min={ 0 }
-								placeholder={ geHierarchicalPlaceholderValue( props.values, screenSize, getValues( screenSize ).bottom, 'bottom' ) }
-							/>
+							<div
+								className="components-has-dimensions-control__input"
+								data-tooltip={ labelBottom }
+							>
+								<TextControl
+									value={ getValues( screenSize ).bottom }
+									type="number"
+									label={ labelBottom }
+									className={ classNames(
+										'components-has-dimensions-control__number'
+									) }
+									onChange={ ( newValue ) => {
+										onDimensionChange( newValue );
+										onChange( newValue );
+									} }
+									min={ 0 }
+									placeholder={ geHierarchicalPlaceholderValue(
+										props.values,
+										screenSize,
+										getValues( screenSize ).bottom,
+										'bottom'
+									) }
+								/>
+							</div>
 						) }
 					/>
 					<Controller
 						name={ `${ screenSize }.left` }
 						control={ control }
 						render={ ( { field: { onChange, value } } ) => (
-							<TextControl
-								value={ getValues( screenSize ).left ?? 0 }
-								type="number"
-								label={ labelLeft }
-								className={ classNames( 'components-has-dimensions-control__number' ) }
-								onChange={ ( newValue ) => {
-									onDimensionChange( newValue );
-									onChange( newValue );
-								} }
-								min={ 0 }
-								placeholder={ geHierarchicalPlaceholderValue( props.values, screenSize, getValues( screenSize ).left, 'left' ) }
-							/>
+							<div
+								className="components-has-dimensions-control__input"
+								data-tooltip={ labelLeft }
+							>
+								<TextControl
+									value={ getValues( screenSize ).left ?? 0 }
+									type="number"
+									label={ labelLeft }
+									className={ classNames(
+										'components-has-dimensions-control__number'
+									) }
+									onChange={ ( newValue ) => {
+										onDimensionChange( newValue );
+										onChange( newValue );
+									} }
+									min={ 0 }
+									placeholder={ geHierarchicalPlaceholderValue(
+										props.values,
+										screenSize,
+										getValues( screenSize ).left,
+										'left'
+									) }
+								/>
+							</div>
 						) }
 					/>
 					<Tooltip
@@ -258,12 +303,16 @@ const DimensionsControlBlock = ( props ) => {
 						<Button
 							className="components-has-dimensions-control_sync"
 							aria-label={ __( 'Sync Units', 'generateblocks' ) }
-							isPrimary={
-								getHierarchicalValueUnitSync( props.values, screenSize, getValues( screenSize ).unitSync )
-							}
-							aria-pressed={
-								getHierarchicalValueUnitSync( props.values, screenSize, getValues( screenSize ).unitSync )
-							}
+							isPrimary={ getHierarchicalValueUnitSync(
+								props.values,
+								screenSize,
+								getValues( screenSize ).unitSync
+							) }
+							aria-pressed={ getHierarchicalValueUnitSync(
+								props.values,
+								screenSize,
+								getValues( screenSize ).unitSync
+							) }
 							// eslint-disable-next-line no-unused-vars
 							onClick={ ( value ) => syncUnits() }
 							isSmall
