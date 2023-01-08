@@ -143,8 +143,15 @@ const PreviewSocialIconList = () => {
 				`;
 			}
 		}
-		
 	}
+
+	// Set the tooltip background and color.
+	themeStyles += `
+		.has-admin-theme-preview-list.highlight-and-share-wrapper > div.has-tooltip:hover:after {
+			background-color: ${ appearanceThemeData.tooltips_background_color } !important;
+			color: ${ appearanceThemeData.tooltips_text_color } !important;
+		}
+	`;
 
 	return (
 		<>

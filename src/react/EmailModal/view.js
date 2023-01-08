@@ -79,8 +79,6 @@ const View = () => {
 	const getDefaultValues = () => {
 		return {
 			toEmail: '',
-			fromEmail: '',
-			fromName: '',
 			subject: getEmailSubject(),
 			recaptchaToken: '',
 			nonce: hasEmailModal.nonce,
@@ -162,88 +160,6 @@ const View = () => {
 		<section className="has-email--content-wrap">
 			<h2>{ getModalTitle() }</h2>
 			<form id="has-email-quote-form" onSubmit={ handleSubmit( onSubmit ) }>
-				<div className="has-email-control-row">
-					<Controller
-						name="fromName"
-						control={ control }
-						rules={ {
-							required: true,
-						} }
-						render={ ( { field } ) => (
-							<TextControl
-								{ ...field }
-								label={ __( 'Your Name:', 'highlight-and-share' ) }
-								className={ classNames( 'has-admin__text-control', {
-									'has-error': 'required' === errors.fromName?.type,
-									'is-required': true,
-								} ) }
-								register="fromName"
-								help={ __( 'Please enter your name.', 'highlight-and-share' ) }
-								ref={ firstNameField }
-							/>
-						) }
-					/>
-					{ 'required' === errors.fromName?.type && (
-						<Notice
-							message={ __( 'This is a required field.' ) }
-							status="error"
-							politeness="assertive"
-							inline={ true }
-							icon={ CircularExclamationIcon }
-						/>
-					) }
-				</div>
-				<div className="has-email-control-row">
-					<Controller
-						name="fromEmail"
-						control={ control }
-						rules={ {
-							validate: ( value ) => {
-								if ( validateEmail( value ) ) {
-									return true;
-								}
-								return false;
-							},
-							required: true,
-						} }
-						render={ ( { field: { onChange, value } } ) => (
-							<TextControl
-								type="text"
-								value={ escapeEditableHTML( value ) }
-								onChange={ onChange }
-								label={ __( 'From (email):', 'highlight-and-share' ) }
-								className={ classNames( 'search-has-admin-text-control has-admin__text-control', {
-									'has-error': 'required' === errors.fromEmail?.type,
-									'is-required': true,
-								} ) }
-								register="fromEmail"
-								placeholder="you@yourdomain.com"
-								help={ __(
-									'Please add in your email address.',
-									'highlight-and-share'
-								) }
-							/>
-						) }
-					/>
-					{ 'validate' === errors.fromEmail?.type && (
-						<Notice
-							message={ __( 'The Email is Invalid.' ) }
-							status="error"
-							politeness="assertive"
-							inline={ true }
-							icon={ CircularExclamationIcon }
-						/>
-					) }
-					{ 'required' === errors.fromEmail?.type && (
-						<Notice
-							message={ __( 'This is a required field.' ) }
-							status="error"
-							politeness="assertive"
-							inline={ true }
-							icon={ CircularExclamationIcon }
-						/>
-					) }
-				</div>
 				<div className="has-email-control-row">
 					<Controller
 						name="toEmail"

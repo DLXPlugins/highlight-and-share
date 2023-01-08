@@ -12,6 +12,7 @@ import { faXing as XingIcon } from '@fortawesome/free-brands-svg-icons/faXing';
 import { faCopy as CopyIcon } from '@fortawesome/free-solid-svg-icons/faCopy';
 import { faAt as EmailIcon } from '@fortawesome/free-solid-svg-icons/faAt';
 import { faTelegram as TelegramIcon } from '@fortawesome/free-brands-svg-icons/faTelegram';
+import { faTumblr as TumblrIcon } from '@fortawesome/free-brands-svg-icons/faTumblr';
 import SocialNetworksContext from '../../Contexts/SocialNetworksContext';
 const SocialIcons = ( socialNetworksData = {} ) => {
 	let socialNetworks = {};
@@ -77,6 +78,12 @@ const SocialIcons = ( socialNetworksData = {} ) => {
 						<FontAwesomeIcon icon={ TelegramIcon } style={ { color: '#0088cc' } } />
 					</>
 				);
+			case 'tumblr':
+				return (
+					<>
+						<FontAwesomeIcon icon={ TumblrIcon } style={ { color: '#000000' } } />
+					</>
+				);
 			default:
 				return ( <></> );
 		}
@@ -129,6 +136,9 @@ const SocialIcons = ( socialNetworksData = {} ) => {
 					break;
 				case 'copy':
 					icon = CopyIcon;
+					break;
+				case 'tumblr':
+					icon = TumblrIcon;
 					break;
 				case 'email':
 					icon = EmailIcon;
