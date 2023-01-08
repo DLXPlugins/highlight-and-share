@@ -49,6 +49,33 @@ Each admin tab is separated in separate scripts.
 3. Block Editor tab: `src/react/BlockEditor`
 4. Emails tab: `src/react/Emails`
 
+Webpack: 
+
+```js
+entry: {
+	'has-cts-editor': './src/blocks/editor.scss',
+	'has-cts-style': './src/blocks/style.scss',
+	'has-admin-style': './src/admin.scss',
+	'has-admin': [ './src/admin.js' ],
+	'has-admin-settings': [ './src/react/Settings/index.js' ],
+	'has-admin-appearance': [ './src/react/Appearance/index.js' ],
+	'has-admin-block-editor': [ './src/react/BlockEditor/index.js' ],
+	'has-admin-emails': [ './src/react/Emails/index.js' ],
+	'has-email-modal': [ './src/react/EmailModal/index.js', './src/react/EmailModal/style.scss' ],
+	'has-themes': [ './src/themes.scss' ],
+	'has-gfont-josefin-sans': { import: './src/scss/fonts/josefin-sans.scss' },
+	'has-gfont-karla': { import: './src/scss/fonts/karla.scss' },
+	'has-gfont-lato': { import: './src/scss/fonts/lato.scss' },
+	'has-gfont-montserrat': { import: './src/scss/fonts/montserrat.scss' },
+	'has-gfont-open-sans': { import: './src/scss/fonts/open-sans.scss' },
+	'has-gfont-playfair-display': { import: './src/scss/fonts/playfair-display.scss' },
+	'has-gfont-raleway': { import: './src/scss/fonts/raleway.scss' },
+	'has-gfont-roboto': { import: './src/scss/fonts/roboto.scss' },
+	'has-gfont-source-sans-pro': { import: './src/scss/fonts/source-sans-pro.scss' },
+	'highlight-and-share': [ './src/frontendjs/highlight-and-share.js' ],
+},
+```
+
 The admin appearance tab uses context, which is in `src/react/Appearance/index.js`
 
 The main components are in: `src/react/Components`:
