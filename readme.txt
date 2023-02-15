@@ -3,7 +3,7 @@ Contributors: ronalfy
 Tags: highlight, social sharing, click to tweet, sharing, highlight text
 Requires at least: 5.1
 Tested up to: 6.1
-Stable tag: 4.1.0
+Stable tag: 4.1.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://github.com/sponsors/DLXPlugins
@@ -107,6 +107,10 @@ So far, the latest versions of Chrome, Firefox, Safari, Edge, and IE9+.
 
 
 == Changelog ==
+
+= 4.1.1 =
+* Released 2023-02-14
+* Fixed WhatsApp endpoint URL to point to the correct web/app endpoint.
 
 = 4.1.0 =
 * Released 2023-01-07
@@ -422,5 +426,5 @@ So far, the latest versions of Chrome, Firefox, Safari, Edge, and IE9+.
 
 == Upgrade Notice ==
 
-= 4.1.0 =
-Added Tumblr network. Add mailto to email sending. Can customize tooltip appearance. Numerous bug fixes (see changelog).
+= 4.1.1 =
+Fixed WhatsApp endpoint URL to point to the correct web/app endpoint.
