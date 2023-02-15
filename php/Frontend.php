@@ -537,7 +537,7 @@ class Frontend {
 						break;
 					case 'whatsapp':
 						$whatsapp_endpoint_url      = 'whatsapp://send';
-						$whatsapp_endpoint_settings = $settings['whatsapp_api_endpoint'];
+						$whatsapp_endpoint_settings = $settings['whats_app_api_endpoint'] ?? 'app';
 						if ( 'web' === $whatsapp_endpoint_settings ) {
 							$whatsapp_endpoint_url = 'https://api.whatsapp.com/send';
 						}

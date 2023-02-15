@@ -491,9 +491,10 @@ class Functions {
 	/**
 	 * Returns appropriate html for KSES.
 	 *
-	 * @param bool $svg Whether to add SVG data to KSES.
+	 * @param bool $svg         Whether to add SVG data to KSES.
+	 * @param bool $with_tables Whether to add tables to KSES.
 	 */
-	public static function get_kses_allowed_html( $svg = true ) {
+	public static function get_kses_allowed_html( $svg = true, $with_tables = false ) {
 		$allowed_tags = wp_kses_allowed_html( 'post' );
 
 		$allowed_tags['nav']        = array(
@@ -501,47 +502,149 @@ class Functions {
 		);
 		$allowed_tags['a']['class'] = array();
 
-		if ( ! $svg ) {
+		// Add form input fields.
+		$allowed_tags['input'] = array(
+			'type'        => array(),
+			'class'       => array(),
+			'id'          => array(),
+			'name'        => array(),
+			'value'       => array(),
+			'placeholder' => array(),
+			'required'    => array(),
+			'checked'     => array(),
+		);
+
+		// Add button fields.
+		$allowed_tags['button'] = array(
+			'type'      => array(),
+			'class'     => array(),
+			'id'        => array(),
+			'name'      => array(),
+			'data-type' => array(),
+		);
+
+		// Add select field.
+		$allowed_tags['select'] = array(
+			'class' => array(),
+			'id'    => array(),
+			'name'  => array(),
+		);
+
+		// Add options field.
+		$allowed_tags['option'] = array(
+			'value'    => array(),
+			'selected' => array(),
+		);
+
+		if ( ! $svg && ! $with_tables ) {
 			return $allowed_tags;
 		}
-		$allowed_tags['svg'] = array(
-			'xmlns'       => array(),
-			'fill'        => array(),
-			'viewbox'     => array(),
-			'role'        => array(),
-			'aria-hidden' => array(),
-			'focusable'   => array(),
-			'class'       => array(),
-			'width'       => array(),
-			'height'      => array(),
-		);
+		if ( $svg ) {
+			$allowed_tags['svg'] = array(
+				'xmlns'       => array(),
+				'fill'        => array(),
+				'viewbox'     => array(),
+				'role'        => array(),
+				'aria-hidden' => array(),
+				'focusable'   => array(),
+				'class'       => array(),
+				'width'       => array(),
+				'height'      => array(),
+			);
 
-		$allowed_tags['path'] = array(
-			'd'       => array(),
-			'fill'    => array(),
-			'opacity' => array(),
-		);
+			$allowed_tags['path'] = array(
+				'd'       => array(),
+				'fill'    => array(),
+				'opacity' => array(),
+			);
 
-		$allowed_tags['g'] = array();
+			$allowed_tags['g'] = array();
 
-		$allowed_tags['circle'] = array(
-			'cx'     => array(),
-			'cy'     => array(),
-			'r'      => array(),
-			'fill'   => array(),
-			'stroke' => array(),
-		);
+			$allowed_tags['circle'] = array(
+				'cx'     => array(),
+				'cy'     => array(),
+				'r'      => array(),
+				'fill'   => array(),
+				'stroke' => array(),
+			);
 
-		$allowed_tags['use'] = array(
-			'xlink:href' => array(),
-		);
+			$allowed_tags['use'] = array(
+				'xlink:href' => array(),
+			);
 
-		$allowed_tags['symbol'] = array(
-			'aria-hidden' => array(),
-			'viewBox'     => array(),
-			'id'          => array(),
-			'xmls'        => array(),
-		);
+			$allowed_tags['symbol'] = array(
+				'aria-hidden' => array(),
+				'viewBox'     => array(),
+				'id'          => array(),
+				'xmls'        => array(),
+			);
+		}
+
+		// Add HTML table markup.
+		if ( $with_tables ) {
+			$allowed_tags['html']  = array(
+				'lang' => array(),
+			);
+			$allowed_tags['head']  = array();
+			$allowed_tags['title'] = array();
+			$allowed_tags['meta']  = array(
+				'http-equiv' => array(),
+				'content'    => array(),
+				'name'       => array(),
+			);
+			$allowed_tags['body']  = array(
+				'style' => array(),
+			);
+			$allowed_tags['style'] = array();
+			$allowed_tags['table'] = array(
+				'class'        => array(),
+				'width'        => array(),
+				'border'       => array(),
+				'cellpadding'  => array(),
+				'cellspacing'  => array(),
+				'role'         => array(),
+				'presentation' => array(),
+				'align'        => array(),
+				'bgcolor'      => array(),
+			);
+			$allowed_tags['tbody'] = array();
+			$allowed_tags['thead'] = array();
+			$allowed_tags['tr']    = array(
+				'bgcolor' => array(),
+				'align'   => array(),
+				'style'   => array(),
+			);
+			$allowed_tags['th']    = array();
+			$allowed_tags['td']    = array(
+				'class' => array(),
+				'width' => array(),
+				'style' => array(),
+			);
+			if ( ! isset( $allowed_tags['div'] ) ) {
+				$allowed_tags['div'] = array(
+					'style' => array(),
+					'align' => array(),
+					'class' => array(),
+				);
+			} else {
+				$allowed_tags['div']['style'] = array();
+				$allowed_tags['div']['align'] = array();
+				$allowed_tags['div']['class'] = array();
+			}
+			if ( ! isset( $allowed_tags['p'] ) ) {
+				$allowed_tags['p'] = array(
+					'style' => array(),
+				);
+			} else {
+				$allowed_tags['p']['style'] = array();
+			}
+			$allowed_tags['h1'] = array(
+				'style' => array(),
+			);
+			$allowed_tags['h2'] = array(
+				'style' => array(),
+			);
+		}
 
 		return $allowed_tags;
 	}
