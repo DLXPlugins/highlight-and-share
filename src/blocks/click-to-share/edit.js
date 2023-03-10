@@ -25,16 +25,15 @@ const {
 	PanelBody,
 	PanelRow,
 	RangeControl,
-	SelectControl,
 	TextControl,
 	ButtonGroup,
 	Button,
 	ToggleControl,
 } = wp.components;
 
-const { escapeAttribute, escapeEditableHTML } = wp.escapeHtml;
+const { escapeEditableHTML } = wp.escapeHtml;
 
-const { InspectorControls, RichText, useBlockProps } = wp.blockEditor;
+const { InspectorControls, RichText, useBlockProps, InnerBlocks } = wp.blockEditor;
 
 const { useInstanceId } = wp.compose;
 
@@ -182,6 +181,15 @@ const HAS_Click_To_Share = ( props ) => {
 		// Port over icon size.
 		if ( -1 === iconSize ) {
 			setAttributes( { iconSize: clickShareFontSize } );
+		}
+
+		// Port over RichText to new innerblocks.
+		if ( '' !== shareText ) {
+			const portText = wp.blocks.rawHandler( {
+				HTML: shareText,
+				mode: 'BLOCKS',
+			} );
+			setAttributes( { shareText: portText } );
 		}
 	}, [] );
 
@@ -959,24 +967,16 @@ const HAS_Click_To_Share = ( props ) => {
 				id={ uniqueId }
 			>
 				<div className="has-click-to-share-wrapper">
-					<RichText
-						tagName="div"
-						multiline="p"
-						placeholder={ __( 'Add share text', 'highlight-and-share' ) }
-						value={ shareText }
-						className="has-click-to-share-text"
-						allowedFormats={ [
-							'core/bold',
-							'core/italic',
-							'core/text-color',
-							'core/subscript',
-							'core/superscript',
-							'core/strikethrough',
-						] }
-						onChange={ ( value ) => {
-							setAttributes( { shareText: value } );
-						} }
-					/>
+					<div className="has-click-to-share-text">
+						<InnerBlocks
+							allowedBlocks={['core/paragraph']}
+							template={[
+							['core/paragraph', {}],
+							]}
+							value={ ! Array.isArray( shareText ) ? undefined : shareText }
+							onChange={(content) => setAttributes({ shareText: content })}
+						/>
+					</div>
 					<div className="has-click-to-share-cta">
 						{ showClickToShare && <>{ clickText } </> }
 						{ showIcon && (
