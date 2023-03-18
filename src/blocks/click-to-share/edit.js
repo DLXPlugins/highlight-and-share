@@ -35,7 +35,7 @@ const { escapeEditableHTML } = wp.escapeHtml;
 
 const { InspectorControls, RichText, useBlockProps, InnerBlocks } = wp.blockEditor;
 
-const { useInstanceId } = wp.compose;
+const { useInstanceId, useSelect } = wp.compose;
 
 const { create, toHTMLString } = wp.richText;
 
@@ -44,6 +44,7 @@ const HAS_Click_To_Share = ( props ) => {
 	const generatedUniqueId = useInstanceId( HAS_Click_To_Share, 'has-cts' );
 
 	const { attributes, setAttributes } = props;
+
 	const {
 		shareText,
 		backgroundType,
@@ -85,6 +86,7 @@ const HAS_Click_To_Share = ( props ) => {
 		uniqueId,
 		typographyQuote,
 		typographyShareText,
+		content,
 	} = attributes;
 
 	useEffect( () => {
@@ -182,15 +184,6 @@ const HAS_Click_To_Share = ( props ) => {
 		if ( -1 === iconSize ) {
 			setAttributes( { iconSize: clickShareFontSize } );
 		}
-
-		// Port over RichText to new innerblocks.
-		if ( '' !== shareText ) {
-			const portText = wp.blocks.rawHandler( {
-				HTML: shareText,
-				mode: 'BLOCKS',
-			} );
-			setAttributes( { shareText: portText } );
-		}
 	}, [] );
 
 	const getFontStyles = ( fontObject ) => {
@@ -264,10 +257,12 @@ const HAS_Click_To_Share = ( props ) => {
 		#${ uniqueId }:hover .has-click-to-share-cta {
 			color: ${ shareTextColorHover }
 		}
-		#${ uniqueId } .has-click-to-share-text {
+		#${ uniqueId } .has-click-to-share-text,
+		#${ uniqueId } .has-click-to-share-text p {
 			color: ${ textColor };
 		}
-		#${ uniqueId }:hover .has-click-to-share-text {
+		#${ uniqueId }:hover .has-click-to-share-text,
+		#${ uniqueId }:hover .has-click-to-share-text p {
 			color: ${ textColorHover };
 		}
 		#${ uniqueId } .has-click-to-share-cta svg {
@@ -967,14 +962,12 @@ const HAS_Click_To_Share = ( props ) => {
 				id={ uniqueId }
 			>
 				<div className="has-click-to-share-wrapper">
-					<div className="has-click-to-share-text">
+					<div className="has-click-to-share-text has-click-to-share__share-text">
 						<InnerBlocks
 							allowedBlocks={['core/paragraph']}
 							template={[
 							['core/paragraph', {}],
 							]}
-							value={ ! Array.isArray( shareText ) ? undefined : shareText }
-							onChange={(content) => setAttributes({ shareText: content })}
 						/>
 					</div>
 					<div className="has-click-to-share-cta">

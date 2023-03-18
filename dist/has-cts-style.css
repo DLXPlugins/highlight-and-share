@@ -30,4 +30,13 @@
   margin-left: 12px;
 }
 
+.has-click-to-share-text p {
+  text-align: left;
+  margin: 0;
+  margin-bottom: 0.5rem;
+}
+.has-click-to-share-text p:last-child {
+  margin-bottom: 0;
+}
+
 /*# sourceMappingURL=has-cts-style.css.map*/

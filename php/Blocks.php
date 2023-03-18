@@ -35,6 +35,7 @@ class Blocks {
 			add_action( 'enqueue_block_assets', array( $self, 'enqueue_frontend_assets' ) );
 			add_action( 'wp_enqueue_scripts', array( $self, 'register_font_scripts' ) );
 			add_action( 'admin_enqueue_scripts', array( $self, 'register_font_scripts' ) );
+			add_filter( 'block_categories', array( $self, 'register_block_category' ), 10, 2 );
 		}
 		return $self;
 	}
@@ -48,6 +49,24 @@ class Blocks {
 			Functions::get_plugin_dir( 'build/blocks/click-to-share/block.json' ),
 			array(
 				'render_callback' => array( $this, 'frontend' ),
+			)
+		);
+	}
+
+	/**
+	 * Register the Highlight and Share category.
+	 *
+	 * @param array   $categories Existing block categories.
+	 * @param WP_Post $post       Post object.
+	 */
+	public function register_block_category( $categories, $post ) {
+		return array_merge(
+			$categories,
+			array(
+				array(
+					'slug'  => 'highlight-and-share',
+					'title' => __( 'Highlight and Share', 'highlight-and-share' ),
+				),
 			)
 		);
 	}
@@ -189,7 +208,7 @@ class Blocks {
 	 *
 	 * @param array $attributes Array of attributes for the Gutenberg block.
 	 */
-	public function frontend( $attributes ) {
+	public function frontend( $attributes, $content ) {
 		global $post;
 		if ( '' === $attributes['uniqueId'] ) {
 			return $this->get_legacy_frontend( $attributes );
@@ -268,10 +287,12 @@ class Blocks {
 			.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?>:hover .has-click-to-share-cta {
 				color: <?php echo esc_attr( $attributes['shareTextColorHover'] ); ?>;
 			}
-			.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?> .has-click-to-share-text {
+			.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?> .has-click-to-share-text,
+			.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?> .has-click-to-share-text p {
 				color: <?php echo esc_attr( $attributes['textColor'] ); ?>;
 			}
-			.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?>:hover .has-click-to-share-text {
+			.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?>:hover .has-click-to-share-text,
+			.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?>:hover .has-click-to-share-text p {
 				color: <?php echo esc_attr( $attributes['textColorHover'] ); ?>;
 			}
 			.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?> .has-click-to-share-cta svg {
@@ -391,7 +412,14 @@ class Blocks {
 		<div class='<?php echo esc_attr( implode( ' ', $container_classes ) ); ?>' id="<?php echo esc_attr( $attributes['uniqueId'] ); ?>">
 			<div class="has-click-to-share-wrapper">
 				<div class="has-click-to-share-text" data-text-full="<?php echo esc_attr( esc_html( wp_strip_all_tags( $attributes['shareText'] ) ) ); ?>">
-					<?php echo wp_kses_post( $attributes['shareText'] ); ?>
+					<?php
+					// Make sure shareTextInner isn't empty.
+					if ( empty( $content ) && ! empty( $attributes['shareText'] ) ) {
+						echo wp_kses_post( $attributes['shareText'] );
+					} elseif ( ! empty( $content ) ) {
+						echo wp_kses_post( $content );
+					}
+				?>
 				</div>
 				<div class='has-click-to-share-cta'>
 					<?php
@@ -644,7 +672,6 @@ class Blocks {
 			$left = '';
 
 			if ( $top === $bottom ) {
-				$bottom = '';
 
 				if ( $top === $right ) {
 					$right = '';
