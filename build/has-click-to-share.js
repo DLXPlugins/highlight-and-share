@@ -23,16 +23,31 @@ function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Sy
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
-var InnerBlocks = wp.blockEditor.InnerBlocks;
+var _wp$blockEditor = wp.blockEditor,
+  InnerBlocks = _wp$blockEditor.InnerBlocks,
+  useInnerBlocksProps = _wp$blockEditor.useInnerBlocksProps;
+var _wp$richText = wp.richText,
+  create = _wp$richText.create,
+  toHTMLString = _wp$richText.toHTMLString;
 
 
 var BlockContent = function BlockContent(props) {
   var attributes = props.attributes,
+    setAttributes = props.setAttributes,
     isPreview = props.isPreview;
+  var innerBlockProps = useInnerBlocksProps({
+    className: 'has-click-to-share-text has-click-to-share__share-text'
+  }, {
+    allowedBlocks: ['core/paragraph'],
+    template: [['core/paragraph', {
+      placeholder: ''
+    }]]
+  });
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(isPreview !== null && isPreview !== void 0 ? isPreview : false),
     _useState2 = _slicedToArray(_useState, 1),
     isBlockPreview = _useState2[0];
-  var backgroundType = attributes.backgroundType,
+  var shareText = attributes.shareText,
+    backgroundType = attributes.backgroundType,
     showClickToShare = attributes.showClickToShare,
     showIcon = attributes.showIcon,
     iconSize = attributes.iconSize,
@@ -40,6 +55,32 @@ var BlockContent = function BlockContent(props) {
     uniqueId = attributes.uniqueId,
     typographyQuote = attributes.typographyQuote,
     typographyShareText = attributes.typographyShareText;
+
+  /**
+   * Migrate RichText to InnerBlocks.
+   */
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    // Port shareText attribute to use innerBlocks instead.
+    var blah = "This is a richtext component.\n\nHi there.";
+    if (blah !== '') {
+      // Convert text over.
+      var portText = toHTMLString({
+        // Stolen from: https://github.com/WordPress/gutenberg/pull/23562/files
+        value: create({
+          html: blah,
+          preserveWhiteSpace: true
+        }),
+        multilineTag: 'p'
+      });
+      useInnerBlocksProps.save({
+        innerBlocks: portText
+      });
+      setAttributes({
+        content: portText,
+        shareText: ''
+      });
+    }
+  }, []);
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_GetFontStyles__WEBPACK_IMPORTED_MODULE_2__["default"], {
     fontObject: typographyQuote
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_GetFontStyles__WEBPACK_IMPORTED_MODULE_2__["default"], {
@@ -56,12 +97,9 @@ var BlockContent = function BlockContent(props) {
     id: uniqueId
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "has-click-to-share-wrapper"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+  }, isBlockPreview && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "has-click-to-share-text has-click-to-share__share-text"
-  }, isBlockPreview && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "Vivamus commodo nunc arcu, finibus cursus felis porta a. Nam ultrices, turpis eu fringilla molestie, lorem libero.")), !isBlockPreview && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(InnerBlocks, {
-    allowedBlocks: ['core/paragraph'],
-    template: [['core/paragraph', {}]]
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "Vivamus commodo nunc arcu, finibus cursus felis porta a. Nam ultrices, turpis eu fringilla molestie, lorem libero."))), !isBlockPreview && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", innerBlockProps), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "has-click-to-share-cta"
   }, (showClickToShare || isBlockPreview) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, clickText, " "), (showIcon || isBlockPreview) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("svg", {
     style: {
@@ -194,7 +232,7 @@ var GetStyles = function GetStyles(props) {
   }
   var previewStyles = '';
   if (isPreview) {
-    previewStyles = "\n\t\t#".concat(uniqueId, ".has-click-to-share p {\n\t\t\tfont-size: 12px;\n\t\t}\n\t\t#").concat(uniqueId, ".has-click-to-share .has-click-to-share-cta,\n\t\t#").concat(uniqueId, ".has-click-to-share .has-click-to-share-cta svg {\n\t\t\tfont-size: 12px;\n\t\t}\n\t\t");
+    previewStyles = "\n\t\t\t#".concat(uniqueId, ".has-click-to-share p {\n\t\t\t\tfont-size: 12px;\n\t\t\t}\n\t\t\t#").concat(uniqueId, ".has-click-to-share .has-click-to-share-cta {\n\t\t\t\tfont-size: 12px;\n\t\t\t}\n\t\t\t#").concat(uniqueId, ".has-click-to-share .has-click-to-share-cta svg {\n\t\t\t\twidth: 12px !important;\n\t\t\t\theight: 12px !important;\n\t\t\t}\n\t\t");
   }
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("style", null, styles), 'image' === backgroundType && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("style", null, backgroundImageStyles), isPreview && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("style", null, previewStyles));
 };
@@ -219,6 +257,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _BlockContent__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./BlockContent */ "./src/blocks/click-to-share/components/BlockContent.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
@@ -284,8 +325,11 @@ var PresetButton = function PresetButton(props) {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Are you sure you want to apply this preset?', 'highlight-and-share')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Button, {
     variant: "primary",
     onClick: function onClick() {
-      attributes.uniqueId = uniqueId;
-      setAttributes(attributes);
+      var uniqueIdAttribute = {
+        uniqueId: uniqueId
+      };
+      var blockAttributes = _objectSpread(_objectSpread({}, props.attributes), uniqueIdAttribute);
+      setAttributes(blockAttributes);
       setShowModal(false);
     },
     className: "has-preset-modal-apply-button"
@@ -332,18 +376,23 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _react_Components_ColorPicker__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../react/Components/ColorPicker */ "./src/react/Components/ColorPicker/index.js");
-/* harmony import */ var _react_Components_GradientPicker__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ../../react/Components/GradientPicker */ "./src/react/Components/GradientPicker/index.js");
-/* harmony import */ var _react_Components_GradientSync__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../react/Components/GradientSync */ "./src/react/Components/GradientSync/index.js");
-/* harmony import */ var _react_Components_GradientGenerator__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ../../react/Components/GradientGenerator */ "./src/react/Components/GradientGenerator/index.js");
-/* harmony import */ var _react_Components_DimensionsBlock__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../react/Components/DimensionsBlock */ "./src/react/Components/DimensionsBlock/index.js");
+/* harmony import */ var _react_Components_ColorPicker__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../react/Components/ColorPicker */ "./src/react/Components/ColorPicker/index.js");
+/* harmony import */ var _react_Components_GradientPicker__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../react/Components/GradientPicker */ "./src/react/Components/GradientPicker/index.js");
+/* harmony import */ var _react_Components_GradientSync__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../react/Components/GradientSync */ "./src/react/Components/GradientSync/index.js");
+/* harmony import */ var _react_Components_GradientGenerator__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../../react/Components/GradientGenerator */ "./src/react/Components/GradientGenerator/index.js");
+/* harmony import */ var _react_Components_DimensionsBlock__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../../react/Components/DimensionsBlock */ "./src/react/Components/DimensionsBlock/index.js");
 /* harmony import */ var _react_Hooks_useDeviceType__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../react/Hooks/useDeviceType */ "./src/react/Hooks/useDeviceType.js");
-/* harmony import */ var _react_Components_unit_picker__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../react/Components/unit-picker */ "./src/react/Components/unit-picker/index.js");
-/* harmony import */ var _react_Components_Typography__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ../../react/Components/Typography */ "./src/react/Components/Typography/index.js");
-/* harmony import */ var _react_Components_BackgroundSelector__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ../../react/Components/BackgroundSelector */ "./src/react/Components/BackgroundSelector/index.js");
+/* harmony import */ var _react_Components_unit_picker__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../../react/Components/unit-picker */ "./src/react/Components/unit-picker/index.js");
+/* harmony import */ var _react_Components_Typography__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../../react/Components/Typography */ "./src/react/Components/Typography/index.js");
+/* harmony import */ var _react_Components_BackgroundSelector__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../../react/Components/BackgroundSelector */ "./src/react/Components/BackgroundSelector/index.js");
 /* harmony import */ var _components_PresetButton__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/PresetButton */ "./src/blocks/click-to-share/components/PresetButton.js");
 /* harmony import */ var _presets_purple__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./presets/purple */ "./src/blocks/click-to-share/presets/purple.js");
-/* harmony import */ var _components_BlockContent__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ./components/BlockContent */ "./src/blocks/click-to-share/components/BlockContent.js");
+/* harmony import */ var _presets_dark__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./presets/dark */ "./src/blocks/click-to-share/presets/dark.js");
+/* harmony import */ var _presets_blue__WEBPACK_IMPORTED_MODULE_8__ = __webpack_require__(/*! ./presets/blue */ "./src/blocks/click-to-share/presets/blue.js");
+/* harmony import */ var _presets_light__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./presets/light */ "./src/blocks/click-to-share/presets/light.js");
+/* harmony import */ var _presets_pink__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./presets/pink */ "./src/blocks/click-to-share/presets/pink.js");
+/* harmony import */ var _presets_red__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./presets/red */ "./src/blocks/click-to-share/presets/red.js");
+/* harmony import */ var _components_BlockContent__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ./components/BlockContent */ "./src/blocks/click-to-share/components/BlockContent.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
@@ -369,6 +418,11 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
+
+
+
+
 var __ = wp.i18n.__;
 var _wp$components = wp.components,
   PanelBody = _wp$components.PanelBody,
@@ -383,19 +437,20 @@ var _wp$blockEditor = wp.blockEditor,
   InspectorControls = _wp$blockEditor.InspectorControls,
   RichText = _wp$blockEditor.RichText,
   useBlockProps = _wp$blockEditor.useBlockProps,
-  InnerBlocks = _wp$blockEditor.InnerBlocks;
+  InnerBlocks = _wp$blockEditor.InnerBlocks,
+  useInnerBlocksProps = _wp$blockEditor.useInnerBlocksProps;
 var _wp$compose = wp.compose,
   useInstanceId = _wp$compose.useInstanceId,
   useSelect = _wp$compose.useSelect;
-var _wp$richText = wp.richText,
-  create = _wp$richText.create,
-  toHTMLString = _wp$richText.toHTMLString;
 var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
   var _useDeviceType = (0,_react_Hooks_useDeviceType__WEBPACK_IMPORTED_MODULE_2__["default"])('Desktop'),
     _useDeviceType2 = _slicedToArray(_useDeviceType, 2),
     deviceType = _useDeviceType2[0],
     setDeviceType = _useDeviceType2[1];
   var generatedUniqueId = useInstanceId(HAS_Click_To_Share, 'has-cts');
+  var blockProps = useBlockProps({
+    className: classnames__WEBPACK_IMPORTED_MODULE_0___default()("highlight-and-share", "align".concat(align))
+  });
   var attributes = props.attributes,
     setAttributes = props.setAttributes;
   var shareText = attributes.shareText,
@@ -455,15 +510,6 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
         unit: 'px',
         unitSync: true
       };
-      // Convert text over.
-      var portText = toHTMLString({
-        // Stolen from: https://github.com/WordPress/gutenberg/pull/23562/files
-        value: create({
-          html: shareText,
-          preserveWhiteSpace: true
-        }),
-        multilineTag: 'p'
-      });
       setAttributes({
         paddingSize: portPadding,
         padding: -1,
@@ -473,8 +519,7 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
         textColorHover: textColor,
         borderColorHover: borderColor,
         iconColorHover: textColor,
-        iconColor: textColor,
-        shareText: portText
+        iconColor: textColor
       });
     }
     // Port margin to new dimensions object.
@@ -575,11 +620,11 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
     label: __('Mobile', 'highlight-and-share')
   }))), /*#__PURE__*/React.createElement(PanelBody, {
     title: __('Presets', 'highlight-and-share'),
-    initialOpen: true,
+    initialOpen: false,
     className: "has-presets-panel"
   }, /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement("div", {
     className: "has-presets"
-  }, /*#__PURE__*/React.createElement("h3", null, __('Presets', 'highlight-and-share')), /*#__PURE__*/React.createElement(ButtonGroup, null, /*#__PURE__*/React.createElement(_components_PresetButton__WEBPACK_IMPORTED_MODULE_3__["default"], {
+  }, /*#__PURE__*/React.createElement("h3", null, __('Select a Preset', 'highlight-and-share')), /*#__PURE__*/React.createElement(ButtonGroup, null, /*#__PURE__*/React.createElement(_components_PresetButton__WEBPACK_IMPORTED_MODULE_3__["default"], {
     label: __('Purple Theme', 'highlight-and-share'),
     setAttributes: setAttributes,
     attributes: _presets_purple__WEBPACK_IMPORTED_MODULE_4__.attributes,
@@ -587,12 +632,27 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
   }), /*#__PURE__*/React.createElement(_components_PresetButton__WEBPACK_IMPORTED_MODULE_3__["default"], {
     label: __('Dark Theme', 'highlight-and-share'),
     setAttributes: setAttributes,
-    attributes: _presets_purple__WEBPACK_IMPORTED_MODULE_4__.attributes,
+    attributes: _presets_dark__WEBPACK_IMPORTED_MODULE_5__.attributes,
+    uniqueId: uniqueId
+  }), /*#__PURE__*/React.createElement(_components_PresetButton__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    label: __('Light Theme', 'highlight-and-share'),
+    setAttributes: setAttributes,
+    attributes: _presets_light__WEBPACK_IMPORTED_MODULE_6__.attributes,
+    uniqueId: uniqueId
+  }), /*#__PURE__*/React.createElement(_components_PresetButton__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    label: __('Pink Theme', 'highlight-and-share'),
+    setAttributes: setAttributes,
+    attributes: _presets_pink__WEBPACK_IMPORTED_MODULE_7__.attributes,
     uniqueId: uniqueId
   }), /*#__PURE__*/React.createElement(_components_PresetButton__WEBPACK_IMPORTED_MODULE_3__["default"], {
     label: __('Blue Theme', 'highlight-and-share'),
     setAttributes: setAttributes,
-    attributes: _presets_purple__WEBPACK_IMPORTED_MODULE_4__.attributes,
+    attributes: _presets_blue__WEBPACK_IMPORTED_MODULE_8__.attributes,
+    uniqueId: uniqueId
+  }), /*#__PURE__*/React.createElement(_components_PresetButton__WEBPACK_IMPORTED_MODULE_3__["default"], {
+    label: __('Red Theme', 'highlight-and-share'),
+    setAttributes: setAttributes,
+    attributes: _presets_red__WEBPACK_IMPORTED_MODULE_9__.attributes,
     uniqueId: uniqueId
   }))))), deviceType === 'Desktop' && /*#__PURE__*/React.createElement(PanelBody, {
     title: __('Share Settings', 'highlight-and-share'),
@@ -663,7 +723,7 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
       });
     },
     label: __('Image Background', 'highlight-and-share')
-  }, __('Image', 'highlight-and-share')))), backgroundType === 'solid' && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(_react_Components_ColorPicker__WEBPACK_IMPORTED_MODULE_5__["default"], {
+  }, __('Image', 'highlight-and-share')))), backgroundType === 'solid' && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(_react_Components_ColorPicker__WEBPACK_IMPORTED_MODULE_10__["default"], {
     value: backgroundColor,
     key: 'background-color',
     onChange: function onChange(slug, newValue) {
@@ -675,7 +735,7 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
     defaultColors: has_gutenberg.colorPalette,
     defaultColor: backgroundColor,
     slug: 'background-color'
-  })), /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(_react_Components_ColorPicker__WEBPACK_IMPORTED_MODULE_5__["default"], {
+  })), /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(_react_Components_ColorPicker__WEBPACK_IMPORTED_MODULE_10__["default"], {
     value: backgroundColorHover,
     key: 'background-color-hover',
     onChange: function onChange(slug, newValue) {
@@ -689,13 +749,13 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
     slug: 'background-color-hover'
   }))), backgroundType === 'gradient' && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(PanelRow, {
     className: "has-background-gradient-sync"
-  }, /*#__PURE__*/React.createElement(_react_Components_GradientSync__WEBPACK_IMPORTED_MODULE_6__["default"], {
+  }, /*#__PURE__*/React.createElement(_react_Components_GradientSync__WEBPACK_IMPORTED_MODULE_11__["default"], {
     attributes: attributes,
     setAttributes: setAttributes,
     label: __('Sync Gradients', 'highlight-and-share')
   })), /*#__PURE__*/React.createElement(PanelRow, {
     className: "has-background-gradient"
-  }, /*#__PURE__*/React.createElement(_react_Components_GradientPicker__WEBPACK_IMPORTED_MODULE_7__["default"], {
+  }, /*#__PURE__*/React.createElement(_react_Components_GradientPicker__WEBPACK_IMPORTED_MODULE_12__["default"], {
     value: backgroundGradient,
     onChange: function onChange(newValue) {
       setAttributes({
@@ -706,7 +766,7 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
     clearable: false
   })), /*#__PURE__*/React.createElement(PanelRow, {
     className: "has-background-gradient"
-  }, /*#__PURE__*/React.createElement(_react_Components_GradientPicker__WEBPACK_IMPORTED_MODULE_7__["default"], {
+  }, /*#__PURE__*/React.createElement(_react_Components_GradientPicker__WEBPACK_IMPORTED_MODULE_12__["default"], {
     value: backgroundGradientHover,
     onChange: function onChange(newValue) {
       setAttributes({
@@ -717,10 +777,10 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
     clearable: false
   })), /*#__PURE__*/React.createElement(PanelRow, {
     className: "has-background-gradient-generator"
-  }, /*#__PURE__*/React.createElement(_react_Components_GradientGenerator__WEBPACK_IMPORTED_MODULE_8__["default"], {
+  }, /*#__PURE__*/React.createElement(_react_Components_GradientGenerator__WEBPACK_IMPORTED_MODULE_13__["default"], {
     setAttributes: setAttributes,
     label: __('Generate Random Gradient', 'highlight-and-share')
-  }))), backgroundType === 'image' && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(_react_Components_BackgroundSelector__WEBPACK_IMPORTED_MODULE_9__["default"], {
+  }))), backgroundType === 'image' && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(_react_Components_BackgroundSelector__WEBPACK_IMPORTED_MODULE_14__["default"], {
     label: __('Background Image', 'highlight-and-share'),
     values: backgroundImage,
     onValuesChange: function onValuesChange(newValue) {
@@ -731,7 +791,7 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
   })))), deviceType === 'Desktop' && /*#__PURE__*/React.createElement(PanelBody, {
     title: __('Colors', 'highlight-and-share'),
     initialOpen: false
-  }, /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(_react_Components_ColorPicker__WEBPACK_IMPORTED_MODULE_5__["default"], {
+  }, /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(_react_Components_ColorPicker__WEBPACK_IMPORTED_MODULE_10__["default"], {
     value: backgroundColor,
     key: 'background-color',
     onChange: function onChange(slug, newValue) {
@@ -743,7 +803,7 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
     defaultColors: has_gutenberg.colorPalette,
     defaultColor: backgroundColor,
     slug: 'background-color'
-  })), /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(_react_Components_ColorPicker__WEBPACK_IMPORTED_MODULE_5__["default"], {
+  })), /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(_react_Components_ColorPicker__WEBPACK_IMPORTED_MODULE_10__["default"], {
     value: backgroundColorHover,
     key: 'background-color-hover',
     onChange: function onChange(slug, newValue) {
@@ -755,7 +815,7 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
     defaultColors: has_gutenberg.colorPalette,
     defaultColor: backgroundColorHover,
     slug: 'background-color-hover'
-  })), /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(_react_Components_ColorPicker__WEBPACK_IMPORTED_MODULE_5__["default"], {
+  })), /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(_react_Components_ColorPicker__WEBPACK_IMPORTED_MODULE_10__["default"], {
     value: textColor,
     key: 'text-color',
     onChange: function onChange(slug, newValue) {
@@ -767,7 +827,7 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
     defaultColors: has_gutenberg.colorPalette,
     defaultColor: textColor,
     slug: 'text-color'
-  }), ' '), /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(_react_Components_ColorPicker__WEBPACK_IMPORTED_MODULE_5__["default"], {
+  }), ' '), /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(_react_Components_ColorPicker__WEBPACK_IMPORTED_MODULE_10__["default"], {
     value: textColorHover,
     key: 'text-color-hover',
     onChange: function onChange(slug, newValue) {
@@ -779,7 +839,7 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
     defaultColors: has_gutenberg.colorPalette,
     defaultColor: textColorHover,
     slug: 'text-color-hover'
-  })), /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(_react_Components_ColorPicker__WEBPACK_IMPORTED_MODULE_5__["default"], {
+  })), /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(_react_Components_ColorPicker__WEBPACK_IMPORTED_MODULE_10__["default"], {
     value: shareTextColor,
     key: 'share-text-color',
     onChange: function onChange(slug, newValue) {
@@ -791,7 +851,7 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
     defaultColors: has_gutenberg.colorPalette,
     defaultColor: shareTextColor,
     slug: 'share-text-color'
-  }), ' '), /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(_react_Components_ColorPicker__WEBPACK_IMPORTED_MODULE_5__["default"], {
+  }), ' '), /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(_react_Components_ColorPicker__WEBPACK_IMPORTED_MODULE_10__["default"], {
     value: shareTextColorHover,
     key: 'share-text-color-hover',
     onChange: function onChange(slug, newValue) {
@@ -803,7 +863,7 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
     defaultColors: has_gutenberg.colorPalette,
     defaultColor: shareTextColorHover,
     slug: 'share-text-color-hover'
-  })), /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(_react_Components_ColorPicker__WEBPACK_IMPORTED_MODULE_5__["default"], {
+  })), /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(_react_Components_ColorPicker__WEBPACK_IMPORTED_MODULE_10__["default"], {
     value: borderColor,
     key: 'border-color',
     onChange: function onChange(slug, newValue) {
@@ -815,7 +875,7 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
     defaultColors: has_gutenberg.colorPalette,
     defaultColor: borderColor,
     slug: 'border-color'
-  })), /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(_react_Components_ColorPicker__WEBPACK_IMPORTED_MODULE_5__["default"], {
+  })), /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(_react_Components_ColorPicker__WEBPACK_IMPORTED_MODULE_10__["default"], {
     value: borderColorHover,
     key: 'border-color-hover',
     onChange: function onChange(slug, newValue) {
@@ -827,7 +887,7 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
     defaultColors: has_gutenberg.colorPalette,
     defaultColor: borderColorHover,
     slug: 'border-color-hover'
-  })), /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(_react_Components_ColorPicker__WEBPACK_IMPORTED_MODULE_5__["default"], {
+  })), /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(_react_Components_ColorPicker__WEBPACK_IMPORTED_MODULE_10__["default"], {
     value: iconColor,
     key: 'icon-color',
     onChange: function onChange(slug, newValue) {
@@ -839,7 +899,7 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
     defaultColors: has_gutenberg.colorPalette,
     defaultColor: iconColor,
     slug: 'icon-color'
-  })), /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(_react_Components_ColorPicker__WEBPACK_IMPORTED_MODULE_5__["default"], {
+  })), /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(_react_Components_ColorPicker__WEBPACK_IMPORTED_MODULE_10__["default"], {
     value: iconColorHover,
     key: 'icon-color-hover',
     onChange: function onChange(slug, newValue) {
@@ -856,7 +916,7 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
     initialOpen: true
   }, /*#__PURE__*/React.createElement(PanelRow, {
     className: "has-typography-panel-row"
-  }, /*#__PURE__*/React.createElement(_react_Components_Typography__WEBPACK_IMPORTED_MODULE_10__["default"], {
+  }, /*#__PURE__*/React.createElement(_react_Components_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
     values: typographyQuote,
     screenSize: deviceType,
     onValuesChange: function onValuesChange(formValues) {
@@ -867,7 +927,7 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
     label: __('Quote Typography', 'highlight-and-share')
   })), /*#__PURE__*/React.createElement(PanelRow, {
     className: "has-typography-panel-row"
-  }, /*#__PURE__*/React.createElement(_react_Components_Typography__WEBPACK_IMPORTED_MODULE_10__["default"], {
+  }, /*#__PURE__*/React.createElement(_react_Components_Typography__WEBPACK_IMPORTED_MODULE_15__["default"], {
     values: typographyShareText,
     screenSize: deviceType,
     onValuesChange: function onValuesChange(formValues) {
@@ -881,7 +941,7 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
     initialOpen: true
   }, deviceType === 'Desktop' && /*#__PURE__*/React.createElement(PanelRow, {
     className: "has-unit-picker"
-  }, /*#__PURE__*/React.createElement(_react_Components_unit_picker__WEBPACK_IMPORTED_MODULE_11__["default"], {
+  }, /*#__PURE__*/React.createElement(_react_Components_unit_picker__WEBPACK_IMPORTED_MODULE_16__["default"], {
     label: __('Maximum Width', 'quotes-dlx'),
     value: maxWidthUnit,
     units: ['px', '%', 'vw'],
@@ -898,7 +958,7 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
         maxWidth: value
       });
     }
-  })), /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(_react_Components_DimensionsBlock__WEBPACK_IMPORTED_MODULE_12__["default"], {
+  })), /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(_react_Components_DimensionsBlock__WEBPACK_IMPORTED_MODULE_17__["default"], {
     label: __('Inner Padding', 'highlight-and-share'),
     allowNegatives: false,
     values: paddingSize,
@@ -913,7 +973,7 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
         paddingSize: newValues
       });
     }
-  })), /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(_react_Components_DimensionsBlock__WEBPACK_IMPORTED_MODULE_12__["default"], {
+  })), /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(_react_Components_DimensionsBlock__WEBPACK_IMPORTED_MODULE_17__["default"], {
     label: __('Outer Margin', 'highlight-and-share'),
     allowNegatives: false,
     values: marginSize,
@@ -928,7 +988,7 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
         marginSize: newValues
       });
     }
-  })), /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(_react_Components_DimensionsBlock__WEBPACK_IMPORTED_MODULE_12__["default"], {
+  })), /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(_react_Components_DimensionsBlock__WEBPACK_IMPORTED_MODULE_17__["default"], {
     label: __('Border Width', 'highlight-and-share'),
     allowNegatives: false,
     values: borderWidth,
@@ -943,7 +1003,7 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
         borderWidth: newValues
       });
     }
-  })), /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(_react_Components_DimensionsBlock__WEBPACK_IMPORTED_MODULE_12__["default"], {
+  })), /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(_react_Components_DimensionsBlock__WEBPACK_IMPORTED_MODULE_17__["default"], {
     label: __('Border Radius', 'highlight-and-share'),
     allowNegatives: false,
     values: borderRadiusSize,
@@ -958,7 +1018,7 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
         borderRadiusSize: newValues
       });
     }
-  })), deviceType === 'Desktop' && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(_react_Components_ColorPicker__WEBPACK_IMPORTED_MODULE_5__["default"], {
+  })), deviceType === 'Desktop' && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(_react_Components_ColorPicker__WEBPACK_IMPORTED_MODULE_10__["default"], {
     value: borderColor,
     key: 'border-color',
     onChange: function onChange(slug, newValue) {
@@ -970,7 +1030,7 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
     defaultColors: has_gutenberg.colorPalette,
     defaultColor: borderColor,
     slug: 'border-color'
-  })), /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(_react_Components_ColorPicker__WEBPACK_IMPORTED_MODULE_5__["default"], {
+  })), /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(_react_Components_ColorPicker__WEBPACK_IMPORTED_MODULE_10__["default"], {
     value: borderColorHover,
     key: 'border-color-hover',
     onChange: function onChange(slug, newValue) {
@@ -983,15 +1043,903 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
     defaultColor: borderColorHover,
     slug: 'border-color-hover'
   })))));
-  var block = /*#__PURE__*/React.createElement(React.Fragment, null, inspectorControls, /*#__PURE__*/React.createElement(_components_BlockContent__WEBPACK_IMPORTED_MODULE_13__["default"], {
-    attributes: attributes
+  var block = /*#__PURE__*/React.createElement(React.Fragment, null, inspectorControls, /*#__PURE__*/React.createElement(_components_BlockContent__WEBPACK_IMPORTED_MODULE_18__["default"], {
+    attributes: attributes,
+    setAttributes: setAttributes
   }));
-  var blockProps = useBlockProps({
-    className: classnames__WEBPACK_IMPORTED_MODULE_0___default()("highlight-and-share", "align".concat(align))
-  });
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", blockProps, block));
 };
 /* harmony default export */ __webpack_exports__["default"] = (HAS_Click_To_Share);
+
+/***/ }),
+
+/***/ "./src/blocks/click-to-share/presets/blue.js":
+/*!***************************************************!*\
+  !*** ./src/blocks/click-to-share/presets/blue.js ***!
+  \***************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "attributes": function() { return /* binding */ attributes; }
+/* harmony export */ });
+var attributes = {
+  uniqueId: 'has-blue-preview',
+  backgroundColor: '#6468E8',
+  backgroundColorHover: '#5A5EE9',
+  backgroundType: 'solid',
+  iconColor: '#FFFFFF',
+  iconColorHover: '#FFFFFF',
+  textColor: '#FFFFFF',
+  textColorHover: '#FFFFFF',
+  shareTextColor: '#FFFFFF',
+  shareTextColorHover: '#FFFFFF',
+  borderColor: '#4D52EF',
+  borderColorHover: '#4D52EF',
+  clickText: 'Click to share',
+  paddingSize: {
+    mobile: {
+      top: '',
+      right: '',
+      bottom: '',
+      left: '',
+      unit: null,
+      unitSync: null
+    },
+    tablet: {
+      top: '',
+      right: '',
+      bottom: '',
+      left: '',
+      unit: null,
+      unitSync: null
+    },
+    desktop: {
+      top: '20',
+      right: '20',
+      bottom: '20',
+      left: '20',
+      unit: 'px',
+      unitSync: true
+    }
+  },
+  maxWidth: 80,
+  marginSize: {
+    mobile: {
+      top: '',
+      right: '',
+      bottom: '',
+      left: '',
+      unit: null,
+      unitSync: null
+    },
+    tablet: {
+      top: '',
+      right: '',
+      bottom: '',
+      left: '',
+      unit: null,
+      unitSync: null
+    },
+    desktop: {
+      top: '20',
+      right: '',
+      bottom: '20',
+      left: '',
+      unit: 'px',
+      unitSync: true
+    }
+  },
+  borderWidth: {
+    mobile: {
+      top: '',
+      right: '',
+      bottom: '',
+      left: '',
+      unit: null,
+      unitSync: null
+    },
+    tablet: {
+      top: '',
+      right: '',
+      bottom: '',
+      left: '',
+      unit: null,
+      unitSync: null
+    },
+    desktop: {
+      top: '1',
+      right: '1',
+      bottom: '1',
+      left: '1',
+      unit: 'px',
+      unitSync: true
+    }
+  },
+  borderRadiusSize: {
+    mobile: {
+      top: '',
+      right: '',
+      bottom: '',
+      left: '',
+      unit: null,
+      unitSync: null
+    },
+    tablet: {
+      top: '',
+      right: '',
+      bottom: '',
+      left: '',
+      unit: null,
+      unitSync: null
+    },
+    desktop: {
+      top: '4',
+      right: '4',
+      bottom: '4',
+      left: '4',
+      unit: 'px',
+      unitSync: true
+    }
+  },
+  typographyQuote: {
+    mobile: {
+      fontFamily: '',
+      fontFamilySlug: '',
+      fontSize: '',
+      fontSizeUnit: 'px',
+      fontWeight: '',
+      lineHeight: '',
+      lineHeightUnit: 'em',
+      textTransform: '',
+      letterSpacing: '',
+      letterSpacingUnit: 'px',
+      fontFallback: '',
+      fontType: 'web'
+    },
+    tablet: {
+      fontFamily: '',
+      fontFamilySlug: '',
+      fontSize: '',
+      fontSizeUnit: 'px',
+      fontWeight: '',
+      lineHeight: '',
+      lineHeightUnit: 'em',
+      textTransform: '',
+      letterSpacing: '',
+      letterSpacingUnit: 'px',
+      fontFallback: '',
+      fontType: 'web'
+    },
+    desktop: {
+      fontFamily: 'Raleway',
+      fontFamilySlug: 'raleway',
+      fontSize: '24',
+      fontSizeUnit: 'px',
+      fontWeight: 'normal',
+      lineHeight: '1.3',
+      lineHeightUnit: 'em',
+      textTransform: 'none',
+      letterSpacing: '0',
+      letterSpacingUnit: 'px',
+      fontFallback: 'serif',
+      fontType: 'web'
+    }
+  },
+  typographyShareText: {
+    mobile: {
+      fontFamily: '',
+      fontFamilySlug: '',
+      fontSize: '',
+      fontSizeUnit: 'px',
+      fontWeight: '',
+      lineHeight: '',
+      lineHeightUnit: 'em',
+      textTransform: '',
+      letterSpacing: '',
+      letterSpacingUnit: 'px',
+      fontType: 'web',
+      fontFallback: 'sans-serif'
+    },
+    tablet: {
+      fontFamily: '',
+      fontFamilySlug: '',
+      fontSize: '',
+      fontSizeUnit: 'px',
+      fontWeight: '',
+      lineHeight: '',
+      lineHeightUnit: 'em',
+      textTransform: '',
+      letterSpacing: '',
+      letterSpacingUnit: 'px',
+      fontType: 'google',
+      fontFallback: 'sans-serif'
+    },
+    desktop: {
+      fontFamily: 'Raleway',
+      fontFamilySlug: 'raleway',
+      fontSize: '24',
+      fontSizeUnit: 'px',
+      fontWeight: 'normal',
+      lineHeight: '1.3',
+      lineHeightUnit: 'em',
+      textTransform: 'none',
+      letterSpacing: '0',
+      letterSpacingUnit: 'px',
+      fontType: 'google',
+      fontFallback: 'sans-serif'
+    }
+  }
+};
+
+
+/***/ }),
+
+/***/ "./src/blocks/click-to-share/presets/dark.js":
+/*!***************************************************!*\
+  !*** ./src/blocks/click-to-share/presets/dark.js ***!
+  \***************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "attributes": function() { return /* binding */ attributes; }
+/* harmony export */ });
+var attributes = {
+  uniqueId: 'has-dark-preview',
+  backgroundColor: '#333',
+  backgroundColorHover: '#000',
+  backgroundType: 'solid',
+  iconColor: '#E88464',
+  iconColorHover: '#E87664',
+  textColor: '#FFFFFF',
+  textColorHover: '#FFFFFF',
+  shareTextColor: '#E88464',
+  shareTextColorHover: '#E87664',
+  clickText: 'Click to share',
+  paddingSize: {
+    mobile: {
+      top: '',
+      right: '',
+      bottom: '',
+      left: '',
+      unit: null,
+      unitSync: null
+    },
+    tablet: {
+      top: '',
+      right: '',
+      bottom: '',
+      left: '',
+      unit: null,
+      unitSync: null
+    },
+    desktop: {
+      top: '20',
+      right: '20',
+      bottom: '20',
+      left: '20',
+      unit: 'px',
+      unitSync: true
+    }
+  },
+  maxWidth: 80,
+  marginSize: {
+    mobile: {
+      top: '',
+      right: '',
+      bottom: '',
+      left: '',
+      unit: null,
+      unitSync: null
+    },
+    tablet: {
+      top: '',
+      right: '',
+      bottom: '',
+      left: '',
+      unit: null,
+      unitSync: null
+    },
+    desktop: {
+      top: '20',
+      right: '',
+      bottom: '20',
+      left: '',
+      unit: 'px',
+      unitSync: true
+    }
+  },
+  borderWidth: {
+    mobile: {
+      top: '',
+      right: '',
+      bottom: '',
+      left: '',
+      unit: null,
+      unitSync: null
+    },
+    tablet: {
+      top: '',
+      right: '',
+      bottom: '',
+      left: '',
+      unit: null,
+      unitSync: null
+    },
+    desktop: {
+      top: '1',
+      right: '1',
+      bottom: '1',
+      left: '1',
+      unit: 'px',
+      unitSync: true
+    }
+  },
+  borderRadiusSize: {
+    mobile: {
+      top: '',
+      right: '',
+      bottom: '',
+      left: '',
+      unit: null,
+      unitSync: null
+    },
+    tablet: {
+      top: '',
+      right: '',
+      bottom: '',
+      left: '',
+      unit: null,
+      unitSync: null
+    },
+    desktop: {
+      top: '4',
+      right: '4',
+      bottom: '4',
+      left: '4',
+      unit: 'px',
+      unitSync: true
+    }
+  },
+  typographyQuote: {
+    mobile: {
+      fontFamily: '',
+      fontFamilySlug: '',
+      fontSize: '',
+      fontSizeUnit: 'px',
+      fontWeight: '',
+      lineHeight: '',
+      lineHeightUnit: 'em',
+      textTransform: '',
+      letterSpacing: '',
+      letterSpacingUnit: 'px',
+      fontFallback: '',
+      fontType: 'web'
+    },
+    tablet: {
+      fontFamily: '',
+      fontFamilySlug: '',
+      fontSize: '',
+      fontSizeUnit: 'px',
+      fontWeight: '',
+      lineHeight: '',
+      lineHeightUnit: 'em',
+      textTransform: '',
+      letterSpacing: '',
+      letterSpacingUnit: 'px',
+      fontFallback: '',
+      fontType: 'web'
+    },
+    desktop: {
+      fontFamily: 'Josefin Sans',
+      fontFamilySlug: 'josefin-sans',
+      fontSize: '24',
+      fontSizeUnit: 'px',
+      fontWeight: 'normal',
+      lineHeight: '1.3',
+      lineHeightUnit: 'em',
+      textTransform: 'none',
+      letterSpacing: '0',
+      letterSpacingUnit: 'px',
+      fontFallback: 'serif',
+      fontType: 'google'
+    }
+  },
+  typographyShareText: {
+    mobile: {
+      fontFamily: '',
+      fontFamilySlug: '',
+      fontSize: '',
+      fontSizeUnit: 'px',
+      fontWeight: '',
+      lineHeight: '',
+      lineHeightUnit: 'em',
+      textTransform: '',
+      letterSpacing: '',
+      letterSpacingUnit: 'px',
+      fontType: 'web',
+      fontFallback: 'sans-serif'
+    },
+    tablet: {
+      fontFamily: '',
+      fontFamilySlug: '',
+      fontSize: '',
+      fontSizeUnit: 'px',
+      fontWeight: '',
+      lineHeight: '',
+      lineHeightUnit: 'em',
+      textTransform: '',
+      letterSpacing: '',
+      letterSpacingUnit: 'px',
+      fontType: 'web',
+      fontFallback: 'sans-serif'
+    },
+    desktop: {
+      fontFamily: 'Josefin Sans',
+      fontFamilySlug: 'josefin-sans',
+      fontSize: '24',
+      fontSizeUnit: 'px',
+      fontWeight: 'normal',
+      lineHeight: '1.3',
+      lineHeightUnit: 'em',
+      textTransform: 'none',
+      letterSpacing: '0',
+      letterSpacingUnit: 'px',
+      fontType: 'google',
+      fontFallback: 'sans-serif'
+    }
+  }
+};
+
+
+/***/ }),
+
+/***/ "./src/blocks/click-to-share/presets/light.js":
+/*!****************************************************!*\
+  !*** ./src/blocks/click-to-share/presets/light.js ***!
+  \****************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "attributes": function() { return /* binding */ attributes; }
+/* harmony export */ });
+var attributes = {
+  uniqueId: 'has-light-preview',
+  backgroundColor: '#FFFFFF',
+  backgroundColorHover: '#EFEFEF',
+  backgroundType: 'solid',
+  iconColor: '#333',
+  iconColorHover: '#000',
+  textColor: '#333',
+  textColorHover: '#000',
+  shareTextColor: '#333',
+  shareTextColorHover: '#000',
+  borderColor: '#333',
+  borderColorHover: '#000',
+  clickText: 'Click to share',
+  paddingSize: {
+    mobile: {
+      top: '',
+      right: '',
+      bottom: '',
+      left: '',
+      unit: null,
+      unitSync: null
+    },
+    tablet: {
+      top: '',
+      right: '',
+      bottom: '',
+      left: '',
+      unit: null,
+      unitSync: null
+    },
+    desktop: {
+      top: '20',
+      right: '20',
+      bottom: '20',
+      left: '20',
+      unit: 'px',
+      unitSync: true
+    }
+  },
+  maxWidth: 80,
+  marginSize: {
+    mobile: {
+      top: '',
+      right: '',
+      bottom: '',
+      left: '',
+      unit: null,
+      unitSync: null
+    },
+    tablet: {
+      top: '',
+      right: '',
+      bottom: '',
+      left: '',
+      unit: null,
+      unitSync: null
+    },
+    desktop: {
+      top: '20',
+      right: '',
+      bottom: '20',
+      left: '',
+      unit: 'px',
+      unitSync: true
+    }
+  },
+  borderWidth: {
+    mobile: {
+      top: '',
+      right: '',
+      bottom: '',
+      left: '',
+      unit: null,
+      unitSync: null
+    },
+    tablet: {
+      top: '',
+      right: '',
+      bottom: '',
+      left: '',
+      unit: null,
+      unitSync: null
+    },
+    desktop: {
+      top: '1',
+      right: '1',
+      bottom: '1',
+      left: '1',
+      unit: 'px',
+      unitSync: true
+    }
+  },
+  borderRadiusSize: {
+    mobile: {
+      top: '',
+      right: '',
+      bottom: '',
+      left: '',
+      unit: null,
+      unitSync: null
+    },
+    tablet: {
+      top: '',
+      right: '',
+      bottom: '',
+      left: '',
+      unit: null,
+      unitSync: null
+    },
+    desktop: {
+      top: '4',
+      right: '4',
+      bottom: '4',
+      left: '4',
+      unit: 'px',
+      unitSync: true
+    }
+  },
+  typographyQuote: {
+    mobile: {
+      fontFamily: '',
+      fontFamilySlug: '',
+      fontSize: '',
+      fontSizeUnit: 'px',
+      fontWeight: '',
+      lineHeight: '',
+      lineHeightUnit: 'em',
+      textTransform: '',
+      letterSpacing: '',
+      letterSpacingUnit: 'px',
+      fontFallback: '',
+      fontType: 'web'
+    },
+    tablet: {
+      fontFamily: '',
+      fontFamilySlug: '',
+      fontSize: '',
+      fontSizeUnit: 'px',
+      fontWeight: '',
+      lineHeight: '',
+      lineHeightUnit: 'em',
+      textTransform: '',
+      letterSpacing: '',
+      letterSpacingUnit: 'px',
+      fontFallback: '',
+      fontType: 'web'
+    },
+    desktop: {
+      fontFamily: 'Raleway',
+      fontFamilySlug: 'raleway',
+      fontSize: '24',
+      fontSizeUnit: 'px',
+      fontWeight: 'normal',
+      lineHeight: '1.3',
+      lineHeightUnit: 'em',
+      textTransform: 'none',
+      letterSpacing: '0',
+      letterSpacingUnit: 'px',
+      fontFallback: 'serif',
+      fontType: 'web'
+    }
+  },
+  typographyShareText: {
+    mobile: {
+      fontFamily: '',
+      fontFamilySlug: '',
+      fontSize: '',
+      fontSizeUnit: 'px',
+      fontWeight: '',
+      lineHeight: '',
+      lineHeightUnit: 'em',
+      textTransform: '',
+      letterSpacing: '',
+      letterSpacingUnit: 'px',
+      fontType: 'web',
+      fontFallback: 'sans-serif'
+    },
+    tablet: {
+      fontFamily: '',
+      fontFamilySlug: '',
+      fontSize: '',
+      fontSizeUnit: 'px',
+      fontWeight: '',
+      lineHeight: '',
+      lineHeightUnit: 'em',
+      textTransform: '',
+      letterSpacing: '',
+      letterSpacingUnit: 'px',
+      fontType: 'google',
+      fontFallback: 'sans-serif'
+    },
+    desktop: {
+      fontFamily: 'Raleway',
+      fontFamilySlug: 'raleway',
+      fontSize: '24',
+      fontSizeUnit: 'px',
+      fontWeight: 'normal',
+      lineHeight: '1.3',
+      lineHeightUnit: 'em',
+      textTransform: 'none',
+      letterSpacing: '0',
+      letterSpacingUnit: 'px',
+      fontType: 'google',
+      fontFallback: 'sans-serif'
+    }
+  }
+};
+
+
+/***/ }),
+
+/***/ "./src/blocks/click-to-share/presets/pink.js":
+/*!***************************************************!*\
+  !*** ./src/blocks/click-to-share/presets/pink.js ***!
+  \***************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "attributes": function() { return /* binding */ attributes; }
+/* harmony export */ });
+var attributes = {
+  uniqueId: 'has-pink-preview',
+  backgroundColor: '#EF4DED',
+  backgroundColorHover: '#E241E0',
+  backgroundType: 'solid',
+  iconColor: '#FFFFFF',
+  iconColorHover: '#FFFFFF',
+  textColor: '#FFFFFF',
+  textColorHover: '#FFFFFF',
+  shareTextColor: '#FFFFFF',
+  shareTextColorHover: '#FFFFFF',
+  borderColor: '#C82BC6',
+  borderColorHover: '#B123AF',
+  clickText: 'Click to share',
+  paddingSize: {
+    mobile: {
+      top: '',
+      right: '',
+      bottom: '',
+      left: '',
+      unit: null,
+      unitSync: null
+    },
+    tablet: {
+      top: '',
+      right: '',
+      bottom: '',
+      left: '',
+      unit: null,
+      unitSync: null
+    },
+    desktop: {
+      top: '20',
+      right: '20',
+      bottom: '20',
+      left: '20',
+      unit: 'px',
+      unitSync: true
+    }
+  },
+  maxWidth: 80,
+  marginSize: {
+    mobile: {
+      top: '',
+      right: '',
+      bottom: '',
+      left: '',
+      unit: null,
+      unitSync: null
+    },
+    tablet: {
+      top: '',
+      right: '',
+      bottom: '',
+      left: '',
+      unit: null,
+      unitSync: null
+    },
+    desktop: {
+      top: '20',
+      right: '',
+      bottom: '20',
+      left: '',
+      unit: 'px',
+      unitSync: true
+    }
+  },
+  borderWidth: {
+    mobile: {
+      top: '',
+      right: '',
+      bottom: '',
+      left: '',
+      unit: null,
+      unitSync: null
+    },
+    tablet: {
+      top: '',
+      right: '',
+      bottom: '',
+      left: '',
+      unit: null,
+      unitSync: null
+    },
+    desktop: {
+      top: '2',
+      right: '2',
+      bottom: '2',
+      left: '2',
+      unit: 'px',
+      unitSync: true
+    }
+  },
+  borderRadiusSize: {
+    mobile: {
+      top: '',
+      right: '',
+      bottom: '',
+      left: '',
+      unit: null,
+      unitSync: null
+    },
+    tablet: {
+      top: '',
+      right: '',
+      bottom: '',
+      left: '',
+      unit: null,
+      unitSync: null
+    },
+    desktop: {
+      top: '4',
+      right: '4',
+      bottom: '4',
+      left: '4',
+      unit: 'px',
+      unitSync: true
+    }
+  },
+  typographyQuote: {
+    mobile: {
+      fontFamily: '',
+      fontFamilySlug: '',
+      fontSize: '',
+      fontSizeUnit: 'px',
+      fontWeight: '',
+      lineHeight: '',
+      lineHeightUnit: 'em',
+      textTransform: '',
+      letterSpacing: '',
+      letterSpacingUnit: 'px',
+      fontFallback: '',
+      fontType: 'web'
+    },
+    tablet: {
+      fontFamily: '',
+      fontFamilySlug: '',
+      fontSize: '',
+      fontSizeUnit: 'px',
+      fontWeight: '',
+      lineHeight: '',
+      lineHeightUnit: 'em',
+      textTransform: '',
+      letterSpacing: '',
+      letterSpacingUnit: 'px',
+      fontFallback: '',
+      fontType: 'web'
+    },
+    desktop: {
+      fontFamily: 'Lato',
+      fontFamilySlug: 'lato',
+      fontSize: '24',
+      fontSizeUnit: 'px',
+      fontWeight: 'normal',
+      lineHeight: '1.3',
+      lineHeightUnit: 'em',
+      textTransform: 'none',
+      letterSpacing: '0',
+      letterSpacingUnit: 'px',
+      fontFallback: 'serif',
+      fontType: 'web'
+    }
+  },
+  typographyShareText: {
+    mobile: {
+      fontFamily: '',
+      fontFamilySlug: '',
+      fontSize: '',
+      fontSizeUnit: 'px',
+      fontWeight: '',
+      lineHeight: '',
+      lineHeightUnit: 'em',
+      textTransform: '',
+      letterSpacing: '',
+      letterSpacingUnit: 'px',
+      fontType: 'web',
+      fontFallback: 'sans-serif'
+    },
+    tablet: {
+      fontFamily: '',
+      fontFamilySlug: '',
+      fontSize: '',
+      fontSizeUnit: 'px',
+      fontWeight: '',
+      lineHeight: '',
+      lineHeightUnit: 'em',
+      textTransform: '',
+      letterSpacing: '',
+      letterSpacingUnit: 'px',
+      fontType: 'google',
+      fontFallback: 'sans-serif'
+    },
+    desktop: {
+      fontFamily: 'Lato',
+      fontFamilySlug: 'lato',
+      fontSize: '24',
+      fontSizeUnit: 'px',
+      fontWeight: 'normal',
+      lineHeight: '1.3',
+      lineHeightUnit: 'em',
+      textTransform: 'none',
+      letterSpacing: '0',
+      letterSpacingUnit: 'px',
+      fontType: 'google',
+      fontFallback: 'sans-serif'
+    }
+  }
+};
+
 
 /***/ }),
 
@@ -1193,7 +2141,7 @@ var attributes = {
       textTransform: '',
       letterSpacing: '',
       letterSpacingUnit: 'px',
-      fontType: 'web',
+      fontType: 'google',
       fontFallback: 'sans-serif'
     },
     desktop: {
@@ -1207,7 +2155,230 @@ var attributes = {
       textTransform: 'none',
       letterSpacing: '0',
       letterSpacingUnit: 'px',
+      fontType: 'google',
+      fontFallback: 'sans-serif'
+    }
+  }
+};
+
+
+/***/ }),
+
+/***/ "./src/blocks/click-to-share/presets/red.js":
+/*!**************************************************!*\
+  !*** ./src/blocks/click-to-share/presets/red.js ***!
+  \**************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony export */ __webpack_require__.d(__webpack_exports__, {
+/* harmony export */   "attributes": function() { return /* binding */ attributes; }
+/* harmony export */ });
+var attributes = {
+  uniqueId: 'has-red-preview',
+  backgroundType: 'gradient',
+  backgroundGradient: 'linear-gradient(90deg, hsla(14, 90%, 73%, 1) 0%, hsla(331, 54%, 44%, 1) 100%)',
+  backgroundGradientHover: 'linear-gradient(90deg, hsla(14, 65%, 67%, 1) 0%, hsla(331, 55%, 37%, 1) 100%)',
+  iconColor: '#FFFFFF',
+  iconColorHover: '#FFFFFF',
+  textColor: '#FFFFFF',
+  textColorHover: '#FFFFFF',
+  shareTextColor: '#FFFFFF',
+  shareTextColorHover: '#FFFFFF',
+  borderColor: '#76244C',
+  borderColorHover: '#76244C',
+  clickText: 'Click to share',
+  paddingSize: {
+    mobile: {
+      top: '',
+      right: '',
+      bottom: '',
+      left: '',
+      unit: null,
+      unitSync: null
+    },
+    tablet: {
+      top: '',
+      right: '',
+      bottom: '',
+      left: '',
+      unit: null,
+      unitSync: null
+    },
+    desktop: {
+      top: '20',
+      right: '20',
+      bottom: '20',
+      left: '20',
+      unit: 'px',
+      unitSync: true
+    }
+  },
+  maxWidth: 80,
+  marginSize: {
+    mobile: {
+      top: '',
+      right: '',
+      bottom: '',
+      left: '',
+      unit: null,
+      unitSync: null
+    },
+    tablet: {
+      top: '',
+      right: '',
+      bottom: '',
+      left: '',
+      unit: null,
+      unitSync: null
+    },
+    desktop: {
+      top: '20',
+      right: '',
+      bottom: '20',
+      left: '',
+      unit: 'px',
+      unitSync: true
+    }
+  },
+  borderWidth: {
+    mobile: {
+      top: '',
+      right: '',
+      bottom: '',
+      left: '',
+      unit: null,
+      unitSync: null
+    },
+    tablet: {
+      top: '',
+      right: '',
+      bottom: '',
+      left: '',
+      unit: null,
+      unitSync: null
+    },
+    desktop: {
+      top: '1',
+      right: '1',
+      bottom: '1',
+      left: '1',
+      unit: 'px',
+      unitSync: true
+    }
+  },
+  borderRadiusSize: {
+    mobile: {
+      top: '',
+      right: '',
+      bottom: '',
+      left: '',
+      unit: null,
+      unitSync: null
+    },
+    tablet: {
+      top: '',
+      right: '',
+      bottom: '',
+      left: '',
+      unit: null,
+      unitSync: null
+    },
+    desktop: {
+      top: '4',
+      right: '4',
+      bottom: '4',
+      left: '4',
+      unit: 'px',
+      unitSync: true
+    }
+  },
+  typographyQuote: {
+    mobile: {
+      fontFamily: '',
+      fontFamilySlug: '',
+      fontSize: '',
+      fontSizeUnit: 'px',
+      fontWeight: '',
+      lineHeight: '',
+      lineHeightUnit: 'em',
+      textTransform: '',
+      letterSpacing: '',
+      letterSpacingUnit: 'px',
+      fontFallback: '',
+      fontType: 'web'
+    },
+    tablet: {
+      fontFamily: '',
+      fontFamilySlug: '',
+      fontSize: '',
+      fontSizeUnit: 'px',
+      fontWeight: '',
+      lineHeight: '',
+      lineHeightUnit: 'em',
+      textTransform: '',
+      letterSpacing: '',
+      letterSpacingUnit: 'px',
+      fontFallback: '',
+      fontType: 'web'
+    },
+    desktop: {
+      fontFamily: 'Lato',
+      fontFamilySlug: 'lato',
+      fontSize: '24',
+      fontSizeUnit: 'px',
+      fontWeight: 'normal',
+      lineHeight: '1.3',
+      lineHeightUnit: 'em',
+      textTransform: 'none',
+      letterSpacing: '0',
+      letterSpacingUnit: 'px',
+      fontFallback: 'serif',
+      fontType: 'web'
+    }
+  },
+  typographyShareText: {
+    mobile: {
+      fontFamily: '',
+      fontFamilySlug: '',
+      fontSize: '',
+      fontSizeUnit: 'px',
+      fontWeight: '',
+      lineHeight: '',
+      lineHeightUnit: 'em',
+      textTransform: '',
+      letterSpacing: '',
+      letterSpacingUnit: 'px',
       fontType: 'web',
+      fontFallback: 'sans-serif'
+    },
+    tablet: {
+      fontFamily: '',
+      fontFamilySlug: '',
+      fontSize: '',
+      fontSizeUnit: 'px',
+      fontWeight: '',
+      lineHeight: '',
+      lineHeightUnit: 'em',
+      textTransform: '',
+      letterSpacing: '',
+      letterSpacingUnit: 'px',
+      fontType: 'google',
+      fontFallback: 'sans-serif'
+    },
+    desktop: {
+      fontFamily: 'Lato',
+      fontFamilySlug: 'lato',
+      fontSize: '24',
+      fontSizeUnit: 'px',
+      fontWeight: 'normal',
+      lineHeight: '1.3',
+      lineHeightUnit: 'em',
+      textTransform: 'none',
+      letterSpacing: '0',
+      letterSpacingUnit: 'px',
+      fontType: 'google',
       fontFallback: 'sans-serif'
     }
   }
@@ -2384,7 +3555,8 @@ var HASGradientPicker = function HASGradientPicker(props) {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.GradientPicker, {
     value: value,
     onChange: onChange,
-    clearable: clearable
+    clearable: clearable,
+    gradients: []
   })));
 };
 HASGradientPicker.defaultProps = {

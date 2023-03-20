@@ -52,8 +52,9 @@ const PresetButton = ( props ) => {
 						<Button
 							variant="primary"
 							onClick={ () => {
-								attributes.uniqueId = uniqueId;
-								setAttributes( attributes );
+								const uniqueIdAttribute = { uniqueId };
+								const blockAttributes = { ...props.attributes, ...uniqueIdAttribute };
+								setAttributes( blockAttributes );
 								setShowModal( false );
 							} }
 							className="has-preset-modal-apply-button"

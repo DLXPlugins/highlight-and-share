@@ -1,16 +1,29 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import classnames from 'classnames';
-const { InnerBlocks } = wp.blockEditor;
+const { InnerBlocks, useInnerBlocksProps } = wp.blockEditor;
+
+const { create, toHTMLString } = wp.richText;
+
 
 import GetFontStyles from './GetFontStyles';
 import GetStyles from './GetStyles';
 
 const BlockContent = ( props ) => {
-	const { attributes, isPreview } = props;
+	const { attributes, setAttributes, isPreview } = props;
 
+	const innerBlockProps = useInnerBlocksProps(
+		{
+			className: 'has-click-to-share-text has-click-to-share__share-text',
+		},
+		{
+			allowedBlocks: [ 'core/paragraph' ],
+			template: [ [ 'core/paragraph', { placeholder: '' } ] ],
+		}
+	);
 	const [ isBlockPreview ] = useState( isPreview ?? false );
 
 	const {
+		shareText,
 		backgroundType,
 		showClickToShare,
 		showIcon,
@@ -20,6 +33,28 @@ const BlockContent = ( props ) => {
 		typographyQuote,
 		typographyShareText,
 	} = attributes;
+
+	/**
+	 * Migrate RichText to InnerBlocks.
+	 */
+	useEffect( () => {
+		// Port shareText attribute to use innerBlocks instead.
+		let blah = "This is a richtext component.\n\nHi there.";
+		if ( blah !== '' ) {
+			// Convert text over.
+			const portText = toHTMLString( {
+				// Stolen from: https://github.com/WordPress/gutenberg/pull/23562/files
+				value: create( {
+					html: blah,
+					preserveWhiteSpace: true,
+				} ),
+				multilineTag: 'p',
+			} );
+			useInnerBlocksProps.save( { innerBlocks: portText } );
+
+			setAttributes( { content: portText, shareText: '' } );
+		}
+	}, [] );
 
 	return (
 		<>
@@ -35,21 +70,17 @@ const BlockContent = ( props ) => {
 				id={ uniqueId }
 			>
 				<div className="has-click-to-share-wrapper">
-					<div className="has-click-to-share-text has-click-to-share__share-text">
-						{ isBlockPreview && (
-							<>
+
+					{ isBlockPreview && (
+						<>
+							<div className="has-click-to-share-text has-click-to-share__share-text">
 								<p>Vivamus commodo nunc arcu, finibus cursus felis porta a. Nam ultrices, turpis eu fringilla molestie, lorem libero.</p>
-							</>
-						) }
-						{ ! isBlockPreview && (
-							<InnerBlocks
-								allowedBlocks={ [ 'core/paragraph' ] }
-								template={ [
-									[ 'core/paragraph', {} ],
-								] }
-							/>
-						) }
-					</div>
+							</div>
+						</>
+					) }
+					{ ! isBlockPreview && (
+						<div { ...innerBlockProps } />
+					) }
 					<div className="has-click-to-share-cta">
 						{ ( showClickToShare || isBlockPreview ) && <>{ clickText } </> }
 						{ ( showIcon || isBlockPreview ) && (

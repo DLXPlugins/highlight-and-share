@@ -256,13 +256,16 @@ const GetStyles = ( props ) => {
 	let previewStyles = '';
 	if ( isPreview) {
 		previewStyles = `
-		#${ uniqueId }.has-click-to-share p {
-			font-size: 12px;
-		}
-		#${ uniqueId }.has-click-to-share .has-click-to-share-cta,
-		#${ uniqueId }.has-click-to-share .has-click-to-share-cta svg {
-			font-size: 12px;
-		}
+			#${ uniqueId }.has-click-to-share p {
+				font-size: 12px;
+			}
+			#${ uniqueId }.has-click-to-share .has-click-to-share-cta {
+				font-size: 12px;
+			}
+			#${ uniqueId }.has-click-to-share .has-click-to-share-cta svg {
+				width: 12px !important;
+				height: 12px !important;
+			}
 		`;
 	}
 	return (

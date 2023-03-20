@@ -16,6 +16,11 @@ import BackgroundSelector from '../../react/Components/BackgroundSelector';
 /* Preset Imports */
 import PresetButton from './components/PresetButton';
 import { attributes as purpleAttributes } from './presets/purple';
+import { attributes as darkAttributes } from './presets/dark';
+import { attributes as blueAttributes } from './presets/blue';
+import { attributes as lightAttributes } from './presets/light';
+import { attributes as pinkAttributes } from './presets/pink';
+import { attributes as redAttributes } from './presets/red';
 import BlockContent from './components/BlockContent';
 
 
@@ -33,15 +38,17 @@ const {
 
 const { escapeEditableHTML } = wp.escapeHtml;
 
-const { InspectorControls, RichText, useBlockProps, InnerBlocks } = wp.blockEditor;
+const { InspectorControls, RichText, useBlockProps, InnerBlocks, useInnerBlocksProps } = wp.blockEditor;
 
 const { useInstanceId, useSelect } = wp.compose;
 
-const { create, toHTMLString } = wp.richText;
 
 const HAS_Click_To_Share = ( props ) => {
 	const [ deviceType, setDeviceType ] = useDeviceType( 'Desktop' );
 	const generatedUniqueId = useInstanceId( HAS_Click_To_Share, 'has-cts' );
+	const blockProps = useBlockProps( {
+		className: classnames( `highlight-and-share`, `align${ align }` ),
+	} );
 
 	const { attributes, setAttributes } = props;
 
@@ -103,15 +110,7 @@ const HAS_Click_To_Share = ( props ) => {
 				unit: 'px',
 				unitSync: true,
 			};
-			// Convert text over.
-			const portText = toHTMLString( {
-				// Stolen from: https://github.com/WordPress/gutenberg/pull/23562/files
-				value: create( {
-					html: shareText,
-					preserveWhiteSpace: true,
-				} ),
-				multilineTag: 'p',
-			} );
+			
 			setAttributes( {
 				paddingSize: portPadding,
 				padding: -1,
@@ -122,7 +121,6 @@ const HAS_Click_To_Share = ( props ) => {
 				borderColorHover: borderColor,
 				iconColorHover: textColor,
 				iconColor: textColor,
-				shareText: portText,
 			} );
 		}
 		// Port margin to new dimensions object.
@@ -230,12 +228,12 @@ const HAS_Click_To_Share = ( props ) => {
 			</div>
 			<PanelBody
 				title={ __( 'Presets', 'highlight-and-share' ) }
-				initialOpen={ true }
+				initialOpen={ false }
 				className="has-presets-panel"
 			>
 				<PanelRow>
 					<div className="has-presets">
-						<h3>{ __( 'Presets', 'highlight-and-share' ) }</h3>
+						<h3>{ __( 'Select a Preset', 'highlight-and-share' ) }</h3>
 						<ButtonGroup>
 							<PresetButton
 								label={ __( 'Purple Theme', 'highlight-and-share' ) }
@@ -247,16 +245,36 @@ const HAS_Click_To_Share = ( props ) => {
 							<PresetButton
 								label={ __( 'Dark Theme', 'highlight-and-share' ) }
 								setAttributes={ setAttributes }
-								attributes={ purpleAttributes }
+								attributes={ darkAttributes }
+								uniqueId={ uniqueId }
+
+							/>
+							<PresetButton
+								label={ __( 'Light Theme', 'highlight-and-share' ) }
+								setAttributes={ setAttributes }
+								attributes={ lightAttributes }
+								uniqueId={ uniqueId }
+
+							/>
+							<PresetButton
+								label={ __( 'Pink Theme', 'highlight-and-share' ) }
+								setAttributes={ setAttributes }
+								attributes={ pinkAttributes }
 								uniqueId={ uniqueId }
 
 							/>
 							<PresetButton
 								label={ __( 'Blue Theme', 'highlight-and-share' ) }
 								setAttributes={ setAttributes }
-								attributes={ purpleAttributes }
+								attributes={ blueAttributes }
 								uniqueId={ uniqueId }
 
+							/>
+							<PresetButton
+								label={ __( 'Red Theme', 'highlight-and-share' ) }
+								setAttributes={ setAttributes }
+								attributes={ redAttributes }
+								uniqueId={ uniqueId }
 							/>
 						</ButtonGroup>
 					</div>
@@ -736,13 +754,11 @@ const HAS_Click_To_Share = ( props ) => {
 	const block = (
 		<>
 			{ inspectorControls }
-			{ <BlockContent attributes={ attributes } /> }
+			{ <BlockContent attributes={ attributes } setAttributes={ setAttributes } /> }
 		</>
 	);
 
-	const blockProps = useBlockProps( {
-		className: classnames( `highlight-and-share`, `align${ align }` ),
-	} );
+	
 
 	return (
 		<>

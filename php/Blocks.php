@@ -413,7 +413,7 @@ class Blocks {
 			<div class="has-click-to-share-wrapper">
 				<div class="has-click-to-share-text" data-text-full="<?php echo esc_attr( esc_html( wp_strip_all_tags( $attributes['shareText'] ) ) ); ?>">
 					<?php
-					// Make sure shareTextInner isn't empty.
+					// Make sure shareText isn't empty. If it is, use InnerBlocks content instead.
 					if ( empty( $content ) && ! empty( $attributes['shareText'] ) ) {
 						echo wp_kses_post( $attributes['shareText'] );
 					} elseif ( ! empty( $content ) ) {

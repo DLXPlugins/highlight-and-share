@@ -90,6 +90,7 @@ const HASGradientPicker = ( props ) => {
 						value={ value }
 						onChange={ onChange }
 						clearable={ clearable }
+						gradients={ [] }
 					/>
 				</Popover>
 			) }

@@ -1,14 +1,16 @@
 const attributes = {
-	uniqueId: 'has-purple-preview',
-	backgroundColor: '#8364E8',
-	backgroundColorHover: '#714EE5',
-	backgroundType: 'solid',
+	uniqueId: 'has-red-preview',
+	backgroundType: 'gradient',
+	backgroundGradient: 'linear-gradient(90deg, hsla(14, 90%, 73%, 1) 0%, hsla(331, 54%, 44%, 1) 100%)',
+	backgroundGradientHover: 'linear-gradient(90deg, hsla(14, 65%, 67%, 1) 0%, hsla(331, 55%, 37%, 1) 100%)',
 	iconColor: '#FFFFFF',
 	iconColorHover: '#FFFFFF',
 	textColor: '#FFFFFF',
 	textColorHover: '#FFFFFF',
 	shareTextColor: '#FFFFFF',
 	shareTextColorHover: '#FFFFFF',
+	borderColor: '#76244C',
+	borderColorHover: '#76244C',
 	clickText: 'Click to share',
 	paddingSize: {
 		mobile: {

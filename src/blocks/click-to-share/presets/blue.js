@@ -1,7 +1,7 @@
 const attributes = {
-	uniqueId: 'has-purple-preview',
-	backgroundColor: '#8364E8',
-	backgroundColorHover: '#714EE5',
+	uniqueId: 'has-blue-preview',
+	backgroundColor: '#6468E8',
+	backgroundColorHover: '#5A5EE9',
 	backgroundType: 'solid',
 	iconColor: '#FFFFFF',
 	iconColorHover: '#FFFFFF',
@@ -9,6 +9,8 @@ const attributes = {
 	textColorHover: '#FFFFFF',
 	shareTextColor: '#FFFFFF',
 	shareTextColorHover: '#FFFFFF',
+	borderColor: '#4D52EF',
+	borderColorHover: '#4D52EF',
 	clickText: 'Click to share',
 	paddingSize: {
 		mobile: {
@@ -145,8 +147,8 @@ const attributes = {
 			fontType: 'web',
 		},
 		desktop: {
-			fontFamily: 'Lato',
-			fontFamilySlug: 'lato',
+			fontFamily: 'Raleway',
+			fontFamilySlug: 'raleway',
 			fontSize: '24',
 			fontSizeUnit: 'px',
 			fontWeight: 'normal',
@@ -189,8 +191,8 @@ const attributes = {
 			fontFallback: 'sans-serif',
 		},
 		desktop: {
-			fontFamily: 'Lato',
-			fontFamilySlug: 'lato',
+			fontFamily: 'Raleway',
+			fontFamilySlug: 'raleway',
 			fontSize: '24',
 			fontSizeUnit: 'px',
 			fontWeight: 'normal',
