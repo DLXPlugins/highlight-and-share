@@ -50,7 +50,7 @@ const HAS_Click_To_Share = ( props ) => {
 		className: classnames( `highlight-and-share`, `align${ align }` ),
 	} );
 
-	const { attributes, setAttributes } = props;
+	const { attributes, setAttributes, clientId } = props;
 
 	const {
 		shareText,
@@ -754,7 +754,7 @@ const HAS_Click_To_Share = ( props ) => {
 	const block = (
 		<>
 			{ inspectorControls }
-			{ <BlockContent attributes={ attributes } setAttributes={ setAttributes } /> }
+			{ <BlockContent attributes={ attributes } setAttributes={ setAttributes } clientId={ clientId } /> }
 		</>
 	);
 

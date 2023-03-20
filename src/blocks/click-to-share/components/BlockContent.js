@@ -1,20 +1,20 @@
 import React, { useEffect, useState, useRef } from 'react';
 import classnames from 'classnames';
-const { InnerBlocks, useInnerBlocksProps } = wp.blockEditor;
+const { useInnerBlocksProps, RichText, store } = wp.blockEditor;
+import { useDispatch } from '@wordpress/data';
 
-import { parse } from '@wordpress/block-serialization-default-parser';
-
-
-const { create, toHTMLString } = wp.richText;
-
+import { rawHandler } from '@wordpress/blocks';
 
 import GetFontStyles from './GetFontStyles';
 import GetStyles from './GetStyles';
 
 const BlockContent = ( props ) => {
-	const { attributes, setAttributes, isPreview } = props;
+	const { attributes, setAttributes, isPreview, clientId } = props;
 
 	const innerBlocksRef = useRef(null);
+
+	const { replaceInnerBlocks } =
+		useDispatch( store );
 
 
 	const innerBlockProps = useInnerBlocksProps(
@@ -47,22 +47,13 @@ const BlockContent = ( props ) => {
 	 */
 	useEffect( () => {
 		// Port shareText attribute to use innerBlocks instead.
-		let blah = "";
-		if ( blah !== '' && null !== innerBlocksRef.current ) {
-			// Convert text over.
-			const portText = toHTMLString( {
-				// Stolen from: https://github.com/WordPress/gutenberg/pull/23562/files
-				value: create( {
-					html: blah,
-					preserveWhiteSpace: false,
-				} ),
-				multilineTag: 'p',
-			} );
-			console.log( parse( blah ) );
-			
-			setAttributes( { content: portText, innerBlocks: portText, shareText: '' } );
+		if ( shareText !== '' && null !== innerBlocksRef.current ) {
+			// Convert text over to blocks.
+			const richTextConvertedToBlocks = rawHandler( { HTML: shareText } );
+			replaceInnerBlocks( clientId, richTextConvertedToBlocks );
+			setAttributes( { shareText: '' } );
 		}
-	}, [innerBlocksRef] );
+	}, [ innerBlocksRef ] );
 
 	return (
 		<>
@@ -87,7 +78,9 @@ const BlockContent = ( props ) => {
 						</>
 					) }
 					{ ! isBlockPreview && (
-						<div { ...innerBlockProps } />
+						<>
+							<div { ...innerBlockProps } />
+						</>
 					) }
 					<div className="has-click-to-share-cta">
 						{ ( showClickToShare || isBlockPreview ) && <>{ clickText } </> }

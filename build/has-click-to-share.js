@@ -13,10 +13,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _wordpress_block_serialization_default_parser__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/block-serialization-default-parser */ "@wordpress/block-serialization-default-parser");
-/* harmony import */ var _wordpress_block_serialization_default_parser__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_serialization_default_parser__WEBPACK_IMPORTED_MODULE_2__);
-/* harmony import */ var _GetFontStyles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./GetFontStyles */ "./src/blocks/click-to-share/components/GetFontStyles.js");
-/* harmony import */ var _GetStyles__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./GetStyles */ "./src/blocks/click-to-share/components/GetStyles.js");
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/data */ "@wordpress/data");
+/* harmony import */ var _wordpress_data__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_data__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/blocks */ "@wordpress/blocks");
+/* harmony import */ var _wordpress_blocks__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_blocks__WEBPACK_IMPORTED_MODULE_3__);
+/* harmony import */ var _GetFontStyles__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./GetFontStyles */ "./src/blocks/click-to-share/components/GetFontStyles.js");
+/* harmony import */ var _GetStyles__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./GetStyles */ "./src/blocks/click-to-share/components/GetStyles.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
@@ -26,19 +28,21 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 var _wp$blockEditor = wp.blockEditor,
-  InnerBlocks = _wp$blockEditor.InnerBlocks,
-  useInnerBlocksProps = _wp$blockEditor.useInnerBlocksProps;
+  useInnerBlocksProps = _wp$blockEditor.useInnerBlocksProps,
+  RichText = _wp$blockEditor.RichText,
+  store = _wp$blockEditor.store;
 
-var _wp$richText = wp.richText,
-  create = _wp$richText.create,
-  toHTMLString = _wp$richText.toHTMLString;
+
 
 
 var BlockContent = function BlockContent(props) {
   var attributes = props.attributes,
     setAttributes = props.setAttributes,
-    isPreview = props.isPreview;
+    isPreview = props.isPreview,
+    clientId = props.clientId;
   var innerBlocksRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
+  var _useDispatch = (0,_wordpress_data__WEBPACK_IMPORTED_MODULE_2__.useDispatch)(store),
+    replaceInnerBlocks = _useDispatch.replaceInnerBlocks;
   var innerBlockProps = useInnerBlocksProps({
     className: 'has-click-to-share-text has-click-to-share__share-text',
     ref: innerBlocksRef
@@ -66,30 +70,22 @@ var BlockContent = function BlockContent(props) {
    */
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     // Port shareText attribute to use innerBlocks instead.
-    var blah = "";
-    if (blah !== '' && null !== innerBlocksRef.current) {
-      // Convert text over.
-      var portText = toHTMLString({
-        // Stolen from: https://github.com/WordPress/gutenberg/pull/23562/files
-        value: create({
-          html: blah,
-          preserveWhiteSpace: false
-        }),
-        multilineTag: 'p'
+    if (shareText !== '' && null !== innerBlocksRef.current) {
+      // Convert text over to blocks.
+      var richTextConvertedToBlocks = (0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_3__.rawHandler)({
+        HTML: shareText
       });
-      console.log((0,_wordpress_block_serialization_default_parser__WEBPACK_IMPORTED_MODULE_2__.parse)(blah));
+      replaceInnerBlocks(clientId, richTextConvertedToBlocks);
       setAttributes({
-        content: portText,
-        innerBlocks: portText,
         shareText: ''
       });
     }
   }, [innerBlocksRef]);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_GetFontStyles__WEBPACK_IMPORTED_MODULE_3__["default"], {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_GetFontStyles__WEBPACK_IMPORTED_MODULE_4__["default"], {
     fontObject: typographyQuote
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_GetFontStyles__WEBPACK_IMPORTED_MODULE_3__["default"], {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_GetFontStyles__WEBPACK_IMPORTED_MODULE_4__["default"], {
     fontObject: typographyShareText
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_GetStyles__WEBPACK_IMPORTED_MODULE_4__["default"], {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_GetStyles__WEBPACK_IMPORTED_MODULE_5__["default"], {
     attributes: attributes,
     isPreview: isBlockPreview
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
@@ -103,7 +99,7 @@ var BlockContent = function BlockContent(props) {
     className: "has-click-to-share-wrapper"
   }, isBlockPreview && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "has-click-to-share-text has-click-to-share__share-text"
-  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "Vivamus commodo nunc arcu, finibus cursus felis porta a. Nam ultrices, turpis eu fringilla molestie, lorem libero."))), !isBlockPreview && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", innerBlockProps), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, "Vivamus commodo nunc arcu, finibus cursus felis porta a. Nam ultrices, turpis eu fringilla molestie, lorem libero."))), !isBlockPreview && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", innerBlockProps)), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "has-click-to-share-cta"
   }, (showClickToShare || isBlockPreview) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, clickText, " "), (showIcon || isBlockPreview) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("svg", {
     style: {
@@ -344,11 +340,11 @@ var PresetButton = function PresetButton(props) {
     }
   }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Cancel', 'highlight-and-share')))), showPopover && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Popover, {
     className: "has-preset-popover",
-    placement: "left-start",
+    placement: "left",
     onClose: function onClose() {
       return handlePopoverClose(false);
     },
-    noArrow: false,
+    noArrow: true,
     anchorRef: previewButton
   }, popoverContent())));
 };
@@ -456,7 +452,8 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
     className: classnames__WEBPACK_IMPORTED_MODULE_0___default()("highlight-and-share", "align".concat(align))
   });
   var attributes = props.attributes,
-    setAttributes = props.setAttributes;
+    setAttributes = props.setAttributes,
+    clientId = props.clientId;
   var shareText = attributes.shareText,
     backgroundType = attributes.backgroundType,
     backgroundColor = attributes.backgroundColor,
@@ -1049,7 +1046,8 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
   })))));
   var block = /*#__PURE__*/React.createElement(React.Fragment, null, inspectorControls, /*#__PURE__*/React.createElement(_components_BlockContent__WEBPACK_IMPORTED_MODULE_18__["default"], {
     attributes: attributes,
-    setAttributes: setAttributes
+    setAttributes: setAttributes,
+    clientId: clientId
   }));
   return /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement("div", blockProps, block));
 };
@@ -6437,14 +6435,14 @@ module.exports = window["wp"]["blockEditor"];
 
 /***/ }),
 
-/***/ "@wordpress/block-serialization-default-parser":
-/*!*********************************************************!*\
-  !*** external ["wp","blockSerializationDefaultParser"] ***!
-  \*********************************************************/
+/***/ "@wordpress/blocks":
+/*!********************************!*\
+  !*** external ["wp","blocks"] ***!
+  \********************************/
 /***/ (function(module) {
 
 "use strict";
-module.exports = window["wp"]["blockSerializationDefaultParser"];
+module.exports = window["wp"]["blocks"];
 
 /***/ }),
 

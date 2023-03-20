@@ -76,9 +76,9 @@ const PresetButton = ( props ) => {
 				<>
 					<Popover
 						className="has-preset-popover"
-						placement="left-start"
+						placement="left"
 						onClose={ () => handlePopoverClose( false ) }
-						noArrow={ false }
+						noArrow={ true }
 						anchorRef={ previewButton }
 					>
 						{ popoverContent() }
