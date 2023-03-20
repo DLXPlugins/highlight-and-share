@@ -10,14 +10,14 @@ import GradientSync from '../../react/Components/GradientSync';
 import GradientGenerator from '../../react/Components/GradientGenerator';
 import DimensionsControlBlock from '../../react/Components/DimensionsBlock';
 import useDeviceType from '../../react/Hooks/useDeviceType';
-import { buildDimensionsCSS } from '../../react/Utils/DimensionsHelper';
 import UnitChooser from '../../react/Components/unit-picker';
 import Typography from '../../react/Components/Typography';
 import BackgroundSelector from '../../react/Components/BackgroundSelector';
-import {
-	geHierarchicalPlaceholderValue,
-	getHierarchicalValueUnit,
-} from '../../react/Utils/TypographyHelper';
+/* Preset Imports */
+import PresetButton from './components/PresetButton';
+import { attributes as purpleAttributes } from './presets/purple';
+import BlockContent from './components/BlockContent';
+
 
 const { __ } = wp.i18n;
 
@@ -86,7 +86,6 @@ const HAS_Click_To_Share = ( props ) => {
 		uniqueId,
 		typographyQuote,
 		typographyShareText,
-		content,
 	} = attributes;
 
 	useEffect( () => {
@@ -186,249 +185,7 @@ const HAS_Click_To_Share = ( props ) => {
 		}
 	}, [] );
 
-	const getFontStyles = ( fontObject ) => {
-		const fontType = fontObject[ deviceType.toLowerCase() ].fontType;
-		const fontSlug = fontObject[ deviceType.toLowerCase() ].fontFamilySlug;
-		if ( 'google' === fontType ) {
-			return (
-				<>
-					<link
-						rel="stylesheet"
-						href={ `${ has_gutenberg.cssFolder }/has-gfont-${ fontSlug }.css` }
-					/>
-				</>
-			);
-		}
-		if ( 'adobe' === fontType ) {
-			return (
-				<>
-					<link
-						rel="stylesheet"
-						href={ `${ has_gutenberg.adobeFontsUrl }/${ has_gutenberg.adobeProjectId }.css` }
-					/>
-				</>
-			);
-		}
-		return null;
-	};
-
-	const screenSize = deviceType.toLowerCase();
-	const styles = `
-		#${ uniqueId }.has-click-to-share {
-			margin: ${ buildDimensionsCSS( marginSize, deviceType ) };
-			border-radius: ${ buildDimensionsCSS( borderRadiusSize, deviceType ) };
-			border-style: solid;
-			border-width: ${ buildDimensionsCSS( borderWidth, deviceType ) };
-			max-width: ${ maxWidth }${ maxWidthUnit };
-			overflow: hidden;
-		}
-		#${ uniqueId }.has-click-to-share .has-click-to-share-cta,
-		#${ uniqueId }.has-click-to-share .has-click-to-share-text {
-			position: relative;
-			z-index: 2;
-		}
-		#${ uniqueId }.has-click-to-share .has-click-to-share-wrapper {
-			position: relative;
-			padding: ${ buildDimensionsCSS( paddingSize, deviceType ) };
-			font-size: ${ clickShareFontSize }px;
-		}
-		#${ uniqueId }.has-click-to-share.has-background-color {
-			background-color: ${ backgroundColor };
-		}
-		#${ uniqueId }.has-click-to-share.has-background-color:hover {
-			background-color: ${ backgroundColorHover };
-		}
-		#${ uniqueId }.has-click-to-share.has-background-gradient {
-			background-image: ${ backgroundGradient };
-		}
-		#${ uniqueId }.has-click-to-share.has-background-gradient:hover {
-			background-image: ${ backgroundGradientHover };
-		}
-		#${ uniqueId }.has-click-to-share {
-			border-color: ${ borderColor };
-		}
-		#${ uniqueId }.has-click-to-share:hover {
-			border-color: ${ borderColorHover };
-		}
-		
-		#${ uniqueId } .has-click-to-share-cta {
-			color: ${ shareTextColor }
-		}
-		#${ uniqueId }:hover .has-click-to-share-cta {
-			color: ${ shareTextColorHover }
-		}
-		#${ uniqueId } .has-click-to-share-text,
-		#${ uniqueId } .has-click-to-share-text p {
-			color: ${ textColor };
-		}
-		#${ uniqueId }:hover .has-click-to-share-text,
-		#${ uniqueId }:hover .has-click-to-share-text p {
-			color: ${ textColorHover };
-		}
-		#${ uniqueId } .has-click-to-share-cta svg {
-			color: ${ iconColor };
-		}
-		#${ uniqueId }:hover .has-click-to-share-cta svg {
-			color: ${ iconColorHover };
-		}
-		#${ uniqueId } .has-click-to-share-text,
-		#${ uniqueId } .has-click-to-share-text p {
-			font-family: "${ geHierarchicalPlaceholderValue(
-		typographyQuote,
-		screenSize,
-		typographyQuote[ screenSize ].fontFamily,
-		'fontFamily'
-	) }";
-			font-weight: ${ geHierarchicalPlaceholderValue(
-		typographyQuote,
-		screenSize,
-		typographyQuote[ screenSize ].fontWeight,
-		'fontWeight'
-	) };
-			font-size: ${
-	geHierarchicalPlaceholderValue(
-		typographyQuote,
-		screenSize,
-		typographyQuote[ screenSize ].fontSize,
-		'fontSize'
-	) +
-				getHierarchicalValueUnit(
-					typographyQuote,
-					screenSize,
-					typographyQuote[ screenSize ].fontSizeUnit,
-					'fontSizeUnit'
-				)
-};
-			line-height: ${
-	geHierarchicalPlaceholderValue(
-		typographyQuote,
-		screenSize,
-		typographyQuote[ screenSize ].lineHeight,
-		'lineHeight'
-	) +
-				getHierarchicalValueUnit(
-					typographyQuote,
-					screenSize,
-					typographyQuote[ screenSize ].lineHeightUnit,
-					'lineHeightUnit'
-				)
-};
-			letter-spacing: ${
-	geHierarchicalPlaceholderValue(
-		typographyQuote,
-		screenSize,
-		typographyQuote[ screenSize ].letterSpacing,
-		'letterSpacing'
-	) +
-				getHierarchicalValueUnit(
-					typographyQuote,
-					screenSize,
-					typographyQuote[ screenSize ].letterSpacingUnit,
-					'letterSpacingUnit'
-				)
-};
-			text-transform: ${ geHierarchicalPlaceholderValue(
-		typographyQuote,
-		screenSize,
-		typographyQuote[ screenSize ].textTransform,
-		'textTransform'
-	) };
-		}
-		#${ uniqueId } .has-click-to-share-cta,
-		#${ uniqueId } .has-click-to-share-cta p {
-			font-family: "${ geHierarchicalPlaceholderValue(
-		typographyShareText,
-		screenSize,
-		typographyShareText[ screenSize ].fontFamily,
-		'fontFamily'
-	) }";
-			font-weight: ${ geHierarchicalPlaceholderValue(
-		typographyShareText,
-		screenSize,
-		typographyShareText[ screenSize ].fontWeight,
-		'fontWeight'
-	) };
-			font-size: ${
-	geHierarchicalPlaceholderValue(
-		typographyShareText,
-		screenSize,
-		typographyShareText[ screenSize ].fontSize,
-		'fontSize'
-	) +
-				getHierarchicalValueUnit(
-					typographyShareText,
-					screenSize,
-					typographyShareText[ screenSize ].fontSizeUnit,
-					'fontSizeUnit'
-				)
-};
-			line-height: ${
-	geHierarchicalPlaceholderValue(
-		typographyShareText,
-		screenSize,
-		typographyShareText[ screenSize ].lineHeight,
-		'lineHeight'
-	) +
-				getHierarchicalValueUnit(
-					typographyShareText,
-					screenSize,
-					typographyShareText[ screenSize ].lineHeightUnit,
-					'lineHeightUnit'
-				)
-};
-			letter-spacing: ${
-	geHierarchicalPlaceholderValue(
-		typographyShareText,
-		screenSize,
-		typographyShareText[ screenSize ].letterSpacing,
-		'letterSpacing'
-	) +
-				getHierarchicalValueUnit(
-					typographyShareText,
-					screenSize,
-					typographyShareText[ screenSize ].letterSpacingUnit,
-					'letterSpacingUnit'
-				)
-};
-			text-transform: ${ geHierarchicalPlaceholderValue(
-		typographyShareText,
-		screenSize,
-		typographyShareText[ screenSize ].textTransform,
-		'textTransform'
-	) };
-		}
-	`;
-
-	let backgroundImageStyles = '';
-	if ( 'image' === backgroundType ) {
-		backgroundImageStyles = `
-		#${ uniqueId }.has-click-to-share.has-background-image {
-			background-color: ${ backgroundImage.backgroundColor };
-		}
-		#${ uniqueId }.has-click-to-share.has-background-image .has-click-to-share-wrapper:after{
-			display: block;
-			content: '';
-			width: 100%;
-			height: 100%;
-			position: absolute;
-			top: 0;
-			left: 0;
-			z-index: 1;
-			background-image: url('${ decodeURIComponent(
-		encodeURIComponent( backgroundImage.url )
-	) } ');
-			background-position: ${ escapeEditableHTML(
-		backgroundImage.backgroundPosition
-	) };
-			background-repeat: ${ escapeEditableHTML( backgroundImage.backgroundRepeat ) };
-			background-size: ${ escapeEditableHTML( backgroundImage.backgroundSize ) };
-			opacity: ${ parseFloat( backgroundImage.backgroundOpacity ) };
-		}
-		#${ uniqueId }.has-click-to-share.has-background-image .has-click-to-share-wrapper:hover:after {
-			opacity: ${ parseFloat( backgroundImage.backgroundOpacityHover ) };
-		}
-		`;
-	}
+	
 
 	/* For sticky responsive: forked from GenerateBlocks */
 	const panelHeader = document.querySelector(
@@ -471,6 +228,40 @@ const HAS_Click_To_Share = ( props ) => {
 					/>
 				</ButtonGroup>
 			</div>
+			<PanelBody
+				title={ __( 'Presets', 'highlight-and-share' ) }
+				initialOpen={ true }
+				className="has-presets-panel"
+			>
+				<PanelRow>
+					<div className="has-presets">
+						<h3>{ __( 'Presets', 'highlight-and-share' ) }</h3>
+						<ButtonGroup>
+							<PresetButton
+								label={ __( 'Purple Theme', 'highlight-and-share' ) }
+								setAttributes={ setAttributes }
+								attributes={ purpleAttributes }
+								uniqueId={ uniqueId }
+
+							/>
+							<PresetButton
+								label={ __( 'Dark Theme', 'highlight-and-share' ) }
+								setAttributes={ setAttributes }
+								attributes={ purpleAttributes }
+								uniqueId={ uniqueId }
+
+							/>
+							<PresetButton
+								label={ __( 'Blue Theme', 'highlight-and-share' ) }
+								setAttributes={ setAttributes }
+								attributes={ purpleAttributes }
+								uniqueId={ uniqueId }
+
+							/>
+						</ButtonGroup>
+					</div>
+				</PanelRow>
+			</PanelBody>
 			{ deviceType === 'Desktop' && (
 				<PanelBody
 					title={ __( 'Share Settings', 'highlight-and-share' ) }
@@ -945,57 +736,7 @@ const HAS_Click_To_Share = ( props ) => {
 	const block = (
 		<>
 			{ inspectorControls }
-			{ getFontStyles( typographyQuote ) }
-			{ getFontStyles( typographyShareText ) }
-			<style>{ styles }</style>
-			{ 'image' === backgroundType && ( 
-				<style>
-					{ backgroundImageStyles }
-				</style>
-			) }
-			<div
-				className={ classnames( 'has-click-to-share', {
-					'has-background-color': 'solid' === backgroundType,
-					'has-background-gradient': 'gradient' === backgroundType,
-					'has-background-image': 'image' === backgroundType,
-				} ) }
-				id={ uniqueId }
-			>
-				<div className="has-click-to-share-wrapper">
-					<div className="has-click-to-share-text has-click-to-share__share-text">
-						<InnerBlocks
-							allowedBlocks={['core/paragraph']}
-							template={[
-							['core/paragraph', {}],
-							]}
-						/>
-					</div>
-					<div className="has-click-to-share-cta">
-						{ showClickToShare && <>{ clickText } </> }
-						{ showIcon && (
-							<svg
-								style={ {
-									width: iconSize,
-									height: iconSize,
-								} }
-								aria-hidden="true"
-								focusable="false"
-								data-prefix="fas"
-								data-icon="share-alt"
-								className="svg-inline--fa fa-share-alt fa-w-14"
-								role="img"
-								xmlns="http://www.w3.org/2000/svg"
-								viewBox="0 0 448 512"
-							>
-								<path
-									fill="currentColor"
-									d="M352 320c-22.608 0-43.387 7.819-59.79 20.895l-102.486-64.054a96.551 96.551 0 0 0 0-41.683l102.486-64.054C308.613 184.181 329.392 192 352 192c53.019 0 96-42.981 96-96S405.019 0 352 0s-96 42.981-96 96c0 7.158.79 14.13 2.276 20.841L155.79 180.895C139.387 167.819 118.608 160 96 160c-53.019 0-96 42.981-96 96s42.981 96 96 96c22.608 0 43.387-7.819 59.79-20.895l102.486 64.054A96.301 96.301 0 0 0 256 416c0 53.019 42.981 96 96 96s96-42.981 96-96-42.981-96-96-96z"
-								></path>
-							</svg>
-						) }
-					</div>
-				</div>
-			</div>
+			{ <BlockContent attributes={ attributes } /> }
 		</>
 	);
 

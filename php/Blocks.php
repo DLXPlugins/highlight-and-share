@@ -35,7 +35,7 @@ class Blocks {
 			add_action( 'enqueue_block_assets', array( $self, 'enqueue_frontend_assets' ) );
 			add_action( 'wp_enqueue_scripts', array( $self, 'register_font_scripts' ) );
 			add_action( 'admin_enqueue_scripts', array( $self, 'register_font_scripts' ) );
-			add_filter( 'block_categories', array( $self, 'register_block_category' ), 10, 2 );
+			add_filter( 'block_categories_all', array( $self, 'register_block_category' ), 10, 2 );
 		}
 		return $self;
 	}

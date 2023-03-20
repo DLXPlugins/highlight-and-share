@@ -382,17 +382,6 @@
 					"fontFallback": "sans-serif"
 				}
 			}
-		},
-		"content": {
-			"type": "array",
-			"default": [
-				{
-				  "name": "core/paragraph",
-				  "attributes": {
-					"content": ""
-				  }
-				}
-			  ]
 		}
 	},
 	"supports": {

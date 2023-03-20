@@ -462,6 +462,29 @@
 		}
 	}
 }
+.has-presets-panel {
+	.components-panel__row {
+		width: 100%;
+	}
+}
+.has-presets {
+	display: block;
+	width: 100%;
+	margin-bottom: 15px;
+
+	.components-button-group {
+		display: grid;
+		grid-template-columns: 1fr 1fr;
+		grid-gap: 15px;
+		row-gap: 15px;
+
+		button {
+			display: block;
+			width: 100%;
+			text-align: center;
+		}
+	}
+}
 .has-background-gradient,
 .has-background-gradient-sync,
 .has-background-gradient-generator{
@@ -553,4 +576,28 @@
 .edit-post-visual-editor .has-click-to-share-text p {
 	margin: 0;
 	margin-bottom: 0.5rem;
+}
+
+/* Popover container */
+.has-preset-popover {
+	position: relative;
+	padding: 25px;
+	top: 24px !important;
+	.components-popover__content {
+		.has-click-to-share {
+			margin: 20px !important;
+			width: 235px;
+
+		}
+		~ .components-popover__arrow {
+			top: unset !important;
+			bottom: 34px;
+			right: 10px !important;
+		}
+	}
+}
+
+/* Preset Modal Button */
+.has-preset-modal-apply-button {
+	margin-right: 8px;
 }

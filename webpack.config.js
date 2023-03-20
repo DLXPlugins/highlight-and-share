@@ -47,6 +47,7 @@ module.exports = ( env ) => {
 			resolve: {
 				alias: {
 					react: path.resolve( 'node_modules/react' ),
+					React: path.resolve( 'node_modules/react' ),
 					'react-dom': path.resolve( 'node_modules/react-dom' ),
 					lodash: path.resolve( 'node_modules/lodash' ),
 					'@wordpress/i18n': path.resolve( 'node_modules/@wordpress/i18n' ),
