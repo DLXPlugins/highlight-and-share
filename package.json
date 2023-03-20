@@ -28,6 +28,7 @@
 		"@types/photoswipe": "^4.1.2",
 		"@types/react": "^18.0.23",
 		"@wordpress/block-editor": "^11.6.0",
+		"@wordpress/block-serialization-default-parser": "^4.29.0",
 		"@wordpress/blocks": "^12.6.0",
 		"@wordpress/components": "^22.0.0",
 		"@wordpress/element": "^4.9.0",

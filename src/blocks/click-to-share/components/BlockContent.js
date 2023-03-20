@@ -1,6 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useRef } from 'react';
 import classnames from 'classnames';
 const { InnerBlocks, useInnerBlocksProps } = wp.blockEditor;
+
+import { parse } from '@wordpress/block-serialization-default-parser';
+
 
 const { create, toHTMLString } = wp.richText;
 
@@ -11,9 +14,13 @@ import GetStyles from './GetStyles';
 const BlockContent = ( props ) => {
 	const { attributes, setAttributes, isPreview } = props;
 
+	const innerBlocksRef = useRef(null);
+
+
 	const innerBlockProps = useInnerBlocksProps(
 		{
 			className: 'has-click-to-share-text has-click-to-share__share-text',
+			ref: innerBlocksRef,
 		},
 		{
 			allowedBlocks: [ 'core/paragraph' ],
@@ -22,6 +29,7 @@ const BlockContent = ( props ) => {
 	);
 	const [ isBlockPreview ] = useState( isPreview ?? false );
 
+	
 	const {
 		shareText,
 		backgroundType,
@@ -39,22 +47,22 @@ const BlockContent = ( props ) => {
 	 */
 	useEffect( () => {
 		// Port shareText attribute to use innerBlocks instead.
-		let blah = "This is a richtext component.\n\nHi there.";
-		if ( blah !== '' ) {
+		let blah = "";
+		if ( blah !== '' && null !== innerBlocksRef.current ) {
 			// Convert text over.
 			const portText = toHTMLString( {
 				// Stolen from: https://github.com/WordPress/gutenberg/pull/23562/files
 				value: create( {
 					html: blah,
-					preserveWhiteSpace: true,
+					preserveWhiteSpace: false,
 				} ),
 				multilineTag: 'p',
 			} );
-			useInnerBlocksProps.save( { innerBlocks: portText } );
-
-			setAttributes( { content: portText, shareText: '' } );
+			console.log( parse( blah ) );
+			
+			setAttributes( { content: portText, innerBlocks: portText, shareText: '' } );
 		}
-	}, [] );
+	}, [innerBlocksRef] );
 
 	return (
 		<>

@@ -1,6 +1,6 @@
 import metadata from './block.json';
 const { registerBlockType } = wp.blocks;
-const { InnerBlocks } = wp.blockEditor;
+const { InnerBlocks, RichText } = wp.blockEditor;
 
 // Import JS
 import edit from './edit';
@@ -18,27 +18,6 @@ registerBlockType( metadata, {
 	save() {
 		return <InnerBlocks.Content />;
 	},
-	deprecated: [
-		{
-			attributes: {
-				shareText: {
-					type: 'string',
-				},
-			},
-			migrate( attributes ) {
-				// Migrate the RichText content to the new InnerBlock
-				const portText = wp.blocks.rawHandler( {
-					HTML: attributes.shareText,
-					mode: 'BLOCKS',
-				} );
-
-				return portText;
-			},
-			save() {
-				return null;
-			},
-		},
-	],
 } );
 
 ( function() {

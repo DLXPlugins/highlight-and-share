@@ -13,8 +13,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _GetFontStyles__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./GetFontStyles */ "./src/blocks/click-to-share/components/GetFontStyles.js");
-/* harmony import */ var _GetStyles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./GetStyles */ "./src/blocks/click-to-share/components/GetStyles.js");
+/* harmony import */ var _wordpress_block_serialization_default_parser__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/block-serialization-default-parser */ "@wordpress/block-serialization-default-parser");
+/* harmony import */ var _wordpress_block_serialization_default_parser__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_block_serialization_default_parser__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _GetFontStyles__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./GetFontStyles */ "./src/blocks/click-to-share/components/GetFontStyles.js");
+/* harmony import */ var _GetStyles__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./GetStyles */ "./src/blocks/click-to-share/components/GetStyles.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
@@ -26,6 +28,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 var _wp$blockEditor = wp.blockEditor,
   InnerBlocks = _wp$blockEditor.InnerBlocks,
   useInnerBlocksProps = _wp$blockEditor.useInnerBlocksProps;
+
 var _wp$richText = wp.richText,
   create = _wp$richText.create,
   toHTMLString = _wp$richText.toHTMLString;
@@ -35,8 +38,10 @@ var BlockContent = function BlockContent(props) {
   var attributes = props.attributes,
     setAttributes = props.setAttributes,
     isPreview = props.isPreview;
+  var innerBlocksRef = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   var innerBlockProps = useInnerBlocksProps({
-    className: 'has-click-to-share-text has-click-to-share__share-text'
+    className: 'has-click-to-share-text has-click-to-share__share-text',
+    ref: innerBlocksRef
   }, {
     allowedBlocks: ['core/paragraph'],
     template: [['core/paragraph', {
@@ -61,31 +66,30 @@ var BlockContent = function BlockContent(props) {
    */
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     // Port shareText attribute to use innerBlocks instead.
-    var blah = "This is a richtext component.\n\nHi there.";
-    if (blah !== '') {
+    var blah = "";
+    if (blah !== '' && null !== innerBlocksRef.current) {
       // Convert text over.
       var portText = toHTMLString({
         // Stolen from: https://github.com/WordPress/gutenberg/pull/23562/files
         value: create({
           html: blah,
-          preserveWhiteSpace: true
+          preserveWhiteSpace: false
         }),
         multilineTag: 'p'
       });
-      useInnerBlocksProps.save({
-        innerBlocks: portText
-      });
+      console.log((0,_wordpress_block_serialization_default_parser__WEBPACK_IMPORTED_MODULE_2__.parse)(blah));
       setAttributes({
         content: portText,
+        innerBlocks: portText,
         shareText: ''
       });
     }
-  }, []);
-  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_GetFontStyles__WEBPACK_IMPORTED_MODULE_2__["default"], {
+  }, [innerBlocksRef]);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_GetFontStyles__WEBPACK_IMPORTED_MODULE_3__["default"], {
     fontObject: typographyQuote
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_GetFontStyles__WEBPACK_IMPORTED_MODULE_2__["default"], {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_GetFontStyles__WEBPACK_IMPORTED_MODULE_3__["default"], {
     fontObject: typographyShareText
-  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_GetStyles__WEBPACK_IMPORTED_MODULE_3__["default"], {
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_GetStyles__WEBPACK_IMPORTED_MODULE_4__["default"], {
     attributes: attributes,
     isPreview: isBlockPreview
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
@@ -6433,6 +6437,17 @@ module.exports = window["wp"]["blockEditor"];
 
 /***/ }),
 
+/***/ "@wordpress/block-serialization-default-parser":
+/*!*********************************************************!*\
+  !*** external ["wp","blockSerializationDefaultParser"] ***!
+  \*********************************************************/
+/***/ (function(module) {
+
+"use strict";
+module.exports = window["wp"]["blockSerializationDefaultParser"];
+
+/***/ }),
+
 /***/ "@wordpress/components":
 /*!************************************!*\
   !*** external ["wp","components"] ***!
@@ -8912,7 +8927,9 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _edit__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./edit */ "./src/blocks/click-to-share/edit.js");
 
 var registerBlockType = wp.blocks.registerBlockType;
-var InnerBlocks = wp.blockEditor.InnerBlocks;
+var _wp$blockEditor = wp.blockEditor,
+  InnerBlocks = _wp$blockEditor.InnerBlocks,
+  RichText = _wp$blockEditor.RichText;
 
 // Import JS
 
@@ -8936,25 +8953,7 @@ registerBlockType(_block_json__WEBPACK_IMPORTED_MODULE_0__, {
   // Render via PHP
   save: function save() {
     return /*#__PURE__*/React.createElement(InnerBlocks.Content, null);
-  },
-  deprecated: [{
-    attributes: {
-      shareText: {
-        type: 'string'
-      }
-    },
-    migrate: function migrate(attributes) {
-      // Migrate the RichText content to the new InnerBlock
-      var portText = wp.blocks.rawHandler({
-        HTML: attributes.shareText,
-        mode: 'BLOCKS'
-      });
-      return portText;
-    },
-    save: function save() {
-      return null;
-    }
-  }]
+  }
 });
 (function () {
   wp.blocks.updateCategory('highlight-and-share', {
