@@ -71,7 +71,7 @@ var BlockContent = function BlockContent(props) {
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     // Port shareText attribute to use innerBlocks instead.
     if (shareText !== '' && null !== innerBlocksRef.current) {
-      // Convert text over to blocks.
+      // Convert richtext over to blocks.
       var richTextConvertedToBlocks = (0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_3__.rawHandler)({
         HTML: shareText
       });
@@ -271,7 +271,6 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
-var useInstanceId = wp.compose.useInstanceId;
 var PresetButton = function PresetButton(props) {
   var setAttributes = props.setAttributes,
     label = props.label,

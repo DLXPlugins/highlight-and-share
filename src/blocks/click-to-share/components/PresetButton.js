@@ -1,9 +1,8 @@
-import React, { useEffect, useRef, useState } from 'react';
+import React, { useRef, useState } from 'react';
 import Proptypes from 'prop-types';
 import { Button, Popover, Modal } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import BlockContent from './BlockContent';
-const { useInstanceId } = wp.compose;
 
 const PresetButton = ( props ) => {
 	const { setAttributes, label, attributes, uniqueId } = props;

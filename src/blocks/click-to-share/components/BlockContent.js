@@ -48,7 +48,7 @@ const BlockContent = ( props ) => {
 	useEffect( () => {
 		// Port shareText attribute to use innerBlocks instead.
 		if ( shareText !== '' && null !== innerBlocksRef.current ) {
-			// Convert text over to blocks.
+			// Convert richtext over to blocks.
 			const richTextConvertedToBlocks = rawHandler( { HTML: shareText } );
 			replaceInnerBlocks( clientId, richTextConvertedToBlocks );
 			setAttributes( { shareText: '' } );
