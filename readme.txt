@@ -108,6 +108,10 @@ So far, the latest versions of Chrome, Firefox, Safari, Edge, and IE9+.
 
 == Changelog ==
 
+= 4.2.2 =
+* Released 2023-03-21
+* New Feature: Can set the wrapper CSS classes to avoid layout issues.
+
 = 4.2.1 =
 * Released 2023-03-21
 * Bug fix: Remove the RichText component and switched to innerblocks as RichText multiline will be deprecated in WP 6.3.
@@ -432,5 +436,5 @@ So far, the latest versions of Chrome, Firefox, Safari, Edge, and IE9+.
 
 == Upgrade Notice ==
 
-= 4.2.1 =
-Bug fix: Remove the RichText component and switched to innerblocks as RichText multiline will be deprecated in WP 6.3. Bug fix: Fix the Block Editor tab that wasn't saving when Adobe Fonts was disabled. New Feature: Added 6 presets to the Click to Share block for easy configuring.
+= 4.2.2 =
+New Feature: Can set the wrapper CSS classes to avoid layout issues.
