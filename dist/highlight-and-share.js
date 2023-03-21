@@ -648,6 +648,10 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       hasDisplay(selectedText, title, href, hashtags, 'inline', element);
     };
     inlineElements.forEach(function (element) {
+      // Add tooltips to inline highlight as a data attribute.
+      if (highlight_and_share.inline_highlight_tooltips_enabled && '' !== highlight_and_share.inline_highlight_tooltips_text) {
+        element.setAttribute('data-tooltip', highlight_and_share.inline_highlight_tooltips_text);
+      }
       // For mouse and trackpad.
       element.addEventListener('click', function (event) {
         hasHandleInlineEvents(event, element);

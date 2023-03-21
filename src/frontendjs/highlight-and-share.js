@@ -745,6 +745,10 @@
 			hasDisplay( selectedText, title, href, hashtags, 'inline', element );
 		};
 		inlineElements.forEach( ( element ) => {
+			// Add tooltips to inline highlight as a data attribute.
+			if ( highlight_and_share.inline_highlight_tooltips_enabled && '' !== highlight_and_share.inline_highlight_tooltips_text ) {
+				element.setAttribute( 'data-tooltip', highlight_and_share.inline_highlight_tooltips_text );
+			}
 			// For mouse and trackpad.
 			element.addEventListener( 'click', ( event ) => {
 				hasHandleInlineEvents( event, element );
