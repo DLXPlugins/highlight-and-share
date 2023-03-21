@@ -71,7 +71,7 @@ var BlockContent = function BlockContent(props) {
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     // Port shareText attribute to use innerBlocks instead.
     if (shareText !== '' && null !== innerBlocksRef.current) {
-      // Convert richtext over to blocks.
+      // Convert text over to blocks.
       var richTextConvertedToBlocks = (0,_wordpress_blocks__WEBPACK_IMPORTED_MODULE_3__.rawHandler)({
         HTML: shareText
       });
