@@ -95,6 +95,7 @@ const Interface = ( props ) => {
 			jsContent: escapeEditableHTML( data.values.jsContent ),
 			elementContent: escapeEditableHTML( data.values.elementContent ),
 			idContent: escapeEditableHTML( data.values.idContent ),
+			wrapperClasses: escapeEditableHTML( data.values.wrapperClasses ),
 			twitterLabel: escapeEditableHTML( data.values.twitterLabel ),
 			twitterTooltip: escapeEditableHTML( data.values.twitterTooltip ),
 			facebookLabel: escapeEditableHTML( data.values.facebookLabel ),
@@ -1514,6 +1515,40 @@ const Interface = ( props ) => {
 											) }
 										/>
 										{ 'pattern' === errors.elementContent?.type && (
+											<Notice
+												message={ __( 'There are invalid characters.' ) }
+												status="error"
+												politeness="assertive"
+												inline={ true }
+												icon={ CircularExclamationIcon }
+											/>
+										) }
+									</>
+								) }
+							/>
+						</>
+					</div>
+					<div className="has-admin-component-row">
+						<>
+							<Controller
+								name="wrapperClasses"
+								control={ control }
+								rules={ {
+									pattern: /^[ -_,A-Za-z0-9]+$/i,
+								} }
+								render={ ( { field } ) => (
+									<>
+										<TextControl
+											{ ...field }
+											type="text"
+											label={ __( 'Post Wrapper Classes', 'highlight-and-share' ) }
+											className={ classNames( 'has-admin__text-control' ) }
+											help={ __(
+												'Add classes to the Highlight and Share post wrapper. This is useful if you are having any style conflicts with block elements. Separate each class with commas and without the (.).',
+												'highlight-and-share'
+											) }
+										/>
+										{ 'pattern' === errors.wrapperClasses?.type && (
 											<Notice
 												message={ __( 'There are invalid characters.' ) }
 												status="error"

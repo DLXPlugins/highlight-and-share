@@ -178,7 +178,39 @@ class Frontend {
 		$post_id = $post->ID;
 		$url     = Functions::get_content_url( $post_id );
 		$title   = get_the_title( $post_id );
-		$content = sprintf( '<div class="has-content-area" data-url="%s" data-title="%s" data-hashtags="%s">%s</div>', esc_url( $url ), esc_attr( $title ), esc_attr( Hashtags::get_hashtags( $post_id ) ), $content );
+
+		// Get wrapper classes.
+		$has_wrapper_classes = array(
+			'has-content-area',
+		);
+
+		// Retrieve wrapper classes from options.
+		$class_dots_regex = '/\./';
+		$options          = Options::get_plugin_options();
+		$wrapper_classes  = $options['wrapper_classes'] ?? '';
+		if ( ! empty( $wrapper_classes ) ) {
+			$wrapper_classes     = preg_replace( $class_dots_regex, '', $wrapper_classes );
+			$wrapper_classes     = array_map( 'trim', explode( ',', $wrapper_classes ) );
+			$has_wrapper_classes = array_merge( $has_wrapper_classes, $wrapper_classes );
+		}
+
+		/**
+		 * Add classes to the post wrapper container.
+		 *
+		 * @param array $has_wrapper_classes Array of classes.
+		 * @param int   $post_id             Post ID.
+		 */
+		$has_wrapper_classes = apply_filters( 'has_wrapper_classes', $has_wrapper_classes, $post_id );
+
+		// Add wrapper class.
+		$content = sprintf(
+			'<div class="%s" data-url="%s" data-title="%s" data-hashtags="%s">%s</div>',
+			esc_attr( implode( ' ', $has_wrapper_classes ) ),
+			esc_url( $url ),
+			esc_attr( $title ),
+			esc_attr( Hashtags::get_hashtags( $post_id ) ),
+			$content
+		);
 		return $content;
 	}
 
@@ -561,8 +593,8 @@ class Frontend {
 						break;
 					case 'email':
 						global $post;
-						$post_id   = $post->ID ?? 0;
-						$email_url = '';
+						$post_id     = $post->ID ?? 0;
+						$email_url   = '';
 						$email_class = 'has_email_form';
 						if ( 'mailto' === $email_options['email_send_type'] ) {
 							$email_url = add_query_arg(

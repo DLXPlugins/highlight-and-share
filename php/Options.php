@@ -334,6 +334,7 @@ class Options {
 			'js_content'            => '',
 			'element_content'       => '',
 			'id_content'            => '',
+			'wrapper_classes'       => '',
 			'twitter'               => '',
 			'show_twitter'          => true,
 			'show_facebook'         => true,

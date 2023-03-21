@@ -11,11 +11,10 @@ import GetStyles from './GetStyles';
 const BlockContent = ( props ) => {
 	const { attributes, setAttributes, isPreview, clientId } = props;
 
-	const innerBlocksRef = useRef(null);
+	const innerBlocksRef = useRef( null );
 
 	const { replaceInnerBlocks } =
 		useDispatch( store );
-
 
 	const innerBlockProps = useInnerBlocksProps(
 		{
@@ -29,7 +28,6 @@ const BlockContent = ( props ) => {
 	);
 	const [ isBlockPreview ] = useState( isPreview ?? false );
 
-	
 	const {
 		shareText,
 		backgroundType,
@@ -47,14 +45,13 @@ const BlockContent = ( props ) => {
 	 */
 	useEffect( () => {
 		// Port shareText attribute to use innerBlocks instead.
-		if ( shareText !== '' && null !== innerBlocksRef.current ) {
+		if ( shareText !== '' && null !== innerBlocksRef.current && ! isBlockPreview ) {
 			// Convert text over to blocks.
 			const richTextConvertedToBlocks = rawHandler( { HTML: shareText } );
 			replaceInnerBlocks( clientId, richTextConvertedToBlocks );
-			
 			setAttributes( { shareText: '' } );
 		}
-	}, [ innerBlocksRef] );
+	}, [ innerBlocksRef ] );
 
 	return (
 		<>
