@@ -3,7 +3,7 @@ Contributors: ronalfy
 Tags: highlight, social sharing, click to tweet, sharing, highlight text
 Requires at least: 5.1
 Tested up to: 6.1
-Stable tag: 4.1.1
+Stable tag: 4.2.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://github.com/sponsors/DLXPlugins
@@ -107,6 +107,12 @@ So far, the latest versions of Chrome, Firefox, Safari, Edge, and IE9+.
 
 
 == Changelog ==
+
+= 4.2.0 =
+* Released 2023-03-21
+* Bug fix: Remove the RichText component and switched to innerblocks as RichText multiline will be deprecated in WP 6.3.
+* Bug fix: Fix the Block Editor tab that wasn't saving when Adobe Fonts was disabled.
+* New Feature: Added 6 presets to the Click to Share block for easy configuring.
 
 = 4.1.1 =
 * Released 2023-02-14
@@ -426,5 +432,5 @@ So far, the latest versions of Chrome, Firefox, Safari, Edge, and IE9+.
 
 == Upgrade Notice ==
 
-= 4.1.1 =
-Fixed WhatsApp endpoint URL to point to the correct web/app endpoint.
+= 4.2.0 =
+Bug fix: Remove the RichText component and switched to innerblocks as RichText multiline will be deprecated in WP 6.3. Bug fix: Fix the Block Editor tab that wasn't saving when Adobe Fonts was disabled. New Feature: Added 6 presets to the Click to Share block for easy configuring.
