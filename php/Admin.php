@@ -104,9 +104,11 @@ class Admin {
 			}
 		}
 
-		$converted_options['adobe_fonts'] = Adobe_Fonts::get_adobe_fonts( $converted_options['adobe_project_id'] );
-		if ( is_wp_error( $converted_options['adobe_fonts'] ) ) {
-			wp_send_json_error( $converted_options['adobe_fonts'] );
+		if ( true === $converted_options['enable_adobe_fonts'] ) {
+			$converted_options['adobe_fonts'] = Adobe_Fonts::get_adobe_fonts( $converted_options['adobe_project_id'] );
+			if ( is_wp_error( $converted_options['adobe_fonts'] ) ) {
+				wp_send_json_error( $converted_options['adobe_fonts'] );
+			}
 		}
 		update_option( 'highlight-and-share-block-editor-options', $converted_options );
 
