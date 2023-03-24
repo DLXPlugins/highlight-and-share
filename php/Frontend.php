@@ -965,6 +965,19 @@ class Frontend {
 		 */
 		if ( apply_filters( 'has_load_css', true ) ) {
 			$this->output_stylesheets( $settings['theme'] );
+
+			// Let's see if inline highlight tooltips are enabled.
+			if ( (bool) $block_editor_options['inline_highlight_show_tooltips'] ) {
+				// Load dummy stylesheet.
+				wp_register_style( 'has-inline-highlight-tooltips', false );
+				$inline_highlight_styles = ':root { --has-inline-highlight-tooltips-color: ' . esc_html( $block_editor_options['inline_highlight_tooltips_text_color'] ) . '; --has-inline-highlight-tooltips-background-color: ' . esc_html( $block_editor_options['inline_highlight_tooltips_background_color'] ) . '; }';
+				// Add inline styles.
+				wp_add_inline_style(
+					'has-inline-highlight-tooltips',
+					$inline_highlight_styles
+				);
+				wp_enqueue_style( 'has-inline-highlight-tooltips' );
+			}
 		}
 	}
 

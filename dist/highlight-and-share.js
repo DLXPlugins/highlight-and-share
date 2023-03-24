@@ -655,6 +655,68 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       // For mouse and trackpad.
       element.addEventListener('click', function (event) {
         hasHandleInlineEvents(event, element);
+        var tooltip = document.querySelectorAll('.has-inline-text-tooltip');
+        if (null !== tooltip) {
+          tooltip.forEach(function (tooltipElement) {
+            tooltipElement.remove();
+          });
+        }
+      });
+
+      // For hover effect on desktop devices.
+      element.addEventListener('mouseover', function (event) {
+        // Check if element has data-tooltip attribute.
+        if (element.hasAttribute('data-tooltip')) {
+          // Get position and dimensions of highlighted element.
+          var elementRect = event.target.getBoundingClientRect();
+
+          // Set tooltip position.
+          var elementTop = elementRect.top;
+          var tooltipWidth = 120; // Adjust to desired width of tooltip
+          var tooltipHeight = 30; // Adjust to desired height of tooltip
+          var scrollX = window.scrollX;
+          var scrollY = window.scrollY;
+
+          // Calculate tooltip position based on element position, window size, and scroll position.
+          var tooltipLeft = event.clientX - tooltipWidth / 2 + scrollX;
+          var tooltipTop = elementTop - tooltipHeight + scrollY - 10;
+
+          // Create div element to hold tooltip.
+          var tooltip = document.createElement('div');
+          tooltip.classList.add('has-inline-text-tooltip');
+          tooltip.style.position = 'absolute';
+          tooltip.style.left = tooltipLeft + 'px';
+          tooltip.style.top = tooltipTop + 'px';
+          tooltip.innerText = element.getAttribute('data-tooltip');
+
+          // Add tooltip to DOM.
+          document.body.appendChild(tooltip);
+
+          // Position tooltip if off screen.
+          var tooltipRect = tooltip.getBoundingClientRect();
+          if (tooltipRect.right > window.innerWidth) {
+            tooltip.style.left = tooltipLeft - (tooltipRect.right - window.innerWidth) + 'px';
+          } else if (tooltipRect.left < 0) {
+            tooltip.style.left = tooltipLeft - tooltipRect.left + 'px';
+          }
+          if (tooltipRect.bottom > window.innerHeight) {
+            tooltip.style.top = tooltipTop - (tooltipRect.bottom - window.innerHeight) + 'px';
+          } else if (tooltipRect.top < 0) {
+            tooltip.style.top = tooltipTop - tooltipRect.top + 'px';
+          }
+        }
+      });
+      element.addEventListener('mouseout', function () {
+        // Hide the tooltip.
+        var tooltip = document.querySelectorAll('.has-inline-text-tooltip');
+        if (null !== tooltip) {
+          tooltip.forEach(function (element) {
+            element.classList.add('has-fade-out');
+            setTimeout(function () {
+              element.remove();
+            }, 900);
+          });
+        }
       });
     });
   }

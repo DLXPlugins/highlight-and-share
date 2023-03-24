@@ -107,7 +107,10 @@
 				'%hashtags%',
 				encodeURIComponent( hashtags )
 			);
-			elementUrl = elementUrl.replace( '%type%', encodeURIComponent( triggerType ) );
+			elementUrl = elementUrl.replace(
+				'%type%',
+				encodeURIComponent( triggerType )
+			);
 			elementUrl = elementUrl.replace( '%prefix%', encodeURIComponent( prefix ) );
 			elementUrl = elementUrl.replace( '%suffix%', encodeURIComponent( suffix ) );
 			elementAnchor.setAttribute( 'href', elementUrl );
@@ -342,11 +345,11 @@
 			const hasSharerY =
 				selectionTop +
 				window.scrollY -
-				( hasCloneHeight / 2 ) +
-				( selectionHeight / 2 );
+				hasCloneHeight / 2 +
+				selectionHeight / 2;
 			element.classList.add( 'has-no-margin-bottom' );
 			// If clone is outside of viewport, set width.
-			if ( selectionTop + window.scrollY - ( hasCloneHeight / 2 ) < 0 ) {
+			if ( selectionTop + window.scrollY - hasCloneHeight / 2 < 0 ) {
 				element.style.display = 'grid';
 				element.style.gridTemplateColumns = '1fr 1fr';
 
@@ -357,17 +360,14 @@
 				element.style.top =
 					selectionTop +
 					window.scrollY -
-					( newCloneRect.height / 2 ) +
-					( selectionHeight / 2 ) +
+					newCloneRect.height / 2 +
+					selectionHeight / 2 +
 					'px';
 				element.style.left =
 					selectionLeft + window.scrollX - newCloneRect.width - 15 + 'px';
 
 				// Calculate top position.
-			} else if (
-				selectionTop + hasCloneHeight >
-				windowHeight
-			) {
+			} else if ( selectionTop + hasCloneHeight > windowHeight ) {
 				element.style.display = 'grid';
 				element.style.gridTemplateColumns = '1fr 1fr';
 
@@ -450,10 +450,10 @@
 			const hasSharerX = inlineLeft + window.scrollX - ( hasCloneWidth + 15 );
 			// Get the Y position of where the HAS Sharer inteface should be displayed.
 			const hasSharerY =
-				inlineTop + window.scrollY - ( hasCloneHeight / 2 ) + ( inlineHeight / 2 );
+				inlineTop + window.scrollY - hasCloneHeight / 2 + inlineHeight / 2;
 			element.classList.add( 'has-no-margin-bottom' );
 			// If clone is outside of viewport, set width.
-			if ( inlineTop + window.scrollY - ( hasCloneHeight / 2 ) < 0 ) {
+			if ( inlineTop + window.scrollY - hasCloneHeight / 2 < 0 ) {
 				element.style.display = 'grid';
 				element.style.gridTemplateColumns = '1fr 1fr';
 
@@ -476,10 +476,7 @@
 				}
 
 				// Calculate top position.
-			} else if (
-				inlineTop + hasCloneHeight >
-				windowHeight
-			) {
+			} else if ( inlineTop + hasCloneHeight > windowHeight ) {
 				element.style.display = 'grid';
 				element.style.gridTemplateColumns = '1fr 1fr';
 
@@ -569,10 +566,10 @@
 			const hasSharerX = ctaLeft + window.scrollX - ( hasCloneWidth + 15 );
 			// Get the Y position of where the HAS Sharer inteface should be displayed.
 			const hasSharerY =
-				ctaTop + window.scrollY - ( hasCloneHeight / 2 ) + ( ctaHeight / 2 );
+				ctaTop + window.scrollY - hasCloneHeight / 2 + ctaHeight / 2;
 			element.classList.add( 'has-no-margin-bottom' );
 			// If clone is outside of viewport, set width.
-			if ( ctaTop + window.scrollY - ( hasCloneHeight / 2 ) < 0 ) {
+			if ( ctaTop + window.scrollY - hasCloneHeight / 2 < 0 ) {
 				element.style.display = 'grid';
 				element.style.gridTemplateColumns = '1fr 1fr';
 
@@ -616,7 +613,8 @@
 				}
 			} else {
 				const newCloneRect = element.getBoundingClientRect();
-				element.style.left = ( ctaLeft + window.scrollX - newCloneRect.width - 15 ) + 'px';
+				element.style.left =
+					ctaLeft + window.scrollX - newCloneRect.width - 15 + 'px';
 				element.style.top = hasSharerY + 'px';
 				element.classList.remove( 'has-no-margin-bottom' );
 			}
@@ -688,9 +686,14 @@
 			const elementParent = event.target.closest( '.has-content-area' );
 
 			// Get data attributes.
-			const href = null !== elementParent ? elementParent.dataset.url : window.location.href;
-			const title = null !== elementParent ? elementParent.dataset.title : document.title;
-			const hashtags = null !== elementParent ? elementParent.dataset.hashtags : '';
+			const href =
+				null !== elementParent
+					? elementParent.dataset.url
+					: window.location.href;
+			const title =
+				null !== elementParent ? elementParent.dataset.title : document.title;
+			const hashtags =
+				null !== elementParent ? elementParent.dataset.hashtags : '';
 
 			// Display Highlight and Share.
 			hasDisplay( selectedText, title, href, hashtags, 'selection' );
@@ -737,21 +740,96 @@
 			const elementParent = event.target.closest( '.has-content-area' );
 
 			// Get data attributes.
-			const href = null !== elementParent ? elementParent.dataset.url : window.location.href;
-			const title = null !== elementParent ? elementParent.dataset.title : document.title;
-			const hashtags = null !== elementParent ? elementParent.dataset.hashtags : '';
+			const href =
+				null !== elementParent
+					? elementParent.dataset.url
+					: window.location.href;
+			const title =
+				null !== elementParent ? elementParent.dataset.title : document.title;
+			const hashtags =
+				null !== elementParent ? elementParent.dataset.hashtags : '';
 
 			// Display Highlight and Share.
 			hasDisplay( selectedText, title, href, hashtags, 'inline', element );
 		};
 		inlineElements.forEach( ( element ) => {
 			// Add tooltips to inline highlight as a data attribute.
-			if ( highlight_and_share.inline_highlight_tooltips_enabled && '' !== highlight_and_share.inline_highlight_tooltips_text ) {
-				element.setAttribute( 'data-tooltip', highlight_and_share.inline_highlight_tooltips_text );
+			if (
+				highlight_and_share.inline_highlight_tooltips_enabled &&
+				'' !== highlight_and_share.inline_highlight_tooltips_text
+			) {
+				element.setAttribute(
+					'data-tooltip',
+					highlight_and_share.inline_highlight_tooltips_text
+				);
 			}
 			// For mouse and trackpad.
 			element.addEventListener( 'click', ( event ) => {
 				hasHandleInlineEvents( event, element );
+				const tooltip = document.querySelectorAll( '.has-inline-text-tooltip' );
+				if ( null !== tooltip ) {
+					tooltip.forEach( ( tooltipElement ) => {
+						tooltipElement.remove();
+					} );
+				}
+			} );
+
+			// For hover effect on desktop devices.
+			element.addEventListener( 'mouseover', ( event ) => {
+				// Check if element has data-tooltip attribute.
+				if ( element.hasAttribute( 'data-tooltip' ) ) {
+					// Get position and dimensions of highlighted element.
+					const elementRect = event.target.getBoundingClientRect();
+
+					// Set tooltip position.
+					const elementTop = elementRect.top;
+					const tooltipWidth = 120; // Adjust to desired width of tooltip
+					const tooltipHeight = 30; // Adjust to desired height of tooltip
+					const scrollX = window.scrollX;
+					const scrollY = window.scrollY;
+
+					// Calculate tooltip position based on element position, window size, and scroll position.
+					const tooltipLeft = event.clientX - tooltipWidth / 2 + scrollX;
+					const tooltipTop = elementTop - tooltipHeight + scrollY - 10;
+
+					// Create div element to hold tooltip.
+					const tooltip = document.createElement( 'div' );
+					tooltip.classList.add( 'has-inline-text-tooltip' );
+					tooltip.style.position = 'absolute';
+					tooltip.style.left = tooltipLeft + 'px';
+					tooltip.style.top = tooltipTop + 'px';
+					tooltip.innerText = element.getAttribute( 'data-tooltip' );
+
+					// Add tooltip to DOM.
+					document.body.appendChild( tooltip );
+
+					// Position tooltip if off screen.
+					const tooltipRect = tooltip.getBoundingClientRect();
+					if ( tooltipRect.right > window.innerWidth ) {
+						tooltip.style.left =
+							tooltipLeft - ( tooltipRect.right - window.innerWidth ) + 'px';
+					} else if ( tooltipRect.left < 0 ) {
+						tooltip.style.left = tooltipLeft - tooltipRect.left + 'px';
+					}
+					if ( tooltipRect.bottom > window.innerHeight ) {
+						tooltip.style.top =
+							tooltipTop - ( tooltipRect.bottom - window.innerHeight ) + 'px';
+					} else if ( tooltipRect.top < 0 ) {
+						tooltip.style.top = tooltipTop - tooltipRect.top + 'px';
+					}
+				}
+			} );
+			element.addEventListener( 'mouseout', () => {
+				// Hide the tooltip.
+				const tooltip = document.querySelectorAll( '.has-inline-text-tooltip' );
+				if ( null !== tooltip ) {
+					tooltip.forEach( ( element ) => {
+						element.classList.add( 'has-fade-out' );
+						setTimeout( () => {
+							element.remove();
+						}, 900 );
+					} );
+				}
 			} );
 		} );
 	}
@@ -785,9 +863,14 @@
 				const elementParent = element.closest( '.has-content-area' );
 
 				// Get data attributes.
-				const href = null !== elementParent ? elementParent.dataset.url : window.location.href;
-				const title = null !== elementParent ? elementParent.dataset.title : document.title;
-				const hashtags = null !== elementParent ? elementParent.dataset.hashtags : '';
+				const href =
+					null !== elementParent
+						? elementParent.dataset.url
+						: window.location.href;
+				const title =
+					null !== elementParent ? elementParent.dataset.title : document.title;
+				const hashtags =
+					null !== elementParent ? elementParent.dataset.hashtags : '';
 
 				// Display Highlight and Share.
 				hasDisplay(

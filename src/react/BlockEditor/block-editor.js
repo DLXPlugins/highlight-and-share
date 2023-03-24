@@ -243,6 +243,7 @@ const Interface = ( props ) => {
 			color: '#FFFFFF',
 			slug: 'inline-highlight-color-white',
 		},
+		...hasBlockEditorAdmin.colors,
 	];
 
 	const getInlineHighlightingColorOptions = () => {

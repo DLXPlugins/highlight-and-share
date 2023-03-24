@@ -9,6 +9,14 @@
     opacity: 1;
   }
 }
+@keyframes hasFadeOut {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0;
+  }
+}
 .has-icon:not(.components-button) {
   width: 25px;
   height: 25px;
@@ -66,7 +74,8 @@
 }
 
 /* Item tooltips */
-.highlight-and-share-wrapper > div:not(.has-tooltip):hover:after {
+.highlight-and-share-wrapper > div:not(.has-tooltip):hover:after,
+.has-inline-text:not([data-has-tooltip=true]):hover:after {
   display: none;
 }
 
@@ -91,6 +100,31 @@
   text-align: center;
   min-width: 175px;
   border-radius: 3px;
+}
+
+.has-inline-text-tooltip {
+  z-index: 1000;
+  animation-duration: 0.8s;
+  animation-name: hasFadeIn;
+  opacity: 1;
+  display: block;
+  position: absolute;
+  padding: 8px;
+  font-family: "FranklinGothic", Helvetica, sans-serif;
+  background-color: var(--has-inline-highlight-tooltips-background-color, #333);
+  color: var(--has-inline-highlight-tooltips-color, #FFF);
+  font-size: 13px;
+  line-height: 1.2;
+  top: -40px;
+  text-align: center;
+  min-width: 175px;
+  border-radius: 3px;
+}
+
+.has-inline-text-tooltip.has-fade-out {
+  animation-duration: 0.8s;
+  animation-name: hasFadeOut;
+  opacity: 0;
 }
 
 /* Icon Only Themes Vertical Padding */
