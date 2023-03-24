@@ -943,6 +943,16 @@ class Frontend {
 		$json_arr['prefix'] = isset( $settings['sharing_prefix'] ) ? stripslashes_deep( sanitize_text_field( $settings['sharing_prefix'] ) ) : '';
 		$json_arr['suffix'] = isset( $settings['sharing_suffix'] ) ? stripslashes_deep( sanitize_text_field( $settings['sharing_suffix'] ) ) : '';
 
+		// Get highlight tooltip options.
+		$block_editor_options = Options::get_block_editor_options();
+		if ( (bool) $block_editor_options['inline_highlight_show_tooltips'] ) {
+			$json_arr['inline_highlight_tooltips_enabled'] = true;
+			$json_arr['inline_highlight_tooltips_text']    = $block_editor_options['inline_highlight_tooltips_text'];
+		} else {
+			$json_arr['inline_highlight_tooltips_enabled'] = false;
+			$json_arr['inline_highlight_tooltips_text']    = '';
+		}
+
 		// Localize.
 		wp_localize_script( 'highlight-and-share', 'highlight_and_share', $json_arr );
 
@@ -955,6 +965,19 @@ class Frontend {
 		 */
 		if ( apply_filters( 'has_load_css', true ) ) {
 			$this->output_stylesheets( $settings['theme'] );
+
+			// Let's see if inline highlight tooltips are enabled.
+			if ( (bool) $block_editor_options['inline_highlight_show_tooltips'] ) {
+				// Load dummy stylesheet.
+				wp_register_style( 'has-inline-highlight-tooltips', false );
+				$inline_highlight_styles = ':root { --has-inline-highlight-tooltips-color: ' . esc_html( $block_editor_options['inline_highlight_tooltips_text_color'] ) . '; --has-inline-highlight-tooltips-background-color: ' . esc_html( $block_editor_options['inline_highlight_tooltips_background_color'] ) . '; }';
+				// Add inline styles.
+				wp_add_inline_style(
+					'has-inline-highlight-tooltips',
+					$inline_highlight_styles
+				);
+				wp_enqueue_style( 'has-inline-highlight-tooltips' );
+			}
 		}
 	}
 

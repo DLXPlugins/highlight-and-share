@@ -649,6 +649,7 @@ class Admin {
 						'saveNonce'     => wp_create_nonce( 'has_save_block_editor' ),
 						'retrieveNonce' => wp_create_nonce( 'has_retrieve_block_editor' ),
 						'resetNonce'    => wp_create_nonce( 'has_reset_block_editor' ),
+						'colors'        => Themes::get_default_theme_colors(),
 					)
 				);
 			}

@@ -3,6 +3,8 @@ import { __ } from '@wordpress/i18n';
 import { useForm, Controller, useWatch, useFormState } from 'react-hook-form';
 import classNames from 'classnames';
 import { useAsyncResource } from 'use-async-resource';
+import { escapeEditableHTML } from '@wordpress/escape-html';
+
 import {
 	TextControl,
 	Button,
@@ -82,6 +84,10 @@ const Interface = ( props ) => {
 			inlineHighlightBackgroundColorHover: data.inlineHighlightBackgroundColorHover,
 			inlineHighlightTextColor: data.inlineHighlightTextColor,
 			inlineHighlightTextColorHover: data.inlineHighlightTextColorHover,
+			inlineHighlightTooltipsText: escapeEditableHTML( data.inlineHighlightTooltipsText ),
+			inlineHighlightShowTooltips: data.inlineHighlightShowTooltips,
+			inlineHighlightTooltipsBackgroundColor: data.inlineHighlightTooltipsBackgroundColor,
+			inlineHighlightTooltipsTextColor: data.inlineHighlightTooltipsTextColor,
 		};
 	};
 	const {
@@ -237,6 +243,7 @@ const Interface = ( props ) => {
 			color: '#FFFFFF',
 			slug: 'inline-highlight-color-white',
 		},
+		...hasBlockEditorAdmin.colors,
 	];
 
 	const getInlineHighlightingColorOptions = () => {
@@ -331,6 +338,98 @@ const Interface = ( props ) => {
 							Lorem ipsum dolor sit amet, <span className="has-inline-text" style={ styles }>consectetur adipiscing elit. Morbi ut lacinia augue</span>. Nam convallis lacus at ex fringilla, a venenatis mi facilisis. Sed lobortis pharetra massa, sit amet dictum erat egestas in.
 						</p>
 					</div>
+				</>
+			);
+		}
+		return null;
+	};
+
+	const getInlineHighlightingTooltipColorOptions = () => {
+		if ( getValues( 'inlineHighlightShowTooltips' ) ) {
+			return (
+				<>
+					<div className="has-admin-component-row">
+						<Controller
+							name="inlineHighlightTooltipsTextColor"
+							control={ control }
+							render={ ( { field: { onChange, value } } ) => (
+								<HASColorPicker
+									value={ value }
+									onChange={ ( slug, newValue ) => {
+										onChange( newValue );
+									} }
+									label={ __( 'Tooltip Text Color', 'highlight-and-share' ) }
+									defaultColors={ inlineHighlightColors }
+									defaultColor={ '#FFFFFF' }
+									slug={ 'tooltip_text_color' }
+								/>
+							) }
+						/>
+					</div>
+					<div className="has-admin-component-row">
+						<Controller
+							name="inlineHighlightTooltipsBackgroundColor"
+							control={ control }
+							render={ ( { field: { onChange, value } } ) => (
+								<HASColorPicker
+									value={ value }
+									onChange={ ( slug, newValue ) => {
+										onChange( newValue );
+									} }
+									label={ __( 'Tooltip Background Color', 'highlight-and-share' ) }
+									defaultColors={ inlineHighlightColors }
+									defaultColor={ '#000000' }
+									slug={ 'tooltip_background_color' }
+								/>
+							) }
+						/>
+					</div>
+				</>
+			);
+		}
+		return null;
+	};
+
+	const getInlineHighlightingTooltipsText = () => {
+		if ( getValues( 'inlineHighlightShowTooltips' ) ) {
+			return (
+				<>
+					<div className="has-admin-component-row">
+						<Controller
+							name="inlineHighlightTooltipsText"
+							control={ control }
+							rules={ {
+								required: true,
+							} }
+							render={ ( { field } ) => (
+								<>
+									<TextControl
+										{ ...field }
+										type="text"
+										label={ __( 'Tooltip Text', 'highlight-and-share' ) }
+										className={ classNames( 'has-admin__text-control', {
+											'is-required': true,
+											'has-error': 'required' === errors.inlineHighlightTooltipsText?.type,
+										} ) }
+										help={ __(
+											'Add a tooltip that will show when a highlight is hovered.',
+											'highlight-and-share'
+										) }
+									/>
+									{ 'required' === errors.inlineHighlightTooltipsText?.type && (
+										<Notice
+											message={ __( 'This field is required.' ) }
+											status="error"
+											politeness="assertive"
+											inline={ true }
+											icon={ CircularExclamationIcon }
+										/>
+									) }
+								</>
+							) }
+						/>
+					</div>
+
 				</>
 			);
 		}
@@ -558,6 +657,31 @@ const Interface = ( props ) => {
 									/>
 								</div>
 								{ getInlineHighlightingColorOptions() }
+								<div className="has-admin-component-row">
+									<Controller
+										name="inlineHighlightShowTooltips"
+										control={ control }
+										render={ ( { field: { onChange, value } } ) => (
+											<ToggleControl
+												label={ __(
+													'Enable Inline Highlighting Tooltips',
+													'highlight-and-share'
+												) }
+												className="has-admin__toggle-control"
+												checked={ value }
+												onChange={ ( boolValue ) => {
+													onChange( boolValue );
+												} }
+												help={ __(
+													'Hovering over a highlight will reveal a helpful tooltip.',
+													'highlight-and-share'
+												) }
+											/>
+										) }
+									/>
+								</div>
+								{ getInlineHighlightingTooltipsText() }
+								{ getInlineHighlightingTooltipColorOptions() }
 							</div>
 						</div>
 						<div className="has-admin__tabs--content-actions">

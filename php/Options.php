@@ -184,15 +184,20 @@ class Options {
 	 */
 	public static function get_block_editor_defaults() {
 		$defaults = array(
-			'enable_blocks'                           => true,
-			'enable_adobe_fonts'                      => false,
-			'adobe_fonts'                             => array(),
-			'adobe_project_id'                        => '',
-			'enable_inline_highlighting'              => true,
-			'inline_highlight_background_color'       => '#ffefb1',
-			'inline_highlight_background_color_hover' => '#fcd63c',
-			'inline_highlight_text_color'             => '#000000',
-			'inline_highlight_text_color_hover'       => '#000000',
+			'enable_blocks'                              => true,
+			'enable_adobe_fonts'                         => false,
+			'adobe_fonts'                                => array(),
+			'adobe_project_id'                           => '',
+			'enable_inline_highlighting'                 => true,
+			'inline_highlight_background_color'          => '#ffefb1',
+			'inline_highlight_background_color_hover'    => '#fcd63c',
+			'inline_highlight_text_color'                => '#000000',
+			'inline_highlight_text_color_hover'          => '#000000',
+			'inline_highlight_tooltips_text'              => __( 'Click to Share This Highlight', 'highlight-and-share' ),
+			'inline_highlight_show_tooltips'             => false,
+			'inline_highlight_tooltips_text_color'       => '#FFFFFF',
+			'inline_highlight_tooltips_background_color' => '#000000',
+
 		);
 		return $defaults;
 	}
