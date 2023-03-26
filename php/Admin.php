@@ -126,8 +126,19 @@ class Admin {
 		// Existing settings.
 		$existing_settings = Options::get_email_options( true );
 		$form_data         = filter_input( INPUT_POST, 'form_data', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
-		$form_data         = Functions::sanitize_array_recursive( $form_data );
-		$settings          = array_replace_recursive( $existing_settings, $form_data );
+
+		// Get email body as this needs to be sanitized separately as a text area with newlines.
+		$email_body = $form_data['emailBody'];
+		$email_body = wp_kses_post( $email_body );
+
+		// Sanitize the rest.
+		$form_data = Functions::sanitize_array_recursive( $form_data );
+
+		// Add email body to form data.
+		$form_data['emailBody'] = $email_body;
+
+		// Update settings.
+		$settings = array_replace_recursive( $existing_settings, $form_data );
 
 		// Get into array_key format.
 		$overrides = array();

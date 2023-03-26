@@ -3778,6 +3778,23 @@ h2.has-admin-content-subheading:after {
   box-sizing: border-box;
 }
 
+.has-admin__text-area-control textarea {
+  display: block;
+  max-width: 550px;
+  width: 100%;
+  background-color: #fff;
+  border-radius: 3px;
+  font-family: inherit;
+  font-size: 0.875rem;
+  line-height: 1.25rem;
+  padding: 5px 10px;
+  line-height: 2;
+  min-height: 24px;
+  margin: 0;
+  outline-style: none;
+  box-sizing: border-box;
+}
+
 /* Admin Radio component */
 .components-radio-control input[type=radio] ~ label {
   display: inline-block;
@@ -4443,6 +4460,43 @@ h3.has-icon-heading svg {
   border: 1px solid #ddd;
   box-shadow: 1px 1px 15px -7px rgba(146, 146, 146, 0.7);
   padding: 6px;
+}
+
+/* Has template tags in the emails screen */
+.has-admin-email-template-tag-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: flex-end;
+}
+.has-admin-email-template-tag-row .components-base-control.has-admin__text-control {
+  width: 100%;
+  max-width: 350px;
+}
+.has-admin-email-template-tag-row .has-admin__text-area-control {
+  width: 100%;
+  max-width: 550px;
+}
+.has-admin-email-template-tag-row .has-admin__text-area-control .components-base-control__label {
+  margin-bottom: 4px;
+}
+.has-admin-email-template-tag-row .has-admin__text-area-control textarea {
+  min-height: 200px;
+}
+
+.has-email-template-tags__popover-tags {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 8px;
+  row-gap: 8px;
+  padding: 0 5px;
+}
+.has-email-template-tags__popover-tags button {
+  border: 1px solid #ddd;
+  text-align: center;
+  display: block;
+  width: 100%;
+  padding: 15px 10px;
+  height: auto;
 }
 
 /*# sourceMappingURL=has-admin-style.css.map*/

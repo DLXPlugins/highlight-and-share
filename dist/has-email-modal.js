@@ -18030,9 +18030,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 // Get URL Query Parameter: type
-var urlParams = new URLSearchParams(window.location.search);
-var emailShareType = urlParams.get('type'); // can be highlight, quote, selection.
-
+var emailShareType = hasEmailModal.email_share_type;
 var View = function View() {
   var _errors$toEmail2, _errors$toEmail3, _errors$subject2;
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
@@ -18063,16 +18061,20 @@ var View = function View() {
    * @return {string} The title of the modal.
    */
   var getModalTitle = function getModalTitle() {
-    switch (emailShareType) {
-      case 'highlight':
-        return (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Email this Highlight', 'highlight-and-share');
-      case 'quote':
-        return (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Email this Quote', 'highlight-and-share');
-      case 'selection':
-        return (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Email this Selection', 'highlight-and-share');
-      default:
-        return (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Email this Page', 'highlight-and-share');
+    var modalTitle = hasEmailModal.email_modal_title;
+    if (!modalTitle) {
+      switch (emailShareType) {
+        case 'highlight':
+          return (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Email this Highlight', 'highlight-and-share');
+        case 'quote':
+          return (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Email this Quote', 'highlight-and-share');
+        case 'selection':
+          return (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Email this Selection', 'highlight-and-share');
+        default:
+          return (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Email this Page', 'highlight-and-share');
+      }
     }
+    return modalTitle;
   };
 
   /**
@@ -18089,21 +18091,25 @@ var View = function View() {
   }, []);
 
   /**
-   * Get a title for the email modal.
+   * Get a subject for the email modal.
    *
-   * @return {string} The title of the modal.
+   * @return {string} The subject of the email.
    */
   var getEmailSubject = function getEmailSubject() {
-    switch (emailShareType) {
-      case 'highlight':
-        return (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Check out this Highlight from {sitename}', 'highlight-and-share');
-      case 'quote':
-        return (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Check out this Quote from {sitename}', 'highlight-and-share');
-      case 'selection':
-        return (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Check out this Text Selection from {sitename}', 'highlight-and-share');
-      default:
-        return (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Check out this page I found from {sitename}', 'highlight-and-share');
+    var emailSubject = hasEmailModal.email_modal_subject;
+    if (!emailSubject) {
+      switch (emailShareType) {
+        case 'highlight':
+          return (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Check out this Highlight from {{site_name}}', 'highlight-and-share');
+        case 'quote':
+          return (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Check out this Quote from {{site_name}}', 'highlight-and-share');
+        case 'selection':
+          return (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Check out this Text Selection from {{site_name}}', 'highlight-and-share');
+        default:
+          return (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Check out this page I found from {{site_name}}', 'highlight-and-share');
+      }
     }
+    return emailSubject;
   };
   var getDefaultValues = function getDefaultValues() {
     return {
@@ -18113,7 +18119,8 @@ var View = function View() {
       nonce: hasEmailModal.nonce,
       permalink: hasEmailModal.permalink,
       shareText: hasEmailModal.share_text,
-      postId: hasEmailModal.post_id
+      postId: hasEmailModal.post_id,
+      emailShareType: hasEmailModal.email_share_type
     };
   };
   var _useForm = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_3__.useForm)({
@@ -18294,6 +18301,16 @@ var View = function View() {
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["default"], _extends({}, field, {
         type: "hidden",
         register: "shareText"
+      }));
+    }
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_3__.Controller, {
+    name: "shareType",
+    control: control,
+    render: function render(_ref8) {
+      var field = _ref8.field;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_6__["default"], _extends({}, field, {
+        type: "hidden",
+        register: "shareType"
       }));
     }
   })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
