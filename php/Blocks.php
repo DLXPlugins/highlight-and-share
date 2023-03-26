@@ -408,10 +408,15 @@ class Blocks {
 		if ( 'gradient' === $attributes['backgroundType'] ) {
 			$container_classes[] = 'has-background-gradient';
 		}
+
+		// Get the share text for data attribute and JS sharing.
+		$share_content         = ! empty( $content ) ? $content : $attributes['shareText'];
+		$share_content         = wp_strip_all_tags( $share_content );
+		$share_content_trimmed = preg_replace( '/\n+/', "\n\n", trim( $share_content ) ); // Replace newline chars with single newline.
 		?>
 		<div class='<?php echo esc_attr( implode( ' ', $container_classes ) ); ?>' id="<?php echo esc_attr( $attributes['uniqueId'] ); ?>">
 			<div class="has-click-to-share-wrapper">
-				<div class="has-click-to-share-text" data-text-full="<?php echo esc_attr( esc_html( wp_strip_all_tags( $attributes['shareText'] ) ) ); ?>">
+				<div class="has-click-to-share-text" data-text-full="<?php echo esc_attr( $share_content_trimmed ); ?>">
 					<?php
 					// Make sure shareText isn't empty. If it is, use InnerBlocks content instead.
 					if ( empty( $content ) && ! empty( $attributes['shareText'] ) ) {
@@ -419,7 +424,7 @@ class Blocks {
 					} elseif ( ! empty( $content ) ) {
 						echo wp_kses_post( $content );
 					}
-				?>
+					?>
 				</div>
 				<div class='has-click-to-share-cta'>
 					<?php
@@ -683,7 +688,6 @@ class Blocks {
 			$right = ' auto ';
 			$left  = ' auto ';
 		}
-		
 
 		$output = $top . $right . $bottom . $left;
 		return trim( $output );
