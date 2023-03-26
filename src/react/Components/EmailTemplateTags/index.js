@@ -1,5 +1,6 @@
-import React, { useState, useRef } from 'react';
+import React, { useState } from 'react';
 import { __ } from '@wordpress/i18n';
+import PropTypes from 'prop-types';
 import { Button, Popover } from '@wordpress/components';
 import TextInsertIcon from '../Icons/TextInsert';
 
@@ -9,20 +10,16 @@ const TEMPLATE_TAGS = [
 	{ name: __( 'Post title', 'highlight-and-share' ), tag: '{{post_title}}' },
 	{ name: __( 'Post excerpt', 'highlight-and-share' ), tag: '{{post_excerpt}}' },
 	{ name: __( 'Post URL', 'highlight-and-share' ), tag: '{{post_url}}' },
-	{ name: __( 'From Name', 'highlight-and-share' ), tag: '{{from_name}}' },
-	{ name: __( 'From email', 'highlight-and-share' ), tag: '{{from_email}}' },
-	{ name: __( 'To email', 'highlight-and-share' ), tag: '{{to_email}}' },
 	{ name: __( 'Share Type', 'highlight-and-share' ), tag: '{{share_type}}' },
-	{ name: __( 'Share Text', 'highlight-and-share' ), tag: '{{share_text}}' },
 	{ name: __( 'Date', 'highlight-and-share' ), tag: '{{date}}' },
 ];
 
 const EmailTemplateTags = ( props ) => {
 	const { onSelect } = props;
 	const [ isOpen, setIsOpen ] = useState( false );
+	const [ tags ] = useState( TEMPLATE_TAGS.concat( props.additionalTags ) );
 	const [ popoverAnchor, setPopoverAnchor ] = useState( null );
 	const togglePopover = () => setIsOpen( ! isOpen );
-	const toggleButton = useRef( null );
 
 	return (
 		<>
@@ -44,7 +41,7 @@ const EmailTemplateTags = ( props ) => {
 					noArrow={ false }
 				>
 					<ul className="has-email-template-tags__popover-tags">
-						{ TEMPLATE_TAGS.map( ( tag ) => (
+						{ tags.map( ( tag ) => (
 							<li key={ tag.tag }>
 								<Button
 									onClick={ () => {
@@ -61,6 +58,16 @@ const EmailTemplateTags = ( props ) => {
 			) }
 		</>
 	);
+};
+
+EmailTemplateTags.propTypes = {
+	onSelect: PropTypes.func.isRequired,
+	additionalTags: PropTypes.array,
+};
+
+EmailTemplateTags.defaultProps = {
+	onSelect: () => {},
+	additionalTags: [],
 };
 
 export default EmailTemplateTags;

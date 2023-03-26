@@ -21,6 +21,13 @@ import ValidateEmail from '../Validation/ValidateEmail';
 import EmailTemplateTags from '../Components/EmailTemplateTags';
 import TextAreaControl from '../Components/TextAreaControl';
 
+const ADDITIONAL_TEMPLATE_TAGS = [
+	{ name: __( 'From Name', 'highlight-and-share' ), tag: '{{from_name}}' },
+	{ name: __( 'From email', 'highlight-and-share' ), tag: '{{from_email}}' },
+	{ name: __( 'To email', 'highlight-and-share' ), tag: '{{to_email}}' },
+	{ name: __( 'Share Text', 'highlight-and-share' ), tag: '{{share_text}}' },
+];
+
 const retrieveDefaults = () => {
 	return sendCommand( 'has_retrieve_emails_tab', {
 		nonce: hasEmailsAdmin.retrieveNonce,
@@ -390,6 +397,7 @@ const Interface = ( props ) => {
 															].join( '' );
 															setValue( 'emailBody', newBody );
 														} }
+														additionalTags={ ADDITIONAL_TEMPLATE_TAGS }
 													/>
 												</div>
 											) }

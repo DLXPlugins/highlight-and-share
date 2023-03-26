@@ -15,8 +15,7 @@ import Loader from '../Components/Loader';
 import sendCommand from '../Utils/SendCommand';
 
 // Get URL Query Parameter: type
-const urlParams = new URLSearchParams( window.location.search );
-const emailShareType = urlParams.get( 'type' ); // can be highlight, quote, selection.
+const emailShareType = hasEmailModal.email_share_type;
 
 const View = () => {
 	const [ isSent, setIsSent ] = useState( false );
@@ -32,16 +31,20 @@ const View = () => {
 	 * @return {string} The title of the modal.
 	 */
 	const getModalTitle = () => {
-		switch ( emailShareType ) {
-			case 'highlight':
-				return __( 'Email this Highlight', 'highlight-and-share' );
-			case 'quote':
-				return __( 'Email this Quote', 'highlight-and-share' );
-			case 'selection':
-				return __( 'Email this Selection', 'highlight-and-share' );
-			default:
-				return __( 'Email this Page', 'highlight-and-share' );
+		const modalTitle = hasEmailModal.email_modal_title;
+		if ( ! modalTitle ) {
+			switch ( emailShareType ) {
+				case 'highlight':
+					return __( 'Email this Highlight', 'highlight-and-share' );
+				case 'quote':
+					return __( 'Email this Quote', 'highlight-and-share' );
+				case 'selection':
+					return __( 'Email this Selection', 'highlight-and-share' );
+				default:
+					return __( 'Email this Page', 'highlight-and-share' );
+			}
 		}
+		return modalTitle;
 	};
 
 	/**
@@ -59,21 +62,25 @@ const View = () => {
 	}, [] );
 
 	/**
-	 * Get a title for the email modal.
+	 * Get a subject for the email modal.
 	 *
-	 * @return {string} The title of the modal.
+	 * @return {string} The subject of the email.
 	 */
 	const getEmailSubject = () => {
-		switch ( emailShareType ) {
-			case 'highlight':
-				return __( 'Check out this Highlight from {sitename}', 'highlight-and-share' );
-			case 'quote':
-				return __( 'Check out this Quote from {sitename}', 'highlight-and-share' );
-			case 'selection':
-				return __( 'Check out this Text Selection from {sitename}', 'highlight-and-share' );
-			default:
-				return __( 'Check out this page I found from {sitename}', 'highlight-and-share' );
+		const emailSubject = hasEmailModal.email_modal_subject;
+		if ( ! emailSubject ) {
+			switch ( emailShareType ) {
+				case 'highlight':
+					return __( 'Check out this Highlight from {{site_name}}', 'highlight-and-share' );
+				case 'quote':
+					return __( 'Check out this Quote from {{site_name}}', 'highlight-and-share' );
+				case 'selection':
+					return __( 'Check out this Text Selection from {{site_name}}', 'highlight-and-share' );
+				default:
+					return __( 'Check out this page I found from {{site_name}}', 'highlight-and-share' );
+			}
 		}
+		return emailSubject;
 	};
 
 	const getDefaultValues = () => {
@@ -85,6 +92,7 @@ const View = () => {
 			permalink: hasEmailModal.permalink,
 			shareText: hasEmailModal.share_text,
 			postId: hasEmailModal.post_id,
+			emailShareType: hasEmailModal.email_share_type,
 		};
 	};
 	const { control, handleSubmit, setValue } =
@@ -274,6 +282,13 @@ const View = () => {
 						control={ control }
 						render={ ( { field } ) => (
 							<TextControl { ...field } type="hidden" register="shareText" />
+						) }
+					/>
+					<Controller
+						name="shareType"
+						control={ control }
+						render={ ( { field } ) => (
+							<TextControl { ...field } type="hidden" register="shareType" />
 						) }
 					/>
 				</div>

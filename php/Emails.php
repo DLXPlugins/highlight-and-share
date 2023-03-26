@@ -34,11 +34,13 @@ class Emails {
 			wp_die( 'Invalid request.' );
 		}
 
-		$options            = Options::get_email_options();
-		$post_id            = absint( filter_input( INPUT_GET, 'post_id', FILTER_DEFAULT ) );
-		$recaptcha_site_key = $options['recaptcha_site_key'];
-		$recaptcha_enabled  = (bool) $options['recaptcha_enabled'];
-		$email_modal_title  = self::replace_template_tags( $options['email_modal_title'], $post_id );
+		$options             = Options::get_email_options();
+		$post_id             = absint( filter_input( INPUT_GET, 'post_id', FILTER_DEFAULT ) );
+		$share_type          = filter_input( INPUT_GET, 'type', FILTER_DEFAULT );
+		$recaptcha_site_key  = $options['recaptcha_site_key'];
+		$recaptcha_enabled   = (bool) $options['recaptcha_enabled'];
+		$email_modal_title   = self::replace_template_tags( $options['email_modal_title'], $post_id, false, false, false, $share_type, false );
+		$email_modal_subject = self::replace_template_tags( $options['email_subject'], $post_id, false, false, false, $share_type, false );
 
 		wp_register_script(
 			'has_email_view',
@@ -52,14 +54,16 @@ class Emails {
 				'has_email_view',
 				'hasEmailModal',
 				array(
-					'recaptcha_enabled'  => true,
-					'recaptcha_site_key' => $recaptcha_site_key,
-					'nonce'              => sanitize_text_field( filter_input( INPUT_GET, 'nonce', FILTER_DEFAULT ) ),
-					'ajaxurl'            => admin_url( 'admin-ajax.php' ),
-					'permalink'          => urlencode( $permalink ),
-					'share_text'         => urlencode( filter_input( INPUT_GET, 'text', FILTER_DEFAULT ) ),
-					'post_id'            => $post_id,
-					'email_modal_title'  => $email_modal_title,
+					'recaptcha_enabled'   => true,
+					'recaptcha_site_key'  => $recaptcha_site_key,
+					'nonce'               => sanitize_text_field( filter_input( INPUT_GET, 'nonce', FILTER_DEFAULT ) ),
+					'ajaxurl'             => admin_url( 'admin-ajax.php' ),
+					'permalink'           => urlencode( $permalink ),
+					'share_text'          => urlencode( filter_input( INPUT_GET, 'text', FILTER_DEFAULT ) ),
+					'post_id'             => $post_id,
+					'email_modal_title'   => $email_modal_title,
+					'email_modal_subject' => $email_modal_subject,
+					'email_share_type'    => $share_type,
 
 				)
 			);
@@ -75,13 +79,16 @@ class Emails {
 				'has_email_view',
 				'hasEmailModal',
 				array(
-					'recaptcha_enabled'  => false,
-					'recaptcha_site_key' => '',
-					'nonce'              => sanitize_text_field( filter_input( INPUT_GET, 'nonce', FILTER_DEFAULT ) ),
-					'ajaxurl'            => admin_url( 'admin-ajax.php' ),
-					'permalink'          => urlencode( $permalink ),
-					'share_text'         => urlencode( filter_input( INPUT_GET, 'text', FILTER_DEFAULT ) ),
-					'post_id'            => absint( filter_input( INPUT_GET, 'post_id', FILTER_DEFAULT ) ),
+					'recaptcha_enabled'   => false,
+					'recaptcha_site_key'  => '',
+					'nonce'               => sanitize_text_field( filter_input( INPUT_GET, 'nonce', FILTER_DEFAULT ) ),
+					'ajaxurl'             => admin_url( 'admin-ajax.php' ),
+					'permalink'           => urlencode( $permalink ),
+					'share_text'          => urlencode( filter_input( INPUT_GET, 'text', FILTER_DEFAULT ) ),
+					'post_id'             => absint( filter_input( INPUT_GET, 'post_id', FILTER_DEFAULT ) ),
+					'email_modal_title'   => $email_modal_title,
+					'email_modal_subject' => $email_modal_subject,
+					'email_share_type'    => $share_type,
 				)
 			);
 		}
@@ -218,6 +225,7 @@ class Emails {
 		$email_to            = trim( sanitize_text_field( $ajax_data['toEmail'] ) );
 		$email_subject       = trim( urldecode( $ajax_data['subject'] ) );
 		$email_selected_text = trim( urldecode( $ajax_data['shareText'] ) );
+		$email_share_type    = trim( urldecode( $ajax_data['shareType'] ) );
 
 		// Now check Akismet.
 		if ( class_exists( 'Akismet' ) && (bool) $options['akismet_enabled'] ) {
@@ -256,6 +264,9 @@ class Emails {
 		$title = get_the_title( $ajax_data['postId'] );
 		$url   = $permalink;
 
+		// Make sure title has entities decoded.
+		$title = html_entity_decode( $title );
+
 		// Check emails to destination.
 		if ( ! is_email( $email_to ) ) {
 			wp_send_json_error( array( 'message' => __( 'The Send email address is not a valid email address.', 'highlight-and-share' ) ) );
@@ -283,6 +294,12 @@ class Emails {
 		$message .= sprintf( '%s', esc_html( $title ) ) . "\r\n";
 		$message .= sprintf( '%s', esc_url( $url ) ) . "\r\n\r\n";
 
+		// Retrieve message from options.
+		$saved_email_body = trim( $options['email_body'] );
+		if ( ! empty( $saved_email_body ) ) {
+			$message = self::replace_template_tags( $saved_email_body, $ajax_data['postId'], $email_name, $email_from, $email_to, $email_share_type, $email_selected_text );
+		}
+
 		$headers   = array();
 		$headers[] = sprintf( 'From: %s <%s>', $email_name, $email_from );
 
@@ -302,28 +319,32 @@ class Emails {
 	 *
 	 * @param string $content Content to replace tags in.
 	 * @param string $post_id Post ID.
+	 * @param string $from_name From name.
+	 * @param string $from_email From email.
+	 * @param string $to_email To email.
+	 * @param string $share_type Share type.
+	 * @param string $share_text Share text.
 	 *
 	 * @return string Content with tags replaced.
 	 */
-	public static function replace_template_tags( $content, $post_id ) {
-		$site_name = get_bloginfo('name');
-		$site_url = get_bloginfo('url');
-		$post_title = get_the_title( $post_id );
+	public static function replace_template_tags( $content, $post_id, $from_name = false, $from_email = false, $to_email = false, $share_type = false, $share_text = false ) {
+		$site_name    = get_bloginfo( 'name' );
+		$site_url     = get_bloginfo( 'url' );
+		$post_title   = html_entity_decode( get_the_title( $post_id ) );
 		$post_excerpt = get_the_excerpt( $post_id );
-		$post_url = get_permalink( $post_id );
-		$from_name = get_bloginfo('name');
-		$from_email = get_bloginfo('admin_email');
-		$to_email = '';
-		$share_type = '';
-		$share_text = '';
-		$date = get_the_date();
-	
-		$search = array(
+		$post_url     = get_permalink( $post_id );
+		$from_name    = $from_name ? $from_name : '';
+		$from_email   = $from_email ? $from_email : '';
+		$to_email     = $to_email ? $to_email : '';
+		$share_type   = $share_type ? ucfirst( $share_type ) : '';
+		$share_text   = $share_text ? $share_text : '';
+		$date         = date_i18n( get_option( 'date_format' ) );
+
+		$search  = array(
 			'{{site_name}}',
 			'{{site_url}}',
 			'{{post_title}}',
 			'{{post_excerpt}}',
-			'{{post_content}}',
 			'{{post_url}}',
 			'{{from_name}}',
 			'{{from_email}}',
@@ -337,7 +358,6 @@ class Emails {
 			$site_url,
 			$post_title,
 			$post_excerpt,
-			$post_content,
 			$post_url,
 			$from_name,
 			$from_email,
@@ -346,8 +366,8 @@ class Emails {
 			$share_text,
 			$date,
 		);
-	
-		$content = str_replace($search, $replace, $content);
+
+		$content = str_replace( $search, $replace, $content );
 		return $content;
 	}
 }

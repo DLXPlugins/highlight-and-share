@@ -81,7 +81,7 @@ class Options {
 			'from_email'                => get_bloginfo( 'admin_email' ),
 			'email_send_type'           => 'form', // can be form|mailto.
 			/* Translators: %1$s is the share type (highlight, quote, etc), %2$s is the site name. */
-			'email_subject'             => sprintf( __( 'Check out this %1$s from %2$s', 'highlight-and-share' ), '{{share_type}}', '{{sitename}}' ),
+			'email_subject'             => sprintf( __( 'Check out this %1$s from %2$s', 'highlight-and-share' ), '{{share_type}}', '{{site_name}}' ),
 			'email_body'                => _x( "{{from_name}} ({{from_email}}) wants to share a link with you\r\n\n{{share_text}}\r\n\r\n{{post_title}}\r\n{{post_url}}", 'email body with template tags', 'highlight-and-share' ),
 			'email_modal_title'         => __( 'Share this {{share_type}}', 'highlight-and-share' ),
 		);
