@@ -31,17 +31,19 @@ const {
 	PanelRow,
 	RangeControl,
 	TextControl,
+	TextareaControl,
 	ButtonGroup,
 	Button,
 	ToggleControl,
+	Toolbar,
+	ToolbarButton,
+	Popover,
 } = wp.components;
 
-const { escapeEditableHTML } = wp.escapeHtml;
+const { useState } = wp.element;
+const { InspectorControls, useBlockProps, BlockControls } = wp.blockEditor;
 
-const { InspectorControls, RichText, useBlockProps, InnerBlocks, useInnerBlocksProps } = wp.blockEditor;
-
-const { useInstanceId, useSelect } = wp.compose;
-
+const { useInstanceId } = wp.compose;
 
 const HAS_Click_To_Share = ( props ) => {
 	const [ deviceType, setDeviceType ] = useDeviceType( 'Desktop' );
@@ -49,10 +51,14 @@ const HAS_Click_To_Share = ( props ) => {
 	const blockProps = useBlockProps( {
 		className: classnames( `highlight-and-share`, `align${ align }` ),
 	} );
+	const [ quoteToolbarPopoverAnchor, setQuoteToolbarPopoverAnchor ] = useState( null );
+	const [ isQuoteToolbarPopoverOpen, setIsQuoteToolbarPopoverOpen ] = useState( false );
+	const quoteToolbarTogglePopover = () => setIsQuoteToolbarPopoverOpen( ! isQuoteToolbarPopoverOpen );
 
 	const { attributes, setAttributes, clientId } = props;
 
 	const {
+		customShareText,
 		shareText,
 		backgroundType,
 		backgroundColor,
@@ -190,6 +196,38 @@ const HAS_Click_To_Share = ( props ) => {
 		'.edit-post-sidebar .edit-post-sidebar__panel-tabs'
 	);
 	const panelHeaderHeight = panelHeader ? panelHeader.offsetHeight : 0;
+
+	const shareTextToolbar = (
+		<BlockControls>
+			<Toolbar>
+				<ToolbarButton
+					icon="editor-quote"
+					label={ __( 'Customize the Share Quote', 'highlight-and-share' ) }
+					onClick={ quoteToolbarTogglePopover }
+					ref={ setQuoteToolbarPopoverAnchor }
+				/>
+				{ isQuoteToolbarPopoverOpen && (
+					<Popover
+						placement="right-end"
+						anchor={ quoteToolbarPopoverAnchor }
+						noArrow={ false }
+						className="has-custom-share-text-popover"
+					>
+						<TextareaControl
+							className="has-custom-share-textarea"
+							label={ __( 'Custom Share Quote', 'highlight-and-share' ) }
+							help={ __(
+								'Enter a custom quote to share. This will override what is in the share block.',
+								'highlight-and-share'
+							) }
+							value={ customShareText }
+							onChange={ ( value ) => setAttributes( { customShareText: value } ) }
+						/>
+					</Popover>
+				) }
+			</Toolbar>
+		</BlockControls>
+	);
 
 	const inspectorControls = (
 		<InspectorControls>
@@ -753,6 +791,7 @@ const HAS_Click_To_Share = ( props ) => {
 
 	const block = (
 		<>
+			{ shareTextToolbar }
 			{ inspectorControls }
 			{ <BlockContent attributes={ attributes } setAttributes={ setAttributes } clientId={ clientId } /> }
 		</>
