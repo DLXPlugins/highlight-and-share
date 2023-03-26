@@ -541,6 +541,16 @@
   right: 10px !important;
 }
 
+/* Share popover */
+.has-custom-share-text-popover .components-popover__content {
+  padding: 15px;
+}
+.has-custom-share-text-popover .has-custom-share-textarea textarea {
+  width: 100%;
+  min-width: 250px;
+  max-width: 275px;
+}
+
 /* Preset Modal Button */
 .has-preset-modal-apply-button {
   margin-right: 8px;

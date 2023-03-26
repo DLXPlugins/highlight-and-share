@@ -36,6 +36,10 @@
       "type": "number",
       "default": -1
     },
+    "customShareText": {
+      "type": "string",
+      "default": ""
+    },
     "shareText": {
       "type": "string",
       "default": ""
