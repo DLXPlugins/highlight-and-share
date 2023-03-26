@@ -117,6 +117,7 @@ So far, the latest versions of Chrome, Firefox, Safari, Edge, and IE9+.
 * New Feature: Customize the share text using a new toolbar option in the Click to Share block.
 * Bug fix: Legacy Click to Share output was returning null or empty on the frontend.
 * Bug fix: The Click to Share block was not showing the share text.
+* <a href="https://dlxplugins.com/announcements/highlight-and-share-4-3-released/">View the announcement post</a> for more details.
 
 = 4.2.2 =
 * Released 2023-03-21
