@@ -35,8 +35,10 @@ class Emails {
 		}
 
 		$options            = Options::get_email_options();
+		$post_id            = absint( filter_input( INPUT_GET, 'post_id', FILTER_DEFAULT ) );
 		$recaptcha_site_key = $options['recaptcha_site_key'];
 		$recaptcha_enabled  = (bool) $options['recaptcha_enabled'];
+		$email_modal_title  = self::replace_template_tags( $options['email_modal_title'], $post_id );
 
 		wp_register_script(
 			'has_email_view',
@@ -56,7 +58,8 @@ class Emails {
 					'ajaxurl'            => admin_url( 'admin-ajax.php' ),
 					'permalink'          => urlencode( $permalink ),
 					'share_text'         => urlencode( filter_input( INPUT_GET, 'text', FILTER_DEFAULT ) ),
-					'post_id'            => absint( filter_input( INPUT_GET, 'post_id', FILTER_DEFAULT ) ),
+					'post_id'            => $post_id,
+					'email_modal_title'  => $email_modal_title,
 
 				)
 			);
@@ -292,5 +295,59 @@ class Emails {
 		$return['message_source_email'] = $email_from;
 
 		wp_send_json_success( $return );
+	}
+
+	/**
+	 * Replace template tags with actual values.
+	 *
+	 * @param string $content Content to replace tags in.
+	 * @param string $post_id Post ID.
+	 *
+	 * @return string Content with tags replaced.
+	 */
+	public static function replace_template_tags( $content, $post_id ) {
+		$site_name = get_bloginfo('name');
+		$site_url = get_bloginfo('url');
+		$post_title = get_the_title( $post_id );
+		$post_excerpt = get_the_excerpt( $post_id );
+		$post_url = get_permalink( $post_id );
+		$from_name = get_bloginfo('name');
+		$from_email = get_bloginfo('admin_email');
+		$to_email = '';
+		$share_type = '';
+		$share_text = '';
+		$date = get_the_date();
+	
+		$search = array(
+			'{{site_name}}',
+			'{{site_url}}',
+			'{{post_title}}',
+			'{{post_excerpt}}',
+			'{{post_content}}',
+			'{{post_url}}',
+			'{{from_name}}',
+			'{{from_email}}',
+			'{{to_email}}',
+			'{{share_type}}',
+			'{{share_text}}',
+			'{{date}}',
+		);
+		$replace = array(
+			$site_name,
+			$site_url,
+			$post_title,
+			$post_excerpt,
+			$post_content,
+			$post_url,
+			$from_name,
+			$from_email,
+			$to_email,
+			$share_type,
+			$share_text,
+			$date,
+		);
+	
+		$content = str_replace($search, $replace, $content);
+		return $content;
 	}
 }

@@ -1,4 +1,4 @@
-import React, { useState, Suspense, useContext } from 'react';
+import React, { useState, Suspense, useRef } from 'react';
 import { __, _x } from '@wordpress/i18n';
 import { escapeAttribute } from '@wordpress/escape-html';
 import { useForm, Controller, useWatch, useFormState } from 'react-hook-form';
@@ -9,7 +9,7 @@ import {
 	Button,
 	RangeControl,
 	ToggleControl,
-	RadioControl
+	RadioControl,
 } from '@wordpress/components';
 import ErrorBoundary from '../Components/ErrorBoundary';
 import Notice from '../Components/Notice';
@@ -18,7 +18,8 @@ import Spinner from '../Components/Icons/Spinner';
 import sendCommand from '../Utils/SendCommand';
 import Loader from '../Components/Loader';
 import ValidateEmail from '../Validation/ValidateEmail';
-import { validate } from 'schema-utils';
+import EmailTemplateTags from '../Components/EmailTemplateTags';
+import TextAreaControl from '../Components/TextAreaControl';
 
 const retrieveDefaults = () => {
 	return sendCommand( 'has_retrieve_emails_tab', {
@@ -76,6 +77,11 @@ const Interface = ( props ) => {
 	const [ akismetInstalled ] = useState( data.akismet.isInstalled );
 	const [ akismetApiKeyValid ] = useState( data.akismet.apiKeyValid );
 
+	// Set up refs for email template tags.
+	const emailSubjectInputRef = useRef( null );
+	const emailBodyInputRef = useRef( null );
+	const emailModalTitleInputRef = useRef( null );
+
 	const getDefaultValues = () => {
 		return {
 			akismetEnabled: data.values.akismetEnabled,
@@ -86,9 +92,12 @@ const Interface = ( props ) => {
 			fromName: data.values.fromName,
 			fromEmail: data.values.fromEmail,
 			emailSendType: data.values.emailSendType,
+			emailSubject: data.values.emailSubject,
+			emailBody: data.values.emailBody,
+			emailModalTitle: data.values.emailModalTitle,
 		};
 	};
-	const { control, handleSubmit, getValues, reset, setError, clearErrors } = useForm( {
+	const { control, handleSubmit, getValues, reset, setError, clearErrors, setValue } = useForm( {
 		defaultValues: getDefaultValues(),
 	} );
 	const formValues = useWatch( { control } );
@@ -207,6 +216,52 @@ const Interface = ( props ) => {
 									<p className="description">{ __( 'Choose how users see your emails.', 'highlight-and-share' ) }</p>
 									<div className="has-admin-component-row">
 										<Controller
+											name="emailModalTitle"
+											control={ control }
+											rules={ { required: true } }
+											render={ ( { field: { onChange, value } } ) => (
+												<div className="has-admin-email-template-tag-row">
+													<TextControl
+														label={ __( 'Email Modal Title', 'highlight-and-share' ) }
+														value={ value }
+														onChange={ ( newValue ) => {
+															onChange( newValue );
+														} }
+														className={ classNames( 'has-admin__text-control', {
+															'has-error': 'required' === errors.emailModalTitle?.type,
+															'is-required': true,
+														} ) }
+														ref={ emailModalTitleInputRef }
+													/>
+													<EmailTemplateTags
+														onSelect={ ( tag ) => {
+															// Focus on the input field.
+															emailModalTitleInputRef.current.focus();
+															// Insert the tag at the cursor position.
+															const cursorPosition = emailModalTitleInputRef.current.selectionStart;
+															const newSubject = [
+																value.slice( 0, cursorPosition ),
+																tag,
+																value.slice( cursorPosition ),
+															].join( '' );
+															setValue( 'emailModalTitle', newSubject );
+														} }
+													/>
+												</div>
+											) }
+										/>
+										{ errors.emailSubject && (
+											<Notice
+												message={ __( 'This field is required.' ) }
+												status="error"
+												politeness="assertive"
+												inline={ false }
+												icon={ CircularExclamationIcon }
+											/>
+										) }
+									</div>
+									<div className="has-admin-component-row">
+										<Controller
 											name="fromEmail"
 											control={ control }
 											rules={ { required: true } }
@@ -257,7 +312,99 @@ const Interface = ( props ) => {
 											) }
 										/>
 									</div>
-								</div>	
+									<div className="has-admin-component-row">
+										<Controller
+											name="emailSubject"
+											control={ control }
+											rules={ { required: true } }
+											render={ ( { field: { onChange, value } } ) => (
+												<div className="has-admin-email-template-tag-row">
+													<TextControl
+														label={ __( 'Email Subject', 'highlight-and-share' ) }
+														value={ value }
+														onChange={ ( newValue ) => {
+															onChange( newValue );
+														} }
+														className={ classNames( 'has-admin__text-control', {
+															'has-error': 'required' === errors.emailSubject?.type,
+															'is-required': true,
+														} ) }
+														ref={ emailSubjectInputRef }
+													/>
+													<EmailTemplateTags
+														onSelect={ ( tag ) => {
+															// Focus on the input field.
+															emailSubjectInputRef.current.focus();
+															// Insert the tag at the cursor position.
+															const cursorPosition = emailSubjectInputRef.current.selectionStart;
+															const newSubject = [
+																value.slice( 0, cursorPosition ),
+																tag,
+																value.slice( cursorPosition ),
+															].join( '' );
+															setValue( 'emailSubject', newSubject );
+														} }
+													/>
+												</div>
+											) }
+										/>
+										{ errors.emailSubject && (
+											<Notice
+												message={ __( 'This field is required.' ) }
+												status="error"
+												politeness="assertive"
+												inline={ false }
+												icon={ CircularExclamationIcon }
+											/>
+										) }
+									</div>
+									<div className="has-admin-component-row">
+										<Controller
+											name="emailBody"
+											control={ control }
+											rules={ { required: true } }
+											render={ ( { field: { onChange, value } } ) => (
+												<div className="has-admin-email-template-tag-row">
+													<TextAreaControl
+														label={ __( 'Email Body', 'highlight-and-share' ) }
+														value={ value }
+														onChange={ ( newValue ) => {
+															onChange( newValue );
+														} }
+														className={ classNames( 'has-admin__text-area-control', {
+															'has-error': 'required' === errors.emailBody?.type,
+															'is-required': true,
+														} ) }
+														innerRef={ emailBodyInputRef }
+													/>
+													<EmailTemplateTags
+														onSelect={ ( tag ) => {
+															// Focus on the input field.
+															emailBodyInputRef.current.focus();
+															// Insert the tag at the cursor position.
+															const cursorPosition = emailBodyInputRef.current.selectionStart;
+															const newBody = [
+																value.slice( 0, cursorPosition ),
+																tag,
+																value.slice( cursorPosition ),
+															].join( '' );
+															setValue( 'emailBody', newBody );
+														} }
+													/>
+												</div>
+											) }
+										/>
+										{ errors.emailBody && (
+											<Notice
+												message={ __( 'This field is required.' ) }
+												status="error"
+												politeness="assertive"
+												inline={ false }
+												icon={ CircularExclamationIcon }
+											/>
+										) }
+									</div>
+								</div>
 							) }
 							<div className="has-admin-content-body">
 								<h2 className="has-admin-content-subheading">

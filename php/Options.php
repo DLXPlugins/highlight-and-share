@@ -79,7 +79,11 @@ class Options {
 			'recaptcha_score_threshold' => 0.5,
 			'from_name'                 => get_bloginfo( 'name' ),
 			'from_email'                => get_bloginfo( 'admin_email' ),
-			'email_send_type'           => 'form', /* can be form|mailto */
+			'email_send_type'           => 'form', // can be form|mailto.
+			/* Translators: %1$s is the share type (highlight, quote, etc), %2$s is the site name. */
+			'email_subject'             => sprintf( __( 'Check out this %1$s from %2$s', 'highlight-and-share' ), '{{share_type}}', '{{sitename}}' ),
+			'email_body'                => _x( "{{from_name}} ({{from_email}}) wants to share a link with you\r\n\n{{share_text}}\r\n\r\n{{post_title}}\r\n{{post_url}}", 'email body with template tags', 'highlight-and-share' ),
+			'email_modal_title'         => __( 'Share this {{share_type}}', 'highlight-and-share' ),
 		);
 	}
 
@@ -193,7 +197,7 @@ class Options {
 			'inline_highlight_background_color_hover'    => '#fcd63c',
 			'inline_highlight_text_color'                => '#000000',
 			'inline_highlight_text_color_hover'          => '#000000',
-			'inline_highlight_tooltips_text'              => __( 'Click to Share This Highlight', 'highlight-and-share' ),
+			'inline_highlight_tooltips_text'             => __( 'Click to Share This Highlight', 'highlight-and-share' ),
 			'inline_highlight_show_tooltips'             => false,
 			'inline_highlight_tooltips_text_color'       => '#FFFFFF',
 			'inline_highlight_tooltips_background_color' => '#000000',
