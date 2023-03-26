@@ -1,9 +1,9 @@
-=== Highlight and Share - Inline Highlighting and Click to Share ===
+=== Highlight and Share ===
 Contributors: ronalfy
 Tags: highlight, social sharing, click to tweet, sharing, highlight text
 Requires at least: 5.1
 Tested up to: 6.2
-Stable tag: 4.2.4
+Stable tag: 4.3.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://github.com/sponsors/DLXPlugins
@@ -13,6 +13,8 @@ Easily Show Social Networks When Users Interact With Your Site's Text
 == Description ==
 
 Meet your readers at your content.
+
+> <a href="https://app.instawp.io/launch?t=highlight-and-share&d=v1">View a Fully Featured Demo via InstaWP</a>
 
 Show social network options when users interact with your text (<a href="https://docs.dlxplugins.com/v/highlight-and-share/getting-started/how-highlight-and-share-works">find out how Highlight and Share works</a>).
 
@@ -107,6 +109,14 @@ So far, the latest versions of Chrome, Firefox, Safari, Edge, and IE9+.
 
 
 == Changelog ==
+
+= 4.3.0 =
+* Released 2023-03-26
+* New Feature: Set tooltips for inline highlighting, including the ability to customize the label, bakground color, and text color.
+* New Feature: Customize the email subject, email body, and modal title when sending emails.
+* New Feature: Customize the share text using a new toolbar option in the Click to Share block.
+* Bug fix: Legacy Click to Share output was returning null or empty on the frontend.
+* Bug fix: The Click to Share block was not showing the share text.
 
 = 4.2.2 =
 * Released 2023-03-21
@@ -436,5 +446,5 @@ So far, the latest versions of Chrome, Firefox, Safari, Edge, and IE9+.
 
 == Upgrade Notice ==
 
-= 4.2.2 =
-New Feature: Can set the wrapper CSS classes to avoid layout issues.
+= 4.3.0 =
+Version 4.3.0 was released on March 26, 2023, and includes new features such as the ability to set tooltips for inline highlighting with customization options for label, background color, and text color, as well as the ability to customize the email subject, body, and modal title when sending emails. Another new feature is the ability to customize the share text using a toolbar option in the Click to Share block. This version also includes bug fixes for the legacy Click to Share output returning null or empty on the frontend and the Click to Share block not showing the share text.
