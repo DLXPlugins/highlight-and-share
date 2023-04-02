@@ -615,3 +615,18 @@
 .has-preset-modal-apply-button {
 	margin-right: 8px;
 }
+
+/* Preset Modal */
+.has-preset-modal-radio-control {
+	.components-flex {
+		flex-direction: row;
+		justify-content: flex-start;
+		.components-radio-control__option:first-child {
+			margin-right: 8px;
+		}
+	}
+	margin-bottom: 15px;
+}
+.has-preset-modal-new-preset {
+	margin-bottom: 15px;
+}

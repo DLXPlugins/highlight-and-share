@@ -556,4 +556,20 @@
   margin-right: 8px;
 }
 
+/* Preset Modal */
+.has-preset-modal-radio-control {
+  margin-bottom: 15px;
+}
+.has-preset-modal-radio-control .components-flex {
+  flex-direction: row;
+  justify-content: flex-start;
+}
+.has-preset-modal-radio-control .components-flex .components-radio-control__option:first-child {
+  margin-right: 8px;
+}
+
+.has-preset-modal-new-preset {
+  margin-bottom: 15px;
+}
+
 /*# sourceMappingURL=has-cts-editor.css.map*/
