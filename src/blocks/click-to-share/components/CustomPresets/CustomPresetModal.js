@@ -6,8 +6,11 @@ import {
 	RadioControl,
 	TextControl,
 } from '@wordpress/components';
+import { useForm, Controller, useWatch, useFormState } from 'react-hook-form';
 import { __ } from '@wordpress/i18n';
 import CustomPresetsContext from './context';
+import CircularExclamationIcon from '../../../../react/Components/Icons/CircularExplanation';
+import Notice from '../../../../react/Components/Notice';
 
 const CustomPresetModal = ( props ) => {
 	const [ savingPreset, setSavingPreset ] = useState( false );
@@ -15,7 +18,47 @@ const CustomPresetModal = ( props ) => {
 	const [ presetSaveLabel, setPresetSaveLabel ] = useState( '' );
 	const { title, attributes, setAttributes, clientId } = props;
 
-	const { savedPresets } = useContext( CustomPresetsContext );
+	const { savedPresets, setSavedPresets } = useContext( CustomPresetsContext );
+
+	const getDefaultValues = () => {
+		return {
+			presetTitle: '',
+		};
+	};
+	const { control, handleSubmit, setValue } =
+		useForm( {
+			defaultValues: getDefaultValues(),
+		} );
+
+	const { errors } = useFormState( {
+		control,
+	} );
+
+	const onSubmit = ( formData ) => {
+		setSavingPreset( true );
+		const ajaxUrl = `${ ajaxurl }`; // eslint-disable-line no-undef
+		const data = new FormData();
+		data.append( 'action', 'has_save_preset' );
+		data.append( 'nonce', has_gutenberg.blockPresetsNonceSave );
+		data.append( 'attributes', JSON.stringify( attributes ) );
+		data.append( 'formData', JSON.stringify( formData ) );
+		fetch( ajaxUrl, {
+			method: 'POST',
+			body: data,
+			/* get return in json */
+			headers: {
+				Accept: 'application/json',
+			},
+		} )
+			.then( ( response ) => response.json() )
+			.then( ( json ) => {
+				setSavingPreset( false );
+				// setSavedPresets( json );
+			} )
+			.catch( ( error ) => {
+				setSavingPreset( false );
+			} );
+	};
 
 	return (
 		<div className="has-custom-preset-modal">
@@ -45,39 +88,67 @@ const CustomPresetModal = ( props ) => {
 						setPresetSaveType( value );
 					} }
 				/>
-				{ 'new' === presetSaveType && (
-					<>
-						<div className="has-preset-modal-new-preset">
-							<TextControl
-								label={ __( 'Preset Name', 'highlight-and-share' ) }
-								value={ presetSaveLabel }
-								onChange={ ( value ) => {
-									setPresetSaveLabel( value );
-								} }
-							/>
-						</div>
-						<div className="has-preset-modal-button-group">
-							<Button
-								variant="primary"
-								onClick={ () => {
-									setSavingPreset( false );
-								} }
-								className="has-preset-modal-apply-button"
-							>
-								{ __( 'Save Preset', 'highlight-and-share' ) }
-							</Button>
-							<Button
-								variant="secondary"
-								onClick={ () => {
-									setSavingPreset( false );
-								} }
-								className="has-preset-modal-cancel-button"
-							>
-								{ __( 'Cancel', 'highlight-and-share' ) }
-							</Button>
-						</div>
-					</>
-				) }
+				<form onSubmit={ handleSubmit( onSubmit ) }>
+					{ 'new' === presetSaveType && (
+						<>
+							<div className="has-preset-modal-new-preset">
+								<Controller
+									name="presetTitle"
+									control={ control }
+									rules={ {
+										required: true,
+										pattern: /^[a-zA-Z0-9-_ ]+$/,
+									} }
+									render={ ( { field } ) => (
+										<TextControl
+											{ ...field }
+											label={ __( 'Preset Name', 'highlight-and-share' ) }
+											className="is-required"
+										/>
+									) }
+								/>
+								{ 'required' === errors.presetTitle?.type && (
+									<Notice
+										message={ __( 'This field is required.' ) }
+										status="error"
+										politeness="assertive"
+										icon={ CircularExclamationIcon }
+									/>
+								) }
+								{ 'pattern' === errors.presetTitle?.type && (
+									<Notice
+										message={ __( 'This field contains invalid characters.' ) }
+										status="error"
+										politeness="assertive"
+										icon={ CircularExclamationIcon }
+									/>
+								) }
+
+							</div>
+							<div className="has-preset-modal-button-group">
+								<Button
+									type="submit"
+									variant="primary"
+									onClick={ () => {
+										setSavingPreset( false );
+									} }
+									className="has-preset-modal-apply-button"
+								>
+									{ __( 'Save Preset', 'highlight-and-share' ) }
+								</Button>
+								<Button
+									variant="secondary"
+									onClick={ () => {
+										setSavingPreset( false );
+									} }
+									className="has-preset-modal-cancel-button"
+								>
+									{ __( 'Cancel', 'highlight-and-share' ) }
+								</Button>
+							</div>
+						</>
+					) }
+				</form>
 			</Modal>
 		</div>
 	);
