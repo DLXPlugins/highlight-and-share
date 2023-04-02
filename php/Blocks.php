@@ -140,6 +140,8 @@ class Blocks {
 				'adobeFontsUrl'  => Adobe_Fonts::$typekit_css_url,
 				'adobeProjectId' => $block_editor_options['adobe_project_id'] ?? '',
 				'cssFolder'      => esc_url( functions::get_plugin_url( '/dist/' ) ),
+				'blockPresetsNonceRetrieve' => wp_create_nonce( 'has_load_presets' ),
+				'blockPresetsNonceSave' => wp_create_nonce( 'has_save_presets' ),
 			)
 		);
 		wp_set_script_translations( 'has-click-to-share', 'highlight-and-share' );

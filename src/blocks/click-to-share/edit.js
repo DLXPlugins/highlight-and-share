@@ -22,6 +22,7 @@ import { attributes as lightAttributes } from './presets/light';
 import { attributes as pinkAttributes } from './presets/pink';
 import { attributes as redAttributes } from './presets/red';
 import BlockContent from './components/BlockContent';
+import CustomPresetContainer from './components/CustomPresetContainer';
 
 
 const { __ } = wp.i18n;
@@ -266,7 +267,7 @@ const HAS_Click_To_Share = ( props ) => {
 			</div>
 			<PanelBody
 				title={ __( 'Presets', 'highlight-and-share' ) }
-				initialOpen={ false }
+				initialOpen={ true }
 				className="has-presets-panel"
 			>
 				<PanelRow>
@@ -315,6 +316,16 @@ const HAS_Click_To_Share = ( props ) => {
 								uniqueId={ uniqueId }
 							/>
 						</ButtonGroup>
+					</div>
+				</PanelRow>
+				<PanelRow>
+					<div className="has-presets">
+						<h3>{ __( 'Custom Presets', 'highlight-and-share' ) }</h3>
+						<CustomPresetContainer
+							clientId={ clientId }
+							uniqueId={ uniqueId }
+							setAttributes={ setAttributes }
+						/>
 					</div>
 				</PanelRow>
 			</PanelBody>
