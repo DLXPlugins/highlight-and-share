@@ -5,6 +5,8 @@ import CustomPresetContainer from './CustomPresetContainer';
 const CustomPresets = ( props ) => {
 	const [ savedPresets, setSavedPresets ] = useState( [] );
 	const [ savingPreset, setSavingPreset ] = useState( false );
+	const [ editPresets, setEditPresets ] = useState( false );
+	const [ showEditModal, setShowEditModal ] = useState( false );
 
 	return (
 		<CustomPresetsContext.Provider
@@ -13,6 +15,10 @@ const CustomPresets = ( props ) => {
 				setSavedPresets,
 				savingPreset,
 				setSavingPreset,
+				editPresets,
+				setEditPresets,
+				showEditModal,
+				setShowEditModal,
 			} }
 		>
 			<CustomPresetContainer { ...props } />

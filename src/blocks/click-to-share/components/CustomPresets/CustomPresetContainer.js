@@ -9,8 +9,9 @@ import {
 } from '@wordpress/components';
 import { __ } from '@wordpress/i18n';
 import CustomPresetsContext from './context';
-import CustomPresetModal from './CustomPresetModal';
-import PresetButton from '../PresetButton';
+import CustomPresetSaveModal from './CustomPresetSaveModal';
+import PresetButtonEdit from '../PresetButtonEdit';
+import CustomPresetEditModal from './CustomPresetEditModal';
 
 const CustomPresetContainer = ( props ) => {
 	const [ loading, setLoading ] = useState( true );
@@ -18,7 +19,7 @@ const CustomPresetContainer = ( props ) => {
 	const [ presetSaveLabel, setPresetSaveLabel ] = useState( '' );
 	const { setAttributes, clientId, uniqueId } = props;
 
-	const { savedPresets, setSavedPresets, savingPreset, setSavingPreset } = useContext( CustomPresetsContext );
+	const { savedPresets, setSavedPresets, savingPreset, setSavingPreset, editPresets, setEditPresets, showEditModal, setShowEditModal } = useContext( CustomPresetsContext );
 
 	const presetContainer = useRef( null );
 
@@ -70,16 +71,18 @@ const CustomPresetContainer = ( props ) => {
 				<div className="has-presets">
 					<ButtonGroup>
 						{ savedPresets.map( ( preset ) => {
-							const uniqueIdAttribute = { uniqueId: preset.slug };
-							const blockAttributes = { ...preset.content, ...uniqueIdAttribute };
 							return (
-								<PresetButton
-									key={ preset.slug }
-									label={ ( '' === preset.title  ) ? __( 'Untitled Preset', 'highlight-and-share' ) : preset.title }
+								<PresetButtonEdit
+									key={ preset.id }
+									editId={ preset.id }
+									title={ preset.title }
 									setAttributes={ setAttributes }
 									uniqueId={ uniqueId }
 									clientId={ clientId }
-									attributes={ blockAttributes }
+									slug={ preset.slug }
+									attributes={ preset.content }
+									saveNonce={ preset.save_nonce }
+									deleteNonce={ preset.delete_nonce }
 								/>
 							);
 						} ) }
@@ -93,30 +96,69 @@ const CustomPresetContainer = ( props ) => {
 	};
 
 	return (
-		<div className="has-custom-preset-container" ref={ presetContainer }>
-			{ loading && showLoading( 'Loading Presets' ) }
-			{ ! loading && (
-				<>
-					{ getSavedPresets() }
-					<Button
-						variant={ 'primary' }
-						onClick={ ( e ) => {
-							e.preventDefault();
-							setSavingPreset( true );
-						} }
-						label={ __( 'Save New Preset', 'highlight-and-share' ) }
-					>
-						{ __( 'Save New Preset', 'highlight-and-share' ) }
-					</Button>
-				</>
-			) }
-			{ ( savingPreset ) && (
-				<CustomPresetModal
-					title={ __( 'Save Preset', 'highlight-and-share' ) }
-					{ ...props }
-				/>
-			) }
-		</div>
+		<>
+			{
+				showEditModal && (
+					<CustomPresetEditModal
+						editId={ showEditModal.editId }
+						title={ showEditModal.title }
+						saveNonce={ showEditModal.saveNonce }
+					/>
+				)
+			}
+			<div className="has-custom-preset-container" ref={ presetContainer }>
+				{ loading && showLoading( 'Loading Presets' ) }
+				{ ! loading && (
+					<>
+						{ getSavedPresets() }
+						<div className="has-custom-preset-actions">
+							{ ( ! editPresets ) && (
+								<Button
+									variant={ 'primary' }
+									onClick={ ( e ) => {
+										e.preventDefault();
+										setSavingPreset( true );
+									} }
+									label={ __( 'Save New Preset', 'highlight-and-share' ) }
+								>
+									{ __( 'Save New Preset', 'highlight-and-share' ) }
+								</Button>
+							) }
+							{ ( ! editPresets && ! savingPreset ) && (
+								<Button
+									variant={ 'secondary' }
+									onClick={ ( e ) => {
+										e.preventDefault();
+										setEditPresets( true );
+									} }
+									label={ __( 'Edit Presets', 'highlight-and-share' ) }
+								>
+									{ __( 'Edit Presets', 'highlight-and-share' ) }
+								</Button>
+							) }
+							{ ( editPresets && ! savingPreset ) && (
+								<Button
+									variant={ 'primary' }
+									onClick={ ( e ) => {
+										e.preventDefault();
+										setEditPresets( false );
+									} }
+									label={ __( 'Exit Edit Mode', 'highlight-and-share' ) }
+								>
+									{ __( 'Exit Edit Mode', 'highlight-and-share' ) }
+								</Button>
+							) }
+						</div>
+					</>
+				) }
+				{ ( savingPreset ) && (
+					<CustomPresetSaveModal
+						title={ __( 'Save Preset', 'highlight-and-share' ) }
+						{ ...props }
+					/>
+				) }
+			</div>
+		</>
 	);
 };
 export default CustomPresetContainer;

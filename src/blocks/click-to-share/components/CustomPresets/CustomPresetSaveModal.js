@@ -12,7 +12,7 @@ import CustomPresetsContext from './context';
 import CircularExclamationIcon from '../../../../react/Components/Icons/CircularExplanation';
 import Notice from '../../../../react/Components/Notice';
 
-const CustomPresetModal = ( props ) => {
+const CustomPresetSaveModal = ( props ) => {
 	const [ presetSaveType, setPresetSaveType ] = useState( 'new' );
 	const [ presetSaveLabel, setPresetSaveLabel ] = useState( '' );
 	const { title, attributes, setAttributes, clientId } = props;
@@ -65,6 +65,7 @@ const CustomPresetModal = ( props ) => {
 				title={ title }
 				onRequestClose={ () => setSavingPreset( false ) }
 				className="has-preset-modal"
+				shouldCloseOnClickOutside={ false }
 			>
 				<RadioControl
 					label={ __(
@@ -152,4 +153,4 @@ const CustomPresetModal = ( props ) => {
 		</div>
 	);
 };
-export default CustomPresetModal;
+export default CustomPresetSaveModal;

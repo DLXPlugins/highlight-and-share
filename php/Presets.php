@@ -61,10 +61,12 @@ class Presets {
 				// Format content that is JSON into an array.
 				$content  = json_decode( $preset->post_content, true );
 				$return[] = array(
-					'id'      => $preset->ID,
-					'title'   => $preset->post_title,
-					'slug'    => $preset->post_name,
-					'content' => $content,
+					'id'           => $preset->ID,
+					'title'        => $preset->post_title,
+					'slug'         => $preset->post_name,
+					'content'      => $content,
+					'delete_nonce' => wp_create_nonce( 'has_delete_preset_' . $preset->ID ),
+					'save_nonce'   => wp_create_nonce( 'has_save_preset_' . $preset->ID ),
 				);
 			}
 		}
@@ -72,38 +74,32 @@ class Presets {
 	}
 
 	/**
-	 * Saves the presets and loads in via Ajax.
+	 * Save a preset and return all via Ajax.
 	 */
 	public static function ajax_save_preset() {
+		// Get preset post ID.
+		$preset_id = absint( filter_input( INPUT_POST, 'editId', FILTER_DEFAULT ) );
+
 		// Verify nonce.
-		if ( ! wp_verify_nonce( filter_input( INPUT_POST, 'nonce', FILTER_DEFAULT ), 'has_save_presets' ) || ! current_user_can( 'edit_others_posts' ) ) {
+		if ( ! wp_verify_nonce( filter_input( INPUT_POST, 'nonce', FILTER_DEFAULT ), 'has_save_preset_' . $preset_id ) || ! current_user_can( 'edit_others_posts' ) ) {
 			wp_send_json_error( array() );
 		}
 
-		// Get attributes JSON.
-		$attributes = json_decode( filter_input( INPUT_POST, 'attributes', FILTER_DEFAULT ), true );
-		unset( $attributes['uniqueId'] );
-
-		// Get form data.
-		$form_data = json_decode( filter_input( INPUT_POST, 'formData', FILTER_DEFAULT ), true );
-
 		// Get the preset title.
-		$title           = isset( $form_data['presetTitle'] ) ? sanitize_text_field( $form_data['presetTitle'] ) : '';
-		$title_sanitized = sanitize_title( $title );
+		$title = sanitize_text_field( filter_input( INPUT_POST, 'title', FILTER_DEFAULT ) );
 
-		// Insert new post with preset data.
-		$post_id = wp_insert_post(
+		// Update the post title.
+		wp_update_post(
 			array(
-				'post_title'   => $title,
-				'post_name'    => $title_sanitized,
-				'post_content' => wp_json_encode( $attributes ),
-				'post_status'  => 'publish',
-				'post_type'    => 'has-presets',
+				'ID'         => $preset_id,
+				'post_title' => $title,
 			)
 		);
 
-		// Get the presets.
+		// Retrieve all presets.
 		$return = self::return_saved_presets();
+
+		// Send json response.
 		wp_send_json_success( array( 'presets' => $return ) );
 	}
 

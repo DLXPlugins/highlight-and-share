@@ -33,10 +33,12 @@ const PresetButton = ( props ) => {
 					e.preventDefault();
 					setShowModal( true );
 				} }
+				className="has-preset-button"
 				onMouseEnter={ () => handlePopoverOpen( true ) }
 				onMouseLeave={ () => handlePopoverClose( false ) }
 				label={ label }
 				ref={ previewButton }
+				disabled={ props.disabled ?? false }
 			>
 				{ label }
 			</Button>
