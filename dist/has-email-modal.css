@@ -179,7 +179,7 @@
   position: relative;
   display: inline-block !important;
 }
-.is-required input {
+.is-required input:not(.components-radio-control__input) {
   display: block !important;
 }
 .is-required label::after {
@@ -192,6 +192,9 @@
   color: var(--quotes-dlx-admin--color-notice--error-alt);
   font-size: 1.4em;
   line-height: 1.3;
+}
+.is-required .components-radio-control__option label::after {
+  display: none;
 }
 .is-required .not-is-required::after {
   display: none;

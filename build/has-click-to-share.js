@@ -242,7 +242,7 @@ var CustomPresetContainer = function CustomPresetContainer(props) {
         });
       })));
     }
-    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null);
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('No custom presets have been saved yet.', 'highlight-and-share')));
   };
 
   // Read in localized var and determine if user can save or edit presets.
@@ -591,7 +591,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 var CustomPresetSaveModal = function CustomPresetSaveModal(props) {
-  var _errors$presetTitle, _errors$presetTitle2;
+  var _errors$presetTitle, _errors$presetTitle2, _errors$selectedPrese;
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('new'),
     _useState2 = _slicedToArray(_useState, 2),
     presetSaveType = _useState2[0],
@@ -611,7 +611,8 @@ var CustomPresetSaveModal = function CustomPresetSaveModal(props) {
     setSavingPreset = _useContext.setSavingPreset;
   var getDefaultValues = function getDefaultValues() {
     return {
-      presetTitle: ''
+      presetTitle: '',
+      selectedPreset: null
     };
   };
   var _useForm = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_4__.useForm)({
@@ -625,6 +626,19 @@ var CustomPresetSaveModal = function CustomPresetSaveModal(props) {
     }),
     errors = _useFormState.errors;
   var onSubmit = function onSubmit(formData) {
+    if ('new' === presetSaveType) {
+      saveNewPreset(formData);
+    } else {
+      overridePreset(formData);
+    }
+  };
+
+  /**
+   * Save a new preset via Ajax.
+   *
+   * @param {Array} formData Form data array.
+   */
+  var saveNewPreset = function saveNewPreset(formData) {
     setIsSaving(true);
     var ajaxUrl = "".concat(ajaxurl); // eslint-disable-line no-undef
     var data = new FormData();
@@ -649,6 +663,54 @@ var CustomPresetSaveModal = function CustomPresetSaveModal(props) {
     })["catch"](function (error) {
       setSavingPreset(false);
     });
+  };
+
+  /**
+   * Save a new preset via Ajax.
+   *
+   * @param {Array} formData Form data array.
+   */
+  var overridePreset = function overridePreset(formData) {
+    setIsSaving(true);
+    var ajaxUrl = "".concat(ajaxurl); // eslint-disable-line no-undef
+    var data = new FormData();
+    data.append('action', 'has_override_preset');
+    data.append('nonce', has_gutenberg.blockPresetsNonceSave);
+    data.append('attributes', JSON.stringify(attributes));
+    data.append('editId', formData.selectedPreset);
+    fetch(ajaxUrl, {
+      method: 'POST',
+      body: data,
+      /* get return in json */
+      headers: {
+        Accept: 'application/json'
+      }
+    }).then(function (response) {
+      return response.json();
+    }).then(function (json) {
+      var presets = json.data.presets;
+      setIsSaving(false);
+      setSavingPreset(false);
+      setSavedPresets(presets);
+    })["catch"](function (error) {
+      setSavingPreset(false);
+    });
+  };
+
+  /**
+   * Get the preset options in radio group format.
+   *
+   * @return {Array} Array of objects with label and value properties.
+   */
+  var getPresetRadioOptions = function getPresetRadioOptions() {
+    var options = [];
+    savedPresets.forEach(function (preset) {
+      options.push({
+        label: preset.title,
+        value: preset.id + ''
+      });
+    });
+    return options;
   };
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "has-custom-preset-modal"
@@ -701,19 +763,48 @@ var CustomPresetSaveModal = function CustomPresetSaveModal(props) {
     status: "error",
     politeness: "assertive",
     icon: _react_Components_Icons_CircularExplanation__WEBPACK_IMPORTED_MODULE_6__["default"]
-  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+  }))), 'override' === presetSaveType && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, savedPresets.length > 0 && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "has-preset-modal-override-preset"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_4__.Controller, {
+    name: "selectedPreset",
+    control: control,
+    rules: {
+      required: true
+    },
+    render: function render(_ref2) {
+      var _ref2$field = _ref2.field,
+        _onChange = _ref2$field.onChange,
+        value = _ref2$field.value;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.RadioControl, {
+        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Select a preset to override', 'highlight-and-share'),
+        className: "is-required",
+        selected: value,
+        options: getPresetRadioOptions(),
+        onChange: function onChange(radioValue) {
+          return _onChange(radioValue);
+        }
+      });
+    }
+  }), 'required' === ((_errors$selectedPrese = errors.selectedPreset) === null || _errors$selectedPrese === void 0 ? void 0 : _errors$selectedPrese.type) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_react_Components_Notice__WEBPACK_IMPORTED_MODULE_5__["default"], {
+    message: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('This field is required.'),
+    status: "error",
+    politeness: "assertive",
+    icon: _react_Components_Icons_CircularExplanation__WEBPACK_IMPORTED_MODULE_6__["default"]
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "has-preset-modal-button-group"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Button, {
     type: "submit",
     variant: "primary",
-    className: "has-preset-modal-apply-button"
+    className: "has-preset-modal-apply-button",
+    disabled: isSaving
   }, isSaving ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Saving…', 'highlight-and-share') : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Save Preset', 'highlight-and-share')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Button, {
     variant: "secondary",
     onClick: function onClick() {
       setSavingPreset(false);
     },
-    className: "has-preset-modal-cancel-button"
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Cancel', 'highlight-and-share')))))));
+    className: "has-preset-modal-cancel-button",
+    disabled: isSaving
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Cancel', 'highlight-and-share'))))));
 };
 /* harmony default export */ __webpack_exports__["default"] = (CustomPresetSaveModal);
 
@@ -1422,7 +1513,7 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
     label: __('Mobile', 'highlight-and-share')
   }))), /*#__PURE__*/React.createElement(PanelBody, {
     title: __('Presets', 'highlight-and-share'),
-    initialOpen: true,
+    initialOpen: false,
     className: "has-presets-panel"
   }, /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement("div", {
     className: "has-presets"
@@ -1915,6 +2006,7 @@ var attributes = {
     }
   },
   maxWidth: 80,
+  maxWidthUnit: '%',
   marginSize: {
     mobile: {
       top: '',
@@ -2136,6 +2228,7 @@ var attributes = {
     }
   },
   maxWidth: 80,
+  maxWidthUnit: '%',
   marginSize: {
     mobile: {
       top: '',
@@ -2359,6 +2452,7 @@ var attributes = {
     }
   },
   maxWidth: 80,
+  maxWidthUnit: '%',
   marginSize: {
     mobile: {
       top: '',
@@ -2582,6 +2676,7 @@ var attributes = {
     }
   },
   maxWidth: 80,
+  maxWidthUnit: '%',
   marginSize: {
     mobile: {
       top: '',
@@ -2803,6 +2898,7 @@ var attributes = {
     }
   },
   maxWidth: 80,
+  maxWidthUnit: '%',
   marginSize: {
     mobile: {
       top: '',
@@ -3026,6 +3122,7 @@ var attributes = {
     }
   },
   maxWidth: 80,
+  maxWidthUnit: '%',
   marginSize: {
     mobile: {
       top: '',

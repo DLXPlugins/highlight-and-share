@@ -39,6 +39,7 @@ const attributes = {
 		},
 	},
 	maxWidth: 80,
+	maxWidthUnit: '%',
 	marginSize: {
 		mobile: {
 			top: '',

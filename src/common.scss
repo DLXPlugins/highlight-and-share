@@ -187,7 +187,7 @@
 		position: relative;
 		display: inline-block !important;
 	}
-	input {
+	input:not(.components-radio-control__input) {
 		display: block !important;
 	}
 
@@ -201,6 +201,10 @@
 		color: var(--quotes-dlx-admin--color-notice--error-alt);
 		font-size: 1.4em;
 		line-height: 1.3;
+	}
+
+	.components-radio-control__option label::after {
+		display: none;
 	}
 
 	.not-is-required::after {

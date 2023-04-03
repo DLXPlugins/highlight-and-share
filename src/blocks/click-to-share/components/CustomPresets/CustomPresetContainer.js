@@ -100,7 +100,13 @@ const CustomPresetContainer = ( props ) => {
 				</div>
 			);
 		}
-		return <></>;
+		return (
+			<>
+				<p>
+					{ __( 'No custom presets have been saved yet.', 'highlight-and-share', ) }
+				</p>
+			</>
+		);
 	};
 
 	// Read in localized var and determine if user can save or edit presets.

@@ -22,6 +22,7 @@ class Presets {
 		add_action( 'wp_ajax_has_save_preset', array( static::class, 'ajax_save_preset' ) );
 		add_action( 'wp_ajax_has_save_presets', array( static::class, 'ajax_save_presets' ) );
 		add_action( 'wp_ajax_has_delete_preset', array( static::class, 'ajax_delete_preset' ) );
+		add_action( 'wp_ajax_has_override_preset', array( static::class, 'ajax_override_preset' ) );
 		return $self;
 	}
 
@@ -103,6 +104,35 @@ class Presets {
 				'post_content' => wp_json_encode( $attributes ),
 				'post_status'  => 'publish',
 				'post_type'    => 'has-presets',
+			)
+		);
+
+		// Get the presets.
+		$return = self::return_saved_presets();
+		wp_send_json_success( array( 'presets' => $return ) );
+	}
+
+	/**
+	 * Overrides a preset and returns all saved presets.
+	 */
+	public static function ajax_override_preset() {
+		// Get preset post ID.
+		$preset_id = absint( filter_input( INPUT_POST, 'editId', FILTER_DEFAULT ) );
+
+		// Verify nonce.
+		if ( ! wp_verify_nonce( filter_input( INPUT_POST, 'nonce', FILTER_DEFAULT ), 'has_save_presets' ) || ! current_user_can( 'edit_others_posts' ) ) {
+			wp_send_json_error( array() );
+		}
+
+		// Get attributes JSON.
+		$attributes = json_decode( filter_input( INPUT_POST, 'attributes', FILTER_DEFAULT ), true );
+		unset( $attributes['uniqueId'] );
+
+		// Update post with new attribute data.
+		wp_update_post(
+			array(
+				'ID'           => $preset_id,
+				'post_content' => wp_json_encode( $attributes ),
 			)
 		);
 

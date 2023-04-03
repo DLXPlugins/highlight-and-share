@@ -267,7 +267,7 @@ const HAS_Click_To_Share = ( props ) => {
 			</div>
 			<PanelBody
 				title={ __( 'Presets', 'highlight-and-share' ) }
-				initialOpen={ true }
+				initialOpen={ false }
 				className="has-presets-panel"
 			>
 				<PanelRow>

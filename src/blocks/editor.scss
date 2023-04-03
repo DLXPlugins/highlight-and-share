@@ -715,5 +715,11 @@
 			box-shadow: unset;
 		}
 	}	
-	
+}
+.has-preset-modal-override-preset {
+	margin-bottom: 15px;
+
+	.components-radio-control__option {
+		margin-bottom: 6px;
+	}
 }
