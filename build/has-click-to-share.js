@@ -138,9 +138,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _context__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./context */ "./src/blocks/click-to-share/components/CustomPresets/context.js");
-/* harmony import */ var _CustomPresetSaveModal__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./CustomPresetSaveModal */ "./src/blocks/click-to-share/components/CustomPresets/CustomPresetSaveModal.js");
+/* harmony import */ var _CustomPresetSaveModal__WEBPACK_IMPORTED_MODULE_7__ = __webpack_require__(/*! ./CustomPresetSaveModal */ "./src/blocks/click-to-share/components/CustomPresets/CustomPresetSaveModal.js");
 /* harmony import */ var _PresetButtonEdit__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../PresetButtonEdit */ "./src/blocks/click-to-share/components/PresetButtonEdit.js");
 /* harmony import */ var _CustomPresetEditModal__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./CustomPresetEditModal */ "./src/blocks/click-to-share/components/CustomPresets/CustomPresetEditModal.js");
+/* harmony import */ var _CustomPresetDeleteModal__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./CustomPresetDeleteModal */ "./src/blocks/click-to-share/components/CustomPresets/CustomPresetDeleteModal.js");
 function _extends() { _extends = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -148,6 +149,7 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
 
 
 
@@ -179,7 +181,7 @@ var CustomPresetContainer = function CustomPresetContainer(props) {
     editPresets = _useContext.editPresets,
     setEditPresets = _useContext.setEditPresets,
     showEditModal = _useContext.showEditModal,
-    setShowEditModal = _useContext.setShowEditModal;
+    showDeleteModal = _useContext.showDeleteModal;
   var presetContainer = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     if (presetContainer.current) {
@@ -246,6 +248,10 @@ var CustomPresetContainer = function CustomPresetContainer(props) {
     editId: showEditModal.editId,
     title: showEditModal.title,
     saveNonce: showEditModal.saveNonce
+  }), showDeleteModal && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_CustomPresetDeleteModal__WEBPACK_IMPORTED_MODULE_6__["default"], {
+    editId: showDeleteModal.editId,
+    title: showDeleteModal.title,
+    deleteNonce: showDeleteModal.deleteNonce
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "has-custom-preset-container",
     ref: presetContainer
@@ -272,11 +278,131 @@ var CustomPresetContainer = function CustomPresetContainer(props) {
       setEditPresets(false);
     },
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Exit Edit Mode', 'highlight-and-share')
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Exit Edit Mode', 'highlight-and-share')))), savingPreset && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_CustomPresetSaveModal__WEBPACK_IMPORTED_MODULE_6__["default"], _extends({
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Exit Edit Mode', 'highlight-and-share')))), savingPreset && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_CustomPresetSaveModal__WEBPACK_IMPORTED_MODULE_7__["default"], _extends({
     title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Save Preset', 'highlight-and-share')
   }, props))));
 };
 /* harmony default export */ __webpack_exports__["default"] = (CustomPresetContainer);
+
+/***/ }),
+
+/***/ "./src/blocks/click-to-share/components/CustomPresets/CustomPresetDeleteModal.js":
+/*!***************************************************************************************!*\
+  !*** ./src/blocks/click-to-share/components/CustomPresets/CustomPresetDeleteModal.js ***!
+  \***************************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var react_hook_form__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-hook-form */ "./node_modules/react-hook-form/dist/index.esm.mjs");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _context__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./context */ "./src/blocks/click-to-share/components/CustomPresets/context.js");
+function _extends() { _extends = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+
+var CustomPresetDeleteModal = function CustomPresetDeleteModal(props) {
+  var title = props.title,
+    editId = props.editId,
+    deleteNonce = props.deleteNonce;
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState2 = _slicedToArray(_useState, 2),
+    isDeleting = _useState2[0],
+    setIsDeleting = _useState2[1];
+  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_context__WEBPACK_IMPORTED_MODULE_3__["default"]),
+    setSavedPresets = _useContext.setSavedPresets,
+    showDeleteModal = _useContext.showDeleteModal,
+    setShowDeleteModal = _useContext.setShowDeleteModal;
+  var getDefaultValues = function getDefaultValues() {
+    return {
+      editId: editId
+    };
+  };
+  var _useForm = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_4__.useForm)({
+      defaultValues: getDefaultValues()
+    }),
+    control = _useForm.control,
+    handleSubmit = _useForm.handleSubmit;
+  var _useFormState = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_4__.useFormState)({
+      control: control
+    }),
+    errors = _useFormState.errors;
+  var onSubmit = function onSubmit(formData) {
+    setIsDeleting(true);
+    var ajaxUrl = "".concat(ajaxurl); // eslint-disable-line no-undef
+    var data = new FormData();
+    data.append('action', 'has_delete_preset');
+    data.append('nonce', deleteNonce);
+    data.append('editId', formData.editId);
+    fetch(ajaxUrl, {
+      method: 'POST',
+      body: data,
+      /* get return in json */
+      headers: {
+        Accept: 'application/json'
+      }
+    }).then(function (response) {
+      return response.json();
+    }).then(function (json) {
+      var presets = json.data.presets;
+      setSavedPresets(presets);
+      setIsDeleting(false);
+      setShowDeleteModal(false);
+    })["catch"](function (error) {
+      setIsDeleting(false);
+    });
+  };
+
+  // Don't show modal unless explicitly set.
+  if (!showDeleteModal) {
+    return null;
+  }
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Modal, {
+    title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Delete Preset', 'highlight-and-share'),
+    onRequestClose: function onRequestClose() {
+      return setShowDeleteModal(false);
+    },
+    className: "has-preset-modal",
+    shouldCloseOnClickOutside: false
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("form", {
+    onSubmit: handleSubmit(onSubmit)
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_4__.Controller, {
+    name: "editId",
+    control: control,
+    render: function render(_ref) {
+      var field = _ref.field;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.TextControl, _extends({
+        type: "hidden"
+      }, field));
+    }
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Button, {
+    type: "submit",
+    variant: "primary",
+    className: "has-preset-modal-apply-button",
+    disabled: isDeleting
+  }, isDeleting ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Deleting…', 'highlight-and-share') : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Delete Preset', 'highlight-and-share')), !isDeleting && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Button, {
+    variant: "secondary",
+    onClick: function onClick() {
+      setShowDeleteModal(false);
+    }
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Cancel', 'highlight-and-share'))));
+};
+/* harmony default export */ __webpack_exports__["default"] = (CustomPresetDeleteModal);
 
 /***/ }),
 
@@ -327,16 +453,15 @@ var CustomPresetEditModal = function CustomPresetEditModal(props) {
     setShowEditModal = _useContext.setShowEditModal;
   var getDefaultValues = function getDefaultValues() {
     return {
-      title: props.title,
-      editId: props.editId
+      title: title,
+      editId: editId
     };
   };
   var _useForm = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_4__.useForm)({
       defaultValues: getDefaultValues()
     }),
     control = _useForm.control,
-    handleSubmit = _useForm.handleSubmit,
-    setValue = _useForm.setValue;
+    handleSubmit = _useForm.handleSubmit;
   var _useFormState = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_4__.useFormState)({
       control: control
     }),
@@ -368,7 +493,7 @@ var CustomPresetEditModal = function CustomPresetEditModal(props) {
     });
   };
 
-  // Don't show modal if explicitly set.
+  // Don't show modal unless explicitly set.
   if (!showEditModal) {
     return null;
   }
@@ -468,10 +593,10 @@ var CustomPresetSaveModal = function CustomPresetSaveModal(props) {
     _useState2 = _slicedToArray(_useState, 2),
     presetSaveType = _useState2[0],
     setPresetSaveType = _useState2[1];
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState4 = _slicedToArray(_useState3, 2),
-    presetSaveLabel = _useState4[0],
-    setPresetSaveLabel = _useState4[1];
+    isSaving = _useState4[0],
+    setIsSaving = _useState4[1];
   var title = props.title,
     attributes = props.attributes,
     setAttributes = props.setAttributes,
@@ -497,10 +622,10 @@ var CustomPresetSaveModal = function CustomPresetSaveModal(props) {
     }),
     errors = _useFormState.errors;
   var onSubmit = function onSubmit(formData) {
-    setSavingPreset(true);
+    setIsSaving(true);
     var ajaxUrl = "".concat(ajaxurl); // eslint-disable-line no-undef
     var data = new FormData();
-    data.append('action', 'has_save_preset');
+    data.append('action', 'has_save_presets');
     data.append('nonce', has_gutenberg.blockPresetsNonceSave);
     data.append('attributes', JSON.stringify(attributes));
     data.append('formData', JSON.stringify(formData));
@@ -514,8 +639,10 @@ var CustomPresetSaveModal = function CustomPresetSaveModal(props) {
     }).then(function (response) {
       return response.json();
     }).then(function (json) {
+      var presets = json.data.presets;
+      setIsSaving(false);
       setSavingPreset(false);
-      // setSavedPresets( json );
+      setSavedPresets(presets);
     })["catch"](function (error) {
       setSavingPreset(false);
     });
@@ -576,11 +703,8 @@ var CustomPresetSaveModal = function CustomPresetSaveModal(props) {
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Button, {
     type: "submit",
     variant: "primary",
-    onClick: function onClick() {
-      setSavingPreset(false);
-    },
     className: "has-preset-modal-apply-button"
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Save Preset', 'highlight-and-share')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Button, {
+  }, isSaving ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Saving…', 'highlight-and-share') : (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Save Preset', 'highlight-and-share')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Button, {
     variant: "secondary",
     onClick: function onClick() {
       setSavingPreset(false);
@@ -646,6 +770,10 @@ var CustomPresets = function CustomPresets(props) {
     _useState8 = _slicedToArray(_useState7, 2),
     showEditModal = _useState8[0],
     setShowEditModal = _useState8[1];
+  var _useState9 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState10 = _slicedToArray(_useState9, 2),
+    showDeleteModal = _useState10[0],
+    setShowDeleteModal = _useState10[1];
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_context__WEBPACK_IMPORTED_MODULE_1__["default"].Provider, {
     value: {
       savedPresets: savedPresets,
@@ -655,7 +783,9 @@ var CustomPresets = function CustomPresets(props) {
       editPresets: editPresets,
       setEditPresets: setEditPresets,
       showEditModal: showEditModal,
-      setShowEditModal: setShowEditModal
+      setShowEditModal: setShowEditModal,
+      showDeleteModal: showDeleteModal,
+      setShowDeleteModal: setShowDeleteModal
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_CustomPresetContainer__WEBPACK_IMPORTED_MODULE_2__["default"], props));
 };
@@ -949,7 +1079,8 @@ var PresetButtonEdit = function PresetButtonEdit(props) {
   var blockAttributes = _objectSpread(_objectSpread({}, attributes), uniqueIdAttribute);
   var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_CustomPresets_context__WEBPACK_IMPORTED_MODULE_4__["default"]),
     editPresets = _useContext.editPresets,
-    setShowEditModal = _useContext.setShowEditModal;
+    setShowEditModal = _useContext.setShowEditModal,
+    setShowDeleteModal = _useContext.setShowDeleteModal;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: classnames__WEBPACK_IMPORTED_MODULE_2___default()('has-preset-edit-container', {
       'has-preset-edit-container--edit': editPresets
@@ -972,7 +1103,11 @@ var PresetButtonEdit = function PresetButtonEdit(props) {
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Button, {
     variant: 'secondary',
     onClick: function onClick(e) {
-      e.preventDefault();
+      setShowDeleteModal({
+        show: true,
+        editId: editId,
+        deleteNonce: deleteNonce
+      });
     },
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Delete Preset', 'highlight-and-share'),
     icon: "trash",

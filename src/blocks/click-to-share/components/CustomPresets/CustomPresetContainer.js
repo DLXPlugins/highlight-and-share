@@ -12,6 +12,7 @@ import CustomPresetsContext from './context';
 import CustomPresetSaveModal from './CustomPresetSaveModal';
 import PresetButtonEdit from '../PresetButtonEdit';
 import CustomPresetEditModal from './CustomPresetEditModal';
+import CustomPresetDeleteModal from './CustomPresetDeleteModal';
 
 const CustomPresetContainer = ( props ) => {
 	const [ loading, setLoading ] = useState( true );
@@ -19,7 +20,7 @@ const CustomPresetContainer = ( props ) => {
 	const [ presetSaveLabel, setPresetSaveLabel ] = useState( '' );
 	const { setAttributes, clientId, uniqueId } = props;
 
-	const { savedPresets, setSavedPresets, savingPreset, setSavingPreset, editPresets, setEditPresets, showEditModal, setShowEditModal } = useContext( CustomPresetsContext );
+	const { savedPresets, setSavedPresets, savingPreset, setSavingPreset, editPresets, setEditPresets, showEditModal, showDeleteModal } = useContext( CustomPresetsContext );
 
 	const presetContainer = useRef( null );
 
@@ -103,6 +104,15 @@ const CustomPresetContainer = ( props ) => {
 						editId={ showEditModal.editId }
 						title={ showEditModal.title }
 						saveNonce={ showEditModal.saveNonce }
+					/>
+				)
+			}
+			{
+				showDeleteModal && (
+					<CustomPresetDeleteModal
+						editId={ showDeleteModal.editId }
+						title={ showDeleteModal.title }
+						deleteNonce={ showDeleteModal.deleteNonce }
 					/>
 				)
 			}

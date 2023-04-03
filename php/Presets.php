@@ -20,6 +20,8 @@ class Presets {
 		add_action( 'init', array( static::class, 'register_post_type' ) );
 		add_action( 'wp_ajax_has_load_presets', array( static::class, 'ajax_load_presets' ) );
 		add_action( 'wp_ajax_has_save_preset', array( static::class, 'ajax_save_preset' ) );
+		add_action( 'wp_ajax_has_save_presets', array( static::class, 'ajax_save_presets' ) );
+		add_action( 'wp_ajax_has_delete_preset', array( static::class, 'ajax_delete_preset' ) );
 		return $self;
 	}
 
@@ -74,6 +76,42 @@ class Presets {
 	}
 
 	/**
+	 * Saves a new preset and returns all via Ajax.
+	 */
+	public static function ajax_save_presets() {
+		// Verify nonce.
+		if ( ! wp_verify_nonce( filter_input( INPUT_POST, 'nonce', FILTER_DEFAULT ), 'has_save_presets' ) || ! current_user_can( 'edit_others_posts' ) ) {
+			wp_send_json_error( array() );
+		}
+
+		// Get attributes JSON.
+		$attributes = json_decode( filter_input( INPUT_POST, 'attributes', FILTER_DEFAULT ), true );
+		unset( $attributes['uniqueId'] );
+
+		// Get form data.
+		$form_data = json_decode( filter_input( INPUT_POST, 'formData', FILTER_DEFAULT ), true );
+
+		// Get the preset title.
+		$title           = isset( $form_data['presetTitle'] ) ? sanitize_text_field( $form_data['presetTitle'] ) : '';
+		$title_sanitized = sanitize_title( $title );
+
+		// Insert new post with preset data.
+		$post_id = wp_insert_post(
+			array(
+				'post_title'   => $title,
+				'post_name'    => $title_sanitized,
+				'post_content' => wp_json_encode( $attributes ),
+				'post_status'  => 'publish',
+				'post_type'    => 'has-presets',
+			)
+		);
+
+		// Get the presets.
+		$return = self::return_saved_presets();
+		wp_send_json_success( array( 'presets' => $return ) );
+	}
+
+	/**
 	 * Save a preset and return all via Ajax.
 	 */
 	public static function ajax_save_preset() {
@@ -95,6 +133,28 @@ class Presets {
 				'post_title' => $title,
 			)
 		);
+
+		// Retrieve all presets.
+		$return = self::return_saved_presets();
+
+		// Send json response.
+		wp_send_json_success( array( 'presets' => $return ) );
+	}
+
+	/**
+	 * Delete a preset and return all via Ajax.
+	 */
+	public static function ajax_delete_preset() {
+		// Get preset post ID.
+		$preset_id = absint( filter_input( INPUT_POST, 'editId', FILTER_DEFAULT ) );
+
+		// Verify nonce.
+		if ( ! wp_verify_nonce( filter_input( INPUT_POST, 'nonce', FILTER_DEFAULT ), 'has_delete_preset_' . $preset_id ) || ! current_user_can( 'edit_others_posts' ) ) {
+			wp_send_json_error( array() );
+		}
+
+		// Remove the post.
+		wp_delete_post( $preset_id, true );
 
 		// Retrieve all presets.
 		$return = self::return_saved_presets();

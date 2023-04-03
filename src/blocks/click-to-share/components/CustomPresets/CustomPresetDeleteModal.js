@@ -10,16 +10,15 @@ import CircularExclamationIcon from '../../../../react/Components/Icons/Circular
 import Notice from '../../../../react/Components/Notice';
 import CustomPresetsContext from './context';
 
-const CustomPresetEditModal = ( props ) => {
-	const { title, editId, saveNonce } = props;
-	const [ isSaving, setIsSaving ] = useState( false );
+const CustomPresetDeleteModal = ( props ) => {
+	const { title, editId, deleteNonce } = props;
+	const [ isDeleting, setIsDeleting ] = useState( false );
 
-	const { setSavedPresets, showEditModal, setShowEditModal } =
+	const { setSavedPresets, showDeleteModal, setShowDeleteModal } =
 		useContext( CustomPresetsContext );
 
 	const getDefaultValues = () => {
 		return {
-			title,
 			editId,
 		};
 	};
@@ -32,13 +31,12 @@ const CustomPresetEditModal = ( props ) => {
 	} );
 
 	const onSubmit = ( formData ) => {
-		setIsSaving( true );
+		setIsDeleting( true );
 		const ajaxUrl = `${ ajaxurl }`; // eslint-disable-line no-undef
 		const data = new FormData();
-		data.append( 'action', 'has_save_preset' );
-		data.append( 'nonce', saveNonce );
+		data.append( 'action', 'has_delete_preset' );
+		data.append( 'nonce', deleteNonce );
 		data.append( 'editId', formData.editId );
-		data.append( 'title', formData.title );
 		fetch( ajaxUrl, {
 			method: 'POST',
 			body: data,
@@ -51,58 +49,27 @@ const CustomPresetEditModal = ( props ) => {
 			.then( ( json ) => {
 				const { presets } = json.data;
 				setSavedPresets( presets );
-				setIsSaving( false );
-				setShowEditModal( false );
+				setIsDeleting( false );
+				setShowDeleteModal( false );
 			} )
 			.catch( ( error ) => {
-				setIsSaving( false );
+				setIsDeleting( false );
 			} );
 	};
 
 	// Don't show modal unless explicitly set.
-	if ( ! showEditModal ) {
+	if ( ! showDeleteModal ) {
 		return null;
 	}
 
 	return (
 		<Modal
-			title={ __( 'Update Preset', 'highlight-and-share' ) }
-			onRequestClose={ () => setShowEditModal( false ) }
+			title={ __( 'Delete Preset', 'highlight-and-share' ) }
+			onRequestClose={ () => setShowDeleteModal( false ) }
 			className="has-preset-modal"
 			shouldCloseOnClickOutside={ false }
 		>
 			<form onSubmit={ handleSubmit( onSubmit ) }>
-				<Controller
-					name="title"
-					control={ control }
-					rules={ {
-						required: true,
-						pattern: /^[a-zA-Z0-9-_ ]+$/,
-					} }
-					render={ ( { field } ) => (
-						<TextControl
-							{ ...field }
-							label={ __( 'Preset Name', 'highlight-and-share' ) }
-							className="is-required"
-						/>
-					) }
-				/>
-				{ 'required' === errors.title?.type && (
-					<Notice
-						message={ __( 'This field is required.' ) }
-						status="error"
-						politeness="assertive"
-						icon={ CircularExclamationIcon }
-					/>
-				) }
-				{ 'pattern' === errors.title?.type && (
-					<Notice
-						message={ __( 'This field contains invalid characters.' ) }
-						status="error"
-						politeness="assertive"
-						icon={ CircularExclamationIcon }
-					/>
-				) }
 				<Controller
 					name="editId"
 					control={ control }
@@ -112,17 +79,17 @@ const CustomPresetEditModal = ( props ) => {
 					type="submit"
 					variant="primary"
 					className="has-preset-modal-apply-button"
-					disabled={ isSaving }
+					disabled={ isDeleting }
 				>
-					{ isSaving
-						? __( 'Saving…', 'highlight-and-share' )
-						: __( 'Apply Changes', 'highlight-and-share' ) }
+					{ isDeleting
+						? __( 'Deleting…', 'highlight-and-share' )
+						: __( 'Delete Preset', 'highlight-and-share' ) }
 				</Button>
-				{ ! isSaving && (
+				{ ! isDeleting && (
 					<Button
 						variant="secondary"
 						onClick={ () => {
-							setShowEditModal( false );
+							setShowDeleteModal( false );
 						} }
 					>
 						{ __( 'Cancel', 'highlight-and-share' ) }
@@ -132,4 +99,4 @@ const CustomPresetEditModal = ( props ) => {
 		</Modal>
 	);
 };
-export default CustomPresetEditModal;
+export default CustomPresetDeleteModal;

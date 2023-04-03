@@ -14,7 +14,7 @@ import Notice from '../../../../react/Components/Notice';
 
 const CustomPresetSaveModal = ( props ) => {
 	const [ presetSaveType, setPresetSaveType ] = useState( 'new' );
-	const [ presetSaveLabel, setPresetSaveLabel ] = useState( '' );
+	const [ isSaving, setIsSaving ] = useState( false );
 	const { title, attributes, setAttributes, clientId } = props;
 
 	const { savedPresets, setSavedPresets, savingPreset, setSavingPreset } = useContext( CustomPresetsContext );
@@ -34,10 +34,10 @@ const CustomPresetSaveModal = ( props ) => {
 	} );
 
 	const onSubmit = ( formData ) => {
-		setSavingPreset( true );
+		setIsSaving( true );
 		const ajaxUrl = `${ ajaxurl }`; // eslint-disable-line no-undef
 		const data = new FormData();
-		data.append( 'action', 'has_save_preset' );
+		data.append( 'action', 'has_save_presets' );
 		data.append( 'nonce', has_gutenberg.blockPresetsNonceSave );
 		data.append( 'attributes', JSON.stringify( attributes ) );
 		data.append( 'formData', JSON.stringify( formData ) );
@@ -51,8 +51,10 @@ const CustomPresetSaveModal = ( props ) => {
 		} )
 			.then( ( response ) => response.json() )
 			.then( ( json ) => {
+				const { presets } = json.data;
+				setIsSaving( false );
 				setSavingPreset( false );
-				// setSavedPresets( json );
+				setSavedPresets( presets );
 			} )
 			.catch( ( error ) => {
 				setSavingPreset( false );
@@ -129,12 +131,9 @@ const CustomPresetSaveModal = ( props ) => {
 								<Button
 									type="submit"
 									variant="primary"
-									onClick={ () => {
-										setSavingPreset( false );
-									} }
 									className="has-preset-modal-apply-button"
 								>
-									{ __( 'Save Preset', 'highlight-and-share' ) }
+									{ isSaving ? __( 'Saving…', 'highlight-and-share' ) : __( 'Save Preset', 'highlight-and-share' ) }
 								</Button>
 								<Button
 									variant="secondary"

@@ -7,6 +7,7 @@ const CustomPresets = ( props ) => {
 	const [ savingPreset, setSavingPreset ] = useState( false );
 	const [ editPresets, setEditPresets ] = useState( false );
 	const [ showEditModal, setShowEditModal ] = useState( false );
+	const [ showDeleteModal, setShowDeleteModal ] = useState( false );
 
 	return (
 		<CustomPresetsContext.Provider
@@ -19,6 +20,8 @@ const CustomPresets = ( props ) => {
 				setEditPresets,
 				showEditModal,
 				setShowEditModal,
+				showDeleteModal,
+				setShowDeleteModal,
 			} }
 		>
 			<CustomPresetContainer { ...props } />

@@ -19,7 +19,7 @@ const PresetButtonEdit = ( props ) => {
 	} = props;
 	const uniqueIdAttribute = { uniqueId: slug };
 	const blockAttributes = { ...attributes, ...uniqueIdAttribute };
-	const { editPresets, setShowEditModal } = useContext( CustomPresetsContext );
+	const { editPresets, setShowEditModal, setShowDeleteModal } = useContext( CustomPresetsContext );
 
 	return (
 		<>
@@ -47,7 +47,11 @@ const PresetButtonEdit = ( props ) => {
 						<Button
 							variant={ 'secondary' }
 							onClick={ ( e ) => {
-								e.preventDefault();
+								setShowDeleteModal( {
+									show: true,
+									editId,
+									deleteNonce,
+								} );
 							} }
 							label={ __( 'Delete Preset', 'highlight-and-share' ) }
 							icon="trash"
