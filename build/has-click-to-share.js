@@ -138,8 +138,12 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
 /* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
 /* harmony import */ var _context__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./context */ "./src/blocks/click-to-share/components/CustomPresets/context.js");
-/* harmony import */ var _CustomPresetModal__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./CustomPresetModal */ "./src/blocks/click-to-share/components/CustomPresets/CustomPresetModal.js");
+/* harmony import */ var _CustomPresetModal__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ./CustomPresetModal */ "./src/blocks/click-to-share/components/CustomPresets/CustomPresetModal.js");
+/* harmony import */ var _PresetButton__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../PresetButton */ "./src/blocks/click-to-share/components/PresetButton.js");
 function _extends() { _extends = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
@@ -151,28 +155,28 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 
+
 var CustomPresetContainer = function CustomPresetContainer(props) {
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(true),
     _useState2 = _slicedToArray(_useState, 2),
     loading = _useState2[0],
     setLoading = _useState2[1];
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('new'),
     _useState4 = _slicedToArray(_useState3, 2),
-    savingPreset = _useState4[0],
-    setSavingPreset = _useState4[1];
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('new'),
+    presetSaveType = _useState4[0],
+    setPresetSaveType = _useState4[1];
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
     _useState6 = _slicedToArray(_useState5, 2),
-    presetSaveType = _useState6[0],
-    setPresetSaveType = _useState6[1];
-  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
-    _useState8 = _slicedToArray(_useState7, 2),
-    presetSaveLabel = _useState8[0],
-    setPresetSaveLabel = _useState8[1];
+    presetSaveLabel = _useState6[0],
+    setPresetSaveLabel = _useState6[1];
   var setAttributes = props.setAttributes,
-    clientId = props.clientId;
+    clientId = props.clientId,
+    uniqueId = props.uniqueId;
   var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_context__WEBPACK_IMPORTED_MODULE_3__["default"]),
     savedPresets = _useContext.savedPresets,
-    setSavedPresets = _useContext.setSavedPresets;
+    setSavedPresets = _useContext.setSavedPresets,
+    savingPreset = _useContext.savingPreset,
+    setSavingPreset = _useContext.setSavingPreset;
   var presetContainer = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
   (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
     if (presetContainer.current) {
@@ -191,8 +195,9 @@ var CustomPresetContainer = function CustomPresetContainer(props) {
       }).then(function (response) {
         return response.json();
       }).then(function (json) {
+        var presets = json.data.presets;
         setLoading(false);
-        // setSavedPresets( json );
+        setSavedPresets(presets);
       })["catch"](function (error) {
         setLoading(false);
       });
@@ -212,17 +217,39 @@ var CustomPresetContainer = function CustomPresetContainer(props) {
       className: "has-custom-preset-loading-label"
     }, label), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Spinner, null));
   };
+  var getSavedPresets = function getSavedPresets() {
+    if (savedPresets.length > 0) {
+      // Map to preset buttons.
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+        className: "has-presets"
+      }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.ButtonGroup, null, savedPresets.map(function (preset) {
+        var uniqueIdAttribute = {
+          uniqueId: preset.slug
+        };
+        var blockAttributes = _objectSpread(_objectSpread({}, preset.content), uniqueIdAttribute);
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_PresetButton__WEBPACK_IMPORTED_MODULE_4__["default"], {
+          key: preset.slug,
+          label: '' === preset.title ? (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Untitled Preset', 'highlight-and-share') : preset.title,
+          setAttributes: setAttributes,
+          uniqueId: uniqueId,
+          clientId: clientId,
+          attributes: blockAttributes
+        });
+      })));
+    }
+    return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null);
+  };
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "has-custom-preset-container",
     ref: presetContainer
-  }, loading && showLoading('Loading Presets'), !loading && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Button, {
+  }, loading && showLoading('Loading Presets'), !loading && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, getSavedPresets(), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Button, {
     variant: 'primary',
     onClick: function onClick(e) {
       e.preventDefault();
       setSavingPreset(true);
     },
-    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Save Preset', 'highlight-and-share')
-  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Save Preset', 'highlight-and-share')), (savingPreset || true) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_CustomPresetModal__WEBPACK_IMPORTED_MODULE_4__["default"], _extends({
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Save New Preset', 'highlight-and-share')
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Save New Preset', 'highlight-and-share'))), savingPreset && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_CustomPresetModal__WEBPACK_IMPORTED_MODULE_5__["default"], _extends({
     title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Save Preset', 'highlight-and-share')
   }, props)));
 };
@@ -264,25 +291,23 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 var CustomPresetModal = function CustomPresetModal(props) {
   var _errors$presetTitle, _errors$presetTitle2;
-  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('new'),
     _useState2 = _slicedToArray(_useState, 2),
-    savingPreset = _useState2[0],
-    setSavingPreset = _useState2[1];
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('new'),
+    presetSaveType = _useState2[0],
+    setPresetSaveType = _useState2[1];
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
     _useState4 = _slicedToArray(_useState3, 2),
-    presetSaveType = _useState4[0],
-    setPresetSaveType = _useState4[1];
-  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(''),
-    _useState6 = _slicedToArray(_useState5, 2),
-    presetSaveLabel = _useState6[0],
-    setPresetSaveLabel = _useState6[1];
+    presetSaveLabel = _useState4[0],
+    setPresetSaveLabel = _useState4[1];
   var title = props.title,
     attributes = props.attributes,
     setAttributes = props.setAttributes,
     clientId = props.clientId;
   var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_context__WEBPACK_IMPORTED_MODULE_3__["default"]),
     savedPresets = _useContext.savedPresets,
-    setSavedPresets = _useContext.setSavedPresets;
+    setSavedPresets = _useContext.setSavedPresets,
+    savingPreset = _useContext.savingPreset,
+    setSavingPreset = _useContext.setSavingPreset;
   var getDefaultValues = function getDefaultValues() {
     return {
       presetTitle: ''
@@ -435,10 +460,16 @@ var CustomPresets = function CustomPresets(props) {
     _useState2 = _slicedToArray(_useState, 2),
     savedPresets = _useState2[0],
     setSavedPresets = _useState2[1];
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState4 = _slicedToArray(_useState3, 2),
+    savingPreset = _useState4[0],
+    setSavingPreset = _useState4[1];
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_context__WEBPACK_IMPORTED_MODULE_1__["default"].Provider, {
     value: {
       savedPresets: savedPresets,
-      setSavedPresets: setSavedPresets
+      setSavedPresets: setSavedPresets,
+      savingPreset: savingPreset,
+      setSavingPreset: setSavingPreset
     }
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_CustomPresetContainer__WEBPACK_IMPORTED_MODULE_2__["default"], props));
 };

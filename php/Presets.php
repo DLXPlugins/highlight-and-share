@@ -63,6 +63,7 @@ class Presets {
 				$return[] = array(
 					'id'      => $preset->ID,
 					'title'   => $preset->post_title,
+					'slug'    => $preset->post_name,
 					'content' => $content,
 				);
 			}

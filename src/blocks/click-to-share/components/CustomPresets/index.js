@@ -4,12 +4,15 @@ import CustomPresetContainer from './CustomPresetContainer';
 
 const CustomPresets = ( props ) => {
 	const [ savedPresets, setSavedPresets ] = useState( [] );
+	const [ savingPreset, setSavingPreset ] = useState( false );
 
 	return (
 		<CustomPresetsContext.Provider
 			value={ {
 				savedPresets,
 				setSavedPresets,
+				savingPreset,
+				setSavingPreset,
 			} }
 		>
 			<CustomPresetContainer { ...props } />

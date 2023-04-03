@@ -2,6 +2,7 @@ import React, { useRef, useEffect, useState, useContext } from 'react';
 import {
 	Spinner,
 	Button,
+	ButtonGroup,
 	Modal,
 	RadioControl,
 	TextControl,
@@ -9,15 +10,15 @@ import {
 import { __ } from '@wordpress/i18n';
 import CustomPresetsContext from './context';
 import CustomPresetModal from './CustomPresetModal';
+import PresetButton from '../PresetButton';
 
 const CustomPresetContainer = ( props ) => {
 	const [ loading, setLoading ] = useState( true );
-	const [ savingPreset, setSavingPreset ] = useState( false );
 	const [ presetSaveType, setPresetSaveType ] = useState( 'new' );
 	const [ presetSaveLabel, setPresetSaveLabel ] = useState( '' );
-	const { setAttributes, clientId } = props;
+	const { setAttributes, clientId, uniqueId } = props;
 
-	const { savedPresets, setSavedPresets } = useContext( CustomPresetsContext );
+	const { savedPresets, setSavedPresets, savingPreset, setSavingPreset } = useContext( CustomPresetsContext );
 
 	const presetContainer = useRef( null );
 
@@ -38,8 +39,9 @@ const CustomPresetContainer = ( props ) => {
 			} )
 				.then( ( response ) => response.json() )
 				.then( ( json ) => {
+					const { presets } = json.data;
 					setLoading( false );
-					// setSavedPresets( json );
+					setSavedPresets( presets );
 				} )
 				.catch( ( error ) => {
 					setLoading( false );
@@ -61,22 +63,54 @@ const CustomPresetContainer = ( props ) => {
 			</div>
 		);
 	};
+	const getSavedPresets = () => {
+		if ( savedPresets.length > 0 ) {
+			// Map to preset buttons.
+			return (
+				<div className="has-presets">
+					<ButtonGroup>
+						{ savedPresets.map( ( preset ) => {
+							const uniqueIdAttribute = { uniqueId: preset.slug };
+							const blockAttributes = { ...preset.content, ...uniqueIdAttribute };
+							return (
+								<PresetButton
+									key={ preset.slug }
+									label={ ( '' === preset.title  ) ? __( 'Untitled Preset', 'highlight-and-share' ) : preset.title }
+									setAttributes={ setAttributes }
+									uniqueId={ uniqueId }
+									clientId={ clientId }
+									attributes={ blockAttributes }
+								/>
+							);
+						} ) }
+					</ButtonGroup>
+				</div>
+			);
+		}
+		return (
+			<></>
+		);
+	};
+
 	return (
 		<div className="has-custom-preset-container" ref={ presetContainer }>
 			{ loading && showLoading( 'Loading Presets' ) }
 			{ ! loading && (
-				<Button
-					variant={ 'primary' }
-					onClick={ ( e ) => {
-						e.preventDefault();
-						setSavingPreset( true );
-					} }
-					label={ __( 'Save Preset', 'highlight-and-share' ) }
-				>
-					{ __( 'Save Preset', 'highlight-and-share' ) }
-				</Button>
+				<>
+					{ getSavedPresets() }
+					<Button
+						variant={ 'primary' }
+						onClick={ ( e ) => {
+							e.preventDefault();
+							setSavingPreset( true );
+						} }
+						label={ __( 'Save New Preset', 'highlight-and-share' ) }
+					>
+						{ __( 'Save New Preset', 'highlight-and-share' ) }
+					</Button>
+				</>
 			) }
-			{ ( savingPreset || true ) && (
+			{ ( savingPreset ) && (
 				<CustomPresetModal
 					title={ __( 'Save Preset', 'highlight-and-share' ) }
 					{ ...props }

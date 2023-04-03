@@ -13,12 +13,11 @@ import CircularExclamationIcon from '../../../../react/Components/Icons/Circular
 import Notice from '../../../../react/Components/Notice';
 
 const CustomPresetModal = ( props ) => {
-	const [ savingPreset, setSavingPreset ] = useState( false );
 	const [ presetSaveType, setPresetSaveType ] = useState( 'new' );
 	const [ presetSaveLabel, setPresetSaveLabel ] = useState( '' );
 	const { title, attributes, setAttributes, clientId } = props;
 
-	const { savedPresets, setSavedPresets } = useContext( CustomPresetsContext );
+	const { savedPresets, setSavedPresets, savingPreset, setSavingPreset } = useContext( CustomPresetsContext );
 
 	const getDefaultValues = () => {
 		return {
