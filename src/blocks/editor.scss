@@ -475,14 +475,17 @@
 
 	.components-button-group {
 		display: grid;
-		grid-template-columns: 1fr 1fr;
+		grid-template-columns: 50% 50%;
 		grid-gap: 15px;
 		row-gap: 15px;
 
-		button {
+		button.has-preset-button {
 			display: block;
 			width: 100%;
 			text-align: center;
+			white-space: normal;
+			min-height: 36px;
+			height: auto;
 		}
 	}
 }
@@ -634,18 +637,21 @@
 .has-custom-preset-actions {
 	display: flex;
 	flex-wrap: wrap;
-	row-gap: 15px;
 
 	button.components-button {
 		width: 100%;
 		text-align: center;
 		justify-content: center;
+
+		&:first-of-type {
+			margin-bottom: 15px;
+		}
 	}
 }
 
 /* Preset buttons */
 .has-presets button.components-button.has-preset-button {
-	background: #ccc;
+	background: #FEFEFE;
 	color: #333;
 	border: 1px solid #333;
 	box-shadow: inset 0 0 0 1px #ccc;
@@ -663,9 +669,22 @@
 }
 .has-preset-edit-container--edit {
 	button.components-button.has-preset-button {
-		background: #333;
-		color: #FFF;
+		background: #FEFEFE;
+		color: #333;
+		border: 0;
+
+		&:hover,
+		&:hover:not(:disabled) {
+			background: #FEFEFE;
+			color: #333;
+		}
+		&:active,
+		&:active:not(:disabled) {
+			background: #FEFEFE;
+			color: #333;
+		}
 	}
+	
 }
 .has-presets .has-preset-edit-buttons {
 	display: grid;
@@ -676,21 +695,24 @@
 		box-shadow: inset 0 0 0 1px #333;
 		max-height: 28px;
 		&.has-preset-edit-button {
-			background: var( --quotes-dlx-admin--color-green );
+			background: var( --wp-admin-theme-color, var( --quotes-dlx-admin--color-green,  #007cba ) );
 			color: #FFF;
+			border: 0;
+			box-shadow: unset;
 		}
 		&.has-preset-edit-button:hover {
-			background: var( --quotes-dlx-admin--color-green-dark );
+			background: var( --wp-admin-theme-color-darker-20, var( --quotes-dlx-admin--color-green-dark,  #005a87 ) );
 		}
 		&.has-preset-delete-button {
 			background: var( --quotes-dlx-admin--color-red--required );
 			color: #FFF;
+			border: 0;
+			box-shadow: unset;
 		}
 		&.has-preset-delete-button:hover {
 			background: var( --quotes-dlx-admin--color-red-alt );
-		}
-		span {
-			font-size: 12px;
+			border: 0;
+			box-shadow: unset;
 		}
 	}	
 	

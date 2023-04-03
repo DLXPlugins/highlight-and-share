@@ -622,14 +622,17 @@
 }
 .has-presets .components-button-group {
   display: grid;
-  grid-template-columns: 1fr 1fr;
+  grid-template-columns: 50% 50%;
   grid-gap: 15px;
   row-gap: 15px;
 }
-.has-presets .components-button-group button {
+.has-presets .components-button-group button.has-preset-button {
   display: block;
   width: 100%;
   text-align: center;
+  white-space: normal;
+  min-height: 36px;
+  height: auto;
 }
 
 .has-background-gradient,
@@ -771,17 +774,19 @@
 .has-custom-preset-actions {
   display: flex;
   flex-wrap: wrap;
-  row-gap: 15px;
 }
 .has-custom-preset-actions button.components-button {
   width: 100%;
   text-align: center;
   justify-content: center;
 }
+.has-custom-preset-actions button.components-button:first-of-type {
+  margin-bottom: 15px;
+}
 
 /* Preset buttons */
 .has-presets button.components-button.has-preset-button {
-  background: #ccc;
+  background: #FEFEFE;
   color: #333;
   border: 1px solid #333;
   box-shadow: inset 0 0 0 1px #ccc;
@@ -797,8 +802,17 @@
 }
 
 .has-preset-edit-container--edit button.components-button.has-preset-button {
-  background: #333;
-  color: #FFF;
+  background: #FEFEFE;
+  color: #333;
+  border: 0;
+}
+.has-preset-edit-container--edit button.components-button.has-preset-button:hover, .has-preset-edit-container--edit button.components-button.has-preset-button:hover:not(:disabled) {
+  background: #FEFEFE;
+  color: #333;
+}
+.has-preset-edit-container--edit button.components-button.has-preset-button:active, .has-preset-edit-container--edit button.components-button.has-preset-button:active:not(:disabled) {
+  background: #FEFEFE;
+  color: #333;
 }
 
 .has-presets .has-preset-edit-buttons {
@@ -811,21 +825,24 @@
   max-height: 28px;
 }
 .has-presets .has-preset-edit-buttons button.components-button.has-preset-edit-button {
-  background: var(--quotes-dlx-admin--color-green);
+  background: var(--wp-admin-theme-color, var(--quotes-dlx-admin--color-green, #007cba));
   color: #FFF;
+  border: 0;
+  box-shadow: unset;
 }
 .has-presets .has-preset-edit-buttons button.components-button.has-preset-edit-button:hover {
-  background: var(--quotes-dlx-admin--color-green-dark);
+  background: var(--wp-admin-theme-color-darker-20, var(--quotes-dlx-admin--color-green-dark, #005a87));
 }
 .has-presets .has-preset-edit-buttons button.components-button.has-preset-delete-button {
   background: var(--quotes-dlx-admin--color-red--required);
   color: #FFF;
+  border: 0;
+  box-shadow: unset;
 }
 .has-presets .has-preset-edit-buttons button.components-button.has-preset-delete-button:hover {
   background: var(--quotes-dlx-admin--color-red-alt);
-}
-.has-presets .has-preset-edit-buttons button.components-button span {
-  font-size: 12px;
+  border: 0;
+  box-shadow: unset;
 }
 
 /*# sourceMappingURL=has-cts-editor.css.map*/

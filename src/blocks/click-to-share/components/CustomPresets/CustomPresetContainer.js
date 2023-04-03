@@ -20,7 +20,16 @@ const CustomPresetContainer = ( props ) => {
 	const [ presetSaveLabel, setPresetSaveLabel ] = useState( '' );
 	const { setAttributes, clientId, uniqueId } = props;
 
-	const { savedPresets, setSavedPresets, savingPreset, setSavingPreset, editPresets, setEditPresets, showEditModal, showDeleteModal } = useContext( CustomPresetsContext );
+	const {
+		savedPresets,
+		setSavedPresets,
+		savingPreset,
+		setSavingPreset,
+		editPresets,
+		setEditPresets,
+		showEditModal,
+		showDeleteModal,
+	} = useContext( CustomPresetsContext );
 
 	const presetContainer = useRef( null );
 
@@ -91,77 +100,77 @@ const CustomPresetContainer = ( props ) => {
 				</div>
 			);
 		}
-		return (
-			<></>
-		);
+		return <></>;
 	};
+
+	// Read in localized var and determine if user can save or edit presets.
+	const canSavePresets = has_gutenberg.canEditOthersPosts;
 
 	return (
 		<>
-			{
-				showEditModal && (
-					<CustomPresetEditModal
-						editId={ showEditModal.editId }
-						title={ showEditModal.title }
-						saveNonce={ showEditModal.saveNonce }
-					/>
-				)
-			}
-			{
-				showDeleteModal && (
-					<CustomPresetDeleteModal
-						editId={ showDeleteModal.editId }
-						title={ showDeleteModal.title }
-						deleteNonce={ showDeleteModal.deleteNonce }
-					/>
-				)
-			}
+			{ showEditModal && (
+				<CustomPresetEditModal
+					editId={ showEditModal.editId }
+					title={ showEditModal.title }
+					saveNonce={ showEditModal.saveNonce }
+				/>
+			) }
+			{ showDeleteModal && (
+				<CustomPresetDeleteModal
+					editId={ showDeleteModal.editId }
+					title={ showDeleteModal.title }
+					deleteNonce={ showDeleteModal.deleteNonce }
+				/>
+			) }
 			<div className="has-custom-preset-container" ref={ presetContainer }>
 				{ loading && showLoading( 'Loading Presets' ) }
 				{ ! loading && (
 					<>
 						{ getSavedPresets() }
-						<div className="has-custom-preset-actions">
-							{ ( ! editPresets ) && (
-								<Button
-									variant={ 'primary' }
-									onClick={ ( e ) => {
-										e.preventDefault();
-										setSavingPreset( true );
-									} }
-									label={ __( 'Save New Preset', 'highlight-and-share' ) }
-								>
-									{ __( 'Save New Preset', 'highlight-and-share' ) }
-								</Button>
-							) }
-							{ ( ! editPresets && ! savingPreset ) && (
-								<Button
-									variant={ 'secondary' }
-									onClick={ ( e ) => {
-										e.preventDefault();
-										setEditPresets( true );
-									} }
-									label={ __( 'Edit Presets', 'highlight-and-share' ) }
-								>
-									{ __( 'Edit Presets', 'highlight-and-share' ) }
-								</Button>
-							) }
-							{ ( editPresets && ! savingPreset ) && (
-								<Button
-									variant={ 'primary' }
-									onClick={ ( e ) => {
-										e.preventDefault();
-										setEditPresets( false );
-									} }
-									label={ __( 'Exit Edit Mode', 'highlight-and-share' ) }
-								>
-									{ __( 'Exit Edit Mode', 'highlight-and-share' ) }
-								</Button>
-							) }
-						</div>
+						{ canSavePresets && (
+							<div className="has-custom-preset-actions">
+								<h3>{ __( 'Preset Actions', 'highlight-and-share' ) }</h3>
+								{ ! editPresets && (
+									<Button
+										variant={ 'primary' }
+										onClick={ ( e ) => {
+											e.preventDefault();
+											setSavingPreset( true );
+										} }
+										label={ __( 'Save New Preset', 'highlight-and-share' ) }
+									>
+										{ __( 'Save New Preset', 'highlight-and-share' ) }
+									</Button>
+								) }
+								{ ! editPresets && ! savingPreset && (
+									<Button
+										variant={ 'secondary' }
+										onClick={ ( e ) => {
+											e.preventDefault();
+											setEditPresets( true );
+										} }
+										label={ __( 'Edit Presets', 'highlight-and-share' ) }
+									>
+										{ __( 'Edit Presets', 'highlight-and-share' ) }
+									</Button>
+								) }
+								{ editPresets && ! savingPreset && (
+									<Button
+										variant={ 'primary' }
+										onClick={ ( e ) => {
+											e.preventDefault();
+											setEditPresets( false );
+										} }
+										label={ __( 'Exit Edit Mode', 'highlight-and-share' ) }
+									>
+										{ __( 'Exit Edit Mode', 'highlight-and-share' ) }
+									</Button>
+								) }
+							</div>
+						) }
 					</>
 				) }
-				{ ( savingPreset ) && (
+				{ savingPreset && (
 					<CustomPresetSaveModal
 						title={ __( 'Save Preset', 'highlight-and-share' ) }
 						{ ...props }

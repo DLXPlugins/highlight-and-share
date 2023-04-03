@@ -142,6 +142,7 @@ class Blocks {
 				'cssFolder'                 => esc_url( functions::get_plugin_url( '/dist/' ) ),
 				'blockPresetsNonceRetrieve' => wp_create_nonce( 'has_load_presets' ),
 				'blockPresetsNonceSave'     => wp_create_nonce( 'has_save_presets' ),
+				'canEditOthersPosts'        => current_user_can( 'edit_others_posts' ),
 			)
 		);
 		wp_set_script_translations( 'has-click-to-share', 'highlight-and-share' );

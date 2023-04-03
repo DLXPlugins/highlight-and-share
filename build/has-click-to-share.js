@@ -244,6 +244,9 @@ var CustomPresetContainer = function CustomPresetContainer(props) {
     }
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null);
   };
+
+  // Read in localized var and determine if user can save or edit presets.
+  var canSavePresets = has_gutenberg.canEditOthersPosts;
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, showEditModal && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_CustomPresetEditModal__WEBPACK_IMPORTED_MODULE_5__["default"], {
     editId: showEditModal.editId,
     title: showEditModal.title,
@@ -255,9 +258,9 @@ var CustomPresetContainer = function CustomPresetContainer(props) {
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "has-custom-preset-container",
     ref: presetContainer
-  }, loading && showLoading('Loading Presets'), !loading && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, getSavedPresets(), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+  }, loading && showLoading('Loading Presets'), !loading && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, getSavedPresets(), canSavePresets && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "has-custom-preset-actions"
-  }, !editPresets && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Button, {
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Preset Actions', 'highlight-and-share')), !editPresets && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Button, {
     variant: 'primary',
     onClick: function onClick(e) {
       e.preventDefault();
