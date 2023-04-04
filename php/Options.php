@@ -172,6 +172,14 @@ class Options {
 				'order'      => 9,
 				'custom'     => false,
 			),
+			'webshare' => array(
+				'label'      => __( 'Share', 'highlight-and-share' ),
+				'slug'       => 'webshare',
+				'color'      => '#000',
+				'background' => '#fff',
+				'order'      => 10,
+				'custom'     => false,
+			),
 		);
 
 		/**
@@ -330,6 +338,14 @@ class Options {
 					'icon_color'       => '#fff',
 					'icon_color_hover' => '#fff',
 				),
+				'webshare' => array(
+					'label'            => __( 'Share', 'highlight-and-share' ),
+					'slug'             => 'webshare',
+					'background'       => '#000',
+					'background_hover' => '#000',
+					'icon_color'       => '#fff',
+					'icon_color_hover' => '#fff',
+				),
 			),
 		);
 		return $defaults;
@@ -359,6 +375,7 @@ class Options {
 			'show_telegram'         => false,
 			'show_tumblr'           => false,
 			'show_signal'           => false,
+			'show_webshare'         => false,
 			'enable_content'        => true,
 			'enable_excerpt'        => true,
 			'enable_hashtags'       => true,
@@ -394,6 +411,8 @@ class Options {
 			'email_tooltip'         => __( 'Share via email', 'highlight-and-share' ),
 			'tumblr_label'          => __( 'Tumblr', 'highlight-and-share' ),
 			'tumblr_tooltip'        => __( 'Share on Tumblr', 'highlight-and-share' ),
+			'webshare_label'        => __( 'Share', 'highlight-and-share' ),
+			'webshare_tooltip'      => __( 'Share This', 'highlight-and-share' ),
 		);
 		return $defaults;
 	}
@@ -511,6 +530,7 @@ class Options {
 		$settings['reddit']['enabled']   = (bool) apply_filters( 'has_show_reddit', ( $plugin_options['show_reddit'] ?? false ) );
 		$settings['tumblr']['enabled']   = (bool) apply_filters( 'has_show_tumblr', ( $plugin_options['show_tumblr'] ?? false ) );
 		$settings['telegram']['enabled'] = (bool) apply_filters( 'has_show_telegram', ( $plugin_options['show_telegram'] ?? false ) );
+		$settings['webshare']['enabled'] = (bool) apply_filters( 'has_show_webshare', ( $plugin_options['show_webshare'] ?? false ) );
 
 		// Now sort the arrays based on order.
 		array_multisort( array_column( $settings, 'order' ), SORT_ASC, $settings );

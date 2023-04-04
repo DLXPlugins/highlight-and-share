@@ -13,6 +13,7 @@ import { faCopy as CopyIcon } from '@fortawesome/free-solid-svg-icons/faCopy';
 import { faAt as EmailIcon } from '@fortawesome/free-solid-svg-icons/faAt';
 import { faTelegram as TelegramIcon } from '@fortawesome/free-brands-svg-icons/faTelegram';
 import { faTumblr as TumblrIcon } from '@fortawesome/free-brands-svg-icons/faTumblr';
+import { faShare as ShareIcon } from '@fortawesome/free-solid-svg-icons/faShare';
 import SocialNetworksContext from '../../Contexts/SocialNetworksContext';
 const SocialIcons = ( socialNetworksData = {} ) => {
 	let socialNetworks = {};
@@ -84,6 +85,12 @@ const SocialIcons = ( socialNetworksData = {} ) => {
 						<FontAwesomeIcon icon={ TumblrIcon } style={ { color: '#000000' } } />
 					</>
 				);
+			case 'webshare':
+				return (
+					<>
+						<FontAwesomeIcon icon={ ShareIcon } style={ { color: '#000000' } } />
+					</>
+				);
 			default:
 				return ( <></> );
 		}
@@ -142,6 +149,9 @@ const SocialIcons = ( socialNetworksData = {} ) => {
 					break;
 				case 'email':
 					icon = EmailIcon;
+					break;
+				case 'webshare':
+					icon = ShareIcon;
 					break;
 				default:
 					icon = <></>;

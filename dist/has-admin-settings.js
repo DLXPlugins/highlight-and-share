@@ -3237,6 +3237,46 @@ exports.aliases = aliases;
 
 /***/ }),
 
+/***/ "./node_modules/@fortawesome/free-solid-svg-icons/faShare.js":
+/*!*******************************************************************!*\
+  !*** ./node_modules/@fortawesome/free-solid-svg-icons/faShare.js ***!
+  \*******************************************************************/
+/***/ ((__unused_webpack_module, exports) => {
+
+"use strict";
+
+Object.defineProperty(exports, "__esModule", ({ value: true }));
+var prefix = 'fas';
+var iconName = 'share';
+var width = 512;
+var height = 512;
+var aliases = ["arrow-turn-right","mail-forward"];
+var unicode = 'f064';
+var svgPathData = 'M307 34.8c-11.5 5.1-19 16.6-19 29.2v64H176C78.8 128 0 206.8 0 304C0 417.3 81.5 467.9 100.2 478.1c2.5 1.4 5.3 1.9 8.1 1.9c10.9 0 19.7-8.9 19.7-19.7c0-7.5-4.3-14.4-9.8-19.5C108.8 431.9 96 414.4 96 384c0-53 43-96 96-96h96v64c0 12.6 7.4 24.1 19 29.2s25 3 34.4-5.4l160-144c6.7-6.1 10.6-14.7 10.6-23.8s-3.8-17.7-10.6-23.8l-160-144c-9.4-8.5-22.9-10.6-34.4-5.4z';
+
+exports.definition = {
+  prefix: prefix,
+  iconName: iconName,
+  icon: [
+    width,
+    height,
+    aliases,
+    unicode,
+    svgPathData
+  ]};
+
+exports.faShare = exports.definition;
+exports.prefix = prefix;
+exports.iconName = iconName;
+exports.width = width;
+exports.height = height;
+exports.ligatures = aliases;
+exports.unicode = unicode;
+exports.svgPathData = svgPathData;
+exports.aliases = aliases;
+
+/***/ }),
+
 /***/ "./node_modules/@fortawesome/react-fontawesome/index.es.js":
 /*!*****************************************************************!*\
   !*** ./node_modules/@fortawesome/react-fontawesome/index.es.js ***!
@@ -20388,6 +20428,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _fortawesome_free_solid_svg_icons_faAt__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! @fortawesome/free-solid-svg-icons/faAt */ "./node_modules/@fortawesome/free-solid-svg-icons/faAt.js");
 /* harmony import */ var _fortawesome_free_brands_svg_icons_faTelegram__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! @fortawesome/free-brands-svg-icons/faTelegram */ "./node_modules/@fortawesome/free-brands-svg-icons/faTelegram.js");
 /* harmony import */ var _fortawesome_free_brands_svg_icons_faTumblr__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! @fortawesome/free-brands-svg-icons/faTumblr */ "./node_modules/@fortawesome/free-brands-svg-icons/faTumblr.js");
+/* harmony import */ var _fortawesome_free_solid_svg_icons_faShare__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! @fortawesome/free-solid-svg-icons/faShare */ "./node_modules/@fortawesome/free-solid-svg-icons/faShare.js");
 /* harmony import */ var _Contexts_SocialNetworksContext__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ../../Contexts/SocialNetworksContext */ "./src/react/Contexts/SocialNetworksContext.js");
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
@@ -20400,6 +20441,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 // Return fontawesome icons for the social networks.
+
 
 
 
@@ -20492,6 +20534,13 @@ var SocialIcons = function SocialIcons() {
             color: '#000000'
           }
         }));
+      case 'webshare':
+        return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__.FontAwesomeIcon, {
+          icon: _fortawesome_free_solid_svg_icons_faShare__WEBPACK_IMPORTED_MODULE_14__.faShare,
+          style: {
+            color: '#000000'
+          }
+        }));
       default:
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null);
     }
@@ -20554,6 +20603,9 @@ var SocialIcons = function SocialIcons() {
           break;
         case 'email':
           icon = _fortawesome_free_solid_svg_icons_faAt__WEBPACK_IMPORTED_MODULE_11__.faAt;
+          break;
+        case 'webshare':
+          icon = _fortawesome_free_solid_svg_icons_faShare__WEBPACK_IMPORTED_MODULE_14__.faShare;
           break;
         default:
           icon = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null);
@@ -20757,7 +20809,10 @@ var Interface = function Interface(props) {
       emailTooltip: (0,_wordpress_escape_html__WEBPACK_IMPORTED_MODULE_8__.escapeEditableHTML)(data.values.emailTooltip),
       showTumblr: data.values.showTumblr,
       tumblrLabel: (0,_wordpress_escape_html__WEBPACK_IMPORTED_MODULE_8__.escapeEditableHTML)(data.values.tumblrLabel),
-      tumblrTooltip: (0,_wordpress_escape_html__WEBPACK_IMPORTED_MODULE_8__.escapeEditableHTML)(data.values.tumblrTooltip)
+      tumblrTooltip: (0,_wordpress_escape_html__WEBPACK_IMPORTED_MODULE_8__.escapeEditableHTML)(data.values.tumblrTooltip),
+      showWebshare: data.values.showWebshare,
+      webshareLabel: (0,_wordpress_escape_html__WEBPACK_IMPORTED_MODULE_8__.escapeEditableHTML)(data.values.webshareLabel),
+      webshareTooltip: (0,_wordpress_escape_html__WEBPACK_IMPORTED_MODULE_8__.escapeEditableHTML)(data.values.webshareTooltip)
     };
   };
   var _useForm = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_9__.useForm)({
@@ -21218,7 +21273,7 @@ var Interface = function Interface(props) {
           'is-required': true,
           'has-error': 'required' === ((_errors$whatsappToolt = errors.whatsappTooltip) === null || _errors$whatsappToolt === void 0 ? void 0 : _errors$whatsappToolt.type)
         }),
-        help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Choose tooltip text for the Facebook button.', 'highlight-and-share'),
+        help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Choose tooltip text for the WhatsApp button.', 'highlight-and-share'),
         "aria-required": "true"
       })), 'required' === ((_errors$whatsappToolt2 = errors.whatsappTooltip) === null || _errors$whatsappToolt2 === void 0 ? void 0 : _errors$whatsappToolt2.type) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_12__["default"], {
         message: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('This field is a required field.'),
@@ -21397,7 +21452,7 @@ var Interface = function Interface(props) {
           'is-required': true,
           'has-error': 'required' === ((_errors$redditTooltip = errors.redditTooltip) === null || _errors$redditTooltip === void 0 ? void 0 : _errors$redditTooltip.type)
         }),
-        help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Choose tooltip text for the Facebook button.', 'highlight-and-share'),
+        help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Choose tooltip text for the Reddit button.', 'highlight-and-share'),
         "aria-required": "true"
       })), 'required' === ((_errors$redditTooltip2 = errors.redditTooltip) === null || _errors$redditTooltip2 === void 0 ? void 0 : _errors$redditTooltip2.type) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_12__["default"], {
         message: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('This field is a required field.'),
@@ -21474,7 +21529,7 @@ var Interface = function Interface(props) {
           'is-required': true,
           'has-error': 'required' === ((_errors$telegramToolt = errors.telegramTooltip) === null || _errors$telegramToolt === void 0 ? void 0 : _errors$telegramToolt.type)
         }),
-        help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Choose tooltip text for the Facebook button.', 'highlight-and-share'),
+        help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Choose tooltip text for the Telegram button.', 'highlight-and-share'),
         "aria-required": "true"
       })), 'required' === ((_errors$telegramToolt2 = errors.telegramTooltip) === null || _errors$telegramToolt2 === void 0 ? void 0 : _errors$telegramToolt2.type) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_12__["default"], {
         message: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('This field is a required field.'),
@@ -21551,7 +21606,7 @@ var Interface = function Interface(props) {
           'is-required': true,
           'has-error': 'required' === ((_errors$linkedinToolt = errors.linkedinTooltip) === null || _errors$linkedinToolt === void 0 ? void 0 : _errors$linkedinToolt.type)
         }),
-        help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Choose tooltip text for the Facebook button.', 'highlight-and-share'),
+        help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Choose tooltip text for the LinkedIn button.', 'highlight-and-share'),
         "aria-required": "true"
       })), 'required' === ((_errors$linkedinToolt2 = errors.linkedinTooltip) === null || _errors$linkedinToolt2 === void 0 ? void 0 : _errors$linkedinToolt2.type) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_12__["default"], {
         message: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('This field is a required field.'),
@@ -21628,7 +21683,7 @@ var Interface = function Interface(props) {
           'is-required': true,
           'has-error': 'required' === ((_errors$xingTooltip = errors.xingTooltip) === null || _errors$xingTooltip === void 0 ? void 0 : _errors$xingTooltip.type)
         }),
-        help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Choose tooltip text for the Facebook button.', 'highlight-and-share'),
+        help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Choose tooltip text for the Xing button.', 'highlight-and-share'),
         "aria-required": "true"
       })), 'required' === ((_errors$xingTooltip2 = errors.xingTooltip) === null || _errors$xingTooltip2 === void 0 ? void 0 : _errors$xingTooltip2.type) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_12__["default"], {
         message: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('This field is a required field.'),
@@ -21705,7 +21760,7 @@ var Interface = function Interface(props) {
           'is-required': true,
           'has-error': 'required' === ((_errors$emailTooltip = errors.emailTooltip) === null || _errors$emailTooltip === void 0 ? void 0 : _errors$emailTooltip.type)
         }),
-        help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Choose tooltip text for the Facebook button.', 'highlight-and-share'),
+        help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Choose tooltip text for the Email button.', 'highlight-and-share'),
         "aria-required": "true"
       })), 'required' === ((_errors$emailTooltip2 = errors.emailTooltip) === null || _errors$emailTooltip2 === void 0 ? void 0 : _errors$emailTooltip2.type) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_12__["default"], {
         message: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('This field is a required field.'),
@@ -21782,9 +21837,86 @@ var Interface = function Interface(props) {
           'is-required': true,
           'has-error': 'required' === ((_errors$copyTooltip = errors.copyTooltip) === null || _errors$copyTooltip === void 0 ? void 0 : _errors$copyTooltip.type)
         }),
-        help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Choose tooltip text for the Facebook button.', 'highlight-and-share'),
+        help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Choose tooltip text for the Copy button.', 'highlight-and-share'),
         "aria-required": "true"
       })), 'required' === ((_errors$copyTooltip2 = errors.copyTooltip) === null || _errors$copyTooltip2 === void 0 ? void 0 : _errors$copyTooltip2.type) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_12__["default"], {
+        message: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('This field is a required field.'),
+        status: "error",
+        politeness: "assertive",
+        inline: false,
+        icon: _Components_Icons_CircularExplanation__WEBPACK_IMPORTED_MODULE_13__["default"]
+      }));
+    }
+  }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", {
+    className: "has-icon-heading"
+  }, getSocialIcon('webshare'), ' ', (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__._x)('Web Share API', 'Web Share API', 'highlight-and-share')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "has-admin-component-row"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_9__.Controller, {
+    name: "showWebshare",
+    control: control,
+    render: function render(_ref39) {
+      var _ref39$field = _ref39.field,
+        _onChange17 = _ref39$field.onChange,
+        value = _ref39$field.value;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_10__["default"], {
+        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Enable the Webshare API', 'highlight-and-share'),
+        className: "has-admin__toggle-control",
+        checked: value,
+        onChange: function onChange(boolValue) {
+          _onChange17(boolValue);
+        },
+        help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Users can use their native device to share out content.', 'highlight-and-share')
+      });
+    }
+  })), getValues('showWebshare') && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "has-admin-component-row"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_9__.Controller, {
+    name: "webshareLabel",
+    control: control,
+    rules: {
+      required: true
+    },
+    render: function render(_ref40) {
+      var _errors$webshareLabel, _errors$webshareLabel2;
+      var field = _ref40.field;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["default"], _extends({}, field, {
+        type: "text",
+        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Webshare Label', 'highlight-and-share'),
+        className: classnames__WEBPACK_IMPORTED_MODULE_2___default()('has-admin__text-control', {
+          'is-required': true,
+          'has-error': 'required' === ((_errors$webshareLabel = errors.webshareLabel) === null || _errors$webshareLabel === void 0 ? void 0 : _errors$webshareLabel.type)
+        }),
+        help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Choose a label for the Webshare API button.', 'highlight-and-share'),
+        "aria-required": "true"
+      })), 'required' === ((_errors$webshareLabel2 = errors.webshareLabel) === null || _errors$webshareLabel2 === void 0 ? void 0 : _errors$webshareLabel2.type) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_12__["default"], {
+        message: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('This field is a required field.'),
+        status: "error",
+        politeness: "assertive",
+        inline: false,
+        icon: _Components_Icons_CircularExplanation__WEBPACK_IMPORTED_MODULE_13__["default"]
+      }));
+    }
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "has-admin-component-row"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_9__.Controller, {
+    name: "webshareTooltip",
+    control: control,
+    rules: {
+      required: true
+    },
+    render: function render(_ref41) {
+      var _errors$webshareToolt, _errors$webshareToolt2;
+      var field = _ref41.field;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["default"], _extends({}, field, {
+        type: "text",
+        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Webshare Tooltip', 'highlight-and-share'),
+        className: classnames__WEBPACK_IMPORTED_MODULE_2___default()('has-admin__text-control', {
+          'is-required': true,
+          'has-error': 'required' === ((_errors$webshareToolt = errors.webshareTooltip) === null || _errors$webshareToolt === void 0 ? void 0 : _errors$webshareToolt.type)
+        }),
+        help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Choose tooltip text for the Webshare API.', 'highlight-and-share'),
+        "aria-required": "true"
+      })), 'required' === ((_errors$webshareToolt2 = errors.webshareTooltip) === null || _errors$webshareToolt2 === void 0 ? void 0 : _errors$webshareToolt2.type) && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_12__["default"], {
         message: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('This field is a required field.'),
         status: "error",
         politeness: "assertive",
@@ -21803,16 +21935,16 @@ var Interface = function Interface(props) {
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_9__.Controller, {
     name: "shortlinks",
     control: control,
-    render: function render(_ref39) {
-      var _ref39$field = _ref39.field,
-        _onChange17 = _ref39$field.onChange,
-        value = _ref39$field.value;
+    render: function render(_ref42) {
+      var _ref42$field = _ref42.field,
+        _onChange18 = _ref42$field.onChange,
+        value = _ref42$field.value;
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_10__["default"], {
         label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Enable Shortlinks', 'highlight-and-share'),
         className: "has-admin__toggle-control",
         checked: value,
         onChange: function onChange(boolValue) {
-          _onChange17(boolValue);
+          _onChange18(boolValue);
         },
         help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Shortlinks allow you to condence a post URL. You must have a URL shortener enabled to see shortlinks.', 'highlight-and-share')
       });
@@ -21829,9 +21961,9 @@ var Interface = function Interface(props) {
     rules: {
       pattern: /^\.?[-_,A-Za-z0-9]+$/i
     },
-    render: function render(_ref40) {
+    render: function render(_ref43) {
       var _errors$jsContent;
-      var field = _ref40.field;
+      var field = _ref43.field;
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["default"], _extends({}, field, {
         type: "text",
         label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('CSS Class Selectors', 'highlight-and-share'),
@@ -21853,9 +21985,9 @@ var Interface = function Interface(props) {
     rules: {
       pattern: /^\#?[-_,A-Za-z0-9]+$/i
     },
-    render: function render(_ref41) {
+    render: function render(_ref44) {
       var _errors$jsContent2;
-      var field = _ref41.field;
+      var field = _ref44.field;
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["default"], _extends({}, field, {
         type: "text",
         label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('CSS ID Selectors', 'highlight-and-share'),
@@ -21877,9 +22009,9 @@ var Interface = function Interface(props) {
     rules: {
       pattern: /^[,A-Za-z0-9]+$/i
     },
-    render: function render(_ref42) {
+    render: function render(_ref45) {
       var _errors$elementConten;
-      var field = _ref42.field;
+      var field = _ref45.field;
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["default"], _extends({}, field, {
         type: "text",
         label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('HTML Element Selectors', 'highlight-and-share'),
@@ -21901,9 +22033,9 @@ var Interface = function Interface(props) {
     rules: {
       pattern: /^[ -_,A-Za-z0-9]+$/i
     },
-    render: function render(_ref43) {
+    render: function render(_ref46) {
       var _errors$wrapperClasse;
-      var field = _ref43.field;
+      var field = _ref46.field;
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["default"], _extends({}, field, {
         type: "text",
         label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Post Wrapper Classes', 'highlight-and-share'),

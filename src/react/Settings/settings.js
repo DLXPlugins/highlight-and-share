@@ -117,6 +117,9 @@ const Interface = ( props ) => {
 			showTumblr: data.values.showTumblr,
 			tumblrLabel: escapeEditableHTML( data.values.tumblrLabel ),
 			tumblrTooltip: escapeEditableHTML( data.values.tumblrTooltip ),
+			showWebshare: data.values.showWebshare,
+			webshareLabel: escapeEditableHTML( data.values.webshareLabel ),
+			webshareTooltip: escapeEditableHTML( data.values.webshareTooltip ),
 		};
 	};
 	const { control, handleSubmit, getValues, reset } = useForm( {
@@ -672,7 +675,7 @@ const Interface = ( props ) => {
 													'has-error': 'required' === errors.whatsappTooltip?.type,
 												} ) }
 												help={ __(
-													'Choose tooltip text for the Facebook button.',
+													'Choose tooltip text for the WhatsApp button.',
 													'highlight-and-share'
 												) }
 												aria-required="true"
@@ -890,7 +893,7 @@ const Interface = ( props ) => {
 													'has-error': 'required' === errors.redditTooltip?.type,
 												} ) }
 												help={ __(
-													'Choose tooltip text for the Facebook button.',
+													'Choose tooltip text for the Reddit button.',
 													'highlight-and-share'
 												) }
 												aria-required="true"
@@ -986,7 +989,7 @@ const Interface = ( props ) => {
 													'has-error': 'required' === errors.telegramTooltip?.type,
 												} ) }
 												help={ __(
-													'Choose tooltip text for the Facebook button.',
+													'Choose tooltip text for the Telegram button.',
 													'highlight-and-share'
 												) }
 												aria-required="true"
@@ -1079,7 +1082,7 @@ const Interface = ( props ) => {
 													'has-error': 'required' === errors.linkedinTooltip?.type,
 												} ) }
 												help={ __(
-													'Choose tooltip text for the Facebook button.',
+													'Choose tooltip text for the LinkedIn button.',
 													'highlight-and-share'
 												) }
 												aria-required="true"
@@ -1172,7 +1175,7 @@ const Interface = ( props ) => {
 													'has-error': 'required' === errors.xingTooltip?.type,
 												} ) }
 												help={ __(
-													'Choose tooltip text for the Facebook button.',
+													'Choose tooltip text for the Xing button.',
 													'highlight-and-share'
 												) }
 												aria-required="true"
@@ -1268,7 +1271,7 @@ const Interface = ( props ) => {
 													'has-error': 'required' === errors.emailTooltip?.type,
 												} ) }
 												help={ __(
-													'Choose tooltip text for the Facebook button.',
+													'Choose tooltip text for the Email button.',
 													'highlight-and-share'
 												) }
 												aria-required="true"
@@ -1364,12 +1367,108 @@ const Interface = ( props ) => {
 													'has-error': 'required' === errors.copyTooltip?.type,
 												} ) }
 												help={ __(
-													'Choose tooltip text for the Facebook button.',
+													'Choose tooltip text for the Copy button.',
 													'highlight-and-share'
 												) }
 												aria-required="true"
 											/>
 											{ 'required' === errors.copyTooltip?.type && (
+												<Notice
+													message={ __( 'This field is a required field.' ) }
+													status="error"
+													politeness="assertive"
+													inline={ false }
+													icon={ CircularExclamationIcon }
+												/>
+											) }
+										</>
+									) }
+								/>
+							</div>
+						</>
+					) }
+					<h3 className="has-icon-heading">
+						{ getSocialIcon( 'webshare' ) }{ ' ' }
+						{ _x( 'Web Share API', 'Web Share API', 'highlight-and-share' ) }
+					</h3>
+					<div className="has-admin-component-row">
+						<Controller
+							name="showWebshare"
+							control={ control }
+							render={ ( { field: { onChange, value } } ) => (
+								<ToggleControl
+									label={ __( 'Enable the Webshare API', 'highlight-and-share' ) }
+									className="has-admin__toggle-control"
+									checked={ value }
+									onChange={ ( boolValue ) => {
+										onChange( boolValue );
+									} }
+									help={ __(
+										'Users can use their native device to share out content.',
+										'highlight-and-share'
+									) }
+								/>
+							) }
+						/>
+					</div>
+					{ getValues( 'showWebshare' ) && (
+						<>
+							<div className="has-admin-component-row">
+								<Controller
+									name="webshareLabel"
+									control={ control }
+									rules={ { required: true } }
+									render={ ( { field } ) => (
+										<>
+											<TextControl
+												{ ...field }
+												type="text"
+												label={ __( 'Webshare Label', 'highlight-and-share' ) }
+												className={ classNames( 'has-admin__text-control', {
+													'is-required': true,
+													'has-error': 'required' === errors.webshareLabel?.type,
+												} ) }
+												help={ __(
+													'Choose a label for the Webshare API button.',
+													'highlight-and-share'
+												) }
+												aria-required="true"
+											/>
+											{ 'required' === errors.webshareLabel?.type && (
+												<Notice
+													message={ __( 'This field is a required field.' ) }
+													status="error"
+													politeness="assertive"
+													inline={ false }
+													icon={ CircularExclamationIcon }
+												/>
+											) }
+										</>
+									) }
+								/>
+							</div>
+							<div className="has-admin-component-row">
+								<Controller
+									name="webshareTooltip"
+									control={ control }
+									rules={ { required: true } }
+									render={ ( { field } ) => (
+										<>
+											<TextControl
+												{ ...field }
+												type="text"
+												label={ __( 'Webshare Tooltip', 'highlight-and-share' ) }
+												className={ classNames( 'has-admin__text-control', {
+													'is-required': true,
+													'has-error': 'required' === errors.webshareTooltip?.type,
+												} ) }
+												help={ __(
+													'Choose tooltip text for the Webshare API.',
+													'highlight-and-share'
+												) }
+												aria-required="true"
+											/>
+											{ 'required' === errors.webshareTooltip?.type && (
 												<Notice
 													message={ __( 'This field is a required field.' ) }
 													status="error"
