@@ -130,7 +130,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   var hasDisplay = function hasDisplay(text, title, href, hashtags, type) {
     var triggerElement = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : null;
     // Do not show the interface if nothing is enabled.
-    if (false === highlight_and_share.show_twitter && false === highlight_and_share.show_facebook && false === highlight_and_share.show_linkedin && false === highlight_and_share.show_ok && false === highlight_and_share.show_vk && false === highlight_and_share.show_pinterest && false === highlight_and_share.show_email) {
+    if (false === highlight_and_share.show_twitter && false === highlight_and_share.show_facebook && false === highlight_and_share.show_linkedin && false === highlight_and_share.show_ok && false === highlight_and_share.show_vk && false === highlight_and_share.show_pinterest && false === highlight_and_share.show_email && false === highlight_and_share.show_webshare) {
       return;
     }
 
@@ -151,6 +151,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       hasClone.style.display = 'inline-flex';
     }
     hasVariableReplace(hasClone, href, title, text, hashtags, type); // Replaced by reference.
+
+    // Check for webshare. Enable if available.
+    if ('undefined' !== typeof navigator.share) {
+      var webshare = hasClone.querySelector('.has_webshare');
+      if (null !== webshare) {
+        webshare.style.display = 'inline-block';
+      }
+    }
 
     // Add to the end of the body element.
     document.body.appendChild(hasClone);
@@ -254,6 +262,24 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 }
               });
             }
+          });
+        }
+      });
+    }
+
+    // Set up webshare event.
+    var webshareButtons = document.querySelectorAll('.has_webshare');
+    if (null !== webshareButtons) {
+      webshareButtons.forEach(function (el) {
+        if (isVisible(el)) {
+          el.addEventListener('click', function (event) {
+            event.preventDefault();
+            var url = event.target.closest('a').getAttribute('href');
+            navigator.share({
+              title: title,
+              text: text,
+              url: url
+            });
           });
         }
       });
