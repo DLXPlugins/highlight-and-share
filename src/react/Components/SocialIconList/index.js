@@ -8,6 +8,8 @@ import SocialNetworksContext from '../../Contexts/SocialNetworksContext';
 import Spinner from '../Icons/Spinner';
 import Notice from '../Notice';
 import sendCommand from '../../Utils/SendCommand';
+import { DndProvider } from 'react-dnd';
+import { HTML5Backend } from 'react-dnd-html5-backend';
 
 const SocialIconList = () => {
 	const [ saving, setSaving ] = useState( false );
@@ -112,18 +114,25 @@ const SocialIconList = () => {
 
 	return (
 		<>
-			<ul className="has-admin-theme-reorder-list">{ networks.map( ( network, key ) => (
-				<SocialIconListItem
-					key={ network.key ?? network.slug }
-					listItemKey={ network.key ?? network.slug }
-					className={ network.className }
-					styles={ network.styles }
-					icon={ network.icon }
-					index={ network.index }
-					moveSocialNetwork={ moveSocialNetwork }
-				/>
-			) ) }
-			</ul>
+			<DndProvider backend={ HTML5Backend }>
+				<ul className="has-admin-theme-reorder-list">{ networks.map( ( network ) => {
+					if ( ! network.enabled ) {
+						return null;
+					}
+					return (
+						<SocialIconListItem
+							key={ network.key ?? network.slug }
+							listItemKey={ network.key ?? network.slug }
+							className={ network.className }
+							styles={ network.styles }
+							icon={ network.icon }
+							index={ network.index }
+							moveSocialNetwork={ moveSocialNetwork }
+						/>
+					);
+				} ) }
+				</ul>
+			</DndProvider>
 			<div className="has-admin__tabs--content-actions">
 				<div className="has-admin__tabs--content-actions--left">
 					<Button
