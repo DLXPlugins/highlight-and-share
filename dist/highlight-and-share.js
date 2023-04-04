@@ -130,7 +130,7 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
   var hasDisplay = function hasDisplay(text, title, href, hashtags, type) {
     var triggerElement = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : null;
     // Do not show the interface if nothing is enabled.
-    if (false === highlight_and_share.show_twitter && false === highlight_and_share.show_facebook && false === highlight_and_share.show_linkedin && false === highlight_and_share.show_ok && false === highlight_and_share.show_vk && false === highlight_and_share.show_pinterest && false === highlight_and_share.show_email) {
+    if (false === highlight_and_share.show_twitter && false === highlight_and_share.show_facebook && false === highlight_and_share.show_linkedin && false === highlight_and_share.show_ok && false === highlight_and_share.show_vk && false === highlight_and_share.show_pinterest && false === highlight_and_share.show_email && false === highlight_and_share.show_webshare) {
       return;
     }
 
@@ -151,6 +151,14 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       hasClone.style.display = 'inline-flex';
     }
     hasVariableReplace(hasClone, href, title, text, hashtags, type); // Replaced by reference.
+
+    // Check for webshare. Enable if available.
+    if ('undefined' !== typeof navigator.share) {
+      var webshare = hasClone.querySelector('.has_webshare');
+      if (null !== webshare) {
+        webshare.style.display = 'inline-block';
+      }
+    }
 
     // Add to the end of the body element.
     document.body.appendChild(hasClone);
@@ -254,6 +262,24 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
                 }
               });
             }
+          });
+        }
+      });
+    }
+
+    // Set up webshare event.
+    var webshareButtons = document.querySelectorAll('.has_webshare');
+    if (null !== webshareButtons) {
+      webshareButtons.forEach(function (el) {
+        if (isVisible(el)) {
+          el.addEventListener('click', function (event) {
+            event.preventDefault();
+            var url = event.target.closest('a').getAttribute('href');
+            navigator.share({
+              title: title,
+              text: text,
+              url: url
+            });
           });
         }
       });
@@ -644,6 +670,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var title = null !== elementParent ? elementParent.dataset.title : document.title;
       var hashtags = null !== elementParent ? elementParent.dataset.hashtags : '';
 
+      /**
+       * See if we can launch the web share API by default on inline highlight click.
+       */
+      var webshareDefaultInlineHighlight = HAS.enable_webshare_inline_highlight;
+      if (webshareDefaultInlineHighlight) {
+        // Check if navigator.share is available.
+        if (typeof navigator.share === 'function') {
+          navigator.share({
+            title: title,
+            url: href,
+            text: selectedText
+          });
+          return;
+        }
+      }
+
       // Display Highlight and Share.
       hasDisplay(selectedText, title, href, hashtags, 'inline', element);
     };
@@ -751,6 +793,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
         var href = null !== elementParent ? elementParent.dataset.url : window.location.href;
         var title = null !== elementParent ? elementParent.dataset.title : document.title;
         var hashtags = null !== elementParent ? elementParent.dataset.hashtags : '';
+
+        /**
+         * See if we can launch the web share API by default on inline highlight click.
+         */
+        var webshareDefaultClickToShare = HAS.enable_webshare_click_to_share;
+        if (webshareDefaultClickToShare) {
+          // Check if navigator.share is available.
+          if (typeof navigator.share === 'function') {
+            navigator.share({
+              title: title,
+              url: href,
+              text: selectedText
+            });
+            return;
+          }
+        }
 
         // Display Highlight and Share.
         hasDisplay(selectedText, title, href, hashtags, 'cta', element.closest('.has-click-to-share'));

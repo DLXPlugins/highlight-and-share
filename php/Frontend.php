@@ -113,11 +113,20 @@ class Frontend {
 		 */
 		$show_whatsapp = (bool) apply_filters( 'has_show_whatsapp', isset( $settings['show_whats_app'] ) ? $settings['show_whats_app'] : false );
 
+		/**
+		 * Filter: has_show_webshare
+		 *
+		 * Hide or show the Webshare option.
+		 *
+		 * @param bool true to show WhatsApp feature, false to not.
+		 */
+		$show_webshare = (bool) apply_filters( 'has_show_webshare', isset( $settings['show_webshare'] ) ? $settings['show_webshare'] : false );
+
 		// Placeholder for signal.
 		$show_signal = false;
 
 		// If no social network is active, exit.
-		if ( ! $show_facebook && ! $show_twitter && ! $show_linkedin && ! $show_ok && ! $show_email && ! $show_copy && ! $show_reddit && ! $show_telegram && ! $show_whatsapp && ! $show_tumblr ) {
+		if ( ! $show_facebook && ! $show_twitter && ! $show_linkedin && ! $show_ok && ! $show_email && ! $show_copy && ! $show_reddit && ! $show_telegram && ! $show_whatsapp && ! $show_tumblr && ! $show_webshare ) {
 			return;
 		}
 
@@ -422,6 +431,14 @@ class Frontend {
 						color: <?php echo esc_attr( $theme_options['icon_colors']['copy']['icon_color_hover'] ); ?> !important;
 						background: <?php echo esc_attr( $theme_options['icon_colors']['copy']['background_hover'] ); ?> !important;
 					}
+					.highlight-and-share-wrapper .has_webshare a {
+						color: <?php echo esc_attr( $theme_options['icon_colors']['webshare']['icon_color'] ); ?> !important;
+						background: <?php echo esc_attr( $theme_options['icon_colors']['webshare']['background'] ); ?> !important;
+					}
+					.highlight-and-share-wrapper .has_webshare a:hover {
+						color: <?php echo esc_attr( $theme_options['icon_colors']['webshare']['icon_color_hover'] ); ?> !important;
+						background: <?php echo esc_attr( $theme_options['icon_colors']['webshare']['background_hover'] ); ?> !important;
+					}	
 				<?php
 				if ( true === (bool) $theme_options['icon_border_radius']['attrSyncUnits'] ) :
 					?>
@@ -591,6 +608,9 @@ class Frontend {
 					case 'copy':
 						$html .= '<div class="has_copy ' . ( $theme_options['show_tooltips'] ? 'has-tooltip' : '' ) . '" style="display: none;" data-type="copy" data-tooltip="' . esc_attr( apply_filters( 'has_copy_tooltip', $settings['copy_tooltip'] ) ) . '"><a href="#"><svg class="has-icon" rel="nofollow"><use xlink:href="#has-copy-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_copy_text', $settings['copy_label'] ) ) . '</span></a></div>';
 						break;
+					case 'webshare':
+						$html .= '<div class="has_webshare ' . ( $theme_options['show_tooltips'] ? 'has-tooltip' : '' ) . '" style="display: none !important;" data-type="webshare" data-tooltip="' . esc_attr( apply_filters( 'has_webshare_tooltip', $settings['webshare_tooltip'] ) ) . '"><a href="#"><svg class="has-icon" rel="nofollow"><use xlink:href="#has-webshare-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_webshare_text', $settings['webshare_label'] ) ) . '</span></a></div>';
+						break;
 					case 'email':
 						global $post;
 						$post_id     = $post->ID ?? 0;
@@ -718,6 +738,7 @@ class Frontend {
 				</g>
 			</symbol>
 			<symbol aria-hidden="true" data-prefix="fab" data-icon="tumblr" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" id="has-tumblr"><path fill="currentColor" d="M309.8 480.3c-13.6 14.5-50 31.7-97.4 31.7-120.8 0-147-88.8-147-140.6v-144H17.9c-5.5 0-10-4.5-10-10v-68c0-7.2 4.5-13.6 11.3-16 62-21.8 81.5-76 84.3-117.1.8-11 6.5-16.3 16.1-16.3h70.9c5.5 0 10 4.5 10 10v115.2h83c5.5 0 10 4.4 10 9.9v81.7c0 5.5-4.5 10-10 10h-83.4V360c0 34.2 23.7 53.6 68 35.8 4.8-1.9 9-3.2 12.7-2.2 3.5.9 5.8 3.4 7.4 7.9l22 64.3c1.8 5 3.3 10.6-.4 14.5z"></path></symbol>
+			<symbol aria-hidden="true" data-prefix="fab" data-icon="share" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 512 512" id="has-webshare-icon"><path fill="currentColor" d="M512 208L320 384H288V288H208c-61.9 0-112 50.1-112 112c0 48 32 80 32 80s-128-48-128-176c0-97.2 78.8-176 176-176H288V32h32L512 208z"/></svg></symbol>
 		</svg>
 		<?php
 	}
@@ -774,6 +795,10 @@ class Frontend {
 		if ( empty( $json_arr['twitter_username'] ) ) {
 			$json_arr['twitter_username'] = '';
 		}
+
+		// Check Webshare variables and add to JSON output.
+		$json_arr['enable_webshare_inline_highlight'] = (bool) apply_filters( 'has_enable_webshare_inline_highlight', $settings['enable_webshare_inline_highlight'] );
+		$json_arr['enable_webshare_click_to_share']   = (bool) apply_filters( 'has_enable_webshare_click_to_share', $settings['enable_webshare_click_to_share'] );
 
 		// Add mobile.
 		if ( wp_is_mobile() ) {
@@ -938,6 +963,15 @@ class Frontend {
 		 * @param string Default: E-mail
 		 */
 		$json_arr['email_text'] = apply_filters( 'has_email_text', _x( 'E-mail', 'E-mail share text', 'highlight-and-share' ) );
+
+		/**
+		 * Filter: has_webshare_text
+		 *
+		 * Modify the Webshare text on the frontend.
+		 *
+		 * @param string Default: Share
+		 */
+		$json_arr['webshare_text'] = apply_filters( 'has_webshare_text', _x( 'Share', 'Webshare share text', 'highlight-and-share' ) );
 
 		// Load prefix and suffix (before/after text).
 		$json_arr['prefix'] = isset( $settings['sharing_prefix'] ) ? stripslashes_deep( sanitize_text_field( $settings['sharing_prefix'] ) ) : '';
