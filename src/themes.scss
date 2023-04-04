@@ -201,6 +201,9 @@ body.has-body .highlight-and-share-wrapper.theme-green.orientation-vertical > di
 .highlight-and-share-wrapper.theme-default div.has_signal {
 	background: #3a76f0;
 }
+.highlight-and-share-wrapper.theme-default div.has_webshare {
+	background: #f58f2f;
+}
 .highlight-and-share-wrapper.theme-default div.has_twitter:hover {
 	background: #00aced;
 }
@@ -242,6 +245,9 @@ body.has-body .highlight-and-share-wrapper.theme-green.orientation-vertical > di
 }
 .highlight-and-share-wrapper.theme-default div.has_signal:hover {
 	background: #366ee1;
+}
+.highlight-and-share-wrapper.theme-default div.has_webshare:hover {
+	background: #e17713;
 }
 body.has-body .highlight-and-share-wrapper.has-admin-theme-preview-list > div,
 body.has-body .highlight-and-share-wrapper.has-admin-theme-preview-list > div > a {
@@ -353,6 +359,9 @@ body.has-body .highlight-and-share-wrapper:not(.theme-off) a:visited {
 .highlight-and-share-wrapper.theme-brand-colors div.has_signal {
 	background: #3a76f0;
 }
+.highlight-and-share-wrapper.theme-brand-colors div.has_webshare {
+	background: #f58f2f;
+}
 .highlight-and-share-wrapper.theme-brand-colors span.has-text {
 	display: none;
 }
@@ -398,6 +407,9 @@ body.has-body .highlight-and-share-wrapper:not(.theme-off) a:visited {
 .highlight-and-share-wrapper.theme-brand-colors div.has_telegram:hover {
 	background: #366ee1;
 }
+.highlight-and-share-wrapper.theme-brand-colors div.has_webshare {
+	background: #e17713;
+}
 body.has-body .highlight-and-share-wrapper.theme-brand-colors a,
 body.has-body .highlight-and-share-wrapper.theme-brand-colors a:hover,
 body.has-body .highlight-and-share-wrapper.theme-brand-colors a:visited {
@@ -441,7 +453,8 @@ div.highlight-and-share-wrapper.theme-white div.has_copy,
 div.highlight-and-share-wrapper.theme-white div.has_reddit,
 div.highlight-and-share-wrapper.theme-white div.has_tumblr,
 div.highlight-and-share-wrapper.theme-white div.has_telegram,
-div.highlight-and-share-wrapper.theme-white div.has_signal
+div.highlight-and-share-wrapper.theme-white div.has_signal,
+div.highlight-and-share-wrapper.theme-white div.has_webshare
  {
 	background: #FFF;
 }
@@ -460,7 +473,8 @@ div.highlight-and-share-wrapper.theme-white div.has_copy:hover,
 div.highlight-and-share-wrapper.theme-white div.has_reddit:hover,
 div.highlight-and-share-wrapper.theme-white div.has_tumblr:hover,
 div.highlight-and-share-wrapper.theme-white div.has_telegram:hover,
-div.highlight-and-share-wrapper.theme-white div.has_signal:hover {
+div.highlight-and-share-wrapper.theme-white div.has_signal:hover,
+div.highlight-and-share-wrapper.theme-white div.has_webshare:hover {
 	background: #EEE;
 }
 
@@ -514,7 +528,8 @@ div.highlight-and-share-wrapper.theme-purple div.has_copy,
 div.highlight-and-share-wrapper.theme-purple div.has_reddit,
 div.highlight-and-share-wrapper.theme-purple div.has_tumblr,
 div.highlight-and-share-wrapper.theme-purple div.has_telegram,
-div.highlight-and-share-wrapper.theme-purple div.has_signal
+div.highlight-and-share-wrapper.theme-purple div.has_signal,
+div.highlight-and-share-wrapper.theme-purple div.has_webshare
  {
 	background: #8364E8;
 }
@@ -533,7 +548,8 @@ div.highlight-and-share-wrapper.theme-purple div.has_copy:hover,
 div.highlight-and-share-wrapper.theme-purple div.has_reddit:hover,
 div.highlight-and-share-wrapper.theme-purple div.has_tumblr:hover,
 div.highlight-and-share-wrapper.theme-purple div.has_telegram:hover,
-div.highlight-and-share-wrapper.theme-purple div.has_signal:hover {
+div.highlight-and-share-wrapper.theme-purple div.has_signal:hover,
+div.highlight-and-share-wrapper.theme-purple div.has_webshare:hover {
 	background: #714EE4;
 }
 
@@ -573,7 +589,8 @@ div.highlight-and-share-wrapper.theme-magenta div.has_copy,
 div.highlight-and-share-wrapper.theme-magenta div.has_reddit,
 div.highlight-and-share-wrapper.theme-magenta div.has_tumblr,
 div.highlight-and-share-wrapper.theme-magenta div.has_telegram,
-div.highlight-and-share-wrapper.theme-magenta div.has_signal
+div.highlight-and-share-wrapper.theme-magenta div.has_signal,
+div.highlight-and-share-wrapper.theme-magenta div.has_webshare
  {
 	background: #FF00FF;
 }
@@ -592,7 +609,8 @@ div.highlight-and-share-wrapper.theme-magenta div.has_copy:hover,
 div.highlight-and-share-wrapper.theme-magenta div.has_reddit:hover,
 div.highlight-and-share-wrapper.theme-magenta div.has_tumblr:hover,
 div.highlight-and-share-wrapper.theme-magenta div.has_telegram:hover,
-div.highlight-and-share-wrapper.theme-magenta div.has_signal:hover {
+div.highlight-and-share-wrapper.theme-magenta div.has_signal:hover,
+div.highlight-and-share-wrapper.theme-magenta div.has_webshare:hover{
 	background: #c700c7;
 }
 
@@ -631,7 +649,8 @@ div.highlight-and-share-wrapper.theme-green div.has_copy,
 div.highlight-and-share-wrapper.theme-green div.has_reddit,
 div.highlight-and-share-wrapper.theme-green div.has_tumblr,
 div.highlight-and-share-wrapper.theme-green div.has_telegram,
-div.highlight-and-share-wrapper.theme-green div.has_signal
+div.highlight-and-share-wrapper.theme-green div.has_signal,
+div.highlight-and-share-wrapper.theme-green div.has_webshare
  {
 	background: #03ac27;
 }
@@ -650,7 +669,8 @@ div.highlight-and-share-wrapper.theme-green div.has_copy:hover,
 div.highlight-and-share-wrapper.theme-green div.has_reddit:hover,
 div.highlight-and-share-wrapper.theme-green div.has_tumblr:hover,
 div.highlight-and-share-wrapper.theme-green div.has_telegram:hover,
-div.highlight-and-share-wrapper.theme-green div.has_signal:hover {
+div.highlight-and-share-wrapper.theme-green div.has_signal:hover,
+div.highlight-and-share-wrapper.theme-green div.has_webshare:hover {
 	background: #029a23;
 }
 
@@ -690,7 +710,8 @@ div.highlight-and-share-wrapper.theme-cyan div.has_copy,
 div.highlight-and-share-wrapper.theme-cyan div.has_reddit,
 div.highlight-and-share-wrapper.theme-cyan div.has_tumblr,
 div.highlight-and-share-wrapper.theme-cyan div.has_telegram,
-div.highlight-and-share-wrapper.theme-cyan div.has_signal
+div.highlight-and-share-wrapper.theme-cyan div.has_signal,
+div.highlight-and-share-wrapper.theme-cyan div.has_webshare
  {
 	background: #0091b0;
 }
@@ -709,7 +730,8 @@ div.highlight-and-share-wrapper.theme-cyan div.has_copy:hover,
 div.highlight-and-share-wrapper.theme-cyan div.has_reddit:hover,
 div.highlight-and-share-wrapper.theme-cyan div.has_tumblr:hover,
 div.highlight-and-share-wrapper.theme-cyan div.has_telegram:hover,
-div.highlight-and-share-wrapper.theme-cyan div.has_signal:hover {
+div.highlight-and-share-wrapper.theme-cyan div.has_signal:hover,
+div.highlight-and-share-wrapper.theme-cyan div.has_webshare:hover {
 	background: #0287a3;
 }
 
@@ -778,6 +800,9 @@ div.highlight-and-share-wrapper.theme-cyan div.has_signal:hover {
 .highlight-and-share-wrapper.theme-colorful-circles div.has_signal {
 	background: #3a76f0;
 }
+.highlight-and-share-wrapper.theme-colorful-circles div.has_webshare {
+	background: #e17713;
+}
 .highlight-and-share-wrapper.theme-colorful-circles span.has-text {
 	display: none;
 }
@@ -822,6 +847,9 @@ div.highlight-and-share-wrapper.theme-cyan div.has_signal:hover {
 }
 .highlight-and-share-wrapper.theme-colorful-circles div.has_telegram:hover {
 	background: #366ee1;
+}
+.highlight-and-share-wrapper.theme-colorful-circles div.has_webshare:hover {
+	background: #f58f2f;
 }
 body.has-body .highlight-and-share-wrapper.theme-colorful-circles a,
 body.has-body .highlight-and-share-wrapper.theme-colorful-circles a:hover,
@@ -936,6 +964,10 @@ div.highlight-and-share-wrapper.theme-colorful-circles div {
 	background: #3a76f0;
 	background: rgba(58,118,240,0.4);
 }
+.highlight-and-share-wrapper.theme-colorful-glass-circles div.has_webshare {
+	background: #e17713;
+	background: rgba(238, 94, 26, 0.4);
+}
 .highlight-and-share-wrapper.theme-colorful-glass-circles span.has-text {
 	display: none;
 }
@@ -993,6 +1025,10 @@ div.highlight-and-share-wrapper.theme-colorful-circles div {
 .highlight-and-share-wrapper.theme-colorful-glass-circles div.has_telegram:hover {
 	background: #366ee1;
 	background: rgba(54,110,225,0.4);
+}
+.highlight-and-share-wrapper.theme-colorful-glass-circles div.has_webshare:hover {
+	background: #f58f2f;
+	background: rgba(233, 64, 17, 0.4);
 }
 body.has-body .highlight-and-share-wrapper.theme-colorful-glass-circles a,
 body.has-body .highlight-and-share-wrapper.theme-colorful-glass-circles a:hover,
@@ -1181,7 +1217,8 @@ div.highlight-and-share-wrapper.theme-blue div.has_copy,
 div.highlight-and-share-wrapper.theme-blue div.has_reddit,
 div.highlight-and-share-wrapper.theme-blue div.has_tumblr,
 div.highlight-and-share-wrapper.theme-blue div.has_telegram,
-div.highlight-and-share-wrapper.theme-blue div.has_signal
+div.highlight-and-share-wrapper.theme-blue div.has_signal,
+div.highlight-and-share-wrapper.theme-blue div.has_webshare
  {
 	background: #0009c1;
 }
@@ -1200,7 +1237,8 @@ div.highlight-and-share-wrapper.theme-blue div.has_copy:hover,
 div.highlight-and-share-wrapper.theme-blue div.has_reddit:hover,
 div.highlight-and-share-wrapper.theme-blue div.has_tumblr:hover,
 div.highlight-and-share-wrapper.theme-blue div.has_telegram:hover,
-div.highlight-and-share-wrapper.theme-blue div.has_signal:hover {
+div.highlight-and-share-wrapper.theme-blue div.has_signal:hover,
+div.highlight-and-share-wrapper.theme-blue div.has_webshare:hover {
 	background: #0008a4;
 }
 
@@ -1271,7 +1309,8 @@ div.highlight-and-share-wrapper.theme-black div.has_copy,
 div.highlight-and-share-wrapper.theme-black div.has_reddit,
 div.highlight-and-share-wrapper.theme-black div.has_tumblr,
 div.highlight-and-share-wrapper.theme-black div.has_telegram,
-div.highlight-and-share-wrapper.theme-black div.has_signal
+div.highlight-and-share-wrapper.theme-black div.has_signal,
+div.highlight-and-share-wrapper.theme-black div.has_webshare
  {
 	background: #333;
 }
@@ -1290,7 +1329,8 @@ div.highlight-and-share-wrapper.theme-black div.has_copy:hover,
 div.highlight-and-share-wrapper.theme-black div.has_reddit:hover,
 div.highlight-and-share-wrapper.theme-black div.has_tumblr:hover,
 div.highlight-and-share-wrapper.theme-black div.has_telegram:hover,
-div.highlight-and-share-wrapper.theme-black div.has_signal:hover {
+div.highlight-and-share-wrapper.theme-black div.has_signal:hover,
+div.highlight-and-share-wrapper.theme-black div.has_webshare:hover  {
 	background: #222;
 }
 

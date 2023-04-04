@@ -20538,7 +20538,7 @@ var SocialIcons = function SocialIcons() {
         return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_fortawesome_react_fontawesome__WEBPACK_IMPORTED_MODULE_2__.FontAwesomeIcon, {
           icon: _fortawesome_free_solid_svg_icons_faShare__WEBPACK_IMPORTED_MODULE_14__.faShare,
           style: {
-            color: '#000000'
+            color: '#e17713'
           }
         }));
       default:

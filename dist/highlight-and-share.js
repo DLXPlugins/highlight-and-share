@@ -644,6 +644,22 @@ function _defineProperty(obj, key, value) { if (key in obj) { Object.definePrope
       var title = null !== elementParent ? elementParent.dataset.title : document.title;
       var hashtags = null !== elementParent ? elementParent.dataset.hashtags : '';
 
+      /**
+       * See if we can launch the web share API by default on inline highlight click.
+       */
+      var webshareDefaultInlineHighlight = true; // todo - make this a localized option.
+      if (webshareDefaultInlineHighlight) {
+        // Check if navigator.share is available.
+        if (typeof navigator.share === 'function') {
+          navigator.share({
+            title: title,
+            url: href,
+            text: selectedText
+          });
+          return;
+        }
+      }
+
       // Display Highlight and Share.
       hasDisplay(selectedText, title, href, hashtags, 'inline', element);
     };

@@ -88,7 +88,7 @@ const SocialIcons = ( socialNetworksData = {} ) => {
 			case 'webshare':
 				return (
 					<>
-						<FontAwesomeIcon icon={ ShareIcon } style={ { color: '#000000' } } />
+						<FontAwesomeIcon icon={ ShareIcon } style={ { color: '#e17713' } } />
 					</>
 				);
 			default:
