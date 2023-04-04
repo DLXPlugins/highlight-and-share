@@ -20812,7 +20812,9 @@ var Interface = function Interface(props) {
       tumblrTooltip: (0,_wordpress_escape_html__WEBPACK_IMPORTED_MODULE_8__.escapeEditableHTML)(data.values.tumblrTooltip),
       showWebshare: data.values.showWebshare,
       webshareLabel: (0,_wordpress_escape_html__WEBPACK_IMPORTED_MODULE_8__.escapeEditableHTML)(data.values.webshareLabel),
-      webshareTooltip: (0,_wordpress_escape_html__WEBPACK_IMPORTED_MODULE_8__.escapeEditableHTML)(data.values.webshareTooltip)
+      webshareTooltip: (0,_wordpress_escape_html__WEBPACK_IMPORTED_MODULE_8__.escapeEditableHTML)(data.values.webshareTooltip),
+      enableWebshareInlineHighlight: data.values.enableWebshareInlineHighlight,
+      enableWebshareClickToShare: data.values.enableWebshareClickToShare
     };
   };
   var _useForm = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_9__.useForm)({
@@ -21924,6 +21926,44 @@ var Interface = function Interface(props) {
         icon: _Components_Icons_CircularExplanation__WEBPACK_IMPORTED_MODULE_13__["default"]
       }));
     }
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "has-admin-component-row"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_9__.Controller, {
+    name: "enableWebshareInlineHighlight",
+    control: control,
+    render: function render(_ref42) {
+      var _ref42$field = _ref42.field,
+        _onChange18 = _ref42$field.onChange,
+        value = _ref42$field.value;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_10__["default"], {
+        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Show Webshare Only on Highlight', 'highlight-and-share'),
+        className: "has-admin__toggle-control",
+        checked: value,
+        onChange: function onChange(boolValue) {
+          _onChange18(boolValue);
+        },
+        help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('When the Webshare API is enabled, only the Webshare dialogue will show when sharing highlighted text.', 'highlight-and-share')
+      });
+    }
+  })), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "has-admin-component-row"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_9__.Controller, {
+    name: "enableWebshareClickToShare",
+    control: control,
+    render: function render(_ref43) {
+      var _ref43$field = _ref43.field,
+        _onChange19 = _ref43$field.onChange,
+        value = _ref43$field.value;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_10__["default"], {
+        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Show Webshare Only on Click to Share block', 'highlight-and-share'),
+        className: "has-admin__toggle-control",
+        checked: value,
+        onChange: function onChange(boolValue) {
+          _onChange19(boolValue);
+        },
+        help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('When the Webshare API is enabled, only the Webshare dialogue will show when sharing items in the Click to Share block.', 'highlight-and-share')
+      });
+    }
   }))), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("h3", null, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Shortlinks', 'highlight-and-share')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "has-admin-component-row"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_Components_Notice__WEBPACK_IMPORTED_MODULE_12__["default"], {
@@ -21935,16 +21975,16 @@ var Interface = function Interface(props) {
   }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_9__.Controller, {
     name: "shortlinks",
     control: control,
-    render: function render(_ref42) {
-      var _ref42$field = _ref42.field,
-        _onChange18 = _ref42$field.onChange,
-        value = _ref42$field.value;
+    render: function render(_ref44) {
+      var _ref44$field = _ref44.field,
+        _onChange20 = _ref44$field.onChange,
+        value = _ref44$field.value;
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_10__["default"], {
         label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Enable Shortlinks', 'highlight-and-share'),
         className: "has-admin__toggle-control",
         checked: value,
         onChange: function onChange(boolValue) {
-          _onChange18(boolValue);
+          _onChange20(boolValue);
         },
         help: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Shortlinks allow you to condence a post URL. You must have a URL shortener enabled to see shortlinks.', 'highlight-and-share')
       });
@@ -21961,9 +22001,9 @@ var Interface = function Interface(props) {
     rules: {
       pattern: /^\.?[-_,A-Za-z0-9]+$/i
     },
-    render: function render(_ref43) {
+    render: function render(_ref45) {
       var _errors$jsContent;
-      var field = _ref43.field;
+      var field = _ref45.field;
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["default"], _extends({}, field, {
         type: "text",
         label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('CSS Class Selectors', 'highlight-and-share'),
@@ -21985,9 +22025,9 @@ var Interface = function Interface(props) {
     rules: {
       pattern: /^\#?[-_,A-Za-z0-9]+$/i
     },
-    render: function render(_ref44) {
+    render: function render(_ref46) {
       var _errors$jsContent2;
-      var field = _ref44.field;
+      var field = _ref46.field;
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["default"], _extends({}, field, {
         type: "text",
         label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('CSS ID Selectors', 'highlight-and-share'),
@@ -22009,9 +22049,9 @@ var Interface = function Interface(props) {
     rules: {
       pattern: /^[,A-Za-z0-9]+$/i
     },
-    render: function render(_ref45) {
+    render: function render(_ref47) {
       var _errors$elementConten;
-      var field = _ref45.field;
+      var field = _ref47.field;
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["default"], _extends({}, field, {
         type: "text",
         label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('HTML Element Selectors', 'highlight-and-share'),
@@ -22033,9 +22073,9 @@ var Interface = function Interface(props) {
     rules: {
       pattern: /^[ -_,A-Za-z0-9]+$/i
     },
-    render: function render(_ref46) {
+    render: function render(_ref48) {
       var _errors$wrapperClasse;
-      var field = _ref46.field;
+      var field = _ref48.field;
       return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_11__["default"], _extends({}, field, {
         type: "text",
         label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Post Wrapper Classes', 'highlight-and-share'),

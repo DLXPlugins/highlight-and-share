@@ -796,6 +796,10 @@ class Frontend {
 			$json_arr['twitter_username'] = '';
 		}
 
+		// Check Webshare variables and add to JSON output.
+		$json_arr['enable_webshare_inline_highlight'] = (bool) apply_filters( 'has_enable_webshare_inline_highlight', $settings['enable_webshare_inline_highlight'] );
+		$json_arr['enable_webshare_click_to_share']   = (bool) apply_filters( 'has_enable_webshare_click_to_share', $settings['enable_webshare_click_to_share'] );
+
 		// Add mobile.
 		if ( wp_is_mobile() ) {
 			$json_arr['mobile'] = true;

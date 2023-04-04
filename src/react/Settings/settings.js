@@ -120,6 +120,8 @@ const Interface = ( props ) => {
 			showWebshare: data.values.showWebshare,
 			webshareLabel: escapeEditableHTML( data.values.webshareLabel ),
 			webshareTooltip: escapeEditableHTML( data.values.webshareTooltip ),
+			enableWebshareInlineHighlight: data.values.enableWebshareInlineHighlight,
+			enableWebshareClickToShare: data.values.enableWebshareClickToShare,
 		};
 	};
 	const { control, handleSubmit, getValues, reset } = useForm( {
@@ -1478,6 +1480,52 @@ const Interface = ( props ) => {
 												/>
 											) }
 										</>
+									) }
+								/>
+							</div>
+							<div className="has-admin-component-row">
+								<Controller
+									name="enableWebshareInlineHighlight"
+									control={ control }
+									render={ ( { field: { onChange, value } } ) => (
+										<ToggleControl
+											label={ __(
+												'Show Webshare Only on Highlight',
+												'highlight-and-share'
+											) }
+											className="has-admin__toggle-control"
+											checked={ value }
+											onChange={ ( boolValue ) => {
+												onChange( boolValue );
+											} }
+											help={ __(
+												'When the Webshare API is enabled, only the Webshare dialogue will show when sharing highlighted text.',
+												'highlight-and-share'
+											) }
+										/>
+									) }
+								/>
+							</div>
+							<div className="has-admin-component-row">
+								<Controller
+									name="enableWebshareClickToShare"
+									control={ control }
+									render={ ( { field: { onChange, value } } ) => (
+										<ToggleControl
+											label={ __(
+												'Show Webshare Only on Click to Share block',
+												'highlight-and-share'
+											) }
+											className="has-admin__toggle-control"
+											checked={ value }
+											onChange={ ( boolValue ) => {
+												onChange( boolValue );
+											} }
+											help={ __(
+												'When the Webshare API is enabled, only the Webshare dialogue will show when sharing items in the Click to Share block.',
+												'highlight-and-share'
+											) }
+										/>
 									) }
 								/>
 							</div>
