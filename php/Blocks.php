@@ -134,12 +134,15 @@ class Blocks {
 			'has-click-to-share',
 			'has_gutenberg',
 			array(
-				'svg'            => Functions::get_plugin_url( 'img/share.svg' ),
-				'colorPalette'   => Themes::get_default_theme_colors(),
-				'adobeFonts'     => $adobe_fonts,
-				'adobeFontsUrl'  => Adobe_Fonts::$typekit_css_url,
-				'adobeProjectId' => $block_editor_options['adobe_project_id'] ?? '',
-				'cssFolder'      => esc_url( functions::get_plugin_url( '/dist/' ) ),
+				'svg'                       => Functions::get_plugin_url( 'img/share.svg' ),
+				'colorPalette'              => Themes::get_default_theme_colors(),
+				'adobeFonts'                => $adobe_fonts,
+				'adobeFontsUrl'             => Adobe_Fonts::$typekit_css_url,
+				'adobeProjectId'            => $block_editor_options['adobe_project_id'] ?? '',
+				'cssFolder'                 => esc_url( functions::get_plugin_url( '/dist/' ) ),
+				'blockPresetsNonceRetrieve' => wp_create_nonce( 'has_load_presets' ),
+				'blockPresetsNonceSave'     => wp_create_nonce( 'has_save_presets' ),
+				'canEditOthersPosts'        => current_user_can( 'edit_others_posts' ),
 			)
 		);
 		wp_set_script_translations( 'has-click-to-share', 'highlight-and-share' );

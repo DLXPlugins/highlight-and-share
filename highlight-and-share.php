@@ -125,4 +125,8 @@ function highlightshare_instantiate() {
 	// Adobe fonts.
 	$adobe_fonts = new Adobe_Fonts();
 	$adobe_fonts->run();
+
+	// Adobe fonts.
+	$block_presets = new Presets();
+	$block_presets->run();
 }
