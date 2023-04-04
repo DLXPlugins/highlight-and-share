@@ -30,9 +30,7 @@ const Appearance = () => {
 					</p>
 				}
 			>
-				<DndProvider backend={ HTML5Backend }>
-					<SocialIconList />
-				</DndProvider>
+				<SocialIconList />
 			</ErrorBoundary>
 
 		);

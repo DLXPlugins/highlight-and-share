@@ -522,6 +522,7 @@ h2.has-admin-content-subheading {
 	justify-content: flex-start;
 	align-items: center;
 	li {
+		position: relative;
 		display: flex;
 		height: 52px;
 		width: 52px;
@@ -530,7 +531,6 @@ h2.has-admin-content-subheading {
 		align-items: center;
 		justify-content: center;
 		margin-right: 8px;
-
 		&:hover {
 			cursor: move;
 			background: #f4f4f4 !important;
