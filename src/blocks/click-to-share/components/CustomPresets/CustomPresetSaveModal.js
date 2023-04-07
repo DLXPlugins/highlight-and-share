@@ -124,6 +124,26 @@ const CustomPresetSaveModal = ( props ) => {
 		return options;
 	};
 
+	let radioOptions = [
+		{
+			label: __( 'Save Preset', 'highlight-and-share' ),
+			value: 'new',
+		},
+		{
+			label: __( 'Override Preset', 'highlight-and-share' ),
+			value: 'override',
+		},
+	];
+	if ( savedPresets.length === 0 ) {
+		radioOptions = [
+			{
+				label: __( 'Save Preset', 'highlight-and-share' ),
+				value: 'new',
+			},
+		];
+	}
+
+
 	return (
 		<div className="has-custom-preset-modal">
 			<Modal
@@ -139,16 +159,7 @@ const CustomPresetSaveModal = ( props ) => {
 					) }
 					className="has-preset-modal-radio-control"
 					selected={ presetSaveType }
-					options={ [
-						{
-							label: __( 'Save Preset', 'highlight-and-share' ),
-							value: 'new',
-						},
-						{
-							label: __( 'Override Preset', 'highlight-and-share' ),
-							value: 'override',
-						},
-					] }
+					options={ radioOptions }
 					onChange={ ( value ) => {
 						setPresetSaveType( value );
 					} }

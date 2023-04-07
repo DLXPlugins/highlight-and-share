@@ -712,6 +712,19 @@ var CustomPresetSaveModal = function CustomPresetSaveModal(props) {
     });
     return options;
   };
+  var radioOptions = [{
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Save Preset', 'highlight-and-share'),
+    value: 'new'
+  }, {
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Override Preset', 'highlight-and-share'),
+    value: 'override'
+  }];
+  if (savedPresets.length === 0) {
+    radioOptions = [{
+      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Save Preset', 'highlight-and-share'),
+      value: 'new'
+    }];
+  }
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
     className: "has-custom-preset-modal"
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Modal, {
@@ -725,13 +738,7 @@ var CustomPresetSaveModal = function CustomPresetSaveModal(props) {
     label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Save a new preset or override an existing one.', 'highlight-and-share'),
     className: "has-preset-modal-radio-control",
     selected: presetSaveType,
-    options: [{
-      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Save Preset', 'highlight-and-share'),
-      value: 'new'
-    }, {
-      label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Override Preset', 'highlight-and-share'),
-      value: 'override'
-    }],
+    options: radioOptions,
     onChange: function onChange(value) {
       setPresetSaveType(value);
     }

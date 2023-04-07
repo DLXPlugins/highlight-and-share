@@ -3,7 +3,7 @@ Contributors: ronalfy
 Tags: highlight, social sharing, click to tweet, sharing, highlight text
 Requires at least: 5.1
 Tested up to: 6.2
-Stable tag: 4.3.0
+Stable tag: 4.3.5
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://github.com/sponsors/DLXPlugins
@@ -13,6 +13,8 @@ Easily Show Social Networks When Users Interact With Your Site's Text
 == Description ==
 
 Meet your readers at your content.
+
+https://www.youtube.com/watch?v=ZZWiLZtfqcI
 
 > <a href="https://app.instawp.io/launch?t=highlight-and-share&d=v1">View a Fully Featured Demo via InstaWP</a>
 
@@ -109,6 +111,12 @@ So far, the latest versions of Chrome, Firefox, Safari, Edge, and IE9+.
 
 
 == Changelog ==
+
+= 4.3.5 =
+* Released 2023-04-07
+* New feature: Save your own custom presets in the Click to Share Block
+* New feature: Enable the Web Share API for mobile devices.
+* <a href="https://dlxplugins.com/announcements/highlight-and-share-4-3-5-released-with-block-presets-and-the-web-share-api/">View the announcement post</a> for more details.
 
 = 4.3.0 =
 * Released 2023-03-26
@@ -447,5 +455,5 @@ So far, the latest versions of Chrome, Firefox, Safari, Edge, and IE9+.
 
 == Upgrade Notice ==
 
-= 4.3.0 =
-Version 4.3.0 was released on March 26, 2023, and includes new features such as the ability to set tooltips for inline highlighting with customization options for label, background color, and text color, as well as the ability to customize the email subject, body, and modal title when sending emails. Another new feature is the ability to customize the share text using a toolbar option in the Click to Share block. This version also includes bug fixes for the legacy Click to Share output returning null or empty on the frontend and the Click to Share block not showing the share text.
+= 4.3.5 =
+Save your own custom presets in the Click to Share Block. Use the Web Share API for native sharing on mobile devices.
