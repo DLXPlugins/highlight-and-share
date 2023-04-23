@@ -123,6 +123,278 @@ var BlockContent = function BlockContent(props) {
 
 /***/ }),
 
+/***/ "./src/blocks/click-to-share/components/ColorPickerHover/SyncModal.js":
+/*!****************************************************************************!*\
+  !*** ./src/blocks/click-to-share/components/ColorPickerHover/SyncModal.js ***!
+  \****************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _context__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./context */ "./src/blocks/click-to-share/components/ColorPickerHover/context.js");
+/* harmony import */ var _react_Components_Icons_ColorCircle__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ../../../../react/Components/Icons/ColorCircle */ "./src/react/Components/Icons/ColorCircle.js");
+
+
+
+
+
+var ApplyColorSyncModal = function ApplyColorSyncModal(props) {
+  var hoverColor = props.hoverColor,
+    normalColor = props.normalColor,
+    syncTitle = props.syncTitle;
+  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_context__WEBPACK_IMPORTED_MODULE_3__["default"]),
+    showApplyColorSyncModal = _useContext.showApplyColorSyncModal,
+    setShowApplyColorSyncModal = _useContext.setShowApplyColorSyncModal;
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Modal, {
+    title: syncTitle,
+    onRequestClose: function onRequestClose() {
+      return setShowApplyColorSyncModal(false);
+    },
+    className: "has-preset-modal",
+    shouldCloseOnClickOutside: false,
+    isDismissible: false
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", {
+    className: "description"
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Which color would you like to use as the sync value?', 'highlight-and-share')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.ButtonGroup, {
+    className: "has-color-sync-modal-button-group"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Button, {
+    variant: "secondary",
+    onClick: function onClick() {
+      props.onOptionSelect('normal');
+      setShowApplyColorSyncModal(false);
+    },
+    icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_react_Components_Icons_ColorCircle__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      style: {
+        color: normalColor
+      }
+    })
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Use Normal Color', 'highlight-and-share')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Button, {
+    variant: "secondary",
+    onClick: function onClick() {
+      props.onOptionSelect('hover');
+      setShowApplyColorSyncModal(false);
+    },
+    icon: /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_react_Components_Icons_ColorCircle__WEBPACK_IMPORTED_MODULE_4__["default"], {
+      style: {
+        color: hoverColor
+      }
+    })
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Use Hover Color', 'highlight-and-share'))));
+};
+/* harmony default export */ __webpack_exports__["default"] = (ApplyColorSyncModal);
+
+/***/ }),
+
+/***/ "./src/blocks/click-to-share/components/ColorPickerHover/context.js":
+/*!**************************************************************************!*\
+  !*** ./src/blocks/click-to-share/components/ColorPickerHover/context.js ***!
+  \**************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+
+var ApplyColorSyncContext = /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createContext();
+/* harmony default export */ __webpack_exports__["default"] = (ApplyColorSyncContext);
+
+/***/ }),
+
+/***/ "./src/blocks/click-to-share/components/ColorPickerHover/index.js":
+/*!************************************************************************!*\
+  !*** ./src/blocks/click-to-share/components/ColorPickerHover/index.js ***!
+  \************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _context__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ./context */ "./src/blocks/click-to-share/components/ColorPickerHover/context.js");
+/* harmony import */ var _picker__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ./picker */ "./src/blocks/click-to-share/components/ColorPickerHover/picker.js");
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+var ColorPickerHover = function ColorPickerHover(props) {
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState2 = _slicedToArray(_useState, 2),
+    showApplyColorSyncModal = _useState2[0],
+    setShowApplyColorSyncModal = _useState2[1];
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_context__WEBPACK_IMPORTED_MODULE_1__["default"].Provider, {
+    value: {
+      showApplyColorSyncModal: showApplyColorSyncModal,
+      setShowApplyColorSyncModal: setShowApplyColorSyncModal
+    }
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_picker__WEBPACK_IMPORTED_MODULE_2__["default"], props));
+};
+/* harmony default export */ __webpack_exports__["default"] = (ColorPickerHover);
+
+/***/ }),
+
+/***/ "./src/blocks/click-to-share/components/ColorPickerHover/picker.js":
+/*!*************************************************************************!*\
+  !*** ./src/blocks/click-to-share/components/ColorPickerHover/picker.js ***!
+  \*************************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _react_Components_ColorPicker__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../react/Components/ColorPicker */ "./src/react/Components/ColorPicker/index.js");
+/* harmony import */ var _SyncModal__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ./SyncModal */ "./src/blocks/click-to-share/components/ColorPickerHover/SyncModal.js");
+/* harmony import */ var _context__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! ./context */ "./src/blocks/click-to-share/components/ColorPickerHover/context.js");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__);
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+
+
+
+
+
+
+
+var ColorPickerHoverControl = function ColorPickerHoverControl(props) {
+  var palette = has_gutenberg.colorPalette;
+  var _useContext = (0,react__WEBPACK_IMPORTED_MODULE_0__.useContext)(_context__WEBPACK_IMPORTED_MODULE_4__["default"]),
+    showApplyColorSyncModal = _useContext.showApplyColorSyncModal,
+    setShowApplyColorSyncModal = _useContext.setShowApplyColorSyncModal;
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('sync' === props.isSync ? 'sync' : 'normal'),
+    _useState2 = _slicedToArray(_useState, 2),
+    colorMode = _useState2[0],
+    setColorMode = _useState2[1];
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(props.normalColor),
+    _useState4 = _slicedToArray(_useState3, 2),
+    normalColor = _useState4[0],
+    setNormalColor = _useState4[1];
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(props.hoverColor),
+    _useState6 = _slicedToArray(_useState5, 2),
+    hoverColor = _useState6[0],
+    setHoverColor = _useState6[1];
+  var _useState7 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(props.normalColor),
+    _useState8 = _slicedToArray(_useState7, 2),
+    syncColor = _useState8[0],
+    setSyncColor = _useState8[1];
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "has-color-picker-hover"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("div", {
+    className: "has-color-picker-hover__color-mode"
+  }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Button, {
+    isSmall: true,
+    onClick: function onClick() {
+      return setColorMode('normal');
+    },
+    className: classnames__WEBPACK_IMPORTED_MODULE_1___default()({
+      'is-primary': 'normal' === colorMode
+    }),
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Normal', 'highlight-and-share')
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Normal', 'highlight-and-share')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Button, {
+    isSmall: true,
+    onClick: function onClick() {
+      return setColorMode('hover');
+    },
+    className: classnames__WEBPACK_IMPORTED_MODULE_1___default()({
+      'is-primary': 'hover' === colorMode
+    }),
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Hover State', 'highlight-and-share')
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Hover', 'highlight-and-share')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.Button, {
+    isSmall: true,
+    onClick: function onClick(e) {
+      if ('sync' === colorMode) {
+        e.preventDefault();
+        return;
+      }
+      setColorMode('sync');
+      if (normalColor === hoverColor) {
+        setSyncColor(normalColor);
+      } else {
+        setShowApplyColorSyncModal(true);
+      }
+    },
+    className: classnames__WEBPACK_IMPORTED_MODULE_1___default()({
+      'is-primary': 'sync' === colorMode
+    }),
+    label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Sync Normal and Hover Colors', 'highlight-and-share')
+  }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_3__.__)('Sync', 'highlight-and-share'))), 'normal' === colorMode && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_react_Components_ColorPicker__WEBPACK_IMPORTED_MODULE_5__["default"], {
+    value: normalColor,
+    props: props.slug,
+    onChange: function onChange(slug, newValue) {
+      setNormalColor(newValue);
+      props.onChange(newValue, hoverColor, colorMode);
+    },
+    label: props.label,
+    defaultColors: palette,
+    defaultColor: normalColor,
+    slug: props.slug
+  }), 'hover' === colorMode && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_react_Components_ColorPicker__WEBPACK_IMPORTED_MODULE_5__["default"], {
+    value: hoverColor,
+    props: props.slug + '-hover',
+    onChange: function onChange(slug, newValue) {
+      setHoverColor(newValue);
+      props.onChange(normalColor, newValue, colorMode);
+    },
+    label: props.label,
+    defaultColors: palette,
+    defaultColor: hoverColor,
+    slug: props.slug + '-hover'
+  }), 'sync' === colorMode && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_react_Components_ColorPicker__WEBPACK_IMPORTED_MODULE_5__["default"], {
+    value: syncColor,
+    key: props.slug + '-sync',
+    onChange: function onChange(slug, newValue) {
+      setNormalColor(newValue);
+      setHoverColor(newValue);
+      setSyncColor(newValue);
+      props.onChange(newValue, newValue, colorMode);
+    },
+    label: props.label,
+    defaultColors: palette,
+    defaultColor: syncColor,
+    slug: props.slug + '-sync'
+  })), showApplyColorSyncModal && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_SyncModal__WEBPACK_IMPORTED_MODULE_6__["default"], {
+    syncTitle: props.syncTitle,
+    onOptionSelect: function onOptionSelect(option) {
+      if ('normal' === option) {
+        setNormalColor(normalColor);
+        setHoverColor(normalColor);
+        setSyncColor(normalColor);
+        props.onChange(normalColor, normalColor, 'sync');
+      } else if ('hover' === option) {
+        setNormalColor(hoverColor);
+        setHoverColor(hoverColor);
+        setSyncColor(hoverColor);
+        props.onChange(hoverColor, hoverColor, 'sync');
+      }
+    },
+    normalColor: normalColor,
+    hoverColor: hoverColor
+  }));
+};
+/* harmony default export */ __webpack_exports__["default"] = (ColorPickerHoverControl);
+
+/***/ }),
+
 /***/ "./src/blocks/click-to-share/components/CustomPresets/CustomPresetContainer.js":
 /*!*************************************************************************************!*\
   !*** ./src/blocks/click-to-share/components/CustomPresets/CustomPresetContainer.js ***!
@@ -312,8 +584,6 @@ function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o =
 function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
 function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
 function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
-
-
 
 
 
@@ -1240,7 +1510,7 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_0__);
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! react */ "react");
 /* harmony import */ var react__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_1__);
-/* harmony import */ var _react_Components_ColorPicker__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ../../react/Components/ColorPicker */ "./src/react/Components/ColorPicker/index.js");
+/* harmony import */ var _components_ColorPickerHover_index__WEBPACK_IMPORTED_MODULE_11__ = __webpack_require__(/*! ./components/ColorPickerHover/index */ "./src/blocks/click-to-share/components/ColorPickerHover/index.js");
 /* harmony import */ var _react_Components_GradientPicker__WEBPACK_IMPORTED_MODULE_13__ = __webpack_require__(/*! ../../react/Components/GradientPicker */ "./src/react/Components/GradientPicker/index.js");
 /* harmony import */ var _react_Components_GradientSync__WEBPACK_IMPORTED_MODULE_12__ = __webpack_require__(/*! ../../react/Components/GradientSync */ "./src/react/Components/GradientSync/index.js");
 /* harmony import */ var _react_Components_GradientGenerator__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../../react/Components/GradientGenerator */ "./src/react/Components/GradientGenerator/index.js");
@@ -1267,6 +1537,7 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 /**
  * External dependencies
  */
+
 
 
 
@@ -1336,14 +1607,17 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
     backgroundType = attributes.backgroundType,
     backgroundColor = attributes.backgroundColor,
     backgroundColorHover = attributes.backgroundColorHover,
+    backgroundColorSync = attributes.backgroundColorSync,
     backgroundGradient = attributes.backgroundGradient,
     backgroundGradientHover = attributes.backgroundGradientHover,
     backgroundGradientSync = attributes.backgroundGradientSync,
     backgroundImage = attributes.backgroundImage,
     textColor = attributes.textColor,
     textColorHover = attributes.textColorHover,
+    textColorSync = attributes.textColorSync,
     shareTextColor = attributes.shareTextColor,
     shareTextColorHover = attributes.shareTextColorHover,
+    shareTextColorSync = attributes.shareTextColorSync,
     showClickToShare = attributes.showClickToShare,
     showIcon = attributes.showIcon,
     fontSize = attributes.fontSize,
@@ -1355,7 +1629,9 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
     borderColor = attributes.borderColor,
     iconColor = attributes.iconColor,
     iconColorHover = attributes.iconColorHover,
+    iconColorSync = attributes.iconColorSync,
     borderColorHover = attributes.borderColorHover,
+    borderColorSync = attributes.borderColorSync,
     clickShareFontSize = attributes.clickShareFontSize,
     maxWidth = attributes.maxWidth,
     maxWidthUnit = attributes.maxWidthUnit,
@@ -1373,6 +1649,34 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
     typographyQuote = attributes.typographyQuote,
     typographyShareText = attributes.typographyShareText;
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
+    // If this is the first time inserting the block.
+    if ('' === uniqueId) {
+      if (backgroundColor === backgroundColorHover) {
+        setAttributes({
+          backgroundColorSync: 'sync'
+        });
+      }
+      if (textColor === textColorHover) {
+        setAttributes({
+          textColorSync: 'sync'
+        });
+      }
+      if (shareTextColor === shareTextColorHover) {
+        setAttributes({
+          shareTextColorSync: 'sync'
+        });
+      }
+      if (iconColor === iconColorHover) {
+        setAttributes({
+          iconColorSync: 'sync'
+        });
+      }
+      if (borderColor === borderColorHover) {
+        setAttributes({
+          borderColorSync: 'sync'
+        });
+      }
+    }
     // Set unique ID for block (for styling).
     setAttributes({
       uniqueId: generatedUniqueId
@@ -1465,6 +1769,16 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
       });
     }
   }, []);
+  var getDeviceIcon = function getDeviceIcon() {
+    if (deviceType === 'Desktop') {
+      return 'laptop';
+    } else if (deviceType === 'Tablet') {
+      return 'tablet';
+    } else if (deviceType === 'Mobile') {
+      return 'smartphone';
+    }
+    return null;
+  };
 
   /* For sticky responsive: forked from GenerateBlocks */
   var panelHeader = document.querySelector('.edit-post-sidebar .edit-post-sidebar__panel-tabs');
@@ -1518,7 +1832,7 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
     },
     icon: "smartphone",
     label: __('Mobile', 'highlight-and-share')
-  }))), /*#__PURE__*/React.createElement(PanelBody, {
+  }))), deviceType === 'Desktop' && /*#__PURE__*/React.createElement(PanelBody, {
     title: __('Presets', 'highlight-and-share'),
     initialOpen: false,
     className: "has-presets-panel"
@@ -1630,30 +1944,27 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
       });
     },
     label: __('Image Background', 'highlight-and-share')
-  }, __('Image', 'highlight-and-share')))), backgroundType === 'solid' && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(_react_Components_ColorPicker__WEBPACK_IMPORTED_MODULE_11__["default"], {
-    value: backgroundColor,
-    key: 'background-color',
-    onChange: function onChange(slug, newValue) {
+  }, __('Image', 'highlight-and-share')))), backgroundType === 'solid' && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(PanelRow, {
+    className: "has-color-picker"
+  }, /*#__PURE__*/React.createElement(_components_ColorPickerHover_index__WEBPACK_IMPORTED_MODULE_11__["default"], {
+    syncTitle: __('Sync Background Colors', 'highlight-and-share'),
+    normalColor: backgroundColor,
+    hoverColor: backgroundColorHover,
+    isSync: backgroundColorSync,
+    onChange: function onChange(color, hoverColor, sync) {
       setAttributes({
-        backgroundColor: newValue
+        backgroundColor: color
+      });
+      setAttributes({
+        backgroundColorHover: hoverColor
+      });
+      setAttributes({
+        backgroundColorSync: sync
       });
     },
     label: __('Background Color', 'highlight-and-share'),
-    defaultColors: has_gutenberg.colorPalette,
-    defaultColor: backgroundColor,
-    slug: 'background-color'
-  })), /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(_react_Components_ColorPicker__WEBPACK_IMPORTED_MODULE_11__["default"], {
-    value: backgroundColorHover,
-    key: 'background-color-hover',
-    onChange: function onChange(slug, newValue) {
-      setAttributes({
-        backgroundColorHover: newValue
-      });
-    },
-    label: __('Background Color Hover', 'highlight-and-share'),
-    defaultColors: has_gutenberg.colorPalette,
-    defaultColor: backgroundColorHover,
-    slug: 'background-color-hover'
+    key: 'background-color-solid',
+    slug: 'background-color-solid'
   }))), backgroundType === 'gradient' && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(PanelRow, {
     className: "has-background-gradient-sync"
   }, /*#__PURE__*/React.createElement(_react_Components_GradientSync__WEBPACK_IMPORTED_MODULE_12__["default"], {
@@ -1698,129 +2009,94 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
   })))), deviceType === 'Desktop' && /*#__PURE__*/React.createElement(PanelBody, {
     title: __('Colors', 'highlight-and-share'),
     initialOpen: false
-  }, /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(_react_Components_ColorPicker__WEBPACK_IMPORTED_MODULE_11__["default"], {
-    value: backgroundColor,
-    key: 'background-color',
-    onChange: function onChange(slug, newValue) {
+  }, /*#__PURE__*/React.createElement(PanelRow, {
+    className: "has-color-picker"
+  }, /*#__PURE__*/React.createElement(_components_ColorPickerHover_index__WEBPACK_IMPORTED_MODULE_11__["default"], {
+    syncTitle: __('Sync Text Colors', 'highlight-and-share'),
+    normalColor: textColor,
+    hoverColor: textColorHover,
+    isSync: textColorSync,
+    onChange: function onChange(color, hoverColor, sync) {
       setAttributes({
-        backgroundColor: newValue
+        textColor: color
       });
-    },
-    label: __('Background Color', 'highlight-and-share'),
-    defaultColors: has_gutenberg.colorPalette,
-    defaultColor: backgroundColor,
-    slug: 'background-color'
-  })), /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(_react_Components_ColorPicker__WEBPACK_IMPORTED_MODULE_11__["default"], {
-    value: backgroundColorHover,
-    key: 'background-color-hover',
-    onChange: function onChange(slug, newValue) {
       setAttributes({
-        backgroundColorHover: newValue
+        textColorHover: hoverColor
       });
-    },
-    label: __('Background Color Hover', 'highlight-and-share'),
-    defaultColors: has_gutenberg.colorPalette,
-    defaultColor: backgroundColorHover,
-    slug: 'background-color-hover'
-  })), /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(_react_Components_ColorPicker__WEBPACK_IMPORTED_MODULE_11__["default"], {
-    value: textColor,
-    key: 'text-color',
-    onChange: function onChange(slug, newValue) {
       setAttributes({
-        textColor: newValue
+        textColorSync: sync
       });
     },
     label: __('Text Color', 'highlight-and-share'),
-    defaultColors: has_gutenberg.colorPalette,
-    defaultColor: textColor,
+    key: 'text-color',
     slug: 'text-color'
-  }), ' '), /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(_react_Components_ColorPicker__WEBPACK_IMPORTED_MODULE_11__["default"], {
-    value: textColorHover,
-    key: 'text-color-hover',
-    onChange: function onChange(slug, newValue) {
+  })), /*#__PURE__*/React.createElement(PanelRow, {
+    className: "has-color-picker"
+  }, /*#__PURE__*/React.createElement(_components_ColorPickerHover_index__WEBPACK_IMPORTED_MODULE_11__["default"], {
+    syncTitle: __('Sync Share Text Colors', 'highlight-and-share'),
+    normalColor: shareTextColor,
+    hoverColor: shareTextColorHover,
+    isSync: shareTextColorSync,
+    onChange: function onChange(color, hoverColor, sync) {
       setAttributes({
-        textColorHover: newValue
+        shareTextColor: color
       });
-    },
-    label: __('Text Color Hover', 'highlight-and-share'),
-    defaultColors: has_gutenberg.colorPalette,
-    defaultColor: textColorHover,
-    slug: 'text-color-hover'
-  })), /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(_react_Components_ColorPicker__WEBPACK_IMPORTED_MODULE_11__["default"], {
-    value: shareTextColor,
-    key: 'share-text-color',
-    onChange: function onChange(slug, newValue) {
       setAttributes({
-        shareTextColor: newValue
+        shareTextColorHover: hoverColor
+      });
+      setAttributes({
+        shareTextColorSync: sync
       });
     },
     label: __('Share Text Color', 'highlight-and-share'),
-    defaultColors: has_gutenberg.colorPalette,
-    defaultColor: shareTextColor,
+    key: 'share-text-color',
     slug: 'share-text-color'
-  }), ' '), /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(_react_Components_ColorPicker__WEBPACK_IMPORTED_MODULE_11__["default"], {
-    value: shareTextColorHover,
-    key: 'share-text-color-hover',
-    onChange: function onChange(slug, newValue) {
+  })), /*#__PURE__*/React.createElement(PanelRow, {
+    className: "has-color-picker"
+  }, /*#__PURE__*/React.createElement(_components_ColorPickerHover_index__WEBPACK_IMPORTED_MODULE_11__["default"], {
+    syncTitle: __('Sync Icon Colors', 'highlight-and-share'),
+    normalColor: iconColor,
+    hoverColor: iconColorHover,
+    isSync: iconColorSync,
+    onChange: function onChange(color, hoverColor, sync) {
       setAttributes({
-        shareTextColorHover: newValue
+        iconColor: color
       });
-    },
-    label: __('Share Text Color Hover', 'highlight-and-share'),
-    defaultColors: has_gutenberg.colorPalette,
-    defaultColor: shareTextColorHover,
-    slug: 'share-text-color-hover'
-  })), /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(_react_Components_ColorPicker__WEBPACK_IMPORTED_MODULE_11__["default"], {
-    value: borderColor,
-    key: 'border-color',
-    onChange: function onChange(slug, newValue) {
       setAttributes({
-        borderColor: newValue
+        iconColorHover: hoverColor
       });
-    },
-    label: __('Border Color', 'highlight-and-share'),
-    defaultColors: has_gutenberg.colorPalette,
-    defaultColor: borderColor,
-    slug: 'border-color'
-  })), /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(_react_Components_ColorPicker__WEBPACK_IMPORTED_MODULE_11__["default"], {
-    value: borderColorHover,
-    key: 'border-color-hover',
-    onChange: function onChange(slug, newValue) {
       setAttributes({
-        borderColorHover: newValue
-      });
-    },
-    label: __('Border Color Hover', 'highlight-and-share'),
-    defaultColors: has_gutenberg.colorPalette,
-    defaultColor: borderColorHover,
-    slug: 'border-color-hover'
-  })), /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(_react_Components_ColorPicker__WEBPACK_IMPORTED_MODULE_11__["default"], {
-    value: iconColor,
-    key: 'icon-color',
-    onChange: function onChange(slug, newValue) {
-      setAttributes({
-        iconColor: newValue
+        iconColorSync: sync
       });
     },
     label: __('Icon Color', 'highlight-and-share'),
-    defaultColors: has_gutenberg.colorPalette,
-    defaultColor: iconColor,
+    key: 'icon-color',
     slug: 'icon-color'
-  })), /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(_react_Components_ColorPicker__WEBPACK_IMPORTED_MODULE_11__["default"], {
-    value: iconColorHover,
-    key: 'icon-color-hover',
-    onChange: function onChange(slug, newValue) {
+  })), /*#__PURE__*/React.createElement(PanelRow, {
+    className: "has-color-picker"
+  }, /*#__PURE__*/React.createElement(_components_ColorPickerHover_index__WEBPACK_IMPORTED_MODULE_11__["default"], {
+    syncTitle: __('Sync Border Colors', 'highlight-and-share'),
+    normalColor: borderColor,
+    hoverColor: borderColorHover,
+    isSync: borderColorSync,
+    onChange: function onChange(color, hoverColor, sync) {
       setAttributes({
-        iconColorHover: newValue
+        borderColor: color
+      });
+      setAttributes({
+        borderColorHover: hoverColor
+      });
+      setAttributes({
+        borderColorSync: sync
       });
     },
-    label: __('Icon Color Hover', 'highlight-and-share'),
-    defaultColors: has_gutenberg.colorPalette,
-    defaultColor: iconColorHover,
-    slug: 'icon-color-hover'
+    label: __('Border Color', 'highlight-and-share'),
+    key: 'border-color',
+    slug: 'border-color'
   }))), /*#__PURE__*/React.createElement(PanelBody, {
     title: __('Fonts and Typography', 'highlight-and-share'),
-    initialOpen: true
+    initialOpen: true,
+    icon: getDeviceIcon()
   }, /*#__PURE__*/React.createElement(PanelRow, {
     className: "has-typography-panel-row"
   }, /*#__PURE__*/React.createElement(_react_Components_Typography__WEBPACK_IMPORTED_MODULE_16__["default"], {
@@ -1845,7 +2121,8 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
     label: __('Share Text Typography', 'highlight-and-share')
   }))), /*#__PURE__*/React.createElement(PanelBody, {
     title: __('Spacing and Border', 'highlight-and-share'),
-    initialOpen: true
+    initialOpen: true,
+    icon: getDeviceIcon()
   }, deviceType === 'Desktop' && /*#__PURE__*/React.createElement(PanelRow, {
     className: "has-unit-picker"
   }, /*#__PURE__*/React.createElement(_react_Components_unit_picker__WEBPACK_IMPORTED_MODULE_17__["default"], {
@@ -1925,31 +2202,7 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
         borderRadiusSize: newValues
       });
     }
-  })), deviceType === 'Desktop' && /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(_react_Components_ColorPicker__WEBPACK_IMPORTED_MODULE_11__["default"], {
-    value: borderColor,
-    key: 'border-color',
-    onChange: function onChange(slug, newValue) {
-      setAttributes({
-        borderColor: newValue
-      });
-    },
-    label: __('Border Color', 'highlight-and-share'),
-    defaultColors: has_gutenberg.colorPalette,
-    defaultColor: borderColor,
-    slug: 'border-color'
-  })), /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(_react_Components_ColorPicker__WEBPACK_IMPORTED_MODULE_11__["default"], {
-    value: borderColorHover,
-    key: 'border-color-hover',
-    onChange: function onChange(slug, newValue) {
-      setAttributes({
-        borderColorHover: newValue
-      });
-    },
-    label: __('Border Color Hover', 'highlight-and-share'),
-    defaultColors: has_gutenberg.colorPalette,
-    defaultColor: borderColorHover,
-    slug: 'border-color-hover'
-  })))));
+  }))));
   var block = /*#__PURE__*/React.createElement(React.Fragment, null, shareTextToolbar, inspectorControls, /*#__PURE__*/React.createElement(_components_BlockContent__WEBPACK_IMPORTED_MODULE_19__["default"], {
     attributes: attributes,
     setAttributes: setAttributes,
@@ -4593,6 +4846,33 @@ CircularExclamationIcon.propTypes = {
   fill: (prop_types__WEBPACK_IMPORTED_MODULE_1___default().string)
 };
 /* harmony default export */ __webpack_exports__["default"] = (CircularExclamationIcon);
+
+/***/ }),
+
+/***/ "./src/react/Components/Icons/ColorCircle.js":
+/*!***************************************************!*\
+  !*** ./src/react/Components/Icons/ColorCircle.js ***!
+  \***************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+function _extends() { _extends = Object.assign ? Object.assign.bind() : function (target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i]; for (var key in source) { if (Object.prototype.hasOwnProperty.call(source, key)) { target[key] = source[key]; } } } return target; }; return _extends.apply(this, arguments); }
+
+var ColorCircle = function ColorCircle(props) {
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("svg", _extends({
+    xmlns: "http://www.w3.org/2000/svg",
+    viewBox: "0 0 512 512",
+    width: "24",
+    height: "24"
+  }, props), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("path", {
+    fill: "currentColor",
+    d: "M256 512a256 256 0 1 0 0-512 256 256 0 1 0 0 512z"
+  }));
+};
+/* harmony default export */ __webpack_exports__["default"] = (ColorCircle);
 
 /***/ }),
 
@@ -9890,7 +10170,7 @@ function useForm(props = {}) {
 /***/ (function(module) {
 
 "use strict";
-module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","title":"Click to Share","apiVersion":2,"name":"has/click-to-share","category":"highlight-and-share","icon":"<svg aria-hidden=\'true\' focusable=\'false\' data-prefix=\'fas\' data-icon=\'share-alt\' className=\'svg-inline--fa fa-share-alt fa-w-14\' role=\'img\' xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 448 512\'><path fill=\'currentColor\' d=\'M352 320c-22.608 0-43.387 7.819-59.79 20.895l-102.486-64.054a96.551 96.551 0 0 0 0-41.683l102.486-64.054C308.613 184.181 329.392 192 352 192c53.019 0 96-42.981 96-96S405.019 0 352 0s-96 42.981-96 96c0 7.158.79 14.13 2.276 20.841L155.79 180.895C139.387 167.819 118.608 160 96 160c-53.019 0-96 42.981-96 96s42.981 96 96 96c22.608 0 43.387-7.819 59.79-20.895l102.486 64.054A96.301 96.301 0 0 0 256 416c0 53.019 42.981 96 96 96s96-42.981 96-96-42.981-96-96-96z\'></path></svg>","description":"An easy-to-use Click to Share block.","keywords":["click","social","tweet","better","twitter","facebook","share","quote","blockquote"],"version":"1.0.0","textdomain":"highlight-and-share","attributes":{"uniqueId":{"type":"string","default":""},"showClickToShare":{"type":"boolean","default":true},"showIcon":{"type":"boolean","default":true},"iconSize":{"type":"number","default":-1},"customShareText":{"type":"string","default":""},"shareText":{"type":"string","default":""},"shareTextInner":{"type":"array","default":[]},"backgroundColor":{"type":"string","default":"#FFFFFF"},"backgroundColorHover":{"type":"string","default":"#FFFFFF"},"backgroundType":{"type":"string","default":"solid"},"backgroundGradient":{"type":"string","default":""},"backgroundGradientHover":{"type":"string","default":""},"backgroundGradientSync":{"type":"boolean","default":true},"backgroundImage":{"type":"object","default":{"url":"","id":0,"backgroundColor":"#000000","backgroundSize":"cover","backgroundPosition":"center center","backgroundRepeat":"no-repeat","backgroundOpacity":1,"backgroundOpacityHover":1}},"iconColor":{"type":"string","default":"#000000"},"iconColorHover":{"type":"string","default":"#000000"},"textColor":{"type":"string","default":"#000000"},"textColorHover":{"type":"string","default":"#000000"},"shareTextColor":{"type":"string","default":"#000000"},"shareTextColorHover":{"type":"string","default":"#000000"},"fontSize":{"type":"integer","default":24},"clickShareFontSize":{"type":"integer","default":24},"clickText":{"type":"string","default":"Click to Share"},"padding":{"type":"integer","default":-1},"border":{"type":"integer","default":-1},"borderRadius":{"type":"integer","default":0},"borderColor":{"type":"string","default":"#000000"},"borderColorHover":{"type":"string","default":"#000000"},"fontWeight":{"type":"string","default":"#FFFFFF"},"maxWidth":{"type":"string","default":"80"},"maxWidthUnit":{"type":"string","default":"%"},"align":{"type":"string","default":"center"},"alignment":{"type":"string","default":"center"},"marginLeft":{"type":"integer","default":0},"marginRight":{"type":"integer","default":0},"marginBottom":{"type":"integer","default":0},"marginTop":{"type":"integer","default":0},"paddingSize":{"type":"object","default":{"mobile":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"tablet":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"desktop":{"top":"20","right":"20","bottom":"20","left":"20","unit":"px","unitSync":true}}},"marginSize":{"type":"object","default":{"mobile":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"tablet":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"desktop":{"top":"20","right":"","bottom":"20","left":"","unit":"px","unitSync":true}}},"borderWidth":{"type":"object","default":{"mobile":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"tablet":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"desktop":{"top":"1","right":"1","bottom":"1","left":"1","unit":"px","unitSync":true}}},"borderRadiusSize":{"type":"object","default":{"mobile":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"tablet":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"desktop":{"top":"","right":"","bottom":"","left":"","unit":"px","unitSync":true}}},"typographyQuote":{"type":"object","default":{"mobile":{"fontFamily":"","fontFamilySlug":"","fontSize":"","fontSizeUnit":"px","fontWeight":"","lineHeight":"","lineHeightUnit":"em","textTransform":"","letterSpacing":"","letterSpacingUnit":"px","fontFallback":"","fontType":"web"},"tablet":{"fontFamily":"","fontFamilySlug":"","fontSize":"","fontSizeUnit":"px","fontWeight":"","lineHeight":"","lineHeightUnit":"em","textTransform":"","letterSpacing":"","letterSpacingUnit":"px","fontFallback":"","fontType":"web"},"desktop":{"fontFamily":"Arial","fontFamilySlug":"arial","fontSize":"24","fontSizeUnit":"px","fontWeight":"normal","lineHeight":"1.3","lineHeightUnit":"em","textTransform":"none","letterSpacing":"0","letterSpacingUnit":"px","fontFallback":"serif","fontType":"web"}}},"typographyShareText":{"type":"object","default":{"mobile":{"fontFamily":"","fontFamilySlug":"","fontSize":"","fontSizeUnit":"px","fontWeight":"","lineHeight":"","lineHeightUnit":"em","textTransform":"","letterSpacing":"","letterSpacingUnit":"px","fontType":"web","fontFallback":"sans-serif"},"tablet":{"fontFamily":"","fontFamilySlug":"","fontSize":"","fontSizeUnit":"px","fontWeight":"","lineHeight":"","lineHeightUnit":"em","textTransform":"","letterSpacing":"","letterSpacingUnit":"px","fontType":"web","fontFallback":"sans-serif"},"desktop":{"fontFamily":"Arial","fontFamilySlug":"arial","fontSize":"24","fontSizeUnit":"px","fontWeight":"normal","lineHeight":"1.3","lineHeightUnit":"em","textTransform":"none","letterSpacing":"0","letterSpacingUnit":"px","fontType":"web","fontFallback":"sans-serif"}}}},"supports":{"anchor":true,"align":true,"className":true},"example":{"attributes":{"backgroundColor":"#8364E8","backgroundColorHover":"#714EE5","backgroundType":"solid","iconColor":"#FFFFFF","iconColorHover":"#FFFFFF","textColor":"#FFFFFF","textColorHover":"#FFFFFF","shareTextColor":"#FFFFFF","shareTextColorHover":"#FFFFFF","clickText":"Click to share","paddingSize":{"mobile":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"tablet":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"desktop":{"top":"20","right":"20","bottom":"20","left":"20","unit":"px","unitSync":true}},"marginSize":{"mobile":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"tablet":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"desktop":{"top":"20","right":"","bottom":"20","left":"","unit":"px","unitSync":true}},"borderWidth":{"mobile":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"tablet":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"desktop":{"top":"1","right":"1","bottom":"1","left":"1","unit":"px","unitSync":true}},"borderRadiusSize":{"mobile":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"tablet":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"desktop":{"top":"4","right":"4","bottom":"4","left":"4","unit":"px","unitSync":true}},"typographyQuote":{"mobile":{"fontFamily":"","fontFamilySlug":"","fontSize":"","fontSizeUnit":"px","fontWeight":"","lineHeight":"","lineHeightUnit":"em","textTransform":"","letterSpacing":"","letterSpacingUnit":"px","fontFallback":"","fontType":"web"},"tablet":{"fontFamily":"","fontFamilySlug":"","fontSize":"","fontSizeUnit":"px","fontWeight":"","lineHeight":"","lineHeightUnit":"em","textTransform":"","letterSpacing":"","letterSpacingUnit":"px","fontFallback":"","fontType":"web"},"desktop":{"fontFamily":"Arial","fontFamilySlug":"arial","fontSize":"24","fontSizeUnit":"px","fontWeight":"normal","lineHeight":"1.3","lineHeightUnit":"em","textTransform":"none","letterSpacing":"0","letterSpacingUnit":"px","fontFallback":"serif","fontType":"web"}},"typographyShareText":{"mobile":{"fontFamily":"","fontFamilySlug":"","fontSize":"","fontSizeUnit":"px","fontWeight":"","lineHeight":"","lineHeightUnit":"em","textTransform":"","letterSpacing":"","letterSpacingUnit":"px","fontType":"web","fontFallback":"sans-serif"},"tablet":{"fontFamily":"","fontFamilySlug":"","fontSize":"","fontSizeUnit":"px","fontWeight":"","lineHeight":"","lineHeightUnit":"em","textTransform":"","letterSpacing":"","letterSpacingUnit":"px","fontType":"web","fontFallback":"sans-serif"},"desktop":{"fontFamily":"Arial","fontFamilySlug":"arial","fontSize":"24","fontSizeUnit":"px","fontWeight":"normal","lineHeight":"1.3","lineHeightUnit":"em","textTransform":"none","letterSpacing":"0","letterSpacingUnit":"px","fontType":"web","fontFallback":"sans-serif"}}},"innerBlocks":[{"name":"core/paragraph","attributes":{"content":"Lorem ipsum dolor sit amet, consectetur adipiscing elit."}}]},"editorScript":"has-click-to-share","editorStyle":"has-style-admin-css","style":"has-style-frontend-css"}');
+module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","title":"Click to Share","apiVersion":2,"name":"has/click-to-share","category":"highlight-and-share","icon":"<svg aria-hidden=\'true\' focusable=\'false\' data-prefix=\'fas\' data-icon=\'share-alt\' className=\'svg-inline--fa fa-share-alt fa-w-14\' role=\'img\' xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 448 512\'><path fill=\'currentColor\' d=\'M352 320c-22.608 0-43.387 7.819-59.79 20.895l-102.486-64.054a96.551 96.551 0 0 0 0-41.683l102.486-64.054C308.613 184.181 329.392 192 352 192c53.019 0 96-42.981 96-96S405.019 0 352 0s-96 42.981-96 96c0 7.158.79 14.13 2.276 20.841L155.79 180.895C139.387 167.819 118.608 160 96 160c-53.019 0-96 42.981-96 96s42.981 96 96 96c22.608 0 43.387-7.819 59.79-20.895l102.486 64.054A96.301 96.301 0 0 0 256 416c0 53.019 42.981 96 96 96s96-42.981 96-96-42.981-96-96-96z\'></path></svg>","description":"An easy-to-use Click to Share block.","keywords":["click","social","tweet","better","twitter","facebook","share","quote","blockquote"],"version":"1.0.0","textdomain":"highlight-and-share","attributes":{"uniqueId":{"type":"string","default":""},"showClickToShare":{"type":"boolean","default":true},"showIcon":{"type":"boolean","default":true},"iconSize":{"type":"number","default":-1},"customShareText":{"type":"string","default":""},"shareText":{"type":"string","default":""},"shareTextInner":{"type":"array","default":[]},"backgroundColor":{"type":"string","default":"#FFFFFF"},"backgroundColorHover":{"type":"string","default":"#FFFFFF"},"backgroundColorSync":{"type":"string","default":"normal"},"backgroundType":{"type":"string","default":"solid"},"backgroundGradient":{"type":"string","default":""},"backgroundGradientHover":{"type":"string","default":""},"backgroundGradientSync":{"type":"string","default":"normal"},"backgroundImage":{"type":"object","default":{"url":"","id":0,"backgroundColor":"#000000","backgroundSize":"cover","backgroundPosition":"center center","backgroundRepeat":"no-repeat","backgroundOpacity":1,"backgroundOpacityHover":1}},"iconColor":{"type":"string","default":"#000000"},"iconColorHover":{"type":"string","default":"#000000"},"iconColorSync":{"type":"string","default":"normal"},"textColor":{"type":"string","default":"#000000"},"textColorHover":{"type":"string","default":"#000000"},"textColorSync":{"type":"string","default":"normal"},"shareTextColor":{"type":"string","default":"#000000"},"shareTextColorHover":{"type":"string","default":"#000000"},"shareTextColorSync":{"type":"string","default":"normal"},"fontSize":{"type":"integer","default":24},"clickShareFontSize":{"type":"integer","default":24},"clickText":{"type":"string","default":"Click to Share"},"padding":{"type":"integer","default":-1},"border":{"type":"integer","default":-1},"borderRadius":{"type":"integer","default":0},"borderColor":{"type":"string","default":"#000000"},"borderColorHover":{"type":"string","default":"#000000"},"borderColorSync":{"type":"string","default":"normal"},"fontWeight":{"type":"string","default":"400"},"maxWidth":{"type":"string","default":"80"},"maxWidthUnit":{"type":"string","default":"%"},"align":{"type":"string","default":"center"},"alignment":{"type":"string","default":"center"},"marginLeft":{"type":"integer","default":0},"marginRight":{"type":"integer","default":0},"marginBottom":{"type":"integer","default":0},"marginTop":{"type":"integer","default":0},"paddingSize":{"type":"object","default":{"mobile":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"tablet":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"desktop":{"top":"20","right":"20","bottom":"20","left":"20","unit":"px","unitSync":true}}},"marginSize":{"type":"object","default":{"mobile":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"tablet":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"desktop":{"top":"20","right":"","bottom":"20","left":"","unit":"px","unitSync":true}}},"borderWidth":{"type":"object","default":{"mobile":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"tablet":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"desktop":{"top":"1","right":"1","bottom":"1","left":"1","unit":"px","unitSync":true}}},"borderRadiusSize":{"type":"object","default":{"mobile":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"tablet":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"desktop":{"top":"","right":"","bottom":"","left":"","unit":"px","unitSync":true}}},"typographyQuote":{"type":"object","default":{"mobile":{"fontFamily":"","fontFamilySlug":"","fontSize":"","fontSizeUnit":"px","fontWeight":"","lineHeight":"","lineHeightUnit":"em","textTransform":"","letterSpacing":"","letterSpacingUnit":"px","fontFallback":"","fontType":"web"},"tablet":{"fontFamily":"","fontFamilySlug":"","fontSize":"","fontSizeUnit":"px","fontWeight":"","lineHeight":"","lineHeightUnit":"em","textTransform":"","letterSpacing":"","letterSpacingUnit":"px","fontFallback":"","fontType":"web"},"desktop":{"fontFamily":"Arial","fontFamilySlug":"arial","fontSize":"24","fontSizeUnit":"px","fontWeight":"normal","lineHeight":"1.3","lineHeightUnit":"em","textTransform":"none","letterSpacing":"0","letterSpacingUnit":"px","fontFallback":"serif","fontType":"web"}}},"typographyShareText":{"type":"object","default":{"mobile":{"fontFamily":"","fontFamilySlug":"","fontSize":"","fontSizeUnit":"px","fontWeight":"","lineHeight":"","lineHeightUnit":"em","textTransform":"","letterSpacing":"","letterSpacingUnit":"px","fontType":"web","fontFallback":"sans-serif"},"tablet":{"fontFamily":"","fontFamilySlug":"","fontSize":"","fontSizeUnit":"px","fontWeight":"","lineHeight":"","lineHeightUnit":"em","textTransform":"","letterSpacing":"","letterSpacingUnit":"px","fontType":"web","fontFallback":"sans-serif"},"desktop":{"fontFamily":"Arial","fontFamilySlug":"arial","fontSize":"24","fontSizeUnit":"px","fontWeight":"normal","lineHeight":"1.3","lineHeightUnit":"em","textTransform":"none","letterSpacing":"0","letterSpacingUnit":"px","fontType":"web","fontFallback":"sans-serif"}}}},"supports":{"anchor":true,"align":true,"className":true},"example":{"attributes":{"backgroundColor":"#8364E8","backgroundColorHover":"#714EE5","backgroundType":"solid","iconColor":"#FFFFFF","iconColorHover":"#FFFFFF","textColor":"#FFFFFF","textColorHover":"#FFFFFF","shareTextColor":"#FFFFFF","shareTextColorHover":"#FFFFFF","clickText":"Click to share","paddingSize":{"mobile":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"tablet":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"desktop":{"top":"20","right":"20","bottom":"20","left":"20","unit":"px","unitSync":true}},"marginSize":{"mobile":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"tablet":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"desktop":{"top":"20","right":"","bottom":"20","left":"","unit":"px","unitSync":true}},"borderWidth":{"mobile":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"tablet":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"desktop":{"top":"1","right":"1","bottom":"1","left":"1","unit":"px","unitSync":true}},"borderRadiusSize":{"mobile":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"tablet":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"desktop":{"top":"4","right":"4","bottom":"4","left":"4","unit":"px","unitSync":true}},"typographyQuote":{"mobile":{"fontFamily":"","fontFamilySlug":"","fontSize":"","fontSizeUnit":"px","fontWeight":"","lineHeight":"","lineHeightUnit":"em","textTransform":"","letterSpacing":"","letterSpacingUnit":"px","fontFallback":"","fontType":"web"},"tablet":{"fontFamily":"","fontFamilySlug":"","fontSize":"","fontSizeUnit":"px","fontWeight":"","lineHeight":"","lineHeightUnit":"em","textTransform":"","letterSpacing":"","letterSpacingUnit":"px","fontFallback":"","fontType":"web"},"desktop":{"fontFamily":"Arial","fontFamilySlug":"arial","fontSize":"24","fontSizeUnit":"px","fontWeight":"normal","lineHeight":"1.3","lineHeightUnit":"em","textTransform":"none","letterSpacing":"0","letterSpacingUnit":"px","fontFallback":"serif","fontType":"web"}},"typographyShareText":{"mobile":{"fontFamily":"","fontFamilySlug":"","fontSize":"","fontSizeUnit":"px","fontWeight":"","lineHeight":"","lineHeightUnit":"em","textTransform":"","letterSpacing":"","letterSpacingUnit":"px","fontType":"web","fontFallback":"sans-serif"},"tablet":{"fontFamily":"","fontFamilySlug":"","fontSize":"","fontSizeUnit":"px","fontWeight":"","lineHeight":"","lineHeightUnit":"em","textTransform":"","letterSpacing":"","letterSpacingUnit":"px","fontType":"web","fontFallback":"sans-serif"},"desktop":{"fontFamily":"Arial","fontFamilySlug":"arial","fontSize":"24","fontSizeUnit":"px","fontWeight":"normal","lineHeight":"1.3","lineHeightUnit":"em","textTransform":"none","letterSpacing":"0","letterSpacingUnit":"px","fontType":"web","fontFallback":"sans-serif"}}},"innerBlocks":[{"name":"core/paragraph","attributes":{"content":"Lorem ipsum dolor sit amet, consectetur adipiscing elit."}}]},"editorScript":"has-click-to-share","editorStyle":"has-style-admin-css","style":"has-style-frontend-css"}');
 
 /***/ })
 

@@ -130,19 +130,24 @@ class Blocks {
 		// Get adobe fonts.
 		$block_editor_options = Options::get_block_editor_options( true );
 		$adobe_fonts          = $block_editor_options['adobe_fonts'] ?? array();
+
+		// Get current user ID.
+		$current_user_id = get_current_user_id();
 		wp_localize_script(
 			'has-click-to-share',
 			'has_gutenberg',
 			array(
-				'svg'                       => Functions::get_plugin_url( 'img/share.svg' ),
-				'colorPalette'              => Themes::get_default_theme_colors(),
-				'adobeFonts'                => $adobe_fonts,
-				'adobeFontsUrl'             => Adobe_Fonts::$typekit_css_url,
-				'adobeProjectId'            => $block_editor_options['adobe_project_id'] ?? '',
-				'cssFolder'                 => esc_url( functions::get_plugin_url( '/dist/' ) ),
-				'blockPresetsNonceRetrieve' => wp_create_nonce( 'has_load_presets' ),
-				'blockPresetsNonceSave'     => wp_create_nonce( 'has_save_presets' ),
-				'canEditOthersPosts'        => current_user_can( 'edit_others_posts' ),
+				'svg'                               => Functions::get_plugin_url( 'img/share.svg' ),
+				'colorPalette'                      => Themes::get_default_theme_colors(),
+				'adobeFonts'                        => $adobe_fonts,
+				'adobeFontsUrl'                     => Adobe_Fonts::$typekit_css_url,
+				'adobeProjectId'                    => $block_editor_options['adobe_project_id'] ?? '',
+				'cssFolder'                         => esc_url( functions::get_plugin_url( '/dist/' ) ),
+				'blockPresetsNonceRetrieve'         => wp_create_nonce( 'has_load_presets' ),
+				'blockPresetsNonceSave'             => wp_create_nonce( 'has_save_presets' ),
+				'canEditOthersPosts'                => current_user_can( 'edit_others_posts' ),
+				'hasHiddenColorSyncNotice'          => (bool) get_user_meta( get_current_user_id(), 'has_hidden_color_sync_notice', true ),
+				'hasHiddenColorSyncNoticeSaveNonce' => wp_create_nonce( 'has_hidden_color_sync_notice_save_' . $current_user_id ),
 			)
 		);
 		wp_set_script_translations( 'has-click-to-share', 'highlight-and-share' );

@@ -855,4 +855,50 @@
   margin-bottom: 6px;
 }
 
+.has-color-picker {
+  display: block;
+  text-align: right;
+  padding: 10px 0;
+  border-top: 1px solid #EEE;
+  border-left: 0;
+  border-right: 0;
+}
+.has-color-picker:last-child {
+  border-bottom: 1px solid #EEE;
+}
+
+.has-color-picker-hover .has-color-picker-hover__color-mode button {
+  background: #fff !important;
+  color: #000 !important;
+  cursor: pointer;
+  z-index: 1;
+  box-shadow: none !important;
+  font-size: 10px;
+  padding: 0 5px;
+  position: relative;
+  text-align: center;
+  text-shadow: none;
+  border: 0;
+  border-radius: 0 !important;
+  line-height: 20px;
+  padding: 0 5px !important;
+  height: auto;
+  margin: 0;
+}
+.has-color-picker-hover .has-color-picker-hover__color-mode button:first-of-type {
+  padding-left: 0;
+}
+.has-color-picker-hover .has-color-picker-hover__color-mode button:last-of-type {
+  padding-right: 0;
+}
+.has-color-picker-hover .has-color-picker-hover__color-mode button.is-primary {
+  font-weight: 700;
+}
+
+.has-color-sync-modal-button-group {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-gap: 15px;
+}
+
 /*# sourceMappingURL=has-cts-editor.css.map*/

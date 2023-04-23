@@ -56,6 +56,10 @@
 			"type": "string",
 			"default": "#FFFFFF"
 		},
+		"backgroundColorSync": {
+			"type": "string",
+			"default": "normal"
+		},
 		"backgroundType": {
 			"type": "string",
 			"default": "solid"
@@ -69,8 +73,8 @@
 			"default": ""
 		},
 		"backgroundGradientSync": {
-			"type": "boolean",
-			"default": true
+			"type": "string",
+			"default": "normal"
 		},
 		"backgroundImage": {
 			"type": "object",
@@ -93,6 +97,10 @@
 			"type": "string",
 			"default": "#000000"
 		},
+		"iconColorSync": {
+			"type": "string",
+			"default": "normal"
+		},
 		"textColor": {
 			"type": "string",
 			"default": "#000000"
@@ -101,6 +109,10 @@
 			"type": "string",
 			"default": "#000000"
 		},
+		"textColorSync": {
+			"type": "string",
+			"default": "normal"
+		},
 		"shareTextColor": {
 			"type": "string",
 			"default": "#000000"
@@ -108,6 +120,10 @@
 		"shareTextColorHover": {
 			"type": "string",
 			"default": "#000000"
+		},
+		"shareTextColorSync": {
+			"type": "string",
+			"default": "normal"
 		},
 		"fontSize": {
 			"type": "integer",
@@ -141,9 +157,13 @@
 			"type": "string",
 			"default": "#000000"
 		},
+		"borderColorSync": {
+			"type": "string",
+			"default": "normal"
+		},
 		"fontWeight": {
 			"type": "string",
-			"default": "#FFFFFF"
+			"default": "400"
 		},
 		"maxWidth": {
 			"type": "string",

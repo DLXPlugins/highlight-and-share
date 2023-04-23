@@ -5,6 +5,7 @@
 import classnames from 'classnames';
 import { useEffect } from 'react';
 import ColorPicker from '../../react/Components/ColorPicker';
+import ColorPickerHover from './components/ColorPickerHover/index';
 import GradientPicker from '../../react/Components/GradientPicker';
 import GradientSync from '../../react/Components/GradientSync';
 import GradientGenerator from '../../react/Components/GradientGenerator';
@@ -64,14 +65,17 @@ const HAS_Click_To_Share = ( props ) => {
 		backgroundType,
 		backgroundColor,
 		backgroundColorHover,
+		backgroundColorSync,
 		backgroundGradient,
 		backgroundGradientHover,
 		backgroundGradientSync,
 		backgroundImage,
 		textColor,
 		textColorHover,
+		textColorSync,
 		shareTextColor,
 		shareTextColorHover,
+		shareTextColorSync,
 		showClickToShare,
 		showIcon,
 		fontSize,
@@ -83,7 +87,9 @@ const HAS_Click_To_Share = ( props ) => {
 		borderColor,
 		iconColor,
 		iconColorHover,
+		iconColorSync,
 		borderColorHover,
+		borderColorSync,
 		clickShareFontSize,
 		maxWidth,
 		maxWidthUnit,
@@ -103,6 +109,24 @@ const HAS_Click_To_Share = ( props ) => {
 	} = attributes;
 
 	useEffect( () => {
+		// If this is the first time inserting the block.
+		if ( '' === uniqueId ) {
+			if ( backgroundColor === backgroundColorHover ) {
+				setAttributes( { backgroundColorSync: 'sync' } );
+			}
+			if ( textColor === textColorHover ) {
+				setAttributes( { textColorSync: 'sync' } );
+			}
+			if ( shareTextColor === shareTextColorHover ) {
+				setAttributes( { shareTextColorSync: 'sync' } );
+			}
+			if ( iconColor === iconColorHover ) {
+				setAttributes( { iconColorSync: 'sync' } );
+			}
+			if ( borderColor === borderColorHover ) {
+				setAttributes( { borderColorSync: 'sync' } );
+			}
+		}
 		// Set unique ID for block (for styling).
 		setAttributes( { uniqueId: generatedUniqueId } );
 
@@ -190,7 +214,16 @@ const HAS_Click_To_Share = ( props ) => {
 		}
 	}, [] );
 
-	
+	const getDeviceIcon = () => {
+		if ( deviceType === 'Desktop' ) {
+			return 'laptop';
+		} else if ( deviceType === 'Tablet' ) {
+			return 'tablet';
+		} else if ( deviceType === 'Mobile' ) {
+			return 'smartphone';
+		}
+		return null;
+	};
 
 	/* For sticky responsive: forked from GenerateBlocks */
 	const panelHeader = document.querySelector(
@@ -265,71 +298,73 @@ const HAS_Click_To_Share = ( props ) => {
 					/>
 				</ButtonGroup>
 			</div>
-			<PanelBody
-				title={ __( 'Presets', 'highlight-and-share' ) }
-				initialOpen={ false }
-				className="has-presets-panel"
-			>
-				<PanelRow>
-					<div className="has-presets">
-						<h3>{ __( 'Select a Preset', 'highlight-and-share' ) }</h3>
-						<ButtonGroup>
-							<PresetButton
-								label={ __( 'Purple Theme', 'highlight-and-share' ) }
-								setAttributes={ setAttributes }
-								attributes={ purpleAttributes }
-								uniqueId={ uniqueId }
+			{ deviceType === 'Desktop' && (
+				<PanelBody
+					title={ __( 'Presets', 'highlight-and-share' ) }
+					initialOpen={ false }
+					className="has-presets-panel"
+				>
+					<PanelRow>
+						<div className="has-presets">
+							<h3>{ __( 'Select a Preset', 'highlight-and-share' ) }</h3>
+							<ButtonGroup>
+								<PresetButton
+									label={ __( 'Purple Theme', 'highlight-and-share' ) }
+									setAttributes={ setAttributes }
+									attributes={ purpleAttributes }
+									uniqueId={ uniqueId }
 
-							/>
-							<PresetButton
-								label={ __( 'Dark Theme', 'highlight-and-share' ) }
-								setAttributes={ setAttributes }
-								attributes={ darkAttributes }
-								uniqueId={ uniqueId }
+								/>
+								<PresetButton
+									label={ __( 'Dark Theme', 'highlight-and-share' ) }
+									setAttributes={ setAttributes }
+									attributes={ darkAttributes }
+									uniqueId={ uniqueId }
 
-							/>
-							<PresetButton
-								label={ __( 'Light Theme', 'highlight-and-share' ) }
-								setAttributes={ setAttributes }
-								attributes={ lightAttributes }
-								uniqueId={ uniqueId }
+								/>
+								<PresetButton
+									label={ __( 'Light Theme', 'highlight-and-share' ) }
+									setAttributes={ setAttributes }
+									attributes={ lightAttributes }
+									uniqueId={ uniqueId }
 
-							/>
-							<PresetButton
-								label={ __( 'Pink Theme', 'highlight-and-share' ) }
-								setAttributes={ setAttributes }
-								attributes={ pinkAttributes }
-								uniqueId={ uniqueId }
+								/>
+								<PresetButton
+									label={ __( 'Pink Theme', 'highlight-and-share' ) }
+									setAttributes={ setAttributes }
+									attributes={ pinkAttributes }
+									uniqueId={ uniqueId }
 
-							/>
-							<PresetButton
-								label={ __( 'Blue Theme', 'highlight-and-share' ) }
-								setAttributes={ setAttributes }
-								attributes={ blueAttributes }
-								uniqueId={ uniqueId }
+								/>
+								<PresetButton
+									label={ __( 'Blue Theme', 'highlight-and-share' ) }
+									setAttributes={ setAttributes }
+									attributes={ blueAttributes }
+									uniqueId={ uniqueId }
 
-							/>
-							<PresetButton
-								label={ __( 'Red Theme', 'highlight-and-share' ) }
-								setAttributes={ setAttributes }
-								attributes={ redAttributes }
+								/>
+								<PresetButton
+									label={ __( 'Red Theme', 'highlight-and-share' ) }
+									setAttributes={ setAttributes }
+									attributes={ redAttributes }
+									uniqueId={ uniqueId }
+								/>
+							</ButtonGroup>
+						</div>
+					</PanelRow>
+					<PanelRow>
+						<div className="has-presets">
+							<h3>{ __( 'Custom Presets', 'highlight-and-share' ) }</h3>
+							<CustomPresets
+								clientId={ clientId }
 								uniqueId={ uniqueId }
+								attributes={ attributes }
+								setAttributes={ setAttributes }
 							/>
-						</ButtonGroup>
-					</div>
-				</PanelRow>
-				<PanelRow>
-					<div className="has-presets">
-						<h3>{ __( 'Custom Presets', 'highlight-and-share' ) }</h3>
-						<CustomPresets
-							clientId={ clientId }
-							uniqueId={ uniqueId }
-							attributes={ attributes }
-							setAttributes={ setAttributes }
-						/>
-					</div>
-				</PanelRow>
-			</PanelBody>
+						</div>
+					</PanelRow>
+				</PanelBody>
+			) }
 			{ deviceType === 'Desktop' && (
 				<PanelBody
 					title={ __( 'Share Settings', 'highlight-and-share' ) }
@@ -421,30 +456,20 @@ const HAS_Click_To_Share = ( props ) => {
 					</PanelRow>
 					{ backgroundType === 'solid' && (
 						<>
-							<PanelRow>
-								<ColorPicker
-									value={ backgroundColor }
-									key={ 'background-color' }
-									onChange={ ( slug, newValue ) => {
-										setAttributes( { backgroundColor: newValue } );
+							<PanelRow className="has-color-picker">
+								<ColorPickerHover
+									syncTitle={ __( 'Sync Background Colors', 'highlight-and-share' ) }
+									normalColor={ backgroundColor }
+									hoverColor={ backgroundColorHover }
+									isSync={ backgroundColorSync }
+									onChange={ ( color, hoverColor, sync ) => {
+										setAttributes( { backgroundColor: color } );
+										setAttributes( { backgroundColorHover: hoverColor } );
+										setAttributes( { backgroundColorSync: sync } );
 									} }
 									label={ __( 'Background Color', 'highlight-and-share' ) }
-									defaultColors={ has_gutenberg.colorPalette }
-									defaultColor={ backgroundColor }
-									slug={ 'background-color' }
-								/>
-							</PanelRow>
-							<PanelRow>
-								<ColorPicker
-									value={ backgroundColorHover }
-									key={ 'background-color-hover' }
-									onChange={ ( slug, newValue ) => {
-										setAttributes( { backgroundColorHover: newValue } );
-									} }
-									label={ __( 'Background Color Hover', 'highlight-and-share' ) }
-									defaultColors={ has_gutenberg.colorPalette }
-									defaultColor={ backgroundColorHover }
-									slug={ 'background-color-hover' }
+									key={ 'background-color-solid' }
+									slug={ 'background-color-solid' }
 								/>
 							</PanelRow>
 						</>
@@ -506,134 +531,68 @@ const HAS_Click_To_Share = ( props ) => {
 					title={ __( 'Colors', 'highlight-and-share' ) }
 					initialOpen={ false }
 				>
-					<PanelRow>
-						<ColorPicker
-							value={ backgroundColor }
-							key={ 'background-color' }
-							onChange={ ( slug, newValue ) => {
-								setAttributes( { backgroundColor: newValue } );
-							} }
-							label={ __( 'Background Color', 'highlight-and-share' ) }
-							defaultColors={ has_gutenberg.colorPalette }
-							defaultColor={ backgroundColor }
-							slug={ 'background-color' }
-						/>
-					</PanelRow>
-					<PanelRow>
-						<ColorPicker
-							value={ backgroundColorHover }
-							key={ 'background-color-hover' }
-							onChange={ ( slug, newValue ) => {
-								setAttributes( { backgroundColorHover: newValue } );
-							} }
-							label={ __( 'Background Color Hover', 'highlight-and-share' ) }
-							defaultColors={ has_gutenberg.colorPalette }
-							defaultColor={ backgroundColorHover }
-							slug={ 'background-color-hover' }
-						/>
-					</PanelRow>
-					<PanelRow>
-						<ColorPicker
-							value={ textColor }
-							key={ 'text-color' }
-							onChange={ ( slug, newValue ) => {
-								setAttributes( { textColor: newValue } );
+					<PanelRow className="has-color-picker">
+						<ColorPickerHover
+							syncTitle={ __( 'Sync Text Colors', 'highlight-and-share' ) }
+							normalColor={ textColor }
+							hoverColor={ textColorHover }
+							isSync={ textColorSync }
+							onChange={ ( color, hoverColor, sync ) => {
+								setAttributes( { textColor: color } );
+								setAttributes( { textColorHover: hoverColor } );
+								setAttributes( { textColorSync: sync } );
 							} }
 							label={ __( 'Text Color', 'highlight-and-share' ) }
-							defaultColors={ has_gutenberg.colorPalette }
-							defaultColor={ textColor }
+							key={ 'text-color' }
 							slug={ 'text-color' }
-						/>{ ' ' }
-					</PanelRow>
-					<PanelRow>
-						<ColorPicker
-							value={ textColorHover }
-							key={ 'text-color-hover' }
-							onChange={ ( slug, newValue ) => {
-								setAttributes( { textColorHover: newValue } );
-							} }
-							label={ __( 'Text Color Hover', 'highlight-and-share' ) }
-							defaultColors={ has_gutenberg.colorPalette }
-							defaultColor={ textColorHover }
-							slug={ 'text-color-hover' }
 						/>
 					</PanelRow>
-					<PanelRow>
-						<ColorPicker
-							value={ shareTextColor }
-							key={ 'share-text-color' }
-							onChange={ ( slug, newValue ) => {
-								setAttributes( { shareTextColor: newValue } );
+					<PanelRow className="has-color-picker">
+						<ColorPickerHover
+							syncTitle={ __( 'Sync Share Text Colors', 'highlight-and-share' ) }
+							normalColor={ shareTextColor }
+							hoverColor={ shareTextColorHover }
+							isSync={ shareTextColorSync }
+							onChange={ ( color, hoverColor, sync ) => {
+								setAttributes( { shareTextColor: color } );
+								setAttributes( { shareTextColorHover: hoverColor } );
+								setAttributes( { shareTextColorSync: sync } );
 							} }
 							label={ __( 'Share Text Color', 'highlight-and-share' ) }
-							defaultColors={ has_gutenberg.colorPalette }
-							defaultColor={ shareTextColor }
+							key={ 'share-text-color' }
 							slug={ 'share-text-color' }
-						/>{ ' ' }
-					</PanelRow>
-					<PanelRow>
-						<ColorPicker
-							value={ shareTextColorHover }
-							key={ 'share-text-color-hover' }
-							onChange={ ( slug, newValue ) => {
-								setAttributes( { shareTextColorHover: newValue } );
-							} }
-							label={ __( 'Share Text Color Hover', 'highlight-and-share' ) }
-							defaultColors={ has_gutenberg.colorPalette }
-							defaultColor={ shareTextColorHover }
-							slug={ 'share-text-color-hover' }
 						/>
 					</PanelRow>
-					<PanelRow>
-						<ColorPicker
-							value={ borderColor }
-							key={ 'border-color' }
-							onChange={ ( slug, newValue ) => {
-								setAttributes( { borderColor: newValue } );
-							} }
-							label={ __( 'Border Color', 'highlight-and-share' ) }
-							defaultColors={ has_gutenberg.colorPalette }
-							defaultColor={ borderColor }
-							slug={ 'border-color' }
-						/>
-					</PanelRow>
-					<PanelRow>
-						<ColorPicker
-							value={ borderColorHover }
-							key={ 'border-color-hover' }
-							onChange={ ( slug, newValue ) => {
-								setAttributes( { borderColorHover: newValue } );
-							} }
-							label={ __( 'Border Color Hover', 'highlight-and-share' ) }
-							defaultColors={ has_gutenberg.colorPalette }
-							defaultColor={ borderColorHover }
-							slug={ 'border-color-hover' }
-						/>
-					</PanelRow>
-					<PanelRow>
-						<ColorPicker
-							value={ iconColor }
-							key={ 'icon-color' }
-							onChange={ ( slug, newValue ) => {
-								setAttributes( { iconColor: newValue } );
+					<PanelRow className="has-color-picker">
+						<ColorPickerHover
+							syncTitle={ __( 'Sync Icon Colors', 'highlight-and-share' ) }
+							normalColor={ iconColor }
+							hoverColor={ iconColorHover }
+							isSync={ iconColorSync }
+							onChange={ ( color, hoverColor, sync ) => {
+								setAttributes( { iconColor: color } );
+								setAttributes( { iconColorHover: hoverColor } );
+								setAttributes( { iconColorSync: sync } );
 							} }
 							label={ __( 'Icon Color', 'highlight-and-share' ) }
-							defaultColors={ has_gutenberg.colorPalette }
-							defaultColor={ iconColor }
+							key={ 'icon-color' }
 							slug={ 'icon-color' }
 						/>
 					</PanelRow>
-					<PanelRow>
-						<ColorPicker
-							value={ iconColorHover }
-							key={ 'icon-color-hover' }
-							onChange={ ( slug, newValue ) => {
-								setAttributes( { iconColorHover: newValue } );
+					<PanelRow className="has-color-picker">
+						<ColorPickerHover
+							syncTitle={ __( 'Sync Border Colors', 'highlight-and-share' ) }
+							normalColor={ borderColor }
+							hoverColor={ borderColorHover }
+							isSync={ borderColorSync }
+							onChange={ ( color, hoverColor, sync ) => {
+								setAttributes( { borderColor: color } );
+								setAttributes( { borderColorHover: hoverColor } );
+								setAttributes( { borderColorSync: sync } );
 							} }
-							label={ __( 'Icon Color Hover', 'highlight-and-share' ) }
-							defaultColors={ has_gutenberg.colorPalette }
-							defaultColor={ iconColorHover }
-							slug={ 'icon-color-hover' }
+							label={ __( 'Border Color', 'highlight-and-share' ) }
+							key={ 'border-color' }
+							slug={ 'border-color' }
 						/>
 					</PanelRow>
 				</PanelBody>
@@ -641,6 +600,7 @@ const HAS_Click_To_Share = ( props ) => {
 			<PanelBody
 				title={ __( 'Fonts and Typography', 'highlight-and-share' ) }
 				initialOpen={ true }
+				icon={ getDeviceIcon() }
 			>
 				<PanelRow className="has-typography-panel-row">
 					<Typography
@@ -670,6 +630,7 @@ const HAS_Click_To_Share = ( props ) => {
 			<PanelBody
 				title={ __( 'Spacing and Border', 'highlight-and-share' ) }
 				initialOpen={ true }
+				icon={ getDeviceIcon() }
 			>
 				{ deviceType === 'Desktop' && (
 					<PanelRow className="has-unit-picker">
@@ -767,36 +728,6 @@ const HAS_Click_To_Share = ( props ) => {
 						} }
 					/>
 				</PanelRow>
-				{ deviceType === 'Desktop' && (
-					<>
-						<PanelRow>
-							<ColorPicker
-								value={ borderColor }
-								key={ 'border-color' }
-								onChange={ ( slug, newValue ) => {
-									setAttributes( { borderColor: newValue } );
-								} }
-								label={ __( 'Border Color', 'highlight-and-share' ) }
-								defaultColors={ has_gutenberg.colorPalette }
-								defaultColor={ borderColor }
-								slug={ 'border-color' }
-							/>
-						</PanelRow>
-						<PanelRow>
-							<ColorPicker
-								value={ borderColorHover }
-								key={ 'border-color-hover' }
-								onChange={ ( slug, newValue ) => {
-									setAttributes( { borderColorHover: newValue } );
-								} }
-								label={ __( 'Border Color Hover', 'highlight-and-share' ) }
-								defaultColors={ has_gutenberg.colorPalette }
-								defaultColor={ borderColorHover }
-								slug={ 'border-color-hover' }
-							/>
-						</PanelRow>
-					</>
-				) }
 			</PanelBody>
 		</InspectorControls>
 	);

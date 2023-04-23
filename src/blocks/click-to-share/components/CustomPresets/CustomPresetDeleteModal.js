@@ -6,8 +6,6 @@ import {
 } from '@wordpress/components';
 import { useForm, Controller, useFormState } from 'react-hook-form';
 import { __ } from '@wordpress/i18n';
-import CircularExclamationIcon from '../../../../react/Components/Icons/CircularExplanation';
-import Notice from '../../../../react/Components/Notice';
 import CustomPresetsContext from './context';
 
 const CustomPresetDeleteModal = ( props ) => {
