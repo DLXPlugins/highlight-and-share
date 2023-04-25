@@ -30,6 +30,10 @@
   margin-left: 4px;
 }
 
+.has-click-to-share-cta-svg {
+  display: inline-flex;
+}
+
 .has-click-to-share-text p {
   text-align: left;
   margin: 0;
