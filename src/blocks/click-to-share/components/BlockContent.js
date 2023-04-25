@@ -7,9 +7,12 @@ import { rawHandler } from '@wordpress/blocks';
 
 import GetFontStyles from './GetFontStyles';
 import GetStyles from './GetStyles';
+import useDeviceType from '../../../react/Hooks/useDeviceType';
 
 const BlockContent = ( props ) => {
 	const { attributes, setAttributes, isPreview, clientId } = props;
+
+	const [ deviceType ] = useDeviceType( 'Desktop' );
 
 	const innerBlocksRef = useRef( null );
 
@@ -38,6 +41,8 @@ const BlockContent = ( props ) => {
 		uniqueId,
 		typographyQuote,
 		typographyShareText,
+		showClickToShareText,
+		showClickToShareIcon,
 	} = attributes;
 
 	/**
@@ -81,13 +86,9 @@ const BlockContent = ( props ) => {
 						</>
 					) }
 					<div className="has-click-to-share-cta">
-						{ ( showClickToShare || isBlockPreview ) && <>{ clickText } </> }
-						{ ( showIcon || isBlockPreview ) && (
+						{ ( showClickToShareText[ deviceType.toLowerCase() ] || isBlockPreview ) && <>{ clickText } </> }
+						{ ( showClickToShareIcon[ deviceType.toLowerCase() ] || isBlockPreview ) && (
 							<svg
-								style={ {
-									width: isBlockPreview ? 24 + 'px' : iconSize,
-									height: isBlockPreview ? 24 + 'px' : iconSize,
-								} }
 								aria-hidden="true"
 								focusable="false"
 								data-prefix="fas"

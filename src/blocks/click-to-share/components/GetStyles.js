@@ -36,6 +36,8 @@ const GetStyles = ( props ) => {
 		uniqueId,
 		typographyQuote,
 		typographyShareText,
+		iconSizeResponsive,
+		showClickToShareText,
 	} = attributes;
 	const screenSize = deviceType.toLowerCase();
 	const styles = `
@@ -77,10 +79,10 @@ const GetStyles = ( props ) => {
 		}
 		
 		#${ uniqueId } .has-click-to-share-cta {
-			color: ${ shareTextColor }
+			color: ${ shareTextColor };
 		}
 		#${ uniqueId }:hover .has-click-to-share-cta {
-			color: ${ shareTextColorHover }
+			color: ${ shareTextColorHover };
 		}
 		#${ uniqueId } .has-click-to-share-text,
 		#${ uniqueId } .has-click-to-share-text p {
@@ -92,6 +94,7 @@ const GetStyles = ( props ) => {
 		}
 		#${ uniqueId } .has-click-to-share-cta svg {
 			color: ${ iconColor };
+			width: ${ iconSizeResponsive[ deviceType.toLowerCase() ] }px;
 		}
 		#${ uniqueId }:hover .has-click-to-share-cta svg {
 			color: ${ iconColorHover };
