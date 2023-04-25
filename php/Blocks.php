@@ -228,7 +228,7 @@ class Blocks {
 				border-style: solid;
 				border-color: <?php echo esc_attr( $attributes['borderColor'] ); ?>;
 				transition: all 0.3s ease-in-out;
-				max-width: <?php echo esc_attr( $attributes['maxWidth'] ); ?><?php echo esc_attr( $attributes['maxWidthUnit'] ); ?>;
+				max-width: <?php echo $this->get_hierarchical_value( $attributes['maximumWidth'], 'mobile', '', 'width' ); ?><?php echo $this->get_hierarchical_value( $attributes['maximumWidth'], 'mobile', '', 'unit' ); ?>;
 				overflow: hidden;
 				border-width: <?php echo esc_attr( $this->build_dimensions_css( $attributes['borderWidth'], 'mobile' ) ); ?>;
 				border-radius: <?php echo esc_attr( $this->build_dimensions_css( $attributes['borderRadiusSize'], 'mobile' ) ); ?>;
@@ -237,6 +237,7 @@ class Blocks {
 			}
 			@media screen and (min-width: 728px) {
 				.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?> {
+					max-width: <?php echo $this->get_hierarchical_value( $attributes['maximumWidth'], 'tablet', '', 'width' ); ?><?php echo $this->get_hierarchical_value( $attributes['maximumWidth'], 'tablet', '', 'unit' ); ?>;
 					border-width: <?php echo esc_attr( $this->build_dimensions_css( $attributes['borderWidth'], 'tablet' ) ); ?>;
 					border-radius: <?php echo esc_attr( $this->build_dimensions_css( $attributes['borderRadiusSize'], 'tablet' ) ); ?>;
 					margin: <?php echo esc_attr( $this->build_dimensions_css( $attributes['marginSize'], 'tablet', true ) ); ?>;
@@ -244,6 +245,7 @@ class Blocks {
 			}
 			@media screen and (min-width: 1024px) {
 				.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?> {
+					max-width: <?php echo $this->get_hierarchical_value( $attributes['maximumWidth'], 'desktop', '', 'width' ); ?><?php echo $this->get_hierarchical_value( $attributes['maximumWidth'], 'desktop', '', 'unit' ); ?>;
 					border-width: <?php echo esc_attr( $this->build_dimensions_css( $attributes['borderWidth'], 'desktop' ) ); ?>;
 					border-radius: <?php echo esc_attr( $this->build_dimensions_css( $attributes['borderRadiusSize'], 'desktop' ) ); ?>;
 					margin: <?php echo esc_attr( $this->build_dimensions_css( $attributes['marginSize'], 'desktop', true ) ); ?>;
@@ -311,7 +313,7 @@ class Blocks {
 			}
 			.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?> .has-click-to-share-cta,
 			.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?> .has-click-to-share-cta p {
-				font-family: "<?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyShareText'], 'mobile', 'fontFamily' ) ); ?>";
+				font-family: "<?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyShareText'], 'desktop', 'fontFamily' ) ); ?>";
 				font-size: <?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyShareText'], 'mobile', 'fontSize' ) ); ?><?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyShareText'], 'mobile', 'fontSizeUnit' ) ); ?>;
 				font-weight: <?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyShareText'], 'mobile', 'fontWeight' ) ); ?>;
 				line-height: <?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyShareText'], 'mobile', 'lineHeight' ) ); ?><?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyShareText'], 'mobile', 'lineHeightUnit' ) ); ?>;
@@ -322,7 +324,7 @@ class Blocks {
 			@media screen and (min-width: 728px) {
 				.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?> .has-click-to-share-cta,
 				.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?> .has-click-to-share-cta p {
-					font-family: "<?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyShareText'], 'tablet', 'fontFamily' ) ); ?>";
+					font-family: "<?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyShareText'], 'desktop', 'fontFamily' ) ); ?>";
 					font-size: <?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyShareText'], 'tablet', 'fontSize' ) ); ?><?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyShareText'], 'mobile', 'fontSizeUnit' ) ); ?>;
 					font-weight: <?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyShareText'], 'tablet', 'fontWeight' ) ); ?>;
 					line-height: <?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyShareText'], 'tablet', 'lineHeight' ) ); ?><?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyShareText'], 'mobile', 'lineHeightUnit' ) ); ?>;
@@ -343,7 +345,7 @@ class Blocks {
 			}
 			.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?> .has-click-to-share-text,
 			.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?> .has-click-to-share-text p {
-				font-family: "<?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyQuote'], 'mobile', 'fontFamily' ) ); ?>";
+				font-family: "<?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyQuote'], 'desktop', 'fontFamily' ) ); ?>";
 				font-size: <?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyQuote'], 'mobile', 'fontSize' ) ); ?><?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyQuote'], 'mobile', 'fontSizeUnit' ) ); ?>;
 				font-weight: <?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyQuote'], 'mobile', 'fontWeight' ) ); ?>;
 				line-height: <?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyQuote'], 'mobile', 'lineHeight' ) ); ?><?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyQuote'], 'mobile', 'lineHeightUnit' ) ); ?>;
@@ -354,7 +356,7 @@ class Blocks {
 			@media screen and (min-width: 728px) {
 				.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?> .has-click-to-share-text,
 				.has-click-to-share#<?php echo esc_attr( $attributes['uniqueId'] ); ?> .has-click-to-share-text p {
-					font-family: "<?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyQuote'], 'tablet', 'fontFamily' ) ); ?>";
+					font-family: "<?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyQuote'], 'desktop', 'fontFamily' ) ); ?>";
 					font-size: <?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyQuote'], 'tablet', 'fontSize' ) ); ?><?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyQuote'], 'mobile', 'fontSizeUnit' ) ); ?>;
 					font-weight: <?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyQuote'], 'tablet', 'fontWeight' ) ); ?>;
 					line-height: <?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyQuote'], 'tablet', 'lineHeight' ) ); ?><?php echo esc_attr( $this->get_hierarchical_typography( $attributes['typographyQuote'], 'mobile', 'lineHeightUnit' ) ); ?>;
@@ -609,6 +611,12 @@ class Blocks {
 		if ( 'tablet' === $screen_size && '' === $value ) {
 			if ( '' !== $sizes['desktop'][ $type ] ) {
 				// Check desktop.
+				return $sizes['desktop'][ $type ];
+			}
+		}
+
+		if ( 'desktop' === $screen_size && '' === $value ) {
+			if ( isset( $sizes['desktop'][ $type ] ) ) {
 				return $sizes['desktop'][ $type ];
 			}
 		}

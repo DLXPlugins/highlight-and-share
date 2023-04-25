@@ -7,8 +7,8 @@ import useDeviceType from '../../../react/Hooks/useDeviceType';
 const GetFontStyles = ( props ) => {
 	const [ deviceType ] = useDeviceType( 'Desktop' );
 	const fontObject = props.fontObject;
-	const fontType = fontObject[ deviceType.toLowerCase() ].fontType;
-	const fontSlug = fontObject[ deviceType.toLowerCase() ].fontFamilySlug;
+	const fontType = fontObject.desktop.fontType;
+	const fontSlug = fontObject.desktop.fontFamilySlug;
 	if ( 'google' === fontType ) {
 		return (
 			<>

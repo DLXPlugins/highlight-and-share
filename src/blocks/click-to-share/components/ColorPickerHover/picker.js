@@ -64,9 +64,9 @@ const ColorPickerHoverControl = ( props ) => {
 								e.preventDefault();
 								return;
 							}
-							setColorMode( 'sync' );
 							if ( normalColor === hoverColor ) {
 								setSyncColor( normalColor );
+								setColorMode( 'sync' );
 							} else {
 								setShowApplyColorSyncModal( true );
 							}
@@ -129,6 +129,7 @@ const ColorPickerHoverControl = ( props ) => {
 					<ApplyColorSyncModal
 						syncTitle={ props.syncTitle }
 						onOptionSelect={ ( option ) => {
+							setColorMode( 'sync' );
 							if ( 'normal' === option ) {
 								setNormalColor( normalColor );
 								setHoverColor( normalColor );
@@ -140,6 +141,9 @@ const ColorPickerHoverControl = ( props ) => {
 								setSyncColor( hoverColor );
 								props.onChange( hoverColor, hoverColor, 'sync' );
 							}
+						} }
+						onClose={ () => {
+							setShowApplyColorSyncModal( false );
 						} }
 						normalColor={ normalColor }
 						hoverColor={ hoverColor }

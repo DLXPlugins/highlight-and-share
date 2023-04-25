@@ -17,10 +17,12 @@ const ApplyColorSyncModal = ( props ) => {
 	return (
 		<Modal
 			title={ syncTitle }
-			onRequestClose={ () => setShowApplyColorSyncModal( false ) }
+			onRequestClose={ () => {
+				props.onClose();
+			} }
 			className="has-preset-modal"
-			shouldCloseOnClickOutside={ false }
-			isDismissible={ false }
+			shouldCloseOnClickOutside={ true }
+			isDismissible={ true }
 		>
 			<p className="description">{ __( 'Which color would you like to use as the sync value?', 'highlight-and-share' ) }</p>
 			<ButtonGroup className="has-color-sync-modal-button-group">

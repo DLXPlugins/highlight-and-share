@@ -859,12 +859,10 @@
   display: block;
   text-align: right;
   padding: 10px 0;
-  border-top: 1px solid #EEE;
-  border-left: 0;
-  border-right: 0;
+  border: 0;
 }
 .has-color-picker:last-child {
-  border-bottom: 1px solid #EEE;
+  border: 0;
 }
 
 .has-color-picker-hover .has-color-picker-hover__color-mode button {
@@ -884,6 +882,8 @@
   padding: 0 5px !important;
   height: auto;
   margin: 0;
+  border-bottom: 1px solid transparent;
+  transition: all 200ms ease-in-out;
 }
 .has-color-picker-hover .has-color-picker-hover__color-mode button:first-of-type {
   padding-left: 0;
@@ -893,6 +893,10 @@
 }
 .has-color-picker-hover .has-color-picker-hover__color-mode button.is-primary {
   font-weight: 700;
+}
+.has-color-picker-hover .has-color-picker-hover__color-mode button:not(.is-primary):hover {
+  border-bottom: 1px solid #333;
+  transition: all 200ms ease-in-out;
 }
 
 .has-color-sync-modal-button-group {

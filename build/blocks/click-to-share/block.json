@@ -25,16 +25,24 @@
       "default": ""
     },
     "showClickToShare": {
-      "type": "boolean",
+      "type": "number",
       "default": true
     },
     "showIcon": {
-      "type": "boolean",
+      "type": "number",
       "default": true
     },
     "iconSize": {
       "type": "number",
       "default": -1
+    },
+    "iconSizeResponsive": {
+      "type": "object",
+      "default": {
+        "desktop": -1,
+        "tablet": -1,
+        "mobile": -1
+      }
     },
     "customShareText": {
       "type": "string",
@@ -167,11 +175,44 @@
     },
     "maxWidth": {
       "type": "string",
-      "default": "80"
+      "default": "-1"
     },
     "maxWidthUnit": {
       "type": "string",
-      "default": "%"
+      "default": "-1"
+    },
+    "maximumWidth": {
+      "type": "object",
+      "default": {
+        "mobile": {
+          "width": "",
+          "unit": null
+        },
+        "tablet": {
+          "width": "",
+          "unit": null
+        },
+        "desktop": {
+          "width": "850",
+          "unit": "px"
+        }
+      }
+    },
+    "showClickToShareText": {
+      "type": "object",
+      "default": {
+        "mobile": true,
+        "tablet": true,
+        "desktop": true
+      }
+    },
+    "showClickToShareIcon": {
+      "type": "object",
+      "default": {
+        "mobile": true,
+        "tablet": true,
+        "desktop": true
+      }
     },
     "align": {
       "type": "string",

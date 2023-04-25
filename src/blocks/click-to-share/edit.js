@@ -24,7 +24,8 @@ import { attributes as pinkAttributes } from './presets/pink';
 import { attributes as redAttributes } from './presets/red';
 import BlockContent from './components/BlockContent';
 import CustomPresets from './components/CustomPresets';
-
+import MaxWidth from './components/MaxWidth';
+import { geHierarchicalPlaceholderValue, getHierarchicalValueUnit } from '../../react/Utils/DimensionsHelper';
 
 const { __ } = wp.i18n;
 
@@ -93,6 +94,7 @@ const HAS_Click_To_Share = ( props ) => {
 		clickShareFontSize,
 		maxWidth,
 		maxWidthUnit,
+		maximumWidth,
 		alignment,
 		align,
 		marginTop,
@@ -106,6 +108,9 @@ const HAS_Click_To_Share = ( props ) => {
 		uniqueId,
 		typographyQuote,
 		typographyShareText,
+		showClickToShareText,
+		showClickToShareIcon,
+		iconSizeResponsive,
 	} = attributes;
 
 	useEffect( () => {
@@ -141,7 +146,7 @@ const HAS_Click_To_Share = ( props ) => {
 				unit: 'px',
 				unitSync: true,
 			};
-			
+
 			setAttributes( {
 				paddingSize: portPadding,
 				padding: -1,
@@ -203,6 +208,10 @@ const HAS_Click_To_Share = ( props ) => {
 			} );
 		}
 
+		if ( maxWidth !== '-1' ) {
+			setAttributes( { maxWidth: '-1', maxWidthUnit: '-1' } );
+		}
+
 		// Port alignment over to align variable.
 		if ( alignment !== 'none' ) {
 			setAttributes( { align: alignment, alignment: 'none' } );
@@ -211,6 +220,46 @@ const HAS_Click_To_Share = ( props ) => {
 		// Port over icon size.
 		if ( -1 === iconSize ) {
 			setAttributes( { iconSize: clickShareFontSize } );
+		}
+
+		// Port over show click to share text.
+		if ( -1 !== showClickToShare ) {
+			const newClickToShareText = {
+				mobile: showClickToShare,
+				tablet: showClickToShare,
+				desktop: showClickToShare,
+			};
+			setAttributes( {
+				showClickToShare: -1,
+				showClickToShareText: newClickToShareText,
+			} );
+		}
+
+		// Port over click to share icon.
+		if ( -1 !== showIcon ) {
+			const newClickToShareIcon = {
+				mobile: showIcon,
+				tablet: showIcon,
+				desktop: showIcon,
+			};
+			setAttributes( {
+				showIcon: -1,
+				showClickToShareIcon: newClickToShareIcon,
+			} );
+		}
+
+		// If responsive icons is -1, overwrite with iconSize.
+		if ( -1 === iconSizeResponsive.desktop ) {
+			let newIconSize = 20;
+			if ( iconSize !== -1 ) {
+				newIconSize = iconSize;
+			}
+			const newIconResponsive = {
+				mobile: newIconSize,
+				tablet: newIconSize,
+				desktop: newIconSize,
+			};
+			setAttributes( { iconSizeResponsive: newIconResponsive } );
 		}
 	}, [] );
 
@@ -365,56 +414,65 @@ const HAS_Click_To_Share = ( props ) => {
 					</PanelRow>
 				</PanelBody>
 			) }
-			{ deviceType === 'Desktop' && (
-				<PanelBody
-					title={ __( 'Share Settings', 'highlight-and-share' ) }
-					initialOpen={ true }
-				>
+			<PanelBody
+				title={ __( 'Share Settings', 'highlight-and-share' ) }
+				initialOpen={ true }
+				icon={ getDeviceIcon() }
+			>
+				<PanelRow>
+					<ToggleControl
+						label={ __( 'Show Click to Share Text', 'alerts-dlx' ) }
+						checked={ showClickToShareText[ deviceType.toLowerCase() ] }
+						onChange={ ( value ) => {
+							const newShowClickToShare = { ...showClickToShareText }; 
+							newShowClickToShare[ deviceType.toLowerCase() ] = value;
+							setAttributes( {
+								showClickToShareText: newShowClickToShare,
+							} );
+						} }
+					/>
+				</PanelRow>
+				{ ( showClickToShare && deviceType === 'Desktop' ) && (
 					<PanelRow>
-						<ToggleControl
-							label={ __( 'Show Click to Share Text', 'alerts-dlx' ) }
-							checked={ showClickToShare }
+						<TextControl
+							label={ __( 'Click to Share Text', 'highlight-and-share' ) }
+							value={ clickText }
 							onChange={ ( value ) => {
-								setAttributes( {
-									showClickToShare: value,
-								} );
+								setAttributes( { clickText: value } );
 							} }
 						/>
 					</PanelRow>
-					{ showClickToShare && (
-						<PanelRow>
-							<TextControl
-								label={ __( 'Click to Share Text', 'highlight-and-share' ) }
-								value={ clickText }
-								onChange={ ( value ) => {
-									setAttributes( { clickText: value } );
-								} }
-							/>
-						</PanelRow>
-					) }
-					<PanelRow>
-						<ToggleControl
-							label={ __( 'Show Share Icon', 'alerts-dlx' ) }
-							checked={ showIcon }
-							onChange={ ( value ) => {
-								setAttributes( {
-									showIcon: value,
-								} );
-							} }
-						/>
-					</PanelRow>
+				) }
+				<PanelRow>
+					<ToggleControl
+						label={ __( 'Show Share Icon', 'alerts-dlx' ) }
+						checked={ showClickToShareIcon[ deviceType.toLowerCase() ] }
+						onChange={ ( value ) => {
+							const newShowClickToShare = { ...showClickToShareIcon };
+							newShowClickToShare[ deviceType.toLowerCase() ] = value;
+							setAttributes( {
+								showClickToShareIcon: newShowClickToShare,
+							} );
+						} }
+					/>
+				</PanelRow>
+				{ showClickToShareIcon[ deviceType.toLowerCase() ] && (
 					<PanelRow className="has-range-control">
 						<RangeControl
 							label={ __( 'Icon Size', 'highlight-and-share' ) }
-							value={ iconSize }
-							onChange={ ( value ) => setAttributes( { iconSize: value } ) }
+							value={ iconSizeResponsive[ deviceType.toLowerCase() ] }
+							onChange={ ( value ) => {
+								const newIconSize = { ...iconSizeResponsive };
+								newIconSize[ deviceType.toLowerCase() ] = value;
+								setAttributes( { iconSizeResponsive: newIconSize } );
+							} }
 							min={ 10 }
 							max={ 150 }
 							step={ 1 }
 						/>
 					</PanelRow>
-				</PanelBody>
-			) }
+				) }
+			</PanelBody>
 			{ deviceType === 'Desktop' && (
 				<PanelBody
 					title={ __( 'Background Settings', 'highlight-and-share' ) }
@@ -632,30 +690,19 @@ const HAS_Click_To_Share = ( props ) => {
 				initialOpen={ true }
 				icon={ getDeviceIcon() }
 			>
-				{ deviceType === 'Desktop' && (
-					<PanelRow className="has-unit-picker">
-						<UnitChooser
-							label={ __( 'Maximum Width', 'quotes-dlx' ) }
-							value={ maxWidthUnit }
-							units={ [ 'px', '%', 'vw' ] }
-							onClick={ ( value ) => {
+				<PanelRow className="has-unit-picker">
+					<>
+						<MaxWidth
+							values={ maximumWidth }
+							screenSize={ deviceType }
+							onValuesChange={ ( newValues ) => {
 								setAttributes( {
-									maxWidthUnit: value,
+									maximumWidth: newValues,
 								} );
 							} }
 						/>
-
-						<TextControl
-							type={ 'number' }
-							value={ maxWidth }
-							onChange={ ( value ) => {
-								setAttributes( {
-									maxWidth: value,
-								} );
-							} }
-						/>
-					</PanelRow>
-				) }
+					</>
+				</PanelRow>
 				<PanelRow>
 					<DimensionsControlBlock
 						label={ __( 'Inner Padding', 'highlight-and-share' ) }
@@ -739,8 +786,6 @@ const HAS_Click_To_Share = ( props ) => {
 			{ <BlockContent attributes={ attributes } setAttributes={ setAttributes } clientId={ clientId } /> }
 		</>
 	);
-
-	
 
 	return (
 		<>

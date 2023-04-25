@@ -154,11 +154,11 @@ var ApplyColorSyncModal = function ApplyColorSyncModal(props) {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Modal, {
     title: syncTitle,
     onRequestClose: function onRequestClose() {
-      return setShowApplyColorSyncModal(false);
+      props.onClose();
     },
     className: "has-preset-modal",
-    shouldCloseOnClickOutside: false,
-    isDismissible: false
+    shouldCloseOnClickOutside: true,
+    isDismissible: true
   }, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("p", {
     className: "description"
   }, (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Which color would you like to use as the sync value?', 'highlight-and-share')), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.ButtonGroup, {
@@ -326,9 +326,9 @@ var ColorPickerHoverControl = function ColorPickerHoverControl(props) {
         e.preventDefault();
         return;
       }
-      setColorMode('sync');
       if (normalColor === hoverColor) {
         setSyncColor(normalColor);
+        setColorMode('sync');
       } else {
         setShowApplyColorSyncModal(true);
       }
@@ -375,6 +375,7 @@ var ColorPickerHoverControl = function ColorPickerHoverControl(props) {
   })), showApplyColorSyncModal && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_SyncModal__WEBPACK_IMPORTED_MODULE_6__["default"], {
     syncTitle: props.syncTitle,
     onOptionSelect: function onOptionSelect(option) {
+      setColorMode('sync');
       if ('normal' === option) {
         setNormalColor(normalColor);
         setHoverColor(normalColor);
@@ -386,6 +387,9 @@ var ColorPickerHoverControl = function ColorPickerHoverControl(props) {
         setSyncColor(hoverColor);
         props.onChange(hoverColor, hoverColor, 'sync');
       }
+    },
+    onClose: function onClose() {
+      setShowApplyColorSyncModal(false);
     },
     normalColor: normalColor,
     hoverColor: hoverColor
@@ -1191,8 +1195,8 @@ var GetFontStyles = function GetFontStyles(props) {
     _useDeviceType2 = _slicedToArray(_useDeviceType, 1),
     deviceType = _useDeviceType2[0];
   var fontObject = props.fontObject;
-  var fontType = fontObject[deviceType.toLowerCase()].fontType;
-  var fontSlug = fontObject[deviceType.toLowerCase()].fontFamilySlug;
+  var fontType = fontObject.desktop.fontType;
+  var fontSlug = fontObject.desktop.fontFamilySlug;
   if ('google' === fontType) {
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("link", {
       rel: "stylesheet",
@@ -1256,8 +1260,7 @@ var GetStyles = function GetStyles(props) {
     iconColorHover = attributes.iconColorHover,
     borderColorHover = attributes.borderColorHover,
     clickShareFontSize = attributes.clickShareFontSize,
-    maxWidth = attributes.maxWidth,
-    maxWidthUnit = attributes.maxWidthUnit,
+    maximumWidth = attributes.maximumWidth,
     marginSize = attributes.marginSize,
     paddingSize = attributes.paddingSize,
     borderWidth = attributes.borderWidth,
@@ -1266,7 +1269,7 @@ var GetStyles = function GetStyles(props) {
     typographyQuote = attributes.typographyQuote,
     typographyShareText = attributes.typographyShareText;
   var screenSize = deviceType.toLowerCase();
-  var styles = "\n\t\t#".concat(uniqueId, ".has-click-to-share {\n\t\t\tmargin: ").concat((0,_react_Utils_DimensionsHelper__WEBPACK_IMPORTED_MODULE_2__.buildDimensionsCSS)(marginSize, deviceType), ";\n\t\t\tborder-radius: ").concat((0,_react_Utils_DimensionsHelper__WEBPACK_IMPORTED_MODULE_2__.buildDimensionsCSS)(borderRadiusSize, deviceType), ";\n\t\t\tborder-style: solid;\n\t\t\tborder-width: ").concat((0,_react_Utils_DimensionsHelper__WEBPACK_IMPORTED_MODULE_2__.buildDimensionsCSS)(borderWidth, deviceType), ";\n\t\t\tmax-width: ").concat(maxWidth).concat(maxWidthUnit, ";\n\t\t\toverflow: hidden;\n\t\t}\n\t\t#").concat(uniqueId, ".has-click-to-share .has-click-to-share-cta,\n\t\t#").concat(uniqueId, ".has-click-to-share .has-click-to-share-text {\n\t\t\tposition: relative;\n\t\t\tz-index: 2;\n\t\t}\n\t\t#").concat(uniqueId, ".has-click-to-share .has-click-to-share-wrapper {\n\t\t\tposition: relative;\n\t\t\tpadding: ").concat((0,_react_Utils_DimensionsHelper__WEBPACK_IMPORTED_MODULE_2__.buildDimensionsCSS)(paddingSize, deviceType), ";\n\t\t\tfont-size: ").concat(clickShareFontSize, "px;\n\t\t}\n\t\t#").concat(uniqueId, ".has-click-to-share.has-background-color {\n\t\t\tbackground-color: ").concat(backgroundColor, ";\n\t\t}\n\t\t#").concat(uniqueId, ".has-click-to-share.has-background-color:hover {\n\t\t\tbackground-color: ").concat(backgroundColorHover, ";\n\t\t}\n\t\t#").concat(uniqueId, ".has-click-to-share.has-background-gradient {\n\t\t\tbackground-image: ").concat(backgroundGradient, ";\n\t\t}\n\t\t#").concat(uniqueId, ".has-click-to-share.has-background-gradient:hover {\n\t\t\tbackground-image: ").concat(backgroundGradientHover, ";\n\t\t}\n\t\t#").concat(uniqueId, ".has-click-to-share {\n\t\t\tborder-color: ").concat(borderColor, ";\n\t\t}\n\t\t#").concat(uniqueId, ".has-click-to-share:hover {\n\t\t\tborder-color: ").concat(borderColorHover, ";\n\t\t}\n\t\t\n\t\t#").concat(uniqueId, " .has-click-to-share-cta {\n\t\t\tcolor: ").concat(shareTextColor, "\n\t\t}\n\t\t#").concat(uniqueId, ":hover .has-click-to-share-cta {\n\t\t\tcolor: ").concat(shareTextColorHover, "\n\t\t}\n\t\t#").concat(uniqueId, " .has-click-to-share-text,\n\t\t#").concat(uniqueId, " .has-click-to-share-text p {\n\t\t\tcolor: ").concat(textColor, ";\n\t\t}\n\t\t#").concat(uniqueId, ":hover .has-click-to-share-text,\n\t\t#").concat(uniqueId, ":hover .has-click-to-share-text p {\n\t\t\tcolor: ").concat(textColorHover, ";\n\t\t}\n\t\t#").concat(uniqueId, " .has-click-to-share-cta svg {\n\t\t\tcolor: ").concat(iconColor, ";\n\t\t}\n\t\t#").concat(uniqueId, ":hover .has-click-to-share-cta svg {\n\t\t\tcolor: ").concat(iconColorHover, ";\n\t\t}\n\t\t#").concat(uniqueId, " .has-click-to-share-text,\n\t\t#").concat(uniqueId, " .has-click-to-share-text p {\n\t\t\tfont-family: \"").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_3__.geHierarchicalPlaceholderValue)(typographyQuote, screenSize, typographyQuote[screenSize].fontFamily, 'fontFamily'), "\";\n\t\t\tfont-weight: ").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_3__.geHierarchicalPlaceholderValue)(typographyQuote, screenSize, typographyQuote[screenSize].fontWeight, 'fontWeight'), ";\n\t\t\tfont-size: ").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_3__.geHierarchicalPlaceholderValue)(typographyQuote, screenSize, typographyQuote[screenSize].fontSize, 'fontSize') + (0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_3__.getHierarchicalValueUnit)(typographyQuote, screenSize, typographyQuote[screenSize].fontSizeUnit, 'fontSizeUnit'), ";\n\t\t\tline-height: ").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_3__.geHierarchicalPlaceholderValue)(typographyQuote, screenSize, typographyQuote[screenSize].lineHeight, 'lineHeight') + (0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_3__.getHierarchicalValueUnit)(typographyQuote, screenSize, typographyQuote[screenSize].lineHeightUnit, 'lineHeightUnit'), ";\n\t\t\tletter-spacing: ").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_3__.geHierarchicalPlaceholderValue)(typographyQuote, screenSize, typographyQuote[screenSize].letterSpacing, 'letterSpacing') + (0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_3__.getHierarchicalValueUnit)(typographyQuote, screenSize, typographyQuote[screenSize].letterSpacingUnit, 'letterSpacingUnit'), ";\n\t\t\ttext-transform: ").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_3__.geHierarchicalPlaceholderValue)(typographyQuote, screenSize, typographyQuote[screenSize].textTransform, 'textTransform'), ";\n\t\t}\n\t\t#").concat(uniqueId, " .has-click-to-share-cta,\n\t\t#").concat(uniqueId, " .has-click-to-share-cta p {\n\t\t\tfont-family: \"").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_3__.geHierarchicalPlaceholderValue)(typographyShareText, screenSize, typographyShareText[screenSize].fontFamily, 'fontFamily'), "\";\n\t\t\tfont-weight: ").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_3__.geHierarchicalPlaceholderValue)(typographyShareText, screenSize, typographyShareText[screenSize].fontWeight, 'fontWeight'), ";\n\t\t\tfont-size: ").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_3__.geHierarchicalPlaceholderValue)(typographyShareText, screenSize, typographyShareText[screenSize].fontSize, 'fontSize') + (0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_3__.getHierarchicalValueUnit)(typographyShareText, screenSize, typographyShareText[screenSize].fontSizeUnit, 'fontSizeUnit'), ";\n\t\t\tline-height: ").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_3__.geHierarchicalPlaceholderValue)(typographyShareText, screenSize, typographyShareText[screenSize].lineHeight, 'lineHeight') + (0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_3__.getHierarchicalValueUnit)(typographyShareText, screenSize, typographyShareText[screenSize].lineHeightUnit, 'lineHeightUnit'), ";\n\t\t\tletter-spacing: ").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_3__.geHierarchicalPlaceholderValue)(typographyShareText, screenSize, typographyShareText[screenSize].letterSpacing, 'letterSpacing') + (0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_3__.getHierarchicalValueUnit)(typographyShareText, screenSize, typographyShareText[screenSize].letterSpacingUnit, 'letterSpacingUnit'), ";\n\t\t\ttext-transform: ").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_3__.geHierarchicalPlaceholderValue)(typographyShareText, screenSize, typographyShareText[screenSize].textTransform, 'textTransform'), ";\n\t\t}\n\t");
+  var styles = "\n\t\t#".concat(uniqueId, ".has-click-to-share {\n\t\t\tmargin: ").concat((0,_react_Utils_DimensionsHelper__WEBPACK_IMPORTED_MODULE_2__.buildDimensionsCSS)(marginSize, deviceType), ";\n\t\t\tborder-radius: ").concat((0,_react_Utils_DimensionsHelper__WEBPACK_IMPORTED_MODULE_2__.buildDimensionsCSS)(borderRadiusSize, deviceType), ";\n\t\t\tborder-style: solid;\n\t\t\tborder-width: ").concat((0,_react_Utils_DimensionsHelper__WEBPACK_IMPORTED_MODULE_2__.buildDimensionsCSS)(borderWidth, deviceType), ";\n\t\t\tmax-width: ").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_3__.geHierarchicalPlaceholderValue)(maximumWidth, screenSize, maximumWidth[screenSize].width, 'maxWidth')).concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_3__.geHierarchicalPlaceholderValue)(maximumWidth, screenSize, maximumWidth[screenSize].unit, 'maxWidth'), ";\n\t\t\toverflow: hidden;\n\t\t}\n\t\t#").concat(uniqueId, ".has-click-to-share .has-click-to-share-cta,\n\t\t#").concat(uniqueId, ".has-click-to-share .has-click-to-share-text {\n\t\t\tposition: relative;\n\t\t\tz-index: 2;\n\t\t}\n\t\t#").concat(uniqueId, ".has-click-to-share .has-click-to-share-wrapper {\n\t\t\tposition: relative;\n\t\t\tpadding: ").concat((0,_react_Utils_DimensionsHelper__WEBPACK_IMPORTED_MODULE_2__.buildDimensionsCSS)(paddingSize, deviceType), ";\n\t\t\tfont-size: ").concat(clickShareFontSize, "px;\n\t\t}\n\t\t#").concat(uniqueId, ".has-click-to-share.has-background-color {\n\t\t\tbackground-color: ").concat(backgroundColor, ";\n\t\t}\n\t\t#").concat(uniqueId, ".has-click-to-share.has-background-color:hover {\n\t\t\tbackground-color: ").concat(backgroundColorHover, ";\n\t\t}\n\t\t#").concat(uniqueId, ".has-click-to-share.has-background-gradient {\n\t\t\tbackground-image: ").concat(backgroundGradient, ";\n\t\t}\n\t\t#").concat(uniqueId, ".has-click-to-share.has-background-gradient:hover {\n\t\t\tbackground-image: ").concat(backgroundGradientHover, ";\n\t\t}\n\t\t#").concat(uniqueId, ".has-click-to-share {\n\t\t\tborder-color: ").concat(borderColor, ";\n\t\t}\n\t\t#").concat(uniqueId, ".has-click-to-share:hover {\n\t\t\tborder-color: ").concat(borderColorHover, ";\n\t\t}\n\t\t\n\t\t#").concat(uniqueId, " .has-click-to-share-cta {\n\t\t\tcolor: ").concat(shareTextColor, "\n\t\t}\n\t\t#").concat(uniqueId, ":hover .has-click-to-share-cta {\n\t\t\tcolor: ").concat(shareTextColorHover, "\n\t\t}\n\t\t#").concat(uniqueId, " .has-click-to-share-text,\n\t\t#").concat(uniqueId, " .has-click-to-share-text p {\n\t\t\tcolor: ").concat(textColor, ";\n\t\t}\n\t\t#").concat(uniqueId, ":hover .has-click-to-share-text,\n\t\t#").concat(uniqueId, ":hover .has-click-to-share-text p {\n\t\t\tcolor: ").concat(textColorHover, ";\n\t\t}\n\t\t#").concat(uniqueId, " .has-click-to-share-cta svg {\n\t\t\tcolor: ").concat(iconColor, ";\n\t\t}\n\t\t#").concat(uniqueId, ":hover .has-click-to-share-cta svg {\n\t\t\tcolor: ").concat(iconColorHover, ";\n\t\t}\n\t\t#").concat(uniqueId, " .has-click-to-share-text,\n\t\t#").concat(uniqueId, " .has-click-to-share-text p {\n\t\t\tfont-family: \"").concat(typographyQuote.desktop.fontFamily, "\";\n\t\t\tfont-weight: ").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_3__.geHierarchicalPlaceholderValue)(typographyQuote, screenSize, typographyQuote[screenSize].fontWeight, 'fontWeight'), ";\n\t\t\tfont-size: ").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_3__.geHierarchicalPlaceholderValue)(typographyQuote, screenSize, typographyQuote[screenSize].fontSize, 'fontSize') + (0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_3__.getHierarchicalValueUnit)(typographyQuote, screenSize, typographyQuote[screenSize].fontSizeUnit, 'fontSizeUnit'), ";\n\t\t\tline-height: ").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_3__.geHierarchicalPlaceholderValue)(typographyQuote, screenSize, typographyQuote[screenSize].lineHeight, 'lineHeight') + (0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_3__.getHierarchicalValueUnit)(typographyQuote, screenSize, typographyQuote[screenSize].lineHeightUnit, 'lineHeightUnit'), ";\n\t\t\tletter-spacing: ").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_3__.geHierarchicalPlaceholderValue)(typographyQuote, screenSize, typographyQuote[screenSize].letterSpacing, 'letterSpacing') + (0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_3__.getHierarchicalValueUnit)(typographyQuote, screenSize, typographyQuote[screenSize].letterSpacingUnit, 'letterSpacingUnit'), ";\n\t\t\ttext-transform: ").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_3__.geHierarchicalPlaceholderValue)(typographyQuote, screenSize, typographyQuote[screenSize].textTransform, 'textTransform'), ";\n\t\t}\n\t\t#").concat(uniqueId, " .has-click-to-share-cta,\n\t\t#").concat(uniqueId, " .has-click-to-share-cta p {\n\t\t\tfont-family: \"").concat(typographyShareText.desktop.fontFamily, "\";\n\t\t\tfont-weight: ").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_3__.geHierarchicalPlaceholderValue)(typographyShareText, screenSize, typographyShareText[screenSize].fontWeight, 'fontWeight'), ";\n\t\t\tfont-size: ").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_3__.geHierarchicalPlaceholderValue)(typographyShareText, screenSize, typographyShareText[screenSize].fontSize, 'fontSize') + (0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_3__.getHierarchicalValueUnit)(typographyShareText, screenSize, typographyShareText[screenSize].fontSizeUnit, 'fontSizeUnit'), ";\n\t\t\tline-height: ").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_3__.geHierarchicalPlaceholderValue)(typographyShareText, screenSize, typographyShareText[screenSize].lineHeight, 'lineHeight') + (0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_3__.getHierarchicalValueUnit)(typographyShareText, screenSize, typographyShareText[screenSize].lineHeightUnit, 'lineHeightUnit'), ";\n\t\t\tletter-spacing: ").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_3__.geHierarchicalPlaceholderValue)(typographyShareText, screenSize, typographyShareText[screenSize].letterSpacing, 'letterSpacing') + (0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_3__.getHierarchicalValueUnit)(typographyShareText, screenSize, typographyShareText[screenSize].letterSpacingUnit, 'letterSpacingUnit'), ";\n\t\t\ttext-transform: ").concat((0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_3__.geHierarchicalPlaceholderValue)(typographyShareText, screenSize, typographyShareText[screenSize].textTransform, 'textTransform'), ";\n\t\t}\n\t");
   var backgroundImageStyles = '';
   if ('image' === backgroundType) {
     backgroundImageStyles = "\n\t\t#".concat(uniqueId, ".has-click-to-share.has-background-image {\n\t\t\tbackground-color: ").concat(backgroundImage.backgroundColor, ";\n\t\t}\n\t\t#").concat(uniqueId, ".has-click-to-share.has-background-image .has-click-to-share-wrapper:after{\n\t\t\tdisplay: block;\n\t\t\tcontent: '';\n\t\t\twidth: 100%;\n\t\t\theight: 100%;\n\t\t\tposition: absolute;\n\t\t\ttop: 0;\n\t\t\tleft: 0;\n\t\t\tz-index: 1;\n\t\t\tbackground-image: url('").concat(decodeURIComponent(encodeURIComponent(backgroundImage.url)), " ');\n\t\t\tbackground-position: ").concat(escapeEditableHTML(backgroundImage.backgroundPosition), ";\n\t\t\tbackground-repeat: ").concat(escapeEditableHTML(backgroundImage.backgroundRepeat), ";\n\t\t\tbackground-size: ").concat(escapeEditableHTML(backgroundImage.backgroundSize), ";\n\t\t\topacity: ").concat(parseFloat(backgroundImage.backgroundOpacity), ";\n\t\t}\n\t\t#").concat(uniqueId, ".has-click-to-share.has-background-image .has-click-to-share-wrapper:hover:after {\n\t\t\topacity: ").concat(parseFloat(backgroundImage.backgroundOpacityHover), ";\n\t\t}\n\t\t");
@@ -1278,6 +1281,123 @@ var GetStyles = function GetStyles(props) {
   return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("style", null, styles), 'image' === backgroundType && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("style", null, backgroundImageStyles), isPreview && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("style", null, previewStyles));
 };
 /* harmony default export */ __webpack_exports__["default"] = (GetStyles);
+
+/***/ }),
+
+/***/ "./src/blocks/click-to-share/components/MaxWidth/index.js":
+/*!****************************************************************!*\
+  !*** ./src/blocks/click-to-share/components/MaxWidth/index.js ***!
+  \****************************************************************/
+/***/ (function(__unused_webpack_module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+__webpack_require__.r(__webpack_exports__);
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! react */ "react");
+/* harmony import */ var react__WEBPACK_IMPORTED_MODULE_0___default = /*#__PURE__*/__webpack_require__.n(react__WEBPACK_IMPORTED_MODULE_0__);
+/* harmony import */ var _react_Components_unit_picker__WEBPACK_IMPORTED_MODULE_5__ = __webpack_require__(/*! ../../../../react/Components/unit-picker */ "./src/react/Components/unit-picker/index.js");
+/* harmony import */ var _react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_6__ = __webpack_require__(/*! ../../../../react/Utils/TypographyHelper */ "./src/react/Utils/TypographyHelper.js");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! @wordpress/i18n */ "@wordpress/i18n");
+/* harmony import */ var _wordpress_i18n__WEBPACK_IMPORTED_MODULE_1___default = /*#__PURE__*/__webpack_require__.n(_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__);
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! @wordpress/components */ "@wordpress/components");
+/* harmony import */ var _wordpress_components__WEBPACK_IMPORTED_MODULE_2___default = /*#__PURE__*/__webpack_require__.n(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__);
+/* harmony import */ var react_hook_form__WEBPACK_IMPORTED_MODULE_4__ = __webpack_require__(/*! react-hook-form */ "./node_modules/react-hook-form/dist/index.esm.mjs");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! classnames */ "./node_modules/classnames/index.js");
+/* harmony import */ var classnames__WEBPACK_IMPORTED_MODULE_3___default = /*#__PURE__*/__webpack_require__.n(classnames__WEBPACK_IMPORTED_MODULE_3__);
+function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
+function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
+function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
+function _arrayLikeToArray(arr, len) { if (len == null || len > arr.length) len = arr.length; for (var i = 0, arr2 = new Array(len); i < len; i++) { arr2[i] = arr[i]; } return arr2; }
+function _iterableToArrayLimit(arr, i) { var _i = arr == null ? null : typeof Symbol !== "undefined" && arr[Symbol.iterator] || arr["@@iterator"]; if (_i == null) return; var _arr = []; var _n = true; var _d = false; var _s, _e; try { for (_i = _i.call(arr); !(_n = (_s = _i.next()).done); _n = true) { _arr.push(_s.value); if (i && _arr.length === i) break; } } catch (err) { _d = true; _e = err; } finally { try { if (!_n && _i["return"] != null) _i["return"](); } finally { if (_d) throw _e; } } return _arr; }
+function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
+/**
+ * Max-width component.
+ * Credit: Forked from @GenerateBlocks
+ */
+
+
+/**
+ * External dependencies
+ */
+
+
+
+
+
+
+
+var MaxWidth = function MaxWidth(props) {
+  var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)('desktop'),
+    _useState2 = _slicedToArray(_useState, 2),
+    screenSize = _useState2[0],
+    setScreenSize = _useState2[1];
+  var getDefaultValues = function getDefaultValues() {
+    return {
+      mobile: {
+        width: props.values.mobile.width,
+        unit: props.values.mobile.unit
+      },
+      tablet: {
+        width: props.values.tablet.width,
+        unit: props.values.tablet.unit
+      },
+      desktop: {
+        width: props.values.desktop.width,
+        unit: props.values.desktop.unit
+      }
+    };
+  };
+  var _useForm = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_4__.useForm)({
+      defaultValues: getDefaultValues()
+    }),
+    control = _useForm.control,
+    setValue = _useForm.setValue,
+    getValues = _useForm.getValues;
+  var formValues = (0,react_hook_form__WEBPACK_IMPORTED_MODULE_4__.useWatch)({
+    control: control
+  });
+  var onValuesChange = props.onValuesChange;
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    onValuesChange(formValues);
+  }, [formValues]);
+  (0,react__WEBPACK_IMPORTED_MODULE_0__.useEffect)(function () {
+    setScreenSize(props.screenSize.toLowerCase());
+    setValue(props.screenSize.toLowerCase(), getValues(props.screenSize.toLowerCase()));
+  }, [props.screenSize]);
+  return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_4__.Controller, {
+    control: control,
+    name: "".concat(screenSize, ".unit"),
+    render: function render(_ref) {
+      var _ref$field = _ref.field,
+        onChange = _ref$field.onChange,
+        value = _ref$field.value;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_react_Components_unit_picker__WEBPACK_IMPORTED_MODULE_5__["default"], {
+        label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Maximum Width', 'highlight-and-share'),
+        value: (0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_6__.getHierarchicalValueUnit)(props.values, screenSize, getValues(screenSize).unit, 'unit'),
+        units: ['px', 'em', 'rem', '%', 'vw'],
+        onClick: function onClick(newValue) {
+          onChange(newValue);
+        }
+      });
+    }
+  }), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_4__.Controller, {
+    control: control,
+    name: "".concat(screenSize, ".width"),
+    render: function render(_ref2) {
+      var _ref2$field = _ref2.field,
+        _onChange = _ref2$field.onChange,
+        value = _ref2$field.value;
+      return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_2__.TextControl, {
+        type: 'text',
+        value: getValues(screenSize).width,
+        onChange: function onChange(newValue) {
+          _onChange(newValue);
+        },
+        placeholder: (0,_react_Utils_TypographyHelper__WEBPACK_IMPORTED_MODULE_6__.geHierarchicalPlaceholderValue)(props.values, screenSize, getValues(screenSize).width, 'width')
+      });
+    }
+  }));
+};
+/* harmony default export */ __webpack_exports__["default"] = (MaxWidth);
 
 /***/ }),
 
@@ -1516,7 +1636,6 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _react_Components_GradientGenerator__WEBPACK_IMPORTED_MODULE_14__ = __webpack_require__(/*! ../../react/Components/GradientGenerator */ "./src/react/Components/GradientGenerator/index.js");
 /* harmony import */ var _react_Components_DimensionsBlock__WEBPACK_IMPORTED_MODULE_18__ = __webpack_require__(/*! ../../react/Components/DimensionsBlock */ "./src/react/Components/DimensionsBlock/index.js");
 /* harmony import */ var _react_Hooks_useDeviceType__WEBPACK_IMPORTED_MODULE_2__ = __webpack_require__(/*! ../../react/Hooks/useDeviceType */ "./src/react/Hooks/useDeviceType.js");
-/* harmony import */ var _react_Components_unit_picker__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ../../react/Components/unit-picker */ "./src/react/Components/unit-picker/index.js");
 /* harmony import */ var _react_Components_Typography__WEBPACK_IMPORTED_MODULE_16__ = __webpack_require__(/*! ../../react/Components/Typography */ "./src/react/Components/Typography/index.js");
 /* harmony import */ var _react_Components_BackgroundSelector__WEBPACK_IMPORTED_MODULE_15__ = __webpack_require__(/*! ../../react/Components/BackgroundSelector */ "./src/react/Components/BackgroundSelector/index.js");
 /* harmony import */ var _components_PresetButton__WEBPACK_IMPORTED_MODULE_3__ = __webpack_require__(/*! ./components/PresetButton */ "./src/blocks/click-to-share/components/PresetButton.js");
@@ -1528,6 +1647,10 @@ __webpack_require__.r(__webpack_exports__);
 /* harmony import */ var _presets_red__WEBPACK_IMPORTED_MODULE_9__ = __webpack_require__(/*! ./presets/red */ "./src/blocks/click-to-share/presets/red.js");
 /* harmony import */ var _components_BlockContent__WEBPACK_IMPORTED_MODULE_19__ = __webpack_require__(/*! ./components/BlockContent */ "./src/blocks/click-to-share/components/BlockContent.js");
 /* harmony import */ var _components_CustomPresets__WEBPACK_IMPORTED_MODULE_10__ = __webpack_require__(/*! ./components/CustomPresets */ "./src/blocks/click-to-share/components/CustomPresets/index.js");
+/* harmony import */ var _components_MaxWidth__WEBPACK_IMPORTED_MODULE_17__ = __webpack_require__(/*! ./components/MaxWidth */ "./src/blocks/click-to-share/components/MaxWidth/index.js");
+function ownKeys(object, enumerableOnly) { var keys = Object.keys(object); if (Object.getOwnPropertySymbols) { var symbols = Object.getOwnPropertySymbols(object); enumerableOnly && (symbols = symbols.filter(function (sym) { return Object.getOwnPropertyDescriptor(object, sym).enumerable; })), keys.push.apply(keys, symbols); } return keys; }
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = null != arguments[i] ? arguments[i] : {}; i % 2 ? ownKeys(Object(source), !0).forEach(function (key) { _defineProperty(target, key, source[key]); }) : Object.getOwnPropertyDescriptors ? Object.defineProperties(target, Object.getOwnPropertyDescriptors(source)) : ownKeys(Object(source)).forEach(function (key) { Object.defineProperty(target, key, Object.getOwnPropertyDescriptor(source, key)); }); } return target; }
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 function _slicedToArray(arr, i) { return _arrayWithHoles(arr) || _iterableToArrayLimit(arr, i) || _unsupportedIterableToArray(arr, i) || _nonIterableRest(); }
 function _nonIterableRest() { throw new TypeError("Invalid attempt to destructure non-iterable instance.\nIn order to be iterable, non-array objects must have a [Symbol.iterator]() method."); }
 function _unsupportedIterableToArray(o, minLen) { if (!o) return; if (typeof o === "string") return _arrayLikeToArray(o, minLen); var n = Object.prototype.toString.call(o).slice(8, -1); if (n === "Object" && o.constructor) n = o.constructor.name; if (n === "Map" || n === "Set") return Array.from(o); if (n === "Arguments" || /^(?:Ui|I)nt(?:8|16|32)(?:Clamped)?Array$/.test(n)) return _arrayLikeToArray(o, minLen); }
@@ -1551,6 +1674,8 @@ function _arrayWithHoles(arr) { if (Array.isArray(arr)) return arr; }
 
 
 /* Preset Imports */
+
+
 
 
 
@@ -1635,6 +1760,7 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
     clickShareFontSize = attributes.clickShareFontSize,
     maxWidth = attributes.maxWidth,
     maxWidthUnit = attributes.maxWidthUnit,
+    maximumWidth = attributes.maximumWidth,
     alignment = attributes.alignment,
     align = attributes.align,
     marginTop = attributes.marginTop,
@@ -1647,7 +1773,10 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
     borderRadiusSize = attributes.borderRadiusSize,
     uniqueId = attributes.uniqueId,
     typographyQuote = attributes.typographyQuote,
-    typographyShareText = attributes.typographyShareText;
+    typographyShareText = attributes.typographyShareText,
+    showClickToShareText = attributes.showClickToShareText,
+    showClickToShareIcon = attributes.showClickToShareIcon,
+    iconSizeResponsive = attributes.iconSizeResponsive;
   (0,react__WEBPACK_IMPORTED_MODULE_1__.useEffect)(function () {
     // If this is the first time inserting the block.
     if ('' === uniqueId) {
@@ -1753,6 +1882,12 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
         borderRadius: -1
       });
     }
+    if (maxWidth !== '-1') {
+      setAttributes({
+        maxWidth: '-1',
+        maxWidthUnit: '-1'
+      });
+    }
 
     // Port alignment over to align variable.
     if (alignment !== 'none') {
@@ -1766,6 +1901,48 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
     if (-1 === iconSize) {
       setAttributes({
         iconSize: clickShareFontSize
+      });
+    }
+
+    // Port over show click to share text.
+    if (-1 !== showClickToShare) {
+      var newClickToShareText = {
+        mobile: showClickToShare,
+        tablet: showClickToShare,
+        desktop: showClickToShare
+      };
+      setAttributes({
+        showClickToShare: -1,
+        showClickToShareText: newClickToShareText
+      });
+    }
+
+    // Port over click to share icon.
+    if (-1 !== showIcon) {
+      var newClickToShareIcon = {
+        mobile: showIcon,
+        tablet: showIcon,
+        desktop: showIcon
+      };
+      setAttributes({
+        showIcon: -1,
+        showClickToShareIcon: newClickToShareIcon
+      });
+    }
+
+    // If responsive icons is -1, overwrite with iconSize.
+    if (-1 === iconSizeResponsive.desktop) {
+      var newIconSize = 20;
+      if (iconSize !== -1) {
+        newIconSize = iconSize;
+      }
+      var newIconResponsive = {
+        mobile: newIconSize,
+        tablet: newIconSize,
+        desktop: newIconSize
+      };
+      setAttributes({
+        iconSizeResponsive: newIconResponsive
       });
     }
   }, []);
@@ -1875,18 +2052,21 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
     uniqueId: uniqueId,
     attributes: attributes,
     setAttributes: setAttributes
-  })))), deviceType === 'Desktop' && /*#__PURE__*/React.createElement(PanelBody, {
+  })))), /*#__PURE__*/React.createElement(PanelBody, {
     title: __('Share Settings', 'highlight-and-share'),
-    initialOpen: true
+    initialOpen: true,
+    icon: getDeviceIcon()
   }, /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(ToggleControl, {
     label: __('Show Click to Share Text', 'alerts-dlx'),
-    checked: showClickToShare,
+    checked: showClickToShareText[deviceType.toLowerCase()],
     onChange: function onChange(value) {
+      var newShowClickToShare = _objectSpread({}, showClickToShareText);
+      newShowClickToShare[deviceType.toLowerCase()] = value;
       setAttributes({
-        showClickToShare: value
+        showClickToShareText: newShowClickToShare
       });
     }
-  })), showClickToShare && /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(TextControl, {
+  })), showClickToShare && deviceType === 'Desktop' && /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(TextControl, {
     label: __('Click to Share Text', 'highlight-and-share'),
     value: clickText,
     onChange: function onChange(value) {
@@ -1896,20 +2076,24 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
     }
   })), /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(ToggleControl, {
     label: __('Show Share Icon', 'alerts-dlx'),
-    checked: showIcon,
+    checked: showClickToShareIcon[deviceType.toLowerCase()],
     onChange: function onChange(value) {
+      var newShowClickToShare = _objectSpread({}, showClickToShareIcon);
+      newShowClickToShare[deviceType.toLowerCase()] = value;
       setAttributes({
-        showIcon: value
+        showClickToShareIcon: newShowClickToShare
       });
     }
-  })), /*#__PURE__*/React.createElement(PanelRow, {
+  })), showClickToShareIcon[deviceType.toLowerCase()] && /*#__PURE__*/React.createElement(PanelRow, {
     className: "has-range-control"
   }, /*#__PURE__*/React.createElement(RangeControl, {
     label: __('Icon Size', 'highlight-and-share'),
-    value: iconSize,
+    value: iconSizeResponsive[deviceType.toLowerCase()],
     onChange: function onChange(value) {
-      return setAttributes({
-        iconSize: value
+      var newIconSize = _objectSpread({}, iconSizeResponsive);
+      newIconSize[deviceType.toLowerCase()] = value;
+      setAttributes({
+        iconSizeResponsive: newIconSize
       });
     },
     min: 10,
@@ -2123,26 +2307,17 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
     title: __('Spacing and Border', 'highlight-and-share'),
     initialOpen: true,
     icon: getDeviceIcon()
-  }, deviceType === 'Desktop' && /*#__PURE__*/React.createElement(PanelRow, {
+  }, /*#__PURE__*/React.createElement(PanelRow, {
     className: "has-unit-picker"
-  }, /*#__PURE__*/React.createElement(_react_Components_unit_picker__WEBPACK_IMPORTED_MODULE_17__["default"], {
-    label: __('Maximum Width', 'quotes-dlx'),
-    value: maxWidthUnit,
-    units: ['px', '%', 'vw'],
-    onClick: function onClick(value) {
+  }, /*#__PURE__*/React.createElement(React.Fragment, null, /*#__PURE__*/React.createElement(_components_MaxWidth__WEBPACK_IMPORTED_MODULE_17__["default"], {
+    values: maximumWidth,
+    screenSize: deviceType,
+    onValuesChange: function onValuesChange(newValues) {
       setAttributes({
-        maxWidthUnit: value
+        maximumWidth: newValues
       });
     }
-  }), /*#__PURE__*/React.createElement(TextControl, {
-    type: 'number',
-    value: maxWidth,
-    onChange: function onChange(value) {
-      setAttributes({
-        maxWidth: value
-      });
-    }
-  })), /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(_react_Components_DimensionsBlock__WEBPACK_IMPORTED_MODULE_18__["default"], {
+  }))), /*#__PURE__*/React.createElement(PanelRow, null, /*#__PURE__*/React.createElement(_react_Components_DimensionsBlock__WEBPACK_IMPORTED_MODULE_18__["default"], {
     label: __('Inner Padding', 'highlight-and-share'),
     allowNegatives: false,
     values: paddingSize,
@@ -4869,6 +5044,9 @@ var ColorCircle = function ColorCircle(props) {
     height: "24"
   }, props), /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement("path", {
     fill: "currentColor",
+    stroke: "#333",
+    strokeWidth: "6px",
+    strokeLinejoin: "round",
     d: "M256 512a256 256 0 1 0 0-512 256 256 0 1 0 0 512z"
   }));
 };
@@ -5151,6 +5329,11 @@ var Typography = function Typography(props) {
       label: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_1__.__)('Select a Font', 'highlight-and-share'),
       value: ''
     });
+
+    // Don't show font family on non-desktop sizes.
+    if ('desktop' !== screenSize) {
+      return null;
+    }
     return /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(react_hook_form__WEBPACK_IMPORTED_MODULE_3__.Controller, {
       name: "".concat(screenSize, ".fontFamilySlug"),
       control: control,
@@ -10170,7 +10353,7 @@ function useForm(props = {}) {
 /***/ (function(module) {
 
 "use strict";
-module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","title":"Click to Share","apiVersion":2,"name":"has/click-to-share","category":"highlight-and-share","icon":"<svg aria-hidden=\'true\' focusable=\'false\' data-prefix=\'fas\' data-icon=\'share-alt\' className=\'svg-inline--fa fa-share-alt fa-w-14\' role=\'img\' xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 448 512\'><path fill=\'currentColor\' d=\'M352 320c-22.608 0-43.387 7.819-59.79 20.895l-102.486-64.054a96.551 96.551 0 0 0 0-41.683l102.486-64.054C308.613 184.181 329.392 192 352 192c53.019 0 96-42.981 96-96S405.019 0 352 0s-96 42.981-96 96c0 7.158.79 14.13 2.276 20.841L155.79 180.895C139.387 167.819 118.608 160 96 160c-53.019 0-96 42.981-96 96s42.981 96 96 96c22.608 0 43.387-7.819 59.79-20.895l102.486 64.054A96.301 96.301 0 0 0 256 416c0 53.019 42.981 96 96 96s96-42.981 96-96-42.981-96-96-96z\'></path></svg>","description":"An easy-to-use Click to Share block.","keywords":["click","social","tweet","better","twitter","facebook","share","quote","blockquote"],"version":"1.0.0","textdomain":"highlight-and-share","attributes":{"uniqueId":{"type":"string","default":""},"showClickToShare":{"type":"boolean","default":true},"showIcon":{"type":"boolean","default":true},"iconSize":{"type":"number","default":-1},"customShareText":{"type":"string","default":""},"shareText":{"type":"string","default":""},"shareTextInner":{"type":"array","default":[]},"backgroundColor":{"type":"string","default":"#FFFFFF"},"backgroundColorHover":{"type":"string","default":"#FFFFFF"},"backgroundColorSync":{"type":"string","default":"normal"},"backgroundType":{"type":"string","default":"solid"},"backgroundGradient":{"type":"string","default":""},"backgroundGradientHover":{"type":"string","default":""},"backgroundGradientSync":{"type":"string","default":"normal"},"backgroundImage":{"type":"object","default":{"url":"","id":0,"backgroundColor":"#000000","backgroundSize":"cover","backgroundPosition":"center center","backgroundRepeat":"no-repeat","backgroundOpacity":1,"backgroundOpacityHover":1}},"iconColor":{"type":"string","default":"#000000"},"iconColorHover":{"type":"string","default":"#000000"},"iconColorSync":{"type":"string","default":"normal"},"textColor":{"type":"string","default":"#000000"},"textColorHover":{"type":"string","default":"#000000"},"textColorSync":{"type":"string","default":"normal"},"shareTextColor":{"type":"string","default":"#000000"},"shareTextColorHover":{"type":"string","default":"#000000"},"shareTextColorSync":{"type":"string","default":"normal"},"fontSize":{"type":"integer","default":24},"clickShareFontSize":{"type":"integer","default":24},"clickText":{"type":"string","default":"Click to Share"},"padding":{"type":"integer","default":-1},"border":{"type":"integer","default":-1},"borderRadius":{"type":"integer","default":0},"borderColor":{"type":"string","default":"#000000"},"borderColorHover":{"type":"string","default":"#000000"},"borderColorSync":{"type":"string","default":"normal"},"fontWeight":{"type":"string","default":"400"},"maxWidth":{"type":"string","default":"80"},"maxWidthUnit":{"type":"string","default":"%"},"align":{"type":"string","default":"center"},"alignment":{"type":"string","default":"center"},"marginLeft":{"type":"integer","default":0},"marginRight":{"type":"integer","default":0},"marginBottom":{"type":"integer","default":0},"marginTop":{"type":"integer","default":0},"paddingSize":{"type":"object","default":{"mobile":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"tablet":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"desktop":{"top":"20","right":"20","bottom":"20","left":"20","unit":"px","unitSync":true}}},"marginSize":{"type":"object","default":{"mobile":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"tablet":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"desktop":{"top":"20","right":"","bottom":"20","left":"","unit":"px","unitSync":true}}},"borderWidth":{"type":"object","default":{"mobile":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"tablet":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"desktop":{"top":"1","right":"1","bottom":"1","left":"1","unit":"px","unitSync":true}}},"borderRadiusSize":{"type":"object","default":{"mobile":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"tablet":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"desktop":{"top":"","right":"","bottom":"","left":"","unit":"px","unitSync":true}}},"typographyQuote":{"type":"object","default":{"mobile":{"fontFamily":"","fontFamilySlug":"","fontSize":"","fontSizeUnit":"px","fontWeight":"","lineHeight":"","lineHeightUnit":"em","textTransform":"","letterSpacing":"","letterSpacingUnit":"px","fontFallback":"","fontType":"web"},"tablet":{"fontFamily":"","fontFamilySlug":"","fontSize":"","fontSizeUnit":"px","fontWeight":"","lineHeight":"","lineHeightUnit":"em","textTransform":"","letterSpacing":"","letterSpacingUnit":"px","fontFallback":"","fontType":"web"},"desktop":{"fontFamily":"Arial","fontFamilySlug":"arial","fontSize":"24","fontSizeUnit":"px","fontWeight":"normal","lineHeight":"1.3","lineHeightUnit":"em","textTransform":"none","letterSpacing":"0","letterSpacingUnit":"px","fontFallback":"serif","fontType":"web"}}},"typographyShareText":{"type":"object","default":{"mobile":{"fontFamily":"","fontFamilySlug":"","fontSize":"","fontSizeUnit":"px","fontWeight":"","lineHeight":"","lineHeightUnit":"em","textTransform":"","letterSpacing":"","letterSpacingUnit":"px","fontType":"web","fontFallback":"sans-serif"},"tablet":{"fontFamily":"","fontFamilySlug":"","fontSize":"","fontSizeUnit":"px","fontWeight":"","lineHeight":"","lineHeightUnit":"em","textTransform":"","letterSpacing":"","letterSpacingUnit":"px","fontType":"web","fontFallback":"sans-serif"},"desktop":{"fontFamily":"Arial","fontFamilySlug":"arial","fontSize":"24","fontSizeUnit":"px","fontWeight":"normal","lineHeight":"1.3","lineHeightUnit":"em","textTransform":"none","letterSpacing":"0","letterSpacingUnit":"px","fontType":"web","fontFallback":"sans-serif"}}}},"supports":{"anchor":true,"align":true,"className":true},"example":{"attributes":{"backgroundColor":"#8364E8","backgroundColorHover":"#714EE5","backgroundType":"solid","iconColor":"#FFFFFF","iconColorHover":"#FFFFFF","textColor":"#FFFFFF","textColorHover":"#FFFFFF","shareTextColor":"#FFFFFF","shareTextColorHover":"#FFFFFF","clickText":"Click to share","paddingSize":{"mobile":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"tablet":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"desktop":{"top":"20","right":"20","bottom":"20","left":"20","unit":"px","unitSync":true}},"marginSize":{"mobile":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"tablet":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"desktop":{"top":"20","right":"","bottom":"20","left":"","unit":"px","unitSync":true}},"borderWidth":{"mobile":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"tablet":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"desktop":{"top":"1","right":"1","bottom":"1","left":"1","unit":"px","unitSync":true}},"borderRadiusSize":{"mobile":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"tablet":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"desktop":{"top":"4","right":"4","bottom":"4","left":"4","unit":"px","unitSync":true}},"typographyQuote":{"mobile":{"fontFamily":"","fontFamilySlug":"","fontSize":"","fontSizeUnit":"px","fontWeight":"","lineHeight":"","lineHeightUnit":"em","textTransform":"","letterSpacing":"","letterSpacingUnit":"px","fontFallback":"","fontType":"web"},"tablet":{"fontFamily":"","fontFamilySlug":"","fontSize":"","fontSizeUnit":"px","fontWeight":"","lineHeight":"","lineHeightUnit":"em","textTransform":"","letterSpacing":"","letterSpacingUnit":"px","fontFallback":"","fontType":"web"},"desktop":{"fontFamily":"Arial","fontFamilySlug":"arial","fontSize":"24","fontSizeUnit":"px","fontWeight":"normal","lineHeight":"1.3","lineHeightUnit":"em","textTransform":"none","letterSpacing":"0","letterSpacingUnit":"px","fontFallback":"serif","fontType":"web"}},"typographyShareText":{"mobile":{"fontFamily":"","fontFamilySlug":"","fontSize":"","fontSizeUnit":"px","fontWeight":"","lineHeight":"","lineHeightUnit":"em","textTransform":"","letterSpacing":"","letterSpacingUnit":"px","fontType":"web","fontFallback":"sans-serif"},"tablet":{"fontFamily":"","fontFamilySlug":"","fontSize":"","fontSizeUnit":"px","fontWeight":"","lineHeight":"","lineHeightUnit":"em","textTransform":"","letterSpacing":"","letterSpacingUnit":"px","fontType":"web","fontFallback":"sans-serif"},"desktop":{"fontFamily":"Arial","fontFamilySlug":"arial","fontSize":"24","fontSizeUnit":"px","fontWeight":"normal","lineHeight":"1.3","lineHeightUnit":"em","textTransform":"none","letterSpacing":"0","letterSpacingUnit":"px","fontType":"web","fontFallback":"sans-serif"}}},"innerBlocks":[{"name":"core/paragraph","attributes":{"content":"Lorem ipsum dolor sit amet, consectetur adipiscing elit."}}]},"editorScript":"has-click-to-share","editorStyle":"has-style-admin-css","style":"has-style-frontend-css"}');
+module.exports = JSON.parse('{"$schema":"https://schemas.wp.org/trunk/block.json","title":"Click to Share","apiVersion":2,"name":"has/click-to-share","category":"highlight-and-share","icon":"<svg aria-hidden=\'true\' focusable=\'false\' data-prefix=\'fas\' data-icon=\'share-alt\' className=\'svg-inline--fa fa-share-alt fa-w-14\' role=\'img\' xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 448 512\'><path fill=\'currentColor\' d=\'M352 320c-22.608 0-43.387 7.819-59.79 20.895l-102.486-64.054a96.551 96.551 0 0 0 0-41.683l102.486-64.054C308.613 184.181 329.392 192 352 192c53.019 0 96-42.981 96-96S405.019 0 352 0s-96 42.981-96 96c0 7.158.79 14.13 2.276 20.841L155.79 180.895C139.387 167.819 118.608 160 96 160c-53.019 0-96 42.981-96 96s42.981 96 96 96c22.608 0 43.387-7.819 59.79-20.895l102.486 64.054A96.301 96.301 0 0 0 256 416c0 53.019 42.981 96 96 96s96-42.981 96-96-42.981-96-96-96z\'></path></svg>","description":"An easy-to-use Click to Share block.","keywords":["click","social","tweet","better","twitter","facebook","share","quote","blockquote"],"version":"1.0.0","textdomain":"highlight-and-share","attributes":{"uniqueId":{"type":"string","default":""},"showClickToShare":{"type":"number","default":true},"showIcon":{"type":"number","default":true},"iconSize":{"type":"number","default":-1},"iconSizeResponsive":{"type":"object","default":{"desktop":-1,"tablet":-1,"mobile":-1}},"customShareText":{"type":"string","default":""},"shareText":{"type":"string","default":""},"shareTextInner":{"type":"array","default":[]},"backgroundColor":{"type":"string","default":"#FFFFFF"},"backgroundColorHover":{"type":"string","default":"#FFFFFF"},"backgroundColorSync":{"type":"string","default":"normal"},"backgroundType":{"type":"string","default":"solid"},"backgroundGradient":{"type":"string","default":""},"backgroundGradientHover":{"type":"string","default":""},"backgroundGradientSync":{"type":"string","default":"normal"},"backgroundImage":{"type":"object","default":{"url":"","id":0,"backgroundColor":"#000000","backgroundSize":"cover","backgroundPosition":"center center","backgroundRepeat":"no-repeat","backgroundOpacity":1,"backgroundOpacityHover":1}},"iconColor":{"type":"string","default":"#000000"},"iconColorHover":{"type":"string","default":"#000000"},"iconColorSync":{"type":"string","default":"normal"},"textColor":{"type":"string","default":"#000000"},"textColorHover":{"type":"string","default":"#000000"},"textColorSync":{"type":"string","default":"normal"},"shareTextColor":{"type":"string","default":"#000000"},"shareTextColorHover":{"type":"string","default":"#000000"},"shareTextColorSync":{"type":"string","default":"normal"},"fontSize":{"type":"integer","default":24},"clickShareFontSize":{"type":"integer","default":24},"clickText":{"type":"string","default":"Click to Share"},"padding":{"type":"integer","default":-1},"border":{"type":"integer","default":-1},"borderRadius":{"type":"integer","default":0},"borderColor":{"type":"string","default":"#000000"},"borderColorHover":{"type":"string","default":"#000000"},"borderColorSync":{"type":"string","default":"normal"},"fontWeight":{"type":"string","default":"400"},"maxWidth":{"type":"string","default":"-1"},"maxWidthUnit":{"type":"string","default":"-1"},"maximumWidth":{"type":"object","default":{"mobile":{"width":"","unit":null},"tablet":{"width":"","unit":null},"desktop":{"width":"850","unit":"px"}}},"showClickToShareText":{"type":"object","default":{"mobile":true,"tablet":true,"desktop":true}},"showClickToShareIcon":{"type":"object","default":{"mobile":true,"tablet":true,"desktop":true}},"align":{"type":"string","default":"center"},"alignment":{"type":"string","default":"center"},"marginLeft":{"type":"integer","default":0},"marginRight":{"type":"integer","default":0},"marginBottom":{"type":"integer","default":0},"marginTop":{"type":"integer","default":0},"paddingSize":{"type":"object","default":{"mobile":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"tablet":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"desktop":{"top":"20","right":"20","bottom":"20","left":"20","unit":"px","unitSync":true}}},"marginSize":{"type":"object","default":{"mobile":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"tablet":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"desktop":{"top":"20","right":"","bottom":"20","left":"","unit":"px","unitSync":true}}},"borderWidth":{"type":"object","default":{"mobile":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"tablet":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"desktop":{"top":"1","right":"1","bottom":"1","left":"1","unit":"px","unitSync":true}}},"borderRadiusSize":{"type":"object","default":{"mobile":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"tablet":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"desktop":{"top":"","right":"","bottom":"","left":"","unit":"px","unitSync":true}}},"typographyQuote":{"type":"object","default":{"mobile":{"fontFamily":"","fontFamilySlug":"","fontSize":"","fontSizeUnit":"px","fontWeight":"","lineHeight":"","lineHeightUnit":"em","textTransform":"","letterSpacing":"","letterSpacingUnit":"px","fontFallback":"","fontType":"web"},"tablet":{"fontFamily":"","fontFamilySlug":"","fontSize":"","fontSizeUnit":"px","fontWeight":"","lineHeight":"","lineHeightUnit":"em","textTransform":"","letterSpacing":"","letterSpacingUnit":"px","fontFallback":"","fontType":"web"},"desktop":{"fontFamily":"Arial","fontFamilySlug":"arial","fontSize":"24","fontSizeUnit":"px","fontWeight":"normal","lineHeight":"1.3","lineHeightUnit":"em","textTransform":"none","letterSpacing":"0","letterSpacingUnit":"px","fontFallback":"serif","fontType":"web"}}},"typographyShareText":{"type":"object","default":{"mobile":{"fontFamily":"","fontFamilySlug":"","fontSize":"","fontSizeUnit":"px","fontWeight":"","lineHeight":"","lineHeightUnit":"em","textTransform":"","letterSpacing":"","letterSpacingUnit":"px","fontType":"web","fontFallback":"sans-serif"},"tablet":{"fontFamily":"","fontFamilySlug":"","fontSize":"","fontSizeUnit":"px","fontWeight":"","lineHeight":"","lineHeightUnit":"em","textTransform":"","letterSpacing":"","letterSpacingUnit":"px","fontType":"web","fontFallback":"sans-serif"},"desktop":{"fontFamily":"Arial","fontFamilySlug":"arial","fontSize":"24","fontSizeUnit":"px","fontWeight":"normal","lineHeight":"1.3","lineHeightUnit":"em","textTransform":"none","letterSpacing":"0","letterSpacingUnit":"px","fontType":"web","fontFallback":"sans-serif"}}}},"supports":{"anchor":true,"align":true,"className":true},"example":{"attributes":{"backgroundColor":"#8364E8","backgroundColorHover":"#714EE5","backgroundType":"solid","iconColor":"#FFFFFF","iconColorHover":"#FFFFFF","textColor":"#FFFFFF","textColorHover":"#FFFFFF","shareTextColor":"#FFFFFF","shareTextColorHover":"#FFFFFF","clickText":"Click to share","paddingSize":{"mobile":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"tablet":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"desktop":{"top":"20","right":"20","bottom":"20","left":"20","unit":"px","unitSync":true}},"marginSize":{"mobile":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"tablet":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"desktop":{"top":"20","right":"","bottom":"20","left":"","unit":"px","unitSync":true}},"borderWidth":{"mobile":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"tablet":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"desktop":{"top":"1","right":"1","bottom":"1","left":"1","unit":"px","unitSync":true}},"borderRadiusSize":{"mobile":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"tablet":{"top":"","right":"","bottom":"","left":"","unit":null,"unitSync":null},"desktop":{"top":"4","right":"4","bottom":"4","left":"4","unit":"px","unitSync":true}},"typographyQuote":{"mobile":{"fontFamily":"","fontFamilySlug":"","fontSize":"","fontSizeUnit":"px","fontWeight":"","lineHeight":"","lineHeightUnit":"em","textTransform":"","letterSpacing":"","letterSpacingUnit":"px","fontFallback":"","fontType":"web"},"tablet":{"fontFamily":"","fontFamilySlug":"","fontSize":"","fontSizeUnit":"px","fontWeight":"","lineHeight":"","lineHeightUnit":"em","textTransform":"","letterSpacing":"","letterSpacingUnit":"px","fontFallback":"","fontType":"web"},"desktop":{"fontFamily":"Arial","fontFamilySlug":"arial","fontSize":"24","fontSizeUnit":"px","fontWeight":"normal","lineHeight":"1.3","lineHeightUnit":"em","textTransform":"none","letterSpacing":"0","letterSpacingUnit":"px","fontFallback":"serif","fontType":"web"}},"typographyShareText":{"mobile":{"fontFamily":"","fontFamilySlug":"","fontSize":"","fontSizeUnit":"px","fontWeight":"","lineHeight":"","lineHeightUnit":"em","textTransform":"","letterSpacing":"","letterSpacingUnit":"px","fontType":"web","fontFallback":"sans-serif"},"tablet":{"fontFamily":"","fontFamilySlug":"","fontSize":"","fontSizeUnit":"px","fontWeight":"","lineHeight":"","lineHeightUnit":"em","textTransform":"","letterSpacing":"","letterSpacingUnit":"px","fontType":"web","fontFallback":"sans-serif"},"desktop":{"fontFamily":"Arial","fontFamilySlug":"arial","fontSize":"24","fontSizeUnit":"px","fontWeight":"normal","lineHeight":"1.3","lineHeightUnit":"em","textTransform":"none","letterSpacing":"0","letterSpacingUnit":"px","fontType":"web","fontFallback":"sans-serif"}}},"innerBlocks":[{"name":"core/paragraph","attributes":{"content":"Lorem ipsum dolor sit amet, consectetur adipiscing elit."}}]},"editorScript":"has-click-to-share","editorStyle":"has-style-admin-css","style":"has-style-frontend-css"}');
 
 /***/ })
 
