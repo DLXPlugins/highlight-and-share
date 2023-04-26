@@ -17,6 +17,9 @@
 	left: 0;
 	z-index: 1000;
 }
+.has-background-gradient {
+	transition: all 0.3s ease-in-out
+}
 .has-click-to-share-cta {
 	display: flex;
 	justify-content: flex-end;

@@ -88,8 +88,8 @@ const BlockContent = ( props ) => {
 						</>
 					) }
 					<div className="has-click-to-share-cta">
-						{ ( showClickToShareText[ deviceType.toLowerCase() ] || isBlockPreview ) && <>{ clickText } </> }
-						{ ( showClickToShareIcon[ deviceType.toLowerCase() ] || isBlockPreview ) && (
+						{ ( ( typeof showClickToShareText !== 'undefined' && showClickToShareText[ deviceType.toLowerCase() ] ) || isBlockPreview ) && <>{ clickText } </> }
+						{ ( ( typeof showClickToShareIcon !== 'undefined' && showClickToShareIcon[ deviceType.toLowerCase() ] ) || isBlockPreview ) && (
 							<span
 								className="has-click-to-share-icon-block-editor"
 								dangerouslySetInnerHTML={ { __html: sanitizeSVG( icon ) } }
