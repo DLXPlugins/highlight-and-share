@@ -1,1 +1,821 @@
-(()=>{function t(t,e,i){return e in t?Object.defineProperty(t,e,{value:i,enumerable:!0,configurable:!0,writable:!0}):t[e]=i,t}!function(){"use strict";var e=highlight_and_share,i=e.prefix,l=e.suffix,n=null,a=document.querySelector("#has-highlight-and-share");if(null!==a){var o=a.querySelector(".highlight-and-share-wrapper").getBoundingClientRect(),r=o.width,s=(o.height,function(t){var e=window.getComputedStyle(t);return"none"!==e.display&&"hidden"!==e.visibility&&"0"!==e.opacity}),h=function(){var t=document.querySelectorAll(".highlight-and-share-wrapper");null!==t&&t.forEach((function(t){null===t.closest("#has-highlight-and-share")&&t.remove()}))},d=function(t,n,a,o,r,s){var h=t.querySelectorAll(".has_whatsapp, .has_facebook, .has_twitter, .has_copy, .has_reddit, .has_telegram, .has_linkedin, .has_xing, .has_signal, .has_vk, .has_tumblr, .has_email_mailto, .has_email_form");if(null===h)return t;var d="";"inline"===s?d="highlight":"selection"===s?d="selection":"cta"===s&&(d="quote"),h.forEach((function(t){var s=t.querySelector("a"),h=s.getAttribute("href");h=(h=(h=(h=(h=(h=(h=(h=h.replace("%url%",encodeURIComponent(n))).replace("%username%",encodeURIComponent(e.twitter_username))).replace("%title%",encodeURIComponent(a))).replace("%text%",encodeURIComponent(o))).replace("%hashtags%",encodeURIComponent(r))).replace("%type%",encodeURIComponent(d))).replace("%prefix%",encodeURIComponent(i))).replace("%suffix%",encodeURIComponent(l)),s.setAttribute("href",h);var c=t.getAttribute("data-title");null!==c&&(c=c.replace("%title%",encodeURIComponent(a)),t.setAttribute("data-title",c));var u=t.getAttribute("data-url");null!==u&&(u=u.replace("%url%",encodeURIComponent(n)),t.setAttribute("data-url",u))}))},c=function(e,i,l,n,o){var r=arguments.length>5&&void 0!==arguments[5]?arguments[5]:null;if(!1!==highlight_and_share.show_twitter||!1!==highlight_and_share.show_facebook||!1!==highlight_and_share.show_linkedin||!1!==highlight_and_share.show_ok||!1!==highlight_and_share.show_vk||!1!==highlight_and_share.show_pinterest||!1!==highlight_and_share.show_email||!1!==highlight_and_share.show_webshare){h();var c=a.querySelector(".highlight-and-share-wrapper").cloneNode(!0);if(c.style.display="block",c.style.position="absolute",c.style.width="auto",c.style.height="auto",c.style["z-index"]=1e4,c.classList.contains("orientation-vertical")&&(c.style.display="inline-flex"),d(c,l,i,e,n,o),void 0!==navigator.share){var f=c.querySelector(".has_webshare");null!==f&&(f.style.display="inline-block")}switch(document.body.appendChild(c),o){case"selection":u(c);break;case"inline":g(c,r);break;case"cta":p(c,r)}var w=document.querySelector("body").querySelectorAll(".has_whatsapp, .has_facebook, .has_twitter, .has_telegram, .has_linkedin, .has_xing, .has_reddit, .has_tumblr");null!==w&&w.forEach((function(t){s(t)&&t.querySelector("a").addEventListener("click",(function(n){n.preventDefault();var a=t.querySelector("a").getAttribute("href");"undefined"!=typeof dataLayer&&dataLayer.push({event:"highlight-and-share",hasShareText:e,hasSharePostUrl:l,hasSharePostTitle:i,hasShareType:o,hasSocialNetwork:t.getAttribute("data-type")}),window.open(a,"Highlight and Share","width=575,height=430,toolbar=false,menubar=false,location=false,status=false")}))}));var y=document.querySelectorAll(".has_copy");null!==y&&y.forEach((function(n){s(n)&&n.addEventListener("click",(function(a){a.preventDefault();var r=new Blob([e],{type:"text/plain"}),s=[new ClipboardItem(t({},r.type,r))];navigator.clipboard.write(s),n.setAttribute("data-tooltip","Copied!"),"undefined"!=typeof dataLayer&&dataLayer.push({event:"highlight-and-share",hasShareText:e,hasSharePostUrl:l,hasSharePostTitle:i,hasShareType:o,hasSocialNetwork:"copy"})}))}));var m=document.querySelectorAll(".has_email_form");null!==m&&m.forEach((function(t){s(t)&&t.addEventListener("click",(function(t){t.preventDefault();var e=t.target.closest("a").getAttribute("href");"undefined"!=typeof Fancybox&&(h(),window.highlightShareFancy=new Fancybox([{src:e,type:"iframe",preload:!0}],{Toolbar:{autoEnable:!1}}))}))}));var v=document.querySelectorAll(".has_webshare");null!==v&&v.forEach((function(t){s(t)&&t.addEventListener("click",(function(t){t.preventDefault();var l=t.target.closest("a").getAttribute("href");navigator.share({title:i,text:e,url:l})}))}))}},u=function(t){var e=window.innerWidth,i=window.innerHeight,l=window.getSelection().getRangeAt(0).getBoundingClientRect(),n=l.top,a=l.left,o=l.width,s=l.height;t.offsetWidth>e&&(t.style.maxWidth=e-20+"px",t.classList.add("has-no-margin-bottom"));var h=t.getBoundingClientRect(),d=h.width,c=h.height;if(t.classList.contains("orientation-vertical")){var u=a+window.scrollX-(d+15),g=n+window.scrollY-c/2+s/2;if(t.classList.add("has-no-margin-bottom"),n+window.scrollY-c/2<0){t.style.display="grid",t.style.gridTemplateColumns="1fr 1fr";var p=t.getBoundingClientRect();t.style.top=n+window.scrollY-p.height/2+s/2+"px",t.style.left=a+window.scrollX-p.width-15+"px"}else if(n+c>i){t.style.display="grid",t.style.gridTemplateColumns="1fr 1fr";var f=t.getBoundingClientRect();t.style.top=n+window.scrollY-f.height/2+s/2+"px",t.style.left=a+window.scrollX-f.width-15+"px"}else t.style.left=u+"px",t.style.top=g+"px",t.classList.remove("has-no-margin-bottom")}else{var w=a+window.scrollX+o/2-d/2,y=n+window.scrollY-c-15;t.classList.add("has-no-margin-bottom"),w<0?t.style.left="15px":w+r>e?t.style.right="15px":(t.style.left=w+"px",t.classList.remove("has-no-margin-bottom")),t.style.top=y+"px"}},g=function(t,e){var i=window.innerWidth,l=window.innerHeight,n=e.getBoundingClientRect(),a=n.top,o=n.left,s=n.width,h=n.height,d=t.getBoundingClientRect(),c=d.width,u=d.height;if(t.classList.contains("orientation-vertical")){var g=o+window.scrollX-(c+15),p=a+window.scrollY-u/2+h/2;if(t.classList.add("has-no-margin-bottom"),a+window.scrollY-u/2<0){t.style.display="grid",t.style.gridTemplateColumns="1fr 1fr";var f=t.getBoundingClientRect();t.style.top=a+window.scrollY-f.height/2+h/2+"px";var w=o+window.scrollX-f.width-15;t.style.left=w<0?"15px":w+"px"}else if(a+u>l){t.style.display="grid",t.style.gridTemplateColumns="1fr 1fr";var y=t.getBoundingClientRect();t.style.top=a+window.scrollY-y.height/2+h/2+"px";var m=o+window.scrollX-y.width-15;t.style.left=m<0?"15px":m+"px"}else t.style.left=g+"px",t.style.top=p+"px",t.classList.remove("has-no-margin-bottom")}else{var v=o+window.scrollX+s/2-c/2,_=a+window.scrollY-u-15;t.classList.add("has-no-margin-bottom"),v<0?t.style.left="15px":v+r>i?t.style.right="15px":(t.style.left=v+"px",t.classList.remove("has-no-margin-bottom")),t.style.top=_+"px"}},p=function(t,e){var i=window.innerWidth,l=window.innerHeight,n=e.getBoundingClientRect(),a=n.top,o=n.left,s=n.width,h=n.height;t.getBoundingClientRect().width>i&&(t.style.maxWidth=i-20+"px",t.classList.add("has-no-margin-bottom"));var d=t.getBoundingClientRect(),c=d.width,u=d.height;if(t.classList.contains("orientation-vertical")){window.scrollX;var g=a+window.scrollY-u/2+h/2;if(t.classList.add("has-no-margin-bottom"),a+window.scrollY-u/2<0){t.style.display="grid",t.style.gridTemplateColumns="1fr 1fr";var p=t.getBoundingClientRect();t.style.top=a+window.scrollY-p.height/2+h/2+"px";var f=o+window.scrollX-p.width-15;t.style.left=f<0?"15px":f+"px"}else if(a+u>l){t.style.display="grid",t.style.gridTemplateColumns="1fr 1fr";var w=t.getBoundingClientRect();t.style.top=a+window.scrollY-w.height/2+h/2+"px";var y=o+window.scrollX-w.width-15;t.style.left=y<0?"15px":y+"px"}else{var m=t.getBoundingClientRect();t.style.left=o+window.scrollX-m.width-15+"px",t.style.top=g+"px",t.classList.remove("has-no-margin-bottom")}}else{var v=o+window.scrollX+s/2-c/2,_=a+window.scrollY-u-15;t.classList.add("has-no-margin-bottom"),v<0?t.style.left="15px":v+r>i?t.style.right="15px":(t.style.left=v+"px",t.classList.remove("has-no-margin-bottom")),t.style.top=_+"px"}},f=e.content;if(""!==f){var w=document.querySelectorAll(f);null!==w&&w.forEach((function(t){t.addEventListener("mouseup",(function(t){!function(t){h();var e=document.defaultView.getSelection().toString().trim();if(""!==e){var i=t.target.closest(".has-content-area"),l=null!==i?i.dataset.url:window.location.href,n=null!==i?i.dataset.title:document.title,a=null!==i?i.dataset.hashtags:"";c(e,n,l,a,"selection")}}(t)}))}));var y=document.querySelectorAll(".has-inline-text");null!==y&&y.forEach((function(t){highlight_and_share.inline_highlight_tooltips_enabled&&""!==highlight_and_share.inline_highlight_tooltips_text&&t.setAttribute("data-tooltip",highlight_and_share.inline_highlight_tooltips_text),t.addEventListener("click",(function(i){!function(t,i){if(h(),i!==n){n=i;var l=i.innerText.trim();if(""!==l){var a=t.target.closest(".has-content-area"),o=null!==a?a.dataset.url:window.location.href,r=null!==a?a.dataset.title:document.title,s=null!==a?a.dataset.hashtags:"";e.enable_webshare_inline_highlight&&"function"==typeof navigator.share?navigator.share({title:r,url:o,text:l}):c(l,r,o,s,"inline",i)}}else n=null}(i,t);var l=document.querySelectorAll(".has-inline-text-tooltip");null!==l&&l.forEach((function(t){t.remove()}))})),t.addEventListener("mouseover",(function(e){if(t.hasAttribute("data-tooltip")){var i=e.target.getBoundingClientRect().top,l=window.scrollX,n=window.scrollY,a=e.clientX-60+l,o=i-30+n-10,r=document.createElement("div");r.classList.add("has-inline-text-tooltip"),r.style.position="absolute",r.style.left=a+"px",r.style.top=o+"px",r.innerText=t.getAttribute("data-tooltip"),document.body.appendChild(r);var s=r.getBoundingClientRect();s.right>window.innerWidth?r.style.left=a-(s.right-window.innerWidth)+"px":s.left<0&&(r.style.left=a-s.left+"px"),s.bottom>window.innerHeight?r.style.top=o-(s.bottom-window.innerHeight)+"px":s.top<0&&(r.style.top=o-s.top+"px")}})),t.addEventListener("mouseout",(function(){var t=document.querySelectorAll(".has-inline-text-tooltip");null!==t&&t.forEach((function(t){t.classList.add("has-fade-out"),setTimeout((function(){t.remove()}),900)}))}))}));var m=document.querySelectorAll(".has-click-prompt");null!==m&&m.forEach((function(t){t.addEventListener("click",(function(i){if(i.preventDefault(),h(),t!==n){n=t;var l=t.parentNode.querySelector(".has-click-to-share-text").getAttribute("data-text-full"),a=t.closest(".has-content-area"),o=null!==a?a.dataset.url:window.location.href,r=null!==a?a.dataset.title:document.title,s=null!==a?a.dataset.hashtags:"";e.enable_webshare_click_to_share&&"function"==typeof navigator.share?navigator.share({title:r,url:o,text:l}):c(l,r,o,s,"cta",t.closest(".has-click-to-share"))}else n=null}))}))}}}()})();
+/******/ (() => { // webpackBootstrap
+var __webpack_exports__ = {};
+/*!***********************************************!*\
+  !*** ./src/frontendjs/highlight-and-share.js ***!
+  \***********************************************/
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+(function () {
+  'use strict';
+
+  // Get localized var.
+  var HAS = highlight_and_share;
+
+  // Set variables.
+  var prefix = HAS.prefix;
+  var suffix = HAS.suffix;
+  var currentElement = null;
+
+  // Main HAS container in the footer. If ".highlight-and-share-wrapper" doesn't have this parent, it is a clone.
+  var hasContainer = document.querySelector('#has-highlight-and-share');
+  if (null === hasContainer) {
+    return;
+  }
+  var socialNetworks = '.has_whatsapp, .has_facebook, .has_twitter, .has_copy, .has_reddit, .has_telegram, .has_linkedin, .has_xing, .has_signal, .has_vk, .has_tumblr, .has_email_mailto, .has_email_form';
+
+  // Get highlight and share container dimensions.
+  var hasSharingIconsContainer = hasContainer.querySelector('.highlight-and-share-wrapper');
+
+  // Populate container dimensions/width/height.
+  var rect = hasSharingIconsContainer.getBoundingClientRect();
+  var hasSharerWidth = rect.width;
+  var hasSharerHeight = rect.height;
+
+  /**
+   * Determine if an element is visible or not.
+   *
+   * @param {Element} element The element to check if visible or not.
+   * @return {boolean} true if visible, false if not.
+   */
+  var isVisible = function isVisible(element) {
+    var style = window.getComputedStyle(element);
+    return style.display !== 'none' && style.visibility !== 'hidden' && style.opacity !== '0';
+  };
+
+  /**
+   * Remove any visible HAS containers.
+   */
+  var hasRemoveVisibleElements = function hasRemoveVisibleElements() {
+    var hasContainers = document.querySelectorAll('.highlight-and-share-wrapper');
+    if (null !== hasContainers) {
+      // Remove visible containers from dom.
+      hasContainers.forEach(function (container) {
+        // If the container is a clone, remove it. (doesn't have the parent "#has-highlight-and-share").
+        if (null === container.closest('#has-highlight-and-share')) {
+          container.remove();
+        }
+      });
+    }
+  };
+
+  /**
+   * Replace attributes of element and child elements.
+   *
+   * @param {Element} element  The element to replace attributes on with child social networks.
+   * @param {string}  url      The URL of the post/page.
+   * @param {string}  title    The title of the post/page.
+   * @param {string}  text     Text that is selected or to be shared
+   * @param {string}  hashtags Hashtags present on the post/page.
+   * @param {string}  type     The type of trigger element (inline, selection, cta).
+   *
+   * @return {Element} The element with replaced attributes.
+   *
+   */
+  var hasVariableReplace = function hasVariableReplace(element, url, title, text, hashtags, type) {
+    var queryElements = element.querySelectorAll(socialNetworks);
+    if (null === queryElements) {
+      return element;
+    }
+
+    // Get types mapped for the modal view.
+    var triggerType = '';
+    if ('inline' === type) {
+      triggerType = 'highlight';
+    } else if ('selection' === type) {
+      triggerType = 'selection';
+    } else if ('cta' === type) {
+      triggerType = 'quote';
+    }
+
+    // Loop through elements.
+    queryElements.forEach(function (el) {
+      // Replace attributes in URL.
+      var elementAnchor = el.querySelector('a');
+      var elementUrl = elementAnchor.getAttribute('href');
+      elementUrl = elementUrl.replace('%url%', encodeURIComponent(url));
+      elementUrl = elementUrl.replace('%username%', encodeURIComponent(HAS.twitter_username));
+      elementUrl = elementUrl.replace('%title%', encodeURIComponent(title));
+      elementUrl = elementUrl.replace('%text%', encodeURIComponent(text));
+      elementUrl = elementUrl.replace('%hashtags%', encodeURIComponent(hashtags));
+      elementUrl = elementUrl.replace('%type%', encodeURIComponent(triggerType));
+      elementUrl = elementUrl.replace('%prefix%', encodeURIComponent(prefix));
+      elementUrl = elementUrl.replace('%suffix%', encodeURIComponent(suffix));
+      elementAnchor.setAttribute('href', elementUrl);
+
+      // Replace the title data attribute.
+      var title_attr = el.getAttribute('data-title');
+      if (null !== title_attr) {
+        title_attr = title_attr.replace('%title%', encodeURIComponent(title));
+        el.setAttribute('data-title', title_attr);
+      }
+
+      // Replace the url data attribute.
+      var url_attr = el.getAttribute('data-url');
+      if (null !== url_attr) {
+        url_attr = url_attr.replace('%url%', encodeURIComponent(url));
+        el.setAttribute('data-url', url_attr);
+      }
+    });
+  };
+
+  /**
+   * Display the Highlight and Share Interface.
+   *
+   * @param {string}  text           Text that is selected or to be shared.
+   * @param {string}  title          The title of the post/page.
+   * @param {string}  href           The URL of the post/page.
+   * @param {string}  hashtags       Hashtags present on the post/page.
+   * @param {string}  type           The type of display (selection|inline|cta).
+   * @param {element} triggerElement The event initiator (null if no trigger element).
+   */
+  var hasDisplay = function hasDisplay(text, title, href, hashtags, type) {
+    var triggerElement = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : null;
+    // Do not show the interface if nothing is enabled.
+    if (false === highlight_and_share.show_twitter && false === highlight_and_share.show_facebook && false === highlight_and_share.show_linkedin && false === highlight_and_share.show_ok && false === highlight_and_share.show_vk && false === highlight_and_share.show_pinterest && false === highlight_and_share.show_email && false === highlight_and_share.show_webshare) {
+      return;
+    }
+
+    // Remove any existing visible interfaces/containers.
+    hasRemoveVisibleElements();
+
+    // Get interface clone.
+    var hasClone = hasContainer.querySelector('.highlight-and-share-wrapper').cloneNode(true);
+    // Style the interface via inline styles and position.
+    hasClone.style.display = 'block';
+    hasClone.style.position = 'absolute';
+    hasClone.style.width = 'auto';
+    hasClone.style.height = 'auto';
+    hasClone.style['z-index'] = 10000;
+
+    // Change to inline flex if vertical.
+    if (hasClone.classList.contains('orientation-vertical')) {
+      hasClone.style.display = 'inline-flex';
+    }
+    hasVariableReplace(hasClone, href, title, text, hashtags, type); // Replaced by reference.
+
+    // Check for webshare. Enable if available.
+    if ('undefined' !== typeof navigator.share) {
+      var webshare = hasClone.querySelector('.has_webshare');
+      if (null !== webshare) {
+        webshare.style.display = 'inline-block';
+      }
+    }
+
+    // Add to the end of the body element.
+    document.body.appendChild(hasClone);
+    switch (type) {
+      case 'selection':
+        // Position the interface.
+        setHasContainerPositionSelection(hasClone);
+        break;
+      case 'inline':
+        // Position the interface.
+        setHasContainerPositionInline(hasClone, triggerElement);
+        break;
+      case 'cta':
+        // Position the interface.
+        setHasContainerPositionCta(hasClone, triggerElement);
+        break;
+    }
+
+    // Setup event handlers for links (for desktop).
+    var queryElements = document.querySelector('body').querySelectorAll('.has_whatsapp, .has_facebook, .has_twitter, .has_telegram, .has_linkedin, .has_xing, .has_reddit, .has_tumblr');
+    if (null !== queryElements) {
+      // Add click listeners to visible elements.
+      queryElements.forEach(function (el) {
+        if (isVisible(el)) {
+          el.querySelector('a').addEventListener('click', function (event) {
+            event.preventDefault();
+
+            // Get the URL.
+            var url = el.querySelector('a').getAttribute('href');
+
+            // Set dataLayer event for GTM.
+            if ('undefined' !== typeof dataLayer) {
+              // eslint-disable-next-line no-undef
+              dataLayer.push({
+                event: 'highlight-and-share',
+                hasShareText: text,
+                hasSharePostUrl: href,
+                hasSharePostTitle: title,
+                hasShareType: type /* selection|cta|inline */,
+                hasSocialNetwork: el.getAttribute('data-type')
+              });
+            }
+            window.open(url, 'Highlight and Share', 'width=575,height=430,toolbar=false,menubar=false,location=false,status=false');
+          });
+        }
+      });
+    }
+
+    // Set up copy event.
+    var copyButtons = document.querySelectorAll('.has_copy');
+    if (null !== copyButtons) {
+      copyButtons.forEach(function (el) {
+        if (isVisible(el)) {
+          el.addEventListener('click', function (event) {
+            event.preventDefault();
+            var copyBlob = new Blob([text], {
+              type: 'text/plain'
+            });
+            var data = [new ClipboardItem(_defineProperty({}, copyBlob.type, copyBlob))];
+            navigator.clipboard.write(data);
+
+            // Change tooltip data attribute.
+            el.setAttribute('data-tooltip', 'Copied!');
+
+            // Set dataLayer event for GTM.
+            if ('undefined' !== typeof dataLayer) {
+              // eslint-disable-next-line no-undef
+              dataLayer.push({
+                event: 'highlight-and-share',
+                hasShareText: text,
+                hasSharePostUrl: href,
+                hasSharePostTitle: title,
+                hasShareType: type /* selection|cta|inline */,
+                hasSocialNetwork: 'copy'
+              });
+            }
+          });
+        }
+      });
+    }
+
+    // Set up email event.
+    var emailButtons = document.querySelectorAll('.has_email_form');
+    if (null !== emailButtons) {
+      emailButtons.forEach(function (el) {
+        if (isVisible(el)) {
+          el.addEventListener('click', function (event) {
+            event.preventDefault();
+            var url = event.target.closest('a').getAttribute('href');
+            if ('undefined' !== typeof Fancybox) {
+              // eslint-disable-next-line no-undef
+              hasRemoveVisibleElements();
+              // eslint-disable-next-line no-undef
+              window.highlightShareFancy = new Fancybox([{
+                src: url,
+                type: 'iframe',
+                preload: true
+              }], {
+                Toolbar: {
+                  autoEnable: false
+                }
+              });
+            }
+          });
+        }
+      });
+    }
+
+    // Set up webshare event.
+    var webshareButtons = document.querySelectorAll('.has_webshare');
+    if (null !== webshareButtons) {
+      webshareButtons.forEach(function (el) {
+        if (isVisible(el)) {
+          el.addEventListener('click', function (event) {
+            event.preventDefault();
+            var url = event.target.closest('a').getAttribute('href');
+            navigator.share({
+              title: title,
+              text: text,
+              url: url
+            });
+          });
+        }
+      });
+    }
+  };
+
+  /**
+   * Set the Social Sharer container position for the current selection. This needs to run after cloned element has been appended to the dom.
+   *
+   * @param {element} element The cloned social sharer element.
+   */
+  var setHasContainerPositionSelection = function setHasContainerPositionSelection(element) {
+    // Get the dimensions of the window.
+    var windowWidth = window.innerWidth;
+    var windowHeight = window.innerHeight;
+
+    // Get the dimensions and location of the selection.
+    var selectionRect = window.getSelection().getRangeAt(0).getBoundingClientRect();
+    var selectionTop = selectionRect.top; // top position relative to view port.
+    var selectionLeft = selectionRect.left; // left position relative to view port.
+    var selectionWidth = selectionRect.width;
+    var selectionHeight = selectionRect.height;
+
+    // Set container width to smaller than window width if larger.
+    if (element.offsetWidth > windowWidth) {
+      element.style.maxWidth = windowWidth - 20 + 'px';
+      element.classList.add('has-no-margin-bottom');
+    }
+
+    // Get the dimensions of the click to share container.
+    var hasCloneRect = element.getBoundingClientRect();
+    var hasCloneWidth = hasCloneRect.width;
+    var hasCloneHeight = hasCloneRect.height;
+    if (element.classList.contains('orientation-vertical')) {
+      /**
+       * Get Vertical position.
+       */
+
+      // Get the X position of where the HAS Sharer inteface should be displayed.
+      var hasSharerX = selectionLeft + window.scrollX - (hasCloneWidth + 15);
+      // Get the Y position of where the HAS Sharer inteface should be displayed.
+      var hasSharerY = selectionTop + window.scrollY - hasCloneHeight / 2 + selectionHeight / 2;
+      element.classList.add('has-no-margin-bottom');
+      // If clone is outside of viewport, set width.
+      if (selectionTop + window.scrollY - hasCloneHeight / 2 < 0) {
+        element.style.display = 'grid';
+        element.style.gridTemplateColumns = '1fr 1fr';
+
+        // Get new clone width dimensions.
+        var newCloneRect = element.getBoundingClientRect();
+
+        // calculate left/top position.
+        element.style.top = selectionTop + window.scrollY - newCloneRect.height / 2 + selectionHeight / 2 + 'px';
+        element.style.left = selectionLeft + window.scrollX - newCloneRect.width - 15 + 'px';
+
+        // Calculate top position.
+      } else if (selectionTop + hasCloneHeight > windowHeight) {
+        element.style.display = 'grid';
+        element.style.gridTemplateColumns = '1fr 1fr';
+
+        // Get new clone width dimensions.
+        var _newCloneRect = element.getBoundingClientRect();
+
+        // calculate left/top position.
+        element.style.top = selectionTop + window.scrollY - _newCloneRect.height / 2 + selectionHeight / 2 + 'px';
+        element.style.left = selectionLeft + window.scrollX - _newCloneRect.width - 15 + 'px';
+      } else {
+        element.style.left = hasSharerX + 'px';
+        element.style.top = hasSharerY + 'px';
+        element.classList.remove('has-no-margin-bottom');
+      }
+    } else {
+      /**
+       * Get horizontal position.
+       */
+
+      // Get the X position of where the HAS Sharer inteface should be displayed.
+      var _hasSharerX = selectionLeft + window.scrollX + selectionWidth / 2 - hasCloneWidth / 2;
+      // Get the Y position of where the HAS Sharer inteface should be displayed.
+      var _hasSharerY = selectionTop + window.scrollY - hasCloneHeight - 15;
+
+      // Determine if hasSharerX is outside of view.
+      element.classList.add('has-no-margin-bottom');
+      if (_hasSharerX < 0) {
+        // If so, set to 0.
+        element.style.left = '15px';
+      } else if (_hasSharerX + hasSharerWidth > windowWidth) {
+        // If so, set to windowWidth - hasSharerWidth.
+        element.style.right = '15px';
+      } else {
+        // Otherwise, set to hasSharerX.
+        element.style.left = _hasSharerX + 'px';
+        element.classList.remove('has-no-margin-bottom');
+      }
+
+      // Set the left,top CSS in the clone.
+      element.style.top = _hasSharerY + 'px';
+    }
+  };
+
+  /**
+   * Set the Social Sharer container position for the inline highlighter. This needs to run after cloned element has been appended to the dom.
+   *
+   * @param {element} element        The cloned social sharer element.
+   * @param {element} triggerElement The event initiator (null if no trigger element).
+   */
+  var setHasContainerPositionInline = function setHasContainerPositionInline(element, triggerElement) {
+    // Get the dimensions of the window.
+    var windowWidth = window.innerWidth;
+    var windowHeight = window.innerHeight;
+
+    // Get the dimensions and location of the selection.
+    var inlineRect = triggerElement.getBoundingClientRect();
+    var inlineTop = inlineRect.top; // top position relative to view port.
+    var inlineLeft = inlineRect.left; // left position relative to view port.
+    var inlineWidth = inlineRect.width;
+    var inlineHeight = inlineRect.height;
+
+    // Get the dimensions of the click to share container.
+    var hasCloneRect = element.getBoundingClientRect();
+    var hasCloneWidth = hasCloneRect.width;
+    var hasCloneHeight = hasCloneRect.height;
+    if (element.classList.contains('orientation-vertical')) {
+      /**
+       * Get Vertical position.
+       */
+
+      // Get the X position of where the HAS Sharer inteface should be displayed.
+      var hasSharerX = inlineLeft + window.scrollX - (hasCloneWidth + 15);
+      // Get the Y position of where the HAS Sharer inteface should be displayed.
+      var hasSharerY = inlineTop + window.scrollY - hasCloneHeight / 2 + inlineHeight / 2;
+      element.classList.add('has-no-margin-bottom');
+      // If clone is outside of viewport, set width.
+      if (inlineTop + window.scrollY - hasCloneHeight / 2 < 0) {
+        element.style.display = 'grid';
+        element.style.gridTemplateColumns = '1fr 1fr';
+
+        // Get new clone width dimensions.
+        var newCloneRect = element.getBoundingClientRect();
+
+        // calculate left/top position.
+        element.style.top = inlineTop + window.scrollY - newCloneRect.height / 2 + inlineHeight / 2 + 'px';
+        var leftPosition = inlineLeft + window.scrollX - newCloneRect.width - 15;
+        if (leftPosition < 0) {
+          element.style.left = '15px';
+        } else {
+          element.style.left = leftPosition + 'px';
+        }
+
+        // Calculate top position.
+      } else if (inlineTop + hasCloneHeight > windowHeight) {
+        element.style.display = 'grid';
+        element.style.gridTemplateColumns = '1fr 1fr';
+
+        // Get new clone width dimensions.
+        var _newCloneRect2 = element.getBoundingClientRect();
+
+        // calculate left/top position.
+        element.style.top = inlineTop + window.scrollY - _newCloneRect2.height / 2 + inlineHeight / 2 + 'px';
+        var _leftPosition = inlineLeft + window.scrollX - _newCloneRect2.width - 15;
+        if (_leftPosition < 0) {
+          element.style.left = '15px';
+        } else {
+          element.style.left = _leftPosition + 'px';
+        }
+      } else {
+        element.style.left = hasSharerX + 'px';
+        element.style.top = hasSharerY + 'px';
+        element.classList.remove('has-no-margin-bottom');
+      }
+    } else {
+      // Get the X position of where the HAS Sharer inteface should be displayed.
+      var _hasSharerX2 = inlineLeft + window.scrollX + inlineWidth / 2 - hasCloneWidth / 2;
+      // Get the Y position of where the HAS Sharer inteface should be displayed.
+      var _hasSharerY2 = inlineTop + window.scrollY - hasCloneHeight - 15;
+
+      // Determine if hasSharerX is outside of view.
+      element.classList.add('has-no-margin-bottom');
+      if (_hasSharerX2 < 0) {
+        // If so, set to 0.
+        element.style.left = '15px';
+      } else if (_hasSharerX2 + hasSharerWidth > windowWidth) {
+        // If so, set to windowWidth - hasSharerWidth.
+        element.style.right = '15px';
+      } else {
+        // Otherwise, set to hasSharerX.
+        element.style.left = _hasSharerX2 + 'px';
+        element.classList.remove('has-no-margin-bottom');
+      }
+
+      // Set the left,top CSS in the clone.
+      element.style.top = _hasSharerY2 + 'px';
+    }
+  };
+
+  /**
+   * Set the Social Sharer container position for the inline highlighter. This needs to run after cloned element has been appended to the dom.
+   *
+   * @param {element} element        The cloned social sharer element.
+   * @param {element} triggerElement The event initiator (null if no trigger element).
+   */
+  var setHasContainerPositionCta = function setHasContainerPositionCta(element, triggerElement) {
+    // Get the dimensions of the window.
+    var windowWidth = window.innerWidth;
+    var windowHeight = window.innerHeight;
+
+    // Get the dimensions and location of the selection.
+    var ctaRect = triggerElement.getBoundingClientRect();
+    var ctaTop = ctaRect.top; // top position relative to view port.
+    var ctaLeft = ctaRect.left; // left position relative to view port.
+    var ctaWidth = ctaRect.width;
+    var ctaHeight = ctaRect.height;
+
+    // Set container width to smaller than window width if larger.
+    if (element.getBoundingClientRect().width > windowWidth) {
+      element.style.maxWidth = windowWidth - 20 + 'px';
+      element.classList.add('has-no-margin-bottom');
+    }
+
+    // Get the dimensions of the click to share container.
+    var hasCloneRect = element.getBoundingClientRect();
+    var hasCloneWidth = hasCloneRect.width;
+    var hasCloneHeight = hasCloneRect.height;
+    if (element.classList.contains('orientation-vertical')) {
+      /**
+       * Get Vertical position.
+       */
+
+      // Get the X position of where the HAS Sharer inteface should be displayed.
+      var hasSharerX = ctaLeft + window.scrollX - (hasCloneWidth + 15);
+      // Get the Y position of where the HAS Sharer inteface should be displayed.
+      var hasSharerY = ctaTop + window.scrollY - hasCloneHeight / 2 + ctaHeight / 2;
+      element.classList.add('has-no-margin-bottom');
+      // If clone is outside of viewport, set width.
+      if (ctaTop + window.scrollY - hasCloneHeight / 2 < 0) {
+        element.style.display = 'grid';
+        element.style.gridTemplateColumns = '1fr 1fr';
+
+        // Get new clone width dimensions.
+        var newCloneRect = element.getBoundingClientRect();
+
+        // calculate left/top position.
+        element.style.top = ctaTop + window.scrollY - newCloneRect.height / 2 + ctaHeight / 2 + 'px';
+        var leftPosition = ctaLeft + window.scrollX - newCloneRect.width - 15;
+        if (leftPosition < 0) {
+          element.style.left = '15px';
+        } else {
+          element.style.left = leftPosition + 'px';
+        }
+
+        // Calculate top position.
+      } else if (ctaTop + hasCloneHeight > windowHeight) {
+        element.style.display = 'grid';
+        element.style.gridTemplateColumns = '1fr 1fr';
+
+        // Get new clone width dimensions.
+        var _newCloneRect3 = element.getBoundingClientRect();
+
+        // calculate left/top position.
+        element.style.top = ctaTop + window.scrollY - _newCloneRect3.height / 2 + ctaHeight / 2 + 'px';
+        var _leftPosition2 = ctaLeft + window.scrollX - _newCloneRect3.width - 15;
+        if (_leftPosition2 < 0) {
+          element.style.left = '15px';
+        } else {
+          element.style.left = _leftPosition2 + 'px';
+        }
+      } else {
+        var _newCloneRect4 = element.getBoundingClientRect();
+        element.style.left = ctaLeft + window.scrollX - _newCloneRect4.width - 15 + 'px';
+        element.style.top = hasSharerY + 'px';
+        element.classList.remove('has-no-margin-bottom');
+      }
+    } else {
+      // Get the X position of where the HAS Sharer inteface should be displayed.
+      var _hasSharerX3 = ctaLeft + window.scrollX + ctaWidth / 2 - hasCloneWidth / 2;
+      // Get the Y position of where the HAS Sharer inteface should be displayed.
+      var _hasSharerY3 = ctaTop + window.scrollY - hasCloneHeight - 15;
+
+      // Determine if hasSharerX is outside of view.
+      element.classList.add('has-no-margin-bottom');
+      if (_hasSharerX3 < 0) {
+        // If so, set to 0.
+        element.style.left = '15px';
+      } else if (_hasSharerX3 + hasSharerWidth > windowWidth) {
+        // If so, set to windowWidth - hasSharerWidth.
+        element.style.right = '15px';
+      } else {
+        // Otherwise, set to hasSharerX.
+        element.style.left = _hasSharerX3 + 'px';
+        element.classList.remove('has-no-margin-bottom');
+      }
+
+      // Set the left,top CSS in the clone.
+      element.style.top = _hasSharerY3 + 'px';
+    }
+  };
+
+  // Begin setting up events.
+
+  // Get JS Content and return if not set.
+  var jsContent = HAS.content;
+  if ('' === jsContent) {
+    return;
+  }
+
+  // Get all elements matching jsContent. Set up events.
+  var elements = document.querySelectorAll(jsContent);
+  if (null !== elements) {
+    /**
+     * Handle touch/click events for select (mouseup) events.
+     *
+     * @param {event} event The original event.
+     */
+    var hasHandleSelectEvents = function hasHandleSelectEvents(event) {
+      // Remove any visible elements.
+      hasRemoveVisibleElements();
+
+      // Get selection.
+      var selection = document.defaultView.getSelection();
+
+      // Get the selected text.
+      var selectedText = selection.toString().trim();
+      if ('' === selectedText) {
+        return;
+      }
+
+      // Exit early if the element selection is the same and the sharing interface is visible (works like a toggle).
+      // Commented out as this causes jumps in state, unlike with regular toggles.
+      // if ( selection === currentElement ) {
+      // 	currentElement = null;
+      // 	return;
+      // }
+      // currentElement = selection;
+
+      // Get closest parent container.
+      var elementParent = event.target.closest('.has-content-area');
+
+      // Get data attributes.
+      var href = null !== elementParent ? elementParent.dataset.url : window.location.href;
+      var title = null !== elementParent ? elementParent.dataset.title : document.title;
+      var hashtags = null !== elementParent ? elementParent.dataset.hashtags : '';
+
+      // Display Highlight and Share.
+      hasDisplay(selectedText, title, href, hashtags, 'selection');
+    };
+    // Loop through elements and set up mouseup event.
+    elements.forEach(function (element) {
+      // element.addEventListener( 'touchcancel', ( event ) => {  // This partially works on Android, but only for the first word. Selections do not work. Android is currently not supported. iOS still works.
+      // 	hasHandleSelectEvents( event );
+      // } );
+      element.addEventListener('mouseup', function (event) {
+        hasHandleSelectEvents(event);
+      });
+    });
+  }
+
+  // Get inline elements.
+  var inlineElements = document.querySelectorAll('.has-inline-text');
+  if (null !== inlineElements) {
+    /**
+     * Handle touch/click events for inline highlighting.
+     *
+     * @param {event}   event   The original event.
+     * @param {element} element The element the event happened on.
+     */
+    var hasHandleInlineEvents = function hasHandleInlineEvents(event, element) {
+      // Remove any visible elements.
+      hasRemoveVisibleElements();
+
+      // Exit early if the element is already visible (works like a toggle).
+      if (element === currentElement) {
+        currentElement = null;
+        return;
+      }
+      currentElement = element;
+
+      // Get selected text.
+      var selectedText = element.innerText.trim();
+      if ('' === selectedText) {
+        return;
+      }
+
+      // Get closest parent container.
+      var elementParent = event.target.closest('.has-content-area');
+
+      // Get data attributes.
+      var href = null !== elementParent ? elementParent.dataset.url : window.location.href;
+      var title = null !== elementParent ? elementParent.dataset.title : document.title;
+      var hashtags = null !== elementParent ? elementParent.dataset.hashtags : '';
+
+      /**
+       * See if we can launch the web share API by default on inline highlight click.
+       */
+      var webshareDefaultInlineHighlight = HAS.enable_webshare_inline_highlight;
+      if (webshareDefaultInlineHighlight) {
+        // Check if navigator.share is available.
+        if (typeof navigator.share === 'function') {
+          navigator.share({
+            title: title,
+            url: href,
+            text: selectedText
+          });
+          return;
+        }
+      }
+
+      // Display Highlight and Share.
+      hasDisplay(selectedText, title, href, hashtags, 'inline', element);
+    };
+    inlineElements.forEach(function (element) {
+      // Add tooltips to inline highlight as a data attribute.
+      if (highlight_and_share.inline_highlight_tooltips_enabled && '' !== highlight_and_share.inline_highlight_tooltips_text) {
+        element.setAttribute('data-tooltip', highlight_and_share.inline_highlight_tooltips_text);
+      }
+      // For mouse and trackpad.
+      element.addEventListener('click', function (event) {
+        hasHandleInlineEvents(event, element);
+        var tooltip = document.querySelectorAll('.has-inline-text-tooltip');
+        if (null !== tooltip) {
+          tooltip.forEach(function (tooltipElement) {
+            tooltipElement.remove();
+          });
+        }
+      });
+
+      // For hover effect on desktop devices.
+      element.addEventListener('mouseover', function (event) {
+        // Check if element has data-tooltip attribute.
+        if (element.hasAttribute('data-tooltip')) {
+          // Get position and dimensions of highlighted element.
+          var elementRect = event.target.getBoundingClientRect();
+
+          // Set tooltip position.
+          var elementTop = elementRect.top;
+          var tooltipWidth = 120; // Adjust to desired width of tooltip
+          var tooltipHeight = 30; // Adjust to desired height of tooltip
+          var scrollX = window.scrollX;
+          var scrollY = window.scrollY;
+
+          // Calculate tooltip position based on element position, window size, and scroll position.
+          var tooltipLeft = event.clientX - tooltipWidth / 2 + scrollX;
+          var tooltipTop = elementTop - tooltipHeight + scrollY - 10;
+
+          // Create div element to hold tooltip.
+          var tooltip = document.createElement('div');
+          tooltip.classList.add('has-inline-text-tooltip');
+          tooltip.style.position = 'absolute';
+          tooltip.style.left = tooltipLeft + 'px';
+          tooltip.style.top = tooltipTop + 'px';
+          tooltip.innerText = element.getAttribute('data-tooltip');
+
+          // Add tooltip to DOM.
+          document.body.appendChild(tooltip);
+
+          // Position tooltip if off screen.
+          var tooltipRect = tooltip.getBoundingClientRect();
+          if (tooltipRect.right > window.innerWidth) {
+            tooltip.style.left = tooltipLeft - (tooltipRect.right - window.innerWidth) + 'px';
+          } else if (tooltipRect.left < 0) {
+            tooltip.style.left = tooltipLeft - tooltipRect.left + 'px';
+          }
+          if (tooltipRect.bottom > window.innerHeight) {
+            tooltip.style.top = tooltipTop - (tooltipRect.bottom - window.innerHeight) + 'px';
+          } else if (tooltipRect.top < 0) {
+            tooltip.style.top = tooltipTop - tooltipRect.top + 'px';
+          }
+        }
+      });
+      element.addEventListener('mouseout', function () {
+        // Hide the tooltip.
+        var tooltip = document.querySelectorAll('.has-inline-text-tooltip');
+        if (null !== tooltip) {
+          tooltip.forEach(function (element) {
+            element.classList.add('has-fade-out');
+            setTimeout(function () {
+              element.remove();
+            }, 900);
+          });
+        }
+      });
+    });
+  }
+
+  // Get click to share block elements.
+  var ctsElements = document.querySelectorAll('.has-click-prompt');
+  if (null !== ctsElements) {
+    ctsElements.forEach(function (element) {
+      element.addEventListener('click', function (event) {
+        event.preventDefault();
+
+        // Remove any visible elements.
+        hasRemoveVisibleElements();
+
+        // Exit early if the element is already visible (works like a toggle).
+        if (element === currentElement) {
+          currentElement = null;
+          return;
+        }
+        currentElement = element;
+
+        // Get parent element of prompt.
+        var ctsTextElement = element.parentNode.querySelector('.has-click-to-share-text');
+
+        // Get text.
+        var selectedText = ctsTextElement.getAttribute('data-text-full');
+
+        // Get closest parent container.
+        var elementParent = element.closest('.has-content-area');
+
+        // Get data attributes.
+        var href = null !== elementParent ? elementParent.dataset.url : window.location.href;
+        var title = null !== elementParent ? elementParent.dataset.title : document.title;
+        var hashtags = null !== elementParent ? elementParent.dataset.hashtags : '';
+
+        /**
+         * See if we can launch the web share API by default on inline highlight click.
+         */
+        var webshareDefaultClickToShare = HAS.enable_webshare_click_to_share;
+        if (webshareDefaultClickToShare) {
+          // Check if navigator.share is available.
+          if (typeof navigator.share === 'function') {
+            navigator.share({
+              title: title,
+              url: href,
+              text: selectedText
+            });
+            return;
+          }
+        }
+
+        // Display Highlight and Share.
+        hasDisplay(selectedText, title, href, hashtags, 'cta', element.closest('.has-click-to-share'));
+      });
+    });
+  }
+})();
+/******/ })()
+;
+//# sourceMappingURL=highlight-and-share.js.map

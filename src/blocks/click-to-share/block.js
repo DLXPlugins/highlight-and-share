@@ -1,6 +1,8 @@
 import metadata from './block.json';
-const { registerBlockType } = wp.blocks;
+const { registerBlockType, createBlock, rawHandler } = wp.blocks;
 const { InnerBlocks, RichText } = wp.blockEditor;
+const { create, toHTMLString } = wp.richText;
+
 
 // Import JS
 import edit from './edit';
@@ -17,6 +19,135 @@ registerBlockType( metadata, {
 	// Render via PHP
 	save() {
 		return <InnerBlocks.Content />;
+	},
+	transforms: {
+		from: [
+			{
+				type: 'block',
+				blocks: [ 'bctt/clicktotweet' ],
+				transform: ( { tweet, prompt } ) => {
+					// Map QuotesDLX attributes to Better Click to Tweet attributes.
+					const bcttAttributes = {
+						clickText: prompt,
+					};
+					// Convert tweet string to inner blocks.
+					const shareTextInnerBlocks = rawHandler( { HTML: tweet } );
+
+					return createBlock( 'has/click-to-share', bcttAttributes, shareTextInnerBlocks );
+				},
+			},
+			{
+				type: 'block',
+				blocks: [ 'core/pullquote' ],
+				transform: ( { value } ) => {
+					return createBlock( 'has/click-to-share', {
+						customShareText: value,
+					}, [ createBlock( 'core/paragraph', { content: value } ) ] );
+				},
+			},
+			{
+				type: 'block',
+				blocks: [ 'core/paragraph' ],
+				isMultiBlock: true,
+				// eslint-disable-next-line no-unused-vars
+				transform: ( paragraphs ) => {
+					const paragraphContent = [];
+					const content = paragraphs
+						.map( ( attributes ) => {
+							paragraphContent.push( createBlock( 'core/paragraph', { content: attributes.content } ) );
+							return attributes.content;
+							// eslint-disable-next-line quotes
+						} )
+						.join( '\r\n\r\n' );
+					// Trim spacing at end.
+					content.replace( '/s+$/', '' );
+					return createBlock( 'has/click-to-share', {
+						customShareText: content,
+					}, paragraphContent );
+				},
+			},
+			{
+				type: 'block',
+				blocks: [ 'core/quote' ],
+				transform: ( { value, align }, innerBlocks ) => {
+					return createBlock( 'has/click-to-share', {
+						customShareText: value,
+						align,
+					}, innerBlocks );
+				},
+			},
+			{
+				type: 'block',
+				blocks: [ 'core/verse' ],
+				transform: ( { content } ) => {
+					return createBlock( 'has/click-to-share', {
+						customShareText: content,
+					}, [ createBlock( 'core/paragraph', { content } ) ] );
+				},
+			},
+			{
+				type: 'block',
+				blocks: [ 'coblocks/click-to-tweet' ],
+				transform: ( { buttonText, content } ) => {
+					return createBlock( 'mediaron/quotes-dlx', {
+						customShareText: content,
+						clickText: buttonText,
+					}, [ createBlock( 'core/paragraph', { content } ) ] );
+				},
+			},
+		],
+		to: [
+			{
+				type: 'block',
+				blocks: [ 'core/pullquote' ],
+				isMatch: ( {}, block ) => {
+					return block.innerBlocks.every(
+						( { name } ) => name === 'core/paragraph'
+					);
+				},
+				transform: (
+					{},
+					innerBlocks
+				) => {
+					const value = innerBlocks
+						.map( ( { attributes } ) => `${ attributes.content }` )
+						.join( '<br>' );
+					return createBlock( 'core/pullquote', {
+						value,
+					} );
+				},
+			},
+			{
+				type: 'block',
+				blocks: [ 'core/quote' ],
+				isMatch: ( {}, block ) => {
+					return block.innerBlocks.every(
+						( { name } ) => name === 'core/paragraph'
+					);
+				},
+				transform: (
+					{},
+					innerBlocks
+				) => {
+					return createBlock( 'core/quote', {
+					}, innerBlocks );
+				},
+			},
+			{
+				type: 'block',
+				blocks: [ 'core/paragraph' ],
+				transform: (
+					{},
+					innerBlocks
+				) => {
+					const content = [];
+					innerBlocks.forEach( ( { attributes } ) => {
+						content.push( createBlock( 'core/paragraph', { content: attributes.content } ) );
+					} );
+					return content;
+				},
+			},
+		],
 	},
 } );
 
