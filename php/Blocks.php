@@ -35,7 +35,6 @@ class Blocks {
 			add_action( 'enqueue_block_assets', array( $self, 'enqueue_frontend_assets' ) );
 			add_action( 'wp_enqueue_scripts', array( $self, 'register_font_scripts' ) );
 			add_action( 'admin_enqueue_scripts', array( $self, 'register_font_scripts' ) );
-			add_filter( 'block_categories_all', array( $self, 'register_block_category' ), 10, 2 );
 		}
 		return $self;
 	}
@@ -49,24 +48,6 @@ class Blocks {
 			Functions::get_plugin_dir( 'build/blocks/click-to-share/block.json' ),
 			array(
 				'render_callback' => array( $this, 'frontend' ),
-			)
-		);
-	}
-
-	/**
-	 * Register the Highlight and Share category.
-	 *
-	 * @param array   $categories Existing block categories.
-	 * @param WP_Post $post       Post object.
-	 */
-	public function register_block_category( $categories, $post ) {
-		return array_merge(
-			$categories,
-			array(
-				array(
-					'slug'  => 'highlight-and-share',
-					'title' => __( 'Highlight and Share', 'highlight-and-share' ),
-				),
 			)
 		);
 	}
@@ -214,7 +195,8 @@ class Blocks {
 	/**
 	 * Output Click to Share Gutenberg block on the front-end.
 	 *
-	 * @param array $attributes Array of attributes for the Gutenberg block.
+	 * @param array  $attributes Array of attributes for the Gutenberg block.
+	 * @param string $content Content of the innerblocks.
 	 */
 	public function frontend( $attributes, $content ) {
 		global $post;
@@ -557,7 +539,7 @@ class Blocks {
 			);
 			return $css;
 		}
-		if ( 'tablet' === $screen_size || 'mobile' == $screen_size ) {
+		if ( 'tablet' === $screen_size || 'mobile' === $screen_size ) {
 			$css = $this->get_dimensions_shorthand(
 				$this->get_hierarchical_value( $sizes, $screen_size, $dimensions['top'], 'top' ),
 				$this->get_hierarchical_value( $sizes, $screen_size, $dimensions['right'], 'right' ),

@@ -28,6 +28,7 @@ const BlockContent = ( props ) => {
 		{
 			allowedBlocks: [ 'core/paragraph' ],
 			template: [ [ 'core/paragraph', { placeholder: '' } ] ],
+			templateInsertUpdatesSelection: true,
 		}
 	);
 	const [ isBlockPreview ] = useState( isPreview ?? false );

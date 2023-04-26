@@ -45,9 +45,11 @@ const {
 } = wp.components;
 
 const { useState } = wp.element;
-const { InspectorControls, useBlockProps, BlockControls } = wp.blockEditor;
+const { InspectorControls, useBlockProps, BlockControls, store } = wp.blockEditor;
 
 const { useInstanceId } = wp.compose;
+
+const { useSelect } = wp.data;
 
 const HAS_Click_To_Share = ( props ) => {
 	const [ deviceType, setDeviceType ] = useDeviceType( 'Desktop' );
@@ -263,6 +265,12 @@ const HAS_Click_To_Share = ( props ) => {
 			};
 			setAttributes( { iconSizeResponsive: newIconResponsive } );
 		}
+	}, [] );
+
+	const hasSelection = useSelect( ( select ) => {
+		const { isBlockSelected, hasSelectedInnerBlock } =
+			select( store );
+		return hasSelectedInnerBlock( clientId ) || isBlockSelected( clientId );
 	}, [] );
 
 	const getDeviceIcon = () => {
