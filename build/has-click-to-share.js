@@ -1893,19 +1893,22 @@ var PresetButton = function PresetButton(props) {
     label = props.label,
     attributes = props.attributes,
     uniqueId = props.uniqueId;
-  var previewButton = (0,react__WEBPACK_IMPORTED_MODULE_0__.useRef)(null);
 
   // Define state for the popover visibility
   var _useState = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
     _useState2 = _slicedToArray(_useState, 2),
     showPopover = _useState2[0],
     setShowPopover = _useState2[1];
+  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(),
+    _useState4 = _slicedToArray(_useState3, 2),
+    popoverAnchor = _useState4[0],
+    setPopoverAnchor = _useState4[1];
 
   // Define state for modal options.
-  var _useState3 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
-    _useState4 = _slicedToArray(_useState3, 2),
-    showModal = _useState4[0],
-    setShowModal = _useState4[1];
+  var _useState5 = (0,react__WEBPACK_IMPORTED_MODULE_0__.useState)(false),
+    _useState6 = _slicedToArray(_useState5, 2),
+    showModal = _useState6[0],
+    setShowModal = _useState6[1];
   var handlePopoverOpen = function handlePopoverOpen() {
     setShowPopover(true);
   };
@@ -1932,7 +1935,7 @@ var PresetButton = function PresetButton(props) {
       return handlePopoverClose(false);
     },
     label: label,
-    ref: previewButton,
+    ref: setPopoverAnchor,
     disabled: (_props$disabled = props.disabled) !== null && _props$disabled !== void 0 ? _props$disabled : false
   }, label), showModal && /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement((react__WEBPACK_IMPORTED_MODULE_0___default().Fragment), null, /*#__PURE__*/react__WEBPACK_IMPORTED_MODULE_0___default().createElement(_wordpress_components__WEBPACK_IMPORTED_MODULE_1__.Modal, {
     title: (0,_wordpress_i18n__WEBPACK_IMPORTED_MODULE_2__.__)('Apply Preset?', 'highlight-and-share'),
@@ -1963,7 +1966,7 @@ var PresetButton = function PresetButton(props) {
       return handlePopoverClose(false);
     },
     noArrow: true,
-    anchorRef: previewButton
+    anchor: popoverAnchor
   }, popoverContent())));
 };
 PresetButton.propTypes = {
@@ -2160,10 +2163,8 @@ var useState = wp.element.useState;
 var _wp$blockEditor = wp.blockEditor,
   InspectorControls = _wp$blockEditor.InspectorControls,
   useBlockProps = _wp$blockEditor.useBlockProps,
-  BlockControls = _wp$blockEditor.BlockControls,
-  store = _wp$blockEditor.store;
+  BlockControls = _wp$blockEditor.BlockControls;
 var useInstanceId = wp.compose.useInstanceId;
-var useSelect = wp.data.useSelect;
 var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
   var _useDeviceType = (0,_react_Hooks_useDeviceType__WEBPACK_IMPORTED_MODULE_2__["default"])('Desktop'),
     _useDeviceType2 = _slicedToArray(_useDeviceType, 2),
@@ -2407,12 +2408,6 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
       });
     }
   }, []);
-  var hasSelection = useSelect(function (select) {
-    var _select = select(store),
-      isBlockSelected = _select.isBlockSelected,
-      hasSelectedInnerBlock = _select.hasSelectedInnerBlock;
-    return hasSelectedInnerBlock(clientId) || isBlockSelected(clientId);
-  }, []);
   var getDeviceIcon = function getDeviceIcon() {
     if (deviceType === 'Desktop') {
       return 'laptop';
@@ -2476,7 +2471,7 @@ var HAS_Click_To_Share = function HAS_Click_To_Share(props) {
     },
     icon: "smartphone",
     label: __('Mobile', 'highlight-and-share')
-  }))), deviceType === 'Desktop' && /*#__PURE__*/React.createElement(PanelBody, {
+  }))), /*#__PURE__*/React.createElement(PanelBody, {
     title: __('Presets', 'highlight-and-share'),
     initialOpen: false,
     className: "has-presets-panel",

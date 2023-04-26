@@ -45,11 +45,9 @@ const {
 } = wp.components;
 
 const { useState } = wp.element;
-const { InspectorControls, useBlockProps, BlockControls, store } = wp.blockEditor;
+const { InspectorControls, useBlockProps, BlockControls } = wp.blockEditor;
 
 const { useInstanceId } = wp.compose;
-
-const { useSelect } = wp.data;
 
 const HAS_Click_To_Share = ( props ) => {
 	const [ deviceType, setDeviceType ] = useDeviceType( 'Desktop' );
@@ -267,12 +265,6 @@ const HAS_Click_To_Share = ( props ) => {
 		}
 	}, [] );
 
-	const hasSelection = useSelect( ( select ) => {
-		const { isBlockSelected, hasSelectedInnerBlock } =
-			select( store );
-		return hasSelectedInnerBlock( clientId ) || isBlockSelected( clientId );
-	}, [] );
-
 	const getDeviceIcon = () => {
 		if ( deviceType === 'Desktop' ) {
 			return 'laptop';
@@ -357,74 +349,72 @@ const HAS_Click_To_Share = ( props ) => {
 					/>
 				</ButtonGroup>
 			</div>
-			{ deviceType === 'Desktop' && (
-				<PanelBody
-					title={ __( 'Presets', 'highlight-and-share' ) }
-					initialOpen={ false }
-					className="has-presets-panel"
-					icon="admin-customizer"
-				>
-					<PanelRow>
-						<div className="has-presets">
-							<h3>{ __( 'Select a Preset', 'highlight-and-share' ) }</h3>
-							<ButtonGroup>
-								<PresetButton
-									label={ __( 'Purple Theme', 'highlight-and-share' ) }
-									setAttributes={ setAttributes }
-									attributes={ purpleAttributes }
-									uniqueId={ uniqueId }
-
-								/>
-								<PresetButton
-									label={ __( 'Dark Theme', 'highlight-and-share' ) }
-									setAttributes={ setAttributes }
-									attributes={ darkAttributes }
-									uniqueId={ uniqueId }
-
-								/>
-								<PresetButton
-									label={ __( 'Light Theme', 'highlight-and-share' ) }
-									setAttributes={ setAttributes }
-									attributes={ lightAttributes }
-									uniqueId={ uniqueId }
-
-								/>
-								<PresetButton
-									label={ __( 'Pink Theme', 'highlight-and-share' ) }
-									setAttributes={ setAttributes }
-									attributes={ pinkAttributes }
-									uniqueId={ uniqueId }
-
-								/>
-								<PresetButton
-									label={ __( 'Blue Theme', 'highlight-and-share' ) }
-									setAttributes={ setAttributes }
-									attributes={ blueAttributes }
-									uniqueId={ uniqueId }
-
-								/>
-								<PresetButton
-									label={ __( 'Red Theme', 'highlight-and-share' ) }
-									setAttributes={ setAttributes }
-									attributes={ redAttributes }
-									uniqueId={ uniqueId }
-								/>
-							</ButtonGroup>
-						</div>
-					</PanelRow>
-					<PanelRow>
-						<div className="has-presets">
-							<h3>{ __( 'Custom Presets', 'highlight-and-share' ) }</h3>
-							<CustomPresets
-								clientId={ clientId }
-								uniqueId={ uniqueId }
-								attributes={ attributes }
+			<PanelBody
+				title={ __( 'Presets', 'highlight-and-share' ) }
+				initialOpen={ false }
+				className="has-presets-panel"
+				icon="admin-customizer"
+			>
+				<PanelRow>
+					<div className="has-presets">
+						<h3>{ __( 'Select a Preset', 'highlight-and-share' ) }</h3>
+						<ButtonGroup>
+							<PresetButton
+								label={ __( 'Purple Theme', 'highlight-and-share' ) }
 								setAttributes={ setAttributes }
+								attributes={ purpleAttributes }
+								uniqueId={ uniqueId }
+
 							/>
-						</div>
-					</PanelRow>
-				</PanelBody>
-			) }
+							<PresetButton
+								label={ __( 'Dark Theme', 'highlight-and-share' ) }
+								setAttributes={ setAttributes }
+								attributes={ darkAttributes }
+								uniqueId={ uniqueId }
+
+							/>
+							<PresetButton
+								label={ __( 'Light Theme', 'highlight-and-share' ) }
+								setAttributes={ setAttributes }
+								attributes={ lightAttributes }
+								uniqueId={ uniqueId }
+
+							/>
+							<PresetButton
+								label={ __( 'Pink Theme', 'highlight-and-share' ) }
+								setAttributes={ setAttributes }
+								attributes={ pinkAttributes }
+								uniqueId={ uniqueId }
+
+							/>
+							<PresetButton
+								label={ __( 'Blue Theme', 'highlight-and-share' ) }
+								setAttributes={ setAttributes }
+								attributes={ blueAttributes }
+								uniqueId={ uniqueId }
+
+							/>
+							<PresetButton
+								label={ __( 'Red Theme', 'highlight-and-share' ) }
+								setAttributes={ setAttributes }
+								attributes={ redAttributes }
+								uniqueId={ uniqueId }
+							/>
+						</ButtonGroup>
+					</div>
+				</PanelRow>
+				<PanelRow>
+					<div className="has-presets">
+						<h3>{ __( 'Custom Presets', 'highlight-and-share' ) }</h3>
+						<CustomPresets
+							clientId={ clientId }
+							uniqueId={ uniqueId }
+							attributes={ attributes }
+							setAttributes={ setAttributes }
+						/>
+					</div>
+				</PanelRow>
+			</PanelBody>
 			<PanelBody
 				title={ __( 'Share Settings', 'highlight-and-share' ) }
 				initialOpen={ true }
