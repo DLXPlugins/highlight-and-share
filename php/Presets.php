@@ -247,12 +247,13 @@ class Presets {
 		// Get attributes JSON.
 		$attributes = json_decode( filter_input( INPUT_POST, 'attributes', FILTER_DEFAULT ), true );
 		unset( $attributes['uniqueId'] );
+		$attributes['icon'] = wp_slash( $attributes['icon'] );
 
 		// Update post with new attribute data.
 		wp_update_post(
 			array(
 				'ID'           => $preset_id,
-				'post_content' => wp_json_encode( $attributes ),
+				'post_content' => wp_json_encode( array( 'attributes' => $attributes ), 1048 ),
 			)
 		);
 
