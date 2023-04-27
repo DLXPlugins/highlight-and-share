@@ -6,10 +6,10 @@ import BlockContent from './BlockContent';
 
 const PresetButton = ( props ) => {
 	const { setAttributes, label, attributes, uniqueId } = props;
-	const previewButton = useRef( null );
 
 	// Define state for the popover visibility
 	const [ showPopover, setShowPopover ] = useState( false );
+	const [ popoverAnchor, setPopoverAnchor ] = useState();
 
 	// Define state for modal options.
 	const [ showModal, setShowModal ] = useState( false );
@@ -37,7 +37,7 @@ const PresetButton = ( props ) => {
 				onMouseEnter={ () => handlePopoverOpen( true ) }
 				onMouseLeave={ () => handlePopoverClose( false ) }
 				label={ label }
-				ref={ previewButton }
+				ref={ setPopoverAnchor }
 				disabled={ props.disabled ?? false }
 			>
 				{ label }
@@ -80,7 +80,7 @@ const PresetButton = ( props ) => {
 						placement="left"
 						onClose={ () => handlePopoverClose( false ) }
 						noArrow={ true }
-						anchorRef={ previewButton }
+						anchor={ popoverAnchor }
 					>
 						{ popoverContent() }
 					</Popover>

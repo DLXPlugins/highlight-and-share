@@ -90,7 +90,7 @@ const CustomPresetContainer = ( props ) => {
 									uniqueId={ uniqueId }
 									clientId={ clientId }
 									slug={ preset.slug }
-									attributes={ preset.content }
+									attributes={ preset.content.attributes }
 									saveNonce={ preset.save_nonce }
 									deleteNonce={ preset.delete_nonce }
 								/>

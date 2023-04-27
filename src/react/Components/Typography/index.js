@@ -114,6 +114,11 @@ const Typography = ( props ) => {
 		} );
 		// Add placeholder.
 		fonts.unshift( { label: __( 'Select a Font', 'highlight-and-share' ), value: '' } );
+
+		// Don't show font family on non-desktop sizes.
+		if ( 'desktop' !== screenSize ) {
+			return null;
+		}
 		return (
 			<>
 				<Controller

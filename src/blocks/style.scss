@@ -17,6 +17,9 @@
 	left: 0;
 	z-index: 1000;
 }
+.has-background-gradient {
+	transition: all 0.3s ease-in-out
+}
 .has-click-to-share-cta {
 	display: flex;
 	justify-content: flex-end;
@@ -25,6 +28,9 @@
 	svg {
 		margin-left: 4px;
 	}
+}
+.has-click-to-share-cta-svg {
+	display: inline-flex;
 }
 .has-click-to-share-text p {
 	text-align: left;

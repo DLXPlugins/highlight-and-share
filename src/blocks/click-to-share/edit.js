@@ -5,6 +5,7 @@
 import classnames from 'classnames';
 import { useEffect } from 'react';
 import ColorPicker from '../../react/Components/ColorPicker';
+import ColorPickerHover from './components/ColorPickerHover/index';
 import GradientPicker from '../../react/Components/GradientPicker';
 import GradientSync from '../../react/Components/GradientSync';
 import GradientGenerator from '../../react/Components/GradientGenerator';
@@ -23,7 +24,9 @@ import { attributes as pinkAttributes } from './presets/pink';
 import { attributes as redAttributes } from './presets/red';
 import BlockContent from './components/BlockContent';
 import CustomPresets from './components/CustomPresets';
-
+import MaxWidth from './components/MaxWidth';
+import IconPicker from './components/IconPicker';
+import iconSvgs from './components/Icons/shareSvgs';
 
 const { __ } = wp.i18n;
 
@@ -64,14 +67,17 @@ const HAS_Click_To_Share = ( props ) => {
 		backgroundType,
 		backgroundColor,
 		backgroundColorHover,
+		backgroundColorSync,
 		backgroundGradient,
 		backgroundGradientHover,
 		backgroundGradientSync,
 		backgroundImage,
 		textColor,
 		textColorHover,
+		textColorSync,
 		shareTextColor,
 		shareTextColorHover,
+		shareTextColorSync,
 		showClickToShare,
 		showIcon,
 		fontSize,
@@ -83,10 +89,13 @@ const HAS_Click_To_Share = ( props ) => {
 		borderColor,
 		iconColor,
 		iconColorHover,
+		iconColorSync,
 		borderColorHover,
+		borderColorSync,
 		clickShareFontSize,
 		maxWidth,
 		maxWidthUnit,
+		maximumWidth,
 		alignment,
 		align,
 		marginTop,
@@ -100,9 +109,31 @@ const HAS_Click_To_Share = ( props ) => {
 		uniqueId,
 		typographyQuote,
 		typographyShareText,
+		showClickToShareText,
+		showClickToShareIcon,
+		iconSizeResponsive,
+		icon,
 	} = attributes;
 
 	useEffect( () => {
+		// If this is the first time inserting the block.
+		if ( '' === uniqueId ) {
+			if ( backgroundColor === backgroundColorHover ) {
+				setAttributes( { backgroundColorSync: 'sync' } );
+			}
+			if ( textColor === textColorHover ) {
+				setAttributes( { textColorSync: 'sync' } );
+			}
+			if ( shareTextColor === shareTextColorHover ) {
+				setAttributes( { shareTextColorSync: 'sync' } );
+			}
+			if ( iconColor === iconColorHover ) {
+				setAttributes( { iconColorSync: 'sync' } );
+			}
+			if ( borderColor === borderColorHover ) {
+				setAttributes( { borderColorSync: 'sync' } );
+			}
+		}
 		// Set unique ID for block (for styling).
 		setAttributes( { uniqueId: generatedUniqueId } );
 
@@ -117,7 +148,7 @@ const HAS_Click_To_Share = ( props ) => {
 				unit: 'px',
 				unitSync: true,
 			};
-			
+
 			setAttributes( {
 				paddingSize: portPadding,
 				padding: -1,
@@ -179,6 +210,10 @@ const HAS_Click_To_Share = ( props ) => {
 			} );
 		}
 
+		if ( maxWidth !== '-1' ) {
+			setAttributes( { maxWidth: '-1', maxWidthUnit: '-1' } );
+		}
+
 		// Port alignment over to align variable.
 		if ( alignment !== 'none' ) {
 			setAttributes( { align: alignment, alignment: 'none' } );
@@ -188,9 +223,58 @@ const HAS_Click_To_Share = ( props ) => {
 		if ( -1 === iconSize ) {
 			setAttributes( { iconSize: clickShareFontSize } );
 		}
+
+		// Port over show click to share text.
+		if ( -1 !== showClickToShare ) {
+			const newClickToShareText = {
+				mobile: showClickToShare,
+				tablet: showClickToShare,
+				desktop: showClickToShare,
+			};
+			setAttributes( {
+				showClickToShare: -1,
+				showClickToShareText: newClickToShareText,
+			} );
+		}
+
+		// Port over click to share icon.
+		if ( -1 !== showIcon ) {
+			const newClickToShareIcon = {
+				mobile: showIcon,
+				tablet: showIcon,
+				desktop: showIcon,
+			};
+			setAttributes( {
+				showIcon: -1,
+				showClickToShareIcon: newClickToShareIcon,
+			} );
+		}
+
+		// If responsive icons is -1, overwrite with iconSize.
+		if ( -1 === iconSizeResponsive.desktop ) {
+			let newIconSize = 20;
+			if ( iconSize !== -1 ) {
+				newIconSize = iconSize;
+			}
+			const newIconResponsive = {
+				mobile: newIconSize,
+				tablet: newIconSize,
+				desktop: newIconSize,
+			};
+			setAttributes( { iconSizeResponsive: newIconResponsive } );
+		}
 	}, [] );
 
-	
+	const getDeviceIcon = () => {
+		if ( deviceType === 'Desktop' ) {
+			return 'laptop';
+		} else if ( deviceType === 'Tablet' ) {
+			return 'tablet';
+		} else if ( deviceType === 'Mobile' ) {
+			return 'smartphone';
+		}
+		return null;
+	};
 
 	/* For sticky responsive: forked from GenerateBlocks */
 	const panelHeader = document.querySelector(
@@ -269,6 +353,7 @@ const HAS_Click_To_Share = ( props ) => {
 				title={ __( 'Presets', 'highlight-and-share' ) }
 				initialOpen={ false }
 				className="has-presets-panel"
+				icon="admin-customizer"
 			>
 				<PanelRow>
 					<div className="has-presets">
@@ -330,60 +415,84 @@ const HAS_Click_To_Share = ( props ) => {
 					</div>
 				</PanelRow>
 			</PanelBody>
-			{ deviceType === 'Desktop' && (
-				<PanelBody
-					title={ __( 'Share Settings', 'highlight-and-share' ) }
-					initialOpen={ true }
-				>
+			<PanelBody
+				title={ __( 'Share Settings', 'highlight-and-share' ) }
+				initialOpen={ true }
+				icon={ getDeviceIcon() }
+			>
+				<PanelRow>
+					<ToggleControl
+						label={ __( 'Show Click to Share Text', 'alerts-dlx' ) }
+						checked={ showClickToShareText[ deviceType.toLowerCase() ] }
+						onChange={ ( value ) => {
+							const newShowClickToShare = { ...showClickToShareText }; 
+							newShowClickToShare[ deviceType.toLowerCase() ] = value;
+							setAttributes( {
+								showClickToShareText: newShowClickToShare,
+							} );
+						} }
+					/>
+				</PanelRow>
+				{ ( showClickToShare && deviceType === 'Desktop' ) && (
 					<PanelRow>
-						<ToggleControl
-							label={ __( 'Show Click to Share Text', 'alerts-dlx' ) }
-							checked={ showClickToShare }
+						<TextControl
+							label={ __( 'Click to Share Text', 'highlight-and-share' ) }
+							value={ clickText }
 							onChange={ ( value ) => {
-								setAttributes( {
-									showClickToShare: value,
-								} );
+								setAttributes( { clickText: value } );
 							} }
 						/>
 					</PanelRow>
-					{ showClickToShare && (
-						<PanelRow>
-							<TextControl
-								label={ __( 'Click to Share Text', 'highlight-and-share' ) }
-								value={ clickText }
+				) }
+				<PanelRow>
+					<ToggleControl
+						label={ __( 'Show Share Icon', 'alerts-dlx' ) }
+						checked={ showClickToShareIcon[ deviceType.toLowerCase() ] }
+						onChange={ ( value ) => {
+							const newShowClickToShare = { ...showClickToShareIcon };
+							newShowClickToShare[ deviceType.toLowerCase() ] = value;
+							setAttributes( {
+								showClickToShareIcon: newShowClickToShare,
+							} );
+						} }
+					/>
+				</PanelRow>
+				{ showClickToShareIcon[ deviceType.toLowerCase() ] && (
+					<>
+						{
+							'Desktop' === deviceType &&
+							(
+								<PanelRow>
+									<IconPicker
+										defaultSvg={ icon }
+										setAttributes={ setAttributes }
+										icons={ iconSvgs }
+									/>
+								</PanelRow>
+							)
+						}
+						<PanelRow className="has-range-control">
+							<RangeControl
+								label={ __( 'Icon Size', 'highlight-and-share' ) }
+								value={ iconSizeResponsive[ deviceType.toLowerCase() ] }
 								onChange={ ( value ) => {
-									setAttributes( { clickText: value } );
+									const newIconSize = { ...iconSizeResponsive };
+									newIconSize[ deviceType.toLowerCase() ] = value;
+									setAttributes( { iconSizeResponsive: newIconSize } );
 								} }
+								min={ 10 }
+								max={ 150 }
+								step={ 1 }
 							/>
 						</PanelRow>
-					) }
-					<PanelRow>
-						<ToggleControl
-							label={ __( 'Show Share Icon', 'alerts-dlx' ) }
-							checked={ showIcon }
-							onChange={ ( value ) => {
-								setAttributes( {
-									showIcon: value,
-								} );
-							} }
-						/>
-					</PanelRow>
-					<PanelRow className="has-range-control">
-						<RangeControl
-							label={ __( 'Icon Size', 'highlight-and-share' ) }
-							value={ iconSize }
-							onChange={ ( value ) => setAttributes( { iconSize: value } ) }
-							min={ 10 }
-							max={ 150 }
-							step={ 1 }
-						/>
-					</PanelRow>
-				</PanelBody>
-			) }
+					</>
+				) }
+			</PanelBody>
 			{ deviceType === 'Desktop' && (
 				<PanelBody
 					title={ __( 'Background Settings', 'highlight-and-share' ) }
 					initialOpen={ true }
+					icon="admin-appearance"
 				>
 					<PanelRow className="has-background-type">
 						<h3>{ __( 'Background Type', 'highlight-and-share' ) }</h3>
@@ -421,30 +530,20 @@ const HAS_Click_To_Share = ( props ) => {
 					</PanelRow>
 					{ backgroundType === 'solid' && (
 						<>
-							<PanelRow>
-								<ColorPicker
-									value={ backgroundColor }
-									key={ 'background-color' }
-									onChange={ ( slug, newValue ) => {
-										setAttributes( { backgroundColor: newValue } );
+							<PanelRow className="has-color-picker">
+								<ColorPickerHover
+									syncTitle={ __( 'Sync Background Colors', 'highlight-and-share' ) }
+									normalColor={ backgroundColor }
+									hoverColor={ backgroundColorHover }
+									isSync={ backgroundColorSync }
+									onChange={ ( color, hoverColor, sync ) => {
+										setAttributes( { backgroundColor: color } );
+										setAttributes( { backgroundColorHover: hoverColor } );
+										setAttributes( { backgroundColorSync: sync } );
 									} }
 									label={ __( 'Background Color', 'highlight-and-share' ) }
-									defaultColors={ has_gutenberg.colorPalette }
-									defaultColor={ backgroundColor }
-									slug={ 'background-color' }
-								/>
-							</PanelRow>
-							<PanelRow>
-								<ColorPicker
-									value={ backgroundColorHover }
-									key={ 'background-color-hover' }
-									onChange={ ( slug, newValue ) => {
-										setAttributes( { backgroundColorHover: newValue } );
-									} }
-									label={ __( 'Background Color Hover', 'highlight-and-share' ) }
-									defaultColors={ has_gutenberg.colorPalette }
-									defaultColor={ backgroundColorHover }
-									slug={ 'background-color-hover' }
+									key={ 'background-color-solid' }
+									slug={ 'background-color-solid' }
 								/>
 							</PanelRow>
 						</>
@@ -505,135 +604,70 @@ const HAS_Click_To_Share = ( props ) => {
 				<PanelBody
 					title={ __( 'Colors', 'highlight-and-share' ) }
 					initialOpen={ false }
+					icon="art"
 				>
-					<PanelRow>
-						<ColorPicker
-							value={ backgroundColor }
-							key={ 'background-color' }
-							onChange={ ( slug, newValue ) => {
-								setAttributes( { backgroundColor: newValue } );
-							} }
-							label={ __( 'Background Color', 'highlight-and-share' ) }
-							defaultColors={ has_gutenberg.colorPalette }
-							defaultColor={ backgroundColor }
-							slug={ 'background-color' }
-						/>
-					</PanelRow>
-					<PanelRow>
-						<ColorPicker
-							value={ backgroundColorHover }
-							key={ 'background-color-hover' }
-							onChange={ ( slug, newValue ) => {
-								setAttributes( { backgroundColorHover: newValue } );
-							} }
-							label={ __( 'Background Color Hover', 'highlight-and-share' ) }
-							defaultColors={ has_gutenberg.colorPalette }
-							defaultColor={ backgroundColorHover }
-							slug={ 'background-color-hover' }
-						/>
-					</PanelRow>
-					<PanelRow>
-						<ColorPicker
-							value={ textColor }
-							key={ 'text-color' }
-							onChange={ ( slug, newValue ) => {
-								setAttributes( { textColor: newValue } );
+					<PanelRow className="has-color-picker">
+						<ColorPickerHover
+							syncTitle={ __( 'Sync Text Colors', 'highlight-and-share' ) }
+							normalColor={ textColor }
+							hoverColor={ textColorHover }
+							isSync={ textColorSync }
+							onChange={ ( color, hoverColor, sync ) => {
+								setAttributes( { textColor: color } );
+								setAttributes( { textColorHover: hoverColor } );
+								setAttributes( { textColorSync: sync } );
 							} }
 							label={ __( 'Text Color', 'highlight-and-share' ) }
-							defaultColors={ has_gutenberg.colorPalette }
-							defaultColor={ textColor }
+							key={ 'text-color' }
 							slug={ 'text-color' }
-						/>{ ' ' }
-					</PanelRow>
-					<PanelRow>
-						<ColorPicker
-							value={ textColorHover }
-							key={ 'text-color-hover' }
-							onChange={ ( slug, newValue ) => {
-								setAttributes( { textColorHover: newValue } );
-							} }
-							label={ __( 'Text Color Hover', 'highlight-and-share' ) }
-							defaultColors={ has_gutenberg.colorPalette }
-							defaultColor={ textColorHover }
-							slug={ 'text-color-hover' }
 						/>
 					</PanelRow>
-					<PanelRow>
-						<ColorPicker
-							value={ shareTextColor }
-							key={ 'share-text-color' }
-							onChange={ ( slug, newValue ) => {
-								setAttributes( { shareTextColor: newValue } );
+					<PanelRow className="has-color-picker">
+						<ColorPickerHover
+							syncTitle={ __( 'Sync Share Text Colors', 'highlight-and-share' ) }
+							normalColor={ shareTextColor }
+							hoverColor={ shareTextColorHover }
+							isSync={ shareTextColorSync }
+							onChange={ ( color, hoverColor, sync ) => {
+								setAttributes( { shareTextColor: color } );
+								setAttributes( { shareTextColorHover: hoverColor } );
+								setAttributes( { shareTextColorSync: sync } );
 							} }
 							label={ __( 'Share Text Color', 'highlight-and-share' ) }
-							defaultColors={ has_gutenberg.colorPalette }
-							defaultColor={ shareTextColor }
+							key={ 'share-text-color' }
 							slug={ 'share-text-color' }
-						/>{ ' ' }
-					</PanelRow>
-					<PanelRow>
-						<ColorPicker
-							value={ shareTextColorHover }
-							key={ 'share-text-color-hover' }
-							onChange={ ( slug, newValue ) => {
-								setAttributes( { shareTextColorHover: newValue } );
-							} }
-							label={ __( 'Share Text Color Hover', 'highlight-and-share' ) }
-							defaultColors={ has_gutenberg.colorPalette }
-							defaultColor={ shareTextColorHover }
-							slug={ 'share-text-color-hover' }
 						/>
 					</PanelRow>
-					<PanelRow>
-						<ColorPicker
-							value={ borderColor }
-							key={ 'border-color' }
-							onChange={ ( slug, newValue ) => {
-								setAttributes( { borderColor: newValue } );
-							} }
-							label={ __( 'Border Color', 'highlight-and-share' ) }
-							defaultColors={ has_gutenberg.colorPalette }
-							defaultColor={ borderColor }
-							slug={ 'border-color' }
-						/>
-					</PanelRow>
-					<PanelRow>
-						<ColorPicker
-							value={ borderColorHover }
-							key={ 'border-color-hover' }
-							onChange={ ( slug, newValue ) => {
-								setAttributes( { borderColorHover: newValue } );
-							} }
-							label={ __( 'Border Color Hover', 'highlight-and-share' ) }
-							defaultColors={ has_gutenberg.colorPalette }
-							defaultColor={ borderColorHover }
-							slug={ 'border-color-hover' }
-						/>
-					</PanelRow>
-					<PanelRow>
-						<ColorPicker
-							value={ iconColor }
-							key={ 'icon-color' }
-							onChange={ ( slug, newValue ) => {
-								setAttributes( { iconColor: newValue } );
+					<PanelRow className="has-color-picker">
+						<ColorPickerHover
+							syncTitle={ __( 'Sync Icon Colors', 'highlight-and-share' ) }
+							normalColor={ iconColor }
+							hoverColor={ iconColorHover }
+							isSync={ iconColorSync }
+							onChange={ ( color, hoverColor, sync ) => {
+								setAttributes( { iconColor: color } );
+								setAttributes( { iconColorHover: hoverColor } );
+								setAttributes( { iconColorSync: sync } );
 							} }
 							label={ __( 'Icon Color', 'highlight-and-share' ) }
-							defaultColors={ has_gutenberg.colorPalette }
-							defaultColor={ iconColor }
+							key={ 'icon-color' }
 							slug={ 'icon-color' }
 						/>
 					</PanelRow>
-					<PanelRow>
-						<ColorPicker
-							value={ iconColorHover }
-							key={ 'icon-color-hover' }
-							onChange={ ( slug, newValue ) => {
-								setAttributes( { iconColorHover: newValue } );
+					<PanelRow className="has-color-picker">
+						<ColorPickerHover
+							syncTitle={ __( 'Sync Border Colors', 'highlight-and-share' ) }
+							normalColor={ borderColor }
+							hoverColor={ borderColorHover }
+							isSync={ borderColorSync }
+							onChange={ ( color, hoverColor, sync ) => {
+								setAttributes( { borderColor: color } );
+								setAttributes( { borderColorHover: hoverColor } );
+								setAttributes( { borderColorSync: sync } );
 							} }
-							label={ __( 'Icon Color Hover', 'highlight-and-share' ) }
-							defaultColors={ has_gutenberg.colorPalette }
-							defaultColor={ iconColorHover }
-							slug={ 'icon-color-hover' }
+							label={ __( 'Border Color', 'highlight-and-share' ) }
+							key={ 'border-color' }
+							slug={ 'border-color' }
 						/>
 					</PanelRow>
 				</PanelBody>
@@ -641,6 +675,7 @@ const HAS_Click_To_Share = ( props ) => {
 			<PanelBody
 				title={ __( 'Fonts and Typography', 'highlight-and-share' ) }
 				initialOpen={ true }
+				icon={ getDeviceIcon() }
 			>
 				<PanelRow className="has-typography-panel-row">
 					<Typography
@@ -670,31 +705,21 @@ const HAS_Click_To_Share = ( props ) => {
 			<PanelBody
 				title={ __( 'Spacing and Border', 'highlight-and-share' ) }
 				initialOpen={ true }
+				icon={ getDeviceIcon() }
 			>
-				{ deviceType === 'Desktop' && (
-					<PanelRow className="has-unit-picker">
-						<UnitChooser
-							label={ __( 'Maximum Width', 'quotes-dlx' ) }
-							value={ maxWidthUnit }
-							units={ [ 'px', '%', 'vw' ] }
-							onClick={ ( value ) => {
+				<PanelRow className="has-unit-picker">
+					<>
+						<MaxWidth
+							values={ maximumWidth }
+							screenSize={ deviceType }
+							onValuesChange={ ( newValues ) => {
 								setAttributes( {
-									maxWidthUnit: value,
+									maximumWidth: newValues,
 								} );
 							} }
 						/>
-
-						<TextControl
-							type={ 'number' }
-							value={ maxWidth }
-							onChange={ ( value ) => {
-								setAttributes( {
-									maxWidth: value,
-								} );
-							} }
-						/>
-					</PanelRow>
-				) }
+					</>
+				</PanelRow>
 				<PanelRow>
 					<DimensionsControlBlock
 						label={ __( 'Inner Padding', 'highlight-and-share' ) }
@@ -767,36 +792,6 @@ const HAS_Click_To_Share = ( props ) => {
 						} }
 					/>
 				</PanelRow>
-				{ deviceType === 'Desktop' && (
-					<>
-						<PanelRow>
-							<ColorPicker
-								value={ borderColor }
-								key={ 'border-color' }
-								onChange={ ( slug, newValue ) => {
-									setAttributes( { borderColor: newValue } );
-								} }
-								label={ __( 'Border Color', 'highlight-and-share' ) }
-								defaultColors={ has_gutenberg.colorPalette }
-								defaultColor={ borderColor }
-								slug={ 'border-color' }
-							/>
-						</PanelRow>
-						<PanelRow>
-							<ColorPicker
-								value={ borderColorHover }
-								key={ 'border-color-hover' }
-								onChange={ ( slug, newValue ) => {
-									setAttributes( { borderColorHover: newValue } );
-								} }
-								label={ __( 'Border Color Hover', 'highlight-and-share' ) }
-								defaultColors={ has_gutenberg.colorPalette }
-								defaultColor={ borderColorHover }
-								slug={ 'border-color-hover' }
-							/>
-						</PanelRow>
-					</>
-				) }
 			</PanelBody>
 		</InspectorControls>
 	);
@@ -808,8 +803,6 @@ const HAS_Click_To_Share = ( props ) => {
 			{ <BlockContent attributes={ attributes } setAttributes={ setAttributes } clientId={ clientId } /> }
 		</>
 	);
-
-	
 
 	return (
 		<>

@@ -28,8 +28,7 @@ const GetStyles = ( props ) => {
 		iconColorHover,
 		borderColorHover,
 		clickShareFontSize,
-		maxWidth,
-		maxWidthUnit,
+		maximumWidth,
 		marginSize,
 		paddingSize,
 		borderWidth,
@@ -37,6 +36,8 @@ const GetStyles = ( props ) => {
 		uniqueId,
 		typographyQuote,
 		typographyShareText,
+		iconSizeResponsive,
+		showClickToShareText,
 	} = attributes;
 	const screenSize = deviceType.toLowerCase();
 	const styles = `
@@ -45,7 +46,7 @@ const GetStyles = ( props ) => {
 			border-radius: ${ buildDimensionsCSS( borderRadiusSize, deviceType ) };
 			border-style: solid;
 			border-width: ${ buildDimensionsCSS( borderWidth, deviceType ) };
-			max-width: ${ maxWidth }${ maxWidthUnit };
+			max-width: ${ geHierarchicalPlaceholderValue( maximumWidth, screenSize, maximumWidth[ screenSize ].width, 'maxWidth' ) }${ geHierarchicalPlaceholderValue( maximumWidth, screenSize, maximumWidth[ screenSize ].unit, 'maxWidth' ) };
 			overflow: hidden;
 		}
 		#${ uniqueId }.has-click-to-share .has-click-to-share-cta,
@@ -78,10 +79,10 @@ const GetStyles = ( props ) => {
 		}
 		
 		#${ uniqueId } .has-click-to-share-cta {
-			color: ${ shareTextColor }
+			color: ${ shareTextColor };
 		}
 		#${ uniqueId }:hover .has-click-to-share-cta {
-			color: ${ shareTextColorHover }
+			color: ${ shareTextColorHover };
 		}
 		#${ uniqueId } .has-click-to-share-text,
 		#${ uniqueId } .has-click-to-share-text p {
@@ -93,18 +94,14 @@ const GetStyles = ( props ) => {
 		}
 		#${ uniqueId } .has-click-to-share-cta svg {
 			color: ${ iconColor };
+			width: ${ iconSizeResponsive[ deviceType.toLowerCase() ] }px;
 		}
 		#${ uniqueId }:hover .has-click-to-share-cta svg {
 			color: ${ iconColorHover };
 		}
 		#${ uniqueId } .has-click-to-share-text,
 		#${ uniqueId } .has-click-to-share-text p {
-			font-family: "${ geHierarchicalPlaceholderValue(
-		typographyQuote,
-		screenSize,
-		typographyQuote[ screenSize ].fontFamily,
-		'fontFamily'
-	) }";
+			font-family: "${ typographyQuote.desktop.fontFamily }";
 			font-weight: ${ geHierarchicalPlaceholderValue(
 		typographyQuote,
 		screenSize,
@@ -162,12 +159,7 @@ const GetStyles = ( props ) => {
 		}
 		#${ uniqueId } .has-click-to-share-cta,
 		#${ uniqueId } .has-click-to-share-cta p {
-			font-family: "${ geHierarchicalPlaceholderValue(
-		typographyShareText,
-		screenSize,
-		typographyShareText[ screenSize ].fontFamily,
-		'fontFamily'
-	) }";
+			font-family: "${ typographyShareText.desktop.fontFamily }";
 			font-weight: ${ geHierarchicalPlaceholderValue(
 		typographyShareText,
 		screenSize,

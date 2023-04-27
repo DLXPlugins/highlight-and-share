@@ -1,4 +1,5 @@
 <?php
+
 /**
  * Set up the presets.
  *
@@ -11,6 +12,7 @@ namespace DLXPlugins\HAS;
  * Presets class.
  */
 class Presets {
+
 
 	/**
 	 * Main class runner.
@@ -38,7 +40,6 @@ class Presets {
 		$return = self::return_saved_presets();
 
 		wp_send_json_success( array( 'presets' => $return ) );
-
 	}
 
 	/**
@@ -62,7 +63,125 @@ class Presets {
 		if ( $presets ) {
 			foreach ( $presets as $preset ) {
 				// Format content that is JSON into an array.
-				$content  = json_decode( $preset->post_content, true );
+				$content                       = json_decode( $preset->post_content, true );
+				$content['attributes']['icon'] = wp_unslash( $content['attributes']['icon'] );
+
+				// Add missing attributes.
+				if ( ! isset( $content['attributes']['maximumWidth'] ) ) {
+					$content['attributes']['maximumWidth'] = array(
+						'mobile'  => array(
+							'width' => '',
+							'unit'  => null,
+						),
+						'tablet'  => array(
+							'width' => '',
+							'unit'  => null,
+						),
+						'desktop' => array(
+							'width' => '850',
+							'unit'  => 'px',
+						),
+					);
+				}
+				if ( ! isset( $content['attributes']['iconSizeResponsive'] ) ) {
+					$content['attributes']['iconSizeResponsive'] = array(
+						'desktop' => -1,
+						'tablet'  => -1,
+						'mobile'  => -1,
+					);
+				}
+				if ( ! isset( $content['attributes']['typographyQuote'] ) ) {
+					$content['attributes']['typographyQuote'] = array(
+						'mobile'  => array(
+							'fontFamily'        => '',
+							'fontFamilySlug'    => '',
+							'fontSize'          => '',
+							'fontSizeUnit'      => 'px',
+							'fontWeight'        => '',
+							'lineHeight'        => '',
+							'lineHeightUnit'    => 'em',
+							'textTransform'     => '',
+							'letterSpacing'     => '',
+							'letterSpacingUnit' => 'px',
+							'fontFallback'      => '',
+							'fontType'          => 'web',
+						),
+						'tablet'  => array(
+							'fontFamily'        => '',
+							'fontFamilySlug'    => '',
+							'fontSize'          => '',
+							'fontSizeUnit'      => 'px',
+							'fontWeight'        => '',
+							'lineHeight'        => '',
+							'lineHeightUnit'    => 'em',
+							'textTransform'     => '',
+							'letterSpacing'     => '',
+							'letterSpacingUnit' => 'px',
+							'fontFallback'      => '',
+							'fontType'          => 'web',
+						),
+						'desktop' => array(
+							'fontFamily'        => 'Arial',
+							'fontFamilySlug'    => 'arial',
+							'fontSize'          => '24',
+							'fontSizeUnit'      => 'px',
+							'fontWeight'        => 'normal',
+							'lineHeight'        => '1.3',
+							'lineHeightUnit'    => 'em',
+							'textTransform'     => 'none',
+							'letterSpacing'     => '0',
+							'letterSpacingUnit' => 'px',
+							'fontFallback'      => 'serif',
+							'fontType'          => 'web',
+						),
+					);
+				}
+				if ( ! isset( $content['attributes']['typographyShareText'] ) ) {
+					$content['attributes']['typographyShareText'] = array(
+						'mobile'  => array(
+							'fontFamily'        => '',
+							'fontFamilySlug'    => '',
+							'fontSize'          => '',
+							'fontSizeUnit'      => 'px',
+							'fontWeight'        => '',
+							'lineHeight'        => '',
+							'lineHeightUnit'    => 'em',
+							'textTransform'     => '',
+							'letterSpacing'     => '',
+							'letterSpacingUnit' => 'px',
+							'fontFallback'      => '',
+							'fontType'          => 'web',
+						),
+						'tablet'  => array(
+							'fontFamily'        => '',
+							'fontFamilySlug'    => '',
+							'fontSize'          => '',
+							'fontSizeUnit'      => 'px',
+							'fontWeight'        => '',
+							'lineHeight'        => '',
+							'lineHeightUnit'    => 'em',
+							'textTransform'     => '',
+							'letterSpacing'     => '',
+							'letterSpacingUnit' => 'px',
+							'fontFallback'      => '',
+							'fontType'          => 'web',
+						),
+						'desktop' => array(
+							'fontFamily'        => 'Arial',
+							'fontFamilySlug'    => 'arial',
+							'fontSize'          => '24',
+							'fontSizeUnit'      => 'px',
+							'fontWeight'        => 'normal',
+							'lineHeight'        => '1.3',
+							'lineHeightUnit'    => 'em',
+							'textTransform'     => 'none',
+							'letterSpacing'     => '0',
+							'letterSpacingUnit' => 'px',
+							'fontFallback'      => 'serif',
+							'fontType'          => 'web',
+						),
+					);
+				}
 				$return[] = array(
 					'id'           => $preset->ID,
 					'title'        => $preset->post_title,
@@ -88,6 +207,7 @@ class Presets {
 		// Get attributes JSON.
 		$attributes = json_decode( filter_input( INPUT_POST, 'attributes', FILTER_DEFAULT ), true );
 		unset( $attributes['uniqueId'] );
+		$attributes['icon'] = wp_slash( $attributes['icon'] );
 
 		// Get form data.
 		$form_data = json_decode( filter_input( INPUT_POST, 'formData', FILTER_DEFAULT ), true );
@@ -101,7 +221,7 @@ class Presets {
 			array(
 				'post_title'   => $title,
 				'post_name'    => $title_sanitized,
-				'post_content' => wp_json_encode( $attributes ),
+				'post_content' => wp_json_encode( array( 'attributes' => $attributes ), 1048 ),
 				'post_status'  => 'publish',
 				'post_type'    => 'has-presets',
 			)
@@ -116,7 +236,7 @@ class Presets {
 	 * Overrides a preset and returns all saved presets.
 	 */
 	public static function ajax_override_preset() {
-		// Get preset post ID.
+		 // Get preset post ID.
 		$preset_id = absint( filter_input( INPUT_POST, 'editId', FILTER_DEFAULT ) );
 
 		// Verify nonce.
@@ -127,12 +247,13 @@ class Presets {
 		// Get attributes JSON.
 		$attributes = json_decode( filter_input( INPUT_POST, 'attributes', FILTER_DEFAULT ), true );
 		unset( $attributes['uniqueId'] );
+		$attributes['icon'] = wp_slash( $attributes['icon'] );
 
 		// Update post with new attribute data.
 		wp_update_post(
 			array(
 				'ID'           => $preset_id,
-				'post_content' => wp_json_encode( $attributes ),
+				'post_content' => wp_json_encode( array( 'attributes' => $attributes ), 1048 ),
 			)
 		);
 
@@ -145,7 +266,7 @@ class Presets {
 	 * Save a preset and return all via Ajax.
 	 */
 	public static function ajax_save_preset() {
-		// Get preset post ID.
+		 // Get preset post ID.
 		$preset_id = absint( filter_input( INPUT_POST, 'editId', FILTER_DEFAULT ) );
 
 		// Verify nonce.
@@ -227,7 +348,4 @@ class Presets {
 
 		register_post_type( 'has-presets', $args );
 	}
-
 }
-
-
