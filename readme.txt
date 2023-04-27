@@ -3,7 +3,7 @@ Contributors: ronalfy
 Tags: highlight, social sharing, click to tweet, sharing, highlight text
 Requires at least: 5.1
 Tested up to: 6.2
-Stable tag: 4.3.5
+Stable tag: 4.4.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://github.com/sponsors/DLXPlugins
@@ -42,7 +42,6 @@ If you have a feature request, <a href="https://dlxplugins.com/support/">please 
 <li>Customize the Twitter username used.</li>
 <li>Enable hashtags on posts/pages</li>
 <li>Pre-selected and locally sourced Google Fonts and Adobe Fonts.
-<li>Theme Customizer: modify how the social networks look on the frontend.</li>
 <li>Email protection via Akismet and reCAPTCHA 3</li>
 <li>Customize how inline highlighting looks</li>
 </ul>
@@ -111,6 +110,17 @@ So far, the latest versions of Chrome, Firefox, Safari, Edge, and IE9+.
 
 
 == Changelog ==
+
+= 4.4.0 =
+* Released 2023-04-27
+* New feature: customize the Click to Share block's colors with new intuitive controls.
+* New feature: responsive controls for the Click to Share section in the Click to Share block.
+* New feature: presets have been updated to be more responsive and customizable in the Click to Share block.
+* New feature: transforms have been added to the Click to Share block.
+* New feature: responsive controls for the Click to Share block including icon size, maximum width, font families, and more.
+* New feature: you can now customize the share icon in the Click to Share block.
+* Bug fix: preset previews no longer jump all over the page.
+* <a href="https://dlxplugins.com/announcements/highlight-and-share-4-4-0-released-with-numerous-block-editor-enhancements/">View the announcement post for more details</a>.
 
 = 4.3.5 =
 * Released 2023-04-07
@@ -455,5 +465,5 @@ So far, the latest versions of Chrome, Firefox, Safari, Edge, and IE9+.
 
 == Upgrade Notice ==
 
-= 4.3.5 =
-Save your own custom presets in the Click to Share Block. Use the Web Share API for native sharing on mobile devices.
+= 4.4.0 =
+Numerous enhancements to the Click to Share block, including better responsive controls and better color selection.
