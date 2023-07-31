@@ -4,14 +4,12 @@
 
 import classnames from 'classnames';
 import { useEffect } from 'react';
-import ColorPicker from '../../react/Components/ColorPicker';
 import ColorPickerHover from './components/ColorPickerHover/index';
 import GradientPicker from '../../react/Components/GradientPicker';
 import GradientSync from '../../react/Components/GradientSync';
 import GradientGenerator from '../../react/Components/GradientGenerator';
 import DimensionsControlBlock from '../../react/Components/DimensionsBlock';
 import useDeviceType from '../../react/Hooks/useDeviceType';
-import UnitChooser from '../../react/Components/unit-picker';
 import Typography from '../../react/Components/Typography';
 import BackgroundSelector from '../../react/Components/BackgroundSelector';
 /* Preset Imports */
@@ -39,7 +37,7 @@ const {
 	ButtonGroup,
 	Button,
 	ToggleControl,
-	Toolbar,
+	ToolbarGroup,
 	ToolbarButton,
 	Popover,
 } = wp.components;
@@ -284,7 +282,7 @@ const HAS_Click_To_Share = ( props ) => {
 
 	const shareTextToolbar = (
 		<BlockControls>
-			<Toolbar>
+			<ToolbarGroup>
 				<ToolbarButton
 					icon="editor-quote"
 					label={ __( 'Customize the Share Quote', 'highlight-and-share' ) }
@@ -310,7 +308,7 @@ const HAS_Click_To_Share = ( props ) => {
 						/>
 					</Popover>
 				) }
-			</Toolbar>
+			</ToolbarGroup>
 		</BlockControls>
 	);
 

@@ -2,8 +2,8 @@
 Contributors: ronalfy
 Tags: highlight, social sharing, click to tweet, sharing, highlight text
 Requires at least: 5.1
-Tested up to: 6.2
-Stable tag: 4.4.1
+Tested up to: 6.3
+Stable tag: 4.4.8
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://github.com/sponsors/DLXPlugins
@@ -65,7 +65,7 @@ Highlight and Share shows social networks <a href="https://docs.dlxplugins.com/v
 
 Highlight and Share <a href="https://docs.dlxplugins.com/v/highlight-and-share/developers/available-social-networks">works with the following networks</a>:
 
-* Twitter (allows text sharing)
+* X (formerly Twitter) (allows text sharing)
 * Facebook
 * WhatsApp (allows text sharing)
 * Reddit
@@ -89,7 +89,7 @@ You can turn off the theme and include CSS in your own theme.
 
 = Does this plugin work on mobile devices? =
 
-Most mobile devices already have sharing features on text selection, but Highlight and Share works especially well for <a href="https://docs.dlxplugins.com/v/highlight-and-share/inline-highlighting/what-is-inline-highlighting">inline highlighting</a> and the <a href="https://docs.dlxplugins.com/v/highlight-and-share/click-to-share-block/the-click-to-share-block">Click to Share block</a>.
+Most mobile devices already have their own sharing features on text selection, but Highlight and Share works especially well for <a href="https://docs.dlxplugins.com/v/highlight-and-share/inline-highlighting/what-is-inline-highlighting">inline highlighting</a> and the <a href="https://docs.dlxplugins.com/v/highlight-and-share/click-to-share-block/the-click-to-share-block">Click to Share block</a>.
 
 = What Browsers Have You Tested This In? =
 
@@ -110,6 +110,12 @@ So far, the latest versions of Chrome, Firefox, Safari, Edge, and IE9+.
 
 
 == Changelog ==
+
+= 4.4.8 =
+* Released 2023-07-31
+* Renamed Twitter to X.
+* Added copy compatibility check to Firefox/Mozilla as copying doesn't work natively in that browser.
+* Ensuring WordPress 6.3 compatibility.
 
 = 4.4.1 =
 * Released 2023-05-15
@@ -469,5 +475,5 @@ So far, the latest versions of Chrome, Firefox, Safari, Edge, and IE9+.
 
 == Upgrade Notice ==
 
-= 4.4.1 =
-Fixing HTML tags that weren't closed properly.
+= 4.4.8 =
+Renaming Twitter to X. Testing successfully with WordPress 6.3.

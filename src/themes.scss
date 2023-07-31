@@ -160,7 +160,15 @@ body.has-body .highlight-and-share-wrapper.theme-green.orientation-vertical > di
     margin-right: 0;
 }
 .highlight-and-share-wrapper.theme-default div.has_twitter {
-	background: #1DA1F2;
+	background: #000;
+	fill: #FFF;
+	.has-icon-label,
+	.has-text {
+		color: #FFF;
+	}
+	svg {
+		color: #FFF;
+	}
 }
 .highlight-and-share-wrapper.theme-default div.has_facebook {
 	background: #3c5a9e;
@@ -205,7 +213,8 @@ body.has-body .highlight-and-share-wrapper.theme-green.orientation-vertical > di
 	background: #f58f2f;
 }
 .highlight-and-share-wrapper.theme-default div.has_twitter:hover {
-	background: #00aced;
+	background: #FFFFFF;
+	fill: #000;
 }
 .highlight-and-share-wrapper.theme-default div.has_facebook:hover {
 	background: #1F3C83;
@@ -318,7 +327,8 @@ body.has-body .highlight-and-share-wrapper:not(.theme-off) a:visited {
     margin-right: 0;
 }
 .highlight-and-share-wrapper.theme-brand-colors div.has_twitter {
-	background: #1DA1F2;
+	background: #000;
+	fill: #FFF;
 }
 .highlight-and-share-wrapper.theme-brand-colors div.has_facebook {
 	background: #3c5a9e;
@@ -366,7 +376,8 @@ body.has-body .highlight-and-share-wrapper:not(.theme-off) a:visited {
 	display: none;
 }
 .highlight-and-share-wrapper.theme-brand-colors div.has_twitter:hover {
-	background: #00aced;
+	background: #FFFFFF;
+	fill: #000;
 }
 .highlight-and-share-wrapper.theme-brand-colors div.has_facebook:hover {
 	background: #1F3C83;
@@ -751,11 +762,12 @@ div.highlight-and-share-wrapper.theme-cyan div.has_webshare:hover {
 
 .highlight-and-share-wrapper.theme-colorful-circles div {
 	padding: 10px;
-	background: #32CCFE;
+	background: #000;
 	z-index: 1000;
 	margin-right: 8px;
 	margin-bottom: 10px;
 	border-radius: 50%;
+	color: #FFF;
 }
 // Circles.
 .highlight-and-share-wrapper.theme-colorful-circles div:last-child {
@@ -807,7 +819,7 @@ div.highlight-and-share-wrapper.theme-cyan div.has_webshare:hover {
 	display: none;
 }
 .highlight-and-share-wrapper.theme-colorful-circles div.has_twitter:hover {
-	background: #00aced;
+	background: #FFFFFF;
 }
 .highlight-and-share-wrapper.theme-colorful-circles div.has_facebook:hover {
 	background: #1F3C83;
@@ -882,12 +894,11 @@ div.highlight-and-share-wrapper.theme-colorful-circles div {
 }
 .highlight-and-share-wrapper.theme-colorful-glass-circles div {
 	padding: 10px;
-	background: #32CCFE;
-	background: rgba(50,204,254,0.4);
+	background: #000;
 	z-index: 1000;
 	margin-right: 8px;
-	margin-bottom: 10px;
 	border-radius: 50%;
+	color: #FFF;
 }
 .highlight-and-share-wrapper.theme-colorful-glass-circles:not(.orientation-vertical) div:last-child {
 	margin-right: 0;
@@ -905,7 +916,7 @@ div.highlight-and-share-wrapper.theme-colorful-circles div {
 	top: 0;
 	left: 0;
 	width: 100%;
-	height: 100%;
+	height: auto;
 	color: #FFF;
 	backdrop-filter: blur(2px);
 	background-color: rgba(0,0,0, 0.3);
@@ -916,6 +927,13 @@ div.highlight-and-share-wrapper.theme-colorful-circles div {
 }
 .highlight-and-share-wrapper.theme-colorful-glass-circles div svg {
 	opacity: 1;
+}
+.highlight-and-share-wrapper.theme-colorful-glass-circles div.has_twitter {
+	background: #000;
+	background: rgba( 0,0,0,0.4);
+	svg {
+		color: #FFF;
+	}
 }
 .highlight-and-share-wrapper.theme-colorful-glass-circles div.has_linkedin {
     background: #0985ab;
@@ -972,8 +990,7 @@ div.highlight-and-share-wrapper.theme-colorful-circles div {
 	display: none;
 }
 .highlight-and-share-wrapper.theme-colorful-glass-circles div.has_twitter:hover {
-	background: #00aced;
-	background: rgba(0,172,237,0.4);
+	background: #FFFFFF;
 }
 .highlight-and-share-wrapper.theme-colorful-glass-circles div.has_facebook:hover {
 	background: #1F3C83;
@@ -1104,7 +1121,7 @@ div.highlight-and-share-wrapper.theme-colorful-glass-circles div a {
 	display: none;
 }
 .highlight-and-share-wrapper.theme-brand div.has_twitter:hover {
-	background: #00aced;
+	background: #FFFFFF;
 }
 .highlight-and-share-wrapper.theme-brand div.has_facebook:hover {
 	background: #1F3C83;

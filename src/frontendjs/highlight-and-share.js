@@ -253,28 +253,40 @@
 		if ( null !== copyButtons ) {
 			copyButtons.forEach( ( el ) => {
 				if ( isVisible( el ) ) {
-					el.addEventListener( 'click', ( event ) => {
-						event.preventDefault();
-						const copyBlob = new Blob( [ text ], { type: 'text/plain' } );
-						const data = [ new ClipboardItem( { [ copyBlob.type ]: copyBlob } ) ];
-						navigator.clipboard.write( data );
+					// Remove copy element if ClipboardItem is undefined.
+					if ( 'undefined' === typeof ClipboardItem ) {
+						el.remove();
+					} else {
+						el.addEventListener( 'click', ( event ) => {
+							event.preventDefault();
+							// Make sure ClipboardItem is supported.
+							try {
+								const copyBlob = new Blob( [ text ], { type: 'text/plain' } );
+								const data = [ new ClipboardItem( { [ copyBlob.type ]: copyBlob } ) ];
+								navigator.clipboard.write( data );
+							} catch ( e ) {
+								// Copying is not supported on Mozilla (firefox).
+							}
 
-						// Change tooltip data attribute.
-						el.setAttribute( 'data-tooltip', 'Copied!' );
+							// Change tooltip data attribute.
+							el.setAttribute( 'data-tooltip', 'Copied!' );
 
-						// Set dataLayer event for GTM.
-						if ( 'undefined' !== typeof dataLayer ) {
-							// eslint-disable-next-line no-undef
-							dataLayer.push( {
-								event: 'highlight-and-share',
-								hasShareText: text,
-								hasSharePostUrl: href,
-								hasSharePostTitle: title,
-								hasShareType: type /* selection|cta|inline */,
-								hasSocialNetwork: 'copy',
-							} );
-						}
-					} );
+							// Set dataLayer event for GTM.
+							if ( 'undefined' !== typeof dataLayer ) {
+								// eslint-disable-next-line no-undef
+								dataLayer.push( {
+									event: 'highlight-and-share',
+									hasShareText: text,
+									hasSharePostUrl: href,
+									hasSharePostTitle: title,
+									hasShareType: type /* selection|cta|inline */,
+									hasSocialNetwork: 'copy',
+								} );
+							}
+						} );
+					}
+
+					
 				}
 			} );
 		}

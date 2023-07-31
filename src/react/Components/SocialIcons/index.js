@@ -15,6 +15,7 @@ import { faTelegram as TelegramIcon } from '@fortawesome/free-brands-svg-icons/f
 import { faTumblr as TumblrIcon } from '@fortawesome/free-brands-svg-icons/faTumblr';
 import { faShare as ShareIcon } from '@fortawesome/free-solid-svg-icons/faShare';
 import SocialNetworksContext from '../../Contexts/SocialNetworksContext';
+import Twitter from '../Icons/twitter';
 const SocialIcons = ( socialNetworksData = {} ) => {
 	let socialNetworks = {};
 	const socialNetworksContext = useContext( SocialNetworksContext );
@@ -28,7 +29,7 @@ const SocialIcons = ( socialNetworksData = {} ) => {
 			case 'twitter':
 				return (
 					<>
-						<FontAwesomeIcon icon={ TwitterIcon } style={ { color: '#1da1f2' } } />
+						<Twitter fill="#000000" />
 					</>
 				);
 			case 'facebook':
@@ -121,7 +122,7 @@ const SocialIcons = ( socialNetworksData = {} ) => {
 			const keyValue = value.slug ?? value.key;
 			switch ( keyValue ) {
 				case 'twitter':
-					icon = TwitterIcon;
+					icon = null;
 					break;
 				case 'facebook':
 					icon = FacebookIcon;
@@ -156,7 +157,12 @@ const SocialIcons = ( socialNetworksData = {} ) => {
 				default:
 					icon = <></>;
 			}
-			fontAwesomeIcon = <FontAwesomeIcon size={ '1x' } icon={ icon } className={ `has-icon` } />;
+			if ( null !== icon ) {
+				fontAwesomeIcon = <FontAwesomeIcon size={ '1x' } icon={ icon } className={ `has-icon` } />;
+			}
+			if ( 'twitter' === keyValue ) {
+				fontAwesomeIcon = <Twitter fill="#000000" />;
+			}
 			socialIcons.push( {
 				key: ( value.slug ?? value.key ),
 				listItemKey: ( value.slug ?? value.key ),

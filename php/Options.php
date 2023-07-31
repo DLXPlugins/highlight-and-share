@@ -95,7 +95,7 @@ class Options {
 			'twitter'  => array(
 				'label'      => __( 'Twitter', 'highlight-and-share' ),
 				'slug'       => 'twitter',
-				'color'      => '#1da1f2',
+				'color'      => '#000000',
 				'background' => '#fff',
 				'order'      => 0,
 				'custom'     => false,
@@ -259,12 +259,12 @@ class Options {
 			'icon_gap'                  => 0, /* Applicable to ungrouped icons */
 			'icon_colors'               => array( /* Social Icon Colors */
 				'twitter'  => array(
-					'label'            => __( 'Twitter', 'highlight-and-share' ),
+					'label'            => _x( 'X', 'X social network formerly Twitter', 'highlight-and-share' ),
 					'slug'             => 'twitter',
-					'background'       => '#1da1f2',
-					'background_hover' => '#1a91da',
-					'icon_color'       => '#fff',
-					'icon_color_hover' => '#fff',
+					'background'       => '#FEFEFE',
+					'background_hover' => '#FFFFFF',
+					'icon_color'       => '#000000',
+					'icon_color_hover' => '#000000',
 				),
 				'facebook' => array(
 					'label'            => __( 'Facebook', 'highlight-and-share' ),
@@ -387,8 +387,8 @@ class Options {
 			'sharing_prefix'                   => '',
 			'sharing_suffix'                   => '',
 			'whatsapp_api_endpoint'            => 'app', // Can also we 'web'.
-			'twitter_label'                    => __( 'Twitter', 'highlight-and-share' ),
-			'twitter_tooltip'                  => __( 'Share on Twitter', 'highlight-and-share' ),
+			'twitter_label'                    => _x( 'Share This', 'X social network formerly Twitter', 'highlight-and-share' ),
+			'twitter_tooltip'                  => _x( 'Share on X', 'X social network formerly Twitter', 'highlight-and-share' ),
 			'facebook_label'                   => __( 'Facebook', 'highlight-and-share' ),
 			'facebook_tooltip'                 => __( 'Share on Facebook', 'highlight-and-share' ),
 			'linkedin_label'                   => __( 'LinkedIn', 'highlight-and-share' ),

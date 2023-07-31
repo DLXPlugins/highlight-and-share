@@ -325,7 +325,7 @@ const Interface = ( props ) => {
 						{ __( 'Social Networks', 'highlight-and-share' ) }
 					</h2>
 					<h3 className="has-icon-heading">
-						{ getSocialIcon( 'twitter' ) } { __( 'Twitter', 'highlight-and-share' ) }
+						{ getSocialIcon( 'twitter' ) } { __( 'X (formerly Twitter)', 'highlight-and-share' ) }
 					</h3>
 					<div className="has-admin-component-row">
 						<Controller
@@ -334,7 +334,7 @@ const Interface = ( props ) => {
 							render={ ( { field: { onChange, value } } ) => (
 								<ToggleControl
 									label={ __(
-										'Enable the Twitter Social Network',
+										'Enable the X Social Network',
 										'highlight-and-share'
 									) }
 									className="has-admin__toggle-control"
@@ -343,7 +343,7 @@ const Interface = ( props ) => {
 										onChange( boolValue );
 									} }
 									help={ __(
-										'Twitter allows text sharing.',
+										'X allows text sharing.',
 										'highlight-and-share'
 									) }
 								/>
@@ -362,13 +362,13 @@ const Interface = ( props ) => {
 											<TextControl
 												{ ...field }
 												type="text"
-												label={ __( 'Twitter Label', 'highlight-and-share' ) }
+												label={ __( 'X Label', 'highlight-and-share' ) }
 												className={ classNames( 'has-admin__text-control', {
 													'is-required': true,
 													'has-error': 'required' === errors.twitterLabel?.type,
 												} ) }
 												help={ __(
-													'Choose a label for the Twitter button.',
+													'Choose a label for the X button.',
 													'highlight-and-share'
 												) }
 												aria-required="true"
@@ -396,13 +396,13 @@ const Interface = ( props ) => {
 											<TextControl
 												{ ...field }
 												type="text"
-												label={ __( 'Twitter Tooltip', 'highlight-and-share' ) }
+												label={ __( 'X Tooltip', 'highlight-and-share' ) }
 												className={ classNames( 'has-admin__text-control', {
 													'is-required': true,
 													'has-error': 'required' === errors.twitterTooltip?.type,
 												} ) }
 												help={ __(
-													'Choose tooltip text for the Twitter button.',
+													'Choose tooltip text for the X button.',
 													'highlight-and-share'
 												) }
 												aria-required="true"
@@ -427,7 +427,7 @@ const Interface = ( props ) => {
 									render={ ( { field: { onChange, value } } ) => (
 										<ToggleControl
 											label={ __(
-												'Enable Twitter Hashtags',
+												'Enable X Hashtags',
 												'highlight-and-share'
 											) }
 											className="has-admin__toggle-control"
@@ -460,12 +460,12 @@ const Interface = ( props ) => {
 											<TextControl
 												value={ value }
 												type="text"
-												label={ __( 'Twitter Username', 'highlight-and-share' ) }
+												label={ __( 'X Username', 'highlight-and-share' ) }
 												className={ classNames( 'has-admin__text-control', {
 													'has-error': errors.twitter,
 												} ) }
 												help={ __(
-													'Enter Your Twitter Username without the @ symbol.',
+													'Enter Your X Username without the @ symbol.',
 													'highlight-and-share'
 												) }
 												onChange={ ( currentValue ) => {
@@ -489,7 +489,7 @@ const Interface = ( props ) => {
 											{ 'validate' === errors.twitter?.type && (
 												<Notice
 													message={ __(
-														'The Twitter Username is Invalid.',
+														'The X Username is Invalid.',
 														'highlight-and-share'
 													) }
 													status="error"
