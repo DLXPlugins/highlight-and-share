@@ -3,7 +3,7 @@ Contributors: ronalfy
 Tags: highlight, social sharing, click to tweet, sharing, highlight text
 Requires at least: 5.1
 Tested up to: 6.3
-Stable tag: 4.4.8
+Stable tag: 4.4.9
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://github.com/sponsors/DLXPlugins
@@ -110,6 +110,11 @@ So far, the latest versions of Chrome, Firefox, Safari, Edge, and IE9+.
 
 
 == Changelog ==
+
+= 4.4.9 =
+* Released 2023-08-01
+* Bug fix: The "X" icon hover background and fill color were incorrect for some themes.
+* Please read the announcement post for more information: <a href="https://dlxplugins.com/announcements/highlight-and-share-4-4-9-changes-twitter-to-x/">Highlight and Share 4.4.9</a>
 
 = 4.4.8 =
 * Released 2023-07-31
@@ -475,5 +480,5 @@ So far, the latest versions of Chrome, Firefox, Safari, Edge, and IE9+.
 
 == Upgrade Notice ==
 
-= 4.4.8 =
-Renaming Twitter to X. Testing successfully with WordPress 6.3.
+= 4.4.9 =
+Renaming Twitter to X. Fixing issue with X icon hover background color and fill color.

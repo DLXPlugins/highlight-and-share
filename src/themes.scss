@@ -213,8 +213,8 @@ body.has-body .highlight-and-share-wrapper.theme-green.orientation-vertical > di
 	background: #f58f2f;
 }
 .highlight-and-share-wrapper.theme-default div.has_twitter:hover {
-	background: #FFFFFF;
-	fill: #000;
+	background: #000;
+	fill: #FFF;
 }
 .highlight-and-share-wrapper.theme-default div.has_facebook:hover {
 	background: #1F3C83;
@@ -376,8 +376,8 @@ body.has-body .highlight-and-share-wrapper:not(.theme-off) a:visited {
 	display: none;
 }
 .highlight-and-share-wrapper.theme-brand-colors div.has_twitter:hover {
-	background: #FFFFFF;
-	fill: #000;
+	background: #333;
+	fill: #FFF;
 }
 .highlight-and-share-wrapper.theme-brand-colors div.has_facebook:hover {
 	background: #1F3C83;
@@ -819,7 +819,7 @@ div.highlight-and-share-wrapper.theme-cyan div.has_webshare:hover {
 	display: none;
 }
 .highlight-and-share-wrapper.theme-colorful-circles div.has_twitter:hover {
-	background: #FFFFFF;
+	background: #333;
 }
 .highlight-and-share-wrapper.theme-colorful-circles div.has_facebook:hover {
 	background: #1F3C83;
@@ -990,7 +990,8 @@ div.highlight-and-share-wrapper.theme-colorful-circles div {
 	display: none;
 }
 .highlight-and-share-wrapper.theme-colorful-glass-circles div.has_twitter:hover {
-	background: #FFFFFF;
+	background: #333;
+	background: rgba(51,51,51,0.4);
 }
 .highlight-and-share-wrapper.theme-colorful-glass-circles div.has_facebook:hover {
 	background: #1F3C83;
@@ -1121,7 +1122,7 @@ div.highlight-and-share-wrapper.theme-colorful-glass-circles div a {
 	display: none;
 }
 .highlight-and-share-wrapper.theme-brand div.has_twitter:hover {
-	background: #FFFFFF;
+	background: #000;
 }
 .highlight-and-share-wrapper.theme-brand div.has_facebook:hover {
 	background: #1F3C83;
