@@ -645,15 +645,16 @@ class Frontend {
 
 						// Enqueue the modal script.
 						if ( ! wp_script_is( 'fancybox', 'enqueued' ) && 'form' === $email_options['email_send_type'] ) {
-							wp_enqueue_script(
-								'fancybox',
+							wp_register_script(
+								'has-fancybox-js',
 								Functions::get_plugin_url( '/js/fancybox.umd.js' ),
 								array(),
 								Functions::get_plugin_version(),
 								true
 							);
+
 							wp_register_style(
-								'fancybox',
+								'has-fancybox-css',
 								Functions::get_plugin_url( '/js/fancybox.css' ),
 								array(),
 								Functions::get_plugin_version(),
@@ -672,8 +673,9 @@ class Frontend {
 		$this->get_footer_svgs();
 
 		// Enqueue / print fancybox styles.
-		if ( wp_style_is( 'fancybox', 'registered' ) && ! wp_style_is( 'fancybox', 'done' ) && 'form' === $email_options['email_send_type'] ) {
-			wp_print_styles( 'fancybox' );
+		if ( wp_script_is( 'has-fancybox-js', 'registered' ) && ! wp_script_is( 'has-fancybox-js', 'done' ) && 'form' === $email_options['email_send_type'] ) {
+			wp_print_scripts( 'has-fancybox-js' );
+			wp_print_styles( 'has-fancybox-css' );
 		}
 	}
 
