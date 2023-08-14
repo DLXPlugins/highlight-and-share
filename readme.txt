@@ -1,6 +1,6 @@
 === Highlight and Share – Select or Highlight Text and Share It ===
 Contributors: ronalfy
-Tags: highlight, social sharing, click to tweet, sharing, highlight text
+Tags: highlight, social media, click to share, select text, highlight text
 Requires at least: 5.1
 Tested up to: 6.3
 Stable tag: 4.5.0
