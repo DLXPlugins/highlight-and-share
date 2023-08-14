@@ -8,6 +8,8 @@
 	const prefix = HAS.prefix;
 	const suffix = HAS.suffix;
 
+	const isLegacyContentMode = HAS.content_legacy_mode;
+
 	let currentElement = null;
 
 	// Main HAS container in the footer. If ".highlight-and-share-wrapper" doesn't have this parent, it is a clone.
@@ -742,7 +744,7 @@
 			// } );
 
 			// Check if element has class `has-content-area` and if so, it's flush with the content. Select its parent, and add the event to that.
-			if ( element.classList.contains( 'has-content-area' ) ) {
+			if ( element.classList.contains( 'has-content-area' ) && ! isLegacyContentMode ) {
 				element.parentElement.addEventListener( 'mouseup', ( event ) => {
 					hasHandleSelectEvents( event );
 				} );
