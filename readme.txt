@@ -1,14 +1,14 @@
-=== Highlight and Share ===
+=== Highlight and Share – Select or Highlight Text and Share It ===
 Contributors: ronalfy
 Tags: highlight, social sharing, click to tweet, sharing, highlight text
 Requires at least: 5.1
 Tested up to: 6.3
-Stable tag: 4.4.9
+Stable tag: 4.5.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://github.com/sponsors/DLXPlugins
 
-Easily Show Social Networks When Users Interact With Your Site's Text
+A lightweight and unobtrusive social sharing tool that displays social networks on text selection, clicking on highlighted text, and on a Click to Share block.
 
 == Description ==
 
@@ -110,6 +110,12 @@ So far, the latest versions of Chrome, Firefox, Safari, Edge, and IE9+.
 
 
 == Changelog ==
+
+= 4.5.0 =
+* Released 2023-08-14
+* Performance improvement: inlining critical styles and loading main styles in the footer for faster page rendering.
+* Layout fix: the way Highlight and Share was added to the page content has been changed for better compatibility with themes, particularly block-enabled themes.
+* <a href="https://dlxplugins.com/announcements/performance-improvements-and-better-theme-compatibility-comes-to-highlight-and-share-4-5/">Read the announcement post for more information</a>.
 
 = 4.4.9 =
 * Released 2023-08-01
@@ -480,5 +486,5 @@ So far, the latest versions of Chrome, Firefox, Safari, Edge, and IE9+.
 
 == Upgrade Notice ==
 
-= 4.4.9 =
-Renaming Twitter to X. Fixing issue with X icon hover background color and fill color.
+= 4.5.0 =
+Performance and layout related fixes are in this release. Please see the changelog for more details.

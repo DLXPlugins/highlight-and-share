@@ -5,7 +5,7 @@
  * Plugin URI: https://has.dlxplugins.com
  * Description: Select text, inline highlight, or use a Click to Share block and show social networks.
  * Author: DLX Plugins
- * Version: 4.4.9
+ * Version: 4.5.0
  * Requires at least: 5.1
  * Requires PHP: 7.2
  * Author URI: https://dlxplugins.com
@@ -17,7 +17,7 @@
 
 namespace DLXPlugins\HAS;
 
-define( 'HIGHLIGHT_AND_SHARE_VERSION', '4.4.9' );
+define( 'HIGHLIGHT_AND_SHARE_VERSION', '4.5.0' );
 define( 'HIGHLIGHT_AND_SHARE_FILE', __FILE__ );
 
 // Support for site-level autoloading.
