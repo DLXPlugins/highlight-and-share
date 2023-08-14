@@ -159,7 +159,7 @@
 			false === highlight_and_share.show_ok &&
 			false === highlight_and_share.show_vk &&
 			false === highlight_and_share.show_pinterest &&
-			false === highlight_and_share.show_email && 
+			false === highlight_and_share.show_email &&
 			false === highlight_and_share.show_webshare
 		) {
 			return;
@@ -287,8 +287,6 @@
 							}
 						} );
 					}
-
-					
 				}
 			} );
 		}
@@ -685,13 +683,28 @@
 		}
 	};
 
-	const getPageParams = () => {
+	/**
+	 * Get the page parameters.
+	 *
+	 * @param {Element} element Element to retrieve data functions for.
+	 *
+	 * @return {Object} Object containing the page parameters.
+	 */
+	const getPageParams = ( element ) => {
+		const href =
+			null !== element
+				? element.dataset.url
+				: window.location.href;
+		const title =
+			null !== element ? element.dataset.title : document.title;
+		const hashtags =
+			null !== element ? element.dataset.hashtags : '';
 		const params = {};
 		// Make sure hasFooterJS is defined.
 		if ( 'undefined' !== typeof hasFooterJS ) {
-			params.href = hasFooterJS.href;
-			params.title = hasFooterJS.title;
-			params.hashtags = hasFooterJS.hashtags;
+			params.href = href;
+			params.title = title;
+			params.hashtags = hashtags;
 		}
 
 		// Check values and replace with defaults.
@@ -716,9 +729,10 @@
 		/**
 		 * Handle touch/click events for select (mouseup) events.
 		 *
-		 * @param {event} event The original event.
+		 * @param {event}   event   The original event.
+		 * @param {element} element The element to retrieve data functions for.
 		 */
-		const hasHandleSelectEvents = ( event ) => {
+		const hasHandleSelectEvents = ( event, element ) => {
 			// Remove any visible elements.
 			hasRemoveVisibleElements();
 
@@ -732,7 +746,10 @@
 				return;
 			}
 
-			const { href, title, hashtags } = getPageParams();
+			// Get the highlight and share wrapper.
+			const elementParent = element.querySelector( '.has-social-placeholder' );
+			console.log( element );
+			const { href, title, hashtags } = getPageParams( elementParent );
 
 			// Display Highlight and Share.
 			hasDisplay( selectedText, title, href, hashtags, 'selection' );
@@ -746,14 +763,14 @@
 			// Check if element has class `has-content-area` and if so, it's flush with the content. Select its parent, and add the event to that.
 			if ( element.classList.contains( 'has-content-area' ) && ! isLegacyContentMode ) {
 				element.parentElement.addEventListener( 'mouseup', ( event ) => {
-					hasHandleSelectEvents( event );
+					hasHandleSelectEvents( event, element );
 				} );
 				return;
 			}
 
 			// Add the rest of the elements.
 			element.addEventListener( 'mouseup', ( event ) => {
-				hasHandleSelectEvents( event );
+				hasHandleSelectEvents( event, element );
 			} );
 		} );
 	}
@@ -785,7 +802,8 @@
 				return;
 			}
 
-			const { href, title, hashtags } = getPageParams();
+			const elementParent = event.target.closest( '.has-social-placeholder' );
+			const { href, title, hashtags } = getPageParams( elementParent );
 
 			/**
 			 * See if we can launch the web share API by default on inline highlight click.
@@ -913,7 +931,8 @@
 				// Get text.
 				const selectedText = ctsTextElement.getAttribute( 'data-text-full' );
 
-				const { href, title, hashtags } = getPageParams();
+				const parentElement = element.closest( '.has-social-placeholder' );
+				const { href, title, hashtags } = getPageParams( parentElement );
 
 				/**
 				 * See if we can launch the web share API by default on inline highlight click.

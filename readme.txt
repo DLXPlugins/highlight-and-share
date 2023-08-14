@@ -1,9 +1,9 @@
 === Highlight and Share – Select or Highlight Text and Share It ===
 Contributors: ronalfy
-Tags: highlight, social media, click to share, select text, highlight text
+Tags: highlight, social media, click share, select text, highlight text
 Requires at least: 5.1
 Tested up to: 6.3
-Stable tag: 4.5.0
+Stable tag: 4.5.1
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://github.com/sponsors/DLXPlugins
@@ -110,6 +110,12 @@ So far, the latest versions of Chrome, Firefox, Safari, Edge, and IE9+.
 
 
 == Changelog ==
+
+= 4.5.1 =
+* Released 2023-08-14
+* Hot fix: JavaScript was returning fallback values by default, ignoring the user's settings and breaking shortlinks.
+* Apologies about the error and for not cathing this one.
+* <a href="https://dlxplugins.com/announcements/performance-improvements-and-better-theme-compatibility-comes-to-highlight-and-share-4-5/">Read the announcement post for more information</a>.
 
 = 4.5.0 =
 * Released 2023-08-14
@@ -485,6 +491,9 @@ So far, the latest versions of Chrome, Firefox, Safari, Edge, and IE9+.
 * Initial release on WordPress.org
 
 == Upgrade Notice ==
+
+= 4.5.1 =
+Hot Fix for 4.5.0 users. Please update to this version. The JavaScript was passing incorrect settings data, breaking permalinks and some URLs. Performance and layout related fixes are in this release. Please see the changelog for more details.
 
 = 4.5.0 =
 Performance and layout related fixes are in this release. Please see the changelog for more details.
