@@ -683,6 +683,23 @@
 		}
 	};
 
+	const getPageParams = () => {
+		const params = {};
+		// Make sure hasFooterJS is defined.
+		if ( 'undefined' !== typeof hasFooterJS ) {
+			params.href = hasFooterJS.href;
+			params.title = hasFooterJS.title;
+			params.hashtags = hasFooterJS.hashtags;
+		}
+
+		// Check values and replace with defaults.
+		params.href = params.href ? params.href : window.location.href;
+		params.title = params.title ? params.title : document.title;
+		params.hashtags = params.hashtags ? params.hashtags : '';
+
+		return params;
+	};
+
 	// Begin setting up events.
 
 	// Get JS Content and return if not set.
@@ -713,26 +730,7 @@
 				return;
 			}
 
-			// Exit early if the element selection is the same and the sharing interface is visible (works like a toggle).
-			// Commented out as this causes jumps in state, unlike with regular toggles.
-			// if ( selection === currentElement ) {
-			// 	currentElement = null;
-			// 	return;
-			// }
-			// currentElement = selection;
-
-			// Get closest parent container.
-			const elementParent = event.target.closest( '.has-content-area' );
-
-			// Get data attributes.
-			const href =
-				null !== elementParent
-					? elementParent.dataset.url
-					: window.location.href;
-			const title =
-				null !== elementParent ? elementParent.dataset.title : document.title;
-			const hashtags =
-				null !== elementParent ? elementParent.dataset.hashtags : '';
+			const { href, title, hashtags } = getPageParams();
 
 			// Display Highlight and Share.
 			hasDisplay( selectedText, title, href, hashtags, 'selection' );
@@ -742,6 +740,16 @@
 			// element.addEventListener( 'touchcancel', ( event ) => {  // This partially works on Android, but only for the first word. Selections do not work. Android is currently not supported. iOS still works.
 			// 	hasHandleSelectEvents( event );
 			// } );
+
+			// Check if element has class `has-content-area` and if so, it's flush with the content. Select its parent, and add the event to that.
+			if ( element.classList.contains( 'has-content-area' ) ) {
+				element.parentElement.addEventListener( 'mouseup', ( event ) => {
+					hasHandleSelectEvents( event );
+				} );
+				return;
+			}
+
+			// Add the rest of the elements.
 			element.addEventListener( 'mouseup', ( event ) => {
 				hasHandleSelectEvents( event );
 			} );
@@ -775,18 +783,7 @@
 				return;
 			}
 
-			// Get closest parent container.
-			const elementParent = event.target.closest( '.has-content-area' );
-
-			// Get data attributes.
-			const href =
-				null !== elementParent
-					? elementParent.dataset.url
-					: window.location.href;
-			const title =
-				null !== elementParent ? elementParent.dataset.title : document.title;
-			const hashtags =
-				null !== elementParent ? elementParent.dataset.hashtags : '';
+			const { href, title, hashtags } = getPageParams();
 
 			/**
 			 * See if we can launch the web share API by default on inline highlight click.
@@ -914,18 +911,7 @@
 				// Get text.
 				const selectedText = ctsTextElement.getAttribute( 'data-text-full' );
 
-				// Get closest parent container.
-				const elementParent = element.closest( '.has-content-area' );
-
-				// Get data attributes.
-				const href =
-					null !== elementParent
-						? elementParent.dataset.url
-						: window.location.href;
-				const title =
-					null !== elementParent ? elementParent.dataset.title : document.title;
-				const hashtags =
-					null !== elementParent ? elementParent.dataset.hashtags : '';
+				const { href, title, hashtags } = getPageParams();
 
 				/**
 				 * See if we can launch the web share API by default on inline highlight click.
