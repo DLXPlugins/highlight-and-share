@@ -64,6 +64,11 @@
 	display: none;
 }
 
+/* hide notices (only on our screen) */
+.notice {
+	display: none;
+}
+
 .has-admin-container-body__content {
 	padding: 10px 35px;
 	background: #f0f0f1;
