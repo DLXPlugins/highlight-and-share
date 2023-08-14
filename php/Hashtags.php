@@ -108,9 +108,12 @@ class Hashtags {
 	/**
 	 * Retrieve hashtags for a post/page.
 	 *
-	 * @param int $post_id The post ID to retrieve hashtags for.
+	 * @param int    $post_id The post ID to retrieve hashtags for.
+	 * @param string $output The type of output to return. Accepts 'string' or 'array'.
+	 *
+	 * @return array|string Hashtags.
 	 */
-	public static function get_hashtags( $post_id ) {
+	public static function get_hashtags( $post_id, $output = 'string' ) {
 		$options = Options::get_plugin_options();
 		if ( ! $options['enable_hashtags'] ) {
 			return '';
@@ -133,7 +136,10 @@ class Hashtags {
 			// Populate hashtags.
 			$hashtags[] = $hashtag;
 		}
+		if ( 'string' === $output ) {
+			return implode( ',', $hashtags );
+		}
 
-		return implode( ',', $hashtags );
+		return $hashtags;
 	}
 }

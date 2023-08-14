@@ -211,15 +211,77 @@ class Frontend {
 		 */
 		$has_wrapper_classes = apply_filters( 'has_wrapper_classes', $has_wrapper_classes, $post_id );
 
-		// Add wrapper class.
+		$hashtags = Hashtags::get_hashtags( $post_id );
+
+		add_action(
+			'has_doing_wp_footer',
+			function() use ( $has_wrapper_classes, $post_id, $url, $title, $hashtags ) {
+				// Enqueue empty script.
+				wp_register_script(
+					'has-footer-js',
+					null,
+					array(),
+					null,
+					true
+				);
+				wp_localize_script(
+					'has-footer-js',
+					'hasFooterJS',
+					array(
+						'wrapper_classes' => Functions::sanitize_array_recursive( $has_wrapper_classes ),
+						'post_id'         => absint( $post_id ),
+						'url'             => esc_url_raw( $url ),
+						'title'           => esc_js( $title ),
+						'hashtags'        => esc_attr( $hashtags ),
+					)
+				);
+
+				/**
+				 * Fires when the Highlight and Share footer scripts are registered.
+				 * This is a good place to enqueue your own scripts.
+				 *
+				 * @param int $post_id Post ID.
+				 *
+				 * @since 5.0.0
+				 */
+				do_action( 'has_register_footer_scripts', $post_id );
+			}
+		);
+
+		// Output footer scripts.
+		add_action(
+			'wp_footer',
+			function() use ( $post_id ) {
+
+				/**
+				 * Fires when the Highlight and Share footer scripts are about to be printed.
+				 *
+				 * @param int $post_id Post ID.
+				 */
+				do_action( 'has_doing_wp_footer', $post_id );
+
+				/**
+				 * Filter: has_footer_scripts_to_print
+				 *
+				 * Filter the Highlight and Share footer scripts to print.
+				 *
+				 * @param array $has_scripts_to_print Array of scripts to print.
+				 * @param int   $post_id              Post ID.
+				 *
+				 * @since 5.0.0
+				 */
+				$has_scripts_to_print = apply_filters( 'has_footer_scripts_to_print', array( 'has-footer-js' ), $post_id );
+				wp_print_scripts( $has_scripts_to_print );
+			}
+		);
+
+		// Add an empty span right above the content.
 		$content = sprintf(
-			'<div class="%s" data-url="%s" data-title="%s" data-hashtags="%s">%s</div>',
+			'<div class="has-social-placeholder %s" aria-hidden="true"></div>%s',
 			esc_attr( implode( ' ', $has_wrapper_classes ) ),
-			esc_url( $url ),
-			esc_attr( $title ),
-			esc_attr( Hashtags::get_hashtags( $post_id ) ),
 			$content
 		);
+
 		return $content;
 	}
 
@@ -1000,8 +1062,13 @@ class Frontend {
 		 *
 		 * @param bool true for allowing CSS, false if not.
 		 */
-		if ( apply_filters( 'has_load_css', true ) ) {
-			$this->output_stylesheets( $settings['theme'] );
+		if ( apply_filters( 'has_load_css', true ) && 'off' !== $settings['theme'] ) {
+
+			// Add styles that don't need to be in the header or rendered above the fold.
+			add_action( 'wp_footer', array( $this, 'output_footer_css' ), 1 );
+
+			// Classes needed for CSS.
+			add_filter( 'body_class', array( $this, 'add_body_class' ), 10, 2 );
 
 			// Let's see if inline highlight tooltips are enabled.
 			if ( (bool) $block_editor_options['inline_highlight_show_tooltips'] ) {
@@ -1015,37 +1082,38 @@ class Frontend {
 				);
 				wp_enqueue_style( 'has-inline-highlight-tooltips' );
 			}
+
+			// Output remaining inline styles.
+			wp_register_style( 'has-inline-styles', false );
+			$inline_styles = '.has-social-placeholder {display: none;height: 0;width: 0;overflow: hidden;}' . Themes::get_inline_highlight_css();
+			// Add inline styles.
+			wp_add_inline_style(
+				'has-inline-styles',
+				$inline_styles
+			);
+			wp_enqueue_style( 'has-inline-styles' );
 		}
 	}
 
 	/**
-	 * Load stylesheets
+	 * Output stylesheets in the footer that do not need to be loaded in the head.
 	 *
 	 * Enqueue styles
 	 *
-	 * @since 2.4.0
-	 * @access private
+	 * @since 5.0.0
+	 * @access public
 	 *
 	 * @see add_scripts
-	 *
-	 * @param string $theme The theme to output.
 	 */
-	private function output_stylesheets( $theme ) {
-		if ( 'off' === $theme ) {
-			return;
-		}
-		wp_enqueue_style(
+	public function output_footer_css() {
+		wp_register_style(
 			'highlight-and-share',
 			Functions::get_plugin_url( 'dist/has-themes.css' ),
 			array(),
 			HIGHLIGHT_AND_SHARE_VERSION,
 			'all'
 		);
-		wp_add_inline_style(
-			'highlight-and-share',
-			Themes::get_inline_highlight_css()
-		);
-		add_filter( 'body_class', array( $this, 'add_body_class' ), 10, 2 );
+		wp_print_styles( 'highlight-and-share' );
 	}
 
 	/**
