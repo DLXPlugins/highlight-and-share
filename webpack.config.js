@@ -23,6 +23,7 @@ module.exports = ( env ) => {
 				'has-admin-appearance': [ './src/react/Appearance/index.js' ],
 				'has-admin-block-editor': [ './src/react/BlockEditor/index.js' ],
 				'has-admin-emails': [ './src/react/Emails/index.js' ],
+				'has-admin-support': [ './src/react/Support/index.js' ],
 				'has-email-modal': [ './src/react/EmailModal/index.js', './src/react/EmailModal/style.scss' ],
 				'has-themes': [ './src/themes.scss' ],
 				'has-gfont-josefin-sans': { import: './src/scss/fonts/josefin-sans.scss' },
@@ -35,6 +36,7 @@ module.exports = ( env ) => {
 				'has-gfont-roboto': { import: './src/scss/fonts/roboto.scss' },
 				'has-gfont-source-sans-pro': { import: './src/scss/fonts/source-sans-pro.scss' },
 				'highlight-and-share': [ './src/frontendjs/highlight-and-share.js' ],
+
 			},
 			mode: env.mode,
 			devtool: 'production' === env.mode ? false : 'source-map',
