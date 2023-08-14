@@ -222,22 +222,24 @@ class Frontend {
 
 		if ( true === $is_legacy_markup ) {
 			$content = sprintf(
-				'<div class="has-social-placeholder %s" data-url="%s" data-title="%s" data-hashtags="%s">%s</div>',
+				'<div class="has-social-placeholder %s" data-url="%s" data-title="%s" data-hashtags="%s" data-post-id="%s">%s</div>',
 				esc_attr( implode( ' ', $has_wrapper_classes ) ),
 				esc_attr( $url ),
 				esc_attr( $title ),
 				esc_attr( implode( ' ', $has_wrapper_classes ) ),
+				esc_attr( $post_id ),
 				$content
 			);
 		} else {
 			// Add an empty div right below the content.
 			$content = sprintf(
-				'%s<div class="has-social-placeholder %s" data-url="%s" data-title="%s" data-hashtags="%s"></div>',
+				'%s<div class="has-social-placeholder %s" data-url="%s" data-title="%s" data-hashtags="%s" data-post-id="%s"></div>',
 				$content,
 				esc_attr( implode( ' ', $has_wrapper_classes ) ),
 				esc_attr( $url ),
 				esc_attr( $title ),
-				esc_attr( $hashtags )
+				esc_attr( $hashtags ),
+				esc_attr( $post_id )
 			);
 		}
 
