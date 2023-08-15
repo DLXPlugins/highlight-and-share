@@ -184,9 +184,11 @@ class Frontend {
 			return $content;
 		}
 
-		$post_id = $post->ID;
-		$url     = Functions::get_content_url( $post_id );
-		$title   = get_the_title( $post_id );
+		// Get post vars.
+		$post_id          = $post->ID;
+		$url              = Functions::get_content_url( $post_id );
+		$title            = get_the_title( $post_id );
+		$is_legacy_markup = $this->is_legacy_content_loop_markup( $post_id ); // Determine if we're in legacy markup mode (wrap everything in a div) or not.
 
 		// Get wrapper classes.
 		$has_wrapper_classes = array(
@@ -204,83 +206,42 @@ class Frontend {
 		}
 
 		/**
-		 * Add classes to the post wrapper container.
+		 * Filter: has_content_wrapper_classes
 		 *
-		 * @param array $has_wrapper_classes Array of classes.
+		 * Add classes to the post wrapper container for the content area.
+		 *
+		 * @since 4.5.0
+		 *
+		 * @param array $has_wrapper_classes Index array of classes.
 		 * @param int   $post_id             Post ID.
+		 * @param bool  $is_legacy_markup    Whether we're in legacy markup mode or not.
 		 */
-		$has_wrapper_classes = apply_filters( 'has_wrapper_classes', $has_wrapper_classes, $post_id );
+		$has_wrapper_classes = apply_filters( 'has_content_wrapper_classes', $has_wrapper_classes, $post_id, $is_legacy_markup );
 
 		$hashtags = Hashtags::get_hashtags( $post_id );
 
-		add_action(
-			'has_doing_wp_footer',
-			function() use ( $has_wrapper_classes, $post_id, $url, $title, $hashtags ) {
-				// Enqueue empty script.
-				wp_register_script(
-					'has-footer-js',
-					null,
-					array(),
-					null,
-					true
-				);
-				wp_localize_script(
-					'has-footer-js',
-					'hasFooterJS',
-					array(
-						'wrapper_classes' => Functions::sanitize_array_recursive( $has_wrapper_classes ),
-						'post_id'         => absint( $post_id ),
-						'url'             => esc_url_raw( $url ),
-						'title'           => esc_js( $title ),
-						'hashtags'        => esc_attr( $hashtags ),
-					)
-				);
-
-				/**
-				 * Fires when the Highlight and Share footer scripts are registered.
-				 * This is a good place to enqueue your own scripts.
-				 *
-				 * @param int $post_id Post ID.
-				 *
-				 * @since 5.0.0
-				 */
-				do_action( 'has_register_footer_scripts', $post_id );
-			}
-		);
-
-		// Output footer scripts.
-		add_action(
-			'wp_footer',
-			function() use ( $post_id ) {
-
-				/**
-				 * Fires when the Highlight and Share footer scripts are about to be printed.
-				 *
-				 * @param int $post_id Post ID.
-				 */
-				do_action( 'has_doing_wp_footer', $post_id );
-
-				/**
-				 * Filter: has_footer_scripts_to_print
-				 *
-				 * Filter the Highlight and Share footer scripts to print.
-				 *
-				 * @param array $has_scripts_to_print Array of scripts to print.
-				 * @param int   $post_id              Post ID.
-				 *
-				 * @since 5.0.0
-				 */
-				$has_scripts_to_print = apply_filters( 'has_footer_scripts_to_print', array( 'has-footer-js' ), $post_id );
-				wp_print_scripts( $has_scripts_to_print );
-			}
-		);
-
-		// Add an empty span right above the content.
-		$content = sprintf(
-			'<div class="has-social-placeholder %s" aria-hidden="true"></div>%s',
-			esc_attr( implode( ' ', $has_wrapper_classes ) ),
-			$content
-		);
+		if ( true === $is_legacy_markup ) {
+			$content = sprintf(
+				'<div class="has-social-placeholder %s" data-url="%s" data-title="%s" data-hashtags="%s" data-post-id="%s">%s</div>',
+				esc_attr( implode( ' ', $has_wrapper_classes ) ),
+				esc_attr( $url ),
+				esc_attr( $title ),
+				esc_attr( implode( ' ', $has_wrapper_classes ) ),
+				esc_attr( $post_id ),
+				$content
+			);
+		} else {
+			// Add an empty div right below the content.
+			$content = sprintf(
+				'%s<div class="has-social-placeholder %s" data-url="%s" data-title="%s" data-hashtags="%s" data-post-id="%s"></div>',
+				$content,
+				esc_attr( implode( ' ', $has_wrapper_classes ) ),
+				esc_attr( $url ),
+				esc_attr( $title ),
+				esc_attr( $hashtags ),
+				esc_attr( $post_id )
+			);
+		}
 
 		return $content;
 	}
@@ -315,6 +276,29 @@ class Frontend {
 		$title   = get_the_title( $post_id );
 		$content = sprintf( '<div class="has-excerpt-area" data-url="%s" data-title="%s" data-hashtags="%s">%s</div>', esc_url( $url ), esc_attr( $title ), esc_attr( Hashtags::get_hashtags( $post_id ) ), $content );
 		return $content;
+	}
+
+	/**
+	 * Check to see if the legacy content loop markup is enabled.
+	 *
+	 * This filter is used to determine whether to use the legacy content loop markup, which wraps a div around the content.
+	 *
+	 * @param int $post_id The Post ID to check. 0 if no post ID is found.
+	 *
+	 * @since 4.5.0
+	 *
+	 * @return bool true if legacy is enabled, false if not.
+	 */
+	public function is_legacy_content_loop_markup( $post_id = 0 ) {
+		/**
+		 * Filter: has_legacy_content_loop_markup.
+		 *
+		 * Whether to use the legacy content loop markup, which wraps a div around the content.
+		 *
+		 * @param bool $legacy_markup Whether to use the legacy content loop markup, which wraps a div around the content.
+		 * @param int  $post_id       The Post ID to check. Post ID is zero if no post ID is found.
+		 */
+		return (bool) apply_filters( 'has_legacy_content_loop_markup', false, $post_id );
 	}
 
 	/**
@@ -865,6 +849,9 @@ class Frontend {
 		$json_arr['enable_webshare_inline_highlight'] = (bool) apply_filters( 'has_enable_webshare_inline_highlight', $settings['enable_webshare_inline_highlight'] );
 		$json_arr['enable_webshare_click_to_share']   = (bool) apply_filters( 'has_enable_webshare_click_to_share', $settings['enable_webshare_click_to_share'] );
 
+		// Check if in legacy mode.
+		$json_arr['content_legacy_mode'] = $this->is_legacy_content_loop_markup();
+
 		// Add mobile.
 		if ( wp_is_mobile() ) {
 			$json_arr['mobile'] = true;
@@ -1084,14 +1071,17 @@ class Frontend {
 			}
 
 			// Output remaining inline styles.
-			wp_register_style( 'has-inline-styles', false );
-			$inline_styles = '.has-social-placeholder {display: none;height: 0;width: 0;overflow: hidden;}' . Themes::get_inline_highlight_css();
-			// Add inline styles.
-			wp_add_inline_style(
-				'has-inline-styles',
-				$inline_styles
-			);
-			wp_enqueue_style( 'has-inline-styles' );
+			if ( true !== $this->is_legacy_content_loop_markup() ) { // Remove inline styles if legacy markup is enabled so we don't hide the wrong div.
+				// Hide the placeholder div.
+				wp_register_style( 'has-inline-styles', false );
+				$inline_styles = '.has-social-placeholder {display: none;height: 0;width: 0;overflow: hidden;}' . Themes::get_inline_highlight_css();
+				// Add inline styles.
+				wp_add_inline_style(
+					'has-inline-styles',
+					$inline_styles
+				);
+				wp_enqueue_style( 'has-inline-styles' );
+			}
 		}
 	}
 

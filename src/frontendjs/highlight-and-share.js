@@ -8,6 +8,8 @@
 	const prefix = HAS.prefix;
 	const suffix = HAS.suffix;
 
+	const isLegacyContentMode = HAS.content_legacy_mode;
+
 	let currentElement = null;
 
 	// Main HAS container in the footer. If ".highlight-and-share-wrapper" doesn't have this parent, it is a clone.
@@ -157,7 +159,7 @@
 			false === highlight_and_share.show_ok &&
 			false === highlight_and_share.show_vk &&
 			false === highlight_and_share.show_pinterest &&
-			false === highlight_and_share.show_email && 
+			false === highlight_and_share.show_email &&
 			false === highlight_and_share.show_webshare
 		) {
 			return;
@@ -285,8 +287,6 @@
 							}
 						} );
 					}
-
-					
 				}
 			} );
 		}
@@ -683,19 +683,27 @@
 		}
 	};
 
-	const getPageParams = () => {
+	/**
+	 * Get the page parameters.
+	 *
+	 * @param {Element} newElement Element to retrieve data functions for.
+	 *
+	 * @return {Object} Object containing the page parameters.
+	 */
+	const getPageParams = ( newElement ) => {
+		const href =
+			null !== newElement
+				? newElement.dataset.url
+				: window.location.href;
+		const title =
+			null !== newElement ? newElement.dataset.title : document.title;
+		const hashtags =
+			null !== newElement ? newElement.dataset.hashtags : '';
 		const params = {};
-		// Make sure hasFooterJS is defined.
-		if ( 'undefined' !== typeof hasFooterJS ) {
-			params.href = hasFooterJS.href;
-			params.title = hasFooterJS.title;
-			params.hashtags = hasFooterJS.hashtags;
-		}
 
-		// Check values and replace with defaults.
-		params.href = params.href ? params.href : window.location.href;
-		params.title = params.title ? params.title : document.title;
-		params.hashtags = params.hashtags ? params.hashtags : '';
+		params.href = href;
+		params.title = title;
+		params.hashtags = hashtags;
 
 		return params;
 	};
@@ -714,9 +722,10 @@
 		/**
 		 * Handle touch/click events for select (mouseup) events.
 		 *
-		 * @param {event} event The original event.
+		 * @param {event}   event         The original event.
+		 * @param {element} parentElement The element to retrieve data functions for.
 		 */
-		const hasHandleSelectEvents = ( event ) => {
+		const hasHandleSelectEvents = ( event, parentElement ) => {
 			// Remove any visible elements.
 			hasRemoveVisibleElements();
 
@@ -730,7 +739,10 @@
 				return;
 			}
 
-			const { href, title, hashtags } = getPageParams();
+			const element = parentElement.querySelector( '.has-social-placeholder' );
+
+ 			// Get the highlight and share params.
+			const { href, title, hashtags } = getPageParams( element );
 
 			// Display Highlight and Share.
 			hasDisplay( selectedText, title, href, hashtags, 'selection' );
@@ -742,16 +754,16 @@
 			// } );
 
 			// Check if element has class `has-content-area` and if so, it's flush with the content. Select its parent, and add the event to that.
-			if ( element.classList.contains( 'has-content-area' ) ) {
+			if ( element.classList.contains( 'has-content-area' ) && ! isLegacyContentMode ) {
 				element.parentElement.addEventListener( 'mouseup', ( event ) => {
-					hasHandleSelectEvents( event );
+					hasHandleSelectEvents( event, element.parentElement );
 				} );
 				return;
 			}
 
 			// Add the rest of the elements.
 			element.addEventListener( 'mouseup', ( event ) => {
-				hasHandleSelectEvents( event );
+				hasHandleSelectEvents( event, element );
 			} );
 		} );
 	}
@@ -783,7 +795,8 @@
 				return;
 			}
 
-			const { href, title, hashtags } = getPageParams();
+			const elementParent = event.target.closest( '.has-social-placeholder' );
+			const { href, title, hashtags } = getPageParams( elementParent );
 
 			/**
 			 * See if we can launch the web share API by default on inline highlight click.
@@ -911,7 +924,8 @@
 				// Get text.
 				const selectedText = ctsTextElement.getAttribute( 'data-text-full' );
 
-				const { href, title, hashtags } = getPageParams();
+				const parentElement = element.closest( '.has-social-placeholder' );
+				const { href, title, hashtags } = getPageParams( parentElement );
 
 				/**
 				 * See if we can launch the web share API by default on inline highlight click.
