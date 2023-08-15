@@ -686,31 +686,24 @@
 	/**
 	 * Get the page parameters.
 	 *
-	 * @param {Element} element Element to retrieve data functions for.
+	 * @param {Element} newElement Element to retrieve data functions for.
 	 *
 	 * @return {Object} Object containing the page parameters.
 	 */
-	const getPageParams = ( element ) => {
+	const getPageParams = ( newElement ) => {
 		const href =
-			null !== element
-				? element.dataset.url
+			null !== newElement
+				? newElement.dataset.url
 				: window.location.href;
 		const title =
-			null !== element ? element.dataset.title : document.title;
+			null !== newElement ? newElement.dataset.title : document.title;
 		const hashtags =
-			null !== element ? element.dataset.hashtags : '';
+			null !== newElement ? newElement.dataset.hashtags : '';
 		const params = {};
-		// Make sure hasFooterJS is defined.
-		if ( 'undefined' !== typeof hasFooterJS ) {
-			params.href = href;
-			params.title = title;
-			params.hashtags = hashtags;
-		}
 
-		// Check values and replace with defaults.
-		params.href = params.href ? params.href : window.location.href;
-		params.title = params.title ? params.title : document.title;
-		params.hashtags = params.hashtags ? params.hashtags : '';
+		params.href = href;
+		params.title = title;
+		params.hashtags = hashtags;
 
 		return params;
 	};
@@ -729,10 +722,10 @@
 		/**
 		 * Handle touch/click events for select (mouseup) events.
 		 *
-		 * @param {event}   event   The original event.
-		 * @param {element} element The element to retrieve data functions for.
+		 * @param {event}   event         The original event.
+		 * @param {element} parentElement The element to retrieve data functions for.
 		 */
-		const hasHandleSelectEvents = ( event, element ) => {
+		const hasHandleSelectEvents = ( event, parentElement ) => {
 			// Remove any visible elements.
 			hasRemoveVisibleElements();
 
@@ -746,10 +739,10 @@
 				return;
 			}
 
-			// Get the highlight and share wrapper.
-			const elementParent = element.querySelector( '.has-social-placeholder' );
-			console.log( element );
-			const { href, title, hashtags } = getPageParams( elementParent );
+			const element = parentElement.querySelector( '.has-social-placeholder' );
+
+ 			// Get the highlight and share params.
+			const { href, title, hashtags } = getPageParams( element );
 
 			// Display Highlight and Share.
 			hasDisplay( selectedText, title, href, hashtags, 'selection' );
@@ -763,7 +756,7 @@
 			// Check if element has class `has-content-area` and if so, it's flush with the content. Select its parent, and add the event to that.
 			if ( element.classList.contains( 'has-content-area' ) && ! isLegacyContentMode ) {
 				element.parentElement.addEventListener( 'mouseup', ( event ) => {
-					hasHandleSelectEvents( event, element );
+					hasHandleSelectEvents( event, element.parentElement );
 				} );
 				return;
 			}
