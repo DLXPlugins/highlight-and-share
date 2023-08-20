@@ -56,6 +56,49 @@
 	--quotes-dlx-admin--color-notice--secondary-alt: #41464b;
 }
 
+$base_color: #58a0db;
+$admin_color_panel_background: #fff;
+$border_color_light: #ddd;
+$admin_logo_color: #b01b1b;
+$body_color: #000;
+$main_color: #274472;
+$color_disabled: #f1f1f1;
+$accent_color_alt: #627227;
+$accent_color: #722727;
+$accent_color_hover: #722727;
+$color_white: #ffffff;
+$color_black: #000000;
+$secondary_color: #e2e3e5;
+$secondary_text_color: #383d41;
+$secondary_border_color: #d6d8db;
+$success_color: #d4edda;
+$success_text_color: #155724;
+$success_border_color: #c3e6cb;
+$info_color: #d1ecf1;
+$info_border_color: #bee5eb;
+$info_text_color: #0c5460;
+$warning_color: #fff3cd;
+$warning_border_color: #ffeeba;
+$warning_text_color: #856404;
+$error_color: #f8d7da;
+$error_border_color: #f5c6cb;
+$error_text_color: #721c24;
+$danger_background_color: #721c24;
+$danger_text_color: #ffffff;
+$save_button_color: #22721c;
+$save_button_color_text: #fff;
+$primary_button_color: #1c3472;
+$primary_button_color_text: #fff;
+$secondary_button_color: #6c757d;
+$secondary_button_color_text: #fff;
+$edit_button_color: #f8f9fa;
+$edit_button_color_text: #000;
+$delete_button_color: #721c24;
+$delete_button_color_text: #fff;
+$danger_button_color: #721c24;
+$danger_button_color_text: #fff;
+
+
 /* Admin Notices */
 /* Error Notices */
 .has-admin__notice {

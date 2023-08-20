@@ -50,6 +50,7 @@
 		"grunt-contrib-compress": "^2.0.0",
 		"hex-to-rgba": "^2.0.1",
 		"inspectpack": "^4.7.1",
+		"lucide-react": "^0.268.0",
 		"mini-css-extract-plugin": "^2.6.1",
 		"node-sass": "^7.0.1",
 		"prettier": "^2.7.1",
