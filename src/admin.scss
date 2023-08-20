@@ -247,6 +247,96 @@ $link_color_hover: darken(#2c3a95, 15%);
 	}
 }
 
+/* Button Options */
+.has-button {
+	padding: 20px 20px !important;
+	border-radius: 5px;
+	background: $accent_color;
+	color: #fff;
+	cursor: pointer;
+	border: 1px solid #e0e4e9;
+	transition: background-color 0.5s ease;
+	text-decoration: none;
+	display: inline-block;
+	vertical-align: middle;
+	font-size: 18px;
+	height: unset;
+	svg {
+		fill: #FFF;
+		color: #000;
+		width: 100%;
+		height: 100%;
+
+		path {
+			fill: #FFF;
+			color: #000;
+		}
+	}
+	&:hover {
+		color: #fff;
+		background: lighten( $accent_color, 10% );
+	}
+	&.has-button-info {
+		background: $secondary_button_color;
+		color: $secondary_button_color_text;
+		&:hover {
+			background: lighten( $secondary_button_color, 10% );
+		}
+	}
+	&.has-button-danger {
+		background: $danger_button_color;
+		color: $danger_button_color_text;
+		&:hover {
+			background: lighten( $danger_button_color, 10% );
+		}
+	}
+	&.has-button-edit {
+		background: $edit_button_color;
+		color: $edit_button_color_text;
+		&:hover {
+			background: lighten( $edit_button_color, 10% );
+		}
+	}
+	&.has-button-delete {
+		background: $delete_button_color;
+		color: $delete_button_color_text;
+		&:hover {
+			background: lighten( $delete_button_color, 10% );
+		}
+	}
+	&.has-button-lg {
+		padding: 20px 30px;
+		font-size: 2em;
+
+		svg {
+			width: 2em;
+			height: 2em;
+		}
+	}
+	&.has-button-save {
+		background: $save_button_color;
+		color: $save_button_color_text;
+		&:hover {
+			color: #fff;
+			background: lighten( $save_button_color, 10% );
+		}
+	}
+	.has-icon-button {
+		text-align: middle;
+		display: inline-block;
+		width: 16px;
+		height: 16px;
+	}
+	svg {
+		width: 1.6em;
+		height: 1.6em;
+		vertical-align: middle;
+	}
+	.has-icon-yellow {
+		color: #f52a39;
+	}
+}
+
 .has-admin-container-footer {
 	footer {
 		background: #4f4f4f;
@@ -325,6 +415,10 @@ h2.has-admin-content-subheading {
 	p.description {
 		font-size: 1.1em;
 	}
+	.has-admin-component-row img {
+		max-width: 100%;
+		height: auto;
+	}
 	.has-admin-component-row,
 	.has-admin-component-row .components-select-control {
 		.components-has-units-control-label__units,
@@ -333,6 +427,32 @@ h2.has-admin-content-subheading {
 			font-weight: 600;
 			text-transform: unset;
 			font-size: 14px;
+		}
+	}
+	.has-admin-component-row-button {
+		margin-top: 15px;
+		margin-bottom: 12px;
+		.has-button {
+			margin: 0 0 10px 0;
+			display: block;
+			width: 100%;
+
+			&:last-child {
+				margin-bottom: 0;
+			}
+		}
+		/* media queries */
+		@include respond-to('medium')  {
+			
+			.has-button {
+				display: inline-block;
+				width: unset;
+				margin: 0 10px 0 0;
+
+				&:last-child {
+					margin-right: 0;
+				}
+			}
 		}
 	}
 	.has-admin-colors-tabs h3,

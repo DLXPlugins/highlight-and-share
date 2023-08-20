@@ -12,7 +12,8 @@
 		"has_gutenberg": "readonly",
 		"highlight_and_share": "readonly",
 		"React": "readonly",
-		"hasFooterJS": "readonly"
+		"hasFooterJS": "readonly",
+		"hasSupportAdmin": "readonly"
 	},
 	"env": {
 		"browser": true,

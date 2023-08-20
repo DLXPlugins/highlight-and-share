@@ -469,7 +469,7 @@ class Admin {
 					</div>
 					<div class="header__btn-wrap">
 						<a class=" has__btn-primary" href="https://has.dlxplugins.com"><i class="dashicons dashicons-media-document"></i> <?php esc_html_e( 'Documentation', 'highlight-and-share' ); ?></a>
-						<a class=" has__btn-primary" href="https://dlxplugins.com/support/"><i class="dashicons dashicons-groups"></i> <?php esc_html_e( 'Support', 'highlight-and-share' ); ?></a>
+						<a class=" has__btn-primary" href="<?php echo esc_url( Functions::get_settings_url( 'support' ) ); ?>"><i class="dashicons dashicons-groups"></i> <?php esc_html_e( 'Support', 'highlight-and-share' ); ?></a>
 					</div>
 				</div>
 			</header>
@@ -491,6 +491,10 @@ class Admin {
 			if ( 'emails' === $current_tab ) {
 				$emails_tab_class[] = 'nav-tab-active';
 			}
+			$support_tab_class = array( 'nav-tab' );
+			if ( 'support' === $current_tab ) {
+				$support_tab_class[] = 'nav-tab-active';
+			}
 			?>
 
 
@@ -501,6 +505,7 @@ class Admin {
 						<a class="<?php echo esc_attr( implode( ' ', $appearance_tab_class ) ); ?>" href="<?php echo esc_url( Functions::get_settings_url( 'appearance' ) ); ?>"><?php esc_html_e( 'Appearance', 'highlight-and-share' ); ?></a>
 						<a class="<?php echo esc_attr( implode( ' ', $block_editor_tab_class ) ); ?>" href="<?php echo esc_url( Functions::get_settings_url( 'block-editor' ) ); ?>"><?php esc_html_e( 'Block Editor', 'highlight-and-share' ); ?></a>
 						<a class="<?php echo esc_attr( implode( ' ', $emails_tab_class ) ); ?>" href="<?php echo esc_url( Functions::get_settings_url( 'emails' ) ); ?>"><?php esc_html_e( 'Emails', 'highlight-and-share' ); ?></a>
+						<a class="<?php echo esc_attr( implode( ' ', $support_tab_class ) ); ?>" href="<?php echo esc_url( Functions::get_settings_url( 'support' ) ); ?>"><?php esc_html_e( 'Support', 'highlight-and-share' ); ?></a>
 					</nav>
 					<?php
 					if ( null === $current_tab || 'settings' === $current_tab ) {
@@ -528,6 +533,12 @@ class Admin {
 						// No wrapper as there are separate wrappers for each section. A wrapper is included in the loader.
 						?>
 						<div id="has-emails-admin-settings"><div class="has-admin-container-body__content"><?php echo wp_kses( $this->get_loading_svg(), Functions::get_kses_allowed_html() ); ?></div></div>
+						<?php
+					}
+					if ( 'support' === $current_tab ) {
+						// No wrapper as there are separate wrappers for each section. A wrapper is included in the loader.
+						?>
+						<div id="has-support-admin-settings"><div class="has-admin-container-body__content"><?php echo wp_kses( $this->get_loading_svg(), Functions::get_kses_allowed_html() ); ?></div></div>
 						<?php
 					}
 					?>
@@ -607,6 +618,48 @@ class Admin {
 						'retrieveNonce' => wp_create_nonce( 'has_retrieve_settings' ),
 						'resetNonce'    => wp_create_nonce( 'has_reset_settings' ),
 					)
+				);
+			}
+
+			// Determine if we're loading the support tab.
+			$enqueue_support = false;
+			$current_tab     = Functions::get_admin_tab();
+			if ( null !== $current_tab && 'support' === $current_tab ) {
+				$enqueue_support = true;
+			}
+			if ( $enqueue_support ) {
+				wp_enqueue_script(
+					'has-support-admin-js',
+					Functions::get_plugin_url( '/dist/has-admin-support.js' ),
+					array(),
+					HIGHLIGHT_AND_SHARE_VERSION,
+					true
+				);
+				wp_localize_script(
+					'has-support-admin-js',
+					'hasSupportAdmin',
+					array(
+						'saveNonce'     => wp_create_nonce( 'has_save_support' ),
+						'retrieveNonce' => wp_create_nonce( 'has_retrieve_support' ),
+						'videoPlayImg'  => Functions::get_plugin_url( '/img/has-video-play-button.webp' ),
+						'videoPlayImgWidth' => 450,
+						'videoPlayImgHeight' => 243,
+					)
+				);
+				wp_enqueue_script(
+					'has-fancybox-js',
+					Functions::get_plugin_url( '/js/fancybox.umd.js' ),
+					array(),
+					Functions::get_plugin_version(),
+					true
+				);
+
+				wp_enqueue_style(
+					'has-fancybox-css',
+					Functions::get_plugin_url( '/js/fancybox.css' ),
+					array(),
+					Functions::get_plugin_version(),
+					'all'
 				);
 			}
 
