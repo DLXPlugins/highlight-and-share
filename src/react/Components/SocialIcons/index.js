@@ -14,6 +14,7 @@ import { faAt as EmailIcon } from '@fortawesome/free-solid-svg-icons/faAt';
 import { faTelegram as TelegramIcon } from '@fortawesome/free-brands-svg-icons/faTelegram';
 import { faTumblr as TumblrIcon } from '@fortawesome/free-brands-svg-icons/faTumblr';
 import { faShare as ShareIcon } from '@fortawesome/free-solid-svg-icons/faShare';
+import { faMastodon as MastodonIcon } from '@fortawesome/free-brands-svg-icons/faMastodon';
 import SocialNetworksContext from '../../Contexts/SocialNetworksContext';
 import Twitter from '../Icons/twitter';
 const SocialIcons = ( socialNetworksData = {} ) => {
@@ -92,6 +93,12 @@ const SocialIcons = ( socialNetworksData = {} ) => {
 						<FontAwesomeIcon icon={ ShareIcon } style={ { color: '#e17713' } } />
 					</>
 				);
+			case 'mastodon':
+				return (
+					<>
+						<FontAwesomeIcon icon={ MastodonIcon } style={ { color: '#615EF8' } } />
+					</>
+				);
 			default:
 				return ( <></> );
 		}
@@ -153,6 +160,9 @@ const SocialIcons = ( socialNetworksData = {} ) => {
 					break;
 				case 'webshare':
 					icon = ShareIcon;
+					break;
+				case 'mastodon':
+					icon = MastodonIcon;
 					break;
 				default:
 					icon = <></>;

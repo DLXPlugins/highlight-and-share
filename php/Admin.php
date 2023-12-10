@@ -276,7 +276,7 @@ class Admin {
 		$social_networks = filter_input( INPUT_POST, 'socialNetworks', FILTER_DEFAULT, FILTER_REQUIRE_ARRAY );
 
 		// Get raw options merged with defaults.
-		$settings = get_option( 'highlight-and-share-social-networks' );
+		$settings = get_option( 'highlight-and-share-social-networks', array() );
 		$defaults = Options::get_social_network_defaults();
 		$settings = array_replace_recursive( $defaults, $settings );
 

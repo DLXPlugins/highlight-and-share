@@ -156,12 +156,20 @@ class Options {
 				'order'      => 7,
 				'custom'     => false,
 			),
+			'mastodon' => array(
+				'label'      => __( 'Mastodon', 'highlight-and-share' ),
+				'slug'       => 'mastodon',
+				'color'      => '#605CF5',
+				'background' => '#fff',
+				'order'      => 8,
+				'custom'     => false,
+			),
 			'copy'     => array(
 				'label'      => __( 'Copy', 'highlight-and-share' ),
 				'slug'       => 'copy',
 				'color'      => '#000',
 				'background' => '#fff',
-				'order'      => 8,
+				'order'      => 9,
 				'custom'     => false,
 			),
 			'email'    => array(
@@ -169,7 +177,7 @@ class Options {
 				'slug'       => 'email',
 				'color'      => '#000',
 				'background' => '#fff',
-				'order'      => 9,
+				'order'      => 10,
 				'custom'     => false,
 			),
 			'webshare' => array(
@@ -177,7 +185,7 @@ class Options {
 				'slug'       => 'webshare',
 				'color'      => '#000',
 				'background' => '#e17713',
-				'order'      => 10,
+				'order'      => 11,
 				'custom'     => false,
 			),
 		);
@@ -298,6 +306,14 @@ class Options {
 					'icon_color'       => '#fff',
 					'icon_color_hover' => '#fff',
 				),
+				'mastodon' => array(
+					'label'            => __( 'Mastodon', 'highlight-and-share' ),
+					'slug'             => 'mastodon',
+					'background'       => '#605CF5',
+					'background_hover' => '#4c49c3',
+					'icon_color'       => '#fff',
+					'icon_color_hover' => '#fff',
+				),
 				'tumblr'   => array(
 					'label'            => __( 'Tumblr', 'highlight-and-share' ),
 					'slug'             => 'tumblr',
@@ -376,6 +392,7 @@ class Options {
 			'show_tumblr'                      => false,
 			'show_signal'                      => false,
 			'show_webshare'                    => false,
+			'show_mastodon'                    => false,
 			'enable_webshare_inline_highlight' => false,
 			'enable_webshare_click_to_share'   => false,
 			'enable_content'                   => true,
@@ -415,6 +432,8 @@ class Options {
 			'tumblr_tooltip'                   => __( 'Share on Tumblr', 'highlight-and-share' ),
 			'webshare_label'                   => __( 'Share', 'highlight-and-share' ),
 			'webshare_tooltip'                 => __( 'Share This', 'highlight-and-share' ),
+			'mastodon_label'                   => __( 'Mastodon', 'highlight-and-share' ),
+			'mastodon_tooltip'                 => __( 'Share on Mastodon', 'highlight-and-share' ),
 		);
 		return $defaults;
 	}
@@ -533,6 +552,7 @@ class Options {
 		$settings['tumblr']['enabled']   = (bool) apply_filters( 'has_show_tumblr', ( $plugin_options['show_tumblr'] ?? false ) );
 		$settings['telegram']['enabled'] = (bool) apply_filters( 'has_show_telegram', ( $plugin_options['show_telegram'] ?? false ) );
 		$settings['webshare']['enabled'] = (bool) apply_filters( 'has_show_webshare', ( $plugin_options['show_webshare'] ?? false ) );
+		$settings['mastodon']['enabled'] = (bool) apply_filters( 'has_show_mastodon', ( $plugin_options['show_mastodon'] ?? false ) );
 
 		// Now sort the arrays based on order.
 		array_multisort( array_column( $settings, 'order' ), SORT_ASC, $settings );

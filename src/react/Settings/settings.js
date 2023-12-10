@@ -90,6 +90,9 @@ const Interface = ( props ) => {
 			showLinkedin: data.values.showLinkedin,
 			showXing: data.values.showXing,
 			showCopy: data.values.showCopy,
+			showMastodon: data.values.showMastodon,
+			mastodonLabel: escapeEditableHTML( data.values.mastodonLabel ),
+			mastodonTooltip: escapeEditableHTML( data.values.mastodonTooltip ),
 			enableEmails: data.values.enableEmails,
 			shortlinks: data.values.shortlinks,
 			jsContent: escapeEditableHTML( data.values.jsContent ),
@@ -122,6 +125,7 @@ const Interface = ( props ) => {
 			webshareTooltip: escapeEditableHTML( data.values.webshareTooltip ),
 			enableWebshareInlineHighlight: data.values.enableWebshareInlineHighlight,
 			enableWebshareClickToShare: data.values.enableWebshareClickToShare,
+			
 		};
 	};
 	const { control, handleSubmit, getValues, reset } = useForm( {
@@ -588,6 +592,101 @@ const Interface = ( props ) => {
 												aria-required="true"
 											/>
 											{ 'required' === errors.facebookTooltip?.type && (
+												<Notice
+													message={ __( 'This field is a required field.' ) }
+													status="error"
+													politeness="assertive"
+													inline={ false }
+													icon={ CircularExclamationIcon }
+												/>
+											) }
+										</>
+									) }
+								/>
+							</div>
+						</>
+					) }
+					<h3 className="has-icon-heading">
+						{ getSocialIcon( 'mastodon' ) } { __( 'Mastodon', 'highlight-and-share' ) }
+					</h3>
+					<div className="has-admin-component-row">
+						<Controller
+							name="showMastodon"
+							control={ control }
+							render={ ( { field: { onChange, value } } ) => (
+								<ToggleControl
+									label={ __( 'Enable Mastodon', 'highlight-and-share' ) }
+									className="has-admin__toggle-control"
+									checked={ value }
+									onChange={ ( boolValue ) => {
+										onChange( boolValue );
+									} }
+									help={ __(
+										'Mastodon supports text sharing.',
+										'highlight-and-share'
+									) }
+								/>
+							) }
+						/>
+					</div>
+					{ getValues( 'showMastodon' ) && (
+						<>
+							<div className="has-admin-component-row">
+								<Controller
+									name="mastodonLabel"
+									control={ control }
+									rules={ { required: true } }
+									render={ ( { field } ) => (
+										<>
+											<TextControl
+												{ ...field }
+												type="text"
+												label={ __( 'Mastodon label', 'highlight-and-share' ) }
+												className={ classNames( 'has-admin__text-control', {
+													'is-required': true,
+													'has-error': 'required' === errors.mastodonLabel?.type,
+												} ) }
+												help={ __(
+													'Choose a label for the Mastodon button.',
+													'highlight-and-share'
+												) }
+												aria-required="true"
+											/>
+											{ 'required' === errors.mastodonLabel?.type && (
+												<Notice
+													message={ __( 'This field is a required field.' ) }
+													status="error"
+													politeness="assertive"
+													inline={ false }
+													icon={ CircularExclamationIcon }
+												/>
+											) }
+										</>
+									) }
+								/>
+							</div>
+							<div className="has-admin-component-row">
+								<Controller
+									name="mastodonTooltip"
+									control={ control }
+									rules={ { required: true } }
+									render={ ( { field } ) => (
+										<>
+											<TextControl
+												{ ...field }
+												type="text"
+												label={ __( 'Mastodon Tooltip', 'highlight-and-share' ) }
+												className={ classNames( 'has-admin__text-control', {
+													'is-required': true,
+													'has-error': 'required' === errors.whatsappTooltip?.type,
+												} ) }
+												help={ __(
+													'Choose tooltip text for the Mastodon button.',
+													'highlight-and-share'
+												) }
+												aria-required="true"
+											/>
+											{ 'required' === errors.mastodonTooltip?.type && (
 												<Notice
 													message={ __( 'This field is a required field.' ) }
 													status="error"
