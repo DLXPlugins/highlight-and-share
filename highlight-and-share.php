@@ -2,13 +2,13 @@
 
 /*
  * Plugin Name: Highlight and Share
- * Plugin URI: https://has.dlxplugins.com
+ * Plugin URI: https://dlxplugins.com/plugins/highlight-and-share/
  * Description: Select text, inline highlight, or use a Click to Share block and show social networks.
  * Author: DLX Plugins
- * Version: 4.5.3
+ * Version: 4.6.0
  * Requires at least: 5.1
  * Requires PHP: 7.2
- * Author URI: https://dlxplugins.com
+ * Author URI: https://dlxplugins.com/plugins/highlight-and-share/
  * License: GPL v2 or later
  * License URI: https://www.gnu.org/licenses/gpl-2.0.html
  * Text Domain: highlight-and-share
@@ -17,7 +17,7 @@
 
 namespace DLXPlugins\HAS;
 
-define( 'HIGHLIGHT_AND_SHARE_VERSION', '4.5.3' );
+define( 'HIGHLIGHT_AND_SHARE_VERSION', '4.6.0' );
 define( 'HIGHLIGHT_AND_SHARE_FILE', __FILE__ );
 
 // Support for site-level autoloading.

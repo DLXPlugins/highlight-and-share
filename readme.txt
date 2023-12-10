@@ -2,8 +2,8 @@
 Contributors: ronalfy
 Tags: highlight, social media, click share, select text, highlight text
 Requires at least: 5.1
-Tested up to: 6.3
-Stable tag: 4.5.3
+Tested up to: 6.4
+Stable tag: 4.6.0
 License: GPLv2 or later
 License URI: http://www.gnu.org/licenses/gpl-2.0.html
 Donate link: https://github.com/sponsors/DLXPlugins
@@ -68,6 +68,7 @@ Highlight and Share <a href="https://docs.dlxplugins.com/v/highlight-and-share/d
 * X (formerly Twitter) (allows text sharing)
 * Facebook
 * WhatsApp (allows text sharing)
+* Mastodon (allows text sharing)
 * Reddit
 * Telegram (allows text sharing)
 * LinkedIn
@@ -110,6 +111,11 @@ So far, the latest versions of Chrome, Firefox, Safari, Edge, and IE9+.
 
 
 == Changelog ==
+
+= 4.6.0 =
+* Released 2023-12-10
+* Added Mastodon social network.
+* Fixed popup in the Support tab for demo video.
 
 = 4.5.3 =
 * Released 2023-08-14
@@ -492,8 +498,5 @@ So far, the latest versions of Chrome, Firefox, Safari, Edge, and IE9+.
 
 == Upgrade Notice ==
 
-= 4.5.3 =
-Hot Fix for 4.5.0 users. Please update to this version. The JavaScript was passing incorrect settings data, breaking permalinks and some URLs. Performance and layout related fixes are in this release. Please see the changelog for more details.
-
-= 4.5.0 =
-Performance and layout related fixes are in this release. Please see the changelog for more details.
+= 4.6.0 =
+Added Mastodon social network. Fixed popup in the Support tab for demo video. Fixed deprecation notices.
