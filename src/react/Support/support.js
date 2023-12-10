@@ -60,6 +60,13 @@ const Interface = ( props ) => {
 				...Fancybox.defaults,
 				defaultType: 'iframe',
 			};
+			Fancybox.bind("[data-fancybox]", {
+				toolbar: false,
+				smallBtn: true,
+				iframe: {
+					preload: false
+				}
+			});
 		}
 	}, [] );
 	return (
