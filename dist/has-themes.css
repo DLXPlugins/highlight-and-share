@@ -1595,4 +1595,15 @@ body.has-body .highlight-and-share-wrapper.theme-custom a:visited {
   color: #000;
 }
 
+/* Mastodojn Prompt */
+.mastodon-input-prompt .has-mastodon-label {
+  display: block;
+  font-weight: 700;
+}
+.mastodon-input-prompt input {
+  display: block;
+  width: 100%;
+  margin-bottom: 10px;
+}
+
 /*# sourceMappingURL=has-themes.css.map*/

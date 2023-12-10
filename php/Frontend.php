@@ -667,7 +667,7 @@ class Frontend {
 						$html .= '<div class="has_webshare ' . ( $theme_options['show_tooltips'] ? 'has-tooltip' : '' ) . '" style="display: none !important;" data-type="webshare" data-tooltip="' . esc_attr( apply_filters( 'has_webshare_tooltip', $settings['webshare_tooltip'] ) ) . '"><a href="#"><svg class="has-icon" rel="nofollow"><use xlink:href="#has-webshare-icon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_webshare_text', $settings['webshare_label'] ) ) . '</span></a></div>';
 						break;
 					case 'mastodon':
-						$html .= '<div class="has_mastodon ' . ( $theme_options['show_tooltips'] ? 'has-tooltip' : '' ) . '" style="display: none;" data-type="mastodon" data-tooltip="' . esc_attr( apply_filters( 'has_mastodon_tooltip', $settings['mastodon_tooltip'] ) ) . '"><a href="#" rel="nofollow"><svg class="has-icon"><use xlink:href="#has-mastodon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_mastodon_text', $settings['mastodon_label'] ) ) . '</span></a></div>';
+						$html .= '<div class="has_mastodon ' . ( $theme_options['show_tooltips'] ? 'has-tooltip' : '' ) . '" style="display: none;" data-type="mastodon" data-tooltip="' . esc_attr( apply_filters( 'has_mastodon_tooltip', $settings['mastodon_tooltip'] ) ) . '"><a href="https://mastodon.social/share?text=%prefix%%text%%suffix%: %url%" rel="nofollow"><svg class="has-icon"><use xlink:href="#has-mastodon"></use></svg><span class="has-text">&nbsp;' . esc_html( apply_filters( 'has_mastodon_text', $settings['mastodon_label'] ) ) . '</span></a></div>';
 						break;
 					case 'email':
 						global $post;
@@ -802,6 +802,16 @@ class Frontend {
 			<symbol aria-hidden="true" data-prefix="fab" data-icon="x" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 320 512" id="has-x"><path fill="currentColor" d="M309.8 480.3c-13.6 14.5-50 31.7-97.4 31.7-120.8 0-147-88.8-147-140.6v-144H17.9c-5.5 0-10-4.5-10-10v-68c0-7.2 4.5-13.6 11.3-16 62-21.8 81.5-76 84.3-117.1.8-11 6.5-16.3 16.1-16.3h70.9c5.5 0 10 4.5 10 10v115.2h83c5.5 0 10 4.4 10 9.9v81.7c0 5.5-4.5 10-10 10h-83.4V360c0 34.2 23.7 53.6 68 35.8 4.8-1.9 9-3.2 12.7-2.2 3.5.9 5.8 3.4 7.4 7.9l22 64.3c1.8 5 3.3 10.6-.4 14.5z"></path></symbol>
 			<symbol aria-hidden="true" data-prefix="fab" data-icon="mastodon" xmlns="http://www.w3.org/2000/svg" viewBox="0 0 448 512" id="has-mastodon"><path fill="currentColor" d="M433 179.1c0-97.2-63.7-125.7-63.7-125.7-62.5-28.7-228.6-28.4-290.5 0 0 0-63.7 28.5-63.7 125.7 0 115.7-6.6 259.4 105.6 289.1 40.5 10.7 75.3 13 103.3 11.4 50.8-2.8 79.3-18.1 79.3-18.1l-1.7-36.9s-36.3 11.4-77.1 10.1c-40.4-1.4-83-4.4-89.6-54a102.5 102.5 0 0 1 -.9-13.9c85.6 20.9 158.7 9.1 178.8 6.7 56.1-6.7 105-41.3 111.2-72.9 9.8-49.8 9-121.5 9-121.5zm-75.1 125.2h-46.6v-114.2c0-49.7-64-51.6-64 6.9v62.5h-46.3V197c0-58.5-64-56.6-64-6.9v114.2H90.2c0-122.1-5.2-147.9 18.4-175 25.9-28.9 79.8-30.8 103.8 6.1l11.6 19.5 11.6-19.5c24.1-37.1 78.1-34.8 103.8-6.1 23.7 27.3 18.4 53 18.4 175z"/></symbol>
 		</svg>
+		<div id="has-mastodon-prompt" aria-hidden="true" style="display: none">
+			<h3><?php esc_html_e( 'Share on Mastodon', 'highlight-and-share' ); ?></h3>
+			<div class="mastodon-input-prompt">
+				<form class="has-mastodon-form">
+					<label><span class="has-mastodon-label"><?php esc_html_e( 'Enter your Mastodon instance URL (optional)', 'highlight-and-share' ); ?></span><input type="text" placeholder="<?php esc_attr_e( 'https://mastodon.social', 'highlight-and-share' ); ?>" tabindex="0" /></label>
+					
+					<button id="has-mastodon-submit" tabindex="0" class="button button-primary"><?php esc_html_e( 'Share', 'highlight-and-share' ); ?></button>
+				</form>
+			</div>
+		</div>
 		<?php
 	}
 

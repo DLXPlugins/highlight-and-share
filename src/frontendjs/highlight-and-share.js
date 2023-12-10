@@ -19,7 +19,7 @@
 	}
 
 	const socialNetworks =
-		'.has_whatsapp, .has_facebook, .has_twitter, .has_copy, .has_reddit, .has_telegram, .has_linkedin, .has_xing, .has_signal, .has_vk, .has_tumblr, .has_email_mailto, .has_email_form';
+		'.has_whatsapp, .has_facebook, .has_twitter, .has_copy, .has_reddit, .has_telegram, .has_linkedin, .has_xing, .has_signal, .has_vk, .has_tumblr, .has_mastodon, .has_email_mailto, .has_email_form';
 
 	// Get highlight and share container dimensions.
 	const hasSharingIconsContainer = hasContainer.querySelector(
@@ -160,7 +160,8 @@
 			false === highlight_and_share.show_vk &&
 			false === highlight_and_share.show_pinterest &&
 			false === highlight_and_share.show_email &&
-			false === highlight_and_share.show_webshare
+			false === highlight_and_share.show_webshare &&
+			false === highlight_and_share.show_mastodon
 		) {
 			return;
 		}
@@ -309,11 +310,93 @@
 										src: url,
 										type: 'iframe',
 										preload: true,
+										compact: true,
+										autoFocus: true,
 									},
 								],
 								{
 									Toolbar: {
 										autoEnable: false,
+									},
+								}
+							);
+						}
+					} );
+				}
+			} );
+		}
+
+		/**
+		 * Set up Mastodon Prompt.
+		 */
+		const mastodonButtons = document.querySelectorAll( '.has_mastodon' );
+		if ( null !== mastodonButtons ) {
+			mastodonButtons.forEach( ( el ) => {
+				if ( isVisible( el ) ) {
+					el.addEventListener( 'click', ( event ) => {
+						event.preventDefault();
+						const url = event.target.closest( 'a' ).getAttribute( 'href' );
+						
+						// 
+						if ( 'undefined' !== typeof Fancybox ) {
+							// eslint-disable-next-line no-undef
+							hasRemoveVisibleElements();
+							// eslint-disable-next-line no-undef
+							window.highlightShareFancy = new Fancybox(
+								[
+									{
+										type: 'inline',
+										compact: true,
+										src: '#has-mastodon-prompt',
+									},
+								],
+								{
+									Toolbar: {
+										autoEnable: false,
+									},
+									on: {
+										done: () => {
+											const fancyboxForm = document.querySelector(
+												'.has-mastodon-form'
+											);
+											const fancyboxInput = fancyboxForm.querySelector(
+												'input'
+											);
+											if ( null !== fancyboxInput ) {
+												fancyboxInput.focus();
+											}
+											fancyboxForm.addEventListener( 'submit', ( event ) => {
+												event.preventDefault();
+												const fancyboxInputValue = fancyboxInput.value;
+
+												// Save the value to local storage.
+												localStorage.setItem(
+													'highlight-and-share-mastodon',
+													fancyboxInputValue
+												);
+												let fancyUrl = url;
+												if ( '' !== fancyboxInputValue ) {
+													fancyUrl = fancyUrl.replace( /mastodon\.social/i, fancyboxInputValue );
+												}
+
+												console.log( fancyUrl );
+
+												// Now go to URL.
+												window.open(
+													fancyUrl,
+													'Highlight and Share',
+													'width=575,height=430,toolbar=false,menubar=false,location=false,status=false'
+												);
+											} );
+
+											// Get local storage and populate input if available.
+											const localStorageValue = localStorage.getItem(
+												'highlight-and-share-mastodon'
+											);
+											if ( null !== localStorageValue ) {
+												fancyboxInput.value = localStorageValue;
+											}
+										},
 									},
 								}
 							);

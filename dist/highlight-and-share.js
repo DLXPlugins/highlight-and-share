@@ -24,7 +24,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
   if (null === hasContainer) {
     return;
   }
-  var socialNetworks = '.has_whatsapp, .has_facebook, .has_twitter, .has_copy, .has_reddit, .has_telegram, .has_linkedin, .has_xing, .has_signal, .has_vk, .has_tumblr, .has_email_mailto, .has_email_form';
+  var socialNetworks = '.has_whatsapp, .has_facebook, .has_twitter, .has_copy, .has_reddit, .has_telegram, .has_linkedin, .has_xing, .has_signal, .has_vk, .has_tumblr, .has_mastodon, .has_email_mailto, .has_email_form';
 
   // Get highlight and share container dimensions.
   var hasSharingIconsContainer = hasContainer.querySelector('.highlight-and-share-wrapper');
@@ -134,7 +134,7 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
   var hasDisplay = function hasDisplay(text, title, href, hashtags, type) {
     var triggerElement = arguments.length > 5 && arguments[5] !== undefined ? arguments[5] : null;
     // Do not show the interface if nothing is enabled.
-    if (false === highlight_and_share.show_twitter && false === highlight_and_share.show_facebook && false === highlight_and_share.show_linkedin && false === highlight_and_share.show_ok && false === highlight_and_share.show_vk && false === highlight_and_share.show_pinterest && false === highlight_and_share.show_email && false === highlight_and_share.show_webshare) {
+    if (false === highlight_and_share.show_twitter && false === highlight_and_share.show_facebook && false === highlight_and_share.show_linkedin && false === highlight_and_share.show_ok && false === highlight_and_share.show_vk && false === highlight_and_share.show_pinterest && false === highlight_and_share.show_email && false === highlight_and_share.show_webshare && false === highlight_and_share.show_mastodon) {
       return;
     }
 
@@ -269,10 +269,73 @@ function _toPrimitive(input, hint) { if (_typeof(input) !== "object" || input ==
               window.highlightShareFancy = new Fancybox([{
                 src: url,
                 type: 'iframe',
-                preload: true
+                preload: true,
+                compact: true,
+                autoFocus: true
               }], {
                 Toolbar: {
                   autoEnable: false
+                }
+              });
+            }
+          });
+        }
+      });
+    }
+
+    /**
+     * Set up Mastodon Prompt.
+     */
+    var mastodonButtons = document.querySelectorAll('.has_mastodon');
+    if (null !== mastodonButtons) {
+      mastodonButtons.forEach(function (el) {
+        if (isVisible(el)) {
+          el.addEventListener('click', function (event) {
+            event.preventDefault();
+            var url = event.target.closest('a').getAttribute('href');
+
+            // 
+            if ('undefined' !== typeof Fancybox) {
+              // eslint-disable-next-line no-undef
+              hasRemoveVisibleElements();
+              // eslint-disable-next-line no-undef
+              window.highlightShareFancy = new Fancybox([{
+                type: 'inline',
+                compact: true,
+                src: '#has-mastodon-prompt'
+              }], {
+                Toolbar: {
+                  autoEnable: false
+                },
+                on: {
+                  done: function done() {
+                    var fancyboxForm = document.querySelector('.has-mastodon-form');
+                    var fancyboxInput = fancyboxForm.querySelector('input');
+                    if (null !== fancyboxInput) {
+                      fancyboxInput.focus();
+                    }
+                    fancyboxForm.addEventListener('submit', function (event) {
+                      event.preventDefault();
+                      var fancyboxInputValue = fancyboxInput.value;
+
+                      // Save the value to local storage.
+                      localStorage.setItem('highlight-and-share-mastodon', fancyboxInputValue);
+                      var fancyUrl = url;
+                      if ('' !== fancyboxInputValue) {
+                        fancyUrl = fancyUrl.replace(/mastodon\.social/i, fancyboxInputValue);
+                      }
+                      console.log(fancyUrl);
+
+                      // Now go to URL.
+                      window.open(fancyUrl, 'Highlight and Share', 'width=575,height=430,toolbar=false,menubar=false,location=false,status=false');
+                    });
+
+                    // Get local storage and populate input if available.
+                    var localStorageValue = localStorage.getItem('highlight-and-share-mastodon');
+                    if (null !== localStorageValue) {
+                      fancyboxInput.value = localStorageValue;
+                    }
+                  }
                 }
               });
             }

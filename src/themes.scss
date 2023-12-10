@@ -1420,3 +1420,16 @@ body.has-body .highlight-and-share-wrapper.theme-custom a:hover,
 body.has-body .highlight-and-share-wrapper.theme-custom a:visited {
 	color: #000;
 }
+
+/* Mastodojn Prompt */
+.mastodon-input-prompt {
+	.has-mastodon-label {
+		display: block;
+		font-weight: 700;
+	}
+	input {
+		display: block;
+		width: 100%;
+		margin-bottom: 10px;
+	}
+}
