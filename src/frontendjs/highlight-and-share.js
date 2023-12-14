@@ -1,3 +1,5 @@
+/* global highlight_and_share */
+
 ( function() {
 	'use strict';
 
@@ -12,29 +14,74 @@
 
 	let currentElement = null;
 
-	// Main HAS container in the footer. If ".highlight-and-share-wrapper" doesn't have this parent, it is a clone.
-	const hasContainer = document.querySelector( '#has-highlight-and-share' );
-	if ( null === hasContainer ) {
-		return;
-	}
-
 	const socialNetworks =
 		'.has_whatsapp, .has_facebook, .has_twitter, .has_copy, .has_reddit, .has_telegram, .has_linkedin, .has_xing, .has_signal, .has_vk, .has_tumblr, .has_mastodon, .has_email_mailto, .has_email_form';
-
-	// Get highlight and share container dimensions.
-	const hasSharingIconsContainer = hasContainer.querySelector(
-		'.highlight-and-share-wrapper'
-	);
-
-	// Populate container dimensions/width/height.
-	const rect = hasSharingIconsContainer.getBoundingClientRect();
-	const hasSharerWidth = rect.width;
-	const hasSharerHeight = rect.height;
-
+	
+	/**
+	 * Initializes the highlight and share functionality.
+	 *
+	 * @function init
+	 * @returns {void}
+	 */
+	const init = () => {		
+		// Main HAS container in the footer. If ".highlight-and-share-wrapper" doesn't have this parent, it is a clone.
+		const hasContainer = getSharerContainer();
+		if ( null === hasContainer ) {
+			return;
+		}		
+		
+		// Get JS Content and return if not set.
+		const jsContentSelector = getJsContentSelector();
+		if ( '' === jsContentSelector ) {
+			return;
+		}
+		
+		// Begin setting up events.
+		handleElements();
+		handleInlineElements();
+		handleCtsElements();
+	}
+	
+	/**
+	 * Retrieves the sharer container element with the id 'has-highlight-and-share'.
+	 *
+	 * @returns {HTMLElement} The sharer container element.
+	 */
+	const getSharerContainer = () => {
+		return document.querySelector( '#has-highlight-and-share' );
+	}
+	
+	/**
+	 * Retrieves the width of the sharer container.
+	 *
+	 * @returns {number | null} The width of the sharer container,
+	 *                           or null if the container is not found.
+	 */
+	const getSharerWidth = () => {		
+		// Get highlight and share container dimensions.
+		const hasSharingIconsContainer = getSharerContainer().querySelector(
+			'.highlight-and-share-wrapper'
+		);
+	
+		// Populate container dimensions/width/height.
+		const rect = hasSharingIconsContainer.getBoundingClientRect();
+		
+		return rect.width || null;
+	}
+	
+	/**
+	 * Returns the JavaScript content selector.
+	 *
+	 * @returns {string} The JavaScript content selector.
+	 */
+	const getJsContentSelector = () => {
+		return HAS.content || '';
+	}
+	
 	/**
 	 * Determine if an element is visible or not.
 	 *
-	 * @param {Element} element The element to check if visible or not.
+	 * @param {HTMLElement} element The element to check if visible or not.
 	 * @return {boolean} true if visible, false if not.
 	 */
 	const isVisible = ( element ) => {
@@ -67,14 +114,14 @@
 	/**
 	 * Replace attributes of element and child elements.
 	 *
-	 * @param {Element} element  The element to replace attributes on with child social networks.
+	 * @param {HTMLElement} element  The element to replace attributes on with child social networks.
 	 * @param {string}  url      The URL of the post/page.
 	 * @param {string}  title    The title of the post/page.
 	 * @param {string}  text     Text that is selected or to be shared
 	 * @param {string}  hashtags Hashtags present on the post/page.
 	 * @param {string}  type     The type of trigger element (inline, selection, cta).
 	 *
-	 * @return {Element} The element with replaced attributes.
+	 * @return {HTMLElement} The element with replaced attributes.
 	 *
 	 */
 	const hasVariableReplace = ( element, url, title, text, hashtags, type ) => {
@@ -141,7 +188,7 @@
 	 * @param {string}  href           The URL of the post/page.
 	 * @param {string}  hashtags       Hashtags present on the post/page.
 	 * @param {string}  type           The type of display (selection|inline|cta).
-	 * @param {element} triggerElement The event initiator (null if no trigger element).
+	 * @param {HTMLElement} triggerElement The event initiator (null if no trigger element).
 	 */
 	const hasDisplay = (
 		text,
@@ -170,7 +217,7 @@
 		hasRemoveVisibleElements();
 
 		// Get interface clone.
-		const hasClone = hasContainer
+		const hasClone = getSharerContainer()
 			.querySelector( '.highlight-and-share-wrapper' )
 			.cloneNode( true );
 		// Style the interface via inline styles and position.
@@ -428,7 +475,7 @@
 	/**
 	 * Set the Social Sharer container position for the current selection. This needs to run after cloned element has been appended to the dom.
 	 *
-	 * @param {element} element The cloned social sharer element.
+	 * @param {HTMLElement} element The cloned social sharer element.
 	 */
 	const setHasContainerPositionSelection = ( element ) => {
 		// Get the dimensions of the window.
@@ -526,8 +573,8 @@
 			if ( hasSharerX < 0 ) {
 				// If so, set to 0.
 				element.style.left = '15px';
-			} else if ( hasSharerX + hasSharerWidth > windowWidth ) {
-				// If so, set to windowWidth - hasSharerWidth.
+			} else if ( hasSharerX + getSharerWidth() > windowWidth ) {
+				// If so, set to windowWidth - getSharerWidth().
 				element.style.right = '15px';
 			} else {
 				// Otherwise, set to hasSharerX.
@@ -541,10 +588,10 @@
 	};
 
 	/**
-	 * Set the Social Sharer container position for the inline highlighter. This needs to run after cloned element has been appended to the dom.
+	 * Set the Social Sharer container position for the inline highlight. This needs to run after cloned element has been appended to the dom.
 	 *
-	 * @param {element} element        The cloned social sharer element.
-	 * @param {element} triggerElement The event initiator (null if no trigger element).
+	 * @param {HTMLElement} element        The cloned social sharer element.
+	 * @param {HTMLElement} triggerElement The event initiator (null if no trigger element).
 	 */
 	const setHasContainerPositionInline = ( element, triggerElement ) => {
 		// Get the dimensions of the window.
@@ -636,8 +683,8 @@
 			if ( hasSharerX < 0 ) {
 				// If so, set to 0.
 				element.style.left = '15px';
-			} else if ( hasSharerX + hasSharerWidth > windowWidth ) {
-				// If so, set to windowWidth - hasSharerWidth.
+			} else if ( hasSharerX + getSharerWidth() > windowWidth ) {
+				// If so, set to windowWidth - getSharerWidth().
 				element.style.right = '15px';
 			} else {
 				// Otherwise, set to hasSharerX.
@@ -651,10 +698,10 @@
 	};
 
 	/**
-	 * Set the Social Sharer container position for the inline highlighter. This needs to run after cloned element has been appended to the dom.
+	 * Set the Social Sharer container position for the call to action highlight. This needs to run after cloned element has been appended to the dom.
 	 *
-	 * @param {element} element        The cloned social sharer element.
-	 * @param {element} triggerElement The event initiator (null if no trigger element).
+	 * @param {HTMLElement} element        The cloned social sharer element.
+	 * @param {HTMLElement} triggerElement The event initiator (null if no trigger element).
 	 */
 	const setHasContainerPositionCta = ( element, triggerElement ) => {
 		// Get the dimensions of the window.
@@ -752,8 +799,8 @@
 			if ( hasSharerX < 0 ) {
 				// If so, set to 0.
 				element.style.left = '15px';
-			} else if ( hasSharerX + hasSharerWidth > windowWidth ) {
-				// If so, set to windowWidth - hasSharerWidth.
+			} else if ( hasSharerX + getSharerWidth() > windowWidth ) {
+				// If so, set to windowWidth - getSharerWidth().
 				element.style.right = '15px';
 			} else {
 				// Otherwise, set to hasSharerX.
@@ -769,7 +816,7 @@
 	/**
 	 * Get the page parameters.
 	 *
-	 * @param {Element} newElement Element to retrieve data functions for.
+	 * @param {HTMLElement} newElement Element to retrieve data functions for.
 	 *
 	 * @return {Object} Object containing the page parameters.
 	 */
@@ -790,231 +837,100 @@
 
 		return params;
 	};
+		
+	/**
+	 * Handle touch/click events for select (mouseup) events.
+	 *
+	 * @param {Event}   event         The original event.
+	 * @param {HTMLElement} parentElement The element to retrieve data functions for.
+	 */
+	const hasHandleSelectEvents = ( event, parentElement ) => {
+		// Remove any visible elements.
+		hasRemoveVisibleElements();
 
-	// Begin setting up events.
+		// Get selection.
+		const selection = document.defaultView.getSelection();
 
-	// Get JS Content and return if not set.
-	const jsContent = HAS.content;
-	if ( '' === jsContent ) {
-		return;
-	}
+		// Get the selected text.
+		const selectedText = selection.toString().trim();
 
-	// Get all elements matching jsContent. Set up events.
-	const elements = document.querySelectorAll( jsContent );
-	if ( null !== elements ) {
-		/**
-		 * Handle touch/click events for select (mouseup) events.
-		 *
-		 * @param {event}   event         The original event.
-		 * @param {element} parentElement The element to retrieve data functions for.
-		 */
-		const hasHandleSelectEvents = ( event, parentElement ) => {
-			// Remove any visible elements.
-			hasRemoveVisibleElements();
+		if ( '' === selectedText ) {
+			return;
+		}
 
-			// Get selection.
-			const selection = document.defaultView.getSelection();
+		const element = parentElement.querySelector( '.has-social-placeholder' );
 
-			// Get the selected text.
-			const selectedText = selection.toString().trim();
+		// Get the highlight and share params.
+		const { href, title, hashtags } = getPageParams( element );
 
-			if ( '' === selectedText ) {
-				return;
-			}
+		// Display Highlight and Share.
+		hasDisplay( selectedText, title, href, hashtags, 'selection' );
+	};
 
-			const element = parentElement.querySelector( '.has-social-placeholder' );
-
- 			// Get the highlight and share params.
-			const { href, title, hashtags } = getPageParams( element );
-
-			// Display Highlight and Share.
-			hasDisplay( selectedText, title, href, hashtags, 'selection' );
-		};
-		// Loop through elements and set up mouseup event.
-		elements.forEach( ( element ) => {
-			// element.addEventListener( 'touchcancel', ( event ) => {  // This partially works on Android, but only for the first word. Selections do not work. Android is currently not supported. iOS still works.
-			// 	hasHandleSelectEvents( event );
-			// } );
-
-			// Check if element has class `has-content-area` and if so, it's flush with the content. Select its parent, and add the event to that.
-			if ( element.classList.contains( 'has-content-area' ) && ! isLegacyContentMode ) {
-				element.parentElement.addEventListener( 'mouseup', ( event ) => {
-					hasHandleSelectEvents( event, element.parentElement );
-				} );
-				return;
-			}
-
-			// Add the rest of the elements.
-			element.addEventListener( 'mouseup', ( event ) => {
-				hasHandleSelectEvents( event, element );
-			} );
-		} );
-	}
-
-	// Get inline elements.
-	const inlineElements = document.querySelectorAll( '.has-inline-text' );
-	if ( null !== inlineElements ) {
-		/**
-		 * Handle touch/click events for inline highlighting.
-		 *
-		 * @param {event}   event   The original event.
-		 * @param {element} element The element the event happened on.
-		 */
-		const hasHandleInlineEvents = ( event, element ) => {
-			// Remove any visible elements.
-			hasRemoveVisibleElements();
-
-			// Exit early if the element is already visible (works like a toggle).
-			if ( element === currentElement ) {
-				currentElement = null;
-				return;
-			}
-			currentElement = element;
-
-			// Get selected text.
-			const selectedText = element.innerText.trim();
-
-			if ( '' === selectedText ) {
-				return;
-			}
-
-			const elementParent = event.target.closest( '.has-social-placeholder' );
-			const { href, title, hashtags } = getPageParams( elementParent );
-
-			/**
-			 * See if we can launch the web share API by default on inline highlight click.
-			 */
-			const webshareDefaultInlineHighlight = HAS.enable_webshare_inline_highlight;
-			if ( webshareDefaultInlineHighlight ) {
-				// Check if navigator.share is available.
-				if ( typeof navigator.share === 'function' ) {
-					navigator.share( {
-						title,
-						url: href,
-						text: selectedText,
+	/**
+	 * Sets up event handlers for elements with a specified class.
+	 */
+	const handleElements = () => {
+		const jsContentSelector = getJsContentSelector();
+		
+		// Get all elements matching jsContent. Set up events.
+		const elements = document.querySelectorAll( jsContentSelector );
+		if ( null !== elements ) {
+			// Loop through elements and set up mouseup event.
+			elements.forEach( ( element ) => {
+				// element.addEventListener( 'touchcancel', ( event ) => {  // This partially works on Android, but only for the first word. Selections do not work. Android is currently not supported. iOS still works.
+				// 	hasHandleSelectEvents( event );
+				// } );
+	
+				// Check if element has class `has-content-area` and if so, it's flush with the content. Select its parent, and add the event to that.
+				if ( element.classList.contains( 'has-content-area' ) && ! isLegacyContentMode ) {
+					element.parentElement.addEventListener( 'mouseup', ( event ) => {
+						hasHandleSelectEvents( event, element.parentElement );
 					} );
 					return;
 				}
-			}
-
-			// Display Highlight and Share.
-			hasDisplay( selectedText, title, href, hashtags, 'inline', element );
-		};
-		inlineElements.forEach( ( element ) => {
-			// Add tooltips to inline highlight as a data attribute.
-			if (
-				highlight_and_share.inline_highlight_tooltips_enabled &&
-				'' !== highlight_and_share.inline_highlight_tooltips_text
-			) {
-				element.setAttribute(
-					'data-tooltip',
-					highlight_and_share.inline_highlight_tooltips_text
-				);
-			}
-			// For mouse and trackpad.
-			element.addEventListener( 'click', ( event ) => {
-				hasHandleInlineEvents( event, element );
-				const tooltip = document.querySelectorAll( '.has-inline-text-tooltip' );
-				if ( null !== tooltip ) {
-					tooltip.forEach( ( tooltipElement ) => {
-						tooltipElement.remove();
-					} );
-				}
+	
+				// Add the rest of the elements.
+				element.addEventListener( 'mouseup', ( event ) => {
+					hasHandleSelectEvents( event, element );
+				} );
 			} );
-
-			// For hover effect on desktop devices.
-			element.addEventListener( 'mouseover', ( event ) => {
-				// Check if element has data-tooltip attribute.
-				if ( element.hasAttribute( 'data-tooltip' ) ) {
-					// Get position and dimensions of highlighted element.
-					const elementRect = event.target.getBoundingClientRect();
-
-					// Set tooltip position.
-					const elementTop = elementRect.top;
-					const tooltipWidth = 120; // Adjust to desired width of tooltip
-					const tooltipHeight = 30; // Adjust to desired height of tooltip
-					const scrollX = window.scrollX;
-					const scrollY = window.scrollY;
-
-					// Calculate tooltip position based on element position, window size, and scroll position.
-					const tooltipLeft = event.clientX - tooltipWidth / 2 + scrollX;
-					const tooltipTop = elementTop - tooltipHeight + scrollY - 10;
-
-					// Create div element to hold tooltip.
-					const tooltip = document.createElement( 'div' );
-					tooltip.classList.add( 'has-inline-text-tooltip' );
-					tooltip.style.position = 'absolute';
-					tooltip.style.left = tooltipLeft + 'px';
-					tooltip.style.top = tooltipTop + 'px';
-					tooltip.innerText = element.getAttribute( 'data-tooltip' );
-
-					// Add tooltip to DOM.
-					document.body.appendChild( tooltip );
-
-					// Position tooltip if off screen.
-					const tooltipRect = tooltip.getBoundingClientRect();
-					if ( tooltipRect.right > window.innerWidth ) {
-						tooltip.style.left =
-							tooltipLeft - ( tooltipRect.right - window.innerWidth ) + 'px';
-					} else if ( tooltipRect.left < 0 ) {
-						tooltip.style.left = tooltipLeft - tooltipRect.left + 'px';
-					}
-					if ( tooltipRect.bottom > window.innerHeight ) {
-						tooltip.style.top =
-							tooltipTop - ( tooltipRect.bottom - window.innerHeight ) + 'px';
-					} else if ( tooltipRect.top < 0 ) {
-						tooltip.style.top = tooltipTop - tooltipRect.top + 'px';
-					}
-				}
-			} );
-			element.addEventListener( 'mouseout', () => {
-				// Hide the tooltip.
-				const tooltip = document.querySelectorAll( '.has-inline-text-tooltip' );
-				if ( null !== tooltip ) {
-					tooltip.forEach( ( element ) => {
-						element.classList.add( 'has-fade-out' );
-						setTimeout( () => {
-							element.remove();
-						}, 900 );
-					} );
-				}
-			} );
-		} );
+		}
 	}
-
-	// Get click to share block elements.
-	const ctsElements = document.querySelectorAll( '.has-click-prompt' );
-	if ( null !== ctsElements ) {
-		ctsElements.forEach( ( element ) => {
-			element.addEventListener( 'click', ( event ) => {
-				event.preventDefault();
-
+	
+	
+	/**
+	 * Handle touch/click events for inline highlight and share elements.
+	 *
+	 * @param {Event}   event   The original event.
+	 * @param {HTMLElement} element The element the event happened on.
+	 */
+	const hasHandleInlineEvents = ( event, element ) => {
 				// Remove any visible elements.
 				hasRemoveVisibleElements();
-
+	
 				// Exit early if the element is already visible (works like a toggle).
 				if ( element === currentElement ) {
 					currentElement = null;
 					return;
 				}
 				currentElement = element;
-
-				// Get parent element of prompt.
-				const ctsTextElement = element.parentNode.querySelector(
-					'.has-click-to-share-text'
-				);
-
-				// Get text.
-				const selectedText = ctsTextElement.getAttribute( 'data-text-full' );
-
-				const parentElement = element.closest( '.has-social-placeholder' );
-				const { href, title, hashtags } = getPageParams( parentElement );
-
+	
+				// Get selected text.
+				const selectedText = element.innerText.trim();
+	
+				if ( '' === selectedText ) {
+					return;
+				}
+	
+				const elementParent = event.target.closest( '.has-social-placeholder' );
+				const { href, title, hashtags } = getPageParams( elementParent );
+	
 				/**
 				 * See if we can launch the web share API by default on inline highlight click.
 				 */
-				const webshareDefaultClickToShare = HAS.enable_webshare_click_to_share;
-				if ( webshareDefaultClickToShare ) {
+				const webshareDefaultInlineHighlight = HAS.enable_webshare_inline_highlight;
+				if ( webshareDefaultInlineHighlight ) {
 					// Check if navigator.share is available.
 					if ( typeof navigator.share === 'function' ) {
 						navigator.share( {
@@ -1025,17 +941,165 @@
 						return;
 					}
 				}
-
+	
 				// Display Highlight and Share.
-				hasDisplay(
-					selectedText,
-					title,
-					href,
-					hashtags,
-					'cta',
-					element.closest( '.has-click-to-share' )
-				);
+				hasDisplay( selectedText, title, href, hashtags, 'inline', element );
+			};
+
+		/**
+		 * Attaches event listeners for highlight and share elements with inline text.
+		 * This function adds tooltips to inline highlight elements and
+		 * handles mouse and hover events.
+		 */
+		const handleInlineElements = () => {
+		// Get inline elements.
+		const inlineElements = document.querySelectorAll( '.has-inline-text' );
+		if ( null !== inlineElements ) {
+			inlineElements.forEach( ( element ) => {
+				// Add tooltips to inline highlight as a data attribute.
+				if (
+					highlight_and_share.inline_highlight_tooltips_enabled &&
+					'' !== highlight_and_share.inline_highlight_tooltips_text
+				) {
+					element.setAttribute(
+						'data-tooltip',
+						highlight_and_share.inline_highlight_tooltips_text
+					);
+				}
+				// For mouse and trackpad.
+				element.addEventListener( 'click', ( event ) => {
+					hasHandleInlineEvents( event, element );
+					const tooltip = document.querySelectorAll( '.has-inline-text-tooltip' );
+					if ( null !== tooltip ) {
+						tooltip.forEach( ( tooltipElement ) => {
+							tooltipElement.remove();
+						} );
+					}
+				} );
+	
+				// For hover effect on desktop devices.
+				element.addEventListener( 'mouseover', ( event ) => {
+					// Check if element has data-tooltip attribute.
+					if ( element.hasAttribute( 'data-tooltip' ) ) {
+						// Get position and dimensions of highlighted element.
+						const elementRect = event.target.getBoundingClientRect();
+	
+						// Set tooltip position.
+						const elementTop = elementRect.top;
+						const tooltipWidth = 120; // Adjust to desired width of tooltip
+						const tooltipHeight = 30; // Adjust to desired height of tooltip
+						const scrollX = window.scrollX;
+						const scrollY = window.scrollY;
+	
+						// Calculate tooltip position based on element position, window size, and scroll position.
+						const tooltipLeft = event.clientX - tooltipWidth / 2 + scrollX;
+						const tooltipTop = elementTop - tooltipHeight + scrollY - 10;
+	
+						// Create div element to hold tooltip.
+						const tooltip = document.createElement( 'div' );
+						tooltip.classList.add( 'has-inline-text-tooltip' );
+						tooltip.style.position = 'absolute';
+						tooltip.style.left = tooltipLeft + 'px';
+						tooltip.style.top = tooltipTop + 'px';
+						tooltip.innerText = element.getAttribute( 'data-tooltip' );
+	
+						// Add tooltip to DOM.
+						document.body.appendChild( tooltip );
+	
+						// Position tooltip if off screen.
+						const tooltipRect = tooltip.getBoundingClientRect();
+						if ( tooltipRect.right > window.innerWidth ) {
+							tooltip.style.left =
+								tooltipLeft - ( tooltipRect.right - window.innerWidth ) + 'px';
+						} else if ( tooltipRect.left < 0 ) {
+							tooltip.style.left = tooltipLeft - tooltipRect.left + 'px';
+						}
+						if ( tooltipRect.bottom > window.innerHeight ) {
+							tooltip.style.top =
+								tooltipTop - ( tooltipRect.bottom - window.innerHeight ) + 'px';
+						} else if ( tooltipRect.top < 0 ) {
+							tooltip.style.top = tooltipTop - tooltipRect.top + 'px';
+						}
+					}
+				} );
+				element.addEventListener( 'mouseout', () => {
+					// Hide the tooltip.
+					const tooltip = document.querySelectorAll( '.has-inline-text-tooltip' );
+					if ( null !== tooltip ) {
+						tooltip.forEach( ( element ) => {
+							element.classList.add( 'has-fade-out' );
+							setTimeout( () => {
+								element.remove();
+							}, 900 );
+						} );
+					}
+				} );
 			} );
-		} );
+		}
 	}
+
+	/**
+	 * Handles the click to highlight and share elements.
+	 * @function handleCtsElements
+	 */
+	const handleCtsElements = () => {
+		// Get click to share block elements.
+		const ctsElements = document.querySelectorAll( '.has-click-prompt' );
+		if ( null !== ctsElements ) {
+			ctsElements.forEach( ( element ) => {
+				element.addEventListener( 'click', ( event ) => {
+					event.preventDefault();
+	
+					// Remove any visible elements.
+					hasRemoveVisibleElements();
+	
+					// Exit early if the element is already visible (works like a toggle).
+					if ( element === currentElement ) {
+						currentElement = null;
+						return;
+					}
+					currentElement = element;
+	
+					// Get parent element of prompt.
+					const ctsTextElement = element.parentNode.querySelector(
+						'.has-click-to-share-text'
+					);
+	
+					// Get text.
+					const selectedText = ctsTextElement.getAttribute( 'data-text-full' );
+	
+					const parentElement = element.closest( '.has-social-placeholder' );
+					const { href, title, hashtags } = getPageParams( parentElement );
+	
+					/**
+					 * See if we can launch the web share API by default on inline highlight click.
+					 */
+					const webshareDefaultClickToShare = HAS.enable_webshare_click_to_share;
+					if ( webshareDefaultClickToShare ) {
+						// Check if navigator.share is available.
+						if ( typeof navigator.share === 'function' ) {
+							navigator.share( {
+								title,
+								url: href,
+								text: selectedText,
+							} );
+							return;
+						}
+					}
+	
+					// Display Highlight and Share.
+					hasDisplay(
+						selectedText,
+						title,
+						href,
+						hashtags,
+						'cta',
+						element.closest( '.has-click-to-share' )
+					);
+				} );
+			} );
+		}
+	}
+	
+	document.addEventListener('DOMContentLoaded', init)
 }() );
